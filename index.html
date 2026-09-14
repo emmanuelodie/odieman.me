@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Odieman Health Tools — AMS &amp; PPS instruments for African hospitals</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="nav-inner">
+    <a href="#" class="brand">Odieman Health Tools
+      <small>Field-built instruments for antimicrobial stewardship &amp; PPS</small>
+    </a>
+    <nav class="links sans">
+      <a href="#tools">Tools</a>
+      <a href="methodology.html">Methodology</a>
+      <a href="#offline">Why offline-first</a>
+      <a href="#download">Download</a>
+      <a href="#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <p class="kicker sans">Tested with real hospital data in Tanzania</p>
+    <h1>Antimicrobial stewardship analysis, built for hospitals that don't have an IT department.</h1>
+    <p class="lede">Three offline, single-file tools for antimicrobial consumption analysis, WHO point-prevalence surveys, and pharmacovigilance signal detection — tested against real hospital data and proven to work in practice, not simulated in a lab.</p>
+    <div class="cta-row">
+      <a href="#download" class="btn primary sans">Get the tools</a>
+      <a href="methodology.html" class="btn ghost sans">Check the methodology</a>
+    </div>
+  </section>
+
+  <div class="stats sans">
+    <div class="stat"><span class="n">3</span><span class="l">tools in active hospital use</span></div>
+    <div class="stat"><span class="n">25,644</span><span class="l">dispensing lines in one baseline audit</span></div>
+    <div class="stat"><span class="n">229</span><span class="l">patients in the latest PPS round</span></div>
+    <div class="stat"><span class="n">0</span><span class="l">bytes of patient data ever leave the browser</span></div>
+  </div>
+
+  <section id="tools">
+    <h2>The tools</h2>
+    <p class="section-note">Each one runs as a single HTML file — open it in any browser, on any hospital PC, with no install and no internet connection required.</p>
+
+    <div class="tool">
+      <span class="ver">v7.8.9</span>
+      <div>
+        <h3><a href="ams-suite.html" style="color:inherit;text-decoration:none;">AMS Suite &rarr;</a></h3>
+        <p>Antimicrobial stewardship dashboards from raw pharmacy dispensing exports: DDD/100 bed-days, AWaRe classification with Tanzania STG overrides, ward and prescriber-level drill-down, cost and savings-scenario analysis, PDCA quality cycles, and Word/PDF report generation.</p>
+        <span class="facts">30+ modules · bilingual EN/SW · IPC &amp; ward-round tracking</span>
+      </div>
+    </div>
+
+    <div class="tool">
+      <span class="ver">v1.6</span>
+      <div>
+        <h3><a href="pps-pro.html" style="color:inherit;text-decoration:none;">PPS Pro &rarr;</a></h3>
+        <p>A WHO-methodology point prevalence survey tool: direct data capture, automatic AWaRe classification, multi-surveyor merge, and Wilson score confidence intervals on every prevalence estimate — not just a raw percentage.</p>
+        <span class="facts">WHO PPS-aligned · Wilson 95% CI · multi-ward merge</span>
+      </div>
+    </div>
+
+    <div class="tool">
+      <span class="ver">v1.13</span>
+      <div>
+        <h3><a href="vigiward.html" style="color:inherit;text-decoration:none;">VigiWard &rarr;</a></h3>
+        <p>Lab-anchored pharmacovigilance: ADR signal detection from pharmacy and lab data, sequence symmetry analysis with proper statistical confidence intervals, and draft reports for TMDA yellow-form submission.</p>
+        <span class="facts">Signal detection · SSA with Wilson-derived CI · TMDA-aligned</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="method">
+    <h2>Methodology, not magic</h2>
+    <p class="section-note">Every number these tools produce traces back to a named statistical method — the kind a reviewing biostatistician can check line by line.</p>
+    <div class="method-grid">
+      <div class="method-item">
+        <h4>Wilson score intervals</h4>
+        <p>Prevalence and proportion estimates carry a proper 95% CI (<code>z=1.96</code>), not a bare percentage — with a small-sample warning below n=20.</p>
+      </div>
+      <div class="method-item">
+        <h4>AWaRe + country overrides</h4>
+        <p>WHO's global Access/Watch/Reserve classification, layered with Tanzania STG-specific reclassifications (e.g. meropenem and sulbactam-ceftriaxone to Reserve).</p>
+      </div>
+      <div class="method-item">
+        <h4>Sequence symmetry analysis</h4>
+        <p>Drug-cascade signal detection using a Wilson CI on the forward/reverse prescribing ratio — flagged only above a minimum discordant-pair threshold.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="offline">
+    <h2>Why these tools are offline-first</h2>
+    <p class="section-note">Most hospital-facility software in this region assumes reliable connectivity and a maintained server. These tools assume the opposite, on purpose.</p>
+    <div class="diagram">
+      <div class="diag-box"><b>Your Excel / CSV export</b>uploaded once, in-browser</div>
+      <div class="diag-arrow">→</div>
+      <div class="diag-box"><b>The tool</b>runs entirely on your machine</div>
+      <div class="diag-arrow">→</div>
+      <div class="diag-box"><b>Your report</b>stays on your machine too</div>
+    </div>
+    <p class="diag-off">No server in the middle. No connectivity required. No patient data ever transmitted.</p>
+  </section>
+
+  <section id="download">
+    <h2>Download</h2>
+    <p class="section-note">Non-commercial use, attribution required. See the license note below before redistributing or modifying.</p>
+    <table class="dl">
+      <tr><th>Tool</th><th>Version</th><th>Size</th><th></th></tr>
+      <tr><td>AMS Suite</td><td>v7.8.9</td><td>~5.5 MB</td><td><a class="get" href="#">Download →</a></td></tr>
+      <tr><td>PPS Pro</td><td>v1.6</td><td>~0.12 MB</td><td><a class="get" href="#">Download →</a></td></tr>
+      <tr><td>VigiWard</td><td>v1.13</td><td>~1.2 MB</td><td><a class="get" href="#">Download →</a></td></tr>
+    </table>
+    <div class="license" style="margin-top:22px;">
+      <b>License:</b> free for non-commercial public-health use in Tanzania and beyond, with attribution to the author. Modification or redistribution beyond your own facility requires written consent. Get in touch below to discuss a facility partnership or pilot.
+    </div>
+  </section>
+
+  <section id="about">
+    <h2>About</h2>
+    <p class="section-note">Built by a pharmaceutical technician, using antimicrobial stewardship and pharmacovigilance experience gained across hospital pharmacy practice — for the same reason most hospital tools in this region don't exist yet: because nobody else was going to build it first. Every tool here has been tested against real hospital data and proven to work correctly, not just simulated in a lab.</p>
+    <p style="max-width:60ch;color:var(--ink-soft);">
+      Emmanuel Odie (Odindo Emmanuel Thomas)<br>
+      emmanuelodie94@gmail.com &middot; emmanuelodie94@protonmail.me<br>
+      +255 620 799 907 &middot; +255 759 547 025
+    </p>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <div class="fline">
+    <span>© 2026 Odieman Health Tools.</span>
+    <span>No patient data is collected by this website.</span>
+  </div>
+</footer>
+
+</body>
+</html>

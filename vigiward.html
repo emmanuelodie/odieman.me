@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VigiWard — Odieman Health Tools</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">Odieman Health Tools
+      <small>Field-built instruments for antimicrobial stewardship &amp; PPS</small>
+    </a>
+    <nav class="links sans">
+      <a href="index.html#tools">Tools</a>
+      <a href="methodology.html">Methodology</a>
+      <a href="index.html#offline">Why offline-first</a>
+      <a href="index.html#download">Download</a>
+      <a href="index.html#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <p class="crumb"><a href="index.html">Home</a> / Tools / VigiWard</p>
+
+  <section class="page-hero">
+    <span class="tag sans">v1.13 &middot; ~1.2 MB &middot; single file</span>
+    <h1>VigiWard</h1>
+    <p class="lede">Pharmacovigilance signal detection from ordinary pharmacy and lab data — no dedicated ADR reporting system required to start finding patterns worth a chart review.</p>
+    <div class="cta-row">
+      <a href="index.html#download" class="btn primary sans">Download VigiWard</a>
+      <a href="methodology.html#ssa" class="btn ghost sans">See the SSA math</a>
+    </div>
+  </section>
+
+  <section>
+    <h2>Why this exists</h2>
+    <p style="max-width:64ch;color:var(--ink-soft);font-size:15.5px;">Formal adverse-drug-reaction reporting depends on someone noticing a reaction and filling out a form — and reporting rates in this setting run at roughly one report per million population per year, several orders of magnitude below what's actually happening. VigiWard works the other direction: it looks for prescribing patterns in data hospitals already generate — pharmacy dispensing sequences, lab result timing — that suggest a reaction occurred even when nobody filed a report.</p>
+  </section>
+
+  <section>
+    <h2>What it does</h2>
+    <div class="module-row">
+      <h4>Sequence symmetry analysis</h4>
+      <p>For drug pairs where one commonly follows the other as a treatment for a side effect (the classic example: a laxative prescribed shortly after starting an opioid), the tool counts how often the sequence runs forward versus backward and flags pairs where that asymmetry is statistically unlikely to be chance — with a proper Wilson-derived confidence interval, not a raw ratio.</p>
+    </div>
+    <div class="module-row">
+      <h4>Lab-anchored signal detection</h4>
+      <p>Cross-references pharmacy dispensing against lab result timing and mortality data to surface concerning temporal associations — always labeled as hypothesis-generating, never as a causal finding, since that determination needs clinical adjudication VigiWard doesn't replace.</p>
+    </div>
+    <div class="module-row">
+      <h4>TMDA-aligned draft reports</h4>
+      <p>Flagged signals can be exported into a draft aligned with TMDA's yellow-form pharmacovigilance reporting structure — a head start for the person who still has to review the chart and make the clinical call, not a replacement for them.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Built-in caution</h2>
+    <p class="section-note">Every signal VigiWard surfaces carries the same three qualifiers, deliberately, every time:</p>
+    <table class="bench">
+      <tr><th>Qualifier</th><th>What it means in practice</th></tr>
+      <tr><td>Crude, not adjusted</td><td>No correction yet for background prescribing-trend confounding</td></tr>
+      <tr><td>Minimum-power gated</td><td>A signal only fires with &ge; 5 discordant pairs <em>and</em> a lower CI bound above 1 — sparse data doesn't get to trigger a flag</td></tr>
+      <tr><td>Hypothesis-generating</td><td>Points a reviewer at a chart worth pulling — it is not itself a diagnosis or a causality determination</td></tr>
+    </table>
+  </section>
+
+  <a href="index.html" class="back-link">&larr; Back to home</a>
+</main>
+
+<footer class="wrap">
+  <div class="fline">
+    <span>&copy; 2026 Odieman Health Tools.</span>
+    <span>No patient data is collected by this website.</span>
+  </div>
+</footer>
+
+</body>
+</html>

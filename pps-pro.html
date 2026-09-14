@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PPS Pro — Odieman Health Tools</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">Odieman Health Tools
+      <small>Field-built instruments for antimicrobial stewardship &amp; PPS</small>
+    </a>
+    <nav class="links sans">
+      <a href="index.html#tools">Tools</a>
+      <a href="methodology.html">Methodology</a>
+      <a href="index.html#offline">Why offline-first</a>
+      <a href="index.html#download">Download</a>
+      <a href="index.html#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <p class="crumb"><a href="index.html">Home</a> / Tools / PPS Pro</p>
+
+  <section class="page-hero">
+    <span class="tag sans">v1.6 &middot; ~0.12 MB &middot; single file</span>
+    <h1>PPS Pro</h1>
+    <p class="lede">A WHO-methodology point prevalence survey tool: capture data ward by ward, get automatic AWaRe classification and a properly-computed confidence interval on every prevalence figure — not a raw percentage dressed up as one.</p>
+    <div class="cta-row">
+      <a href="index.html#download" class="btn primary sans">Download PPS Pro</a>
+      <a href="methodology.html#wilson" class="btn ghost sans">See the Wilson CI math</a>
+    </div>
+  </section>
+
+  <section>
+    <h2>How a survey runs</h2>
+    <div class="module-row">
+      <h4>1. Patient capture</h4>
+      <p>Enter each surveyed patient directly — ward, gender, whether they're on an antibiotic that day, indication, and antibiotic details. Built for entering data at the bedside or straight after the ward round, not for retyping a paper form back at a desk.</p>
+    </div>
+    <div class="module-row">
+      <h4>2. Multi-surveyor merge</h4>
+      <p>When more than one person surveys different wards on the same day, each surveyor's file merges into one dataset — with duplicate patient-code detection flagged for manual review rather than silently overwritten.</p>
+    </div>
+    <div class="module-row">
+      <h4>3. Data quality pass</h4>
+      <p>Before analysis, the tool checks integrity: duplicate patient codes, missing indication links, incomplete antibiotic-to-indication mapping — the same checks a statistician would run by hand, run automatically.</p>
+    </div>
+    <div class="module-row">
+      <h4>4. Executive snapshot</h4>
+      <p>Overall antimicrobial prevalence with a Wilson 95% confidence interval, AWaRe mix (Access/Watch/Reserve), antibiotics per treated patient, and a ward-by-ward breakdown — ready to present to the AMS committee or export as a report.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>What a real survey looks like</h2>
+    <p class="section-note">From an actual June 2026 survey round, recomputed independently start to finish:</p>
+    <table class="bench">
+      <tr><th>Metric</th><th>Value</th></tr>
+      <tr><td>Patients surveyed</td><td>229</td></tr>
+      <tr><td>Overall prevalence</td><td>49.3% <span style="color:var(--ink-soft);font-weight:400;">(95% CI 42.9&ndash;55.8%)</span></td></tr>
+      <tr><td>AWaRe mix (191 prescriptions)</td><td><span class="badge access">Access 74.9%</span><span class="badge watch">Watch 23.6%</span><span class="badge reserve">Reserve 1.6%</span></td></tr>
+      <tr><td>Surgical prophylaxis &gt; 1 day</td><td><span class="warn">52% (14/27)</span> — above WHO single-dose best practice</td></tr>
+      <tr><td>Culture sample taken before treatment</td><td><span class="warn">7.8% (9/116)</span></td></tr>
+    </table>
+    <p style="font-size:14.5px;color:var(--ink-soft);">Every figure above was reproduced independently from the raw survey export, including a from-scratch Wilson score interval calculation — not taken from the tool's own summary on faith. The raw export also contained the ordinary mess of real fieldwork: the same ward recorded under five different spellings (<code>WD-B4</code>, <code>WDB4</code>, a stray space, a duplicated letter). PPS Pro's data-quality pass exists precisely because that kind of mess is the norm, not the exception.</p>
+  </section>
+
+  <a href="index.html" class="back-link">&larr; Back to home</a>
+</main>
+
+<footer class="wrap">
+  <div class="fline">
+    <span>&copy; 2026 Odieman Health Tools.</span>
+    <span>No patient data is collected by this website.</span>
+  </div>
+</footer>
+
+</body>
+</html>

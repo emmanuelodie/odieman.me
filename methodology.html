@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Methodology — Odieman Health Tools</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">Odieman Health Tools
+      <small>Field-built instruments for antimicrobial stewardship &amp; PPS</small>
+    </a>
+    <nav class="links sans">
+      <a href="index.html#tools">Tools</a>
+      <a href="methodology.html">Methodology</a>
+      <a href="index.html#offline">Why offline-first</a>
+      <a href="index.html#download">Download</a>
+      <a href="index.html#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <p class="crumb"><a href="index.html">Home</a> / Methodology</p>
+
+  <section class="page-hero">
+    <span class="tag">Reviewer's page</span>
+    <h1>Every number traces to a named method.</h1>
+    <p class="lede">This page exists for the person whose job is to be skeptical: a biostatistician, an AMS committee chair, a TMDA or MOH reviewer. Below is the exact arithmetic behind every figure the tools produce — not a marketing description of it.</p>
+  </section>
+
+  <section id="wilson">
+    <h2>Wilson score interval (proportions &amp; prevalence)</h2>
+    <p class="section-note">Used for: PPS point-prevalence estimates, ward-level proportions, guideline-compliance rates. Replaces the common but statistically weaker practice of reporting a bare percentage.</p>
+    <div class="formula">z = 1.96 <span class="cm">// 95% confidence</span>
+p&#770; = x / n
+d = 1 + z&sup2;/n
+center = (p&#770; + z&sup2;/2n) / d
+half-width = z &middot; &radic;(p&#770;(1&minus;p&#770;)/n + z&sup2;/4n&sup2;) / d
+95% CI = [center &minus; half-width, center + half-width], clamped to [0, 1]</div>
+    <p>This is the textbook Wilson score interval — it behaves correctly at small sample sizes and near 0%/100%, where the more common normal-approximation interval (Wald interval) breaks down and can return nonsensical bounds. The tools flag any estimate built on n &lt; 20 as low-confidence rather than reporting a falsely precise interval.</p>
+    <div class="citebox"><b>Applies in:</b> PPS Pro (prevalence, ward breakdowns), VigiWard (sequence-symmetry proportions)</div>
+  </section>
+
+  <section id="aware">
+    <h2>AWaRe classification, with country overrides</h2>
+    <p class="section-note">Every antibiotic dispensed or prescribed is tagged Access, Watch, or Reserve — WHO's framework for antimicrobial stewardship targets.</p>
+    <p>The base classification follows WHO's global AWaRe list. Layered on top is a country-override table — currently populated for Tanzania, with WHO-generic and Kenya variants also present in the lookup — that reclassifies specific agents where national Standard Treatment Guidelines diverge from the WHO default. The most consequential Tanzania overrides:</p>
+    <table class="bench">
+      <tr><th>Agent</th><th>WHO global</th><th>Tanzania STG</th></tr>
+      <tr><td>Meropenem / Imipenem / Ertapenem</td><td>Watch</td><td><span class="badge reserve">Reserve</span></td></tr>
+      <tr><td>Sulbactam + Ceftriaxone</td><td>Watch</td><td><span class="badge reserve">Reserve</span></td></tr>
+      <tr><td>Amoxicillin + Clavulanic acid</td><td>Access</td><td><span class="badge watch">Watch</span></td></tr>
+      <tr><td>Flucloxacillin + Amoxicillin</td><td>Access</td><td><span class="badge watch">Watch</span></td></tr>
+    </table>
+    <p>This matters for interpretation: a report run under WHO-generic rules and one run under Tanzania STG rules will show different Access/Watch/Reserve splits for the <em>same underlying prescribing</em> — not because prescribing changed, but because the ruler changed. Every AWaRe report states which rule set produced it.</p>
+    <div class="citebox"><b>Benchmarks used (Tanzania targets):</b> Access &ge; 60% &middot; Watch &le; 30% &middot; Reserve &le; 5%</div>
+  </section>
+
+  <section id="ddd">
+    <h2>DDD / 100 patient-days</h2>
+    <p class="section-note">Antimicrobial consumption normalized to WHO ATC/DDD methodology, the standard unit for comparing consumption across time periods or facilities regardless of ward size.</p>
+    <div class="formula">DDD (per agent) = total grams dispensed &divide; WHO-assigned DDD for that agent (route-specific)
+DDD / 100 patient-days = ( &Sigma; DDDs &divide; patient-days ) &times; 100</div>
+    <p>Patient-days can come from two sources, and the tools are explicit about which one produced a given figure: <strong>measured</strong> (entered directly from IPC/ward patient-day logs — the preferred, higher-confidence source) or <strong>estimated</strong> (beds &times; occupancy rate, used only when no measured patient-days figure has been entered, and always labeled as an estimate in the output). Days of therapy (DOT) per 100 patient-days is computed alongside DDD as a cross-check, since the two metrics can diverge when dosing patterns are unusual.</p>
+    <table class="bench">
+      <tr><th>Benchmark</th><th>Acceptable range</th></tr>
+      <tr><td>DDD / 100 bed-days</td><td>40 – 80 (WHO / ESAC-Net reference range)</td></tr>
+    </table>
+    <div class="citebox"><b>Applies in:</b> AMS Suite consumption dashboards, ward and facility-level trend charts</div>
+  </section>
+
+  <section id="regression">
+    <h2>Cost trajectory (linear regression)</h2>
+    <p class="section-note">Used only for the monthly cost/consumption trend line — deliberately kept as simple, transparent ordinary least squares rather than a more opaque forecasting model.</p>
+    <div class="formula">x = month index (0, 1, 2, &hellip;)
+slope = (n&middot;&Sigma;xy &minus; &Sigma;x&middot;&Sigma;y) / (n&middot;&Sigma;x&sup2; &minus; (&Sigma;x)&sup2;)
+intercept = (&Sigma;y &minus; slope&middot;&Sigma;x) / n</div>
+    <p>The tool refuses to render a trend line at all with fewer than three months of data, and every chart is labeled <strong>"trend, not a forecast"</strong> — extrapolation is a mathematical property of a fitted line, not a claim about the future. Savings scenarios shown alongside cost trends are a plain multiplication (a user-adjustable percentage &times; current Watch/Reserve spend), never a modeled projection.</p>
+  </section>
+
+  <section id="ssa">
+    <h2>Sequence symmetry analysis (signal detection)</h2>
+    <p class="section-note">Used for: flagging potential adverse-drug-reaction signals and prescribing-cascade patterns from pharmacy dispensing sequences alone, without needing a formal causality-coded dataset.</p>
+    <p>For each drug pair (A, B), the tool counts patients where A preceded B versus B preceded A within a defined window, then applies a Wilson confidence interval to the forward/total proportion and transforms it into a ratio confidence interval via <code>p / (1&minus;p)</code>. This transform is valid because it is monotonic — a correct confidence interval on a proportion remains a correct confidence interval after a monotonic transform.</p>
+    <p>A signal is only flagged when the lower confidence bound clears a ratio of 1 <em>and</em> there are at least 5 discordant pairs — a deliberate minimum-power guard against false positives on sparse data. Every flagged signal is labeled <strong>crude and unadjusted</strong> (no correction yet for prescribing-trend confounding) and <strong>hypothesis-generating, not proof of causation</strong> — it tells a pharmacist where to look, not what the answer is.</p>
+    <div class="citebox"><b>Applies in:</b> VigiWard cascade/signal detection module</div>
+  </section>
+
+  <section id="ipc">
+    <h2>IPC benchmarks (Tanzania NIPCG 2018)</h2>
+    <p class="section-note">Infection prevention and control indicators are scored against Tanzania's own national guideline, not an imported international default.</p>
+    <p>Hand hygiene, PPE compliance, sharps safety, housekeeping, and linen management indicators cite specific sections of the <em>Tanzania National Infection Prevention and Control Guidelines, June 2018</em> (MOHCDGEC) — for example, Part 2 §2.3 on hand hygiene, Part 2 §2.4 on PPE, and Part 3 §3.5 on environmental cleaning. Each indicator in the tool links back to the section of the national guideline it's drawn from, rather than a generic WHO IPC checklist.</p>
+    <table class="bench">
+      <tr><th>Indicator</th><th>Target</th></tr>
+      <tr><td>Hand hygiene compliance</td><td>&ge; 80%</td></tr>
+      <tr><td>PPE compliance</td><td>&ge; 90%</td></tr>
+      <tr><td>Surgical site infection rate</td><td>&lt; 2% (WHO)</td></tr>
+    </table>
+  </section>
+
+  <a href="index.html" class="back-link">&larr; Back to home</a>
+</main>
+
+<footer class="wrap">
+  <div class="fline">
+    <span>&copy; 2026 Odieman Health Tools.</span>
+    <span>No patient data is collected by this website.</span>
+  </div>
+</footer>
+
+</body>
+</html>
