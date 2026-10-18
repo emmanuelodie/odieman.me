@@ -181,7 +181,7 @@ for(let i=1;i<=4;i++)HEAD.push(`ab${i}_name`,`ab${i}_atc`,`ab${i}_aware`,`ab${i}
 
 const INDS=[
  {k:"prev",label:"Antimicrobial prevalence",desc:"Inpatients on ≥1 antimicrobial",pct:1,good:"down"},
- {k:"access",label:"Access share",desc:"Prescriptions from the WHO Access group",pct:1,good:"up",target:.6,tlabel:"WHO target ≥60%"},
+ {k:"access",label:"Access share",desc:"Prescriptions from the WHO Access group",pct:1,good:"up",target:.7,tlabel:"UN 2030 target ≥70%"},
  {k:"watch",label:"Watch share",desc:"Prescriptions from the WHO Watch group",pct:1,good:"down"},
  {k:"reserve",label:"Reserve share",desc:"Prescriptions from the WHO Reserve group",pct:1,good:"down"},
  {k:"parenteral",label:"Parenteral route",desc:"Prescriptions given IV/IM",pct:1,good:"down"},
@@ -466,7 +466,7 @@ function vDash(){if(!DB.surveys.length)return noData();const s=getS(UI.sid),c=ca
  const kp=["prev","access","watch","reserve","parenteral","reason","guide","cult","stop","spLong","combo","perPt","ddd100"];
  let h=`<div class="row section">Survey ${surveySelect()} <span class="muted">${esc(s.facility)} · ${fmtDate(s.date)} · source: ${esc(s.source||"manual entry")}</span></div>`;
  h+=`<div class="kpis"><div class="kpi"><div class="l">Inpatients surveyed</div><div class="v">${c.N}</div><div class="d muted">${Object.keys(c.wards).length} wards</div></div><div class="kpi"><div class="l">Prescriptions</div><div class="v">${c.rx}</div><div class="d muted">${c.t} treated patients</div></div>`+
-  kp.map(k=>{const ci=c[k].d!=null?wilson(c[k].n,c[k].d):null;return`<div class="kpi"><div class="l">${IND[k].label}</div><div class="v">${fmtInd(k,c[k].v)}</div><div class="d muted">${c[k].d!=null?`${c[k].n}/${c[k].d} · 95% CI ${pct(ci[0],0)}–${pct(ci[1],0)}`:IND[k].desc}</div></div>`}).join("")+`</div>`;
+  kp.map(k=>{const ci=c[k].d!=null?wilson(c[k].n,c[k].d):null;return`<div class="kpi"><div class="l">${IND[k].label}</div><div class="v">${fmtInd(k,c[k].v)}</div><div class="d muted">${c[k].d!=null?`${c[k].n}/${c[k].d} · 95% CI ${pct(ci[0],0)}–${pct(ci[1],0)}${c[k].d<20?` · <span style="color:var(--warn)" title="Fewer than 20 in the denominator — the estimate is unstable">⚠ n&lt;20</span>`:""}`:IND[k].desc}</div></div>`}).join("")+`</div>`;
  const aw=["Access","Watch","Reserve","Not classified"].map(k=>({label:k,value:c.rx?(k==="Not classified"?c.nc.n:c[k.toLowerCase()].n)/c.rx:0,color:AWC[k]}));
  const drugs=Object.entries(c.drugs).sort((a,b)=>b[1]-a[1]).slice(0,12).map(([k,v])=>({label:k,value:v/c.rx,text:`${v} (${pct(v/c.rx)})`,color:AWC[FORMULARY[k]?.aware]||"#8a9699"}));
  const wards=Object.entries(c.wards).map(([k,w])=>({label:k,value:w.N?w.t/w.N:0,text:`${pct(w.N?w.t/w.N:0)} (${w.t}/${w.N})`})).sort((a,b)=>b.value-a.value);
@@ -515,7 +515,7 @@ function vStats(){const S=sorted();if(S.length<2)return S.length?`<div class="wa
  if(!UI.cmpA||!getS(UI.cmpA))UI.cmpA=S[0].id;if(!UI.cmpB||!getS(UI.cmpB))UI.cmpB=S.at(-1).id;
  let h=`<div class="row section">Indicator <select class="sel" id="selStat">${INDS.filter(x=>x.pct).map(x=>`<option value="${x.k}" ${x.k===k?"selected":""}>${x.label}</option>`).join("")}</select></div>`;
  const ns=C.map(c=>c[k].n),ds=C.map(c=>c[k].d);const chi=chiSq2xk(ns,ds),tr=catt(ns,ds,yrs),fl=twoProp(ns[0],ds[0],ns.at(-1),ds.at(-1)),reg=ols(yrs,C.map(c=>c[k].v));
- h+=`<div class="grid g2"><div class="card"><h3>${m.label} by survey</h3><div class="sub">${m.desc}</div><table><tr><th>Survey</th><th class="n">n / N</th><th class="n">%</th><th class="n">95% CI (Wilson)</th></tr>${S.map((s,i)=>{const ci=wilson(ns[i],ds[i]);return`<tr><td>${esc(s.id)} <span class="muted">${monYr(s.date)}</span></td><td class="n">${ns[i]} / ${ds[i]}</td><td class="n">${pct(C[i][k].v)}</td><td class="n">${pct(ci[0])} – ${pct(ci[1])}</td></tr>`}).join("")}</table></div>
+ h+=`<div class="grid g2"><div class="card"><h3>${m.label} by survey</h3><div class="sub">${m.desc}</div><table><tr><th>Survey</th><th class="n">n / N</th><th class="n">%</th><th class="n">95% CI (Wilson)</th></tr>${S.map((s,i)=>{const ci=wilson(ns[i],ds[i]);return`<tr><td>${esc(s.id)} <span class="muted">${monYr(s.date)}</span></td><td class="n">${ns[i]} / ${ds[i]}${ds[i]<20?' <span style="color:var(--warn)" title="Fewer than 20 — interpret with care">⚠</span>':""}</td><td class="n">${pct(C[i][k].v)}</td><td class="n">${pct(ci[0])} – ${pct(ci[1])}</td></tr>`}).join("")}</table></div>
  <div class="card"><h3>Test results</h3><table>
  <tr><td>Cochran–Armitage test for trend</td><td class="n">Z = ${tr?tr.z.toFixed(2):"–"}</td><td class="n"><b>${pTxt(tr?.p)}</b></td></tr>
  <tr><td>Chi-square test (any difference between surveys)</td><td class="n">χ² = ${chi?chi.chi.toFixed(2):"–"}, df ${chi?.df??"–"}</td><td class="n"><b>${pTxt(chi?.p)}</b></td></tr>
@@ -599,7 +599,7 @@ function narrative(){const S=sorted();if(S.length<2)return[];const C=S.map(calc)
  const say=k=>{const m=IND[k],a=C[0][k].v,b=C.at(-1)[k].v,t=trendTest(k);if(a==null||b==null)return;const ch=b>a?"rose":"fell";
   out.push(`<b>${m.label}</b> ${Math.abs(b-a)<.0005?"was unchanged":ch} from ${pct(a)} (${monYr(f.date)}) to ${pct(b)} (${monYr(l.date)})${t?`; trend ${t.p<.05?"statistically significant":"not statistically significant"} (p ${t.p<.001?"< 0.001":"= "+t.p.toFixed(3)})`:""}.`)};
  ["prev","access","spLong","cult","guide","stop"].forEach(say);
- const L=C.at(-1);out.push(L.access.v>=.6?`The latest Access share (${pct(L.access.v)}) meets the WHO target of at least 60%.`:`The latest Access share (${pct(L.access.v)}) is still below the WHO target of 60%.`);
+ const L=C.at(-1);out.push(L.access.v>=.6?`The latest Access share (${pct(L.access.v)}) meets the UN 2030 target of at least 70% of antibiotic use from the Access group.`:`The latest Access share (${pct(L.access.v)}) is below the UN 2030 target of 70% (the earlier WHO target was 60%).`);
  const top=Object.entries(L.drugs).sort((a,b)=>b[1]-a[1])[0];if(top)out.push(`The most prescribed agent in the latest survey was <b>${esc(top[0])}</b> (${pct(top[1]/L.rx)} of prescriptions).`);
  const hw=Object.entries(L.wards).filter(([,w])=>w.N>=5).sort((a,b)=>b[1].t/b[1].N-a[1].t/a[1].N)[0];if(hw)out.push(`Highest ward prevalence in the latest survey: ${esc(hw[0])} (${pct(hw[1].t/hw[1].N)}).`);
  return out}
@@ -686,7 +686,7 @@ function vGuide(){
 
  <div class="card section" id="g5"><h3>5. Practise with the sample data</h3>
   <p>The <b>PPS_Data</b> folder that comes with the tool holds five simulated surveys of the fictional “Demo Regional Referral Hospital” (March 2024, October 2024, May 2025, December 2025 and July 2026; about 250 inpatients each, nine wards). It is <b>not real patient data</b>. The same hospital and wards appear in the AMS Pro and VigiWard samples.</p>
-  <div class="note">Built to show a stewardship programme taking effect: prevalence falling (68% → 45%), Access share rising (42% → 70%, passing the WHO 60% target), more cultures, more stop/review dates and reasons documented, surgical prophylaxis beyond one day falling (82% → 30%) — while parenteral use barely changes, a realistic “next target”. Trends and Statistics show which changes are statistically significant.</div></div>
+  <div class="note">Built to show a stewardship programme taking effect: prevalence falling (68% → 45%), Access share rising (42% → 70%, past the earlier WHO 60% target and almost at the UN 2030 goal of 70%), more cultures, more stop/review dates and reasons documented, surgical prophylaxis beyond one day falling (82% → 30%) — while parenteral use barely changes, a realistic “next target”. Trends and Statistics show which changes are statistically significant.</div></div>
 
  <div class="card section" id="g6"><h3>6. Saving and moving computers</h3><ul>
   <li>With the data folder open, the database (<code>odieman_pps_data.json</code>), one CSV per survey (<code>surveys/</code>) and a daily backup (<code>backups/</code>) are written automatically; charts and reports you save go to <code>reports/</code>.</li>
@@ -712,7 +712,7 @@ function vGuide(){
  <div class="card section" id="g9"><h3>9. Glossary</h3><div class="tablewrap"><table>
   <tr><td><b>PPS</b></td><td>Point prevalence survey — a snapshot of everyone on the ward on one day.</td></tr>
   <tr><td><b>Prevalence of antimicrobial use</b></td><td>Inpatients on at least one antimicrobial ÷ all inpatients surveyed.</td></tr>
-  <tr><td><b>AWaRe</b></td><td>WHO Access / Watch / Reserve classification; WHO target: at least 60% of use from Access.</td></tr>
+  <tr><td><b>AWaRe</b></td><td>WHO Access / Watch / Reserve classification. UN 2024 political declaration on AMR: at least 70% of human antibiotic use from Access by 2030 (the earlier WHO target was 60%).</td></tr>
   <tr><td><b>CAI / HAI</b></td><td>Community- / hospital-acquired infection (HAI: symptoms starting 48 h or more after admission).</td></tr>
   <tr><td><b>SP1 / SP2 / SP3</b></td><td>Surgical prophylaxis: single dose / one day / more than one day.</td></tr>
   <tr><td><b>DDD</b></td><td>WHO defined daily dose; here shown per 100 inpatients on the survey day.</td></tr>
