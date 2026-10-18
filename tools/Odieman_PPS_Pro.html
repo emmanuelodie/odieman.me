@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Odindo Emmanuel Thomas">
+<meta name="application-name" content="Odieman PPS Pro">
+<title>Odieman PPS Pro</title>
+<style>
+:root{
+  --ink:#1c2b2d;--ink2:#4d5f62;--ink3:#7d8d90;--line:#dfe6e6;--bg:#f4f7f6;--card:#fff;
+  --brand:#0f5257;--brand2:#13737a;--brandSoft:#e3f1f0;--accent:#c9772b;
+  --good:#2e7d4f;--bad:#b23b3b;--warn:#c98a12;
+  --access:#2e7d4f;--watch:#d08a1a;--reserve:#b23b3b;--nc:#8a9699;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font:14px/1.45 "Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--ink);background:var(--bg)}
+button,input,select,textarea{font:inherit}
+.app{display:grid;grid-template-columns:232px 1fr;min-height:100vh}
+aside{background:var(--brand);color:#d8ecea;padding:16px 0;position:sticky;top:0;height:100vh;overflow:auto}
+.logo{padding:0 18px 14px;border-bottom:1px solid rgba(255,255,255,.12);margin-bottom:8px}
+.logo b{display:block;font-size:17px;color:#fff;letter-spacing:.2px}
+.logo span{font-size:12px;opacity:.75}
+.navgrp{font-size:11px;text-transform:uppercase;letter-spacing:.8px;opacity:.6;padding:14px 18px 4px}
+nav a{display:block;padding:7px 18px;color:#d8ecea;text-decoration:none;cursor:pointer;border-left:3px solid transparent}
+nav a:hover{background:rgba(255,255,255,.06)}
+nav a.on{background:rgba(255,255,255,.12);border-left-color:#f2b46d;color:#fff;font-weight:600}
+main{padding:0 26px 40px;min-width:0}
+.topbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 0;border-bottom:1px solid var(--line);margin-bottom:18px;position:sticky;top:0;background:var(--bg);z-index:5}
+.topbar h1{font-size:20px;margin:0;flex:1;min-width:200px}
+.pill{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px;font-size:12.5px;cursor:pointer}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--nc)}
+.dot.ok{background:var(--good)}.dot.warn{background:var(--warn)}.dot.bad{background:var(--bad)}
+.btn{border:1px solid var(--brand2);background:var(--brand2);color:#fff;border-radius:7px;padding:7px 13px;cursor:pointer;font-weight:600;font-size:13px}
+.btn:hover{background:var(--brand)}
+.btn.ghost{background:#fff;color:var(--brand2)}
+.btn.ghost:hover{background:var(--brandSoft)}
+.btn.small{padding:4px 9px;font-size:12px}
+.btn.danger{border-color:var(--bad);background:#fff;color:var(--bad)}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(380px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.kpis{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:12px;margin-bottom:16px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.kpi .l{font-size:12px;color:var(--ink2)}
+.kpi .v{font-size:24px;font-weight:700;margin-top:2px;font-variant-numeric:tabular-nums}
+.kpi .d{font-size:12px;margin-top:2px}
+.up{color:var(--good)}.down{color:var(--bad)}.flat{color:var(--ink3)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;min-width:0}
+.card h3{margin:0 0 2px;font-size:15px}
+.card .sub{font-size:12px;color:var(--ink3);margin-bottom:8px}
+.cardhead{display:flex;align-items:flex-start;gap:8px}
+.cardhead>div{flex:1}
+.chart{width:100%;height:auto;display:block}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:#f0f5f4;font-weight:600;color:var(--ink2);position:sticky;top:0}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+td.n b{white-space:nowrap}
+.tablewrap{overflow:auto;max-height:560px;border:1px solid var(--line);border-radius:8px}
+.muted{color:var(--ink3)}
+.tag{display:inline-block;padding:1px 7px;border-radius:999px;font-size:11.5px;font-weight:600}
+.tag.Access{background:#e2f2e8;color:var(--access)}.tag.Watch{background:#fbefd9;color:#9a640c}.tag.Reserve{background:#f7e0e0;color:var(--reserve)}.tag.nc{background:#eceff0;color:#59666a}
+.badge{display:inline-block;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:600;background:#eef3f3;color:var(--ink2)}
+.badge.sig{background:#e2f2e8;color:var(--good)}.badge.sigbad{background:#f7e0e0;color:var(--bad)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+label.f{display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--ink2)}
+label.f{min-width:0}label.f input,label.f select{width:100%;min-width:0}
+label.f input,label.f select,select.sel,input.inp{border:1px solid #c9d4d4;border-radius:6px;padding:6px 8px;background:#fff;color:var(--ink);font-size:13px}
+.formgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.abgrid{display:grid;grid-template-columns:2fr .9fr .8fr .8fr 1fr 1fr;gap:8px;align-items:end;margin-top:6px}
+.note{background:var(--brandSoft);border:1px solid #c8e2df;border-radius:8px;padding:10px 12px;font-size:13px}
+.warnbox{background:#fff6e8;border:1px solid #f0d3a5;border-radius:8px;padding:10px 12px;font-size:13px}
+.toast{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:8px;z-index:99}
+.toast div{background:#1c2b2d;color:#fff;padding:9px 14px;border-radius:8px;font-size:13px;box-shadow:0 6px 18px rgba(0,0,0,.18);max-width:380px}
+.empty{padding:40px;text-align:center;color:var(--ink3);background:#fff;border:1px dashed #c9d4d4;border-radius:10px}
+.heat td{text-align:center;font-variant-numeric:tabular-nums;font-weight:600}
+.heat td:first-child{text-align:left;font-weight:500}
+.mono{font-family:Consolas,Menlo,monospace;font-size:12.5px}
+.pngbtn{border:none;background:none;color:var(--ink3);cursor:pointer;font-size:12px;padding:2px 4px}
+.pngbtn:hover{color:var(--brand2)}
+.drop{outline:3px dashed var(--brand2);outline-offset:-10px}
+.section{margin-bottom:22px}
+h2{font-size:16px;margin:22px 0 10px}
+.report{background:#fff;border:1px solid var(--line);border-radius:10px;padding:34px 40px;max-width:980px}
+.report h1{font-size:22px;margin:0 0 4px;color:var(--brand)}
+.report h2{color:var(--brand);border-bottom:2px solid var(--brandSoft);padding-bottom:4px}
+.report p{margin:6px 0 10px}
+@media print{
+  aside,.topbar,.noprint,.toast{display:none!important}
+  .app{display:block}main{padding:0}
+  body{background:#fff}
+  .report{border:none;padding:0;max-width:none}
+  .card,.report .card{break-inside:avoid}
+}
+@media (max-width:860px){.app{grid-template-columns:1fr}aside{position:static;height:auto}main{padding:0 14px 30px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside>
+  <div class="logo"><b>Odieman PPS Pro</b><span>Point Prevalence Survey · v3.0</span></div>
+  <nav id="nav"></nav>
+</aside>
+<main>
+  <div class="topbar">
+    <h1 id="ptitle">Overview</h1>
+    <span class="pill" id="folderPill" title="Data folder"><span class="dot" id="folderDot"></span><span id="folderTxt">No data folder</span></span>
+    <button class="btn ghost" id="btnFolder">Open data folder</button>
+    <button class="btn" id="btnImport">Import CSV</button>
+    <input type="file" id="fileIn" accept=".csv,.txt,.json" multiple hidden>
+  </div>
+  <div id="view"></div>
+</main>
+</div>
+<div class="toast" id="toast"></div>
+<datalist id="drugList"></datalist>
+
+<script>
+"use strict";
+/* Demo mode: opened from the website with ?demo=1 — loads the sample surveys, saves nothing. */
+const DEMO=new URLSearchParams(location.search).has("demo");
+/* ============ Reference data ============ */
+const FORMULARY = {
+ "Amoxicillin":{atc:"J01CA04",aware:"Access",route:"O",ddd:{O:1.5,P:3}},
+ "Ampicillin":{atc:"J01CA01",aware:"Access",route:"P",ddd:{O:2,P:6}},
+ "Benzylpenicillin":{atc:"J01CE01",aware:"Access",route:"P",ddd:{P:3.6}},
+ "Phenoxymethylpenicillin":{atc:"J01CE02",aware:"Access",route:"O",ddd:{O:2}},
+ "Amoxicillin-clavulanate":{atc:"J01CR02",aware:"Access",route:"O",ddd:{O:1.5,P:3}},
+ "Cloxacillin":{atc:"J01CF02",aware:"Access",route:"P",ddd:{O:2,P:2}},
+ "Flucloxacillin":{atc:"J01CF05",aware:"Access",route:"O",ddd:{O:2,P:2}},
+ "Gentamicin":{atc:"J01GB03",aware:"Access",route:"P",ddd:{P:0.24}},
+ "Metronidazole":{atc:"J01XD01",aware:"Access",route:"P",ddd:{O:2,P:1.5}},
+ "Cotrimoxazole":{atc:"J01EE01",aware:"Access",route:"O",ddd:{O:1.92,P:1.92}},
+ "Doxycycline":{atc:"J01AA02",aware:"Access",route:"O",ddd:{O:0.1,P:0.1}},
+ "Cefazolin":{atc:"J01DB04",aware:"Access",route:"P",ddd:{P:3}},
+ "Cefalexin":{atc:"J01DB01",aware:"Access",route:"O",ddd:{O:2}},
+ "Nitrofurantoin":{atc:"J01XE01",aware:"Access",route:"O",ddd:{O:0.2}},
+ "Clindamycin":{atc:"J01FF01",aware:"Access",route:"P",ddd:{O:1.2,P:1.8}},
+ "Chloramphenicol":{atc:"J01BA01",aware:"Access",route:"P",ddd:{O:3,P:3}},
+ "Ceftriaxone":{atc:"J01DD04",aware:"Watch",route:"P",ddd:{P:2}},
+ "Cefotaxime":{atc:"J01DD01",aware:"Watch",route:"P",ddd:{P:4}},
+ "Ceftazidime":{atc:"J01DD02",aware:"Watch",route:"P",ddd:{P:4}},
+ "Cefuroxime":{atc:"J01DC02",aware:"Watch",route:"P",ddd:{O:0.5,P:3}},
+ "Cefixime":{atc:"J01DD08",aware:"Watch",route:"O",ddd:{O:0.4}},
+ "Ciprofloxacin":{atc:"J01MA02",aware:"Watch",route:"O",ddd:{O:1,P:0.8}},
+ "Levofloxacin":{atc:"J01MA12",aware:"Watch",route:"O",ddd:{O:0.5,P:0.5}},
+ "Azithromycin":{atc:"J01FA10",aware:"Watch",route:"O",ddd:{O:0.3,P:0.5}},
+ "Erythromycin":{atc:"J01FA01",aware:"Watch",route:"O",ddd:{O:1,P:1}},
+ "Clarithromycin":{atc:"J01FA09",aware:"Watch",route:"O",ddd:{O:0.5,P:1}},
+ "Meropenem":{atc:"J01DH02",aware:"Watch",route:"P",ddd:{P:3}},
+ "Imipenem-cilastatin":{atc:"J01DH51",aware:"Watch",route:"P",ddd:{P:2}},
+ "Piperacillin-tazobactam":{atc:"J01CR05",aware:"Watch",route:"P",ddd:{P:14}},
+ "Vancomycin":{atc:"J01XA01",aware:"Watch",route:"P",ddd:{P:2,O:2}},
+ "Amikacin":{atc:"J01GB06",aware:"Watch",route:"P",ddd:{P:1}},
+ "Linezolid":{atc:"J01XX08",aware:"Reserve",route:"P",ddd:{O:1.2,P:1.2}},
+ "Colistin":{atc:"J01XB01",aware:"Reserve",route:"P",unit:"IU",ddd:{P:9000000}},
+ "Tigecycline":{atc:"J01AA12",aware:"Reserve",route:"P",ddd:{P:0.1}},
+ "Ceftazidime-avibactam":{atc:"J01DD52",aware:"Reserve",route:"P",ddd:{P:6}},
+ "Fluconazole":{atc:"J02AC01",aware:"Not classified",route:"O",ddd:{O:0.2,P:0.2}},
+ "Artesunate":{atc:"P01BE03",aware:"Not classified",route:"P",ddd:{}},
+ "Artemether-lumefantrine":{atc:"P01BF01",aware:"Not classified",route:"O",ddd:{}},
+};
+const ALIASES={"augmentin":"Amoxicillin-clavulanate","co-amoxiclav":"Amoxicillin-clavulanate","amoxiclav":"Amoxicillin-clavulanate",
+ "co-trimoxazole":"Cotrimoxazole","septrin":"Cotrimoxazole","sulfamethoxazole-trimethoprim":"Cotrimoxazole","bactrim":"Cotrimoxazole",
+ "crystalline penicillin":"Benzylpenicillin","x-pen":"Benzylpenicillin","penicillin g":"Benzylpenicillin","flagyl":"Metronidazole",
+ "rocephin":"Ceftriaxone","cipro":"Ciprofloxacin","pip-tazo":"Piperacillin-tazobactam","tazocin":"Piperacillin-tazobactam",
+ "imipenem":"Imipenem-cilastatin","cephalexin":"Cefalexin","coartem":"Artemether-lumefantrine","alu":"Artemether-lumefantrine"};
+const DX={PNEU:"Pneumonia",BRON:"Bronchitis / LRTI",CNS:"CNS infection",BAC:"Bacteraemia",CSEP:"Clinical sepsis",PYE:"Upper UTI / pyelonephritis",
+ CYS:"Lower UTI / cystitis",GI:"Gastrointestinal infection",IA:"Intra-abdominal infection",SST:"Skin & soft tissue",BJ:"Bone & joint",
+ OBGY:"Obstetric / gynaecological",FN:"Febrile neutropenia",UND:"Undefined site",MAL:"Malaria",PROK:"Surgical prophylaxis",PROF:"Medical prophylaxis",
+ EYE:"Eye",ENT:"Ear, nose, throat",CVS:"Cardiovascular",ASB:"Asymptomatic bacteriuria",GUM:"Genito-urinary (male)",SIRS:"SIRS"};
+const INDN={CAI:"Community-acquired infection",HAI:"Hospital-acquired infection",SP1:"Surgical prophylaxis, 1 dose",SP2:"Surgical prophylaxis, 1 day",
+ SP3:"Surgical prophylaxis, >1 day",MP:"Medical prophylaxis",OTH:"Other",UNK:"Unknown"};
+const AWC={Access:"#2e7d4f",Watch:"#d08a1a",Reserve:"#b23b3b","Not classified":"#8a9699"};
+const PAL=["#13737a","#c9772b","#5b6ec7","#2e7d4f","#b23b3b","#8a5aa8","#d08a1a","#3d8fb5","#7d8d90"];
+const HEAD=["survey_id","survey_date","facility","ward","ward_code","ward_type","patient_code","age_years","sex","weight_kg","admission_date",
+ "on_antimicrobial","diagnosis","indication","reason_in_notes","guideline_compliant","culture_taken","stop_review_date","surgery_last_30d","catheter_or_line"];
+for(let i=1;i<=4;i++)HEAD.push(`ab${i}_name`,`ab${i}_atc`,`ab${i}_aware`,`ab${i}_route`,`ab${i}_dose_mg`,`ab${i}_doses_per_day`);
+
+const INDS=[
+ {k:"prev",label:"Antimicrobial prevalence",desc:"Inpatients on ≥1 antimicrobial",pct:1,good:"down"},
+ {k:"access",label:"Access share",desc:"Prescriptions from the WHO Access group",pct:1,good:"up",target:.6,tlabel:"WHO target ≥60%"},
+ {k:"watch",label:"Watch share",desc:"Prescriptions from the WHO Watch group",pct:1,good:"down"},
+ {k:"reserve",label:"Reserve share",desc:"Prescriptions from the WHO Reserve group",pct:1,good:"down"},
+ {k:"parenteral",label:"Parenteral route",desc:"Prescriptions given IV/IM",pct:1,good:"down"},
+ {k:"reason",label:"Reason in notes",desc:"Treated patients with indication documented",pct:1,good:"up"},
+ {k:"guide",label:"Guideline compliance",desc:"Treated patients with compliant choice (assessable only)",pct:1,good:"up"},
+ {k:"cult",label:"Culture taken",desc:"Treated patients with a culture sample",pct:1,good:"up"},
+ {k:"stop",label:"Stop/review date",desc:"Treated patients with stop or review date documented",pct:1,good:"up"},
+ {k:"spLong",label:"Surgical prophylaxis >1 day",desc:"SP patients receiving prophylaxis beyond 24 h",pct:1,good:"down"},
+ {k:"combo",label:"Combination therapy",desc:"Treated patients on ≥2 antimicrobials",pct:1,good:"down"},
+ {k:"hai",label:"HAI as indication",desc:"Treated patients whose indication is HAI",pct:1,good:"down"},
+ {k:"perPt",label:"Antimicrobials per treated patient",desc:"Mean number of agents",pct:0,good:"down",dp:2},
+ {k:"ddd100",label:"DDD per 100 inpatients",desc:"Defined daily doses on survey day",pct:0,good:"down",dp:1},
+];
+const IND=Object.fromEntries(INDS.map(x=>[x.k,x]));
+
+/* ============ State ============ */
+let DB={meta:{facility:"",author:"Odindo Emmanuel Thomas",keepBackups:30,ignored:[],created:new Date().toISOString(),updated:null},surveys:[]};
+const UI={page:"overview",sid:null,stat:"prev",cmpA:null,cmpB:null,editIdx:null,dqSid:"all",trendSel:["prev","access","cult","spLong"]};
+const LOG=[];
+const dirty=new Set();
+
+/* ============ Utilities ============ */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+function fmtDate(d){if(!d)return"";const x=new Date(d+"T00:00:00");return isNaN(x)?d:`${x.getDate()} ${MON[x.getMonth()]} ${x.getFullYear()}`}
+function monYr(d){const x=new Date(d+"T00:00:00");return isNaN(x)?d:`${MON[x.getMonth()]} ${x.getFullYear()}`}
+function pct(v,dp=1){return v==null||isNaN(v)?"–":(v*100).toFixed(dp)+"%"}
+function num(v,dp=1){return v==null||isNaN(v)?"–":(+v).toFixed(dp)}
+function fmtInd(k,v){const m=IND[k];return m.pct?pct(v):num(v,m.dp??1)}
+function today(){const d=new Date();return d.toISOString().slice(0,10)}
+function stamp(){const d=new Date();return d.toTimeString().slice(0,5)}
+function toast(msg){const t=document.createElement("div");t.textContent=msg;$("#toast").appendChild(t);setTimeout(()=>t.remove(),4200)}
+function log(msg){LOG.unshift(`${new Date().toLocaleTimeString()}  ${msg}`);if(LOG.length>40)LOG.pop()}
+function sorted(){return [...DB.surveys].sort((a,b)=>a.date.localeCompare(b.date))}
+function getS(id){return DB.surveys.find(s=>s.id===id)}
+function YN(v){v=String(v??"").trim().toLowerCase();if(["y","yes","1","true","ndiyo"].includes(v))return"Y";if(["n","no","0","false","hapana"].includes(v))return"N";if(["na","n/a","not applicable"].includes(v))return"NA";return v?v.toUpperCase():""}
+function drugName(n){n=String(n||"").trim();if(!n)return"";const lc=n.toLowerCase();if(ALIASES[lc])return ALIASES[lc];
+ const hit=Object.keys(FORMULARY).find(k=>k.toLowerCase()===lc);if(hit)return hit;
+ const hit2=Object.keys(FORMULARY).find(k=>k.toLowerCase().replace(/[^a-z]/g,"")===lc.replace(/[^a-z]/g,""));return hit2||n}
+function abDDD(a){const f=FORMULARY[a.name];if(!f||!a.dose||!a.freq)return 0;const d=f.ddd[a.route]??Object.values(f.ddd)[0];if(!d)return 0;
+ return f.unit==="IU"? a.dose*a.freq/d : a.dose*a.freq/1000/d}
+
+/* ============ Statistics ============ */
+function erfc(x){const z=Math.abs(x),t=1/(1+.5*z);const r=t*Math.exp(-z*z-1.26551223+t*(1.00002368+t*(.37409196+t*(.09678418+t*(-.18628806+t*(.27886807+t*(-1.13520398+t*(1.48851587+t*(-.82215223+t*.17087277)))))))));return x>=0?r:2-r}
+function pNorm2(z){return erfc(Math.abs(z)/Math.SQRT2)}
+function lgamma(x){const c=[76.18009172947146,-86.50532032941677,24.01409824083091,-1.231739572450155,.1208650973866179e-2,-.5395239384953e-5];let y=x,t=x+5.5;t-=(x+.5)*Math.log(t);let s=1.000000000190015;for(const ci of c)s+=ci/++y;return -t+Math.log(2.5066282746310005*s/x)}
+function gammaQ(a,x){if(x<=0)return 1;if(x<a+1){let ap=a,sum=1/a,del=sum;for(let n=0;n<300;n++){ap++;del*=x/ap;sum+=del;if(Math.abs(del)<Math.abs(sum)*1e-12)break}return 1-sum*Math.exp(-x+a*Math.log(x)-lgamma(a))}
+ let b=x+1-a,c=1e300,d=1/b,h=d;for(let i=1;i<300;i++){const an=-i*(i-a);b+=2;d=an*d+b;if(Math.abs(d)<1e-300)d=1e-300;c=b+an/c;if(Math.abs(c)<1e-300)c=1e-300;d=1/d;const del=d*c;h*=del;if(Math.abs(del-1)<1e-12)break}
+ return Math.exp(-x+a*Math.log(x)-lgamma(a))*h}
+function chiSq2xk(ns,ds){const N=ds.reduce((a,b)=>a+b,0),X=ns.reduce((a,b)=>a+b,0);if(!N||!X||X===N)return null;let chi=0;
+ ns.forEach((n,i)=>{const e1=ds[i]*X/N,e0=ds[i]*(N-X)/N;if(e1>0)chi+=(n-e1)**2/e1;if(e0>0)chi+=(ds[i]-n-e0)**2/e0});
+ const df=ns.length-1;return{chi,df,p:gammaQ(df/2,chi/2)}}
+function catt(ns,ds,sc){const N=ds.reduce((a,b)=>a+b,0),X=ns.reduce((a,b)=>a+b,0);if(!N||!X||X===N)return null;const p=X/N;
+ let T=0,s1=0,s2=0;ns.forEach((n,i)=>{T+=sc[i]*(n-ds[i]*p);s1+=ds[i]*sc[i]*sc[i];s2+=ds[i]*sc[i]});
+ const v=p*(1-p)*(s1-s2*s2/N);if(v<=0)return null;const z=T/Math.sqrt(v);return{z,p:pNorm2(z)}}
+function wilson(n,d){if(!d)return[null,null];const z=1.96,p=n/d,den=1+z*z/d,c=p+z*z/(2*d),h=z*Math.sqrt(p*(1-p)/d+z*z/(4*d*d));return[Math.max(0,(c-h)/den),Math.min(1,(c+h)/den)]}
+function twoProp(n1,d1,n2,d2){if(!d1||!d2)return null;const p1=n1/d1,p2=n2/d2,p=(n1+n2)/(d1+d2);const se0=Math.sqrt(p*(1-p)*(1/d1+1/d2));
+ const se=Math.sqrt(p1*(1-p1)/d1+p2*(1-p2)/d2);const diff=p2-p1;return{diff,lo:diff-1.96*se,hi:diff+1.96*se,z:se0?diff/se0:0,p:se0?pNorm2(diff/se0):1}}
+function ols(xs,ys){const pts=xs.map((x,i)=>[x,ys[i]]).filter(p=>p[1]!=null);const n=pts.length;if(n<2)return null;
+ const mx=pts.reduce((a,p)=>a+p[0],0)/n,my=pts.reduce((a,p)=>a+p[1],0)/n;let sxy=0,sxx=0,syy=0;pts.forEach(([x,y])=>{sxy+=(x-mx)*(y-my);sxx+=(x-mx)**2;syy+=(y-my)**2});
+ if(!sxx)return null;const b=sxy/sxx;return{slope:b,icpt:my-b*mx,r2:syy?sxy*sxy/(sxx*syy):1}}
+function pTxt(p){return p==null?"p = –":p<.001?"p < 0.001":"p = "+p.toFixed(3)}
+function fp(p){return p==null?"–":p<.001?"<0.001":p.toFixed(3)}
+function yearsFrom(dates){const t0=new Date(dates[0]).getTime();return dates.map(d=>(new Date(d).getTime()-t0)/(365.25*864e5))}
+
+/* ============ Indicators ============ */
+const _cache=new Map();
+function calc(s){
+ const key=s.id+"|"+s.updated;if(_cache.has(key))return _cache.get(key);
+ const P=s.patients,N=P.length,T=P.filter(p=>p.on==="Y"),t=T.length,rx=T.flatMap(p=>p.abs);
+ const cnt=(a,f)=>a.filter(f).length,R=(n,d)=>({n,d,v:d?n/d:null});
+ const sp=T.filter(p=>/^SP/.test(p.ind)),ass=T.filter(p=>p.guide==="Y"||p.guide==="N");
+ const ddd=rx.reduce((a,x)=>a+abDDD(x),0);
+ const out={N,t,rx:rx.length,
+  prev:R(t,N),access:R(cnt(rx,a=>a.aware==="Access"),rx.length),watch:R(cnt(rx,a=>a.aware==="Watch"),rx.length),
+  reserve:R(cnt(rx,a=>a.aware==="Reserve"),rx.length),nc:R(cnt(rx,a=>!["Access","Watch","Reserve"].includes(a.aware)),rx.length),
+  parenteral:R(cnt(rx,a=>a.route==="P"),rx.length),reason:R(cnt(T,p=>p.reason==="Y"),t),guide:R(cnt(ass,p=>p.guide==="Y"),ass.length),
+  cult:R(cnt(T,p=>p.culture==="Y"),t),stop:R(cnt(T,p=>p.stop==="Y"),t),spLong:R(cnt(sp,p=>p.ind==="SP3"),sp.length),
+  combo:R(cnt(T,p=>p.abs.length>=2),t),hai:R(cnt(T,p=>p.ind==="HAI"),t),
+  perPt:{v:t?rx.length/t:null},ddd100:{v:N?ddd/N*100:null},ddd};
+ const by=(arr,f)=>{const m={};arr.forEach(x=>{const k=f(x)||"(blank)";m[k]=(m[k]||0)+1});return m};
+ out.drugs=by(rx,a=>a.name);out.dx=by(T,p=>p.dx);out.indic=by(T,p=>p.ind);out.route=by(rx,a=>a.route);
+ const W={};P.forEach(p=>{const w=W[p.ward]||(W[p.ward]={N:0,t:0,rx:0,acc:0,type:p.wardType});w.N++;if(p.on==="Y"){w.t++;p.abs.forEach(a=>{w.rx++;if(a.aware==="Access")w.acc++})}});
+ out.wards=W;_cache.set(key,out);return out}
+
+/* ============ CSV ============ */
+function parseCSV(text){text=text.replace(/^﻿/,"");const rows=[];let row=[],f="",q=false;
+ const sep=(text.split("\n")[0].match(/;/g)||[]).length>(text.split("\n")[0].match(/,/g)||[]).length?";":",";
+ for(let i=0;i<text.length;i++){const c=text[i];
+  if(q){if(c==='"'){if(text[i+1]==='"'){f+='"';i++}else q=false}else f+=c}
+  else if(c==='"')q=true;else if(c===sep){row.push(f);f=""}else if(c==="\n"){row.push(f);rows.push(row);row=[];f=""}else if(c!=="\r")f+=c}
+ if(f!==""||row.length){row.push(f);rows.push(row)}
+ return rows.filter(r=>r.some(x=>x.trim()!==""))}
+const HMAP={ward_name:"ward",patient_id:"patient_code",age:"age_years",gender:"sex",weight:"weight_kg",date_of_admission:"admission_date",
+ on_antibiotic:"on_antimicrobial",on_am:"on_antimicrobial",diagnosis_site:"diagnosis",reason:"reason_in_notes",guideline:"guideline_compliant",
+ culture:"culture_taken",stop_review:"stop_review_date",date:"survey_date",hospital:"facility"};
+function csvToSurveys(text,fname){
+ const rows=parseCSV(text);if(rows.length<2)throw new Error("file has no data rows");
+ const h=rows[0].map(x=>{const k=x.trim().toLowerCase().replace(/[\s\-\/]+/g,"_");return HMAP[k]||k});
+ if(!h.includes("ward"))throw new Error("no 'ward' column found – is this a PPS file?");
+ const fromName=(fname||"").replace(/\.[^.]+$/,"");const groups={};
+ rows.slice(1).forEach(r=>{const o={};h.forEach((k,i)=>o[k]=(r[i]??"").trim());
+  const sid=o.survey_id||fromName.split("_")[0]||("PPS-"+today());(groups[sid]||(groups[sid]=[])).push(o)});
+ return Object.entries(groups).map(([sid,list])=>{
+  const date=(list.find(o=>o.survey_date)||{}).survey_date||"";
+  const fac=(list.find(o=>o.facility)||{}).facility||DB.meta.facility||"";
+  return{id:sid,date:normDate(date)||today(),facility:fac,source:fname||"",imported:new Date().toISOString(),updated:Date.now(),patients:list.map(rowToPatient)}})}
+function normDate(d){if(!d)return"";if(/^\d{4}-\d{2}-\d{2}/.test(d))return d.slice(0,10);const m=d.match(/^(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{4})$/);
+ if(m)return`${m[3]}-${m[2].padStart(2,"0")}-${m[1].padStart(2,"0")}`;const x=new Date(d);return isNaN(x)?d:x.toISOString().slice(0,10)}
+function rowToPatient(o){const abs=[];
+ for(let i=1;i<=6;i++){const n=drugName(o[`ab${i}_name`]);if(!n)continue;const f=FORMULARY[n]||{};
+  let rt=String(o[`ab${i}_route`]||f.route||"").trim().toUpperCase();rt=rt.startsWith("I")||rt==="P"?"P":rt.startsWith("O")||rt==="PO"?"O":rt;
+  abs.push({name:n,atc:o[`ab${i}_atc`]||f.atc||"",aware:normAware(o[`ab${i}_aware`])||f.aware||"Not classified",route:rt,dose:parseFloat(o[`ab${i}_dose_mg`])||null,freq:parseFloat(o[`ab${i}_doses_per_day`])||null})}
+ let on=YN(o.on_antimicrobial);if(!on)on=abs.length?"Y":"N";
+ return{code:o.patient_code||"",ward:o.ward||"",wardCode:o.ward_code||"",wardType:(o.ward_type||"").toUpperCase(),age:o.age_years===""?null:parseFloat(o.age_years),
+  sex:(o.sex||"").toUpperCase().slice(0,1),weight:o.weight_kg===""||o.weight_kg==null?null:parseFloat(o.weight_kg),adm:normDate(o.admission_date||""),on,
+  dx:(o.diagnosis||"").toUpperCase(),ind:(o.indication||"").toUpperCase(),reason:YN(o.reason_in_notes),guide:YN(o.guideline_compliant),culture:YN(o.culture_taken),
+  stop:YN(o.stop_review_date),surgery:YN(o.surgery_last_30d),line:YN(o.catheter_or_line),abs}}
+function normAware(v){v=String(v||"").trim().toLowerCase();if(!v)return"";if(v.startsWith("acc"))return"Access";if(v.startsWith("wat"))return"Watch";if(v.startsWith("res"))return"Reserve";return"Not classified"}
+function csvCell(v){v=v==null?"":String(v);return/[",\n;]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+function surveyToCSV(s){const lines=[HEAD.join(",")];s.patients.forEach(p=>{const o={survey_id:s.id,survey_date:s.date,facility:s.facility,ward:p.ward,ward_code:p.wardCode,ward_type:p.wardType,
+ patient_code:p.code,age_years:p.age??"",sex:p.sex,weight_kg:p.weight??"",admission_date:p.adm,on_antimicrobial:p.on,diagnosis:p.dx,indication:p.ind,reason_in_notes:p.reason,
+ guideline_compliant:p.guide,culture_taken:p.culture,stop_review_date:p.stop,surgery_last_30d:p.surgery,catheter_or_line:p.line};
+ p.abs.slice(0,4).forEach((a,i)=>{const j=i+1;Object.assign(o,{[`ab${j}_name`]:a.name,[`ab${j}_atc`]:a.atc,[`ab${j}_aware`]:a.aware,[`ab${j}_route`]:a.route,[`ab${j}_dose_mg`]:a.dose??"",[`ab${j}_doses_per_day`]:a.freq??""})});
+ lines.push(HEAD.map(k=>csvCell(o[k])).join(","))});return lines.join("\r\n")}
+
+/* ============ IndexedDB ============ */
+const IDB={db:null,
+ open(){return this.db?Promise.resolve(this.db):new Promise((res,rej)=>{const r=indexedDB.open("odieman_pps_pro",1);r.onupgradeneeded=()=>r.result.createObjectStore("kv");r.onsuccess=()=>{this.db=r.result;res(this.db)};r.onerror=()=>rej(r.error)})},
+ async get(k){const db=await this.open();return new Promise(res=>{const r=db.transaction("kv").objectStore("kv").get(k);r.onsuccess=()=>res(r.result);r.onerror=()=>res(undefined)})},
+ async set(k,v){const db=await this.open();return new Promise((res,rej)=>{const tx=db.transaction("kv","readwrite");tx.objectStore("kv").put(v,k);tx.oncomplete=res;tx.onerror=()=>rej(tx.error)})},
+ async del(k){const db=await this.open();return new Promise(res=>{const tx=db.transaction("kv","readwrite");tx.objectStore("kv").delete(k);tx.oncomplete=res})}};
+
+/* ============ Data folder (File System Access) ============ */
+const FS={handle:null,state:"none",lastSave:null,supported:"showDirectoryPicker" in window,
+ async restore(){if(!this.supported){this.state="unsupported";return}
+  try{const h=await IDB.get("dirHandle");if(!h)return;this.handle=h;
+   const p=await h.queryPermission({mode:"readwrite"});this.state=p==="granted"?"connected":"needs-permission"}catch(e){this.state="none"}},
+ async connect(){if(DEMO){toast("Demo mode: download PPS Pro to save your own data in a folder.");return}if(!this.supported){toast("This browser cannot open folders. Please use Chrome or Microsoft Edge.");return}
+  try{const h=await showDirectoryPicker({id:"odieman-pps",mode:"readwrite",startIn:"documents"});await this.attach(h)}catch(e){if(e.name!=="AbortError")toast("Folder not opened: "+e.message)}},
+ async attach(h){this.handle=h;try{await IDB.set("dirHandle",h)}catch(e){}this.state="connected";log(`Data folder opened: ${h.name}`);await onFolderReady()},
+ async reconnect(){try{const p=await this.handle.requestPermission({mode:"readwrite"});if(p==="granted"){this.state="connected";log("Folder access restored");await onFolderReady()}}catch(e){toast("Could not reconnect: "+e.message)}},
+ async forget(){await IDB.del("dirHandle");this.handle=null;this.state="none";log("Data folder disconnected");pill();render()},
+ async dir(path,create=true){let d=this.handle;for(const p of path.split("/").filter(Boolean))d=await d.getDirectoryHandle(p,{create});return d},
+ async write(path,data){const parts=path.split("/"),fn=parts.pop(),d=await this.dir(parts.join("/"));const fh=await d.getFileHandle(fn,{create:true});const w=await fh.createWritable();await w.write(data);await w.close()},
+ async read(path){try{const parts=path.split("/"),fn=parts.pop(),d=await this.dir(parts.join("/"),false);return await (await (await d.getFileHandle(fn)).getFile()).text()}catch(e){return null}},
+ async list(path=""){const out=[];try{const d=path?await this.dir(path,false):this.handle;for await(const [name,h] of d.entries())out.push({name,kind:h.kind,h})}catch(e){}return out},
+ async remove(path){try{const parts=path.split("/"),fn=parts.pop(),d=await this.dir(parts.join("/"),false);await d.removeEntry(fn)}catch(e){}}};
+const DATAFILE="odieman_pps_data.json";
+
+async function onFolderReady(){
+ pill();
+ const txt=await FS.read(DATAFILE);let added=0;
+ if(txt){try{const fdb=JSON.parse(txt);mergeDB(fdb);log(`Loaded ${DATAFILE} (${fdb.surveys.length} surveys)`)}catch(e){toast("Saved data file in folder could not be read; a backup copy is kept in /backups")}}
+ added=await scanFolder(true);
+ DB.surveys.forEach(s=>dirty.add(s.id));
+ await FS.write("README.txt",readmeText()).catch(()=>{});
+ await saveNow();
+ if(!UI.sid&&DB.surveys.length)UI.sid=sorted().at(-1).id;
+ render();toast(`Data folder “${FS.handle.name}” connected${added?` · ${added} survey file(s) imported`:""}. Changes now save automatically.`)}
+function mergeDB(fdb){if(!fdb||!Array.isArray(fdb.surveys))return;
+ DB.meta=Object.assign({},fdb.meta||{},DB.meta.facility?{facility:DB.meta.facility}:{},{ignored:[...new Set([...(fdb.meta?.ignored||[]),...(DB.meta.ignored||[])])]});
+ if(!DB.meta.author)DB.meta.author="Odindo Emmanuel Thomas";
+ fdb.surveys.forEach(fs=>{const cur=getS(fs.id);if(!cur)DB.surveys.push(fs);else if((fs.updated||0)>(cur.updated||0))Object.assign(cur,fs)})}
+async function scanFolder(quiet){if(FS.state!=="connected")return 0;let added=0;
+ const files=[...(await FS.list("")).map(f=>({...f,path:f.name})),...(await FS.list("surveys")).map(f=>({...f,path:"surveys/"+f.name}))];
+ for(const f of files){if(f.kind!=="file"||!/\.csv$/i.test(f.name))continue;if(DB.meta.ignored?.includes(f.path))continue;
+  try{const text=await (await f.h.getFile()).text();const ss=csvToSurveys(text,f.name);
+   for(const s of ss){if(getS(s.id))continue;s.source=f.path;DB.surveys.push(s);dirty.add(s.id);added++;log(`Imported ${s.id} from ${f.path} (${s.patients.length} patients)`)}}
+  catch(e){log(`Skipped ${f.path}: ${e.message}`)}}
+ if(added&&!quiet){toast(`${added} new survey file(s) found in the data folder and imported`);await saveNow();render()}
+ return added}
+
+/* ============ Saving ============ */
+let saveTimer=null,saving=false;
+function touch(sid){if(DEMO){const s0=getS(sid);if(s0)s0.updated=Date.now();DB.meta.updated=new Date().toISOString();return}const s=getS(sid);if(s){s.updated=Date.now();dirty.add(sid)}DB.meta.updated=new Date().toISOString();clearTimeout(saveTimer);saveTimer=setTimeout(saveNow,700);pill("saving")}
+async function saveNow(){if(DEMO)return;if(saving){clearTimeout(saveTimer);saveTimer=setTimeout(saveNow,500);return}saving=true;
+ try{DB.meta.updated=DB.meta.updated||new Date().toISOString();await IDB.set("db",DB).catch(()=>{});
+  if(FS.state==="connected"){const json=JSON.stringify(DB);
+   await FS.write(DATAFILE,json);
+   for(const id of dirty){const s=getS(id);if(s)await FS.write(`surveys/${s.id}.csv`,surveyToCSV(s))}
+   await FS.write(`backups/odieman_pps_${today()}.json`,json);await pruneBackups();
+   FS.lastSave=new Date();log(`Saved ${DATAFILE}${dirty.size?` + ${dirty.size} survey CSV(s)`:""}`);dirty.clear()}
+ }catch(e){log("Save failed: "+e.message);toast("Could not save to the data folder: "+e.message);if(/permission|NotAllowed/i.test(e.name+e.message))FS.state="needs-permission"}
+ saving=false;pill()}
+async function pruneBackups(){const keep=+DB.meta.keepBackups||30;const b=(await FS.list("backups")).filter(f=>/^odieman_pps_\d{4}-\d{2}-\d{2}\.json$/.test(f.name)).map(f=>f.name).sort();
+ for(const n of b.slice(0,Math.max(0,b.length-keep)))await FS.remove("backups/"+n)}
+async function saveOut(name,data,mime){
+ const blob=data instanceof Blob?data:new Blob([data],{type:mime||"text/plain"});
+ if(FS.state==="connected"){try{await FS.write("reports/"+name,blob);toast(`Saved to data folder › reports › ${name}`);log(`Report saved: reports/${name}`);return}catch(e){}}
+ const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}
+function pill(mode){const d=$("#folderDot"),t=$("#folderTxt"),b=$("#btnFolder");d.className="dot";if(DEMO){d.classList.add("warn");t.textContent="Demo — sample data, nothing is saved";b.style.display="none";return}
+ if(FS.state==="connected"){d.classList.add(mode==="saving"?"warn":"ok");t.textContent=mode==="saving"?`Saving to “${FS.handle.name}”…`:`Folder: ${FS.handle.name}${FS.lastSave?" · saved "+FS.lastSave.toTimeString().slice(0,5):""}`;b.textContent="Change folder"}
+ else if(FS.state==="needs-permission"){d.classList.add("warn");t.textContent=`Click to reconnect “${FS.handle.name}”`;b.textContent="Reconnect folder"}
+ else if(FS.state==="unsupported"){d.classList.add("bad");t.textContent="Folder saving needs Chrome/Edge";b.textContent="Open data folder"}
+ else{t.textContent="No data folder – saved in browser only";b.textContent="Open data folder"}}
+function readmeText(){return`ODIEMAN PPS PRO – DATA FOLDER
+=============================
+This folder is managed by Odieman PPS Pro. Everything is saved here automatically.
+
+  ${DATAFILE}      Main database (all surveys). Do not edit by hand.
+  surveys/                    One CSV per survey, rewritten whenever that survey changes.
+  backups/                    Daily copy of the database (last ${DB.meta.keepBackups||30} days kept).
+  reports/                    Reports, charts and exports you save from the tool.
+  *.csv (in this folder)      Drop new PPS CSV files here. The tool imports any survey
+                              it does not already have when it opens or when you return to it.
+
+To move to another computer: copy this whole folder together with Odieman_PPS_Pro.html,
+open the HTML in Chrome or Edge, click "Open data folder" and choose this folder.
+`}
+
+/* ============ Charts (SVG) ============ */
+const F='font-family="Segoe UI,Roboto,Arial,sans-serif"';
+function niceMax(v){if(v<=0)return 1;const e=Math.pow(10,Math.floor(Math.log10(v))),m=v/e;return(m<=1?1:m<=2?2:m<=2.5?2.5:m<=5?5:10)*e}
+function lineChart(o){const W=o.w||560,H=o.h||230,m={l:46,r:18,t:18,b:o.legend?46:30},ins=26,pw=W-m.l-m.r,ph=H-m.t-m.b,n=o.labels.length;
+ const vals=o.series.flatMap(s=>s.values).filter(v=>v!=null);let yMax=o.yMax??niceMax(Math.max(...vals,o.target||0)*1.12);if(o.pct&&o.yMax==null)yMax=Math.min(1,yMax);const yMin=o.yMin??0;
+ const x=i=>m.l+(n===1?pw/2:ins+i*(pw-2*ins)/(n-1)),y=v=>m.t+ph-(v-yMin)/(yMax-yMin||1)*ph;
+ let s=`<svg class="chart" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" ${F}><rect width="${W}" height="${H}" fill="#fff"/>`;
+ for(let i=0;i<=4;i++){const v=yMin+(yMax-yMin)*i/4,yy=y(v);s+=`<line x1="${m.l}" x2="${W-m.r}" y1="${yy}" y2="${yy}" stroke="#e6ecec"/><text x="${m.l-6}" y="${yy+4}" font-size="11" fill="#7d8d90" text-anchor="end">${o.pct?(yMax<.1?(v*100).toFixed(1):Math.round(v*100))+"%":+v.toFixed(v<10?1:0)}</text>`}
+ o.labels.forEach((l,i)=>s+=`<text x="${x(i)}" y="${m.t+ph+18}" font-size="11" fill="#4d5f62" text-anchor="middle">${esc(l)}</text>`);
+ if(o.target!=null){const yy=y(o.target);s+=`<line x1="${m.l}" x2="${W-m.r}" y1="${yy}" y2="${yy}" stroke="#b23b3b" stroke-dasharray="5 4" stroke-width="1.3"/><text x="${W-m.r}" y="${yy-5}" font-size="10.5" fill="#b23b3b" text-anchor="end">${esc(o.tlabel||"Target")}</text>`}
+ o.series.forEach((se,si)=>{const c=se.color||PAL[si%PAL.length];const pts=se.values.map((v,i)=>v==null?null:[x(i),y(v)]);
+  const d=pts.reduce((a,p,i)=>p?a+(a&&pts[i-1]?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1):a,"");
+  if(o.series.length===1&&o.area){const f=pts.filter(Boolean);s+=`<path d="M${f[0][0]} ${y(yMin)} L${f.map(p=>p.join(" ")).join(" L")} L${f.at(-1)[0]} ${y(yMin)}Z" fill="${c}" opacity=".08"/>`}
+  s+=`<path d="${d}" fill="none" stroke="${c}" stroke-width="2.4" stroke-linejoin="round"/>`;
+  pts.forEach((p,i)=>{if(!p)return;const v=se.values[i];const lab=o.pct?(v*100).toFixed(1)+"%":(+v).toFixed(o.dp??1);
+   s+=`<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="#fff" stroke="${c}" stroke-width="2.2"><title>${esc(se.name||"")} ${esc(o.labels[i])}: ${lab}</title></circle>`;
+   if(o.series.length===1||o.valueLabels)s+=`<text x="${p[0]}" y="${p[1]-9}" font-size="11" font-weight="600" fill="${c}" text-anchor="middle">${lab}</text>`})});
+ if(o.legend){let lx=m.l;o.series.forEach((se,si)=>{const c=se.color||PAL[si%PAL.length];s+=`<rect x="${lx}" y="${H-14}" width="10" height="10" rx="2" fill="${c}"/><text x="${lx+14}" y="${H-5}" font-size="11" fill="#4d5f62">${esc(se.name)}</text>`;lx+=24+se.name.length*6.3})}
+ return s+"</svg>"}
+function barH(items,o={}){const W=o.w||560,lw=o.lw||170,bh=20,gap=7,H=items.length*(bh+gap)+12;const mx=o.max??Math.max(...items.map(i=>i.value),1e-9);const pw=W-lw-70;
+ let s=`<svg class="chart" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" ${F}><rect width="${W}" height="${H}" fill="#fff"/>`;
+ items.forEach((it,i)=>{const yy=6+i*(bh+gap),w=Math.max(1,it.value/mx*pw);const lab=it.label.length>28?it.label.slice(0,27)+"…":it.label;
+  s+=`<text x="${lw-8}" y="${yy+14}" font-size="12" fill="#1c2b2d" text-anchor="end">${esc(lab)}<title>${esc(it.label)}</title></text><rect x="${lw}" y="${yy}" width="${w}" height="${bh}" rx="3" fill="${it.color||o.color||"#13737a"}"/><text x="${lw+w+6}" y="${yy+14}" font-size="11.5" fill="#4d5f62">${esc(it.text??(o.pct?pct(it.value):it.value))}</text>`});
+ return s+"</svg>"}
+function stackCols(labels,stacks,o={}){const W=o.w||560,H=o.h||250,m={l:42,r:12,t:12,b:48},pw=W-m.l-m.r,ph=H-m.t-m.b,n=labels.length,bw=Math.min(70,pw/n*.6);
+ let s=`<svg class="chart" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" ${F}><rect width="${W}" height="${H}" fill="#fff"/>`;
+ for(let i=0;i<=4;i++){const yy=m.t+ph-ph*i/4;s+=`<line x1="${m.l}" x2="${W-m.r}" y1="${yy}" y2="${yy}" stroke="#e6ecec"/><text x="${m.l-6}" y="${yy+4}" font-size="11" fill="#7d8d90" text-anchor="end">${i*25}%</text>`}
+ labels.forEach((l,i)=>{const cx=m.l+pw*(i+.5)/n;let acc=0;const tot=stacks.reduce((a,st)=>a+(st.values[i]||0),0)||1;
+  stacks.forEach(st=>{const v=(st.values[i]||0)/tot;if(!v)return;const h=v*ph,yy=m.t+ph-acc*ph-h;s+=`<rect x="${cx-bw/2}" y="${yy}" width="${bw}" height="${h}" fill="${st.color}"><title>${esc(st.name)} ${esc(l)}: ${(v*100).toFixed(1)}%</title></rect>`;
+   if(h>14)s+=`<text x="${cx}" y="${yy+h/2+4}" font-size="10.5" fill="#fff" text-anchor="middle" font-weight="600">${Math.round(v*100)}%</text>`;acc+=v});
+  s+=`<text x="${cx}" y="${m.t+ph+16}" font-size="11" fill="#4d5f62" text-anchor="middle">${esc(l)}</text>`});
+ let lx=m.l;stacks.forEach(st=>{s+=`<rect x="${lx}" y="${H-14}" width="10" height="10" rx="2" fill="${st.color}"/><text x="${lx+14}" y="${H-5}" font-size="11" fill="#4d5f62">${esc(st.name)}</text>`;lx+=26+st.name.length*6.4});
+ return s+"</svg>"}
+function chartCard(title,sub,svg,file){return`<div class="card"><div class="cardhead"><div><h3>${esc(title)}</h3>${sub?`<div class="sub">${sub}</div>`:""}</div><button class="pngbtn noprint" data-png="${esc(file||title)}" title="Save chart as PNG">⤓ PNG</button></div>${svg}</div>`}
+async function svgToPng(svg,name){const xml=new XMLSerializer().serializeToString(svg);const vb=svg.viewBox.baseVal;const sc=2.5;
+ const img=new Image();img.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(xml);await img.decode();
+ const c=document.createElement("canvas");c.width=vb.width*sc;c.height=vb.height*sc;const g=c.getContext("2d");g.fillStyle="#fff";g.fillRect(0,0,c.width,c.height);g.drawImage(img,0,0,c.width,c.height);
+ const blob=await new Promise(r=>c.toBlob(r,"image/png"));await saveOut(name.replace(/[^\w\-]+/g,"_")+".png",blob)}
+function heatColor(v,lo,hi,good){if(v==null)return"#f4f6f6";let t=(v-lo)/((hi-lo)||1);t=Math.max(0,Math.min(1,t));if(good==="up")t=1-t;
+ const a=[46,125,79],b=[244,214,128],c=[178,59,59];const mix=(p,q,u)=>p.map((x,i)=>Math.round(x+(q[i]-x)*u));const col=t<.5?mix(a,b,t*2):mix(b,c,(t-.5)*2);return`rgba(${col.join(",")},.28)`}
+
+/* ============ Navigation ============ */
+const PAGES=[
+ ["Start",[["guide","User guide"]]],
+ ["Analyse",[["overview","Overview"],["dash","Survey dashboard"],["trends","Trends"],["wards","Ward analysis"],["drugs","Antimicrobial use"],["stats","Statistics"]]],
+ ["Data",[["surveys","Surveys"],["entry","Data entry"],["quality","Data quality"]]],
+ ["Output",[["report","Trend report"],["folder","Data folder"],["settings","Settings"]]]];
+function navHTML(){return PAGES.map(([g,items])=>`<div class="navgrp">${g}</div>`+items.map(([k,l])=>`<a data-page="${k}" class="${UI.page===k?"on":""}">${l}</a>`).join("")).join("")}
+function go(p){UI.page=p;render();window.scrollTo(0,0)}
+function render(){$("#nav").innerHTML=navHTML();const t=PAGES.flatMap(g=>g[1]).find(x=>x[0]===UI.page);$("#ptitle").textContent=t?t[1]:"";
+ if(UI.sid&&!getS(UI.sid))UI.sid=null;if(!UI.sid&&DB.surveys.length)UI.sid=sorted().at(-1).id;
+ const fn={guide:vGuide,overview:vOverview,dash:vDash,trends:vTrends,wards:vWards,drugs:vDrugs,stats:vStats,surveys:vSurveys,entry:vEntry,quality:vQuality,report:vReport,folder:vFolder,settings:vSettings}[UI.page];
+ $("#view").innerHTML=fn();bindView()}
+function noData(){return`<div class="empty"><h3>No survey data yet</h3><p>Open your data folder (any PPS CSV files inside are imported automatically) or click <b>Import CSV</b>.</p>
+ <div class="row" style="justify-content:center"><button class="btn" data-act="folder">Open data folder</button><button class="btn ghost" data-act="import">Import CSV</button></div></div>`}
+function surveySelect(id="selSurvey"){return`<select class="sel" id="${id}">${sorted().map(s=>`<option value="${esc(s.id)}" ${s.id===UI.sid?"selected":""}>${esc(s.id)} · ${fmtDate(s.date)}</option>`).join("")}</select>`}
+
+/* ============ Views ============ */
+function deltaHTML(k,a,b){if(a==null||b==null)return"";const m=IND[k],d=b-a;if(Math.abs(d)<1e-9)return`<span class="flat">no change</span>`;
+ const good=(m.good==="up")===(d>0);const txt=m.pct?`${d>0?"▲":"▼"} ${Math.abs(d*100).toFixed(1)} pts`:`${d>0?"▲":"▼"} ${Math.abs(d).toFixed(m.dp??1)}`;return`<span class="${good?"up":"down"}">${txt}</span>`}
+function vOverview(){if(!DB.surveys.length)return noData();const S=sorted(),last=S.at(-1),prev=S.at(-2),L=calc(last),P=prev?calc(prev):null;
+ const labels=S.map(s=>monYr(s.date)),C=S.map(calc);
+ const kp=["prev","access","watch","parenteral","reason","guide","cult","stop","spLong","perPt"];
+ let h=`<div class="note section">Latest survey <b>${esc(last.id)}</b> (${fmtDate(last.date)}) – ${L.N} inpatients, ${L.t} on antimicrobials, ${L.rx} prescriptions.${prev?` Compared with ${esc(prev.id)} (${fmtDate(prev.date)}).`:""} ${S.length} survey${S.length>1?"s":""} on file spanning ${fmtDate(S[0].date)} – ${fmtDate(last.date)}.</div>`;
+ h+=`<div class="kpis">`+kp.map(k=>`<div class="kpi"><div class="l">${IND[k].label}</div><div class="v">${fmtInd(k,L[k].v)}</div><div class="d">${P?deltaHTML(k,P[k].v,L[k].v):'<span class="muted">first survey</span>'}</div></div>`).join("")+`</div>`;
+ if(S.length>1){h+=`<div class="grid g2">`+["prev","access","cult","spLong"].map(k=>{const t=trendTest(k);return chartCard(IND[k].label,`${IND[k].desc}${t?` · trend ${pTxt(t.p)}`:""}`,lineChart({labels,series:[{name:IND[k].label,values:C.map(c=>c[k].v),color:PAL[0]}],pct:1,target:IND[k].target,tlabel:IND[k].tlabel,area:1}),"trend_"+k)}).join("")+`</div>`;
+  h+=`<h2>Key messages</h2><div class="card">${narrative().map(x=>`<p>• ${x}</p>`).join("")}</div>`}
+ return h}
+function vDash(){if(!DB.surveys.length)return noData();const s=getS(UI.sid),c=calc(s);
+ const kp=["prev","access","watch","reserve","parenteral","reason","guide","cult","stop","spLong","combo","perPt","ddd100"];
+ let h=`<div class="row section">Survey ${surveySelect()} <span class="muted">${esc(s.facility)} · ${fmtDate(s.date)} · source: ${esc(s.source||"manual entry")}</span></div>`;
+ h+=`<div class="kpis"><div class="kpi"><div class="l">Inpatients surveyed</div><div class="v">${c.N}</div><div class="d muted">${Object.keys(c.wards).length} wards</div></div><div class="kpi"><div class="l">Prescriptions</div><div class="v">${c.rx}</div><div class="d muted">${c.t} treated patients</div></div>`+
+  kp.map(k=>{const ci=c[k].d!=null?wilson(c[k].n,c[k].d):null;return`<div class="kpi"><div class="l">${IND[k].label}</div><div class="v">${fmtInd(k,c[k].v)}</div><div class="d muted">${c[k].d!=null?`${c[k].n}/${c[k].d} · 95% CI ${pct(ci[0],0)}–${pct(ci[1],0)}`:IND[k].desc}</div></div>`}).join("")+`</div>`;
+ const aw=["Access","Watch","Reserve","Not classified"].map(k=>({label:k,value:c.rx?(k==="Not classified"?c.nc.n:c[k.toLowerCase()].n)/c.rx:0,color:AWC[k]}));
+ const drugs=Object.entries(c.drugs).sort((a,b)=>b[1]-a[1]).slice(0,12).map(([k,v])=>({label:k,value:v/c.rx,text:`${v} (${pct(v/c.rx)})`,color:AWC[FORMULARY[k]?.aware]||"#8a9699"}));
+ const wards=Object.entries(c.wards).map(([k,w])=>({label:k,value:w.N?w.t/w.N:0,text:`${pct(w.N?w.t/w.N:0)} (${w.t}/${w.N})`})).sort((a,b)=>b.value-a.value);
+ const ind=Object.entries(c.indic).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({label:INDN[k]||k,value:v/c.t,text:`${v} (${pct(v/c.t)})`,color:/^SP/.test(k)?"#c9772b":k==="HAI"?"#b23b3b":"#13737a"}));
+ const dx=Object.entries(c.dx).sort((a,b)=>b[1]-a[1]).slice(0,10).map(([k,v])=>({label:DX[k]||k,value:v/c.t,text:`${v} (${pct(v/c.t)})`,color:"#5b6ec7"}));
+ h+=`<div class="grid g2">${chartCard("WHO AWaRe distribution","Share of all antimicrobial prescriptions",barH(aw,{pct:1,max:1}),"aware_"+s.id)}
+ ${chartCard("Most prescribed antimicrobials","Coloured by AWaRe group",barH(drugs,{lw:180}),"drugs_"+s.id)}
+ ${chartCard("Antimicrobial prevalence by ward","Patients on ≥1 antimicrobial",barH(wards,{max:1,lw:180}),"wards_"+s.id)}
+ ${chartCard("Indication for treatment","Treated patients",barH(ind,{lw:200}),"indication_"+s.id)}
+ ${chartCard("Diagnosis (site of infection)","Top 10, treated patients",barH(dx,{lw:200}),"dx_"+s.id)}
+ ${chartCard("Route of administration","Share of prescriptions",barH([{label:"Parenteral",value:c.parenteral.v||0,color:"#c9772b"},{label:"Oral",value:1-(c.parenteral.v||0),color:"#13737a"}],{pct:1,max:1}),"route_"+s.id)}</div>`;
+ return h}
+function trendTest(k){const S=sorted();if(S.length<2||!IND[k].pct)return null;const C=S.map(calc);const ns=C.map(c=>c[k].n),ds=C.map(c=>c[k].d);if(ds.some(d=>!d))return null;return catt(ns,ds,yearsFrom(S.map(s=>s.date)))}
+function vTrends(){const S=sorted();if(S.length<2)return S.length?`<div class="warnbox">Trends need at least two surveys. Import or enter another survey.</div>`:noData();
+ const labels=S.map(s=>monYr(s.date)),C=S.map(calc);
+ let h=`<div class="note section">Each chart shows one indicator across all surveys. The <b>p-value</b> is the Cochran–Armitage test for trend (survey timing in years as score); p &lt; 0.05 means the change over time is unlikely to be chance.</div>`;
+ h+=`<div class="grid g2">`+INDS.map(m=>{const t=trendTest(m.k);const vals=C.map(c=>c[m.k].v);const dir=t?(t.z>0?"rising":"falling"):"";
+  const good=t&&t.p<.05&&((m.good==="up")===(t.z>0));const badge=t?`<span class="badge ${t.p<.05?(good?"sig":"sigbad"):""}">trend ${dir}, ${pTxt(t.p)}</span>`:"";
+  return chartCard(m.label,`${m.desc} ${badge}`,lineChart({labels,series:[{name:m.label,values:vals,color:PAL[0]}],pct:m.pct,target:m.target,tlabel:m.tlabel,area:1,dp:m.dp}),"trend_"+m.k)}).join("")+`</div>`;
+ const aw=stackCols(labels,["Access","Watch","Reserve","Not classified"].map(k=>({name:k,color:AWC[k],values:C.map(c=>k==="Not classified"?c.nc.n:c[k.toLowerCase()].n)})));
+ h+=`<h2>AWaRe mix over time</h2><div class="grid g2">${chartCard("AWaRe distribution by survey","100% of prescriptions per survey",aw,"aware_trend")}`;
+ h+=chartCard("Quality-of-prescribing indicators","Process indicators together",lineChart({labels,series:["reason","guide","cult","stop"].map((k,i)=>({name:IND[k].label,values:C.map(c=>c[k].v),color:PAL[i]})),pct:1,yMax:1,legend:1}),"quality_trend")+`</div>`;
+ h+=`<h2>Indicator table</h2><div class="tablewrap"><table><tr><th>Indicator</th>${S.map(s=>`<th class="n">${esc(monYr(s.date))}</th>`).join("")}<th class="n">Change</th><th class="n">Trend p</th></tr>`+
+  INDS.map(m=>{const v=C.map(c=>c[m.k].v),t=trendTest(m.k);return`<tr><td>${m.label}</td>${v.map(x=>`<td class="n">${fmtInd(m.k,x)}</td>`).join("")}<td class="n">${deltaHTML(m.k,v[0],v.at(-1))}</td><td class="n">${t?fp(t.p):"–"}</td></tr>`}).join("")+`</table></div>`;
+ return h}
+function vWards(){const S=sorted();if(!S.length)return noData();const C=S.map(calc);const wards=[...new Set(S.flatMap(s=>s.patients.map(p=>p.ward)))];
+ const tbl=(title,f,good,sub)=>{const all=[];const rows=wards.map(w=>{const v=C.map(c=>{const x=c.wards[w];return x?f(x):null});all.push(...v.filter(x=>x!=null));return[w,v]});const lo=Math.min(...all),hi=Math.max(...all);
+  return`<div class="card section"><h3>${title}</h3><div class="sub">${sub}</div><div class="tablewrap"><table class="heat"><tr><th>Ward</th>${S.map(s=>`<th>${esc(monYr(s.date))}</th>`).join("")}<th>Change</th></tr>${rows.map(([w,v])=>{const f0=v.find(x=>x!=null),fl=[...v].reverse().find(x=>x!=null);const d=fl-f0;
+   return`<tr><td>${esc(w)}</td>${v.map(x=>`<td style="background:${heatColor(x,lo,hi,good)}">${x==null?"–":pct(x,0)}</td>`).join("")}<td class="${(good==="up")===(d>0)?"up":"down"}">${f0==null||Math.abs(d)<.0005?"–":(d>0?"▲ ":"▼ ")+Math.abs(d*100).toFixed(0)+" pts"}</td></tr>`}).join("")}</table></div></div>`};
+ let h=`<div class="note section">Green = better, red = worse, relative to the other cells in the same table.</div>`;
+ h+=tbl("Antimicrobial prevalence by ward",x=>x.N?x.t/x.N:null,"down","% of inpatients on ≥1 antimicrobial");
+ h+=tbl("Access share by ward",x=>x.rx?x.acc/x.rx:null,"up","% of prescriptions from the Access group");
+ const s=getS(UI.sid),c=calc(s);
+ h+=`<h2>Ward detail · ${surveySelect()}</h2><div class="tablewrap"><table><tr><th>Ward</th><th>Type</th><th class="n">Inpatients</th><th class="n">On AM</th><th class="n">Prevalence</th><th class="n">Prescriptions</th><th class="n">Access %</th></tr>`+
+  Object.entries(c.wards).map(([w,x])=>`<tr><td>${esc(w)}</td><td>${esc(x.type)}</td><td class="n">${x.N}</td><td class="n">${x.t}</td><td class="n">${pct(x.N?x.t/x.N:null)}</td><td class="n">${x.rx}</td><td class="n">${pct(x.rx?x.acc/x.rx:null)}</td></tr>`).join("")+`</table></div>`;
+ return h}
+function vDrugs(){const S=sorted();if(!S.length)return noData();const C=S.map(calc),labels=S.map(s=>monYr(s.date));
+ const tot={};C.forEach(c=>Object.entries(c.drugs).forEach(([k,v])=>tot[k]=(tot[k]||0)+v));const names=Object.keys(tot).sort((a,b)=>tot[b]-tot[a]);
+ let h="";if(S.length>1){h+=`<div class="grid g2">${chartCard("Top 6 antimicrobials over time","Share of prescriptions per survey",lineChart({labels,series:names.slice(0,6).map((n,i)=>({name:n,values:C.map(c=>(c.drugs[n]||0)/c.rx),color:PAL[i]})),pct:1,legend:1,h:260}),"top_drugs_trend")}
+  ${chartCard("DDD per 100 inpatients","Total defined daily doses on survey day",lineChart({labels,series:[{name:"DDD/100",values:C.map(c=>c.ddd100.v),color:PAL[1]}],area:1}),"ddd_trend")}</div>`}
+ h+=`<h2>All antimicrobials – share of prescriptions</h2><div class="tablewrap"><table><tr><th>Antimicrobial</th><th>ATC</th><th>AWaRe</th>${S.map(s=>`<th class="n">${esc(monYr(s.date))}</th>`).join("")}<th class="n">Total</th></tr>`+
+  names.map(n=>{const f=FORMULARY[n]||{};const aw=f.aware||"Not classified";return`<tr><td>${esc(n)}</td><td class="mono">${esc(f.atc||"")}</td><td><span class="tag ${["Access","Watch","Reserve"].includes(aw)?aw:"nc"}">${aw}</span></td>${C.map(c=>`<td class="n">${c.drugs[n]?`${c.drugs[n]} <span class="muted">(${pct(c.drugs[n]/c.rx,0)})</span>`:"–"}</td>`).join("")}<td class="n"><b>${tot[n]}</b></td></tr>`}).join("")+`</table></div>`;
+ return h}
+function vStats(){const S=sorted();if(S.length<2)return S.length?`<div class="warnbox">Statistical comparison needs at least two surveys.</div>`:noData();
+ const C=S.map(calc),k=UI.stat,m=IND[k],yrs=yearsFrom(S.map(s=>s.date));
+ if(!UI.cmpA||!getS(UI.cmpA))UI.cmpA=S[0].id;if(!UI.cmpB||!getS(UI.cmpB))UI.cmpB=S.at(-1).id;
+ let h=`<div class="row section">Indicator <select class="sel" id="selStat">${INDS.filter(x=>x.pct).map(x=>`<option value="${x.k}" ${x.k===k?"selected":""}>${x.label}</option>`).join("")}</select></div>`;
+ const ns=C.map(c=>c[k].n),ds=C.map(c=>c[k].d);const chi=chiSq2xk(ns,ds),tr=catt(ns,ds,yrs),fl=twoProp(ns[0],ds[0],ns.at(-1),ds.at(-1)),reg=ols(yrs,C.map(c=>c[k].v));
+ h+=`<div class="grid g2"><div class="card"><h3>${m.label} by survey</h3><div class="sub">${m.desc}</div><table><tr><th>Survey</th><th class="n">n / N</th><th class="n">%</th><th class="n">95% CI (Wilson)</th></tr>${S.map((s,i)=>{const ci=wilson(ns[i],ds[i]);return`<tr><td>${esc(s.id)} <span class="muted">${monYr(s.date)}</span></td><td class="n">${ns[i]} / ${ds[i]}</td><td class="n">${pct(C[i][k].v)}</td><td class="n">${pct(ci[0])} – ${pct(ci[1])}</td></tr>`}).join("")}</table></div>
+ <div class="card"><h3>Test results</h3><table>
+ <tr><td>Cochran–Armitage test for trend</td><td class="n">Z = ${tr?tr.z.toFixed(2):"–"}</td><td class="n"><b>${pTxt(tr?.p)}</b></td></tr>
+ <tr><td>Chi-square test (any difference between surveys)</td><td class="n">χ² = ${chi?chi.chi.toFixed(2):"–"}, df ${chi?.df??"–"}</td><td class="n"><b>${pTxt(chi?.p)}</b></td></tr>
+ <tr><td>First vs latest survey (difference)</td><td class="n">${fl?`${(fl.diff*100).toFixed(1)} pts (95% CI ${(fl.lo*100).toFixed(1)} to ${(fl.hi*100).toFixed(1)})`:"–"}</td><td class="n"><b>${pTxt(fl?.p)}</b></td></tr>
+ <tr><td>Linear trend (change per year)</td><td class="n">${reg?`${(reg.slope*100).toFixed(1)} pts/year`:"–"}</td><td class="n">R² = ${reg?reg.r2.toFixed(2):"–"}</td></tr></table>
+ <p class="muted" style="font-size:12.5px">${statText(k,tr,fl,reg)}</p></div></div>`;
+ h+=`<h2>Compare two surveys (all indicators)</h2><div class="row section">${selFor("cmpA",UI.cmpA)} vs ${selFor("cmpB",UI.cmpB)}</div>`;
+ const A=calc(getS(UI.cmpA)),B=calc(getS(UI.cmpB));
+ h+=`<div class="tablewrap"><table><tr><th>Indicator</th><th class="n">${esc(UI.cmpA)}</th><th class="n">${esc(UI.cmpB)}</th><th class="n">Difference (95% CI)</th><th class="n">p</th><th>Interpretation</th></tr>`+
+  INDS.filter(x=>x.pct).map(x=>{const t=twoProp(A[x.k].n,A[x.k].d,B[x.k].n,B[x.k].d);const good=t&&((x.good==="up")===(t.diff>0));
+   return`<tr><td>${x.label}</td><td class="n">${pct(A[x.k].v)}</td><td class="n">${pct(B[x.k].v)}</td><td class="n">${t?`${(t.diff*100).toFixed(1)} (${(t.lo*100).toFixed(1)} to ${(t.hi*100).toFixed(1)})`:"–"}</td><td class="n">${fp(t?.p)}</td><td>${!t?"–":t.p<.05?`<span class="${good?"up":"down"}">${good?"Significant improvement":"Significant worsening"}</span>`:'<span class="muted">No significant change</span>'}</td></tr>`}).join("")+`</table></div>`;
+ return h}
+function selFor(id,val){return`<select class="sel" id="${id}">${sorted().map(s=>`<option ${s.id===val?"selected":""}>${esc(s.id)}</option>`).join("")}</select>`}
+function statText(k,tr,fl,reg){const m=IND[k];if(!tr)return"Not enough data for a test.";const dir=tr.z>0?"increased":"decreased";
+ const good=(m.good==="up")===(tr.z>0);
+ return tr.p<.05?`${m.label} ${dir} significantly across the surveys (p ${tr.p<.001?"< 0.001":"= "+tr.p.toFixed(3)}), on average ${Math.abs(reg.slope*100).toFixed(1)} percentage points per year. This is a${good?"n improvement":" worsening"} for stewardship.`
+  :`There is no statistically significant trend in ${m.label.toLowerCase()} (p = ${tr.p.toFixed(3)}). Observed differences may be due to chance.`}
+function vSurveys(){let h=`<div class="row section"><button class="btn" data-act="import">Import CSV files</button><button class="btn ghost" data-act="template">Download blank template</button><button class="btn ghost" data-act="newsurvey">New empty survey</button>
+ ${FS.state==="connected"?'<button class="btn ghost" data-act="rescan">Check folder for new files</button>':""}</div>`;
+ if(!DB.surveys.length)return h+noData();
+ h+=`<div class="tablewrap"><table><tr><th>Survey ID</th><th>Date</th><th>Facility</th><th class="n">Inpatients</th><th class="n">On AM</th><th class="n">Prevalence</th><th>Source</th><th></th></tr>`+
+  sorted().map(s=>{const c=calc(s);return`<tr><td><b>${esc(s.id)}</b></td><td>${fmtDate(s.date)}</td><td>${esc(s.facility)}</td><td class="n">${c.N}</td><td class="n">${c.t}</td><td class="n">${pct(c.prev.v)}</td><td class="muted">${esc(s.source||"manual")}</td>
+  <td style="white-space:nowrap"><button class="btn small ghost" data-open="${esc(s.id)}">Dashboard</button> <button class="btn small ghost" data-edit="${esc(s.id)}">Edit</button> <button class="btn small ghost" data-exp="${esc(s.id)}">CSV</button> <button class="btn small danger" data-del="${esc(s.id)}">Delete</button></td></tr>`}).join("")+`</table></div>`;
+ return h}
+function vEntry(){if(!DB.surveys.length)return`<div class="row section"><button class="btn" data-act="newsurvey">Create a survey</button></div>`+noData();
+ const s=getS(UI.sid),p=UI.editIdx!=null?s.patients[UI.editIdx]:null,v=(k,d="")=>esc(p?.[k]??d);
+ const wards=[...new Set(DB.surveys.flatMap(x=>x.patients.map(q=>q.ward)))];const opt=(arr,cur)=>arr.map(([k,l])=>`<option value="${k}" ${k===cur?"selected":""}>${l}</option>`).join("");
+ const yn=(id,cur,na)=>`<select id="${id}">${opt([["",""],["Y","Yes"],["N","No"],...(na?[["NA","Not assessable"]]:[])],cur)}</select>`;
+ let h=`<div class="row section">Survey ${surveySelect()} <span class="muted">${s.patients.length} patients</span><button class="btn small ghost" data-act="newsurvey">New survey</button></div>
+ <div class="card section"><h3>${p?"Edit patient "+esc(p.code):"Add patient"}</h3><div class="sub">One row per inpatient present on the ward at 08:00 on survey day. Antimicrobial fields only if on treatment.</div>
+ <datalist id="wardList">${wards.map(w=>`<option value="${esc(w)}">`).join("")}</datalist>
+ <div class="formgrid">
+ <label class="f">Ward<input id="e_ward" list="wardList" value="${v("ward")}"></label>
+ <label class="f">Ward type<select id="e_wardType">${opt([["MED","Medical"],["SUR","Surgical"],["OBG","Obs & Gyn"],["PED","Paediatric"],["NEO","Neonatal"],["ICU","Intensive care"],["MIX","Mixed"]],p?.wardType||"MED")}</select></label>
+ <label class="f">Patient code<input id="e_code" value="${v("code")}" placeholder="auto"></label>
+ <label class="f">Age (years)<input id="e_age" type="number" step="0.01" value="${v("age")}"></label>
+ <label class="f">Sex<select id="e_sex">${opt([["",""],["M","Male"],["F","Female"]],p?.sex)}</select></label>
+ <label class="f">Weight kg (children)<input id="e_weight" type="number" step="0.1" value="${v("weight")}"></label>
+ <label class="f">Admission date<input id="e_adm" type="date" value="${v("adm")}"></label>
+ <label class="f">On antimicrobial?${yn("e_on",p?.on||"N")}</label>
+ <label class="f">Diagnosis<select id="e_dx">${opt([["",""],...Object.entries(DX)],p?.dx)}</select></label>
+ <label class="f">Indication<select id="e_ind">${opt([["",""],...Object.entries(INDN)],p?.ind)}</select></label>
+ <label class="f">Reason in notes${yn("e_reason",p?.reason)}</label>
+ <label class="f">Guideline compliant${yn("e_guide",p?.guide,1)}</label>
+ <label class="f">Culture taken${yn("e_culture",p?.culture)}</label>
+ <label class="f">Stop/review date${yn("e_stop",p?.stop)}</label>
+ <label class="f">Surgery last 30 d${yn("e_surgery",p?.surgery)}</label>
+ <label class="f">Catheter / line${yn("e_line",p?.line)}</label></div>
+ <h3 style="margin-top:14px">Antimicrobials</h3>
+ ${[0,1,2,3].map(i=>{const a=p?.abs[i]||{};return`<div class="abgrid"><label class="f">Antimicrobial ${i+1}<input id="a${i}_name" list="drugList" value="${esc(a.name||"")}" data-ab="${i}"></label>
+  <label class="f">Route<select id="a${i}_route">${opt([["",""],["P","Parenteral"],["O","Oral"],["R","Rectal"],["I","Inhaled"]],a.route)}</select></label>
+  <label class="f">Dose (mg)<input id="a${i}_dose" type="number" value="${esc(a.dose??"")}"></label><label class="f">Doses/day<input id="a${i}_freq" type="number" value="${esc(a.freq??"")}"></label>
+  <label class="f">ATC<input id="a${i}_atc" value="${esc(a.atc||"")}" readonly></label><label class="f">AWaRe<input id="a${i}_aware" value="${esc(a.aware||"")}" readonly></label></div>`}).join("")}
+ <div class="row" style="margin-top:14px"><button class="btn" data-act="savepat">${p?"Save changes":"Add patient"}</button>${p?'<button class="btn ghost" data-act="cancelpat">Cancel</button>':""}<span class="muted">Saved automatically to the data folder.</span></div></div>`;
+ h+=`<div class="row section"><input class="inp" id="patSearch" placeholder="Search patient code, ward, drug…" style="min-width:280px"></div><div class="tablewrap" id="patTable">${patTable(s,"")}</div>`;
+ return h}
+function patTable(s,q){q=q.toLowerCase();const rows=s.patients.map((p,i)=>[p,i]).filter(([p])=>!q||[p.code,p.ward,p.dx,p.ind,...p.abs.map(a=>a.name)].join(" ").toLowerCase().includes(q));
+ return`<table><tr><th>Code</th><th>Ward</th><th class="n">Age</th><th>Sex</th><th>On AM</th><th>Indication</th><th>Diagnosis</th><th>Antimicrobials</th><th></th></tr>`+rows.slice(0,400).map(([p,i])=>`<tr><td class="mono">${esc(p.code)}</td><td>${esc(p.ward)}</td><td class="n">${p.age??""}</td><td>${esc(p.sex)}</td><td>${p.on}</td><td>${esc(p.ind)}</td><td>${esc(p.dx)}</td>
+ <td>${p.abs.map(a=>`<span class="tag ${["Access","Watch","Reserve"].includes(a.aware)?a.aware:"nc"}">${esc(a.name)}</span>`).join(" ")}</td><td style="white-space:nowrap"><button class="btn small ghost" data-pedit="${i}">Edit</button> <button class="btn small danger" data-pdel="${i}">✕</button></td></tr>`).join("")+`</table>${rows.length>400?`<p class="muted">Showing 400 of ${rows.length}. Use search to narrow.</p>`:""}`}
+function dqCheck(s){const out=[];const seen=new Set();
+ s.patients.forEach(p=>{const id=p.code||"(no code)";const add=(lvl,msg)=>out.push({s:s.id,id,lvl,msg});
+  if(!p.ward)add("Error","Ward missing");if(p.code&&seen.has(p.code))add("Error","Duplicate patient code");seen.add(p.code);
+  if(p.age==null||isNaN(p.age))add("Warning","Age missing");else if(p.age<0||p.age>110)add("Error",`Implausible age ${p.age}`);
+  if(p.adm&&s.date&&p.adm>s.date)add("Error","Admission date after survey date");
+  if(p.on==="Y"&&!p.abs.length)add("Error","Marked on antimicrobial but no agent recorded");
+  if(p.on==="N"&&p.abs.length)add("Error","Marked not on antimicrobial but agents recorded");
+  if(p.on==="Y"){if(!p.ind)add("Warning","Indication missing");if(!p.dx)add("Warning","Diagnosis missing");
+   if(p.ind==="HAI"&&p.adm&&(new Date(s.date)-new Date(p.adm))/864e5<2)add("Warning","HAI but admitted <48 h before survey");
+   if(/^SP/.test(p.ind)&&p.surgery==="N")add("Warning","Surgical prophylaxis without recorded surgery");
+   p.abs.forEach(a=>{if(!FORMULARY[a.name])add("Warning",`“${a.name}” not in formulary (AWaRe set to ${a.aware})`);if(!a.dose)add("Info",`${a.name}: dose missing`);if(!a.route)add("Warning",`${a.name}: route missing`)});
+   if(["PED","NEO"].includes(p.wardType)&&!p.weight)add("Info","Child without weight")}});
+ return out}
+function vQuality(){if(!DB.surveys.length)return noData();const list=(UI.dqSid==="all"?sorted():[getS(UI.dqSid)].filter(Boolean)).flatMap(dqCheck);
+ const by=l=>list.filter(x=>x.lvl===l).length;
+ let h=`<div class="row section">Survey <select class="sel" id="selDQ"><option value="all">All surveys</option>${sorted().map(s=>`<option ${s.id===UI.dqSid?"selected":""}>${esc(s.id)}</option>`).join("")}</select></div>
+ <div class="kpis"><div class="kpi"><div class="l">Errors</div><div class="v down">${by("Error")}</div></div><div class="kpi"><div class="l">Warnings</div><div class="v" style="color:var(--warn)">${by("Warning")}</div></div><div class="kpi"><div class="l">Info</div><div class="v flat">${by("Info")}</div></div></div>`;
+ if(!list.length)return h+`<div class="note">No problems found. 👍</div>`;
+ h+=`<div class="tablewrap"><table><tr><th>Survey</th><th>Patient</th><th>Level</th><th>Issue</th></tr>${list.slice(0,800).map(x=>`<tr><td>${esc(x.s)}</td><td class="mono">${esc(x.id)}</td><td class="${x.lvl==="Error"?"down":x.lvl==="Info"?"muted":""}">${x.lvl}</td><td>${esc(x.msg)}</td></tr>`).join("")}</table></div>`;
+ return h}
+function narrative(){const S=sorted();if(S.length<2)return[];const C=S.map(calc),f=S[0],l=S.at(-1),out=[];
+ const say=k=>{const m=IND[k],a=C[0][k].v,b=C.at(-1)[k].v,t=trendTest(k);if(a==null||b==null)return;const ch=b>a?"rose":"fell";
+  out.push(`<b>${m.label}</b> ${Math.abs(b-a)<.0005?"was unchanged":ch} from ${pct(a)} (${monYr(f.date)}) to ${pct(b)} (${monYr(l.date)})${t?`; trend ${t.p<.05?"statistically significant":"not statistically significant"} (p ${t.p<.001?"< 0.001":"= "+t.p.toFixed(3)})`:""}.`)};
+ ["prev","access","spLong","cult","guide","stop"].forEach(say);
+ const L=C.at(-1);out.push(L.access.v>=.6?`The latest Access share (${pct(L.access.v)}) meets the WHO target of at least 60%.`:`The latest Access share (${pct(L.access.v)}) is still below the WHO target of 60%.`);
+ const top=Object.entries(L.drugs).sort((a,b)=>b[1]-a[1])[0];if(top)out.push(`The most prescribed agent in the latest survey was <b>${esc(top[0])}</b> (${pct(top[1]/L.rx)} of prescriptions).`);
+ const hw=Object.entries(L.wards).filter(([,w])=>w.N>=5).sort((a,b)=>b[1].t/b[1].N-a[1].t/a[1].N)[0];if(hw)out.push(`Highest ward prevalence in the latest survey: ${esc(hw[0])} (${pct(hw[1].t/hw[1].N)}).`);
+ return out}
+function reportHTML(){const S=sorted(),C=S.map(calc),labels=S.map(s=>monYr(s.date)),fac=DB.meta.facility||S.at(-1).facility||"";
+ const charts=["prev","access","spLong","cult"].map(k=>`<div class="card" style="margin-bottom:12px"><h3>${IND[k].label}</h3>${lineChart({labels,series:[{name:IND[k].label,values:C.map(c=>c[k].v),color:"#13737a"}],pct:1,target:IND[k].target,tlabel:IND[k].tlabel,area:1})}</div>`).join("");
+ return`<div class="report" id="reportBody"><h1>Point Prevalence Survey of Antimicrobial Use – Trend Report</h1>
+ <p class="muted">${esc(fac)} · ${S.length} surveys, ${fmtDate(S[0].date)} – ${fmtDate(S.at(-1).date)} · Prepared by ${esc(DB.meta.author||"")} · ${fmtDate(today())}</p>
+ <h2>1. Summary</h2>${narrative().map(x=>`<p>• ${x}</p>`).join("")}
+ <h2>2. Surveys included</h2><table><tr><th>Survey</th><th>Date</th><th class="n">Inpatients</th><th class="n">On antimicrobials</th><th class="n">Prevalence</th><th class="n">Prescriptions</th></tr>${S.map((s,i)=>`<tr><td>${esc(s.id)}</td><td>${fmtDate(s.date)}</td><td class="n">${C[i].N}</td><td class="n">${C[i].t}</td><td class="n">${pct(C[i].prev.v)}</td><td class="n">${C[i].rx}</td></tr>`).join("")}</table>
+ <h2>3. Key indicators over time</h2><table><tr><th>Indicator</th>${labels.map(l=>`<th class="n">${l}</th>`).join("")}<th class="n">Trend p</th></tr>${INDS.map(m=>{const t=trendTest(m.k);return`<tr><td>${m.label}</td>${C.map(c=>`<td class="n">${fmtInd(m.k,c[m.k].v)}</td>`).join("")}<td class="n">${t?fp(t.p):"–"}</td></tr>`}).join("")}</table>
+ <h2>4. Trend charts</h2>${charts}
+ <div class="card" style="margin-bottom:12px"><h3>AWaRe distribution by survey</h3>${stackCols(labels,["Access","Watch","Reserve","Not classified"].map(k=>({name:k,color:AWC[k],values:C.map(c=>k==="Not classified"?c.nc.n:c[k.toLowerCase()].n)})))}</div>
+ <h2>5. Methods note</h2><p>Surveys followed the WHO point prevalence survey methodology: all inpatients present on the ward at 08:00 on the survey day were included. Antimicrobials were classified with the WHO AWaRe list and ATC/DDD index. Trends were tested with the Cochran–Armitage test for trend using time in years; 95% confidence intervals use the Wilson method. Results are aggregate; no patient identifiers are reported.</p></div>`}
+function vReport(){if(sorted().length<2)return DB.surveys.length?`<div class="warnbox">The trend report needs at least two surveys.</div>`:noData();
+ return`<div class="row section noprint"><button class="btn" data-act="print">Print / Save as PDF</button><button class="btn ghost" data-act="savereport">Save report (HTML) to folder</button><button class="btn ghost" data-act="savesummary">Save indicator table (CSV)</button></div>`+reportHTML()}
+function vFolder(){const st=FS.state;let h=`<div class="card section"><h3>Data folder</h3>`;
+ if(st==="unsupported")h+=`<div class="warnbox">This browser cannot save to a folder. Open this file in <b>Google Chrome</b> or <b>Microsoft Edge</b>. Until then data is kept inside this browser only – use “Download full backup” regularly.</div>`;
+ else if(st==="connected")h+=`<p><span class="dot ok" style="display:inline-block"></span> Connected to <b>${esc(FS.handle.name)}</b>. Every change is saved automatically ${FS.lastSave?"(last save "+FS.lastSave.toLocaleTimeString()+")":""}.</p>`;
+ else if(st==="needs-permission")h+=`<p>The folder <b>${esc(FS.handle.name)}</b> is remembered, but the browser needs your permission again after restarting.</p><button class="btn" data-act="reconnect">Reconnect “${esc(FS.handle.name)}”</button>`;
+ else h+=`<p>No folder chosen yet. Choose (or create) a folder such as <b>Documents › Odieman › PPS_Data</b>. The tool will keep its database, one CSV per survey, daily backups and your saved reports there – automatically.</p>`;
+ h+=`<div class="row" style="margin-top:10px">${st!=="unsupported"?`<button class="btn ${st==="connected"?"ghost":""}" data-act="folder">${st==="connected"?"Choose a different folder":"Open data folder"}</button>`:""}${st==="connected"?'<button class="btn ghost" data-act="rescan">Check folder for new CSV files</button><button class="btn ghost" data-act="savenow">Save now</button><button class="btn danger" data-act="forget">Disconnect</button>':""}</div></div>`;
+ h+=`<div class="grid g2"><div class="card"><h3>What is kept in the folder</h3><pre class="mono" style="white-space:pre-wrap;margin:0">${esc(readmeText())}</pre></div>
+ <div class="card"><h3>Backup &amp; restore</h3><p>A full backup is one JSON file containing every survey.</p><div class="row"><button class="btn ghost" data-act="backup">Download full backup</button><button class="btn ghost" data-act="restore">Restore from backup…</button></div>
+ <h3 style="margin-top:16px">Activity</h3><div class="mono" style="font-size:12px;max-height:240px;overflow:auto">${LOG.map(esc).join("<br>")||'<span class="muted">Nothing yet</span>'}</div></div></div>`;
+ return h}
+function vSettings(){return`<div class="grid g2"><div class="card"><h3>Settings</h3><div class="formgrid" style="grid-template-columns:1fr">
+ <label class="f">Facility name (used in reports)<input id="set_fac" value="${esc(DB.meta.facility||"")}" placeholder="${esc(sorted().at(-1)?.facility||"")}"></label>
+ <label class="f">Report prepared by<input id="set_author" value="${esc(DB.meta.author||"")}"></label>
+ <label class="f">Daily backups to keep<input id="set_keep" type="number" min="3" value="${esc(DB.meta.keepBackups||30)}"></label></div>
+ <div class="row" style="margin-top:10px"><button class="btn" data-act="savesettings">Save settings</button></div></div>
+ <div class="card"><h3>CSV format</h3><p>One file per survey, one row per inpatient. Required: <span class="mono">ward</span>, and either <span class="mono">on_antimicrobial</span> or antimicrobial names. Recommended columns:</p>
+ <p class="mono" style="font-size:11.5px;word-break:break-all">${HEAD.join(", ")}</p>
+ <p>Codes – <b>indication</b>: ${Object.keys(INDN).join(", ")} · <b>diagnosis</b>: ${Object.keys(DX).join(", ")} · <b>route</b>: P (parenteral) or O (oral) · Yes/No fields: Y, N (NA allowed for guideline).</p>
+ <p>ATC code and AWaRe group are filled in automatically from the built-in formulary when left blank. Common brand names (Augmentin, Septrin, Flagyl, X-pen…) are recognised.</p>
+ <button class="btn ghost" data-act="template">Download blank template</button></div></div>`}
+
+function vGuide(){
+ const open=(k,l)=>`<button class="btn small ghost" data-goto="${k}">${l||"Open"} →</button>`;
+ const toc=[["g1","1. Getting started"],["g2","2. Running a survey on the wards"],["g3","3. Data format and codes"],["g4","4. What each page shows"],["g5","5. Practise with the sample data"],["g6","6. Saving and moving computers"],["g7","7. Reading the statistics"],["g8","8. Troubleshooting"],["g9","9. Glossary"]];
+ const page=(k,n,what,use)=>`<tr><td><b>${n}</b></td><td>${what}</td><td>${use}</td><td>${open(k)}</td></tr>`;
+ return `<style>#gd td,#gd th{vertical-align:top;line-height:1.5}#gd td .btn{white-space:nowrap}#gd ol,#gd ul{line-height:1.7;padding-left:20px;margin:6px 0 0}#gd li{margin-bottom:4px}#gd .tablewrap{max-height:none}</style>
+ <div id="gd">
+ <div class="card section"><h3>Odieman PPS Pro — User Guide</h3><p>PPS Pro records and analyses WHO point prevalence surveys (PPS) of antimicrobial use: on one day, every inpatient on a ward is checked for antimicrobials, and the results are compared ward by ward and survey by survey. Repeating the survey every 6–12 months shows whether stewardship is working. Everything runs offline on this computer.</p>
+ <div class="row">${toc.map(([id,t])=>`<button class="btn small ghost" data-scroll="${id}">${t}</button>`).join("")}</div></div>
+
+ <div class="card section" id="g1"><h3>1. Getting started</h3><ol>
+  <li><b>Keep the tool and its data together:</b> <code>Odieman_PPS_Pro.html</code> next to a data folder such as <code>PPS_Data</code>.</li>
+  <li>Open the tool in <b>Google Chrome or Microsoft Edge</b> and click <b>Open data folder</b> (top right). Choose the data folder and allow “View and edit”. ${open("folder","Data folder")}</li>
+  <li>Any PPS CSV files in that folder are imported automatically, one survey per file. From then on everything saves into the folder by itself.</li>
+  <li>Start with <b>Overview</b> and <b>Trends</b>; open <b>Survey dashboard</b> for the detail of one survey. ${open("overview","Overview")} ${open("trends","Trends")}</li>
+  <li>For a new survey, either enter it on <b>Data entry</b> or drop its CSV file into the data folder and return to the tool. ${open("entry","Data entry")}</li>
+  <li>Check <b>Data quality</b> before reporting, then produce the <b>Trend report</b> (print to PDF or save as HTML). ${open("report","Trend report")}</li></ol></div>
+
+ <div class="card section" id="g2"><h3>2. Running a survey on the wards (WHO method in brief)</h3><ul>
+  <li><b>Who is included:</b> every patient admitted to the ward at 08:00 on the survey day. Patients admitted after 08:00 and day cases are not included. Each ward is surveyed once, on a single day.</li>
+  <li><b>One form per ward</b> (ward name and type, number of eligible patients) and <b>one form per patient</b> (age, sex, weight for children, admission date, whether on an antimicrobial).</li>
+  <li><b>For each patient on an antimicrobial,</b> record up to four agents with dose, doses per day and route; the diagnosis (site of infection), indication, whether the reason is written in the notes, whether the choice follows the guideline, whether a culture was taken and whether a stop/review date is documented.</li>
+  <li>Use the chart, treatment sheet and notes — not the patient's memory. Record what is prescribed on the survey day.</li>
+  <li>Repeat at the same time of year where possible, with the same wards and the same method, so surveys can be compared.</li></ul></div>
+
+ <div class="card section" id="g3"><h3>3. Data format and codes</h3>
+  <p>One CSV file per survey, one row per inpatient. Required: <span class="mono">ward</span> and either <span class="mono">on_antimicrobial</span> or the antimicrobial names. ATC code and AWaRe group are filled in automatically when left blank; common brand names (Augmentin, Septrin, Flagyl, X-pen …) are recognised. ${open("settings","Settings (blank template)")}</p>
+  <div class="tablewrap"><table><tr><th>Field</th><th>Codes</th></tr>
+  <tr><td>indication</td><td>${Object.entries(INDN).map(([k,v])=>`<b>${k}</b> ${v}`).join(" · ")}</td></tr>
+  <tr><td>diagnosis</td><td>${Object.entries(DX).map(([k,v])=>`<b>${k}</b> ${v}`).join(" · ")}</td></tr>
+  <tr><td>route</td><td><b>P</b> parenteral (IV/IM) · <b>O</b> oral</td></tr>
+  <tr><td>Yes/No fields</td><td><b>Y</b> / <b>N</b>; guideline compliance also <b>NA</b> when it cannot be assessed (e.g. no local guideline for that indication)</td></tr>
+  <tr><td>ward_type</td><td>MED, SUR, OBG, PED, NEO, ICU, MIX</td></tr></table></div></div>
+
+ <div class="card section" id="g4"><h3>4. What each page shows</h3><div class="tablewrap"><table><tr><th>Page</th><th>What it shows</th><th>How to use it</th><th></th></tr>
+  ${page("overview","Overview","Headline indicators for the latest survey with the change since the previous one, four trend charts and key messages written from the data.","The one-screen summary for a meeting.")}
+  ${page("dash","Survey dashboard","One survey in detail: 15 indicators with 95% confidence intervals, AWaRe mix, top antimicrobials, prevalence by ward, indications, diagnoses, route.","Pick the survey at the top; save any chart as PNG.")}
+  ${page("trends","Trends","Every indicator across all surveys with a test for trend, the AWaRe mix over time and an indicator table.","Green badge = significant improvement, red = significant worsening.")}
+  ${page("wards","Ward analysis","Colour tables of prevalence and Access share for every ward in every survey, and ward detail for one survey.","Shows which wards improved and which need attention.")}
+  ${page("drugs","Antimicrobial use","The top six antimicrobials over time, DDD per 100 inpatients, and the share of every antimicrobial per survey.","Watch for one Watch agent (e.g. ceftriaxone) carrying most of the use.")}
+  ${page("stats","Statistics","For any indicator: n/N with Wilson 95% CI per survey, chi-square test, Cochran–Armitage trend test, first-vs-latest difference, change per year; plus a comparison of any two surveys on every indicator.","Use these figures in abstracts and reports.")}
+  ${page("surveys","Surveys","All surveys with patients, prevalence and source file; open, edit, export or delete each one.","Deleting keeps a copy in today's backup.")}
+  ${page("entry","Data entry","Add or edit patients one by one, with the antimicrobial list, ATC and AWaRe filled in for you.","Saved automatically to the data folder.")}
+  ${page("quality","Data quality","Errors and warnings: missing ward or age, duplicate codes, admission after survey date, HAI within 48 h, prophylaxis without surgery, missing doses or routes.","Fix errors before reporting.")}
+  ${page("report","Trend report","A complete report: summary, surveys included, indicator table with trend p-values, charts and a methods note.","Print / Save as PDF, or save the HTML into the data folder.")}
+  ${page("folder","Data folder","Connection status, what is kept in the folder, backup and restore, activity log.","Reconnect here after restarting the browser.")}
+  ${page("settings","Settings","Facility name, who prepared the report, number of daily backups, CSV format and blank template.","Set once.")}
+  </table></div></div>
+
+ <div class="card section" id="g5"><h3>5. Practise with the sample data</h3>
+  <p>The <b>PPS_Data</b> folder that comes with the tool holds five simulated surveys of the fictional “Demo Regional Referral Hospital” (March 2024, October 2024, May 2025, December 2025 and July 2026; about 250 inpatients each, nine wards). It is <b>not real patient data</b>. The same hospital and wards appear in the AMS Pro and VigiWard samples.</p>
+  <div class="note">Built to show a stewardship programme taking effect: prevalence falling (68% → 45%), Access share rising (42% → 70%, passing the WHO 60% target), more cultures, more stop/review dates and reasons documented, surgical prophylaxis beyond one day falling (82% → 30%) — while parenteral use barely changes, a realistic “next target”. Trends and Statistics show which changes are statistically significant.</div></div>
+
+ <div class="card section" id="g6"><h3>6. Saving and moving computers</h3><ul>
+  <li>With the data folder open, the database (<code>odieman_pps_data.json</code>), one CSV per survey (<code>surveys/</code>) and a daily backup (<code>backups/</code>) are written automatically; charts and reports you save go to <code>reports/</code>.</li>
+  <li>After restarting the browser, click the yellow <b>Reconnect</b> pill once.</li>
+  <li>To move computers, copy the HTML file and the data folder together, then open the folder from the tool.</li>
+  <li>Without Chrome/Edge, data is kept in the browser only — use <i>Download full backup</i> on the Data folder page regularly.</li></ul></div>
+
+ <div class="card section" id="g7"><h3>7. Reading the statistics</h3><ul>
+  <li><b>95% CI (Wilson):</b> the range the true value probably lies in. Overlapping intervals between two surveys mean the difference may be chance.</li>
+  <li><b>Cochran–Armitage test for trend:</b> tests whether a proportion rises or falls steadily across surveys (spacing by time in years). p &lt; 0.05 = unlikely to be chance.</li>
+  <li><b>Chi-square test:</b> whether the surveys differ at all, without assuming a direction.</li>
+  <li><b>First vs latest:</b> the difference in percentage points with its 95% CI.</li>
+  <li><b>Change per year:</b> a straight-line summary; with only a few surveys treat it as descriptive.</li>
+  <li>Indicators are proportions of different denominators: prevalence is per inpatient, AWaRe and route per prescription, quality indicators per treated patient, surgical prophylaxis per patient on prophylaxis.</li></ul></div>
+
+ <div class="card section" id="g8"><h3>8. Troubleshooting</h3><div class="tablewrap"><table><tr><th>What you see</th><th>What to do</th></tr>
+  <tr><td>“No 'ward' column found”</td><td>The CSV needs a header row with a <span class="mono">ward</span> column. Download the blank template from Settings.</td></tr>
+  <tr><td>A survey was not imported from the folder</td><td>A survey with the same survey_id already exists, or the file was deleted earlier (deleted files are not re-imported). Change the survey_id or import from Surveys.</td></tr>
+  <tr><td>Drug shows “Not classified”</td><td>The name was not recognised — use the generic name. Data quality lists these.</td></tr>
+  <tr><td>Pill says “Click to reconnect”</td><td>Normal after a browser restart — click it and allow access.</td></tr>
+  <tr><td>Folder button missing or red pill</td><td>Use Google Chrome or Microsoft Edge.</td></tr></table></div></div>
+
+ <div class="card section" id="g9"><h3>9. Glossary</h3><div class="tablewrap"><table>
+  <tr><td><b>PPS</b></td><td>Point prevalence survey — a snapshot of everyone on the ward on one day.</td></tr>
+  <tr><td><b>Prevalence of antimicrobial use</b></td><td>Inpatients on at least one antimicrobial ÷ all inpatients surveyed.</td></tr>
+  <tr><td><b>AWaRe</b></td><td>WHO Access / Watch / Reserve classification; WHO target: at least 60% of use from Access.</td></tr>
+  <tr><td><b>CAI / HAI</b></td><td>Community- / hospital-acquired infection (HAI: symptoms starting 48 h or more after admission).</td></tr>
+  <tr><td><b>SP1 / SP2 / SP3</b></td><td>Surgical prophylaxis: single dose / one day / more than one day.</td></tr>
+  <tr><td><b>DDD</b></td><td>WHO defined daily dose; here shown per 100 inpatients on the survey day.</td></tr>
+  <tr><td><b>ATC</b></td><td>WHO Anatomical Therapeutic Chemical code of a medicine.</td></tr></table></div></div>
+ </div>`}
+
+/* ============ Actions ============ */
+async function importFiles(files){let n=0;for(const f of files){try{const text=await f.text();
+  if(/\.json$/i.test(f.name)){const d=JSON.parse(text);const before=DB.surveys.length;mergeDB(d);n+=DB.surveys.length-before;DB.surveys.forEach(s=>dirty.add(s.id));continue}
+  for(const s of csvToSurveys(text,f.name)){const cur=getS(s.id);
+   if(cur){ /* same survey from another surveyor (e.g. different wards on the same day): merge, or replace */
+    const codes=new Set(cur.patients.map(p=>p.code).filter(Boolean));const dup=s.patients.filter(p=>p.code&&codes.has(p.code)).length;
+    if(confirm(`Survey ${s.id} already exists (${cur.patients.length} patients).\n\nOK = MERGE: add the ${s.patients.length} patients from ${f.name} — e.g. another surveyor's wards${dup?`\n   (${dup} patient code(s) appear in both files and will be listed on Data quality as duplicates)`:""}\nCancel = more options`)){
+     cur.patients=cur.patients.concat(s.patients);cur.source=[cur.source,f.name].filter(Boolean).join(" + ");dirty.add(cur.id);n++;UI.sid=cur.id;log(`Merged ${s.patients.length} patients from ${f.name} into ${cur.id}`);
+     if(FS.state==="connected")await FS.write(f.name,text).catch(()=>{});continue}
+    if(!confirm(`Replace survey ${s.id} entirely with the data in ${f.name}? (Cancel = skip this file)`))continue}
+   DB.surveys=DB.surveys.filter(x=>x.id!==s.id);DB.surveys.push(s);dirty.add(s.id);n++;UI.sid=s.id;log(`Imported ${s.id} from ${f.name} (${s.patients.length} patients)`);
+   if(FS.state==="connected")await FS.write(f.name,text).catch(()=>{})}}
+ catch(e){toast(`${f.name}: ${e.message}`)}}
+ if(n){touch();toast(`${n} survey(s) imported`+(FS.state==="connected"?" and saved to the data folder":""));if(UI.page==="overview"&&DB.surveys.length===n)UI.page="trends";render()}}
+function newSurvey(){const d=prompt("Survey date (YYYY-MM-DD)",today());if(!d)return;const nd=normDate(d);let id=prompt("Survey ID",`PPS-${nd.slice(0,7)}`);if(!id)return;id=id.trim();
+ if(getS(id))return toast("A survey with that ID already exists");DB.surveys.push({id,date:nd,facility:DB.meta.facility||sorted().at(-1)?.facility||"",source:"",imported:new Date().toISOString(),updated:Date.now(),patients:[]});
+ UI.sid=id;UI.page="entry";touch(id);render()}
+function readPatient(){const g=id=>document.getElementById(id).value.trim();const s=getS(UI.sid);
+ const abs=[0,1,2,3].map(i=>{const n=drugName(g(`a${i}_name`));if(!n)return null;const f=FORMULARY[n]||{};return{name:n,atc:f.atc||"",aware:f.aware||"Not classified",route:g(`a${i}_route`)||f.route||"",dose:parseFloat(g(`a${i}_dose`))||null,freq:parseFloat(g(`a${i}_freq`))||null}}).filter(Boolean);
+ let on=g("e_on")||"N";if(abs.length)on="Y";
+ const ward=g("e_ward");if(!ward){toast("Ward is required");return null}
+ const code=g("e_code")||`${s.id.replace(/\D/g,"")}-${(ward.match(/\b\w/g)||[]).join("").toUpperCase().slice(0,3)}-${String(s.patients.length+1).padStart(3,"0")}`;
+ return{code,ward,wardCode:"",wardType:g("e_wardType"),age:g("e_age")===""?null:+g("e_age"),sex:g("e_sex"),weight:g("e_weight")===""?null:+g("e_weight"),adm:g("e_adm"),on,
+  dx:on==="Y"?g("e_dx"):"",ind:on==="Y"?g("e_ind"):"",reason:on==="Y"?g("e_reason"):"",guide:on==="Y"?g("e_guide"):"",culture:on==="Y"?g("e_culture"):"",stop:on==="Y"?g("e_stop"):"",surgery:g("e_surgery"),line:g("e_line"),abs}}
+function download(name,text,mime){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type:mime}));a.download=name;a.click()}
+function summaryCSV(){const S=sorted(),C=S.map(calc);const rows=[["indicator",...S.map(s=>s.id),"trend_p"]];INDS.forEach(m=>{const t=trendTest(m.k);rows.push([m.label,...C.map(c=>c[m.k].v==null?"":(m.pct?(c[m.k].v*100).toFixed(1):c[m.k].v.toFixed(m.dp??1))),t?fp(t.p):""])});return rows.map(r=>r.map(csvCell).join(",")).join("\r\n")}
+function reportStandalone(){const css=[...document.querySelectorAll("style")].map(s=>s.textContent).join("\n");
+ return`<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="author" content="${esc(DB.meta.author||"")}"><title>PPS Trend Report</title><style>${css}</style></head><body style="background:#fff;padding:24px">${reportHTML()}</body></html>`}
+
+function bindView(){const v=$("#view");
+ v.querySelectorAll("[data-goto]").forEach(b=>b.onclick=()=>go(b.dataset.goto));
+ v.querySelectorAll("[data-scroll]").forEach(b=>b.onclick=()=>document.getElementById(b.dataset.scroll).scrollIntoView({behavior:"smooth"}));
+ v.querySelectorAll("#selSurvey").forEach(el=>el.onchange=()=>{UI.sid=el.value;UI.editIdx=null;render()});
+ const ss=$("#selStat");if(ss)ss.onchange=()=>{UI.stat=ss.value;render()};
+ ["cmpA","cmpB"].forEach(k=>{const el=document.getElementById(k);if(el)el.onchange=()=>{UI[k]=el.value;render()}});
+ const dq=$("#selDQ");if(dq)dq.onchange=()=>{UI.dqSid=dq.value;render()};
+ const ps=$("#patSearch");if(ps)ps.oninput=()=>{$("#patTable").innerHTML=patTable(getS(UI.sid),ps.value);bindView()};
+ v.querySelectorAll("[data-ab]").forEach(el=>el.onchange=()=>{const i=el.dataset.ab,n=drugName(el.value),f=FORMULARY[n];el.value=n;
+  document.getElementById(`a${i}_atc`).value=f?.atc||"";document.getElementById(`a${i}_aware`).value=f?.aware||(n?"Not classified":"");
+  const r=document.getElementById(`a${i}_route`);if(f&&!r.value)r.value=f.route;if(n)document.getElementById("e_on").value="Y"});
+ v.querySelectorAll("[data-png]").forEach(b=>b.onclick=()=>svgToPng(b.closest(".card").querySelector("svg"),b.dataset.png));
+ v.querySelectorAll("[data-open]").forEach(b=>b.onclick=()=>{UI.sid=b.dataset.open;go("dash")});
+ v.querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>{UI.sid=b.dataset.edit;UI.editIdx=null;go("entry")});
+ v.querySelectorAll("[data-exp]").forEach(b=>b.onclick=()=>{const s=getS(b.dataset.exp);saveOut(`${s.id}.csv`,surveyToCSV(s),"text/csv")});
+ v.querySelectorAll("[data-del]").forEach(b=>b.onclick=async()=>{const s=getS(b.dataset.del);if(!confirm(`Delete survey ${s.id} (${s.patients.length} patients)? A copy stays in today's backup.`))return;
+  DB.surveys=DB.surveys.filter(x=>x.id!==s.id);if(s.source){DB.meta.ignored=[...new Set([...(DB.meta.ignored||[]),s.source])]}
+  if(FS.state==="connected"){await FS.remove(`surveys/${s.id}.csv`);DB.meta.ignored=[...new Set([...(DB.meta.ignored||[]),`surveys/${s.id}.csv`])]}log(`Deleted survey ${s.id}`);touch();render()});
+ v.querySelectorAll("[data-pedit]").forEach(b=>b.onclick=()=>{UI.editIdx=+b.dataset.pedit;render();window.scrollTo(0,0)});
+ v.querySelectorAll("[data-pdel]").forEach(b=>b.onclick=()=>{const s=getS(UI.sid),i=+b.dataset.pdel;if(!confirm(`Remove patient ${s.patients[i].code}?`))return;s.patients.splice(i,1);UI.editIdx=null;touch(s.id);render()});
+ v.querySelectorAll("[data-act]").forEach(b=>b.onclick=()=>act(b.dataset.act))}
+async function act(a){switch(a){
+ case"folder":return FS.connect();case"reconnect":return FS.reconnect();case"forget":if(confirm("Stop saving to this folder? Files already there are kept."))FS.forget();return;
+ case"import":return $("#fileIn").click();case"rescan":{const n=await scanFolder(false);if(!n)toast("No new survey files found in the folder");return}
+ case"savenow":DB.surveys.forEach(s=>dirty.add(s.id));await saveNow();toast("Saved");render();return;
+ case"template":return download("PPS_template.csv",HEAD.join(",")+"\r\n","text/csv");
+ case"newsurvey":return newSurvey();
+ case"savepat":{const p=readPatient();if(!p)return;const s=getS(UI.sid);if(UI.editIdx!=null)s.patients[UI.editIdx]=p;else s.patients.push(p);toast(UI.editIdx!=null?"Patient updated":`Patient ${p.code} added`);UI.editIdx=null;touch(s.id);render();return}
+ case"cancelpat":UI.editIdx=null;render();return;
+ case"print":return window.print();
+ case"savereport":return saveOut(`PPS_trend_report_${today()}.html`,reportStandalone(),"text/html");
+ case"savesummary":return saveOut(`PPS_indicators_${today()}.csv`,summaryCSV(),"text/csv");
+ case"backup":return saveOut(`odieman_pps_backup_${today()}.json`,JSON.stringify(DB),"application/json");
+ case"restore":{const i=document.createElement("input");i.type="file";i.accept=".json";i.onchange=()=>importFiles(i.files);i.click();return}
+ case"savesettings":DB.meta.facility=$("#set_fac").value.trim();DB.meta.author=$("#set_author").value.trim();DB.meta.keepBackups=Math.max(3,+$("#set_keep").value||30);touch();toast("Settings saved");return}}
+
+/* ============ Start ============ */
+$("#btnImport").onclick=()=>$("#fileIn").click();
+$("#fileIn").onchange=e=>{importFiles([...e.target.files]);e.target.value=""};
+$("#btnFolder").onclick=()=>FS.state==="needs-permission"?FS.reconnect():FS.connect();
+$("#folderPill").onclick=()=>FS.state==="needs-permission"?FS.reconnect():go("folder");
+$("#nav").onclick=e=>{const a=e.target.closest("[data-page]");if(a){UI.editIdx=null;go(a.dataset.page)}};
+document.addEventListener("dragover",e=>{e.preventDefault();document.body.classList.add("drop")});
+document.addEventListener("dragleave",e=>{if(!e.relatedTarget)document.body.classList.remove("drop")});
+document.addEventListener("drop",e=>{e.preventDefault();document.body.classList.remove("drop");importFiles([...e.dataTransfer.files])});
+let lastScan=0;window.addEventListener("focus",()=>{if(FS.state==="connected"&&Date.now()-lastScan>4000){lastScan=Date.now();scanFolder(false)}});
+document.getElementById("drugList").innerHTML=Object.keys(FORMULARY).map(n=>`<option value="${n}">`).join("");
+async function runDemo(){
+ const bar=document.createElement("div");bar.className="warnbox noprint";bar.style.cssText="margin:12px 0 0";
+ bar.innerHTML='<b>Live demo.</b> Five simulated surveys of a fictional hospital (2024–2026) are loaded in your browser. Nothing you do here is saved or sent anywhere. <a href="Odieman_PPS_Pro.html" download="Odieman_PPS_Pro.html">Download PPS Pro</a> to use it with your own data.';
+ $("main").insertBefore(bar,$("#view"));pill();
+ try{const base="../samples/pps/";const list=await (await fetch(base+"manifest.json")).json();
+  for(const n of list){const t=await (await fetch(base+n)).text();csvToSurveys(t,n).forEach(x=>{x.source=n;DB.surveys.push(x)})}
+  DB.meta.facility="Demo Regional Referral Hospital";UI.page="overview";UI.sid=sorted().at(-1).id;render();toast(DB.surveys.length+" sample surveys loaded")}
+ catch(e){$("#view").innerHTML=`<div class="warnbox">The sample data could not be loaded (${esc(e.message)}). The live demo works when opened from the website; offline, open the PPS_Data folder that comes with the download instead.</div>`}}
+if(DEMO){runDemo()}else (async()=>{try{const d=await IDB.get("db");if(d&&Array.isArray(d.surveys))DB=Object.assign(DB,d,{meta:Object.assign(DB.meta,d.meta||{})})}catch(e){}
+ await FS.restore();if(!DB.surveys.length&&FS.state!=="connected"&&FS.state!=="needs-permission")UI.page="guide";pill();render();if(FS.state==="connected")await onFolderReady()})();
+</script>
+</body>
+</html>
