@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thirty-Three Months — Odieman Health Tools</title>
+<meta name="author" content="Odindo Emmanuel Thomas">
+<meta name="description" content="A worked example: 33 months of a simulated hospital's antibiotic use, read by AMS Pro, PPS Pro and VigiWard.">
+<link rel="stylesheet" href="style.css">
+<style>
+:root{--s1:#2F5BA8;--s2:#B45309;--alert:#B42318;--grid:#E9E6DD;--axis:#C9C4B8;--muted:#6B6C64;}
+.story h1{max-width:20ch;}
+.honest{background:#fff;border-left:4px solid var(--ochre);padding:18px 22px;font-family:"Segoe UI",sans-serif;font-size:15px;color:var(--ink-soft);margin:6px 0 34px;max-width:70ch;}
+.honest b{color:var(--ink);}
+.toc{font-family:"Segoe UI",sans-serif;font-size:14.5px;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:4px 26px;margin:0;padding:0;list-style:none;counter-reset:ch;}
+.toc li{counter-increment:ch;border-top:1px solid var(--paper-line);padding:9px 0;}
+.toc li::before{content:counter(ch);display:inline-block;width:22px;color:var(--ochre);font-weight:700;}
+.toc a{color:var(--ink);text-decoration:none;}
+.toc a:hover{color:var(--teal);text-decoration:underline;}
+.chap-no{font-family:"Segoe UI",sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ochre);margin:0 0 6px;}
+.claim{font-size:clamp(21px,2.6vw,26px);line-height:1.3;color:var(--navy-deep);margin:18px 0 22px;max-width:34ch;}
+.prose p{max-width:66ch;font-size:17px;margin:0 0 14px;}
+.prose p.small{font-size:14.5px;color:var(--ink-soft);font-family:"Segoe UI",sans-serif;}
+figure.chart{margin:0 0 22px;background:#fff;border:1px solid var(--paper-line);padding:16px 16px 10px;}
+figure.chart figcaption{font-family:"Segoe UI",sans-serif;font-size:14px;color:var(--ink);font-weight:600;margin:0 0 4px;}
+figure.chart .sub{font-family:"Segoe UI",sans-serif;font-size:13px;color:var(--muted);margin:0 0 8px;}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-family:"Segoe UI",sans-serif;font-size:13px;color:var(--ink-soft);margin:0 0 6px;}
+.legend span{display:inline-flex;align-items:center;gap:7px;}
+.legend i{display:inline-block;width:16px;height:2px;border-radius:1px;}
+.legend i.dot{width:9px;height:9px;border-radius:50%;}
+.plot{position:relative;width:100%;}
+.plot svg{display:block;width:100%;height:auto;overflow:visible;font-family:"Segoe UI",sans-serif;}
+.plot svg text{fill:var(--muted);font-size:12px;font-variant-numeric:tabular-nums;}
+.plot svg text.lab{fill:var(--ink);font-weight:600;font-variant-numeric:normal;}
+.plot svg .hit{fill:transparent;cursor:default;}
+.plot svg .hit:focus{outline:none;}
+.plot svg .hit:focus-visible{stroke:var(--navy-deep);stroke-width:1.5;}
+.tip{position:absolute;pointer-events:none;background:var(--navy-deep);color:#fff;font-family:"Segoe UI",sans-serif;font-size:13px;line-height:1.4;padding:7px 10px;border-radius:3px;white-space:nowrap;transform:translate(-50%,calc(-100% - 12px));opacity:0;transition:opacity .12s;z-index:5;}
+.tip b{font-weight:600;}
+.tip.on{opacity:1;}
+details.numbers{font-family:"Segoe UI",sans-serif;font-size:13.5px;margin:6px 0 2px;}
+details.numbers summary{cursor:pointer;color:var(--teal);font-weight:600;}
+details.numbers .tw{overflow-x:auto;}
+details.numbers table{border-collapse:collapse;margin:10px 0 4px;font-variant-numeric:tabular-nums;}
+details.numbers th,details.numbers td{padding:5px 12px 5px 0;border-bottom:1px solid var(--paper-line);text-align:right;white-space:nowrap;}
+details.numbers th:first-child,details.numbers td:first-child{text-align:left;}
+details.numbers th{color:var(--navy-deep);font-weight:600;}
+.check{font-family:"Segoe UI",sans-serif;font-size:14px;display:flex;flex-wrap:wrap;gap:8px 22px;margin:18px 0 0;padding:12px 0 0;border-top:1px dashed var(--paper-line);}
+.check b{color:var(--ink-soft);font-weight:600;}
+.check a{color:var(--teal);font-weight:600;text-decoration:none;}
+.check a:hover{text-decoration:underline;}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;border-top:1px solid var(--paper-line);border-bottom:1px solid var(--paper-line);margin:0 0 24px;}
+.tile{padding:16px 16px 16px 0;}
+.tile .v{font-family:"Segoe UI",sans-serif;font-size:26px;font-weight:600;color:var(--navy-deep);line-height:1.15;}
+.tile .v small{font-size:15px;font-weight:400;color:var(--ink-soft);}
+.tile .l{font-family:"Segoe UI",sans-serif;font-size:13.5px;color:var(--ink-soft);margin-top:4px;}
+table.abg{border-collapse:collapse;font-family:"Segoe UI",sans-serif;font-size:14.5px;margin:0 0 8px;font-variant-numeric:tabular-nums;width:100%;max-width:640px;}
+table.abg th{text-align:right;padding:9px 12px;border-bottom:2px solid var(--navy-deep);color:var(--navy-deep);font-size:13px;}
+table.abg th:first-child,table.abg td:first-child{text-align:left;}
+table.abg td{text-align:right;padding:10px 12px;border-bottom:1px solid var(--paper-line);color:var(--ink);}
+table.abg td small{color:var(--muted);font-size:12.5px;}
+table.abg td.few{color:var(--muted);}
+table.abg td.few::after{content:" *";color:var(--ochre);font-weight:700;}
+.foot-note{font-family:"Segoe UI",sans-serif;font-size:13px;color:var(--ink-soft);margin:0 0 20px;}
+.foot-note .star{color:var(--ochre);font-weight:700;}
+.aside{background:#F4F2EC;padding:14px 18px;font-family:"Segoe UI",sans-serif;font-size:14px;color:var(--ink-soft);margin:6px 0 16px;max-width:66ch;}
+.aside b{color:var(--ink);}
+.files{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:8px 0 26px;font-family:"Segoe UI",sans-serif;}
+.files div{background:#fff;border:1px solid var(--paper-line);padding:12px 14px;font-size:14px;color:var(--ink);}
+.files small{display:block;color:var(--ink-soft);font-size:12.5px;margin-top:2px;}
+@media (max-width:760px){
+  .prose p{font-size:16px;}
+  figure.chart{padding:12px 10px 8px;margin-left:-6px;margin-right:-6px;}
+  .tile{padding:12px 10px 12px 0;}
+  .tile .v{font-size:22px;}
+  .story .stats .stat{flex:1 1 40%;min-width:0;padding:16px 10px 16px 0;}
+  .story .stats .stat .n{font-size:24px;}
+  table.abg th,table.abg td{padding:9px 6px;}
+}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">Odieman Health Tools
+      <small>Field-built instruments for antimicrobial stewardship, PPS &amp; pharmacovigilance</small>
+    </a>
+    <nav class="links sans">
+      <a href="index.html#tools">Tools</a>
+      <a href="index.html#demo">Live demos</a>
+      <a href="story.html">The story</a>
+      <a href="methodology.html">Methodology</a>
+      <a href="index.html#download">Download</a>
+      <a href="index.html#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap story">
+  <p class="crumb"><a href="index.html">Home</a> / The story</p>
+
+  <section class="page-hero">
+    <span class="tag sans">A worked example &middot; about 10 minutes</span>
+    <h1>Thirty-three months in the life of a hospital&rsquo;s antibiotics</h1>
+    <p class="lede">Demo Regional Referral Hospital does not exist. Its admissions, dispensing records, laboratory results and ward surveys were simulated, and a stewardship programme that slowly gets better was written into them. What is real is everything below: every figure was produced by AMS Pro, PPS Pro and VigiWard reading those files, exactly as they would read yours.</p>
+    <div class="honest"><b>Read this first.</b> Because the improvement was written into the data, this page cannot show that stewardship works. It shows what the tools see when it does &mdash; and, twice, a number you should <i>not</i> believe. Each chapter ends with a link that opens the same figure in the live demo, so you can check it.</div>
+
+    <div class="stats" id="stats"></div>
+  </section>
+
+  <section>
+    <h2>Seven chapters</h2>
+    <ol class="toc">
+      <li><a href="#ch1">Less antibiotic, measured the standard way</a></li>
+      <li><a href="#ch2">From Watch to Access</a></li>
+      <li><a href="#ch3">Surgical prophylaxis: one dose, not five days</a></li>
+      <li><a href="#ch4">Injections that could be tablets</a></li>
+      <li><a href="#ch5">Evidence before prescribing</a></li>
+      <li><a href="#ch6">Resistance: the chapter where nothing happens</a></li>
+      <li><a href="#ch7">The month the ceftriaxone changed</a></li>
+    </ol>
+  </section>
+
+  <!-- 1 -->
+  <section id="ch1">
+    <p class="chap-no">Chapter 1</p>
+    <h2>Less antibiotic, measured the standard way</h2>
+    <p class="claim" id="c1-claim"></p>
+    <figure class="chart" id="f1">
+      <figcaption>Days of antibiotic therapy (DOT) per 1,000 patient-days, by quarter</figcaption>
+      <p class="sub">Source: pharmacy dispensing and admissions register, read by AMS Pro</p>
+      <div class="plot"></div>
+    </figure>
+    <div class="prose">
+      <p>A day of therapy is one patient receiving one antibiotic for one day. Dividing by patient-days lets a busy quarter be compared fairly with a quiet one. AMS Pro reads the days from the dosage text that GoTHoMIS already writes on every dispensing line (&ldquo;Duration: 5 /7&rdquo;), so nobody has to count anything by hand.</p>
+      <p id="c1-ddd"></p>
+      <p class="small">The last point, Q3 2026, covers July to September; the exports end on 30 September 2026.</p>
+    </div>
+    <p class="check"><b>Check it yourself</b><a href="tools/Odieman_AMS_Pro.html?demo=1&amp;view=consumption" target="_blank" rel="noopener">AMS Pro &rarr; Consumption</a><a href="tools/Odieman_AMS_Pro.html?demo=1&amp;view=spc" target="_blank" rel="noopener">AMS Pro &rarr; Run charts</a></p>
+  </section>
+
+  <!-- 2 -->
+  <section id="ch2">
+    <p class="chap-no">Chapter 2</p>
+    <h2>From Watch to Access</h2>
+    <p class="claim">In 2026 the hospital reached the WHO target of 60% Access for the first time, and two independent sources agree.</p>
+    <figure class="chart" id="f2">
+      <figcaption>Access antibiotics as a share of use (%)</figcaption>
+      <p class="sub">Blue: share of DDD in dispensing records (AMS Pro), by quarter. Ochre: share of prescriptions on survey day (PPS Pro).</p>
+      <div class="legend"><span><i style="background:var(--s1)"></i>Dispensing records</span><span><i class="dot" style="background:var(--s2)"></i>Point prevalence surveys</span><span><i style="background:var(--muted)"></i>WHO target, 60%</span></div>
+      <div class="plot"></div>
+    </figure>
+    <div class="prose">
+      <p>The WHO AWaRe classification asks that at least 60% of antibiotic use comes from the Access group: first-choice medicines such as amoxicillin, metronidazole and gentamicin. Watch antibiotics like ceftriaxone have a place, but a smaller one.</p>
+      <p>The blue line comes from dispensing records, every line classified and weighted by its defined daily doses. The ochre points come from something else entirely: five ward surveys, each a single day on which every inpatient&rsquo;s treatment chart was read. They measure in different ways, so they never match exactly. What matters is that they move together. When two measurements made in different ways tell the same story, an AMS committee can trust it.</p>
+      <p class="small" id="c2-p"></p>
+    </div>
+    <p class="check"><b>Check it yourself</b><a href="tools/Odieman_AMS_Pro.html?demo=1&amp;view=consumption" target="_blank" rel="noopener">AMS Pro &rarr; Consumption</a><a href="tools/Odieman_PPS_Pro.html?demo=1&amp;view=trends" target="_blank" rel="noopener">PPS Pro &rarr; Trends</a></p>
+  </section>
+
+  <!-- 3 -->
+  <section id="ch3">
+    <p class="chap-no">Chapter 3</p>
+    <h2>Surgical prophylaxis: one dose, not five days</h2>
+    <p class="claim" id="c3-claim"></p>
+    <figure class="chart" id="f3">
+      <figcaption>Operations with antibiotics continued beyond the first day (%)</figcaption>
+      <p class="sub">Blue: operations with antibiotics still dispensed from day 2 after surgery (AMS Pro), by quarter. Ochre: surgical prophylaxis longer than one day on survey day (PPS Pro).</p>
+      <div class="legend"><span><i style="background:var(--s1)"></i>Dispensing records</span><span><i class="dot" style="background:var(--s2)"></i>Point prevalence surveys</span></div>
+      <div class="plot"></div>
+    </figure>
+    <div class="prose">
+      <p>A single dose before the incision protects a surgical wound as well as a week of cover, and the extra days only add side-effects and resistance. AMS Pro joins the procedures report to the dispensing records and lists every patient still receiving antibiotics two days after an operation. PPS Pro asks the same question at the bedside on survey day.</p>
+      <p id="c3-ssi"></p>
+      <div class="aside"><b>This chapter found a bug.</b> While building it, an operation recorded in both the procedures report and the admissions register was being counted twice, so every review prompt appeared twice. AMS Pro now counts each operation once (fixed in October 2026). A story that is checked number by number keeps the tools honest too.</div>
+    </div>
+    <p class="check"><b>Check it yourself</b><a href="tools/Odieman_AMS_Pro.html?demo=1&amp;view=timeout" target="_blank" rel="noopener">AMS Pro &rarr; Antibiotic Time-out</a><a href="tools/Odieman_PPS_Pro.html?demo=1&amp;view=trends" target="_blank" rel="noopener">PPS Pro &rarr; Trends</a></p>
+  </section>
+
+  <!-- 4 -->
+  <section id="ch4">
+    <p class="chap-no">Chapter 4</p>
+    <h2>Injections that could be tablets</h2>
+    <p class="claim" id="c4-claim"></p>
+    <figure class="chart" id="f4">
+      <figcaption>Patients on antibiotics with the same injection on 3 or more days (%)</figcaption>
+      <p class="sub">Source: pharmacy dispensing, read by AMS Pro&rsquo;s Antibiotic Time-out rules, by quarter</p>
+      <div class="plot"></div>
+    </figure>
+    <div class="prose">
+      <p>Ward pharmacies issue injectables one day at a time, and GoTHoMIS records each day as its own line. AMS Pro strings those days together. Three days of the same injection is a prompt to ask a simple question on the ward round: can this patient now take tablets? Switching saves money and nursing time and removes a drip that can itself become infected.</p>
+      <p id="c4-step"></p>
+      <p class="small">A prompt is not an error. Dispensing records cannot see fever, vomiting, sepsis or meningitis, which is why the Time-out list asks for review rather than giving a verdict, and why this line will never reach zero.</p>
+    </div>
+    <p class="check"><b>Check it yourself</b><a href="tools/Odieman_AMS_Pro.html?demo=1&amp;view=timeout" target="_blank" rel="noopener">AMS Pro &rarr; Antibiotic Time-out</a></p>
+  </section>
+
+  <!-- 5 -->
+  <section id="ch5">
+    <p class="chap-no">Chapter 5</p>
+    <h2>Evidence before prescribing</h2>
+    <p class="claim" id="c5-claim"></p>
+    <figure class="chart" id="f5">
+      <figcaption>Patients on antibiotics with a culture taken (%), on survey day</figcaption>
+      <p class="sub">Source: five point prevalence surveys, read by PPS Pro</p>
+      <div class="plot"></div>
+    </figure>
+    <div class="tiles" id="tiles5"></div>
+    <div class="prose">
+      <p>Better prescribing is mostly better information. A culture result only changes treatment if a sample was taken before the first dose and the result reaches the clinician while it still matters. The surveys show the habits forming: a reason written in the notes, a date set to stop or review, a sample sent to the laboratory. The dispensing and laboratory exports show the same change from the other side, with more cultures sent and more results reported within the target time.</p>
+    </div>
+    <p class="check"><b>Check it yourself</b><a href="tools/Odieman_PPS_Pro.html?demo=1&amp;view=trends" target="_blank" rel="noopener">PPS Pro &rarr; Trends</a><a href="tools/Odieman_AMS_Pro.html?demo=1&amp;view=indicators" target="_blank" rel="noopener">AMS Pro &rarr; Indicators</a></p>
+  </section>
+
+  <!-- 6 -->
+  <section id="ch6">
+    <p class="chap-no">Chapter 6</p>
+    <h2>Resistance: the chapter where nothing happens</h2>
+    <p class="claim">Resistance did not clearly change in 33 months, and the tools say why you should not expect it to.</p>
+    <table class="abg" id="abg"></table>
+    <p class="foot-note">Percentage of isolates resistant to ceftriaxone, first isolate per patient per organism each year. <span class="star">*</span> Fewer than 30 isolates: CLSI M39 advises against reporting a percentage on its own, and AMS Pro marks these cells.</p>
+    <div class="prose">
+      <p id="c6-ecoli"></p>
+      <p>Resistance moves over years, not quarters, and a regional hospital grows few isolates. So the honest summary is not a trend but a description: in this hospital about half to two thirds of <i>E. coli</i> and <i>Klebsiella</i> resist ceftriaxone, which is exactly why ceftriaxone should not be the automatic first choice, while carbapenems still work against almost every <i>E. coli</i>. That is worth protecting, and it is the reason chapters 1 to 4 matter.</p>
+    </div>
+    <p class="check"><b>Check it yourself</b><a href="tools/Odieman_AMS_Pro.html?demo=1&amp;view=antibiogram" target="_blank" rel="noopener">AMS Pro &rarr; Antibiogram</a><a href="tools/Odieman_AMS_Pro.html?demo=1&amp;view=wrtrend" target="_blank" rel="noopener">AMS Pro &rarr; Resistance Trend</a></p>
+  </section>
+
+  <!-- 7 -->
+  <section id="ch7">
+    <p class="chap-no">Chapter 7</p>
+    <h2>The month the ceftriaxone changed</h2>
+    <p class="claim" id="c7-claim"></p>
+    <figure class="chart" id="f7">
+      <figcaption>Suspected allergic reactions per 1,000 patients given ceftriaxone, by month</figcaption>
+      <p class="sub">Source: pharmacy dispensing, read by VigiWard (rescue medicines given the same day as the antibiotic)</p>
+      <div class="legend"><span><i class="dot" style="background:var(--s1);border-radius:2px"></i>Month</span><span><i class="dot" style="background:var(--alert);border-radius:2px"></i>Spike alert</span><span><i style="background:var(--muted)"></i><span id="avg-leg">33-month average</span></span></div>
+      <div class="plot"></div>
+    </figure>
+    <div class="prose">
+      <p id="c7-a"></p>
+      <p>This alert was planted in the data: a simulated bad batch. In a real hospital the next steps would be the batch numbers and delivery dates for that month, quarantine of the remaining stock, and a report to TMDA.</p>
+      <div class="aside" id="c7-b"></div>
+    </div>
+    <p class="check"><b>Check it yourself</b><a href="tools/VigiWard.html?demo=1&amp;view=spike" target="_blank" rel="noopener">VigiWard &rarr; Spike alerts</a><a href="tools/VigiWard.html?demo=1&amp;view=pv" target="_blank" rel="noopener">VigiWard &rarr; Signals</a></p>
+  </section>
+
+  <section id="yours">
+    <h2>Your hospital already has these files</h2>
+    <p class="section-note">Everything above came from ordinary exports that a hospital information system such as GoTHoMIS already produces, plus ward surveys done on paper or a tablet. No server, no internet connection once the tools are downloaded, and no IT department.</p>
+    <div class="files">
+      <div>Pharmacy dispensing<small>item, quantity, date, dosage text, ward</small></div>
+      <div>Admissions register<small>admission and discharge dates, procedures</small></div>
+      <div>Laboratory results<small>with sample and report times</small></div>
+      <div>Culture &amp; sensitivity<small>organism and S / I / R results</small></div>
+      <div>Point prevalence survey<small>one day, every inpatient</small></div>
+    </div>
+    <div class="cta-row">
+      <a href="index.html#demo" class="btn primary sans">Open the live demos</a>
+      <a href="index.html#download" class="btn ghost sans">Download the tools</a>
+      <a href="methodology.html" class="btn ghost sans">Read the methodology</a>
+    </div>
+    <p class="foot-note" id="howmade"></p>
+  </section>
+</main>
+
+<footer class="wrap">
+  <div class="fline">
+    <span>&copy; 2026 Odieman Health Tools.</span>
+    <span>No patient data is collected by this website. All data on this page is simulated.</span>
+  </div>
+</footer>
+
+<script>
+const D={"dot":[["2024-02-15","Q1 2024",985],["2024-05-15","Q2 2024",948],["2024-08-15","Q3 2024",858],["2024-11-15","Q4 2024",847],["2025-02-15","Q1 2025",819],["2025-05-15","Q2 2025",745],["2025-08-15","Q3 2025",795],["2025-11-15","Q4 2025",687],["2026-02-15","Q1 2026",611],["2026-05-15","Q2 2026",540],["2026-08-15","Q3 2026",509]],"access":[["2024-02-15","Q1 2024",35.8],["2024-05-15","Q2 2024",39.6],["2024-08-15","Q3 2024",42.3],["2024-11-15","Q4 2024",38.4],["2025-02-15","Q1 2025",45.2],["2025-05-15","Q2 2025",44.0],["2025-08-15","Q3 2025",46.7],["2025-11-15","Q4 2025",48.7],["2026-02-15","Q1 2026",51.6],["2026-05-15","Q2 2026",60.8],["2026-08-15","Q3 2026",59.6]],"surg":[["2024-02-15","Q1 2024",79.7,98,123],["2024-05-15","Q2 2024",79.1,87,110],["2024-08-15","Q3 2024",64.8,70,108],["2024-11-15","Q4 2024",69.5,91,131],["2025-02-15","Q1 2025",62.2,97,156],["2025-05-15","Q2 2025",64.1,93,145],["2025-08-15","Q3 2025",53.3,72,135],["2025-11-15","Q4 2025",49.2,64,130],["2026-02-15","Q1 2026",48.0,60,125],["2026-05-15","Q2 2026",40.5,64,158],["2026-08-15","Q3 2026",36.7,44,120]],"iv":[["2024-02-15","Q1 2024",70.9,210,296],["2024-05-15","Q2 2024",68.7,213,310],["2024-08-15","Q3 2024",65.0,191,294],["2024-11-15","Q4 2024",62.2,186,299],["2025-02-15","Q1 2025",63.5,202,318],["2025-05-15","Q2 2025",56.8,180,317],["2025-08-15","Q3 2025",52.3,161,308],["2025-11-15","Q4 2025",51.2,148,289],["2026-02-15","Q1 2026",53.5,151,282],["2026-05-15","Q2 2026",45.5,141,310],["2026-08-15","Q3 2026",49.6,121,244]],"tat":[["2024-02-15","Q1 2024",58.2],["2024-05-15","Q2 2024",59.6],["2024-08-15","Q3 2024",64.3],["2024-11-15","Q4 2024",58.8],["2025-02-15","Q1 2025",66.5],["2025-05-15","Q2 2025",71.2],["2025-08-15","Q3 2025",72.9],["2025-11-15","Q4 2025",78.6],["2026-02-15","Q1 2026",81.3],["2026-05-15","Q2 2026",84.0],["2026-08-15","Q3 2026",82.4]],"cult":[["2024-02-15","Q1 2024",17.9],["2024-05-15","Q2 2024",16.1],["2024-08-15","Q3 2024",18.7],["2024-11-15","Q4 2024",22.1],["2025-02-15","Q1 2025",22.6],["2025-05-15","Q2 2025",26.8],["2025-08-15","Q3 2025",22.4],["2025-11-15","Q4 2025",25.3],["2026-02-15","Q1 2026",29.8],["2026-05-15","Q2 2026",26.5],["2026-08-15","Q3 2026",29.5]],"pps":{"Antimicrobial prevalence":{"pts":[["2024-03-19","Mar 2024",68.3],["2024-10-22","Oct 2024",63.6],["2025-05-13","May 2025",51.6],["2025-12-09","Dec 2025",48.2],["2026-07-21","Jul 2026",44.9]],"p":"<0.001"},"Access share":{"pts":[["2024-03-19","Mar 2024",42.3],["2024-10-22","Oct 2024",48.5],["2025-05-13","May 2025",54.8],["2025-12-09","Dec 2025",63.3],["2026-07-21","Jul 2026",69.8]],"p":"<0.001"},"Surgical prophylaxis >1 day":{"pts":[["2024-03-19","Mar 2024",82.1],["2024-10-22","Oct 2024",77.8],["2025-05-13","May 2025",62.9],["2025-12-09","Dec 2025",46.2],["2026-07-21","Jul 2026",30.0]],"p":"<0.001"},"Culture taken":{"pts":[["2024-03-19","Mar 2024",7.6],["2024-10-22","Oct 2024",13.7],["2025-05-13","May 2025",17.6],["2025-12-09","Dec 2025",32.8],["2026-07-21","Jul 2026",42.3]],"p":"<0.001"},"Reason in notes":{"pts":[["2024-03-19","Mar 2024",55.2],["2024-10-22","Oct 2024",71.4],["2025-05-13","May 2025",76.3],["2025-12-09","Dec 2025",83.2],["2026-07-21","Jul 2026",91.0]],"p":"<0.001"},"Stop/review date":{"pts":[["2024-03-19","Mar 2024",14.5],["2024-10-22","Oct 2024",30.4],["2025-05-13","May 2025",35.9],["2025-12-09","Dec 2025",45.4],["2026-07-21","Jul 2026",53.2]],"p":"<0.001"},"Guideline compliance":{"pts":[["2024-03-19","Mar 2024",44.0],["2024-10-22","Oct 2024",44.3],["2025-05-13","May 2025",53.7],["2025-12-09","Dec 2025",64.0],["2026-07-21","Jul 2026",65.1]],"p":"<0.001"}},"ppsN":[252,253,254,247,247],"cs":{"2024":[7,135],"2025":[6,177],"2026":[7,139]},"ab":{"Escherichia coli":{"2024":{"n":19,"r":12},"2025":{"n":32,"r":22},"2026":{"n":35,"r":17}},"Klebsiella pneumoniae":{"2024":{"n":26,"r":18},"2025":{"n":32,"r":19},"2026":{"n":25,"r":14}},"Staphylococcus aureus":{"2024":{"n":39,"r":11},"2025":{"n":47,"r":15},"2026":{"n":36,"r":17}}},"spike":{"base":5.59,"O":10,"N":1789,"pts":[["2024-01",0,64,0],["2024-02",0,79,0],["2024-03",0,77,0],["2024-04",0,71,0],["2024-05",0,83,0],["2024-06",0,60,0],["2024-07",0,68,0],["2024-08",0,54,0],["2024-09",1,61,16.4],["2024-10",1,65,15.4],["2024-11",1,74,13.5],["2024-12",0,63,0],["2025-01",0,67,0],["2025-02",1,54,18.5],["2025-03",0,53,0],["2025-04",0,60,0],["2025-05",1,67,14.9],["2025-06",0,50,0],["2025-07",0,57,0],["2025-08",4,48,83.3],["2025-09",0,57,0],["2025-10",0,39,0],["2025-11",0,50,0],["2025-12",0,37,0],["2026-01",0,32,0],["2026-02",0,36,0],["2026-03",0,41,0],["2026-04",0,45,0],["2026-05",0,34,0],["2026-06",0,37,0],["2026-07",0,42,0],["2026-08",1,36,27.8],["2026-09",0,28,0]]},"alerts":[{"ing":"ceftriaxone sodium powder for injection","rx":"Anaphylactic reaction","p":"2025-08","obs":4,"n":48,"lam":0.1563469888502777,"rr":25.58411920443516,"pv":2.1977037723885928e-05},{"ing":"enalapril maleate tablets","rx":"Cough (ACE-inhibitor associated)","p":"2025-10","obs":6,"n":101,"lam":1.5040871934604905,"rr":3.989130434782609,"pv":0.004513967471214242}],"vw":{"signals":1070,"tests":279,"byType":{"Cascade":721,"Stop/switch":150,"Drug interaction":15,"Lab-supported":88,"Premedication":75,"Cluster":21}},"totals":{"admissions":5176,"abxLines":16240,"isolates":447,"stepdown":800,"bedDays":29136,"dot1000":755.5,"pps":5,"ppsPatients":1253},"ddd":[1033,993,893,888,822,738,780,686,587,519,479]};
+const $=s=>document.querySelector(s);
+const fmt=(v,dp=0)=>v==null?"–":Number(v).toLocaleString("en-GB",{minimumFractionDigits:dp,maximumFractionDigits:dp});
+const first=a=>a[0],last=a=>a[a.length-1];
+const T=D.totals;
+
+/* ---------- words that depend on the numbers ---------- */
+$("#stats").innerHTML=[[fmt(T.admissions),"admissions, Jan 2024 – Sep 2026"],[fmt(T.bedDays),"patient-days"],[fmt(T.abxLines),"antibiotic dispensing lines"],[T.pps,"point prevalence surveys, "+fmt(T.ppsPatients)+" patients"],[fmt(D.vw.signals),"possible drug reactions screened"]]
+  .map(([v,l])=>`<div class="stat"><div class="n">${v}</div><div class="l">${l}</div></div>`).join("");
+const dot=D.dot;
+$("#c1-claim").textContent=`Days of antibiotic therapy fell from ${fmt(first(dot)[2])} to ${fmt(last(dot)[2])} per 1,000 patient-days.`;
+$("#c1-ddd").textContent=`The WHO measure, defined daily doses (DDD) per 1,000 patient-days, tells the same story: from ${fmt(D.ddd[0])} to ${fmt(D.ddd.at(-1))}. Across the whole period AMS Pro reports ${fmt(T.dot1000,1)} days of therapy per 1,000 patient-days; the chart simply splits that figure by quarter.`;
+const P=D.pps;
+$("#c2-p").textContent=`On survey day, Access rose from ${fmt(first(P["Access share"].pts)[2],1)}% to ${fmt(last(P["Access share"].pts)[2],1)}% of prescriptions across the five surveys (trend test p ${P["Access share"].p}).`;
+const S3=D.surg;
+$("#c3-claim").textContent=`Operations with antibiotics continued past the first day fell from ${fmt(first(S3)[2])}% to ${fmt(last(S3)[2])}%.`;
+const cs=Object.entries(D.cs).map(([y,[i,n]])=>`${i} of ${n} in ${y} (${fmt(i/n*100,1)}%)`);
+const csTot=Object.values(D.cs).reduce((a,[i])=>a+i,0);
+$("#c3-ssi").textContent=`Did wound infections rise as prophylaxis got shorter? The admissions register records confirmed infections after caesarean section: ${cs[0]}, ${cs[1]} and ${cs[2]}. No rise. With only ${csTot} infections in three years the numbers are too small to show a fall either, and this page will not pretend otherwise.`;
+const IV=D.iv;
+$("#c4-claim").textContent=`Among patients on antibiotics, those given the same injection for three or more days fell from ${fmt(first(IV)[2])}% to about half.`;
+$("#c4-step").textContent=`Across the 33 months the same rules also counted ${fmt(T.stepdown)} switches from an injection to the matching tablet: the good practice the list is there to encourage.`;
+const cu=P["Culture taken"].pts;
+$("#c5-claim").textContent=`On survey day, patients on antibiotics with a culture taken rose from ${fmt(first(cu)[2])}% to ${fmt(last(cu)[2])}%.`;
+const tile=(a,b,l)=>`<div class="tile"><div class="v">${a} <small>&rarr;</small> ${b}</div><div class="l">${l}</div></div>`;
+$("#tiles5").innerHTML=
+  tile(fmt(first(P["Reason in notes"].pts)[2])+"%",fmt(last(P["Reason in notes"].pts)[2])+"%","Reason for the antibiotic written in the notes (surveys)")+
+  tile(fmt(first(P["Stop/review date"].pts)[2])+"%",fmt(last(P["Stop/review date"].pts)[2])+"%","Stop or review date set (surveys)")+
+  tile(fmt(first(D.tat)[2])+"%",fmt(last(D.tat)[2])+"%","Laboratory results reported within target time (Q1 2024 → Q3 2026)")+
+  tile(fmt(first(D.cult)[2]),fmt(last(D.cult)[2]),"Cultures sent per 100 patients on antibiotics, per quarter");
+/* antibiogram table */
+const yrs=["2024","2025","2026"];
+$("#abg").innerHTML=`<thead><tr><th>Organism</th>${yrs.map(y=>`<th>${y==="2026"?"2026 (Jan–Sep)":y}</th>`).join("")}</tr></thead><tbody>`+
+  Object.entries(D.ab).map(([o,by])=>`<tr><td><i title="${o}">${o.replace(/^(\w)\w+ /,"$1. ")}</i></td>${yrs.map(y=>{const c=by[y];if(!c)return"<td>–</td>";const p=Math.round(c.r/c.n*100);return `<td class="${c.n<30?"few":""}">${p}% <small>(${c.r}/${c.n})</small></td>`}).join("")}</tr>`).join("")+"</tbody>";
+const ec=D.ab["Escherichia coli"];
+const ep=y=>Math.round(ec[y].r/ec[y].n*100);
+const wil=(r,n)=>{const z=1.96,p=r/n,dn=1+z*z/n,c=(p+z*z/(2*n))/dn,h=z*Math.sqrt(p*(1-p)/n+z*z/(4*n*n))/dn;return [Math.round((c-h)*100),Math.round((c+h)*100)]};
+const ci26=wil(ec["2026"].r,ec["2026"].n),ci25=wil(ec["2025"].r,ec["2025"].n);
+$("#c6-ecoli").innerHTML=`Look at <i>E. coli</i>: ${ep("2024")}%, then ${ep("2025")}%, then ${ep("2026")}%. It is tempting to call the last number a success. But it rests on ${ec["2026"].n} isolates, and its 95% confidence interval runs from about ${ci26[0]}% to ${ci26[1]}%, overlapping 2025&rsquo;s ${ci25[0]}% to ${ci25[1]}%. A handful of different patients could erase the &ldquo;fall&rdquo;. This is the first place on this page where a number should not be believed on its own; the cells marked with an asterisk are weaker still.`;
+/* chapter 7 */
+const A=D.alerts[0],B=D.alerts[1];
+const pv=p=>p<0.0001?"p < 0.0001":"p = "+Number(p.toPrecision(2));
+const mname=p=>new Date(p+"-15").toLocaleDateString("en-GB",{month:"long",year:"numeric"});
+$("#c7-claim").textContent=`In ${mname(A.p)}, ${A.obs} of ${A.n} patients given ceftriaxone were given adrenaline or hydrocortisone on the same day.`;
+$("#c7-a").textContent=`VigiWard looks for rescue medicines (adrenaline, hydrocortisone, chlorphenamine) dispensed on the same day as an antibiotic. One such patient is a story. ${["Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine"][A.obs]||A.obs} in one month, when the other 32 months predict ${fmt(A.lam,2)}, is a signal: ${fmt(A.rr,1)} times the expected rate (exact Poisson test, ${pv(A.pv)}, adjusted for the mix of wards).`;
+$("#c7-b").innerHTML=B?`<b>The second alert, which nobody planted.</b> VigiWard raised one more: cough remedies after enalapril in ${mname(B.p)} (${B.obs} of ${B.n} patients, ${pv(B.pv)}). It was not written into the data. VigiWard ran ${D.vw.tests} tests, and at p&nbsp;&lt;&nbsp;0.01 about ${fmt(D.vw.tests*0.01,0)} alerts are expected by chance alone; the tool says so on the same screen. This is the second number on this page not to over-read. A spike is a reason to look, not a finding.`:"";
+$("#howmade").innerHTML=`<b>How this page was made.</b> The figures were taken from the tools themselves (AMS Pro v4.6, PPS Pro 3.0 and VigiWard v3.6) reading the sample files that come with the download. Quarterly figures group dispensing by date and patient-days by admission date, which is why they add up to the tool&rsquo;s overall ${fmt(T.dot1000,1)} days of therapy per 1,000 patient-days. If a number here cannot be reproduced in the demo, that is a bug, and I would like to hear about it.`;
+
+/* ---------- charts: plain SVG, sized to the real width so text never shrinks ---------- */
+const X0=new Date("2024-01-01"),X1=new Date("2026-10-01");
+const NS="http://www.w3.org/2000/svg";
+const el=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;};
+function tipFor(plot){let t=plot.querySelector(".tip");if(!t){t=document.createElement("div");t.className="tip";t.setAttribute("role","status");plot.appendChild(t);}return t;}
+function showTip(plot,x,y,html){const t=tipFor(plot);t.innerHTML=html;const w=plot.clientWidth;t.style.left=Math.max(70,Math.min(w-70,x))+"px";t.style.top=y+"px";t.classList.add("on");}
+function hideTip(plot){const t=plot.querySelector(".tip");if(t)t.classList.remove("on");}
+
+/* time-series chart: series = [{name,color,kind:'line'|'dots',pts:[[iso,label,value,...]],tip(p)}] */
+function timeChart(fig,{series,yMax,yStep,unit="",target,endLabel=true}){
+  const plot=fig.querySelector(".plot");
+  const draw=()=>{
+    plot.querySelectorAll("svg").forEach(s=>s.remove());
+    const W=Math.max(300,plot.clientWidth),H=W<520?230:270;
+    const m={l:40,r:endLabel?48:14,t:14,b:28};
+    const iw=W-m.l-m.r,ih=H-m.t-m.b;
+    const xs=d=>m.l+(new Date(d)-X0)/(X1-X0)*iw, ys=v=>m.t+ih-v/yMax*ih;
+    const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,width:W,height:H,role:"img","aria-label":fig.querySelector("figcaption").textContent});
+    plot.insertBefore(svg,plot.firstChild);
+    for(let v=0;v<=yMax+1e-9;v+=yStep){el("line",{x1:m.l,x2:W-m.r,y1:ys(v),y2:ys(v),stroke:v===0?"var(--axis)":"var(--grid)","stroke-width":1},svg);
+      const t=el("text",{x:m.l-8,y:ys(v)+4,"text-anchor":"end"},svg);t.textContent=fmt(v)+unit;}
+    ["2024","2025","2026"].forEach(y=>{const x=xs(y+"-01-01");el("line",{x1:x,x2:x,y1:m.t+ih,y2:m.t+ih+5,stroke:"var(--axis)"},svg);const t=el("text",{x:x+4,y:H-8},svg);t.textContent=y;});
+    if(target){el("line",{x1:m.l,x2:W-m.r,y1:ys(target.v),y2:ys(target.v),stroke:"var(--muted)","stroke-width":1},svg);
+      const t=el("text",{x:m.l+6,y:ys(target.v)-6},svg);t.textContent=target.label;}
+    const pts=[];
+    series.forEach(s=>{
+      const P=s.pts.filter(p=>p[2]!=null).map(p=>({x:xs(p[0]),y:ys(p[2]),p,s}));
+      if(s.kind!=="dots"){el("path",{d:P.map((q,i)=>(i?"L":"M")+q.x.toFixed(1)+" "+q.y.toFixed(1)).join(" "),fill:"none",stroke:s.color,"stroke-width":2,"stroke-linejoin":"round","stroke-linecap":"round"},svg);}
+      P.forEach((q,i)=>{const big=s.kind==="dots"||s.kind==="both"||i===P.length-1||i===0;
+        if(big)el("circle",{cx:q.x,cy:q.y,r:s.kind==="dots"?5:4,fill:s.color,stroke:"#fff","stroke-width":2},svg);});
+      if(endLabel){const q=P[P.length-1];const t=el("text",{x:q.x+9,y:q.y+4,class:"lab"},svg);t.textContent=fmt(q.p[2])+unit;}
+      pts.push(...P);});
+    // hit layer: nearest point, plus keyboard focus per point
+    const g=el("g",{},svg);
+    pts.forEach(q=>{const c=el("circle",{cx:q.x,cy:q.y,r:13,class:"hit",tabindex:0,"aria-label":`${q.s.name}, ${q.p[1]}: ${fmt(q.p[2],1)}${unit}`},g);
+      c.addEventListener("focus",()=>showTip(plot,q.x,q.y,q.s.tip(q.p)));c.addEventListener("blur",()=>hideTip(plot));});
+    const ov=el("rect",{x:m.l,y:0,width:iw,height:H,fill:"transparent"},svg);svg.insertBefore(ov,g);
+    const cross=el("line",{y1:m.t,y2:m.t+ih,stroke:"var(--axis)","stroke-width":1,visibility:"hidden"},svg);svg.insertBefore(cross,g);
+    const move=e=>{const r=svg.getBoundingClientRect();const mx=(e.clientX-r.left)*W/r.width,my=(e.clientY-r.top)*H/r.height;
+      let best=null,bd=1e9;pts.forEach(q=>{const d=Math.abs(q.x-mx)*2+Math.abs(q.y-my)*0.6;if(d<bd){bd=d;best=q;}});
+      if(!best)return;cross.setAttribute("x1",best.x);cross.setAttribute("x2",best.x);cross.setAttribute("visibility","visible");
+      showTip(plot,best.x*r.width/W,best.y*r.height/H,best.s.tip(best.p));};
+    svg.addEventListener("pointermove",move);svg.addEventListener("pointerdown",move);
+    svg.addEventListener("pointerleave",()=>{cross.setAttribute("visibility","hidden");hideTip(plot);});
+  };
+  draw();let w=plot.clientWidth;new ResizeObserver(()=>{if(Math.abs(plot.clientWidth-w)>4){w=plot.clientWidth;draw();}}).observe(plot);
+}
+
+/* monthly column chart for chapter 7 */
+function columnChart(fig,{pts,base,alertP,yMax,yStep}){
+  const plot=fig.querySelector(".plot");
+  const draw=()=>{
+    plot.querySelectorAll("svg").forEach(s=>s.remove());
+    const W=Math.max(300,plot.clientWidth),H=W<520?230:270,m={l:40,r:14,t:24,b:28},iw=W-m.l-m.r,ih=H-m.t-m.b;
+    const n=pts.length,band=iw/n,bw=Math.min(24,Math.max(3,band-2));
+    const ys=v=>m.t+ih-Math.min(v,yMax)/yMax*ih;
+    const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,width:W,height:H,role:"img","aria-label":fig.querySelector("figcaption").textContent});plot.insertBefore(svg,plot.firstChild);
+    for(let v=0;v<=yMax+1e-9;v+=yStep){el("line",{x1:m.l,x2:W-m.r,y1:ys(v),y2:ys(v),stroke:v===0?"var(--axis)":"var(--grid)"},svg);const t=el("text",{x:m.l-8,y:ys(v)+4,"text-anchor":"end"},svg);t.textContent=fmt(v);}
+    pts.forEach((p,i)=>{if(p[0].endsWith("-01")){const x=m.l+i*band;el("line",{x1:x,x2:x,y1:m.t+ih,y2:m.t+ih+5,stroke:"var(--axis)"},svg);const t=el("text",{x:x+3,y:H-8},svg);t.textContent=p[0].slice(0,4);}});
+    el("line",{x1:m.l,x2:W-m.r,y1:ys(base),y2:ys(base),stroke:"var(--muted)"},svg);
+    pts.forEach((p,i)=>{const v=p[3],x=m.l+i*band+(band-bw)/2,y=ys(v),h=m.t+ih-y,isA=p[0]===alertP;
+      if(h>0){const r=Math.min(4,bw/2,h);el("path",{d:`M${x} ${m.t+ih}V${y+r}Q${x} ${y} ${x+r} ${y}H${x+bw-r}Q${x+bw} ${y} ${x+bw} ${y+r}V${m.t+ih}Z`,fill:isA?"var(--alert)":"var(--s1)"},svg);}
+      if(isA){const t=el("text",{x:x+bw+6,y:y+12,class:"lab"},svg);t.textContent=`${new Date(p[0]+"-15").toLocaleDateString("en-GB",{month:"short",year:"numeric"})}: ${p[1]} of ${p[2]} patients`;
+        if(x+bw+6+t.getComputedTextLength()>W-2){t.setAttribute("x",x-6);t.setAttribute("text-anchor","end");}}
+      const hit=el("rect",{x:m.l+i*band,y:m.t,width:band,height:ih,class:"hit",tabindex:0,"aria-label":`${p[0]}: ${p[1]} of ${p[2]} patients, ${fmt(v,1)} per 1,000`},svg);
+      const tipHtml=`<b>${new Date(p[0]+"-15").toLocaleDateString("en-GB",{month:"long",year:"numeric"})}</b><br>${p[1]} of ${p[2]} patients · ${fmt(v,1)} per 1,000${isA?"<br>Spike alert":""}`;
+      const sh=()=>{const r=svg.getBoundingClientRect();showTip(plot,(x+bw/2)*r.width/W,Math.min(y,m.t+ih-6)*r.height/H,tipHtml);};
+      hit.addEventListener("pointerenter",sh);hit.addEventListener("pointerdown",sh);hit.addEventListener("focus",sh);
+      hit.addEventListener("pointerleave",()=>hideTip(plot));hit.addEventListener("blur",()=>hideTip(plot));});
+  };
+  draw();let w=plot.clientWidth;new ResizeObserver(()=>{if(Math.abs(plot.clientWidth-w)>4){w=plot.clientWidth;draw();}}).observe(plot);
+}
+
+/* "show the numbers" table under each chart */
+function numbers(fig,head,rows){const d=document.createElement("details");d.className="numbers";
+  d.innerHTML=`<summary>Show the numbers</summary><div class="tw"><table><thead><tr>${head.map(h=>`<th>${h}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;fig.appendChild(d);}
+
+const surveyTip=(name,unit="%")=>p=>`<b>Survey, ${p[1]}</b><br>${name}: ${fmt(p[2],1)}${unit}`;
+const ppsS=(k)=>({name:"Point prevalence surveys",color:"var(--s2)",kind:"dots",pts:P[k].pts,tip:surveyTip(k==="Access share"?"Access share of prescriptions":k)});
+
+timeChart($("#f1"),{yMax:1000,yStep:250,series:[{name:"DOT per 1,000 patient-days",color:"var(--s1)",pts:dot,tip:p=>`<b>${p[1]}</b><br>${fmt(p[2])} days of therapy per 1,000 patient-days`}]});
+numbers($("#f1"),["Quarter","DOT per 1,000 patient-days"],dot.map(p=>[p[1],fmt(p[2])]));
+
+timeChart($("#f2"),{yMax:80,yStep:20,unit:"%",target:{v:60,label:"WHO target 60%"},series:[
+  {name:"Dispensing records",color:"var(--s1)",pts:D.access,tip:p=>`<b>${p[1]}</b><br>Access share of DDD: ${fmt(p[2],1)}%`},ppsS("Access share")]});
+numbers($("#f2"),["Period","Source","Access (%)"],[...D.access.map(p=>[p[1],"Dispensing (share of DDD)",fmt(p[2],1)]),...P["Access share"].pts.map(p=>["Survey "+p[1],"PPS (share of prescriptions)",fmt(p[2],1)])]);
+
+timeChart($("#f3"),{yMax:100,yStep:25,unit:"%",series:[
+  {name:"Dispensing records",color:"var(--s1)",pts:S3,tip:p=>`<b>${p[1]}</b><br>${p[3]} of ${p[4]} operations (${fmt(p[2],1)}%)`},ppsS("Surgical prophylaxis >1 day")]});
+numbers($("#f3"),["Period","Source","Value"],[...S3.map(p=>[p[1],"Operations, antibiotics from day 2",`${p[3]} of ${p[4]} (${fmt(p[2],1)}%)`]),...P["Surgical prophylaxis >1 day"].pts.map(p=>["Survey "+p[1],"PPS, prophylaxis > 1 day",fmt(p[2],1)+"%"])]);
+
+timeChart($("#f4"),{yMax:80,yStep:20,unit:"%",series:[{name:"Patients with an IV ≥3 days prompt",color:"var(--s1)",pts:IV,tip:p=>`<b>${p[1]}</b><br>${p[3]} of ${p[4]} patients on antibiotics (${fmt(p[2],1)}%)`}]});
+numbers($("#f4"),["Quarter","Patients with the prompt","Patients on antibiotics","%"],IV.map(p=>[p[1],fmt(p[3]),fmt(p[4]),fmt(p[2],1)]));
+
+/* chapter 5: five surveys, shown as dots joined by a line in the PPS colour */
+timeChart($("#f5"),{yMax:50,yStep:10,unit:"%",series:[{name:"Culture taken",color:"var(--s2)",kind:"both",pts:cu,tip:surveyTip("Culture taken")}]});
+numbers($("#f5"),["Survey","Patients surveyed","Culture taken (%)"],cu.map((p,i)=>[p[1],fmt(D.ppsN[i]),fmt(p[2],1)]));
+
+const SP=D.spike;$("#avg-leg").textContent=`33-month average, ${fmt(SP.base,1)} per 1,000`;
+columnChart($("#f7"),{pts:SP.pts,base:SP.base,alertP:A.p,yMax:100,yStep:25});
+numbers($("#f7"),["Month","Patients with a reaction signal","Patients given ceftriaxone","Per 1,000"],SP.pts.map(p=>[p[0],p[1],p[2],fmt(p[3],1)]));
+</script>
+</body>
+</html>
