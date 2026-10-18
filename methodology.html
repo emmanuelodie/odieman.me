@@ -144,7 +144,7 @@ empirical therapy review: an antibiotic in use is flagged when its overall %S ac
     <p class="section-note">Rules that turn dispensing data into a daily list of patients worth a two-minute review. Each line is a prompt, not a judgement — dispensing data carries no diagnosis, and every rule lists what it cannot see.</p>
     <table class="bench">
       <tr><th>Rule</th><th>Fires when (defaults, adjustable)</th></tr>
-      <tr><td>IV &ge; 3 days</td><td>The same injectable antibiotic dispensed on 3 or more consecutive days — an oral step-down candidate</td></tr>
+      <tr><td>IV &ge; 3 days</td><td>The same injectable antibiotic dispensed on 3 or more days in one run (a gap of up to 2 days does not break the run) — an oral step-down candidate</td></tr>
       <tr><td>Double anaerobic cover</td><td>Metronidazole with another anaerobe-active agent on shared days (H. pylori regimens excluded)</td></tr>
       <tr><td>Two beta-lactams</td><td>Two beta-lactams together on shared days (an IV&rarr;oral switch is counted as good practice instead)</td></tr>
       <tr><td>&ge; 3 antibiotics</td><td>Three or more different antibiotics on the same day</td></tr>
