@@ -133,7 +133,7 @@ table.abg td.few::after{content:" *";color:var(--ochre);font-weight:700;}
       <div class="plot"></div>
     </figure>
     <div class="prose">
-      <p>A day of therapy is one patient receiving one antibiotic for one day. Dividing by patient-days lets a busy quarter be compared fairly with a quiet one. AMS Pro reads the days from the dosage text that GoTHoMIS already writes on every dispensing line (&ldquo;Duration: 5 /7&rdquo;), so nobody has to count anything by hand.</p>
+      <p>A day of therapy is one patient receiving one antibiotic for one day. Dividing by patient-days lets a busy quarter be compared fairly with a quiet one. AMS Pro reads the days from the dosage text that Afya eHMS already writes on every dispensing line (&ldquo;Duration: 5 /7&rdquo;), so nobody has to count anything by hand.</p>
       <p id="c1-ddd"></p>
       <p class="small">The last point, Q3 2026, covers July to September; the exports end on 30 September 2026.</p>
     </div>
@@ -189,7 +189,7 @@ table.abg td.few::after{content:" *";color:var(--ochre);font-weight:700;}
       <div class="plot"></div>
     </figure>
     <div class="prose">
-      <p>Ward pharmacies issue injectables one day at a time, and GoTHoMIS records each day as its own line. AMS Pro strings those days together. Three days of the same injection is a prompt to ask a simple question on the ward round: can this patient now take tablets? Switching saves money and nursing time and removes a drip that can itself become infected.</p>
+      <p>Ward pharmacies issue injectables one day at a time, and Afya eHMS records each day as its own line. AMS Pro strings those days together. Three days of the same injection is a prompt to ask a simple question on the ward round: can this patient now take tablets? Switching saves money and nursing time and removes a drip that can itself become infected.</p>
       <p id="c4-step"></p>
       <p class="small">A prompt is not an error. Dispensing records cannot see fever, vomiting, sepsis or meningitis, which is why the Time-out list asks for review rather than giving a verdict, and why this line will never reach zero.</p>
     </div>
@@ -248,7 +248,7 @@ table.abg td.few::after{content:" *";color:var(--ochre);font-weight:700;}
 
   <section id="yours">
     <h2>Your hospital already has these files</h2>
-    <p class="section-note">Everything above came from ordinary exports that a hospital information system such as GoTHoMIS already produces, plus ward surveys done on paper or a tablet. No server, no internet connection once the tools are downloaded, and no IT department.</p>
+    <p class="section-note">Everything above came from ordinary exports that Afya eHMS, the hospital system these tools were built around, already produces, plus ward surveys done on paper or a tablet. No server, no internet connection once the tools are downloaded, and no IT department.</p>
     <div class="files">
       <div>Pharmacy dispensing<small>item, quantity, date, dosage text, ward</small></div>
       <div>Admissions register<small>admission and discharge dates, procedures</small></div>
@@ -258,7 +258,7 @@ table.abg td.few::after{content:" *";color:var(--ochre);font-weight:700;}
     </div>
     <div class="cta-row">
       <a href="index.html#demo" class="btn primary sans">Open the live demos</a>
-      <a href="index.html#download" class="btn ghost sans">Download the tools</a>
+      <a href="index.html#download" class="btn ghost sans">Get the tools</a>
       <a href="methodology.html" class="btn ghost sans">Read the methodology</a>
     </div>
     <p class="foot-note" id="howmade"></p>
@@ -268,7 +268,7 @@ table.abg td.few::after{content:" *";color:var(--ochre);font-weight:700;}
 <footer class="wrap">
   <div class="fline">
     <span>&copy; 2026 Odieman Health Tools.</span>
-    <span>No patient data is collected by this website. All data on this page is simulated.</span>
+    <span>No patient data is collected by this website; visits are counted anonymously, without cookies (GoatCounter). All data on this page is simulated.</span>
   </div>
 </footer>
 
@@ -423,5 +423,13 @@ const SP=D.spike;$("#avg-leg").textContent=`33-month average, ${fmt(SP.base,1)} 
 columnChart($("#f7"),{pts:SP.pts,base:SP.base,alertP:A.p,yMax:100,yStep:25});
 numbers($("#f7"),["Month","Patients with a reaction signal","Patients given ceftriaxone","Per 1,000"],SP.pts.map(p=>[p[0],p[1],p[2],fmt(p[3],1)]));
 </script>
+<script>
+/* Visit counting: GoatCounter, no cookies, no personal data. Events record only which demo or tool was opened. */
+window.odmEvent=function(path,title){try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:path,title:title||path,event:true});}catch(e){}};
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href');
+  var m=h.match(/(Odieman_AMS_Pro|Odieman_PPS_Pro|VigiWard)\.html\?demo=1/);if(m){odmEvent('demo-'+m[1].replace('Odieman_',''),'Live demo opened');return;}
+  if(/^https:\/\/wa\.me\//.test(h))odmEvent('contact-whatsapp','WhatsApp link');else if(/^mailto:/.test(h))odmEvent('contact-email','Email link');else if(/\.vcf$/.test(h))odmEvent('contact-vcard','Contact saved');else if(/\.pdf$/.test(h))odmEvent('abstract-pdf','Abstract downloaded');});
+</script>
+<script data-goatcounter="https://emmanuelodie94.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>

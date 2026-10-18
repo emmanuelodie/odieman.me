@@ -34,7 +34,7 @@
     <p class="lede">Pharmacovigilance from ordinary pharmacy, laboratory and mortality data — finding the suspected adverse reactions nobody reported, ranking the patients most worth a chart review, and turning confirmed cases into TMDA reports. Named for where the gap is biggest: pharmacovigilance in the wards.</p>
     <div class="cta-row">
       <a href="tools/VigiWard.html?demo=1" target="_blank" rel="noopener" class="btn primary sans">Open the live demo</a>
-      <a href="tools/VigiWard.html" download="VigiWard_v3_6.html" class="btn ghost sans">Download VigiWard</a>
+      <a href="index.html#download" class="btn ghost sans">Request VigiWard</a>
       
     </div>
   </section>
@@ -89,9 +89,17 @@
 <footer class="wrap">
   <div class="fline">
     <span>&copy; 2026 Odieman Health Tools.</span>
-    <span>No patient data is collected by this website.</span>
+    <span>No patient data is collected by this website; visits are counted anonymously, without cookies (GoatCounter).</span>
   </div>
 </footer>
 
+<script>
+/* Visit counting: GoatCounter, no cookies, no personal data. Events record only which demo or tool was opened. */
+window.odmEvent=function(path,title){try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:path,title:title||path,event:true});}catch(e){}};
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href');
+  var m=h.match(/(Odieman_AMS_Pro|Odieman_PPS_Pro|VigiWard)\.html\?demo=1/);if(m){odmEvent('demo-'+m[1].replace('Odieman_',''),'Live demo opened');return;}
+  if(/^https:\/\/wa\.me\//.test(h))odmEvent('contact-whatsapp','WhatsApp link');else if(/^mailto:/.test(h))odmEvent('contact-email','Email link');else if(/\.vcf$/.test(h))odmEvent('contact-vcard','Contact saved');else if(/\.pdf$/.test(h))odmEvent('abstract-pdf','Abstract downloaded');});
+</script>
+<script data-goatcounter="https://emmanuelodie94.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>
