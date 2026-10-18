@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VigiWard — Odieman Health Tools</title>
+<meta name="author" content="Odindo Emmanuel Thomas">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,12 +12,12 @@
 <header class="site">
   <div class="nav-inner">
     <a href="index.html" class="brand">Odieman Health Tools
-      <small>Field-built instruments for antimicrobial stewardship &amp; PPS</small>
+      <small>Field-built instruments for antimicrobial stewardship, PPS &amp; pharmacovigilance</small>
     </a>
     <nav class="links sans">
       <a href="index.html#tools">Tools</a>
       <a href="methodology.html">Methodology</a>
-      <a href="index.html#offline">Why offline-first</a>
+      <a href="index.html#demo">Live demos</a>
       <a href="index.html#download">Download</a>
       <a href="index.html#about">About</a>
     </nav>
@@ -27,12 +28,13 @@
   <p class="crumb"><a href="index.html">Home</a> / Tools / VigiWard</p>
 
   <section class="page-hero">
-    <span class="tag sans">v1.13 &middot; ~1.2 MB &middot; single file</span>
+    <span class="tag sans">v3.6 &middot; ~1.3 MB &middot; single file &middot; offline</span>
     <h1>VigiWard</h1>
-    <p class="lede">Pharmacovigilance signal detection from ordinary pharmacy and lab data — no dedicated ADR reporting system required to start finding patterns worth a chart review.</p>
+    <p class="lede">Pharmacovigilance from ordinary pharmacy, laboratory and mortality data — finding the suspected adverse reactions nobody reported, ranking the patients most worth a chart review, and turning confirmed cases into TMDA reports. Named for where the gap is biggest: pharmacovigilance in the wards.</p>
     <div class="cta-row">
-      <a href="index.html#download" class="btn primary sans">Download VigiWard</a>
-      <a href="methodology.html#ssa" class="btn ghost sans">See the SSA math</a>
+      <a href="tools/VigiWard.html?demo=1" target="_blank" rel="noopener" class="btn primary sans">Open the live demo</a>
+      <a href="tools/VigiWard.html" download="VigiWard_v3_6.html" class="btn ghost sans">Download VigiWard</a>
+      
     </div>
   </section>
 
@@ -52,6 +54,18 @@
       <p>Cross-references pharmacy dispensing against lab result timing and mortality data to surface concerning temporal associations — always labeled as hypothesis-generating, never as a causal finding, since that determination needs clinical adjudication VigiWard doesn't replace.</p>
     </div>
     <div class="module-row">
+      <h4>Watch-list &amp; ward huddle</h4>
+      <p>Instead of thousands of dispensing lines, the team starts from a ranked list of the patients most likely to have had a reaction — and a printable ward huddle sheet (English or Kiswahili) of who is on a high-risk medicine today and what to watch for.</p>
+    </div>
+    <div class="module-row">
+      <h4>Spike alerts</h4>
+      <p>A sudden rise in reactions to one medicine in one month, tested against the rest of the data with an exact Poisson test adjusted for department mix — the pattern a bad batch, a new supplier or a substandard product would leave.</p>
+    </div>
+    <div class="module-row">
+      <h4>NCD audit &amp; aDSM</h4>
+      <p>From the same dispensing feed: a cardiometabolic prescribing audit against WHO HEARTS, KDIGO and the national guideline, and active drug-safety monitoring for TB and HIV medicines — were the scheduled liver, blood-count and kidney tests actually done?</p>
+    </div>
+    <div class="module-row">
       <h4>TMDA-aligned draft reports</h4>
       <p>Flagged signals can be exported into a draft aligned with TMDA's yellow-form pharmacovigilance reporting structure — a head start for the person who still has to review the chart and make the clinical call, not a replacement for them.</p>
     </div>
@@ -62,7 +76,7 @@
     <p class="section-note">Every signal VigiWard surfaces carries the same three qualifiers, deliberately, every time:</p>
     <table class="bench">
       <tr><th>Qualifier</th><th>What it means in practice</th></tr>
-      <tr><td>Crude, not adjusted</td><td>No correction yet for background prescribing-trend confounding</td></tr>
+      <tr><td>Crude and trend-adjusted</td><td>The crude sequence ratio is shown next to a null-effect (trend-adjusted) ratio, which corrects for drugs simply becoming more or less common over the period</td></tr>
       <tr><td>Minimum-power gated</td><td>A signal only fires with &ge; 5 discordant pairs <em>and</em> a lower CI bound above 1 — sparse data doesn't get to trigger a flag</td></tr>
       <tr><td>Hypothesis-generating</td><td>Points a reviewer at a chart worth pulling — it is not itself a diagnosis or a causality determination</td></tr>
     </table>

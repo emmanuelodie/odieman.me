@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMS Pro — Odieman Health Tools</title>
+<meta name="author" content="Odindo Emmanuel Thomas">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">Odieman Health Tools
+      <small>Field-built instruments for antimicrobial stewardship, PPS &amp; pharmacovigilance</small>
+    </a>
+    <nav class="links sans">
+      <a href="index.html#tools">Tools</a>
+      <a href="methodology.html">Methodology</a>
+      <a href="index.html#demo">Live demos</a>
+      <a href="index.html#download">Download</a>
+      <a href="index.html#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <p class="crumb"><a href="index.html">Home</a> / Tools / AMS Pro</p>
+
+  <section class="page-hero">
+    <span class="tag sans">v4.6 &middot; ~2.1 MB &middot; single file &middot; offline</span>
+    <h1>AMS Pro</h1>
+    <p class="lede">Turn the exports your hospital system already produces — pharmacy dispensing, admissions, laboratory and culture results — into a working antimicrobial stewardship programme: AWaRe and consumption analysis, an antibiogram, statistically sound trend charts, patient-level review lists, CRFs, and reports ready for the AMS committee.</p>
+    <div class="cta-row">
+      <a href="tools/Odieman_AMS_Pro.html?demo=1" target="_blank" rel="noopener" class="btn primary sans">Open the live demo</a>
+      <a href="tools/Odieman_AMS_Pro.html" download="Odieman_AMS_Pro_v4_6.html" class="btn ghost sans">Download AMS Pro</a>
+    </div>
+  </section>
+
+  <section>
+    <h2>What it takes in, what it gives back</h2>
+    <div class="two-col">
+      <div>
+        <h4 class="sans" style="color:var(--navy-deep);font-size:16px;">Input</h4>
+        <p style="color:var(--ink-soft);font-size:15px;">A pharmacy dispensing export (item name, quantity, date — plus dosage, ward, price and prescriber where available), optionally with the admissions register, laboratory results with turnaround times, culture &amp; sensitivity results and a procedures report. Several files per type are merged automatically, so three yearly exports become one three-year analysis.</p>
+      </div>
+      <div>
+        <h4 class="sans" style="color:var(--navy-deep);font-size:16px;">Output</h4>
+        <p style="color:var(--ink-soft);font-size:15px;">AWaRe shares under WHO and Tanzania rules, DDD and DOT per 1,000 patient-days, monthly trends, run charts, an antibiogram, daily review lists, cost analysis, indicators and CRFs — and a Deep Report as an editable Word document and PowerPoint deck.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>The modules</h2>
+    <p class="section-note">25 modules in four groups, each explained inside the tool's built-in user guide.</p>
+    <div class="module-row">
+      <h4>Clinical records</h4>
+      <p><strong>Patients &middot; Prescriptions &middot; Antibiogram</strong> — one line per patient joined across pharmacy, lab, admissions and procedures; every dispensing line with its matched generic, AWaRe class, route, days and DDD; and a cumulative antibiogram counting the first isolate per patient per organism (CLSI M39), with cells under 30 isolates flagged.</p>
+    </div>
+    <div class="module-row">
+      <h4>AMS operations</h4>
+      <p><strong>Dashboard &middot; Antibiotic Time-out &middot; Bug&ndash;drug Check &middot; Consumption &middot; Cost &amp; Impact &middot; Analytics &middot; Run Charts &middot; Driver Zones &middot; Resistance Trend &middot; What's Working &middot; Discrepancy &middot; PDCA</strong> — the daily review list (IV &ge;3 days, double anaerobic cover, long courses, Reserve without culture, prophylaxis beyond 24 h), mismatches between culture results and the antibiotic given, Laney p&prime; control charts, trend lines with confidence bands, spend by AWaRe tier, and recognition for wards and prescribers doing well.</p>
+    </div>
+    <div class="module-row">
+      <h4>Reporting &amp; indicators</h4>
+      <p><strong>Reports &middot; Indicators &middot; WHO/INRUD &middot; CRF Forms &middot; Export</strong> — the Deep Report in Word and PowerPoint, Tanzania GHS-CQI AMS and IPC indicators, WHO/INRUD prescribing indicators, CRF01 dispensing, CRF02 SSI after caesarean section and CRF03 audit log.</p>
+    </div>
+    <div class="module-row">
+      <h4>Setup &amp; data</h4>
+      <p><strong>User Guide &middot; Setup &middot; Dose Reference &middot; Data Entry &middot; Import Hub</strong> — facility details, the AWaRe scheme, an editable WHO ATC/DDD dose reference, manual entry, and an import hub that recognises messy real-world exports (title rows, repeated headers, missing columns) and can undo any single import.</p>
+    </div>
+    <div class="module-row">
+      <h4>Saving</h4>
+      <p><strong>Data folder</strong> — choose a folder once and everything is saved there automatically: the database, a daily backup, a safety copy before any reset or restore, and every export and report. Nothing in the folder is overwritten without being read first.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>What's checked, not just claimed</h2>
+    <p class="section-note">From an independent recount against a real six-month raw pharmacy export:</p>
+    <table class="bench">
+      <tr><th>Metric</th><th>Result</th></tr>
+      <tr><td>Dispensing-line count</td><td><span class="ok">Matched to within 0.04%</span> of an independent from-scratch recount</td></tr>
+      <tr><td>DDD formula</td><td><span class="ok">Standard WHO ATC/DDD</span> — grams dispensed &divide; agent DDD, route-specific</td></tr>
+      <tr><td>Cost trend</td><td><span class="ok">Plain OLS regression</span>, labeled trend not forecast, refuses &lt;3 months of data</td></tr>
+    </table>
+    <p style="font-size:14.5px;color:var(--ink-soft);">Full detail on <a href="methodology.html">the methodology page</a>, including where an independent recount showed a gap worth reconciling (patient-count deduplication logic).</p>
+  </section>
+
+  <a href="index.html" class="back-link">&larr; Back to home</a>
+</main>
+
+<footer class="wrap">
+  <div class="fline">
+    <span>&copy; 2026 Odieman Health Tools.</span>
+    <span>No patient data is collected by this website.</span>
+  </div>
+</footer>
+
+</body>
+</html>

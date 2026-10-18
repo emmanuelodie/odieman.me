@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Methodology — Odieman Health Tools</title>
+<meta name="author" content="Odindo Emmanuel Thomas">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,12 +12,12 @@
 <header class="site">
   <div class="nav-inner">
     <a href="index.html" class="brand">Odieman Health Tools
-      <small>Field-built instruments for antimicrobial stewardship &amp; PPS</small>
+      <small>Field-built instruments for antimicrobial stewardship, PPS &amp; pharmacovigilance</small>
     </a>
     <nav class="links sans">
       <a href="index.html#tools">Tools</a>
       <a href="methodology.html">Methodology</a>
-      <a href="index.html#offline">Why offline-first</a>
+      <a href="index.html#demo">Live demos</a>
       <a href="index.html#download">Download</a>
       <a href="index.html#about">About</a>
     </nav>
@@ -70,7 +71,7 @@ DDD / 100 patient-days = ( &Sigma; DDDs &divide; patient-days ) &times; 100</div
       <tr><th>Benchmark</th><th>Acceptable range</th></tr>
       <tr><td>DDD / 100 bed-days</td><td>40 – 80 (WHO / ESAC-Net reference range)</td></tr>
     </table>
-    <div class="citebox"><b>Applies in:</b> AMS Suite consumption dashboards, ward and facility-level trend charts</div>
+    <div class="citebox"><b>Applies in:</b> AMS Pro consumption dashboards, ward and facility-level trend charts</div>
   </section>
 
   <section id="regression">
@@ -86,7 +87,7 @@ intercept = (&Sigma;y &minus; slope&middot;&Sigma;x) / n</div>
     <h2>Sequence symmetry analysis (signal detection)</h2>
     <p class="section-note">Used for: flagging potential adverse-drug-reaction signals and prescribing-cascade patterns from pharmacy dispensing sequences alone, without needing a formal causality-coded dataset.</p>
     <p>For each drug pair (A, B), the tool counts patients where A preceded B versus B preceded A within a defined window, then applies a Wilson confidence interval to the forward/total proportion and transforms it into a ratio confidence interval via <code>p / (1&minus;p)</code>. This transform is valid because it is monotonic — a correct confidence interval on a proportion remains a correct confidence interval after a monotonic transform.</p>
-    <p>A signal is only flagged when the lower confidence bound clears a ratio of 1 <em>and</em> there are at least 5 discordant pairs — a deliberate minimum-power guard against false positives on sparse data. Every flagged signal is labeled <strong>crude and unadjusted</strong> (no correction yet for prescribing-trend confounding) and <strong>hypothesis-generating, not proof of causation</strong> — it tells a pharmacist where to look, not what the answer is.</p>
+    <p>A signal is only flagged when the lower confidence bound clears a ratio of 1 <em>and</em> there are at least 5 discordant pairs — a deliberate minimum-power guard against false positives on sparse data. Each ratio is reported both <strong>crude</strong> and <strong>adjusted for prescribing trends</strong> (divided by the null-effect sequence ratio expected from how the two drugs' use changed over the period), and every flagged signal is labeled <strong>hypothesis-generating, not proof of causation</strong> — it tells a pharmacist where to look, not what the answer is.</p>
     <div class="citebox"><b>Applies in:</b> VigiWard cascade/signal detection module</div>
   </section>
 

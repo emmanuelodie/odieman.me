@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PPS Pro — Odieman Health Tools</title>
+<meta name="author" content="Odindo Emmanuel Thomas">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,12 +12,12 @@
 <header class="site">
   <div class="nav-inner">
     <a href="index.html" class="brand">Odieman Health Tools
-      <small>Field-built instruments for antimicrobial stewardship &amp; PPS</small>
+      <small>Field-built instruments for antimicrobial stewardship, PPS &amp; pharmacovigilance</small>
     </a>
     <nav class="links sans">
       <a href="index.html#tools">Tools</a>
       <a href="methodology.html">Methodology</a>
-      <a href="index.html#offline">Why offline-first</a>
+      <a href="index.html#demo">Live demos</a>
       <a href="index.html#download">Download</a>
       <a href="index.html#about">About</a>
     </nav>
@@ -27,12 +28,13 @@
   <p class="crumb"><a href="index.html">Home</a> / Tools / PPS Pro</p>
 
   <section class="page-hero">
-    <span class="tag sans">v1.6 &middot; ~0.12 MB &middot; single file</span>
+    <span class="tag sans">v3.0 &middot; ~0.1 MB &middot; single file &middot; offline</span>
     <h1>PPS Pro</h1>
-    <p class="lede">A WHO-methodology point prevalence survey tool: capture data ward by ward, get automatic AWaRe classification and a properly-computed confidence interval on every prevalence figure — not a raw percentage dressed up as one.</p>
+    <p class="lede">A WHO-methodology point prevalence survey tool: capture data ward by ward, get automatic AWaRe classification and a properly-computed confidence interval on every figure — then follow every indicator across survey rounds with formal trend tests, so you can show whether stewardship is working.</p>
     <div class="cta-row">
-      <a href="index.html#download" class="btn primary sans">Download PPS Pro</a>
-      <a href="methodology.html#wilson" class="btn ghost sans">See the Wilson CI math</a>
+      <a href="tools/Odieman_PPS_Pro.html?demo=1" target="_blank" rel="noopener" class="btn primary sans">Open the live demo</a>
+      <a href="tools/Odieman_PPS_Pro.html" download="Odieman_PPS_Pro.html" class="btn ghost sans">Download PPS Pro</a>
+      
     </div>
   </section>
 
@@ -40,18 +42,22 @@
     <h2>How a survey runs</h2>
     <div class="module-row">
       <h4>1. Patient capture</h4>
-      <p>Enter each surveyed patient directly — ward, gender, whether they're on an antibiotic that day, indication, and antibiotic details. Built for entering data at the bedside or straight after the ward round, not for retyping a paper form back at a desk.</p>
+      <p>Enter each surveyed patient directly — ward, age, sex, weight for children, whether they're on an antimicrobial that day, diagnosis, indication and up to four agents with dose and route — or import a CSV per survey. ATC code and AWaRe group are filled in automatically, and common brand names are recognised.</p>
     </div>
     <div class="module-row">
       <h4>2. Multi-surveyor merge</h4>
-      <p>When more than one person surveys different wards on the same day, each surveyor's file merges into one dataset — with duplicate patient-code detection flagged for manual review rather than silently overwritten.</p>
+      <p>When more than one person surveys different wards on the same day, each surveyor's file merges into the same survey — and patient codes that appear in both files are listed on the data-quality page for review, never silently overwritten.</p>
     </div>
     <div class="module-row">
       <h4>3. Data quality pass</h4>
-      <p>Before analysis, the tool checks integrity: duplicate patient codes, missing indication links, incomplete antibiotic-to-indication mapping — the same checks a statistician would run by hand, run automatically.</p>
+      <p>Before analysis, the tool checks integrity: duplicate patient codes, missing ward or age, admission after the survey date, hospital-acquired infection within 48 hours of admission, prophylaxis without surgery, missing doses or routes — the same checks a statistician would run by hand, run automatically.</p>
     </div>
     <div class="module-row">
-      <h4>4. Executive snapshot</h4>
+      <h4>4. Trends across rounds</h4>
+      <p>Every indicator is followed across survey rounds: prevalence, Access/Watch/Reserve share, parenteral route, reason in notes, guideline compliance, culture, stop/review date, surgical prophylaxis beyond one day and more — each with a Cochran&ndash;Armitage test for trend, ward heat-maps and a printable trend report.</p>
+    </div>
+    <div class="module-row">
+      <h4>5. Executive snapshot</h4>
       <p>Overall antimicrobial prevalence with a Wilson 95% confidence interval, AWaRe mix (Access/Watch/Reserve), antibiotics per treated patient, and a ward-by-ward breakdown — ready to present to the AMS committee or export as a report.</p>
     </div>
   </section>
