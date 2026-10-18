@@ -96,6 +96,17 @@ h2{font-size:16px;margin:22px 0 10px}
 }
 @media (max-width:860px){.app{grid-template-columns:1fr}aside{position:static;height:auto}main{padding:0 14px 30px}}
 </style>
+<style>/* phones: the menu becomes one swipeable row */
+@media (max-width:860px){
+  aside{padding:8px 0 0}
+  .logo{padding:0 14px 8px;margin-bottom:0;border-bottom:none}
+  nav#nav{display:flex;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;padding:0 6px 6px}
+  .navgrp{display:none}
+  nav a{display:inline-block;border-left:none;border-bottom:3px solid transparent;padding:8px 10px}
+  nav a.on{border-bottom-color:#f2b46d}
+  #gd .tablewrap{overflow-x:auto}
+}
+</style>
 </head>
 <body>
 <div class="app">
@@ -801,7 +812,7 @@ async function runDemo(){
  $("main").insertBefore(bar,$("#view"));pill();
  try{const base="../samples/pps/";const list=await (await fetch(base+"manifest.json")).json();
   for(const n of list){const t=await (await fetch(base+n)).text();csvToSurveys(t,n).forEach(x=>{x.source=n;DB.surveys.push(x)})}
-  DB.meta.facility="Demo Regional Referral Hospital";UI.page="overview";UI.sid=sorted().at(-1).id;render();toast(DB.surveys.length+" sample surveys loaded")}
+  DB.meta.facility="Demo Regional Referral Hospital";{const want=new URLSearchParams(location.search).get("view");UI.page=want&&PAGES.some(([,it])=>it.some(([k])=>k===want))?want:"overview"}UI.sid=sorted().at(-1).id;render();toast(DB.surveys.length+" sample surveys loaded")}
  catch(e){$("#view").innerHTML=`<div class="warnbox">The sample data could not be loaded (${esc(e.message)}). The live demo works when opened from the website; offline, open the PPS_Data folder that comes with the download instead.</div>`}}
 if(DEMO){runDemo()}else (async()=>{try{const d=await IDB.get("db");if(d&&Array.isArray(d.surveys))DB=Object.assign(DB,d,{meta:Object.assign(DB.meta,d.meta||{})})}catch(e){}
  await FS.restore();if(!DB.surveys.length&&FS.state!=="connected"&&FS.state!=="needs-permission")UI.page="guide";pill();render();if(FS.state==="connected")await onFolderReady()})();

@@ -243,6 +243,16 @@
   #rep-preview.empty{color:var(--ink-faint)}
 
 </style>
+<style>/* phones: wrap the top menu instead of letting it run off the screen */
+@media (max-width:760px){
+  .suite-nav{flex-wrap:wrap;height:auto;padding:8px 10px;row-gap:6px}
+  .suite-brand-tag,.suite-sep{display:none}
+  .suite-nav .arm-btn{padding:6px 8px}
+  #vwf-pill{margin-left:0;width:100%}
+  .navmenu{max-width:calc(100vw - 24px)}
+  #arm-guide .gtbl{display:block;overflow-x:auto}
+}
+</style>
 </head>
 <body>
 
@@ -1810,6 +1820,7 @@ function runDetection(){
     const abx=tagged.filter(t=>t.g.includes('ANTIBIOTIC'));
     const _swin=DB.settings.switchWin||3;
     const _lastMs={};for(const t of abx){const m=_ms(t.date);if(!isNaN(m)&&(!(t.ing in _lastMs)||m>_lastMs[t.ing]))_lastMs[t.ing]=m;}
+    const _firstMs={};for(const t of abx){const m=_ms(t.date);if(!isNaN(m)&&(!(t.ing in _firstMs)||m<_firstMs[t.ing]))_firstMs[t.ing]=m;}
     let switched=false;
     for(let i=0;i<abx.length&&!switched;i++){for(let j=i+1;j<abx.length;j++){
       const dd=days(abx[i].date,abx[j].date);
@@ -1819,6 +1830,8 @@ function runDetection(){
       const _lm=_lastMs[abx[i].ing];
       const reused=(_lm!==undefined)&&Math.round((_lm-_ms(abx[j].date))/864e5)>=0;
       if(reused)continue;
+      // B already running alongside A = A dropped from a combination (de-escalation), not a switch
+      if(_firstMs[abx[j].ing]!==undefined&&_firstMs[abx[j].ing]<=_ms(abx[i].date))continue;
       sigs.push({id:uid(),pid,type:'Stop/switch',drug:abx[i].drugRaw,culprit:abx[i].ing,rescue:abx[j].ing,
         inferred:RX.INTOL.pt,soc:RX.INTOL.soc,pt:RX.INTOL.pt,rawlins:RX.INTOL.type,serious:RX.INTOL.serious,
         why:`${cap(abx[i].ing)} abandoned for ${cap(abx[j].ing)} (different class) after ${dd}d and not resumed — can indicate intolerance, though treatment failure is an alternative.`,
@@ -4472,7 +4485,7 @@ async function runVwDemo(){
     analyse();
     const rd=await get('Readings');CARDIO.ingestReadings({target:{files:[new File([rd.buf],rd.n,{type:'text/csv'})]}});
     const t0=Date.now();while(!DB.signals.length&&Date.now()-t0<90000)await new Promise(r=>setTimeout(r,400));
-    go('overview');toast(DB.signals.length.toLocaleString()+' suspected reactions found in the sample data');
+    {const want=new URLSearchParams(location.search).get('view');go(want&&document.getElementById('arm-'+want)?want:'overview');}toast(DB.signals.length.toLocaleString()+' suspected reactions found in the sample data');
   }catch(e){console.error(e);go('guide');toast('The sample data could not be loaded. The live demo works when opened from the website; offline, use the Sample_Data folder from the download.')}
 }
 if(DEMO)runVwDemo();else vwfStartup();

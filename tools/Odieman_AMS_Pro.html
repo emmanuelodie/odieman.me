@@ -143,6 +143,14 @@ td input.wide{min-width:220px;white-space:normal}
 .tor-metrics .m b{font-size:15px;display:block}
 .report-head{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;border-bottom:2px solid var(--accent);padding-bottom:12px;margin-bottom:16px}
 </style>
+<style>/* phones: keep everything inside the screen width */
+@media (max-width:700px){
+  header .tag{display:none}
+  header{padding:10px 12px;gap:8px}
+  #backup-badge{max-width:52vw;overflow:hidden;text-overflow:ellipsis}
+  body main #v-guide .tablewrap{overflow-x:auto!important}
+}
+</style>
 </head>
 <body>
 <header>
@@ -24774,7 +24782,8 @@ function stewRun(){
   const winStart=S.windowDays>0?I.maxD-S.windowDays+1:I.minD;
   const scheme=currentAwareScheme();
   const cultures=stewCultureIndex();
-  const add=(rule,pid,dept,d0,d1,detail,drugs,priority)=>{ if(d1<winStart) return; flags.push({rule,pid,dept,from:numDay(d0),to:numDay(d1),detail,drugs,priority,key:rule+"|"+pid+"|"+numDay(d0)+"|"+drugs.join("+")}); };
+  const fkeys=new Set();
+  const add=(rule,pid,dept,d0,d1,detail,drugs,priority)=>{ if(d1<winStart) return; const fk=rule+"|"+pid+"|"+numDay(d0)+"|"+drugs.join("+"); if(fkeys.has(fk)) return; fkeys.add(fk); flags.push({rule,pid,dept,from:numDay(d0),to:numDay(d1),detail,drugs,priority,key:rule+"|"+pid+"|"+numDay(d0)+"|"+drugs.join("+")}); };
   Object.entries(I.byPid).forEach(([pid,lines])=>{
     lines.sort((a,b)=>a.d-b.d);
     const dept=lines[lines.length-1].dept;
@@ -24821,7 +24830,12 @@ function stewRun(){
 }
 function stewSurgeries(){ const out=[];
   (DB.procedureTx||[]).forEach(p=>{ const nm=p.productName||p.procedure||""; const d=dayNum(p.servedDate||p.orderedDate||p.date); if(SURGERY_RE.test(nm)&&d!=null&&p.patientId) out.push({pid:(""+p.patientId).trim(),d,what:nm,dept:p.subDept||""}); });
-  (DB.admitTx||[]).forEach(r=>{ const d=dayNum(r.dateAdmitted); const cs=yesish(r.cSection); const nm=r.procedure||""; if(d!=null&&r.patientId&&(cs||SURGERY_RE.test(nm))) out.push({pid:(""+r.patientId).trim(),d,what:cs?"Caesarean section (admission date used)":nm,dept:r.ward||""}); });
+  // admissions register: only operations the procedures file does not already hold
+  // (same patient, procedure dated from 1 day before to 14 days after admission)
+  const procBy={}; out.forEach(o=>{ (procBy[o.pid]=procBy[o.pid]||[]).push(o.d); });
+  (DB.admitTx||[]).forEach(r=>{ const d=dayNum(r.dateAdmitted); const cs=yesish(r.cSection); const nm=r.procedure||""; if(d!=null&&r.patientId&&(cs||SURGERY_RE.test(nm))){ const pid=(""+r.patientId).trim();
+    if((procBy[pid]||[]).some(x=>x>=d-1&&x<=d+14)) return;
+    out.push({pid,d,what:cs?"Caesarean section (admission date used)":nm+" (admission date used)",dept:r.ward||""}); } });
   return out; }
 
 /* ---------- culture index (lab tx with specimen + isolates) ---------- */
@@ -29090,7 +29104,8 @@ async function runAmsDemo(){
     await hubFiles("lab",pick("AMS_Lab")); await hubFiles("procedures",pick("AMS_Procedures"));
     analyzeAllStaged();
     for(const f of pick("AMS_Culture")) await astImportFile({files:[f],value:""});
-    DB.facility.name="Demo Regional Referral Hospital"; compileReport(); buildNav(); go("dash");
+    DB.facility.name="Demo Regional Referral Hospital"; compileReport(); buildNav();
+    { const want=new URLSearchParams(location.search).get("view"); go(want&&VIEWS.some(([k])=>k===want)?want:"dash"); }
     toast("Sample data loaded &mdash; explore any page in the menu");
   }catch(e){ console.error(e); go("guide"); toast("The sample data could not be loaded. The live demo works when opened from the website; offline, use the Sample_Data folder that comes with the download."); }
 }
