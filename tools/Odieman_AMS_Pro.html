@@ -1,9 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Odieman AMS Pro - DEMO VERSION. Runs on simulated sample data only.
+     (c) 2024-2026 Odindo Emmanuel Thomas. All rights reserved.
+     The full version is licensed to named holders only; copying or modifying this file is not permitted. -->
+<script>
+(function(){
+  var TOOL="AMS Pro", REQ="../index.html#download";
+  function notice(){
+    try{
+      var o=document.getElementById("odm-demo-lock");
+      if(!o){
+        o=document.createElement("div");o.id="odm-demo-lock";
+        o.setAttribute("role","dialog");o.setAttribute("aria-modal","true");
+        o.style.cssText="position:fixed;inset:0;z-index:2147483647;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:16px;font-family:'Segoe UI',Arial,sans-serif";
+        o.innerHTML='<div style="background:#fff;color:#1b1f24;max-width:420px;width:100%;border-radius:12px;padding:22px 22px 18px;box-shadow:0 10px 40px rgba(0,0,0,.4);line-height:1.5">'+
+          '<div style="font-weight:700;font-size:17px;margin-bottom:6px">This is the demo version</div>'+
+          '<div style="font-size:14px;color:#3d444d">It runs only on the simulated sample hospital. To use '+TOOL+' with your own hospital data, request the full version. It is free for government health facilities in Tanzania.</div>'+
+          '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">'+
+          '<a href="'+REQ+'" target="_top" style="background:#1f6feb;color:#fff;text-decoration:none;padding:9px 14px;border-radius:8px;font-weight:600;font-size:14px">Request the full version</a>'+
+          '<a href="https://wa.me/255759547025" target="_blank" rel="noopener" style="background:#eef1f4;color:#1b1f24;text-decoration:none;padding:9px 14px;border-radius:8px;font-weight:600;font-size:14px">WhatsApp</a>'+
+          '<button type="button" id="odm-demo-close" style="margin-left:auto;background:none;border:0;color:#57606a;font-size:14px;cursor:pointer;padding:9px 6px">Close</button></div></div>';
+        (document.body||document.documentElement).appendChild(o);
+        o.addEventListener("click",function(e){if(e.target===o||e.target.id==="odm-demo-close")o.style.display="none";});
+      }
+      o.style.display="flex";
+    }catch(e){}
+  }
+  window.__odmDemoNotice=notice;
+  // File pickers: opening a file or folder from the computer is switched off in the demo.
+  var ic=HTMLInputElement.prototype.click;
+  HTMLInputElement.prototype.click=function(){if(this.type==="file"){notice();return;}return ic.apply(this,arguments);};
+  if(HTMLInputElement.prototype.showPicker){var sp=HTMLInputElement.prototype.showPicker;
+    HTMLInputElement.prototype.showPicker=function(){if(this.type==="file"){notice();return;}return sp.apply(this,arguments);};}
+  ["showDirectoryPicker","showOpenFilePicker"].forEach(function(k){
+    try{Object.defineProperty(window,k,{configurable:false,writable:false,value:function(){notice();return Promise.reject(new DOMException("Demo version","AbortError"));}});}catch(e){}
+  });
+  function isFileInput(t){return t&&t.tagName==="INPUT"&&t.type==="file";}
+  window.addEventListener("click",function(e){
+    var t=e.target, l=t&&t.closest&&t.closest("label");
+    var viaLabel=l&&(l.control?isFileInput(l.control):!!l.querySelector('input[type="file"]'));
+    if(isFileInput(t)||viaLabel){e.preventDefault();e.stopImmediatePropagation();notice();}
+  },true);
+  window.addEventListener("change",function(e){
+    if(e.isTrusted&&isFileInput(e.target)){e.stopImmediatePropagation();try{e.target.value="";}catch(x){}notice();}
+  },true);
+  function hasFiles(e){var d=e.dataTransfer;return d&&d.types&&[].indexOf.call(d.types,"Files")>=0;}
+  window.addEventListener("dragover",function(e){if(hasFiles(e)){e.preventDefault();e.stopImmediatePropagation();e.dataTransfer.dropEffect="none";}},true);
+  window.addEventListener("drop",function(e){if(e.isTrusted&&hasFiles(e)){e.preventDefault();e.stopImmediatePropagation();notice();}},true);
+  window.addEventListener("paste",function(e){var d=e.clipboardData;if(e.isTrusted&&d&&d.files&&d.files.length){e.preventDefault();e.stopImmediatePropagation();notice();}},true);
+})();
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Odieman AMS Pro v4.6</title>
+<title>Odieman AMS Pro v4.6 (demo)</title>
 <style>
 :root{
   --bg:#0d1117; --panel:#161b22; --panel2:#1c2230; --line:#2b3340;
@@ -23391,7 +23442,7 @@ var __async = (__this, __arguments, generator) => {
 </script>
 <script>
 /* Demo mode: opened from the website with ?demo=1 — loads the sample data, saves nothing. */
-const DEMO=new URLSearchParams(location.search).has("demo");
+const DEMO=true;
 /* ============================= WHO INN antibiotic list (229, verbatim — shared reference used across the Odieman Suite) ============================= */
 const INN = ["amikacin","amoxicillin","ampicillin","arbekacin","aspoxicillin","avibactam","azanidazole","azidocillin","azithromycin","azlocillin","aztreonam","bacampicillin","bacitracin","bekanamycin","benzathine benzylpenicillin","benzathine phenoxymethylpenicillin","benzylpenicillin","biapenem","brodimoprim","carbenicillin","carindacillin","carumonam","catamoxef","cefacetrile","cefaclor","cefadroxil","cefalexin","cefaloridine","cefalotin","cefamandole","cefapirin","cefatrizine","cefazedone","cefazolin","cefbuperazone","cefcapene","cefdinir","cefditoren","cefepime","cefetamet","cefixime","cefmenoxime","cefmetazole","cefminox","cefodizime","cefoperazone","ceforanide","cefotaxime","cefotetan","cefotiam","cefoxitin","cefozopran","cefpiramide","cefpirome","cefpodoxime","cefprozil","cefradine","cefroxadine","cefsulodin","ceftaroline fosamil","ceftazidime","ceftezole","ceftibuten","ceftizoxime","ceftobiprole medocaril","ceftolozane","ceftriaxone","cefuroxime","chloramphenicol","chlortetracycline","cilastatin","cinoxacin","ciprofloxacin","clarithromycin","clavulanic acid","clindamycin","clofoctol","clometocillin","clomocycline","cloxacillin","colistin","dalbavancin","dalfopristin","daptomycin","demeclocycline","dibekacin","dicloxacillin","dirithromycin","doripenem","doxycycline","efonicide","enoxacin","epicillin","ertapenem","erythromycin","faropenem","fleroxacin","flomoxef","flucloxacillin","flumequine","flurithromycin","fosfomycin","furazidin","fusidic acid","garenoxacin","gatifloxacin","gemifloxacin","gentamicin","grepafloxacin","hetacillin","iclaprim","imipenem","isepamicin","josamycin","kanamycin","levofloxacin","lincomycin","linezolid","lomefloxacin","loracarbef","lymecycline","mandelic acid","mecillinam","meropenem","metacycline","metampicillin","methenamine","meticillin","metronidazole","mezlocillin","midecamycin","minocycline","miocamycin","moxifloxacin","nafcillin","nalidixic acid","nemonoxacin","neomycin","netilmicin","nifurtoinol","nimorazole","nitrofurantoin","nitroxoline","norfloxacin","ofloxacin","oleandomycin","oritavancin","ornidazole","oxacillin","oxolinic acid","oxytetracycline","panipenem","pazufloxacin","pefloxacin","penamecillin","penimepicycline","pheneticillin","phenoxymethylpenicillin","pipemidic acid","piperacillin","piromidic acid","pivampicillin","pivmecillinam","polymyxin b","popicillin","pristinamycin","procaine benzylpenicillin","propenidazole","prulifloxacin","quinupristin","ribostamycin","rokitamycin","rolitetracycline","rosoxacin","roxithromycin","rufloxacin","secnidazole","sisomicin","sitafloxacin","solithromycin","sparfloxacin","spectinomycin","spiramycin","streptoduocin","streptomycin","sulbactam","sulbenicillin","sulfadiazine","sulfadimethoxine","sulfadimidine","sulfafurazole","sulfaisodimidine","sulfalene","sulfamazone","sulfamerazine","sulfamethizole","sulfamethoxazole","sulfamethoxypyridazine","sulfametomidine","sulfametoxydiazine","sulfametrole","sulfamoxole","sulfanilamide","sulfaperin","sulfaphenazole","sulfapyridine","sulfathiazole","sulfathiourea","talampicillin","tazobactam","tedizolid","teicoplanin","telavancin","telithromycin","temafloxacin","temocillin","tetracycline","tetroxoprim","thiamphenicol","ticarcillin","tigecycline","tinidazole","tobramycin","trimethoprim","troleandomycin","trovafloxacin","vaborbactam","vancomycin","xibornol"];
 const INN_SET=new Set(INN);
@@ -23799,7 +23850,7 @@ async function syncWithFolder(context){ // context: "choose" | "reconnect" | "st
   if(loadFolder&&context!=="startup") toast(`Opened the data saved in “${esc(saveDirHandle.name)}”.`);
 }
 async function chooseSaveFolder(){
-  if(DEMO){ toast("Demo mode: download AMS Pro to save your own data in a folder."); return; }
+  if(DEMO){ toast("Demo version: request the full AMS Pro to save your own data in a folder."); return; }
   if(!window.showDirectoryPicker){ toast("This browser can't save straight to a folder (Chrome or Edge can). Use Export → download a JSON backup instead."); return; }
   try{
     const handle=await window.showDirectoryPicker({id:"odieman-ams-pro",mode:"readwrite",startIn:"documents"});
@@ -29119,7 +29170,7 @@ function demoProgress(html){ let d=document.getElementById("demo-progress");
   d.firstChild.innerHTML='<b>Loading the live demo</b><br>'+html+'<br><span style="color:#8b949e;font-size:13px">33 months of simulated data &middot; a laptop is fastest</span>'; }
 async function runAmsDemo(){
   const bar=document.createElement("div"); bar.className="notice warn"; bar.style.cssText="margin:0 0 14px";
-  bar.innerHTML='<b>Live demo.</b> 33 months of simulated data from a fictional hospital (Jan 2024 &ndash; Sep 2026) are loaded in your browser. Nothing you do here is saved or sent anywhere. <a href="Odieman_AMS_Pro.html" download="Odieman_AMS_Pro_v4_6.html" style="color:#58a6ff;font-weight:700">Download AMS Pro</a> to use it with your own data. The <span class="linkfix" onclick="go(\'guide\')">User Guide</span> explains every page.';
+  bar.innerHTML='<b>Live demo.</b> 33 months of simulated data from a fictional hospital (Jan 2024 &ndash; Sep 2026) are loaded in your browser. Nothing you do here is saved or sent anywhere. <a href="../index.html#download" target="_top" style="color:#58a6ff;font-weight:700">Request the full version</a> to use AMS Pro with your own data. The <span class="linkfix" onclick="go(\'guide\')">User Guide</span> explains every page.';
   document.querySelector("main").insertBefore(bar,document.querySelector("main").firstChild);
   const realConfirm=window.confirm; window.confirm=()=>true; try{ eraseAll(); } finally { window.confirm=realConfirm; }
   go("hub"); toast("Loading 3 years of sample data&hellip;");

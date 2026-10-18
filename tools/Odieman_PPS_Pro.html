@@ -1,11 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Odieman PPS Pro - DEMO VERSION. Runs on simulated sample data only.
+     (c) 2024-2026 Odindo Emmanuel Thomas. All rights reserved.
+     The full version is licensed to named holders only; copying or modifying this file is not permitted. -->
+<script>
+(function(){
+  var TOOL="PPS Pro", REQ="../index.html#download";
+  function notice(){
+    try{
+      var o=document.getElementById("odm-demo-lock");
+      if(!o){
+        o=document.createElement("div");o.id="odm-demo-lock";
+        o.setAttribute("role","dialog");o.setAttribute("aria-modal","true");
+        o.style.cssText="position:fixed;inset:0;z-index:2147483647;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:16px;font-family:'Segoe UI',Arial,sans-serif";
+        o.innerHTML='<div style="background:#fff;color:#1b1f24;max-width:420px;width:100%;border-radius:12px;padding:22px 22px 18px;box-shadow:0 10px 40px rgba(0,0,0,.4);line-height:1.5">'+
+          '<div style="font-weight:700;font-size:17px;margin-bottom:6px">This is the demo version</div>'+
+          '<div style="font-size:14px;color:#3d444d">It runs only on the simulated sample hospital. To use '+TOOL+' with your own hospital data, request the full version. It is free for government health facilities in Tanzania.</div>'+
+          '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">'+
+          '<a href="'+REQ+'" target="_top" style="background:#1f6feb;color:#fff;text-decoration:none;padding:9px 14px;border-radius:8px;font-weight:600;font-size:14px">Request the full version</a>'+
+          '<a href="https://wa.me/255759547025" target="_blank" rel="noopener" style="background:#eef1f4;color:#1b1f24;text-decoration:none;padding:9px 14px;border-radius:8px;font-weight:600;font-size:14px">WhatsApp</a>'+
+          '<button type="button" id="odm-demo-close" style="margin-left:auto;background:none;border:0;color:#57606a;font-size:14px;cursor:pointer;padding:9px 6px">Close</button></div></div>';
+        (document.body||document.documentElement).appendChild(o);
+        o.addEventListener("click",function(e){if(e.target===o||e.target.id==="odm-demo-close")o.style.display="none";});
+      }
+      o.style.display="flex";
+    }catch(e){}
+  }
+  window.__odmDemoNotice=notice;
+  // File pickers: opening a file or folder from the computer is switched off in the demo.
+  var ic=HTMLInputElement.prototype.click;
+  HTMLInputElement.prototype.click=function(){if(this.type==="file"){notice();return;}return ic.apply(this,arguments);};
+  if(HTMLInputElement.prototype.showPicker){var sp=HTMLInputElement.prototype.showPicker;
+    HTMLInputElement.prototype.showPicker=function(){if(this.type==="file"){notice();return;}return sp.apply(this,arguments);};}
+  ["showDirectoryPicker","showOpenFilePicker"].forEach(function(k){
+    try{Object.defineProperty(window,k,{configurable:false,writable:false,value:function(){notice();return Promise.reject(new DOMException("Demo version","AbortError"));}});}catch(e){}
+  });
+  function isFileInput(t){return t&&t.tagName==="INPUT"&&t.type==="file";}
+  window.addEventListener("click",function(e){
+    var t=e.target, l=t&&t.closest&&t.closest("label");
+    var viaLabel=l&&(l.control?isFileInput(l.control):!!l.querySelector('input[type="file"]'));
+    if(isFileInput(t)||viaLabel){e.preventDefault();e.stopImmediatePropagation();notice();}
+  },true);
+  window.addEventListener("change",function(e){
+    if(e.isTrusted&&isFileInput(e.target)){e.stopImmediatePropagation();try{e.target.value="";}catch(x){}notice();}
+  },true);
+  function hasFiles(e){var d=e.dataTransfer;return d&&d.types&&[].indexOf.call(d.types,"Files")>=0;}
+  window.addEventListener("dragover",function(e){if(hasFiles(e)){e.preventDefault();e.stopImmediatePropagation();e.dataTransfer.dropEffect="none";}},true);
+  window.addEventListener("drop",function(e){if(e.isTrusted&&hasFiles(e)){e.preventDefault();e.stopImmediatePropagation();notice();}},true);
+  window.addEventListener("paste",function(e){var d=e.clipboardData;if(e.isTrusted&&d&&d.files&&d.files.length){e.preventDefault();e.stopImmediatePropagation();notice();}},true);
+})();
+</script>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="author" content="Odindo Emmanuel Thomas">
 <meta name="application-name" content="Odieman PPS Pro">
-<title>Odieman PPS Pro</title>
+<title>Odieman PPS Pro (demo)</title>
 <style>
 :root{
   --ink:#1c2b2d;--ink2:#4d5f62;--ink3:#7d8d90;--line:#dfe6e6;--bg:#f4f7f6;--card:#fff;
@@ -131,7 +182,7 @@ h2{font-size:16px;margin:22px 0 10px}
 <script>
 "use strict";
 /* Demo mode: opened from the website with ?demo=1 — loads the sample surveys, saves nothing. */
-const DEMO=new URLSearchParams(location.search).has("demo");
+const DEMO=true;
 /* ============ Reference data ============ */
 const FORMULARY = {
  "Amoxicillin":{atc:"J01CA04",aware:"Access",route:"O",ddd:{O:1.5,P:3}},
@@ -332,7 +383,7 @@ const FS={handle:null,state:"none",lastSave:null,supported:"showDirectoryPicker"
  async restore(){if(!this.supported){this.state="unsupported";return}
   try{const h=await IDB.get("dirHandle");if(!h)return;this.handle=h;
    const p=await h.queryPermission({mode:"readwrite"});this.state=p==="granted"?"connected":"needs-permission"}catch(e){this.state="none"}},
- async connect(){if(DEMO){toast("Demo mode: download PPS Pro to save your own data in a folder.");return}if(!this.supported){toast("This browser cannot open folders. Please use Chrome or Microsoft Edge.");return}
+ async connect(){if(DEMO){toast("Demo version: request the full PPS Pro to save your own data in a folder.");return}if(!this.supported){toast("This browser cannot open folders. Please use Chrome or Microsoft Edge.");return}
   try{const h=await showDirectoryPicker({id:"odieman-pps",mode:"readwrite",startIn:"documents"});await this.attach(h)}catch(e){if(e.name!=="AbortError")toast("Folder not opened: "+e.message)}},
  async attach(h){this.handle=h;try{await IDB.set("dirHandle",h)}catch(e){}this.state="connected";log(`Data folder opened: ${h.name}`);await onFolderReady()},
  async reconnect(){try{const p=await this.handle.requestPermission({mode:"readwrite"});if(p==="granted"){this.state="connected";log("Folder access restored");await onFolderReady()}}catch(e){toast("Could not reconnect: "+e.message)}},
@@ -808,7 +859,7 @@ let lastScan=0;window.addEventListener("focus",()=>{if(FS.state==="connected"&&D
 document.getElementById("drugList").innerHTML=Object.keys(FORMULARY).map(n=>`<option value="${n}">`).join("");
 async function runDemo(){
  const bar=document.createElement("div");bar.className="warnbox noprint";bar.style.cssText="margin:12px 0 0";
- bar.innerHTML='<b>Live demo.</b> Five simulated surveys of a fictional hospital (2024–2026) are loaded in your browser. Nothing you do here is saved or sent anywhere. <a href="Odieman_PPS_Pro.html" download="Odieman_PPS_Pro.html">Download PPS Pro</a> to use it with your own data.';
+ bar.innerHTML='<b>Live demo.</b> Five simulated surveys of a fictional hospital (2024–2026) are loaded in your browser. Nothing you do here is saved or sent anywhere. <a href="../index.html#download" target="_top">Request the full version</a> to use PPS Pro with your own data.';
  $("main").insertBefore(bar,$("#view"));pill();
  try{const base="../samples/pps/";const list=await (await fetch(base+"manifest.json")).json();
   for(const n of list){const t=await (await fetch(base+n)).text();csvToSurveys(t,n).forEach(x=>{x.source=n;DB.surveys.push(x)})}
