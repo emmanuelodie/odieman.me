@@ -1,180 +1,197 @@
 Patient ID,Date of Death,Cause of Death
-300074,2024-01-04,Multi-organ failure
-300189,2024-01-15,Diabetic ketoacidosis
-300141,2024-01-18,Multi-organ failure
-300133,2024-01-20,Cardiorespiratory arrest
-300174,2024-01-23,Multi-organ failure
-100530,2024-01-31,Heart failure
-300112,2024-02-01,Cardiorespiratory arrest
-300344,2024-02-02,Hypertensive urgency
-300270,2024-02-09,Severe pneumonia
-300330,2024-02-16,Inguinal hernia
-300298,2024-02-19,Cardiorespiratory arrest
-300405,2024-02-24,Multi-organ failure
-300375,2024-02-28,Neonatal pneumonia
-300762,2024-03-12,Cardiorespiratory arrest
-300750,2024-03-18,Severe head injury
-300617,2024-03-19,Cardiorespiratory arrest
-300602,2024-03-28,Neonatal sepsis
-300741,2024-03-30,Multi-organ failure
-300869,2024-04-15,Cardiorespiratory arrest
-300929,2024-04-15,Cardiorespiratory arrest
-300870,2024-04-16,Multi-organ failure
-100409,2024-04-20,Stroke
-300968,2024-04-23,Cardiorespiratory arrest
-300985,2024-04-24,Septic shock
-300939,2024-04-29,Severe malaria
-300967,2024-04-30,Bacterial meningitis
-301185,2024-05-03,Benign prostatic hyperplasia
-301022,2024-05-14,Cardiorespiratory arrest
-301213,2024-05-29,Cardiorespiratory arrest
-301371,2024-06-08,Abscess
-301452,2024-06-08,Cardiorespiratory arrest
-301340,2024-06-09,Cardiorespiratory arrest
-301486,2024-06-10,Cellulitis
-301417,2024-06-13,Cardiorespiratory arrest
-301395,2024-06-20,Multi-organ failure
-301593,2024-07-13,Cardiorespiratory arrest
-301652,2024-07-14,Hypertensive urgency
-301973,2024-08-10,Septic shock
-301763,2024-08-18,Cardiorespiratory arrest
-301969,2024-08-18,Multi-organ failure
-301905,2024-08-27,Cardiorespiratory arrest
-301832,2024-09-04,Severe malaria
-301967,2024-09-06,Multi-organ failure
-100132,2024-09-08,Stroke
-302055,2024-09-17,Multi-organ failure
-302106,2024-09-17,Multi-organ failure
-100178,2024-09-24,Heart failure
-302249,2024-09-28,Septic shock
-302169,2024-10-12,Multi-organ failure
-302422,2024-10-25,Ventilator associated pneumonia
-302297,2024-11-01,Cardiorespiratory arrest
-302538,2024-11-02,Multi-organ failure
-302590,2024-11-20,Stroke
-302636,2024-11-27,Multi-organ failure
-302669,2024-11-27,Cardiorespiratory arrest
-302562,2024-12-08,Post-operative laparotomy
-302976,2024-12-09,Severe acute malnutrition
-302875,2024-12-16,Neonatal sepsis
-302818,2024-12-25,Neonatal sepsis
-302769,2024-12-29,Ventilator associated pneumonia
-303265,2025-01-05,Pyelonephritis
-303114,2025-01-07,Cardiorespiratory arrest
-303037,2025-01-20,Normal delivery
-303118,2025-01-20,Multi-organ failure
-303089,2025-01-24,Cardiorespiratory arrest
-303194,2025-01-30,Hypertensive urgency
-303321,2025-02-08,Severe head injury
-303355,2025-02-15,Multi-organ failure
-303388,2025-02-27,Urinary tract infection
-303470,2025-03-01,Multi-organ failure
-303625,2025-03-03,Multi-organ failure
-303429,2025-03-04,Bacterial meningitis
-303420,2025-03-09,Severe pneumonia
-303766,2025-03-11,Cardiorespiratory arrest
-303748,2025-03-14,Open fracture of tibia
-303530,2025-03-26,Prematurity
-303676,2025-03-26,Fracture of femur
-303680,2025-03-31,Cardiorespiratory arrest
-303779,2025-03-31,Diabetic ketoacidosis
-303981,2025-04-11,Severe pneumonia
-303888,2025-04-12,Sepsis
-303803,2025-04-22,Multi-organ failure
-303813,2025-04-25,Urinary tract infection
-303830,2025-05-03,Open fracture of tibia
-304120,2025-05-08,Septic shock
-304285,2025-05-09,Severe head injury
-304221,2025-05-20,Fracture of femur
-304577,2025-06-04,Multi-organ failure
-304552,2025-06-08,Severe malaria
-304420,2025-06-12,Multi-organ failure
-304391,2025-06-17,Abscess
-304381,2025-06-21,Bacterial meningitis
-304407,2025-06-25,Congestive cardiac failure
-304435,2025-07-18,Intestinal obstruction
-304678,2025-07-18,Cardiorespiratory arrest
-304621,2025-07-26,Urinary tract infection
-304749,2025-07-26,Multi-organ failure
-304615,2025-07-31,Multi-organ failure
-304816,2025-08-01,Severe malaria
-305011,2025-08-05,Severe pneumonia
-305020,2025-08-13,Cardiorespiratory arrest
-304953,2025-08-23,Cardiorespiratory arrest
-304950,2025-08-25,Multi-organ failure
-304888,2025-08-30,Benign prostatic hyperplasia
-305128,2025-09-08,Open fracture of tibia
-305153,2025-09-14,Multi-organ failure
-305455,2025-10-05,Intestinal obstruction
-305436,2025-10-06,Severe pneumonia
-305453,2025-10-18,Acute gastroenteritis
-305766,2025-11-08,Cardiorespiratory arrest
-305566,2025-11-14,Wound infection
-305785,2025-11-16,Diabetic foot ulcer
-305707,2025-11-24,Multi-organ failure
-305681,2025-11-29,Severe malaria
-306005,2025-12-21,Acute gastroenteritis
-306013,2025-12-21,Multi-organ failure
-305897,2025-12-24,Cardiorespiratory arrest
-305961,2025-12-25,Open fracture of tibia
-306235,2026-01-14,Open fracture of tibia
-306228,2026-01-16,Multi-organ failure
-305932,2026-01-18,Cardiorespiratory arrest
-306182,2026-01-19,Birth asphyxia
-306201,2026-01-23,Severe malaria
-100105,2026-02-03,Stroke
-306346,2026-02-05,Intestinal obstruction
-306342,2026-02-07,Severe acute malnutrition
-306314,2026-02-12,Pyelonephritis
-306303,2026-02-13,Cardiorespiratory arrest
-306340,2026-02-13,Multi-organ failure
-306325,2026-02-17,Severe pneumonia
-306306,2026-02-22,Multi-organ failure
-306448,2026-02-22,Diabetic ketoacidosis
-306512,2026-02-23,Septic shock
-306527,2026-02-27,Congestive cardiac failure
-306769,2026-03-11,Cardiorespiratory arrest
-306541,2026-03-15,Multi-organ failure
-306767,2026-03-22,Cardiorespiratory arrest
-306617,2026-03-25,Cardiorespiratory arrest
-306791,2026-03-28,Neonatal sepsis
-306761,2026-03-30,Congestive cardiac failure
-100511,2026-03-30,Acute myocardial infarction
-306957,2026-04-09,Cardiorespiratory arrest
-307057,2026-04-09,Neonatal sepsis
-307032,2026-04-15,Cardiorespiratory arrest
-306903,2026-04-21,Open fracture of tibia
-307162,2026-05-07,Neonatal sepsis
-307264,2026-05-07,Multi-organ failure
-307258,2026-05-08,Multi-organ failure
-307270,2026-05-13,Cardiorespiratory arrest
-307127,2026-05-16,Prematurity
-307104,2026-05-18,Neonatal sepsis
-307316,2026-05-18,Cardiorespiratory arrest
-307095,2026-05-24,Severe malaria
-307214,2026-05-25,Cardiorespiratory arrest
-307163,2026-05-27,Multi-organ failure
-307247,2026-05-31,Multi-organ failure
-307503,2026-06-11,Sepsis
-307673,2026-07-04,Urinary tract infection
-307769,2026-07-09,Cardiorespiratory arrest
-307890,2026-07-11,Congestive cardiac failure
-307707,2026-07-17,Cardiorespiratory arrest
-307912,2026-07-19,Severe pneumonia
-307641,2026-07-24,Multi-organ failure
-307748,2026-07-25,Multi-organ failure
-307832,2026-08-04,Cardiorespiratory arrest
-307974,2026-08-04,Cardiorespiratory arrest
-307864,2026-08-06,Multi-organ failure
-308048,2026-08-22,Septic shock
-308014,2026-08-24,Neonatal sepsis
-308108,2026-08-25,Multi-organ failure
-307961,2026-08-31,Urinary tract infection
-308304,2026-09-06,Cardiorespiratory arrest
-308243,2026-09-09,Cardiorespiratory arrest
-308264,2026-09-10,Caesarean section - obstructed labour
-308361,2026-09-13,Sepsis
-100716,2026-09-15,Stroke
-308211,2026-09-19,Sepsis
-308310,2026-09-25,Cardiorespiratory arrest
-308255,2026-10-08,Multi-organ failure
+300031,2024-01-03,Cardiorespiratory arrest
+300154,2024-01-30,Cardiorespiratory arrest
+300284,2024-02-05,Urinary tract infection
+300309,2024-02-05,Septic shock
+100487,2024-02-05,Heart failure
+300299,2024-02-12,Multi-organ failure
+300370,2024-02-12,Prematurity
+300406,2024-02-16,Multi-organ failure
+300326,2024-02-17,Intestinal obstruction
+300425,2024-02-21,Cardiorespiratory arrest
+300243,2024-02-25,Cardiorespiratory arrest
+300362,2024-02-25,Fracture of femur
+300303,2024-02-26,Bacterial meningitis
+300367,2024-02-28,Cardiorespiratory arrest
+300252,2024-03-02,Multi-organ failure
+300315,2024-03-03,Multi-organ failure
+300538,2024-03-05,Cellulitis
+100549,2024-03-07,Stroke
+300242,2024-03-08,Abscess
+300705,2024-03-18,Multi-organ failure
+300580,2024-03-21,Multi-organ failure
+300683,2024-03-24,Wound infection
+300499,2024-03-29,Multi-organ failure
+300640,2024-03-29,Cardiorespiratory arrest
+300666,2024-03-30,Hypertensive urgency
+300884,2024-04-07,Acute gastroenteritis
+300902,2024-04-13,Severe head injury
+300766,2024-04-15,Cardiorespiratory arrest
+300880,2024-05-03,Severe pneumonia
+300995,2024-05-06,Multi-organ failure
+301165,2024-05-06,Septic shock
+301170,2024-05-06,Cardiorespiratory arrest
+301012,2024-05-14,Cardiorespiratory arrest
+301122,2024-05-14,Multi-organ failure
+301216,2024-05-15,Cardiorespiratory arrest
+301023,2024-05-16,Multi-organ failure
+301010,2024-05-20,Sepsis
+301028,2024-05-21,Bacterial meningitis
+301088,2024-05-21,Multi-organ failure
+100433,2024-05-25,Heart failure
+301030,2024-05-30,Sepsis
+301481,2024-06-17,Cardiorespiratory arrest
+301419,2024-06-18,Diabetic ketoacidosis
+301260,2024-06-19,Septic shock
+301305,2024-06-25,Multi-organ failure
+301354,2024-06-29,Cardiorespiratory arrest
+301246,2024-07-01,Multi-organ failure
+301554,2024-07-17,Sepsis
+301571,2024-07-25,Cardiorespiratory arrest
+301575,2024-07-28,Severe pneumonia
+301719,2024-07-31,Cardiorespiratory arrest
+301755,2024-08-05,Cardiorespiratory arrest
+301717,2024-08-06,Multi-organ failure
+301977,2024-08-13,Cardiorespiratory arrest
+301769,2024-08-17,Cardiorespiratory arrest
+301935,2024-08-27,Cardiorespiratory arrest
+301784,2024-08-28,Multi-organ failure
+301876,2024-09-03,Stroke
+100299,2024-09-09,Stroke
+302035,2024-09-21,Multi-organ failure
+302175,2024-09-25,Prematurity
+302053,2024-09-27,Cardiorespiratory arrest
+302061,2024-09-28,Multi-organ failure
+302247,2024-10-11,Septic shock
+302314,2024-10-11,Urinary tract infection
+302350,2024-10-17,Multi-organ failure
+302432,2024-10-21,Severe pneumonia
+302362,2024-10-29,Cardiorespiratory arrest
+302604,2024-11-20,Severe pneumonia
+302685,2024-11-22,Sepsis
+302651,2024-11-29,Acute gastroenteritis
+302485,2024-12-03,Ventilator associated pneumonia
+302564,2024-12-03,Severe malaria
+302659,2024-12-04,Severe malaria
+302465,2024-12-06,Bacterial meningitis
+302894,2024-12-07,Severe pneumonia
+100106,2024-12-11,Acute myocardial infarction
+302768,2024-12-13,Multi-organ failure
+100153,2025-01-08,Stroke
+303180,2025-01-09,Septic shock
+303117,2025-01-23,Septic shock
+303221,2025-01-26,Cardiorespiratory arrest
+303141,2025-01-27,Cardiorespiratory arrest
+303391,2025-02-05,Inguinal hernia
+303393,2025-02-06,Multi-organ failure
+303364,2025-02-16,Cardiorespiratory arrest
+303362,2025-02-20,Severe pneumonia
+303100,2025-02-24,Cardiorespiratory arrest
+303312,2025-02-25,Fracture of femur
+303544,2025-03-10,Septic shock
+303705,2025-03-17,Multi-organ failure
+303579,2025-03-21,Multi-organ failure
+303491,2025-03-29,Diabetic ketoacidosis
+303815,2025-04-06,Cardiorespiratory arrest
+303995,2025-04-08,Multi-organ failure
+303892,2025-04-14,Severe head injury
+303880,2025-04-21,Acute gastroenteritis
+303832,2025-04-23,Multi-organ failure
+303818,2025-04-24,Sepsis
+303798,2025-04-26,Severe pneumonia
+303807,2025-04-27,Neonatal sepsis
+303854,2025-05-01,Exacerbation of COPD
+304086,2025-05-19,Cardiorespiratory arrest
+304026,2025-05-22,Multi-organ failure
+304111,2025-05-27,Multi-organ failure
+304076,2025-05-29,Cardiorespiratory arrest
+304387,2025-06-12,Multi-organ failure
+304538,2025-06-14,Fracture of femur
+304271,2025-06-20,Fracture of femur
+304383,2025-06-29,Multi-organ failure
+304534,2025-06-29,Normal delivery
+304547,2025-07-01,Severe pneumonia
+304658,2025-07-06,Cardiorespiratory arrest
+304556,2025-07-09,Cardiorespiratory arrest
+304314,2025-07-12,Post-operative laparotomy
+304631,2025-07-15,Acute appendicitis
+304709,2025-07-15,Severe malaria
+304617,2025-07-20,Multi-organ failure
+304692,2025-07-26,Cardiorespiratory arrest
+304689,2025-07-30,Multi-organ failure
+304649,2025-08-03,Severe malaria
+304928,2025-08-04,Cardiorespiratory arrest
+304874,2025-08-09,Post-operative laparotomy
+304992,2025-08-12,Multi-organ failure
+305012,2025-08-12,Multi-organ failure
+304904,2025-08-13,Cellulitis
+304871,2025-08-16,Severe pneumonia
+304918,2025-08-23,Cardiorespiratory arrest
+305215,2025-09-04,Multi-organ failure
+305075,2025-09-05,Multi-organ failure
+305078,2025-09-12,Cellulitis
+305117,2025-09-20,Neonatal sepsis
+305131,2025-09-24,Multi-organ failure
+305196,2025-09-27,Cardiorespiratory arrest
+305067,2025-09-30,Sepsis
+305488,2025-10-05,Ventilator associated pneumonia
+305486,2025-10-11,Cardiorespiratory arrest
+305530,2025-10-15,Cardiorespiratory arrest
+305541,2025-10-15,Multi-organ failure
+305456,2025-10-17,Congestive cardiac failure
+305480,2025-10-18,Congestive cardiac failure
+305492,2025-10-20,Cellulitis
+305531,2025-10-29,Multi-organ failure
+305357,2025-11-02,Urinary tract infection
+305682,2025-11-06,Multi-organ failure
+305732,2025-11-17,Sepsis
+305572,2025-11-18,Multi-organ failure
+100211,2025-11-19,Acute myocardial infarction
+305698,2025-11-21,Neonatal sepsis
+305783,2025-12-01,Multi-organ failure
+305834,2025-12-08,Osteomyelitis
+306024,2025-12-15,Abscess
+305854,2025-12-18,Ventilator associated pneumonia
+305837,2025-12-21,Multi-organ failure
+305999,2025-12-26,Multi-organ failure
+306036,2026-01-09,Multi-organ failure
+306172,2026-01-12,Multi-organ failure
+100684,2026-01-24,Stroke
+306243,2026-01-26,Neonatal sepsis
+306242,2026-02-04,Multi-organ failure
+306296,2026-02-16,Multi-organ failure
+306504,2026-02-17,Multi-organ failure
+306281,2026-02-18,Hypertensive urgency
+306605,2026-03-08,Severe pneumonia
+306776,2026-03-09,Cardiorespiratory arrest
+306531,2026-03-20,Post-operative laparotomy
+306610,2026-03-23,Pyelonephritis
+306522,2026-03-25,Cardiorespiratory arrest
+306678,2026-04-03,Multi-organ failure
+307046,2026-04-08,Multi-organ failure
+306889,2026-04-16,Multi-organ failure
+306555,2026-04-20,Cardiorespiratory arrest
+306972,2026-04-23,Bacterial meningitis
+307242,2026-05-01,Multi-organ failure
+307231,2026-05-02,Cellulitis
+100420,2026-05-29,Heart failure
+307274,2026-06-02,Cardiorespiratory arrest
+307533,2026-06-15,Septic shock
+307606,2026-06-15,Congestive cardiac failure
+307548,2026-06-17,Stroke
+307484,2026-06-28,Diabetic ketoacidosis
+307482,2026-06-29,Cardiorespiratory arrest
+307753,2026-07-24,Multi-organ failure
+100917,2026-07-24,Stroke
+307715,2026-07-29,Stroke
+307628,2026-08-02,Multi-organ failure
+307615,2026-08-05,Severe head injury
+307882,2026-08-13,Septic shock
+308051,2026-08-24,Post-operative laparotomy
+307857,2026-08-25,Cardiorespiratory arrest
+307919,2026-08-29,Cardiorespiratory arrest
+307873,2026-08-30,Stroke
+308121,2026-09-01,Multi-organ failure
+307998,2026-09-02,Severe pneumonia
+308184,2026-09-15,Bacterial meningitis
+308176,2026-09-25,Cardiorespiratory arrest
