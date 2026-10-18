@@ -91,7 +91,7 @@ table.abg td.few::after{content:" *";color:var(--ochre);font-weight:700;}
       <a href="index.html#demo">Live demos</a>
       <a href="story.html">The story</a>
       <a href="methodology.html">Methodology</a>
-      <a href="index.html#download">Download</a>
+      <a href="index.html#download">Get the tools</a>
       <a href="index.html#about">About</a>
     </nav>
   </div>
@@ -319,7 +319,7 @@ const mname=p=>new Date(p+"-15").toLocaleDateString("en-GB",{month:"long",year:"
 $("#c7-claim").textContent=`In ${mname(A.p)}, ${A.obs} of ${A.n} patients given ceftriaxone were given adrenaline or hydrocortisone on the same day.`;
 $("#c7-a").textContent=`VigiWard looks for rescue medicines (adrenaline, hydrocortisone, chlorphenamine) dispensed on the same day as an antibiotic. One such patient is a story. ${["Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine"][A.obs]||A.obs} in one month, when the other 32 months predict ${fmt(A.lam,2)}, is a signal: ${fmt(A.rr,1)} times the expected rate (exact Poisson test, ${pv(A.pv)}, adjusted for the mix of wards).`;
 $("#c7-b").innerHTML=B?`<b>The second alert, which nobody planted.</b> VigiWard raised one more: cough remedies after enalapril in ${mname(B.p)} (${B.obs} of ${B.n} patients, ${pv(B.pv)}). It was not written into the data. VigiWard ran ${D.vw.tests} tests, and at p&nbsp;&lt;&nbsp;0.01 about ${fmt(D.vw.tests*0.01,0)} alerts are expected by chance alone; the tool says so on the same screen. This is the second number on this page not to over-read. A spike is a reason to look, not a finding.`:"";
-$("#howmade").innerHTML=`<b>How this page was made.</b> The figures were taken from the tools themselves (AMS Pro v4.6, PPS Pro 3.0 and VigiWard v3.6) reading the sample files that come with the download. Quarterly figures group dispensing by date and patient-days by admission date, which is why they add up to the tool&rsquo;s overall ${fmt(T.dot1000,1)} days of therapy per 1,000 patient-days. If a number here cannot be reproduced in the demo, that is a bug, and I would like to hear about it.`;
+$("#howmade").innerHTML=`<b>How this page was made.</b> The figures were taken from the tools themselves (AMS Pro v4.6, PPS Pro 3.0 and VigiWard v3.6) reading the same sample files the live demos use. Quarterly figures group dispensing by date and patient-days by admission date, which is why they add up to the tool&rsquo;s overall ${fmt(T.dot1000,1)} days of therapy per 1,000 patient-days. If a number here cannot be reproduced in the demo, that is a bug, and I would like to hear about it.`;
 
 /* ---------- charts: plain SVG, sized to the real width so text never shrinks ---------- */
 const X0=new Date("2024-01-01"),X1=new Date("2026-10-01");

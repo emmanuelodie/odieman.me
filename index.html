@@ -42,7 +42,7 @@
       <a href="#demo">Live demos</a>
       <a href="story.html">The story</a>
       <a href="methodology.html">Methodology</a>
-      <a href="#download">Download</a>
+      <a href="#download">Get the tools</a>
       <a href="#about">About</a>
       <a href="pst/">PST 2026</a>
     </nav>
@@ -187,13 +187,13 @@
 
   <section id="download">
     <h2>Get the tools</h2>
-    <p class="section-note">Free for Tanzania&rsquo;s government health facilities and institutions; for everyone else, by licence agreement (see below). Tell us who you are first &mdash; it takes a minute, and it is how news of updates and fixes reaches you. Each tool is a single file that opens in Google Chrome or Microsoft Edge, with its own user guide.</p>
+    <p class="section-note">Free for Tanzania&rsquo;s government health facilities and institutions; for everyone else, by licence agreement (see below). Send a short request below and Emmanuel will send your licensed copies himself, by WhatsApp or email. Each copy is registered to your facility, and it is how news of updates and fixes reaches you. Each tool is a single file that opens in Google Chrome or Microsoft Edge, with its own user guide. The live demos run on simulated data only.</p>
     <table class="dl">
       <tr><th>Tool</th><th>Version</th><th>Size</th><th>Try first</th></tr>
       <tr><td>AMS Pro</td><td>v4.6</td><td>~2.1 MB</td><td class="demo"><a href="tools/Odieman_AMS_Pro.html?demo=1" target="_blank" rel="noopener">Live demo</a></td></tr>
       <tr><td>PPS Pro</td><td>v3.0</td><td>~0.1 MB</td><td class="demo"><a href="tools/Odieman_PPS_Pro.html?demo=1" target="_blank" rel="noopener">Live demo</a></td></tr>
       <tr><td>VigiWard</td><td>v3.6</td><td>~1.3 MB</td><td class="demo"><a href="tools/VigiWard.html?demo=1" target="_blank" rel="noopener">Live demo</a></td></tr>
-      <tr><td>Complete suite</td><td>Oct 2026</td><td>~2.4 MB zip</td><td class="kv">all three tools + data folders + sample data</td></tr>
+      <tr><td>Complete suite</td><td>Oct 2026</td><td>~2.4 MB zip</td><td class="kv">on request</td></tr>
     </table>
 
     <form id="reqform" class="req sans" novalidate>
@@ -270,9 +270,6 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
 <script>
 (function(){
   var WA='255759547025', MAIL='emmanuelodie94@proton.me';
-  var FILES={'AMS Pro':['tools/Odieman_AMS_Pro.html','Odieman_AMS_Pro_v4_6.html','v4.6 · ~2.1 MB'],
-             'PPS Pro':['tools/Odieman_PPS_Pro.html','Odieman_PPS_Pro.html','v3.0 · ~0.1 MB'],
-             'VigiWard':['tools/VigiWard.html','VigiWard_v3_6.html','v3.6 · ~1.3 MB']};
   var LABEL={'gov-facility':'Government health facility in Tanzania','gov-institution':'Government institution in Tanzania',
     'private':'Private or faith-based facility','ngo':'NGO or international organisation','research':'Research project or programme','abroad':'Outside Tanzania'};
   var f=document.getElementById('reqform'), out=document.getElementById('reqresult'), err=document.getElementById('reqerr');
@@ -294,39 +291,29 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
     try{localStorage.setItem(KEY,JSON.stringify(d));}catch(e){}
     var gov=d.type==='gov-facility'||d.type==='gov-institution';
     odmEvent('request-'+d.type,'Request form: '+LABEL[d.type]);
-    var msg=(gov?'Odieman tools - download registration':'Odieman tools - licence request')+'\n\n'+
+    var msg=(gov?'Odieman tools - request (government)':'Odieman tools - licence request')+'\n\n'+
       'Name: '+d.name+'\nRole: '+d.role+'\nFacility/organisation: '+d.org+'\nType: '+LABEL[d.type]+
       '\nRegion/district or country: '+d.place+'\nContact: '+d.contact+'\nTools: '+d.tools.join(', ')+
       (d.use?'\nIntended use: '+d.use:'')+'\nLicence read and accepted: yes';
     var wa='https://wa.me/'+WA+'?text='+encodeURIComponent(msg);
-    var mail='mailto:'+MAIL+'?subject='+encodeURIComponent(gov?'Odieman tools - download registration':'Odieman tools - licence request')+'&body='+encodeURIComponent(msg);
+    var mail='mailto:'+MAIL+'?subject='+encodeURIComponent(gov?'Odieman tools - request (government)':'Odieman tools - licence request')+'&body='+encodeURIComponent(msg);
     var html='';
     if(gov){
-      html='<h3>Thank you, '+esc(d.name.split(' ')[0])+'</h3><p>One last step: send your registration to Emmanuel. Your downloads open as soon as you send it, and it is how you will hear about updates and fixes.</p>';
+      html='<h3>Thank you, '+esc(d.name.split(' ')[0])+'</h3><p>One last step: send your request to Emmanuel. For government facilities and institutions in Tanzania the tools are free; he will reply and send your copies, registered to your facility. Meanwhile, the live demos above show every screen.</p>';
     }else{
       var FOR={'private':'For private and faith-based facilities','ngo':'For NGOs and international organisations','research':'For research projects and programmes','abroad':'Outside Tanzania'};
       html='<h3>Thank you, '+esc(d.name.split(' ')[0])+'</h3><p>'+FOR[d.type]+', the tools are available by written licence or partnership agreement'+(d.type==='ngo'?' &mdash; including pilots in the facilities you support, adaptation to your indicators and training for your teams':'')+'. Send your request and Emmanuel will reply to agree the terms and send your copies. Meanwhile, the live demos above show every screen.</p>';
     }
     html+='<div class="req-actions"><a class="btn primary sans" data-send="whatsapp" href="'+esc(wa)+'" target="_blank" rel="noopener">Send on WhatsApp</a><a class="btn ghost sans" data-send="email" href="'+esc(mail)+'">Send by email</a></div>'+
       '<p class="kv">Opens your own WhatsApp or email with the message written for you. Check it, then press send.</p>'+
-      (gov?'<div id="reqdl" hidden></div>':'')+
       '<p class="kv"><button type="button" class="req-link" id="reqedit">&larr; Change my details</button></p>';
     out.innerHTML=html; out.hidden=false; f.hidden=true;
     out.scrollIntoView({behavior:'smooth',block:'start'});
     document.getElementById('reqedit').onclick=function(){out.hidden=true;f.hidden=false;f.scrollIntoView({behavior:'smooth',block:'start'});};
     [].forEach.call(out.querySelectorAll('[data-send]'),function(b){b.addEventListener('click',function(){
-      odmEvent('request-sent-'+b.getAttribute('data-send'),(gov?'Registration':'Licence request')+' sent by '+b.getAttribute('data-send'));
-      if(gov)showDownloads(d.tools);});});
+      odmEvent('request-sent-'+b.getAttribute('data-send'),(gov?'Request (government)':'Licence request')+' sent by '+b.getAttribute('data-send'));});});
   });
 
-  function showDownloads(tools){
-    var box=document.getElementById('reqdl'); if(!box||!box.hidden)return;
-    var li=tools.map(function(t){var x=FILES[t];return '<li><span><b>'+t+'</b> <span class="kv">'+x[2]+'</span></span><a class="get" data-dl="'+t+'" href="'+x[0]+'" download="'+x[1]+'">Download &rarr;</a></li>';}).join('');
-    if(tools.length===3)li+='<li><span><b>Complete suite</b> <span class="kv">all three tools + data folders + sample data · ~2.4 MB zip</span></span><a class="get" data-dl="Suite" href="downloads/Odieman_Suite_2026-10.zip" download>Download &rarr;</a></li>';
-    box.innerHTML='<h3 style="margin-top:18px">Your downloads</h3><ul class="req-dl">'+li+'</ul><p class="kv">Open the downloaded file in Google Chrome or Microsoft Edge; each tool opens its own user guide the first time.</p>';
-    box.hidden=false;
-    [].forEach.call(box.querySelectorAll('[data-dl]'),function(a){a.addEventListener('click',function(){odmEvent('download-'+a.getAttribute('data-dl').replace(/ /g,'-'),'Downloaded: '+a.getAttribute('data-dl'));});});
-  }
 })();
 </script>
 </body>
