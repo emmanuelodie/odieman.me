@@ -29,7 +29,7 @@
   <section class="page-hero">
     <p class="event">56th PST Scientific Conference &amp; AGM &middot; 25&ndash;27 November 2026 &middot; Kwatunza Beach Conference Hall, Mwanza</p>
     <h1>The data is already collected. These tools turn it into stewardship.</h1>
-    <p class="lede">Welcome — you probably scanned the poster. Hospital systems such as Afya eHMS and GoTHoMIS already record almost everything an antimicrobial stewardship or pharmacovigilance team needs. What was missing was a tool to assemble and analyse it. Here are three — free, offline, built by a hospital pharmacy technician.</p>
+    <p class="lede">Welcome — you probably scanned the poster. Hospital systems such as Afya eHMS already record almost everything an antimicrobial stewardship or pharmacovigilance team needs. What was missing was a tool to assemble and analyse it. Here are three — offline, free for Tanzania&rsquo;s public health facilities, built by a hospital pharmacy technician.</p>
   </section>
 
   <section id="poster" style="padding-top:6px;">
@@ -57,7 +57,7 @@
       <a class="scan-btn" href="../tools/Odieman_PPS_Pro.html?demo=1"><b>PPS Pro &rarr;</b><span>Five survey rounds; prevalence 68% &rarr; 45%, with trend tests</span></a>
     </div>
     <p class="kv">New to the tools? <a href="../story.html">Read the 10-minute story</a> of the demo hospital first.</p>
-    <p class="kv">Want to keep them? <a href="../index.html#download">Download the tools</a> — each is a single file that runs offline in Chrome or Edge, with a built-in user guide and sample data.</p>
+    <p class="kv">Want to keep them? <a href="../index.html#download">Request the tools</a> — free for Tanzania&rsquo;s public health facilities. Each is a single file that runs offline in Chrome or Edge, with a built-in user guide and sample data.</p>
   </section>
 
   <section id="minute">
@@ -77,7 +77,7 @@
       <div><h4>A hospital or AMS committee</h4><p>Pilot the tools on your own data, with help setting them up and reading the first reports.</p></div>
       <div><h4>A pharmacovigilance or TMDA colleague</h4><p>Test VigiWard's signals and TMDA drafts against real reporting, and shape what a useful ward-level PV report looks like.</p></div>
       <div><h4>A data or IT person</h4><p>Help maintain and extend the tools — new export formats, translations, testing on other hospital systems.</p></div>
-      <div><h4>A researcher or programme</h4><p>Use the tools in a study, multi-site evaluation or training programme, with proper attribution.</p></div>
+      <div><h4>WHO, an NGO or a programme</h4><p>Working in pharmacovigilance or stewardship? Bring the tools to the facilities you support &mdash; pilots, adaptation to your indicators and reporting, multi-site use and training &mdash; through a partnership or licence agreement.</p></div>
     </div>
   </section>
 
@@ -105,8 +105,16 @@
 <footer class="wrap">
   <div class="fline">
     <span>&copy; 2026 Odieman Health Tools.</span>
-    <span>No patient data is collected by this website. Live demos run entirely in your browser.</span>
+    <span>No patient data is collected by this website; visits are counted anonymously, without cookies (GoatCounter). Live demos run entirely in your browser.</span>
   </div>
 </footer>
+<script>
+/* Visit counting: GoatCounter, no cookies, no personal data. Events record only which demo or tool was opened. */
+window.odmEvent=function(path,title){try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:path,title:title||path,event:true});}catch(e){}};
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href');
+  var m=h.match(/(Odieman_AMS_Pro|Odieman_PPS_Pro|VigiWard)\.html\?demo=1/);if(m){odmEvent('demo-'+m[1].replace('Odieman_',''),'Live demo opened');return;}
+  if(/^https:\/\/wa\.me\//.test(h))odmEvent('contact-whatsapp','WhatsApp link');else if(/^mailto:/.test(h))odmEvent('contact-email','Email link');else if(/\.vcf$/.test(h))odmEvent('contact-vcard','Contact saved');else if(/\.pdf$/.test(h))odmEvent('abstract-pdf','Abstract downloaded');});
+</script>
+<script data-goatcounter="https://emmanuelodie94.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>
