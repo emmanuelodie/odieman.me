@@ -28,79 +28,159 @@
   <p class="crumb"><a href="index.html">Home</a> / Methodology</p>
 
   <section class="page-hero">
-    <span class="tag">Reviewer's page</span>
+    <span class="tag">Reviewer's page &middot; checked against AMS Pro 4.6, PPS Pro 3.0 and VigiWard 3.6 &middot; October 2026</span>
     <h1>Every number traces to a named method.</h1>
-    <p class="lede">This page exists for the person whose job is to be skeptical: a biostatistician, an AMS committee chair, a TMDA or MOH reviewer. Below is the exact arithmetic behind every figure the tools produce — not a marketing description of it.</p>
+    <p class="lede">This page exists for the person whose job is to be skeptical: a biostatistician, an AMS committee chair, a TMDA or MOH reviewer. Below is the exact arithmetic behind the figures the tools produce — written from the tools' source code, not from a marketing description of it. Where a method is a simplification, it says so.</p>
+    <p class="sans" style="font-size:14px;color:var(--ink-soft);">Jump to:
+      <a href="#wilson">Wilson CI</a> &middot; <a href="#aware">AWaRe</a> &middot; <a href="#ddd">DDD &amp; DOT</a> &middot; <a href="#spc">Run charts</a> &middot; <a href="#trend">Trends over time</a> &middot; <a href="#projection">Projections</a> &middot; <a href="#antibiogram">Antibiogram</a> &middot; <a href="#review">Review rules</a> &middot; <a href="#ssa">Sequence symmetry</a> &middot; <a href="#spike">Spike alerts</a> &middot; <a href="#ipc">IPC indicators</a></p>
   </section>
 
   <section id="wilson">
     <h2>Wilson score interval (proportions &amp; prevalence)</h2>
-    <p class="section-note">Used for: PPS point-prevalence estimates, ward-level proportions, guideline-compliance rates. Replaces the common but statistically weaker practice of reporting a bare percentage.</p>
+    <p class="section-note">Used for every proportion that is reported with a confidence interval. Replaces the common but statistically weaker practice of reporting a bare percentage.</p>
     <div class="formula">z = 1.96 <span class="cm">// 95% confidence</span>
 p&#770; = x / n
 d = 1 + z&sup2;/n
 center = (p&#770; + z&sup2;/2n) / d
 half-width = z &middot; &radic;(p&#770;(1&minus;p&#770;)/n + z&sup2;/4n&sup2;) / d
 95% CI = [center &minus; half-width, center + half-width], clamped to [0, 1]</div>
-    <p>This is the textbook Wilson score interval — it behaves correctly at small sample sizes and near 0%/100%, where the more common normal-approximation interval (Wald interval) breaks down and can return nonsensical bounds. The tools flag any estimate built on n &lt; 20 as low-confidence rather than reporting a falsely precise interval.</p>
-    <div class="citebox"><b>Applies in:</b> PPS Pro (prevalence, ward breakdowns), VigiWard (sequence-symmetry proportions)</div>
+    <p>This is the textbook Wilson score interval — it behaves correctly at small sample sizes and near 0%/100%, where the more common normal-approximation (Wald) interval breaks down. PPS Pro marks any estimate whose denominator is below 20 with &#9888; rather than letting a wide interval pass unnoticed.</p>
+    <div class="citebox"><b>Applies in:</b> PPS Pro (all 14 survey indicators, ward and statistics tables) &middot; VigiWard (sequence-symmetry proportions; signal rates per 1,000 patients exposed in the facility report)</div>
   </section>
 
   <section id="aware">
-    <h2>AWaRe classification, with country overrides</h2>
-    <p class="section-note">Every antibiotic dispensed or prescribed is tagged Access, Watch, or Reserve — WHO's framework for antimicrobial stewardship targets.</p>
-    <p>The base classification follows WHO's global AWaRe list. Layered on top is a country-override table — currently populated for Tanzania, with WHO-generic and Kenya variants also present in the lookup — that reclassifies specific agents where national Standard Treatment Guidelines diverge from the WHO default. The most consequential Tanzania overrides:</p>
+    <h2>AWaRe classification — WHO, with a Tanzania view</h2>
+    <p class="section-note">Every antibiotic dispensed or prescribed is tagged Access, Watch or Reserve — WHO's framework for stewardship targets. Fixed-dose combinations that WHO lists as &ldquo;Not recommended&rdquo; are kept as their own group, never folded into one ingredient's class.</p>
+    <p>AMS Pro reports the WHO classification by default and shows a Tanzania STG/NEMLIT view <em>side by side</em>, so the effect of the ruler is visible. The Tanzania view changes only the agents listed below; the list is editable on the Setup page, because the pharmacist holding the current NEMLIT copy is the final authority — entries marked &ldquo;check&rdquo; should be confirmed against it.</p>
     <table class="bench">
-      <tr><th>Agent</th><th>WHO global</th><th>Tanzania STG</th></tr>
-      <tr><td>Meropenem / Imipenem / Ertapenem</td><td>Watch</td><td><span class="badge reserve">Reserve</span></td></tr>
-      <tr><td>Sulbactam + Ceftriaxone</td><td>Watch</td><td><span class="badge reserve">Reserve</span></td></tr>
-      <tr><td>Amoxicillin + Clavulanic acid</td><td>Access</td><td><span class="badge watch">Watch</span></td></tr>
-      <tr><td>Flucloxacillin + Amoxicillin</td><td>Access</td><td><span class="badge watch">Watch</span></td></tr>
+      <tr><th>Agent</th><th>WHO</th><th>Tanzania view (AMS Pro)</th><th>Basis recorded in the tool</th></tr>
+      <tr><td>Meropenem</td><td>Watch</td><td><span class="badge reserve">Reserve</span></td><td>STG/NEMLIT 2021 (Zimbwe et al., BMJ Open 2024, Table 2)</td></tr>
+      <tr><td>Imipenem, imipenem-cilastatin</td><td>Watch</td><td><span class="badge reserve">Reserve</span></td><td>Set to match meropenem — check NEMLIT</td></tr>
+      <tr><td>Ampicillin + cloxacillin (&ldquo;Ampiclox&rdquo;)</td><td>Not recommended</td><td><span class="badge access">Access</span></td><td>STG/NEMLIT 2021 first-line; two Access penicillins</td></tr>
+      <tr><td>Amoxicillin + flucloxacillin</td><td>Not recommended</td><td><span class="badge access">Access</span></td><td>STG/NEMLIT 2021 first-line; two Access penicillins</td></tr>
+      <tr><td>Ceftriaxone + sulbactam</td><td>Not recommended</td><td><span class="badge watch">Watch</span></td><td>Classed by its ceftriaxone component — check NEMLIT</td></tr>
     </table>
-    <p>This matters for interpretation: a report run under WHO-generic rules and one run under Tanzania STG rules will show different Access/Watch/Reserve splits for the <em>same underlying prescribing</em> — not because prescribing changed, but because the ruler changed. Every AWaRe report states which rule set produced it.</p>
-    <div class="citebox"><b>Benchmarks used (Tanzania targets):</b> Access &ge; 60% &middot; Watch &le; 30% &middot; Reserve &le; 5%</div>
+    <p>A report run under WHO rules and one run under Tanzania rules can show different Access/Watch/Reserve splits for the <em>same prescribing</em> — not because prescribing changed, but because the ruler changed. Every AWaRe figure states which rule set produced it. PPS Pro and VigiWard use the WHO classification.</p>
+    <div class="citebox"><b>Target used:</b> at least 70% of human antibiotic use from the Access group by 2030 (UN General Assembly Political Declaration on AMR, 2024), which supersedes the earlier WHO target of 60%. AWaRe shares in AMS Pro are shares of antibiotic dispensing lines; a DDD-weighted share is shown beside them.</div>
   </section>
 
   <section id="ddd">
-    <h2>DDD / 100 patient-days</h2>
-    <p class="section-note">Antimicrobial consumption normalized to WHO ATC/DDD methodology, the standard unit for comparing consumption across time periods or facilities regardless of ward size.</p>
-    <div class="formula">DDD (per agent) = total grams dispensed &divide; WHO-assigned DDD for that agent (route-specific)
-DDD / 100 patient-days = ( &Sigma; DDDs &divide; patient-days ) &times; 100</div>
-    <p>Patient-days can come from two sources, and the tools are explicit about which one produced a given figure: <strong>measured</strong> (entered directly from IPC/ward patient-day logs — the preferred, higher-confidence source) or <strong>estimated</strong> (beds &times; occupancy rate, used only when no measured patient-days figure has been entered, and always labeled as an estimate in the output). Days of therapy (DOT) per 100 patient-days is computed alongside DDD as a cross-check, since the two metrics can diverge when dosing patterns are unusual.</p>
-    <table class="bench">
-      <tr><th>Benchmark</th><th>Acceptable range</th></tr>
-      <tr><td>DDD / 100 bed-days</td><td>40 – 80 (WHO / ESAC-Net reference range)</td></tr>
-    </table>
-    <div class="citebox"><b>Applies in:</b> AMS Pro consumption dashboards, ward and facility-level trend charts</div>
+    <h2>DDD and DOT per 1,000 patient-days</h2>
+    <p class="section-note">Antimicrobial consumption expressed in WHO ATC/DDD units — the standard way to compare consumption across periods or facilities regardless of ward size.</p>
+    <div class="formula"><span class="cm">// for each antibiotic dispensing line (computed per line, then summed)</span>
+grams = quantity &times; strength read from the item name (e.g. "Ceftriaxone &hellip; 1g Vial" &rarr; 1 g)
+DDD   = grams &divide; WHO DDD for that agent and route (parenteral or oral)
+DOT   = planned days of therapy read from the dosage text ("Duration: 5 /7" &rarr; 5)
+
+DDD per 1,000 patient-days = &Sigma; DDD &divide; patient-days &times; 1,000
+DOT per 1,000 patient-days = &Sigma; DOT &divide; patient-days &times; 1,000</div>
+    <p>The route is taken from the item's form (injection, infusion, vial &rarr; parenteral; tablet, capsule, suspension &rarr; oral) or, failing that, from the dosage text. For amoxicillin-clavulanate the WHO DDD refers to the amoxicillin content, so labelled totals (625 mg, 1.2 g &hellip;) are converted to their amoxicillin content. A line gets <em>no</em> DDD — rather than a guessed one — when the strength is missing from the item name, when it is an oral liquid whose bottle volume is unknown, or when WHO assigns no DDD to the combination; the tool reports the share of lines covered. A unit strength can be supplied on the Dose Reference page, and lines computed that way are counted as &ldquo;assumed&rdquo;.</p>
+    <p><strong>Patient-days</strong> are <strong>measured</strong> when an admissions file with bed-days or admission dates is imported (always preferred), or <strong>estimated</strong> from beds &times; occupancy &times; days entered on Setup — and the label on every figure says which. Without either, totals are still shown, but no per-1,000 rate is computed.</p>
+    <p>PPS Pro reports a survey-day figure instead: &Sigma;(dose &times; doses per day &divide; WHO DDD) for all patients on the survey day, per 100 inpatients surveyed.</p>
+    <div class="citebox"><b>No &ldquo;acceptable range&rdquo;:</b> WHO publishes no target value for hospital DDD or DOT rates. Compare against your own baseline over time, and against published facilities of similar type, with the same denominator. <b>Applies in:</b> AMS Pro (Dashboard, Consumption, Analytics) &middot; PPS Pro (DDD per 100 inpatients)</div>
   </section>
 
-  <section id="regression">
-    <h2>Cost trajectory (linear regression)</h2>
-    <p class="section-note">Used only for the monthly cost/consumption trend line — deliberately kept as simple, transparent ordinary least squares rather than a more opaque forecasting model.</p>
-    <div class="formula">x = month index (0, 1, 2, &hellip;)
-slope = (n&middot;&Sigma;xy &minus; &Sigma;x&middot;&Sigma;y) / (n&middot;&Sigma;x&sup2; &minus; (&Sigma;x)&sup2;)
-intercept = (&Sigma;y &minus; slope&middot;&Sigma;x) / n</div>
-    <p>The tool refuses to render a trend line at all with fewer than three months of data, and every chart is labeled <strong>"trend, not a forecast"</strong> — extrapolation is a mathematical property of a fitted line, not a claim about the future. Savings scenarios shown alongside cost trends are a plain multiplication (a user-adjustable percentage &times; current Watch/Reserve spend), never a modeled projection.</p>
+  <section id="spc">
+    <h2>Run charts with control limits (Laney p&prime;)</h2>
+    <p class="section-note">Answers the committee's real question — &ldquo;did something change, or is this ordinary variation?&rdquo; — for weekly or monthly shares.</p>
+    <div class="formula"><span class="cm">// each point i = one week or month; x_i of n_i antibiotic lines meet the criterion</span>
+p&#772;   = &Sigma;x_i / &Sigma;n_i                     <span class="cm">// centre line</span>
+&sigma;_i  = &radic;( p&#772;(1&minus;p&#772;) / n_i )
+z_i  = (p_i &minus; p&#772;) / &sigma;_i
+&sigma;_z  = max( 1, mean|z_i &minus; z_i&minus;1| / 1.128 )   <span class="cm">// Laney's between-point correction</span>
+limits_i = p&#772; &plusmn; 3 &middot; &sigma;_i &middot; &sigma;_z, clamped to [0, 1]</div>
+    <p>With hundreds of lines per point, classic p-chart limits are so narrow that ordinary week-to-week differences between patients and prescribers look like alarms; Laney's correction widens them by the variation actually observed between points. Partial first and last weeks are dropped. A point is flagged when it falls <strong>outside the limits</strong>, when <strong>8 or more consecutive points</strong> sit on one side of the centre line (a shift), or when <strong>6 consecutive points</strong> rise or fall (a trend). About 20 points are recommended before trusting the limits, and a volume/department-mix chart is shown alongside so a change in who was captured is not mistaken for a change in prescribing.</p>
+    <div class="citebox"><b>Applies in:</b> AMS Pro Run Charts — Access share, Watch share, WHO Not-recommended share, injectable share, and the share of antibiotic patients with a time-out flag</div>
+  </section>
+
+  <section id="trend">
+    <h2>Trends over time</h2>
+    <p class="section-note">Two settings, two methods: many monthly points from dispensing data, and a handful of survey rounds from PPS.</p>
+    <h4 class="sans" style="color:var(--navy-deep);">Monthly series (AMS Pro Resistance Trend) — ordinary least squares</h4>
+    <div class="formula">x = month index 0, 1, 2 &hellip;   y = monthly Watch+Reserve share (or other chosen measure)
+slope = &Sigma;(x&minus;x&#772;)(y&minus;y&#772;) / &Sigma;(x&minus;x&#772;)&sup2;      R&sup2; = goodness of fit
+change per year = slope &times; 12 &divide; mean(y) &times; 100%
+95% band = slope &plusmn; t &middot; SE(slope), with t &asymp; 1.96 (n &gt; 30), 2.16 (n 10&ndash;30), 2.45 (n &lt; 10)</div>
+    <p>At least 3 months are required. The band is built from the uncertainty of the slope only, and the t-values are a rounded approximation — adequate for &ldquo;is this falling or not&rdquo;, not for a publication-grade interval. The line is a proxy for resistance-driving prescribing pressure, not a measured resistance rate (that comes from the antibiogram).</p>
+    <h4 class="sans" style="color:var(--navy-deep);">Survey rounds (PPS Pro) — tests for proportions</h4>
+    <div class="formula"><span class="cm">// Cochran&ndash;Armitage test for trend; scores s_i = time of survey i in years</span>
+p&#772; = &Sigma;x_i / &Sigma;n_i
+T = &Sigma; s_i (x_i &minus; n_i p&#772;)
+Var(T) = p&#772;(1&minus;p&#772;) [ &Sigma; n_i s_i&sup2; &minus; (&Sigma; n_i s_i)&sup2; / &Sigma; n_i ]
+Z = T / &radic;Var(T),  two-sided p from the normal distribution</div>
+    <p>Alongside it: a chi-square test across all rounds (any difference, no direction assumed); first-versus-latest difference in percentage points with a 95% Wald interval and a pooled two-proportion z-test; and a straight-line change per year in percentage points (descriptive only, as a few rounds give little power for a slope).</p>
+    <div class="citebox"><b>Applies in:</b> AMS Pro Resistance Trend &middot; PPS Pro Trends and Statistics pages, Overview key messages and the trend report</div>
+  </section>
+
+  <section id="projection">
+    <h2>Projections and scenarios — deliberately simple</h2>
+    <p class="section-note">Where a chart continues a line into the future, it is a directional continuation of the recent past, labelled as such — never a forecast.</p>
+    <div class="formula"><span class="cm">// AMS Pro Analytics (monthly DDDs) and Cost &amp; Impact (monthly spend, shown only when ticked)</span>
+recent change = average of the last 3 month-on-month changes   <span class="cm">// % for DDDs, shillings for spend</span>
+projection    = last month carried forward by that change, month by month
+
+<span class="cm">// Stewardship scenario outlook (user-adjustable assumptions)</span>
+without AMS        = today &times; (1 + drift%)^years
+current trajectory = today &times; (1 + r)^years, r = (1 + recent monthly change)^12 &minus; 1,
+                     held between the improvement and drift rates, not below the floor
+full stewardship   = today &times; (1 &minus; improvement%)^years, not below the floor</div>
+    <p>These are arithmetic what-ifs that make an assumption visible and adjustable — useful for a budget conversation, not evidence of what will happen.</p>
+    <div class="citebox"><b>Applies in:</b> AMS Pro Analytics (monthly trend + projection, scenario outlook) and Cost &amp; Impact (optional projection)</div>
+  </section>
+
+  <section id="antibiogram">
+    <h2>Cumulative antibiogram</h2>
+    <p class="section-note">Built from imported culture &amp; sensitivity results, following the CLSI M39 conventions for cumulative antibiograms.</p>
+    <div class="formula">first isolate per patient per organism only (earliest by sample date)
+%S = S / (S + I + R)         <span class="cm">// intermediate counts against susceptibility</span>
+cells with fewer than 30 isolates are shown with &#9888;, not hidden
+empirical therapy review: an antibiotic in use is flagged when its overall %S across tested organisms is below 80%</div>
+    <p>The table can be filtered by period and specimen. The empirical review is deliberately crude (overall coverage, not indication-specific) and says so on screen.</p>
+    <div class="citebox"><b>Applies in:</b> AMS Pro Antibiogram</div>
+  </section>
+
+  <section id="review">
+    <h2>Patient-level review rules</h2>
+    <p class="section-note">Rules that turn dispensing data into a daily list of patients worth a two-minute review. Each line is a prompt, not a judgement — dispensing data carries no diagnosis, and every rule lists what it cannot see.</p>
+    <table class="bench">
+      <tr><th>Rule</th><th>Fires when (defaults, adjustable)</th></tr>
+      <tr><td>IV &ge; 3 days</td><td>The same injectable antibiotic dispensed on 3 or more consecutive days — an oral step-down candidate</td></tr>
+      <tr><td>Double anaerobic cover</td><td>Metronidazole with another anaerobe-active agent on shared days (H. pylori regimens excluded)</td></tr>
+      <tr><td>Two beta-lactams</td><td>Two beta-lactams together on shared days (an IV&rarr;oral switch is counted as good practice instead)</td></tr>
+      <tr><td>&ge; 3 antibiotics</td><td>Three or more different antibiotics on the same day</td></tr>
+      <tr><td>Long course</td><td>Stated duration beyond 7 days (azithromycin 5; H. pylori regimens 14), long-term agents excluded</td></tr>
+      <tr><td>Reserve without culture</td><td>A Reserve antibiotic with no culture result within &plusmn;3 days</td></tr>
+      <tr><td>Post-op &gt; 24 h</td><td>Antibiotics still dispensed 2&ndash;7 days after a recorded operation or caesarean section</td></tr>
+      <tr><td>Bug&ndash;drug mismatch</td><td>An antibiotic dispensed from 1 day before to 7 days after a culture to which the isolate tested Resistant or Intermediate</td></tr>
+    </table>
+    <div class="citebox"><b>Applies in:</b> AMS Pro Antibiotic Time-out and Bug&ndash;drug Check (the share of patients with a flag is also tracked on the run charts)</div>
   </section>
 
   <section id="ssa">
-    <h2>Sequence symmetry analysis (signal detection)</h2>
-    <p class="section-note">Used for: flagging potential adverse-drug-reaction signals and prescribing-cascade patterns from pharmacy dispensing sequences alone, without needing a formal causality-coded dataset.</p>
-    <p>For each drug pair (A, B), the tool counts patients where A preceded B versus B preceded A within a defined window, then applies a Wilson confidence interval to the forward/total proportion and transforms it into a ratio confidence interval via <code>p / (1&minus;p)</code>. This transform is valid because it is monotonic — a correct confidence interval on a proportion remains a correct confidence interval after a monotonic transform.</p>
+    <h2>Sequence symmetry analysis (prescribing cascades)</h2>
+    <p class="section-note">Used for flagging potential adverse-drug-reaction signals and prescribing-cascade patterns from pharmacy dispensing sequences alone, without a causality-coded dataset.</p>
+    <p>For each drug pair (A, B), the tool counts patients whose first A preceded their first B versus the reverse, applies a Wilson confidence interval to the forward/total proportion and transforms it into a ratio interval via <code>p / (1&minus;p)</code> — valid because the transform is monotonic.</p>
     <p>A signal is only flagged when the lower confidence bound clears a ratio of 1 <em>and</em> there are at least 5 discordant pairs — a deliberate minimum-power guard against false positives on sparse data. Each ratio is reported both <strong>crude</strong> and <strong>adjusted for prescribing trends</strong> (divided by the null-effect sequence ratio expected from how the two drugs' use changed over the period), and every flagged signal is labeled <strong>hypothesis-generating, not proof of causation</strong> — it tells a pharmacist where to look, not what the answer is.</p>
-    <div class="citebox"><b>Applies in:</b> VigiWard cascade/signal detection module</div>
+    <div class="citebox"><b>Applies in:</b> VigiWard Overview (sequence symmetry) alongside its patient-level cascade signals</div>
+  </section>
+
+  <section id="spike">
+    <h2>Spike alerts (possible product-quality problems)</h2>
+    <p class="section-note">A sudden rise in reactions to one medicine in one month or week can point to a bad batch, a new supplier or a substandard or falsified product rather than to the patients.</p>
+    <div class="formula"><span class="cm">// for each medicine &times; reaction series, and each period p</span>
+observed O_p = patients with that reaction signal in period p
+expected &lambda;_p = &Sigma;_wards [ patients exposed in that ward in p &times; reaction rate in that ward in all OTHER periods ]
+p-value = P( X &ge; O_p | X ~ Poisson(&lambda;_p) )          <span class="cm">// exact upper tail</span>
+alert when O_p &ge; 3, O_p / &lambda;_p &ge; 2 and p &lt; 0.01</div>
+    <p>Each period is compared with all other periods (leave-one-out), with the department mix adjusted for (indirect standardisation), so a month in which more high-risk wards were captured does not pass for a spike. Series with fewer than 5 events or 30 exposed patients are not tested; dismissed signals and premedication patterns are excluded. Because many series and periods are tested, about 1 in 100 tests can reach p &lt; 0.01 by chance — the page states how many such chance alerts to expect, and every alert is a reason to check batch numbers and the supplier, not a finding.</p>
+    <div class="citebox"><b>Applies in:</b> VigiWard Spike alerts</div>
   </section>
 
   <section id="ipc">
-    <h2>IPC benchmarks (Tanzania NIPCG 2018)</h2>
-    <p class="section-note">Infection prevention and control indicators are scored against Tanzania's own national guideline, not an imported international default.</p>
-    <p>Hand hygiene, PPE compliance, sharps safety, housekeeping, and linen management indicators cite specific sections of the <em>Tanzania National Infection Prevention and Control Guidelines, June 2018</em> (MOHCDGEC) — for example, Part 2 §2.3 on hand hygiene, Part 2 §2.4 on PPE, and Part 3 §3.5 on environmental cleaning. Each indicator in the tool links back to the section of the national guideline it's drawn from, rather than a generic WHO IPC checklist.</p>
-    <table class="bench">
-      <tr><th>Indicator</th><th>Target</th></tr>
-      <tr><td>Hand hygiene compliance</td><td>&ge; 80%</td></tr>
-      <tr><td>PPE compliance</td><td>&ge; 90%</td></tr>
-      <tr><td>Surgical site infection rate</td><td>&lt; 2% (WHO)</td></tr>
-    </table>
+    <h2>IPC indicators (Tanzania MOH GHS-CQI)</h2>
+    <p class="section-note">Infection prevention and control indicators follow the Tanzania Ministry of Health Global Health Security continuous quality improvement (GHS-CQI) framework, with the Tanzania National IPC Guidelines and WHO/AFRO IPC core components as references.</p>
+    <p>AMS Pro carries twelve IPC indicators: surgical site infection, hazardous waste segregation, quarterly IPC programme assessment, IPCAF score, hand hygiene compliance (WHO &ldquo;My 5 Moments&rdquo;), CAUTI, VAP and CLABSI rates per 1,000 device-days, sharps injuries, WASH availability, standard precautions and CSSD reprocessing. The <strong>SSI rate after caesarean section</strong> is computed automatically from the admissions data (confirmed SSI &divide; caesarean sections, also shown on CRF02); the others are observation- or audit-based and entered on the Indicators page with their numerator and denominator.</p>
+    <div class="citebox"><b>Applies in:</b> AMS Pro Indicators and CRF Forms; exported as the GHS-CQI indicator CSV for facility submission</div>
   </section>
 
   <a href="index.html" class="back-link">&larr; Back to home</a>
