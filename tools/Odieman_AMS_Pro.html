@@ -24569,17 +24569,20 @@ function inWardScope(department){
   const nd=normH(department); if(!nd) return false;
   return scope.some(w=>{ const nw=normH(w); return nd===nw||nd.indexOf(nw)>=0||nw.indexOf(nd)>=0; });
 }
-function scopedPharmacyTx(){ return DB.pharmacyTx.filter(t=>inWardScope(t.department)); }
+let __pharmScopeMemo=null; /* set only while compileReport runs; never outlives it */
+function scopedPharmacyTx(){ if(__pharmScopeMemo) return __pharmScopeMemo.slice(); return DB.pharmacyTx.filter(t=>inWardScope(t.department)); }
 /* Lab data often carries no ward/department field at all (many lab exports are facility-wide with
    no ward column, e.g. a test-order log). Only apply ward scoping to lab records when the dataset
    actually has SOME ward info to filter on — otherwise silently zeroing every lab indicator just
    because the field is absent would look like a bug, not a real "no ward" finding. */
 function labHasWardDimension(){ return DB.labTx.some(t=>t.department); }
 function labInScope(t){ return labHasWardDimension() ? inWardScope(t.department) : true; }
-function scopedLabTx(){ return DB.labTx.filter(labInScope); }
+function scopedLabTx(){ const w=labHasWardDimension(); return w?DB.labTx.filter(t=>inWardScope(t.department)):DB.labTx.slice(); }
 function scopedAdmitTx(){ return DB.admitTx.filter(t=>inWardScope(t.ward)); }
 function compileReport(){
   amsReconcileTx();
+  __pharmScopeMemo=DB.pharmacyTx.filter(t=>inWardScope(t.department));
+  try{
   if(!DB.facility.period){ const ds=(DB.pharmacyTx||[]).map(t=>(t.date||"").slice(0,10)).filter(Boolean).sort(); if(ds.length) DB.facility.period=ds[0]+" to "+ds[ds.length-1]; }
   compileConsumption();
   compileLabIndicators();
@@ -24593,6 +24596,7 @@ function compileReport(){
   compileInrudProxies();
   compileAntibiogram();
   compileDriverZones();
+  } finally { __pharmScopeMemo=null; }
   DB.metrics.lastCompiled=new Date().toLocaleString();
 }
 /* ============================= WHO ATC/DDD engine (v4.4) =============================
@@ -25830,8 +25834,8 @@ function crf3GuidelineAssessment(pTx,diagText){
    official CRF03 fields (nothing in lab/TAT data maps to a required column), so it's kept in a
    clearly-labelled "reference" column rather than mixed into the audit fields proper. ---- */
 const CRF3_CULTURE_RE=/cultur|c\s*&\s*s|sensitivity|genxpert|xpert/i;
-function crf3LabSummary(pid){
-  const recs=scopedLabTx().filter(t=>t.patientId && (""+t.patientId).trim()===pid);
+function crf3LabSummary(pid,pre){
+  const recs=pre||scopedLabTx().filter(t=>t.patientId && (""+t.patientId).trim()===pid);
   if(!recs.length) return "";
   const cultures=recs.filter(t=>t.isCultureBased||CRF3_CULTURE_RE.test(t.sampleType||""));
   const met=recs.filter(t=>t.tatMet==="Y").length, notMet=recs.filter(t=>t.tatMet==="N").length;
@@ -25880,6 +25884,13 @@ function compileCRF3(){
   let capped=false; const fullCount=allPids.length; let pids=allPids;
   if(pids.length>CRF3_AUTO_CAP){ pids=pids.sort((a,b)=>dateOf(b).localeCompare(dateOf(a))).slice(0,CRF3_AUTO_CAP); capped=true; }
   DB.crf3._autoCapped=capped; DB.crf3._autoTotalPatients=fullCount;
+  /* indexes built once: one pass over each dataset instead of one pass per patient */
+  const keyOf=t=>t.patientId?(""+t.patientId).trim():"";
+  const want=new Set(pids), pharmBy={}, admitAllBy={}, labBy={}, rowBy={};
+  DB.pharmacyTx.forEach(t=>{ if(!t.drugMatched) return; const k=keyOf(t); if(want.has(k)) (pharmBy[k]=pharmBy[k]||[]).push(t); });
+  DB.admitTx.forEach(t=>{ const k=keyOf(t); if(want.has(k)) (admitAllBy[k]=admitAllBy[k]||[]).push(t); });
+  scopedLabTx().forEach(t=>{ const k=keyOf(t); if(want.has(k)) (labBy[k]=labBy[k]||[]).push(t); });
+  DB.crf3.rows.forEach(r=>{ const k=r.patientId?(""+r.patientId).trim():""; if(k && !(k in rowBy)) rowBy[k]=r; });
   pids.forEach(pid=>{
     /* antibiotic exposure for this patient is matched by Patient ID only, deliberately NOT
        re-applying the Ward scope filter here. A hospital's pharmacy dispensing log is very often
@@ -25894,21 +25905,21 @@ function compileCRF3(){
        clearly unrelated earlier visit aren't pulled in by a shared Patient ID. */
     const admissionStart=(()=>{ let best=""; admitByPid[pid].forEach(t=>{ const d=t.dateAdmitted||t.dateDischarged||t.date||""; if(!best||d<best)best=d; }); return best; })();
     const inWindow=t=>!admissionStart||!t.date||t.date>=admissionStart;
-    const pTx=DB.pharmacyTx.filter(t=>t.patientId && (""+t.patientId).trim()===pid && t.drugMatched && inWindow(t));
+    const pTx=(pharmBy[pid]||[]).filter(inWindow);
     const aTx=admitByPid[pid]; // primary admission records only: real ward/dates/bed-days
     /* diagnosis/procedure text is pulled from EVERY admit-category record for this patient —
        primary or supplementary, and unscoped by Ward — since a supplementary file like a Master
        Sheet often carries a Patient Destination/department value that won't literally match the
        Ward scope text, even though it's clearly the same patient. */
-    const allAdmitForPid=DB.admitTx.filter(t=>t.patientId && (""+t.patientId).trim()===pid);
-    let row=DB.crf3.rows.find(r=>r.patientId && (""+r.patientId).trim()===pid);
+    const allAdmitForPid=admitAllBy[pid]||[];
+    let row=rowBy[pid];
     if(!row){
       row=DB.crf3.rows.find(r=>!r.patientId && !r.procedure && !r.ab1n);
-      if(row){ row.patientId=pid; row.auto=true; }
-      else { row={sno:DB.crf3.rows.length+1,patientId:pid,age:"",procedure:"",diagnosis:"",flag:"",labSummary:"",receivingAB:"",prophylaxis:"",timingFirstDose:"",ab1n:"",ab1r:"",ab1d:"",ab2n:"",ab2r:"",ab2d:"",ab3n:"",ab3r:"",ab3d:"",reviewStop:"",adherence:"",auto:true}; DB.crf3.rows.push(row); }
+      if(row){ row.patientId=pid; row.auto=true; rowBy[pid]=row; }
+      else { row={sno:DB.crf3.rows.length+1,patientId:pid,age:"",procedure:"",diagnosis:"",flag:"",labSummary:"",receivingAB:"",prophylaxis:"",timingFirstDose:"",ab1n:"",ab1r:"",ab1d:"",ab2n:"",ab2r:"",ab2d:"",ab3n:"",ab3r:"",ab3d:"",reviewStop:"",adherence:"",auto:true}; DB.crf3.rows.push(row); rowBy[pid]=row; }
     }
     const ageHitA=aTx.find(t=>t.age); if(ageHitA&&ageHitA.age && !row.age) row.age=ageHitA.age;
-    const labSum=crf3LabSummary(pid); if(labSum && !row.labSummary) row.labSummary=labSum;
+    const labSum=labBy[pid]?crf3LabSummary(pid,labBy[pid]):""; if(labSum && !row.labSummary) row.labSummary=labSum;
     const diagText=[...new Set(allAdmitForPid.map(t=>t.diagnosis).filter(Boolean))].join(" | ");
     if(diagText && !row.diagnosis) row.diagnosis=diagText;
     if(pTx.length){
@@ -29090,24 +29101,45 @@ function renderGuide(){
 }
 
 /* ============================= init ============================= */
+/* Demo samples: fetch the gzip copy (about 12x smaller) and unpack it in the browser; plain CSV if that is not possible. */
+async function demoFetch(u){
+  if(typeof DecompressionStream==="function"){
+    try{ const r=await fetch(u+".gz"); if(r.ok){ const buf=new Uint8Array(await r.arrayBuffer());
+      if(buf[0]===0x1f&&buf[1]===0x8b){ const s=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip")); return await new Response(s).blob(); }
+      return new Blob([buf]); } }catch(e){}
+  }
+  const r=await fetch(u); if(!r.ok) throw new Error(u+" "+r.status); return await r.blob();
+}
+function demoProgress(html){ let d=document.getElementById("demo-progress");
+  if(html==null){ if(d) d.remove(); return; }
+  if(!d){ d=document.createElement("div"); d.id="demo-progress"; d.setAttribute("role","status");
+    d.style.cssText="position:fixed;inset:0;z-index:9999;background:rgba(1,4,9,.78);display:flex;align-items:center;justify-content:center;padding:16px";
+    d.innerHTML='<div style="background:#0d1117;color:#e6edf3;border:1px solid #30363d;border-radius:10px;padding:20px 24px;font:15px/1.5 system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.45);max-width:360px;width:100%;text-align:center"></div>';
+    document.body.appendChild(d); }
+  d.firstChild.innerHTML='<b>Loading the live demo</b><br>'+html+'<br><span style="color:#8b949e;font-size:13px">33 months of simulated data &middot; a laptop is fastest</span>'; }
 async function runAmsDemo(){
   const bar=document.createElement("div"); bar.className="notice warn"; bar.style.cssText="margin:0 0 14px";
   bar.innerHTML='<b>Live demo.</b> 33 months of simulated data from a fictional hospital (Jan 2024 &ndash; Sep 2026) are loaded in your browser. Nothing you do here is saved or sent anywhere. <a href="Odieman_AMS_Pro.html" download="Odieman_AMS_Pro_v4_6.html" style="color:#58a6ff;font-weight:700">Download AMS Pro</a> to use it with your own data. The <span class="linkfix" onclick="go(\'guide\')">User Guide</span> explains every page.';
   document.querySelector("main").insertBefore(bar,document.querySelector("main").firstChild);
   const realConfirm=window.confirm; window.confirm=()=>true; try{ eraseAll(); } finally { window.confirm=realConfirm; }
-  go("hub"); toast("Loading 3 years of sample data &mdash; about 20 seconds&hellip;");
+  go("hub"); toast("Loading 3 years of sample data&hellip;");
   try{
+    demoProgress("Step 1 of 6 &middot; downloading the sample data&hellip;");
     const base="../samples/ams/"; const list=await (await fetch(base+"manifest.json")).json();
-    const files={}; for(const n of list){ const b=await (await fetch(base+n)).blob(); files[n]=new File([b],n,{type:"text/csv"}); }
+    const files={}; for(const n of list){ const b=await demoFetch(base+n); files[n]=new File([b],n,{type:"text/csv"}); }
     const pick=p=>Object.keys(files).filter(n=>n.startsWith(p)).map(n=>files[n]);
-    await hubFiles("pharm",pick("AMS_Pharmacy")); await hubFiles("admit",pick("AMS_Admissions"));
+    /* one step at a time, pausing briefly so the progress message can be redrawn */
+    const step=async(i,msg)=>{ demoProgress(`Step ${i} of 6 &middot; ${msg}&hellip;`); await new Promise(r=>setTimeout(r,40)); };
+    await step(2,"reading dispensing records"); await hubFiles("pharm",pick("AMS_Pharmacy"));
+    await step(3,"reading admissions, laboratory and procedures"); await hubFiles("admit",pick("AMS_Admissions"));
     await hubFiles("lab",pick("AMS_Lab")); await hubFiles("procedures",pick("AMS_Procedures"));
-    analyzeAllStaged();
-    for(const f of pick("AMS_Culture")) await astImportFile({files:[f],value:""});
+    await step(4,"analysing 33 months of antibiotic use"); analyzeAllStaged();
+    await step(5,"adding culture results"); for(const f of pick("AMS_Culture")) await astImportFile({files:[f],value:""});
+    await step(6,"building the reports");
     DB.facility.name="Demo Regional Referral Hospital"; compileReport(); buildNav();
     { const want=new URLSearchParams(location.search).get("view"); go(want&&VIEWS.some(([k])=>k===want)?want:"dash"); }
-    toast("Sample data loaded &mdash; explore any page in the menu");
-  }catch(e){ console.error(e); go("guide"); toast("The sample data could not be loaded. The live demo works when opened from the website; offline, use the Sample_Data folder that comes with the download."); }
+    demoProgress(null); toast("Sample data loaded &mdash; explore any page in the menu");
+  }catch(e){ console.error(e); demoProgress(null); go("guide"); toast("The sample data could not be loaded. The live demo works when opened from the website; offline, use the Sample_Data folder that comes with the download."); }
 }
 if(DEMO){ DB=JSON.parse(JSON.stringify(DEFAULT_DB)); ensureDefaults(); buildNav(); updateBackupBadge(); runAmsDemo(); }
 else{

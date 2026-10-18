@@ -4467,6 +4467,15 @@ function setFindTab(name,btn){
   }
 })();
 /* data folder: reconnect / reload once every module above is ready */
+/* Demo samples: fetch the gzip copy (about 12x smaller) and unpack it in the browser; plain CSV if that is not possible. */
+async function demoFetch(u){
+  if(typeof DecompressionStream==="function"){
+    try{ const r=await fetch(u+".gz"); if(r.ok){ const buf=new Uint8Array(await r.arrayBuffer());
+      if(buf[0]===0x1f&&buf[1]===0x8b){ const s=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip")); return await new Response(s).blob(); }
+      return new Blob([buf]); } }catch(e){}
+  }
+  const r=await fetch(u); if(!r.ok) throw new Error(u+" "+r.status); return await r.blob();
+}
 async function runVwDemo(){
   const bar=document.createElement('div');
   bar.style.cssText='background:#fff6e5;border-bottom:1px solid #f0d49a;padding:9px 18px;font-size:13.5px;color:#5a4410;text-align:center';
@@ -4475,7 +4484,7 @@ async function runVwDemo(){
   vwfPaint();go('hub');toast('Loading 3 years of sample data…');
   try{
     const base='../samples/vigiward/';const list=await (await fetch(base+'manifest.json')).json();
-    const get=async p=>{const n=list.find(x=>x.includes(p));return {n,buf:await (await fetch(base+n)).arrayBuffer()}};
+    const get=async p=>{const n=list.find(x=>x.includes(p));return {n,buf:await (await demoFetch(base+n)).arrayBuffer()}};
     const realAnalyse=analyse;analyse=function(){};
     try{
       const ph=await get('Pharmacy');rowsFromFile(ph.buf,ph.n,rows=>processPharmacy(rows));
