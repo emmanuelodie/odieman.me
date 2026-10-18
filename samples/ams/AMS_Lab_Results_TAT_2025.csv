@@ -1,0 +1,2031 @@
+DEMO REGIONAL REFERRAL HOSPITAL
+LABORATORY RESULTS AND TURNAROUND TIME  01/01/2025 - 31/12/2025
+
+Patient Number,Test Name,Result,Units,Sample Collected Time,To Dr Submission Time,TAT Expected
+303134,Full Blood Picture,9.7,x10^9/L WBC,2025-01-01 08:35,2025-01-01 09:36,2Hrs
+302762,ALT (SGPT),41,U/L,2025-01-01 10:38,2025-01-01 15:48,4Hrs
+303008,Pus Swab Culture & Sensitivity,Acinetobacter baumannii isolated,,2025-01-01 14:06,2025-01-03 11:57,72Hrs
+303078,Serum Creatinine,62,umol/L,2025-01-01 14:51,2025-01-02 03:12,4Hrs
+303078,Full Blood Picture,12.3,x10^9/L WBC,2025-01-01 15:21,2025-01-01 16:15,2Hrs
+303161,Full Blood Picture,17.2,x10^9/L WBC,2025-01-01 16:05,2025-01-01 16:54,2Hrs
+302960,Electrolytes (Serum Potassium),4.4,mmol/L,2025-01-02 08:17,2025-01-02 22:43,4Hrs
+303253,Full Blood Picture,7.4,x10^9/L WBC,2025-01-02 10:05,2025-01-02 10:26,2Hrs
+303048,Serum Creatinine,76,umol/L,2025-01-02 11:07,2025-01-02 17:42,4Hrs
+303253,Serum Creatinine,53,umol/L,2025-01-02 14:08,2025-01-02 14:48,4Hrs
+302828,Serum Creatinine,107,umol/L,2025-01-02 18:35,2025-01-02 20:07,4Hrs
+303167,Pus Swab Culture & Sensitivity,Escherichia coli isolated,,2025-01-03 08:21,2025-01-05 11:16,72Hrs
+303172,Full Blood Picture,10.5,x10^9/L WBC,2025-01-03 08:46,2025-01-03 09:56,2Hrs
+303059,Serum Creatinine,62,umol/L,2025-01-03 09:19,2025-01-03 23:48,4Hrs
+303222,Full Blood Picture,7.8,x10^9/L WBC,2025-01-03 10:34,2025-01-03 17:47,2Hrs
+303219,Full Blood Picture,4.7,x10^9/L WBC,2025-01-03 13:21,2025-01-03 13:57,2Hrs
+303222,Pus Swab Culture & Sensitivity,Pseudomonas aeruginosa isolated,,2025-01-03 13:37,2025-01-06 01:30,72Hrs
+303031,Serum Creatinine,111,umol/L,2025-01-03 16:57,2025-01-03 18:42,4Hrs
+303076,Full Blood Picture,8.4,x10^9/L WBC,2025-01-03 17:41,2025-01-03 18:58,2Hrs
+303059,Full Blood Picture,11.8,x10^9/L WBC,2025-01-03 18:31,2025-01-03 20:54,2Hrs
+303219,Pus Swab Culture & Sensitivity,Pseudomonas aeruginosa isolated,,2025-01-03 18:53,2025-01-08 08:51,72Hrs
+303081,Serum Creatinine,95,umol/L,2025-01-04 07:13,2025-01-04 19:41,4Hrs
+303265,Full Blood Picture,17.6,x10^9/L WBC,2025-01-04 08:21,2025-01-04 08:54,2Hrs
+303081,Full Blood Picture,8.0,x10^9/L WBC,2025-01-04 08:22,2025-01-04 09:28,2Hrs
+303013,Full Blood Picture,6.6,x10^9/L WBC,2025-01-04 08:29,2025-01-04 09:59,2Hrs
+303265,Serum Creatinine,71,umol/L,2025-01-04 16:03,2025-01-05 01:53,4Hrs
+303146,Full Blood Picture,8.6,x10^9/L WBC,2025-01-04 16:22,2025-01-04 16:46,2Hrs
+303165,Full Blood Picture,11.8,x10^9/L WBC,2025-01-04 17:35,2025-01-04 19:10,2Hrs
+303250,Full Blood Picture,16.6,x10^9/L WBC,2025-01-05 13:44,2025-01-05 16:08,2Hrs
+303050,Full Blood Picture,15.3,x10^9/L WBC,2025-01-05 16:53,2025-01-05 20:47,2Hrs
+303250,Serum Creatinine,61,umol/L,2025-01-05 17:40,2025-01-05 21:08,4Hrs
+303081,ALT (SGPT),21,U/L,2025-01-05 18:46,2025-01-06 00:01,4Hrs
+303151,Full Blood Picture,13.5,x10^9/L WBC,2025-01-06 07:02,2025-01-06 12:19,2Hrs
+303170,Full Blood Picture,5.2,x10^9/L WBC,2025-01-06 08:01,2025-01-06 09:50,2Hrs
+303158,Serum Creatinine,90,umol/L,2025-01-06 08:18,2025-01-06 15:40,4Hrs
+303158,Full Blood Picture,12.9,x10^9/L WBC,2025-01-06 08:54,2025-01-06 09:37,2Hrs
+303151,Serum Creatinine,52,umol/L,2025-01-06 14:16,2025-01-06 16:50,4Hrs
+303114,Malaria RDT,Positive,,2025-01-06 14:18,2025-01-06 16:20,1Hrs
+303114,Full Blood Picture,6.1,x10^9/L WBC,2025-01-06 16:51,2025-01-06 17:38,2Hrs
+303095,Full Blood Picture,16.4,x10^9/L WBC,2025-01-08 08:25,2025-01-08 10:08,2Hrs
+303089,Blood Culture & Sensitivity,Salmonella Typhi isolated,,2025-01-08 09:13,2025-01-11 05:55,72Hrs
+303095,Serum Creatinine,90,umol/L,2025-01-08 15:20,2025-01-08 18:02,4Hrs
+303089,Full Blood Picture,14.7,x10^9/L WBC,2025-01-08 15:38,2025-01-08 16:27,2Hrs
+303155,Full Blood Picture,10.1,x10^9/L WBC,2025-01-08 18:51,2025-01-08 20:27,2Hrs
+303025,Serum Creatinine,96,umol/L,2025-01-09 07:55,2025-01-09 08:37,4Hrs
+303025,Full Blood Picture,13.7,x10^9/L WBC,2025-01-09 17:16,2025-01-09 17:34,2Hrs
+303162,Serum Creatinine,101,umol/L,2025-01-09 17:49,2025-01-09 23:59,4Hrs
+303021,Serum Creatinine,53,umol/L,2025-01-10 14:14,2025-01-10 23:52,4Hrs
+303132,Full Blood Picture,10.9,x10^9/L WBC,2025-01-10 16:59,2025-01-10 18:05,2Hrs
+303097,Serum Creatinine,197,umol/L,2025-01-10 18:41,2025-01-10 19:20,4Hrs
+303199,Full Blood Picture,9.2,x10^9/L WBC,2025-01-11 16:24,2025-01-11 18:14,2Hrs
+303170,Serum Creatinine,60,umol/L,2025-01-11 17:38,2025-01-11 18:14,4Hrs
+303092,Full Blood Picture,4.5,x10^9/L WBC,2025-01-11 18:57,2025-01-11 20:39,2Hrs
+303255,Full Blood Picture,11.5,x10^9/L WBC,2025-01-12 07:25,2025-01-12 12:30,2Hrs
+303064,Full Blood Picture,7.3,x10^9/L WBC,2025-01-12 12:56,2025-01-12 14:12,2Hrs
+303085,Serum Creatinine,111,umol/L,2025-01-12 13:00,2025-01-12 18:22,4Hrs
+303205,Full Blood Picture,5.5,x10^9/L WBC,2025-01-12 14:10,2025-01-12 15:23,2Hrs
+303054,Serum Creatinine,99,umol/L,2025-01-13 08:45,2025-01-13 13:41,4Hrs
+303258,Pus Swab Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-01-13 09:43,2025-01-17 09:52,72Hrs
+303163,Full Blood Picture,13.7,x10^9/L WBC,2025-01-13 10:34,2025-01-13 16:05,2Hrs
+303154,Serum Creatinine,100,umol/L,2025-01-13 15:15,2025-01-13 17:44,4Hrs
+303147,Full Blood Picture,9.8,x10^9/L WBC,2025-01-14 07:45,2025-01-14 08:12,2Hrs
+303077,Full Blood Picture,5.0,x10^9/L WBC,2025-01-14 07:53,2025-01-14 09:35,2Hrs
+303125,Full Blood Picture,12.2,x10^9/L WBC,2025-01-14 08:37,2025-01-14 09:35,2Hrs
+303098,Full Blood Picture,4.3,x10^9/L WBC,2025-01-14 08:48,2025-01-14 09:37,2Hrs
+303125,Malaria RDT,Positive,,2025-01-14 09:07,2025-01-14 09:55,1Hrs
+303036,Full Blood Picture,12.6,x10^9/L WBC,2025-01-14 09:36,2025-01-14 17:08,2Hrs
+303230,Full Blood Picture,6.0,x10^9/L WBC,2025-01-14 10:49,2025-01-14 13:42,2Hrs
+303098,Random Blood Glucose,20.5,mmol/L,2025-01-14 11:39,2025-01-14 12:18,1Hrs
+303060,Serum Creatinine,110,umol/L,2025-01-14 11:51,2025-01-14 16:28,4Hrs
+303221,Full Blood Picture,6.1,x10^9/L WBC,2025-01-14 13:50,2025-01-14 19:59,2Hrs
+303221,Malaria RDT,Positive,,2025-01-14 16:22,2025-01-14 18:33,1Hrs
+303016,Serum Creatinine,82,umol/L,2025-01-14 16:33,2025-01-14 19:28,4Hrs
+303077,Serum Creatinine,73,umol/L,2025-01-14 17:05,2025-01-14 20:06,4Hrs
+303036,Serum Creatinine,90,umol/L,2025-01-14 18:39,2025-01-15 02:46,4Hrs
+303208,Serum Creatinine,77,umol/L,2025-01-15 08:10,2025-01-15 10:05,4Hrs
+303187,Serum Creatinine,63,umol/L,2025-01-15 09:11,2025-01-15 12:39,4Hrs
+303208,Malaria RDT,Positive,,2025-01-15 09:20,2025-01-15 10:16,1Hrs
+303239,Full Blood Picture,7.4,x10^9/L WBC,2025-01-15 12:15,2025-01-15 20:09,2Hrs
+303022,Full Blood Picture,5.4,x10^9/L WBC,2025-01-15 17:17,2025-01-15 17:43,2Hrs
+303022,Malaria RDT,Positive,,2025-01-15 18:21,2025-01-15 19:03,1Hrs
+303245,Full Blood Picture,12.9,x10^9/L WBC,2025-01-16 10:13,2025-01-16 11:42,2Hrs
+303178,Full Blood Picture,13.4,x10^9/L WBC,2025-01-16 11:08,2025-01-16 13:00,2Hrs
+303065,Serum Creatinine,108,umol/L,2025-01-16 16:46,2025-01-16 23:27,4Hrs
+303065,Malaria RDT,Positive,,2025-01-16 17:24,2025-01-16 18:11,1Hrs
+303099,Full Blood Picture,11.1,x10^9/L WBC,2025-01-17 07:15,2025-01-17 08:09,2Hrs
+303240,Pus Swab Culture & Sensitivity,Proteus mirabilis isolated,,2025-01-17 08:27,2025-01-21 16:16,72Hrs
+303106,Full Blood Picture,4.8,x10^9/L WBC,2025-01-17 10:54,2025-01-17 12:31,2Hrs
+303111,Serum Creatinine,55,umol/L,2025-01-17 12:01,2025-01-18 03:48,4Hrs
+303099,Random Blood Glucose,16.9,mmol/L,2025-01-17 12:12,2025-01-17 12:42,1Hrs
+303099,Serum Creatinine,102,umol/L,2025-01-17 13:03,2025-01-17 15:19,4Hrs
+303240,Full Blood Picture,16.0,x10^9/L WBC,2025-01-17 17:31,2025-01-17 19:17,2Hrs
+303126,Full Blood Picture,17.1,x10^9/L WBC,2025-01-18 07:01,2025-01-18 09:32,2Hrs
+303110,Serum Creatinine,65,umol/L,2025-01-18 10:57,2025-01-18 21:53,4Hrs
+303259,Serum Creatinine,67,umol/L,2025-01-18 13:52,2025-01-18 17:34,4Hrs
+303195,Serum Creatinine,103,umol/L,2025-01-18 14:02,2025-01-19 03:10,4Hrs
+303195,Full Blood Picture,13.2,x10^9/L WBC,2025-01-18 14:52,2025-01-18 20:09,2Hrs
+303259,Full Blood Picture,9.4,x10^9/L WBC,2025-01-18 15:41,2025-01-18 16:25,2Hrs
+303212,Full Blood Picture,11.1,x10^9/L WBC,2025-01-18 16:42,2025-01-18 17:27,2Hrs
+303036,Serum Creatinine,90,umol/L,2025-01-19 08:08,2025-01-19 09:23,4Hrs
+303118,Full Blood Picture,8.1,x10^9/L WBC,2025-01-19 08:45,2025-01-19 11:51,2Hrs
+303195,Blood Culture & Sensitivity,No growth,,2025-01-19 11:23,2025-01-21 03:50,72Hrs
+303268,Full Blood Picture,4.3,x10^9/L WBC,2025-01-19 12:28,2025-01-19 13:44,2Hrs
+303018,Sputum Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-01-19 12:30,2025-01-21 14:29,72Hrs
+303118,Serum Creatinine,55,umol/L,2025-01-19 15:35,2025-01-20 07:16,4Hrs
+303091,Urine Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-01-19 15:51,2025-01-21 20:57,72Hrs
+303091,Serum Creatinine,78,umol/L,2025-01-19 18:36,2025-01-20 09:57,4Hrs
+303077,Serum Creatinine,104,umol/L,2025-01-20 10:29,2025-01-20 11:21,4Hrs
+303240,Serum Creatinine,88,umol/L,2025-01-20 10:40,2025-01-20 12:51,4Hrs
+303103,Full Blood Picture,8.3,x10^9/L WBC,2025-01-20 12:30,2025-01-20 13:48,2Hrs
+303235,Full Blood Picture,5.2,x10^9/L WBC,2025-01-20 16:54,2025-01-20 17:23,2Hrs
+303103,Malaria RDT,Positive,,2025-01-20 18:04,2025-01-20 18:30,1Hrs
+303111,Serum Creatinine,68,umol/L,2025-01-21 09:28,2025-01-21 10:13,4Hrs
+303122,Full Blood Picture,8.4,x10^9/L WBC,2025-01-21 13:18,2025-01-21 14:09,2Hrs
+303210,Full Blood Picture,6.1,x10^9/L WBC,2025-01-22 09:07,2025-01-22 14:15,2Hrs
+303128,Full Blood Picture,9.0,x10^9/L WBC,2025-01-22 09:23,2025-01-22 12:22,2Hrs
+303009,Serum Creatinine,79,umol/L,2025-01-22 10:19,2025-01-22 20:28,4Hrs
+303178,Electrolytes (Serum Potassium),4.2,mmol/L,2025-01-22 11:23,2025-01-22 20:08,4Hrs
+303091,Serum Creatinine,186,umol/L,2025-01-22 13:51,2025-01-22 14:28,4Hrs
+303210,Malaria RDT,Positive,,2025-01-22 14:11,2025-01-22 14:47,1Hrs
+303005,Serum Creatinine,90,umol/L,2025-01-22 14:45,2025-01-22 17:40,4Hrs
+303030,Blood Culture & Sensitivity,No growth,,2025-01-22 16:22,2025-01-25 11:06,72Hrs
+303009,Full Blood Picture,14.1,x10^9/L WBC,2025-01-22 17:18,2025-01-22 17:59,2Hrs
+303046,Full Blood Picture,8.8,x10^9/L WBC,2025-01-23 11:36,2025-01-23 12:32,2Hrs
+303109,Full Blood Picture,5.0,x10^9/L WBC,2025-01-23 15:00,2025-01-23 16:21,2Hrs
+303024,Full Blood Picture,6.7,x10^9/L WBC,2025-01-23 17:03,2025-01-23 20:43,2Hrs
+303032,Serum Creatinine,100,umol/L,2025-01-23 17:42,2025-01-23 18:04,4Hrs
+303032,Blood Culture & Sensitivity,Staphylococcus aureus isolated,,2025-01-23 17:46,2025-01-26 04:54,72Hrs
+303184,Full Blood Picture,12.3,x10^9/L WBC,2025-01-24 08:20,2025-01-24 08:52,2Hrs
+303041,Serum Creatinine,84,umol/L,2025-01-25 08:22,2025-01-25 11:22,4Hrs
+303196,Full Blood Picture,11.7,x10^9/L WBC,2025-01-25 10:00,2025-01-25 10:23,2Hrs
+303215,Pus Swab Culture & Sensitivity,Escherichia coli isolated,,2025-01-25 10:07,2025-01-27 05:01,72Hrs
+303133,Full Blood Picture,13.7,x10^9/L WBC,2025-01-25 10:18,2025-01-25 17:53,2Hrs
+303142,Full Blood Picture,6.8,x10^9/L WBC,2025-01-25 12:42,2025-01-25 14:06,2Hrs
+303243,Serum Creatinine,88,umol/L,2025-01-25 12:47,2025-01-25 15:51,4Hrs
+303215,Serum Creatinine,51,umol/L,2025-01-25 14:17,2025-01-25 15:49,4Hrs
+303171,Full Blood Picture,10.7,x10^9/L WBC,2025-01-25 15:24,2025-01-25 16:55,2Hrs
+303243,Full Blood Picture,10.8,x10^9/L WBC,2025-01-25 15:48,2025-01-25 16:58,2Hrs
+303142,Serum Creatinine,71,umol/L,2025-01-25 15:51,2025-01-25 17:37,4Hrs
+303133,Serum Creatinine,56,umol/L,2025-01-25 16:16,2025-01-25 17:04,4Hrs
+303044,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-01-26 12:58,2025-01-29 00:19,72Hrs
+303067,Serum Creatinine,75,umol/L,2025-01-26 15:50,2025-01-26 16:55,4Hrs
+303044,Full Blood Picture,7.8,x10^9/L WBC,2025-01-26 17:40,2025-01-26 19:28,2Hrs
+303067,Full Blood Picture,14.2,x10^9/L WBC,2025-01-26 17:48,2025-01-26 18:10,2Hrs
+303233,Full Blood Picture,6.1,x10^9/L WBC,2025-01-27 07:13,2025-01-27 13:04,2Hrs
+303262,Serum Creatinine,67,umol/L,2025-01-27 10:35,2025-01-27 12:19,4Hrs
+303262,Full Blood Picture,6.3,x10^9/L WBC,2025-01-27 10:49,2025-01-27 11:36,2Hrs
+303027,Serum Creatinine,81,umol/L,2025-01-28 11:30,2025-01-28 13:51,4Hrs
+303056,Full Blood Picture,13.7,x10^9/L WBC,2025-01-28 12:32,2025-01-28 14:11,2Hrs
+302998,Serum Creatinine,98,umol/L,2025-01-28 12:37,2025-01-28 14:07,4Hrs
+303248,Serum Creatinine,105,umol/L,2025-01-28 12:53,2025-01-28 14:44,4Hrs
+302998,Blood Culture & Sensitivity,Pseudomonas aeruginosa isolated,,2025-01-28 14:12,2025-02-01 17:22,72Hrs
+302998,Full Blood Picture,14.4,x10^9/L WBC,2025-01-28 15:02,2025-01-28 15:27,2Hrs
+303066,Serum Creatinine,58,umol/L,2025-01-28 15:09,2025-01-28 16:03,4Hrs
+303264,Malaria RDT,Positive,,2025-01-28 16:10,2025-01-28 18:40,1Hrs
+303066,Full Blood Picture,6.0,x10^9/L WBC,2025-01-28 17:13,2025-01-29 01:00,2Hrs
+303027,Full Blood Picture,12.9,x10^9/L WBC,2025-01-28 17:27,2025-01-28 18:16,2Hrs
+303136,Full Blood Picture,6.3,x10^9/L WBC,2025-01-29 07:57,2025-01-29 14:36,2Hrs
+303150,Blood Culture & Sensitivity,No growth,,2025-01-29 09:36,2025-02-01 15:43,72Hrs
+303202,Serum Creatinine,103,umol/L,2025-01-29 09:53,2025-01-29 10:52,4Hrs
+303032,Serum Creatinine,198,umol/L,2025-01-29 14:12,2025-01-29 16:18,4Hrs
+303104,Serum Creatinine,74,umol/L,2025-01-29 16:43,2025-01-29 18:15,4Hrs
+303202,Full Blood Picture,4.9,x10^9/L WBC,2025-01-29 17:17,2025-01-29 18:38,2Hrs
+303136,Serum Creatinine,54,umol/L,2025-01-29 18:24,2025-01-29 23:04,4Hrs
+303149,Sputum Culture & Sensitivity,No growth,,2025-01-30 11:47,2025-02-01 19:16,72Hrs
+303119,Blood Culture & Sensitivity,No growth,,2025-01-30 16:44,2025-02-02 04:26,72Hrs
+303139,CSF Culture & Sensitivity,No growth,,2025-01-31 08:51,2025-02-03 03:25,72Hrs
+303124,Full Blood Picture,8.7,x10^9/L WBC,2025-01-31 13:13,2025-01-31 15:48,2Hrs
+303087,Malaria RDT,Positive,,2025-01-31 14:17,2025-01-31 15:04,1Hrs
+303371,Full Blood Picture,12.0,x10^9/L WBC,2025-02-01 08:31,2025-02-01 14:28,2Hrs
+303484,Serum Creatinine,50,umol/L,2025-02-01 09:14,2025-02-01 12:46,4Hrs
+303283,Full Blood Picture,7.9,x10^9/L WBC,2025-02-01 09:42,2025-02-01 10:23,2Hrs
+303392,Blood Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-02-01 12:48,2025-02-03 09:58,72Hrs
+303496,Full Blood Picture,14.0,x10^9/L WBC,2025-02-01 15:42,2025-02-01 16:08,2Hrs
+303425,Full Blood Picture,13.8,x10^9/L WBC,2025-02-01 16:11,2025-02-01 17:33,2Hrs
+303371,Serum Creatinine,54,umol/L,2025-02-01 18:33,2025-02-01 21:08,4Hrs
+302998,Serum Creatinine,92,umol/L,2025-02-02 07:02,2025-02-02 13:39,4Hrs
+303493,Full Blood Picture,6.7,x10^9/L WBC,2025-02-02 10:09,2025-02-02 11:09,2Hrs
+303348,Full Blood Picture,10.2,x10^9/L WBC,2025-02-02 10:43,2025-02-02 12:20,2Hrs
+303484,Urine Culture & Sensitivity,No growth,,2025-02-02 15:47,2025-02-06 23:55,72Hrs
+303278,Stool Culture & Sensitivity,No growth,,2025-02-02 18:40,2025-02-05 15:33,72Hrs
+303411,Serum Creatinine,93,umol/L,2025-02-02 18:43,2025-02-02 19:37,4Hrs
+303333,Full Blood Picture,6.4,x10^9/L WBC,2025-02-03 09:22,2025-02-03 12:39,2Hrs
+303469,Full Blood Picture,9.6,x10^9/L WBC,2025-02-03 11:03,2025-02-03 12:45,2Hrs
+303333,Serum Creatinine,88,umol/L,2025-02-03 12:07,2025-02-03 13:03,4Hrs
+303441,Serum Creatinine,113,umol/L,2025-02-03 12:46,2025-02-03 15:48,4Hrs
+303406,Serum Creatinine,102,umol/L,2025-02-03 14:44,2025-02-04 03:29,4Hrs
+303469,Malaria RDT,Positive,,2025-02-03 16:11,2025-02-03 16:29,1Hrs
+303280,Full Blood Picture,14.5,x10^9/L WBC,2025-02-03 18:49,2025-02-03 20:22,2Hrs
+303441,Pus Swab Culture & Sensitivity,Acinetobacter baumannii isolated,,2025-02-04 07:09,2025-02-09 09:29,72Hrs
+303397,Full Blood Picture,4.7,x10^9/L WBC,2025-02-04 07:11,2025-02-04 07:46,2Hrs
+303489,Serum Creatinine,105,umol/L,2025-02-04 09:11,2025-02-04 21:18,4Hrs
+303489,Full Blood Picture,6.9,x10^9/L WBC,2025-02-04 15:20,2025-02-04 17:07,2Hrs
+303469,ALT (SGPT),28,U/L,2025-02-04 17:05,2025-02-04 17:40,4Hrs
+303280,Blood Culture & Sensitivity,Escherichia coli isolated,,2025-02-04 17:42,2025-02-07 11:55,72Hrs
+303406,Blood Culture & Sensitivity,Escherichia coli isolated,,2025-02-04 18:05,2025-02-08 14:17,72Hrs
+303300,Full Blood Picture,16.4,x10^9/L WBC,2025-02-05 07:47,2025-02-05 12:43,2Hrs
+303277,Serum Creatinine,109,umol/L,2025-02-05 11:04,2025-02-05 11:25,4Hrs
+303329,Serum Creatinine,82,umol/L,2025-02-05 11:05,2025-02-06 02:37,4Hrs
+303066,Pus Swab Culture & Sensitivity,Growth,,2025-02-05 11:22,2025-02-07 17:54,72Hrs
+303337,Full Blood Picture,15.6,x10^9/L WBC,2025-02-05 14:23,2025-02-05 21:13,2Hrs
+303326,Serum Creatinine,107,umol/L,2025-02-06 10:59,2025-02-06 14:32,4Hrs
+303450,Full Blood Picture,17.6,x10^9/L WBC,2025-02-06 11:36,2025-02-06 16:48,2Hrs
+303450,Blood Culture & Sensitivity,Pseudomonas aeruginosa isolated,,2025-02-06 12:21,2025-02-08 11:29,72Hrs
+303326,Full Blood Picture,9.3,x10^9/L WBC,2025-02-06 16:19,2025-02-06 18:07,2Hrs
+303321,Serum Creatinine,96,umol/L,2025-02-07 07:32,2025-02-07 08:58,4Hrs
+303440,Serum Creatinine,59,umol/L,2025-02-07 08:11,2025-02-07 08:55,4Hrs
+303440,Full Blood Picture,4.6,x10^9/L WBC,2025-02-07 09:13,2025-02-07 10:26,2Hrs
+303341,Full Blood Picture,6.4,x10^9/L WBC,2025-02-07 14:02,2025-02-07 15:27,2Hrs
+303476,Full Blood Picture,15.8,x10^9/L WBC,2025-02-07 14:17,2025-02-07 15:54,2Hrs
+303465,Serum Creatinine,77,umol/L,2025-02-07 15:27,2025-02-07 18:38,4Hrs
+303376,Serum Creatinine,98,umol/L,2025-02-08 07:06,2025-02-08 10:06,4Hrs
+303498,Full Blood Picture,11.9,x10^9/L WBC,2025-02-08 08:39,2025-02-08 09:55,2Hrs
+303477,Serum Creatinine,77,umol/L,2025-02-08 08:57,2025-02-08 09:30,4Hrs
+303302,Full Blood Picture,17.4,x10^9/L WBC,2025-02-08 10:18,2025-02-08 13:18,2Hrs
+303498,Stool Culture & Sensitivity,No growth,,2025-02-08 10:59,2025-02-13 20:42,72Hrs
+303376,Full Blood Picture,12.2,x10^9/L WBC,2025-02-08 14:12,2025-02-08 14:42,2Hrs
+303302,Serum Creatinine,84,umol/L,2025-02-08 18:28,2025-02-08 20:29,4Hrs
+303311,Full Blood Picture,8.0,x10^9/L WBC,2025-02-09 07:54,2025-02-09 10:13,2Hrs
+303501,Pus Swab Culture & Sensitivity,Pseudomonas aeruginosa isolated,,2025-02-09 09:00,2025-02-11 13:48,72Hrs
+303295,Serum Creatinine,61,umol/L,2025-02-09 09:20,2025-02-09 12:02,4Hrs
+303475,Urine Culture & Sensitivity,Escherichia coli isolated,,2025-02-09 09:27,2025-02-11 18:32,72Hrs
+303301,Full Blood Picture,13.3,x10^9/L WBC,2025-02-09 09:30,2025-02-09 11:21,2Hrs
+303295,Full Blood Picture,14.6,x10^9/L WBC,2025-02-09 11:26,2025-02-09 11:58,2Hrs
+303357,Serum Creatinine,64,umol/L,2025-02-09 12:28,2025-02-10 01:23,4Hrs
+303366,Serum Creatinine,71,umol/L,2025-02-09 12:32,2025-02-09 13:30,4Hrs
+303501,Serum Creatinine,65,umol/L,2025-02-09 14:18,2025-02-09 23:45,4Hrs
+303334,Serum Creatinine,67,umol/L,2025-02-09 15:42,2025-02-10 05:13,4Hrs
+303301,Serum Creatinine,58,umol/L,2025-02-09 16:15,2025-02-10 06:32,4Hrs
+303310,Full Blood Picture,12.5,x10^9/L WBC,2025-02-10 08:14,2025-02-10 09:33,2Hrs
+303406,Serum Creatinine,174,umol/L,2025-02-10 09:57,2025-02-10 12:52,4Hrs
+303321,Serum Creatinine,152,umol/L,2025-02-10 13:16,2025-02-10 15:50,4Hrs
+303387,Full Blood Picture,8.7,x10^9/L WBC,2025-02-11 09:01,2025-02-11 15:43,2Hrs
+303500,Serum Creatinine,100,umol/L,2025-02-11 11:51,2025-02-11 13:21,4Hrs
+303415,Serum Creatinine,83,umol/L,2025-02-11 14:50,2025-02-11 16:50,4Hrs
+303386,Full Blood Picture,14.8,x10^9/L WBC,2025-02-11 14:57,2025-02-11 16:28,2Hrs
+303345,Malaria RDT,Positive,,2025-02-11 15:10,2025-02-11 15:57,1Hrs
+303387,Serum Creatinine,60,umol/L,2025-02-11 15:19,2025-02-11 17:02,4Hrs
+303435,Random Blood Glucose,14.8,mmol/L,2025-02-11 15:41,2025-02-11 16:04,1Hrs
+303504,Random Blood Glucose,19.9,mmol/L,2025-02-11 17:03,2025-02-11 19:10,1Hrs
+303391,Full Blood Picture,9.7,x10^9/L WBC,2025-02-11 17:22,2025-02-11 21:26,2Hrs
+303391,Serum Creatinine,94,umol/L,2025-02-11 17:51,2025-02-11 19:56,4Hrs
+303382,Serum Creatinine,63,umol/L,2025-02-12 08:06,2025-02-12 09:37,4Hrs
+303494,Serum Creatinine,104,umol/L,2025-02-12 10:39,2025-02-12 12:38,4Hrs
+303494,Full Blood Picture,17.6,x10^9/L WBC,2025-02-12 12:44,2025-02-12 13:29,2Hrs
+303355,Full Blood Picture,11.0,x10^9/L WBC,2025-02-12 13:19,2025-02-12 14:45,2Hrs
+303494,Pus Swab Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-02-12 13:22,2025-02-17 06:48,72Hrs
+303428,Full Blood Picture,5.5,x10^9/L WBC,2025-02-12 18:16,2025-02-12 19:36,2Hrs
+303428,Serum Creatinine,81,umol/L,2025-02-12 18:53,2025-02-13 00:02,4Hrs
+303301,Serum Creatinine,70,umol/L,2025-02-13 08:37,2025-02-13 12:03,4Hrs
+303480,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-02-13 09:00,2025-02-16 01:56,72Hrs
+303480,Full Blood Picture,17.9,x10^9/L WBC,2025-02-13 10:23,2025-02-13 11:28,2Hrs
+303358,Full Blood Picture,12.1,x10^9/L WBC,2025-02-13 12:29,2025-02-13 13:40,2Hrs
+303351,Full Blood Picture,12.2,x10^9/L WBC,2025-02-13 17:24,2025-02-13 21:00,2Hrs
+303294,Full Blood Picture,4.1,x10^9/L WBC,2025-02-13 17:30,2025-02-13 18:21,2Hrs
+303358,Serum Creatinine,89,umol/L,2025-02-13 17:48,2025-02-13 18:17,4Hrs
+303437,Random Blood Glucose,23.7,mmol/L,2025-02-14 07:41,2025-02-14 10:03,1Hrs
+303437,ALT (SGPT),32,U/L,2025-02-14 07:41,2025-02-14 22:35,4Hrs
+303310,ALT (SGPT),17,U/L,2025-02-14 12:13,2025-02-14 13:39,4Hrs
+303415,Serum Creatinine,81,umol/L,2025-02-14 16:25,2025-02-15 07:39,4Hrs
+303422,Full Blood Picture,7.4,x10^9/L WBC,2025-02-15 08:51,2025-02-15 16:09,2Hrs
+303295,Random Blood Glucose,13.6,mmol/L,2025-02-16 10:03,2025-02-16 10:52,1Hrs
+303292,Serum Creatinine,94,umol/L,2025-02-16 11:14,2025-02-16 13:24,4Hrs
+303308,Full Blood Picture,8.4,x10^9/L WBC,2025-02-16 18:58,2025-02-16 19:45,2Hrs
+303443,Full Blood Picture,9.6,x10^9/L WBC,2025-02-17 11:44,2025-02-17 16:30,2Hrs
+303467,Full Blood Picture,17.9,x10^9/L WBC,2025-02-17 13:19,2025-02-17 14:39,2Hrs
+303372,Serum Creatinine,57,umol/L,2025-02-18 08:38,2025-02-18 09:57,4Hrs
+303363,Serum Creatinine,84,umol/L,2025-02-18 08:47,2025-02-18 11:32,4Hrs
+303419,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-02-18 12:07,2025-02-20 16:11,72Hrs
+303395,Serum Creatinine,70,umol/L,2025-02-18 12:32,2025-02-18 15:46,4Hrs
+303372,Full Blood Picture,6.7,x10^9/L WBC,2025-02-18 14:39,2025-02-18 16:11,2Hrs
+303395,Full Blood Picture,9.9,x10^9/L WBC,2025-02-18 17:34,2025-02-18 22:49,2Hrs
+303338,Full Blood Picture,13.5,x10^9/L WBC,2025-02-19 07:55,2025-02-19 09:23,2Hrs
+303307,Serum Creatinine,92,umol/L,2025-02-19 08:51,2025-02-19 17:12,4Hrs
+303492,Serum Creatinine,64,umol/L,2025-02-20 07:33,2025-02-20 16:55,4Hrs
+303324,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-02-20 07:40,2025-02-22 16:10,72Hrs
+303271,Full Blood Picture,8.9,x10^9/L WBC,2025-02-20 11:15,2025-02-20 12:03,2Hrs
+303439,Serum Creatinine,51,umol/L,2025-02-20 13:37,2025-02-20 23:25,4Hrs
+303492,Full Blood Picture,6.3,x10^9/L WBC,2025-02-20 16:28,2025-02-20 23:41,2Hrs
+303505,Serum Creatinine,71,umol/L,2025-02-20 17:21,2025-02-21 06:47,4Hrs
+303289,Serum Creatinine,111,umol/L,2025-02-21 07:11,2025-02-21 09:37,4Hrs
+303394,Blood Culture & Sensitivity,No growth,,2025-02-21 07:43,2025-02-23 12:15,72Hrs
+303461,Full Blood Picture,14.2,x10^9/L WBC,2025-02-21 07:44,2025-02-21 11:48,2Hrs
+303344,Serum Creatinine,70,umol/L,2025-02-21 08:09,2025-02-21 08:44,4Hrs
+303402,Serum Creatinine,71,umol/L,2025-02-21 08:37,2025-02-21 09:28,4Hrs
+303367,Full Blood Picture,5.4,x10^9/L WBC,2025-02-21 09:37,2025-02-21 14:42,2Hrs
+303452,Full Blood Picture,15.4,x10^9/L WBC,2025-02-21 10:47,2025-02-21 12:02,2Hrs
+303289,Random Blood Glucose,15.3,mmol/L,2025-02-21 11:09,2025-02-21 11:45,1Hrs
+303367,Serum Creatinine,106,umol/L,2025-02-21 12:07,2025-02-21 15:24,4Hrs
+303373,Pus Swab Culture & Sensitivity,Proteus mirabilis isolated,,2025-02-21 12:57,2025-02-23 18:10,72Hrs
+303474,Full Blood Picture,15.6,x10^9/L WBC,2025-02-21 14:16,2025-02-21 14:35,2Hrs
+303474,Malaria RDT,Positive,,2025-02-21 15:18,2025-02-21 18:30,1Hrs
+303273,Random Blood Glucose,13.4,mmol/L,2025-02-22 07:49,2025-02-22 08:45,1Hrs
+303273,Full Blood Picture,5.7,x10^9/L WBC,2025-02-22 08:00,2025-02-22 11:34,2Hrs
+303420,Random Blood Glucose,20.4,mmol/L,2025-02-22 10:35,2025-02-22 11:55,1Hrs
+303339,Serum Creatinine,109,umol/L,2025-02-22 18:19,2025-02-22 22:01,4Hrs
+303362,Serum Creatinine,80,umol/L,2025-02-23 08:46,2025-02-23 09:48,4Hrs
+303438,Serum Creatinine,72,umol/L,2025-02-23 15:46,2025-02-23 17:55,4Hrs
+303414,Full Blood Picture,12.3,x10^9/L WBC,2025-02-23 16:25,2025-02-23 20:11,2Hrs
+303356,Full Blood Picture,15.9,x10^9/L WBC,2025-02-24 08:55,2025-02-24 09:18,2Hrs
+303354,Full Blood Picture,13.4,x10^9/L WBC,2025-02-24 10:57,2025-02-24 16:03,2Hrs
+303434,Serum Creatinine,79,umol/L,2025-02-24 11:24,2025-02-24 13:42,4Hrs
+303388,Full Blood Picture,17.1,x10^9/L WBC,2025-02-24 12:07,2025-02-24 12:47,2Hrs
+303418,Full Blood Picture,9.9,x10^9/L WBC,2025-02-24 13:02,2025-02-24 20:24,2Hrs
+303388,Serum Creatinine,86,umol/L,2025-02-24 14:49,2025-02-24 16:29,4Hrs
+303418,Serum Creatinine,60,umol/L,2025-02-24 16:59,2025-02-24 18:26,4Hrs
+303349,Serum Creatinine,60,umol/L,2025-02-24 18:34,2025-02-24 22:21,4Hrs
+303451,Serum Creatinine,52,umol/L,2025-02-25 07:06,2025-02-25 10:18,4Hrs
+303451,CSF Culture & Sensitivity,No growth,,2025-02-25 07:49,2025-02-27 21:58,72Hrs
+303460,Serum Creatinine,91,umol/L,2025-02-25 08:17,2025-02-25 09:27,4Hrs
+303466,Full Blood Picture,15.5,x10^9/L WBC,2025-02-25 08:58,2025-02-25 13:13,2Hrs
+303327,Full Blood Picture,13.1,x10^9/L WBC,2025-02-25 10:32,2025-02-25 10:53,2Hrs
+303327,Serum Creatinine,94,umol/L,2025-02-25 15:28,2025-02-26 02:57,4Hrs
+303332,Full Blood Picture,8.6,x10^9/L WBC,2025-02-25 18:16,2025-02-25 19:38,2Hrs
+303339,Random Blood Glucose,14.3,mmol/L,2025-02-26 10:22,2025-02-26 11:03,1Hrs
+303286,Random Blood Glucose,13.2,mmol/L,2025-02-26 11:55,2025-02-26 12:39,1Hrs
+303323,Serum Creatinine,63,umol/L,2025-02-26 12:16,2025-02-26 14:56,4Hrs
+303368,Serum Creatinine,73,umol/L,2025-02-26 12:26,2025-02-26 15:01,4Hrs
+303323,Pus Swab Culture & Sensitivity,Pseudomonas aeruginosa isolated,,2025-02-26 12:34,2025-02-28 13:10,72Hrs
+303296,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-02-26 12:36,2025-03-02 08:23,72Hrs
+303456,Serum Creatinine,63,umol/L,2025-02-26 13:33,2025-02-26 18:55,4Hrs
+303368,Malaria RDT,Positive,,2025-02-26 15:47,2025-02-26 17:21,1Hrs
+303296,Serum Creatinine,58,umol/L,2025-02-26 17:13,2025-02-26 19:13,4Hrs
+303393,Blood Culture & Sensitivity,No growth,,2025-02-27 07:18,2025-03-01 14:23,72Hrs
+303497,Full Blood Picture,18.0,x10^9/L WBC,2025-02-27 10:29,2025-02-27 12:02,2Hrs
+303394,Serum Creatinine,72,umol/L,2025-02-27 17:20,2025-02-28 00:02,4Hrs
+303464,Full Blood Picture,14.5,x10^9/L WBC,2025-02-27 17:28,2025-02-28 01:20,2Hrs
+303285,Urine Culture & Sensitivity,Proteus mirabilis isolated,,2025-02-28 07:27,2025-03-03 00:40,72Hrs
+303317,Full Blood Picture,13.4,x10^9/L WBC,2025-02-28 08:05,2025-02-28 09:44,2Hrs
+303481,Serum Creatinine,248,umol/L,2025-02-28 08:45,2025-02-28 23:10,4Hrs
+303429,Full Blood Picture,8.7,x10^9/L WBC,2025-02-28 10:53,2025-02-28 12:17,2Hrs
+303385,Serum Creatinine,105,umol/L,2025-02-28 11:48,2025-02-28 13:40,4Hrs
+303285,Full Blood Picture,17.6,x10^9/L WBC,2025-02-28 14:28,2025-02-28 14:51,2Hrs
+303399,Full Blood Picture,8.9,x10^9/L WBC,2025-02-28 18:38,2025-02-28 20:17,2Hrs
+303470,Serum Creatinine,65,umol/L,2025-02-28 18:57,2025-03-01 05:08,4Hrs
+303623,Full Blood Picture,17.6,x10^9/L WBC,2025-03-01 13:45,2025-03-01 15:20,2Hrs
+303511,Full Blood Picture,8.2,x10^9/L WBC,2025-03-01 16:03,2025-03-01 17:54,2Hrs
+303687,Full Blood Picture,8.5,x10^9/L WBC,2025-03-02 07:56,2025-03-02 08:39,2Hrs
+303692,Full Blood Picture,11.7,x10^9/L WBC,2025-03-02 08:39,2025-03-02 13:32,2Hrs
+303625,Full Blood Picture,15.6,x10^9/L WBC,2025-03-02 09:02,2025-03-02 10:09,2Hrs
+303744,Serum Creatinine,89,umol/L,2025-03-02 11:48,2025-03-02 12:13,4Hrs
+303575,Serum Creatinine,64,umol/L,2025-03-02 14:04,2025-03-03 01:37,4Hrs
+303744,Stool Culture & Sensitivity,Shigella spp isolated,,2025-03-02 14:04,2025-03-04 13:53,72Hrs
+303687,Blood Culture & Sensitivity,Staphylococcus aureus isolated,,2025-03-02 14:40,2025-03-04 13:13,72Hrs
+303724,Full Blood Picture,14.2,x10^9/L WBC,2025-03-03 07:31,2025-03-03 08:31,2Hrs
+303733,Serum Creatinine,84,umol/L,2025-03-03 07:35,2025-03-03 09:04,4Hrs
+303716,Full Blood Picture,6.8,x10^9/L WBC,2025-03-03 08:10,2025-03-03 09:22,2Hrs
+303716,Serum Creatinine,92,umol/L,2025-03-03 08:31,2025-03-03 11:57,4Hrs
+303774,Full Blood Picture,7.5,x10^9/L WBC,2025-03-03 09:33,2025-03-03 13:59,2Hrs
+303695,Serum Creatinine,110,umol/L,2025-03-03 12:30,2025-03-03 14:54,4Hrs
+303525,Full Blood Picture,17.7,x10^9/L WBC,2025-03-03 16:11,2025-03-03 18:34,2Hrs
+303695,Full Blood Picture,9.1,x10^9/L WBC,2025-03-03 17:48,2025-03-03 19:41,2Hrs
+303531,Malaria RDT,Positive,,2025-03-04 08:58,2025-03-04 09:16,1Hrs
+303733,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-03-04 09:34,2025-03-06 10:05,72Hrs
+303285,Serum Creatinine,96,umol/L,2025-03-04 13:58,2025-03-04 22:34,4Hrs
+303621,Serum Creatinine,113,umol/L,2025-03-04 15:17,2025-03-04 18:10,4Hrs
+303678,Blood Culture & Sensitivity,No growth,,2025-03-05 07:28,2025-03-07 08:18,72Hrs
+303578,Serum Creatinine,78,umol/L,2025-03-05 08:11,2025-03-05 11:07,4Hrs
+303631,Full Blood Picture,14.6,x10^9/L WBC,2025-03-05 08:49,2025-03-05 10:27,2Hrs
+303776,Full Blood Picture,6.8,x10^9/L WBC,2025-03-05 08:49,2025-03-05 09:22,2Hrs
+303650,Full Blood Picture,9.4,x10^9/L WBC,2025-03-05 10:53,2025-03-05 11:28,2Hrs
+303678,Full Blood Picture,10.3,x10^9/L WBC,2025-03-05 12:09,2025-03-05 12:43,2Hrs
+303772,Full Blood Picture,6.7,x10^9/L WBC,2025-03-05 16:50,2025-03-05 18:11,2Hrs
+303631,Serum Creatinine,93,umol/L,2025-03-05 17:13,2025-03-06 07:56,4Hrs
+303598,ALT (SGPT),24,U/L,2025-03-05 18:26,2025-03-05 21:03,4Hrs
+303613,Serum Creatinine,114,umol/L,2025-03-06 08:04,2025-03-06 10:48,4Hrs
+303597,Serum Creatinine,79,umol/L,2025-03-06 08:10,2025-03-06 11:44,4Hrs
+303708,Full Blood Picture,7.2,x10^9/L WBC,2025-03-06 08:16,2025-03-06 13:32,2Hrs
+303626,Full Blood Picture,7.0,x10^9/L WBC,2025-03-06 10:17,2025-03-06 11:26,2Hrs
+303627,Serum Creatinine,84,umol/L,2025-03-06 16:38,2025-03-06 18:23,4Hrs
+303618,Serum Creatinine,56,umol/L,2025-03-07 10:03,2025-03-07 21:56,4Hrs
+303771,Pus Swab Culture & Sensitivity,Pseudomonas aeruginosa isolated,,2025-03-07 10:36,2025-03-09 18:40,72Hrs
+303511,Serum Creatinine,59,umol/L,2025-03-07 11:05,2025-03-07 12:51,4Hrs
+303610,Full Blood Picture,12.9,x10^9/L WBC,2025-03-07 14:44,2025-03-07 19:22,2Hrs
+303581,Full Blood Picture,16.9,x10^9/L WBC,2025-03-08 12:01,2025-03-08 19:28,2Hrs
+303613,Electrolytes (Serum Potassium),3.9,mmol/L,2025-03-08 14:49,2025-03-09 02:33,4Hrs
+303591,Serum Creatinine,112,umol/L,2025-03-08 18:00,2025-03-09 05:16,4Hrs
+303562,Full Blood Picture,12.4,x10^9/L WBC,2025-03-09 09:27,2025-03-09 14:23,2Hrs
+303683,Full Blood Picture,9.6,x10^9/L WBC,2025-03-09 10:01,2025-03-09 12:26,2Hrs
+303552,CSF Culture & Sensitivity,Streptococcus pneumoniae isolated,,2025-03-09 11:33,2025-03-11 14:01,72Hrs
+303590,Full Blood Picture,14.0,x10^9/L WBC,2025-03-09 12:08,2025-03-09 16:29,2Hrs
+303515,Full Blood Picture,7.0,x10^9/L WBC,2025-03-09 12:59,2025-03-09 14:26,2Hrs
+303379,Pus Swab Culture & Sensitivity,Growth,,2025-03-09 14:00,2025-03-11 13:41,72Hrs
+303590,Serum Creatinine,67,umol/L,2025-03-09 14:23,2025-03-09 17:01,4Hrs
+303614,Serum Creatinine,73,umol/L,2025-03-10 09:48,2025-03-10 10:39,4Hrs
+303553,Full Blood Picture,9.8,x10^9/L WBC,2025-03-10 09:55,2025-03-10 10:55,2Hrs
+303588,Random Blood Glucose,10.8,mmol/L,2025-03-10 10:55,2025-03-10 13:29,1Hrs
+303773,Full Blood Picture,17.7,x10^9/L WBC,2025-03-10 11:46,2025-03-10 12:43,2Hrs
+303766,Full Blood Picture,5.6,x10^9/L WBC,2025-03-10 11:57,2025-03-10 13:47,2Hrs
+303682,Full Blood Picture,13.4,x10^9/L WBC,2025-03-10 13:17,2025-03-10 15:07,2Hrs
+303765,Serum Creatinine,82,umol/L,2025-03-10 14:36,2025-03-10 17:44,4Hrs
+303755,Full Blood Picture,15.1,x10^9/L WBC,2025-03-10 15:43,2025-03-10 16:37,2Hrs
+303721,Full Blood Picture,17.2,x10^9/L WBC,2025-03-10 15:44,2025-03-10 16:55,2Hrs
+303553,Random Blood Glucose,12.6,mmol/L,2025-03-10 15:56,2025-03-10 16:15,1Hrs
+303776,Serum Creatinine,56,umol/L,2025-03-11 07:21,2025-03-11 12:44,4Hrs
+303647,Serum Creatinine,86,umol/L,2025-03-11 07:39,2025-03-11 09:24,4Hrs
+303546,Blood Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-03-11 11:26,2025-03-13 23:52,72Hrs
+303671,Full Blood Picture,6.8,x10^9/L WBC,2025-03-11 11:28,2025-03-11 11:58,2Hrs
+303757,Full Blood Picture,11.4,x10^9/L WBC,2025-03-11 11:43,2025-03-11 13:35,2Hrs
+303614,Stool Culture & Sensitivity,Escherichia coli isolated,,2025-03-11 12:02,2025-03-13 13:54,72Hrs
+303751,Full Blood Picture,12.8,x10^9/L WBC,2025-03-11 12:16,2025-03-11 13:14,2Hrs
+303716,Pus Swab Culture & Sensitivity,Growth,,2025-03-11 14:16,2025-03-15 11:34,72Hrs
+303599,Full Blood Picture,13.4,x10^9/L WBC,2025-03-11 16:06,2025-03-11 17:00,2Hrs
+303717,Full Blood Picture,8.4,x10^9/L WBC,2025-03-12 12:13,2025-03-12 13:51,2Hrs
+303679,Urine Culture & Sensitivity,No growth,,2025-03-12 13:04,2025-03-17 14:26,72Hrs
+303717,Random Blood Glucose,19.3,mmol/L,2025-03-12 14:31,2025-03-12 14:54,1Hrs
+303680,Serum Creatinine,74,umol/L,2025-03-12 17:31,2025-03-12 18:30,4Hrs
+303699,Sputum Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-03-13 08:02,2025-03-15 19:37,72Hrs
+303630,Serum Creatinine,85,umol/L,2025-03-13 09:09,2025-03-14 00:56,4Hrs
+303699,Serum Creatinine,66,umol/L,2025-03-13 11:53,2025-03-13 15:03,4Hrs
+303746,Full Blood Picture,12.3,x10^9/L WBC,2025-03-13 15:10,2025-03-13 15:52,2Hrs
+303751,Electrolytes (Serum Potassium),2.6,mmol/L,2025-03-13 16:21,2025-03-13 23:01,4Hrs
+303736,Full Blood Picture,15.4,x10^9/L WBC,2025-03-13 16:52,2025-03-13 18:00,2Hrs
+303553,Electrolytes (Serum Potassium),3.8,mmol/L,2025-03-13 18:16,2025-03-13 19:43,4Hrs
+303535,Serum Creatinine,105,umol/L,2025-03-14 07:17,2025-03-14 16:00,4Hrs
+303553,ALT (SGPT),26,U/L,2025-03-14 07:56,2025-03-14 09:33,4Hrs
+303681,Electrolytes (Serum Potassium),4.1,mmol/L,2025-03-14 09:31,2025-03-14 11:17,4Hrs
+303745,Full Blood Picture,15.1,x10^9/L WBC,2025-03-14 10:36,2025-03-14 16:49,2Hrs
+303616,Full Blood Picture,9.9,x10^9/L WBC,2025-03-14 12:48,2025-03-14 13:59,2Hrs
+303570,Full Blood Picture,5.2,x10^9/L WBC,2025-03-14 13:45,2025-03-14 14:28,2Hrs
+303535,Full Blood Picture,11.8,x10^9/L WBC,2025-03-14 15:12,2025-03-14 16:53,2Hrs
+303745,Serum Creatinine,64,umol/L,2025-03-14 16:50,2025-03-14 19:34,4Hrs
+303580,Full Blood Picture,11.1,x10^9/L WBC,2025-03-14 17:11,2025-03-14 17:50,2Hrs
+303570,Malaria RDT,Positive,,2025-03-14 17:57,2025-03-14 18:53,1Hrs
+303520,Full Blood Picture,5.3,x10^9/L WBC,2025-03-15 07:36,2025-03-15 08:31,2Hrs
+303539,Serum Creatinine,86,umol/L,2025-03-16 07:25,2025-03-16 15:52,4Hrs
+303579,Full Blood Picture,13.6,x10^9/L WBC,2025-03-16 10:12,2025-03-16 11:58,2Hrs
+303579,Blood Culture & Sensitivity,No growth,,2025-03-16 14:51,2025-03-19 03:10,72Hrs
+303655,Full Blood Picture,12.7,x10^9/L WBC,2025-03-17 10:06,2025-03-17 11:00,2Hrs
+303571,Full Blood Picture,11.8,x10^9/L WBC,2025-03-18 07:01,2025-03-18 12:52,2Hrs
+303718,Serum Creatinine,57,umol/L,2025-03-18 07:01,2025-03-18 10:17,4Hrs
+303518,Serum Creatinine,78,umol/L,2025-03-18 07:42,2025-03-18 22:57,4Hrs
+303661,Serum Creatinine,107,umol/L,2025-03-18 09:57,2025-03-18 10:49,4Hrs
+303571,Serum Creatinine,55,umol/L,2025-03-18 10:04,2025-03-18 15:56,4Hrs
+303518,Malaria RDT,Positive,,2025-03-18 11:10,2025-03-18 11:36,1Hrs
+303642,Serum Creatinine,75,umol/L,2025-03-18 11:13,2025-03-18 13:35,4Hrs
+303696,Full Blood Picture,16.4,x10^9/L WBC,2025-03-18 12:38,2025-03-18 20:30,2Hrs
+303523,Serum Creatinine,58,umol/L,2025-03-18 14:14,2025-03-18 17:56,4Hrs
+303661,CSF Culture & Sensitivity,Streptococcus pneumoniae isolated,,2025-03-18 15:39,2025-03-21 09:33,72Hrs
+303661,Full Blood Picture,16.4,x10^9/L WBC,2025-03-18 17:44,2025-03-18 19:26,2Hrs
+303642,Full Blood Picture,15.7,x10^9/L WBC,2025-03-18 18:15,2025-03-18 19:07,2Hrs
+303756,Full Blood Picture,6.0,x10^9/L WBC,2025-03-19 08:20,2025-03-19 09:51,2Hrs
+303622,Full Blood Picture,12.0,x10^9/L WBC,2025-03-19 08:43,2025-03-19 10:01,2Hrs
+303705,Random Blood Glucose,11.8,mmol/L,2025-03-19 13:45,2025-03-19 14:13,1Hrs
+303756,Serum Creatinine,75,umol/L,2025-03-19 13:56,2025-03-19 15:28,4Hrs
+303670,Serum Creatinine,81,umol/L,2025-03-19 15:39,2025-03-19 22:20,4Hrs
+303767,Full Blood Picture,5.6,x10^9/L WBC,2025-03-19 15:59,2025-03-19 17:25,2Hrs
+303713,Serum Creatinine,79,umol/L,2025-03-20 07:28,2025-03-20 08:50,4Hrs
+303703,Full Blood Picture,5.4,x10^9/L WBC,2025-03-20 10:57,2025-03-20 11:15,2Hrs
+303703,Pus Swab Culture & Sensitivity,Pseudomonas aeruginosa isolated,,2025-03-20 11:55,2025-03-22 23:39,72Hrs
+303670,Sputum Culture & Sensitivity,No growth,,2025-03-20 18:31,2025-03-22 23:23,72Hrs
+303596,Serum Creatinine,81,umol/L,2025-03-21 07:08,2025-03-21 12:22,4Hrs
+303517,Serum Creatinine,62,umol/L,2025-03-21 10:11,2025-03-21 11:56,4Hrs
+303700,Serum Creatinine,70,umol/L,2025-03-21 13:52,2025-03-22 04:27,4Hrs
+303517,Blood Culture & Sensitivity,Staphylococcus aureus isolated,,2025-03-21 15:01,2025-03-24 09:17,72Hrs
+303558,Electrolytes (Serum Potassium),4.8,mmol/L,2025-03-21 15:04,2025-03-21 17:08,4Hrs
+303642,Serum Creatinine,61,umol/L,2025-03-22 08:02,2025-03-22 11:37,4Hrs
+303720,Serum Creatinine,68,umol/L,2025-03-22 08:36,2025-03-22 11:17,4Hrs
+303506,Full Blood Picture,6.3,x10^9/L WBC,2025-03-22 11:09,2025-03-22 13:02,2Hrs
+303536,Full Blood Picture,13.9,x10^9/L WBC,2025-03-22 14:01,2025-03-22 18:04,2Hrs
+303635,Malaria RDT,Positive,,2025-03-22 16:15,2025-03-22 17:22,1Hrs
+303731,Full Blood Picture,6.2,x10^9/L WBC,2025-03-22 17:03,2025-03-22 18:11,2Hrs
+303700,Pus Swab Culture & Sensitivity,No growth,,2025-03-22 17:16,2025-03-24 16:57,72Hrs
+303666,Serum Creatinine,100,umol/L,2025-03-22 17:31,2025-03-23 04:42,4Hrs
+303758,Serum Creatinine,52,umol/L,2025-03-23 07:00,2025-03-23 07:22,4Hrs
+303516,Full Blood Picture,13.8,x10^9/L WBC,2025-03-23 10:17,2025-03-23 10:42,2Hrs
+303685,Full Blood Picture,10.6,x10^9/L WBC,2025-03-23 13:26,2025-03-23 14:22,2Hrs
+303589,Serum Creatinine,83,umol/L,2025-03-23 13:32,2025-03-23 16:00,4Hrs
+303589,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-03-23 13:55,2025-03-26 00:39,72Hrs
+303555,Random Blood Glucose,17.6,mmol/L,2025-03-24 08:05,2025-03-24 08:47,1Hrs
+303584,Full Blood Picture,12.0,x10^9/L WBC,2025-03-24 08:24,2025-03-24 10:14,2Hrs
+303555,Full Blood Picture,12.4,x10^9/L WBC,2025-03-24 11:00,2025-03-24 11:55,2Hrs
+303555,Blood Culture & Sensitivity,No growth,,2025-03-24 14:00,2025-03-28 18:04,72Hrs
+303550,Serum Creatinine,82,umol/L,2025-03-24 14:53,2025-03-24 18:05,4Hrs
+303711,Random Blood Glucose,20.8,mmol/L,2025-03-24 18:37,2025-03-24 19:29,1Hrs
+303583,Electrolytes (Serum Potassium),4.7,mmol/L,2025-03-25 07:29,2025-03-25 10:21,4Hrs
+303530,Full Blood Picture,7.7,x10^9/L WBC,2025-03-25 08:11,2025-03-25 09:06,2Hrs
+303512,Serum Creatinine,107,umol/L,2025-03-25 14:23,2025-03-25 16:17,4Hrs
+303727,Blood Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-03-25 14:35,2025-03-30 02:44,72Hrs
+303538,Serum Creatinine,76,umol/L,2025-03-25 15:52,2025-03-25 19:04,4Hrs
+303676,Full Blood Picture,14.6,x10^9/L WBC,2025-03-25 16:24,2025-03-25 16:57,2Hrs
+303719,Full Blood Picture,10.8,x10^9/L WBC,2025-03-25 18:26,2025-03-25 20:04,2Hrs
+303684,Serum Creatinine,102,umol/L,2025-03-26 07:36,2025-03-26 21:22,4Hrs
+303537,Full Blood Picture,6.0,x10^9/L WBC,2025-03-26 08:33,2025-03-26 15:52,2Hrs
+303541,Full Blood Picture,7.8,x10^9/L WBC,2025-03-26 09:20,2025-03-26 10:48,2Hrs
+303582,Full Blood Picture,14.7,x10^9/L WBC,2025-03-26 09:20,2025-03-26 13:44,2Hrs
+303582,Serum Creatinine,85,umol/L,2025-03-26 09:57,2025-03-26 12:19,4Hrs
+303537,Serum Creatinine,91,umol/L,2025-03-26 11:31,2025-03-27 03:09,4Hrs
+303582,Pus Swab Culture & Sensitivity,No growth,,2025-03-26 12:18,2025-03-31 10:05,72Hrs
+303541,Serum Creatinine,106,umol/L,2025-03-26 13:50,2025-03-27 02:31,4Hrs
+303541,Malaria RDT,Positive,,2025-03-26 13:53,2025-03-26 15:26,1Hrs
+303538,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-03-26 18:58,2025-03-29 05:01,72Hrs
+303775,Full Blood Picture,17.7,x10^9/L WBC,2025-03-27 09:57,2025-03-27 10:26,2Hrs
+303509,Full Blood Picture,17.6,x10^9/L WBC,2025-03-27 10:43,2025-03-27 11:35,2Hrs
+303768,Sputum Culture & Sensitivity,No growth,,2025-03-27 10:56,2025-03-29 23:31,72Hrs
+303775,Serum Creatinine,113,umol/L,2025-03-27 12:05,2025-03-27 17:26,4Hrs
+303595,Full Blood Picture,15.0,x10^9/L WBC,2025-03-27 12:29,2025-03-27 14:08,2Hrs
+303668,Full Blood Picture,5.7,x10^9/L WBC,2025-03-28 15:13,2025-03-28 20:09,2Hrs
+303686,Full Blood Picture,7.2,x10^9/L WBC,2025-03-29 16:02,2025-03-29 16:40,2Hrs
+303604,Serum Creatinine,95,umol/L,2025-03-29 17:31,2025-03-29 20:47,4Hrs
+303513,Serum Creatinine,75,umol/L,2025-03-30 10:51,2025-03-30 12:56,4Hrs
+303513,Sputum Culture & Sensitivity,No growth,,2025-03-30 15:42,2025-04-01 23:54,72Hrs
+303660,Malaria RDT,Positive,,2025-03-30 18:51,2025-03-30 19:13,1Hrs
+303658,Serum Creatinine,58,umol/L,2025-03-31 07:58,2025-03-31 20:16,4Hrs
+303543,Full Blood Picture,16.5,x10^9/L WBC,2025-03-31 08:24,2025-03-31 09:52,2Hrs
+303749,Full Blood Picture,11.3,x10^9/L WBC,2025-03-31 08:59,2025-03-31 09:28,2Hrs
+303779,Random Blood Glucose,21.7,mmol/L,2025-03-31 09:14,2025-03-31 11:15,1Hrs
+303779,Full Blood Picture,14.6,x10^9/L WBC,2025-03-31 09:25,2025-03-31 09:57,2Hrs
+303559,Serum Creatinine,97,umol/L,2025-03-31 10:50,2025-03-31 13:12,4Hrs
+303559,Full Blood Picture,15.6,x10^9/L WBC,2025-03-31 13:46,2025-03-31 15:24,2Hrs
+303741,Malaria RDT,Positive,,2025-03-31 14:57,2025-03-31 15:33,1Hrs
+303666,Pus Swab Culture & Sensitivity,Growth,,2025-03-31 15:06,2025-04-04 01:49,72Hrs
+303928,Full Blood Picture,17.5,x10^9/L WBC,2025-04-01 08:38,2025-04-01 09:27,2Hrs
+303999,Full Blood Picture,17.6,x10^9/L WBC,2025-04-01 09:01,2025-04-01 13:50,2Hrs
+303861,Urine Culture & Sensitivity,Enterococcus faecalis isolated,,2025-04-01 10:02,2025-04-05 06:36,72Hrs
+303999,Serum Creatinine,82,umol/L,2025-04-01 11:25,2025-04-01 13:24,4Hrs
+303966,Random Blood Glucose,15.0,mmol/L,2025-04-01 11:39,2025-04-01 12:02,1Hrs
+303966,Full Blood Picture,17.6,x10^9/L WBC,2025-04-01 12:51,2025-04-01 14:08,2Hrs
+303966,Serum Creatinine,73,umol/L,2025-04-01 18:14,2025-04-01 20:59,4Hrs
+303828,Serum Creatinine,71,umol/L,2025-04-02 08:27,2025-04-02 08:48,4Hrs
+303918,Serum Creatinine,93,umol/L,2025-04-02 10:00,2025-04-03 01:41,4Hrs
+303828,Full Blood Picture,15.4,x10^9/L WBC,2025-04-02 11:06,2025-04-02 11:41,2Hrs
+303918,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-04-02 11:33,2025-04-04 03:59,72Hrs
+303674,Serum Creatinine,76,umol/L,2025-04-02 13:08,2025-04-02 16:41,4Hrs
+303797,Serum Creatinine,62,umol/L,2025-04-02 13:48,2025-04-02 14:36,4Hrs
+303928,Blood Culture & Sensitivity,No growth,,2025-04-02 13:55,2025-04-04 08:03,72Hrs
+303829,Serum Creatinine,107,umol/L,2025-04-02 17:01,2025-04-02 17:37,4Hrs
+303946,Full Blood Picture,12.2,x10^9/L WBC,2025-04-02 17:23,2025-04-02 18:05,2Hrs
+303918,Full Blood Picture,16.5,x10^9/L WBC,2025-04-02 17:32,2025-04-02 18:08,2Hrs
+303843,Full Blood Picture,7.6,x10^9/L WBC,2025-04-03 07:36,2025-04-03 08:09,2Hrs
+303927,Full Blood Picture,4.1,x10^9/L WBC,2025-04-03 07:47,2025-04-03 08:36,2Hrs
+303837,Full Blood Picture,6.8,x10^9/L WBC,2025-04-03 08:03,2025-04-03 12:07,2Hrs
+304028,Malaria RDT,Positive,,2025-04-03 08:37,2025-04-03 10:50,1Hrs
+303853,Full Blood Picture,15.9,x10^9/L WBC,2025-04-03 11:16,2025-04-03 12:44,2Hrs
+303963,Full Blood Picture,16.4,x10^9/L WBC,2025-04-03 14:13,2025-04-03 15:00,2Hrs
+304028,Full Blood Picture,11.1,x10^9/L WBC,2025-04-03 15:53,2025-04-03 16:55,2Hrs
+304028,Serum Creatinine,103,umol/L,2025-04-03 16:41,2025-04-03 19:11,4Hrs
+304018,Blood Culture & Sensitivity,No growth,,2025-04-04 07:19,2025-04-08 06:32,72Hrs
+303903,Full Blood Picture,6.9,x10^9/L WBC,2025-04-04 09:03,2025-04-04 11:25,2Hrs
+303966,Serum Creatinine,107,umol/L,2025-04-04 09:36,2025-04-04 13:23,4Hrs
+303957,Serum Creatinine,99,umol/L,2025-04-04 18:03,2025-04-04 21:14,4Hrs
+303796,Full Blood Picture,8.8,x10^9/L WBC,2025-04-05 08:30,2025-04-05 10:50,2Hrs
+304011,Malaria RDT,Positive,,2025-04-05 09:09,2025-04-05 10:59,1Hrs
+303907,Full Blood Picture,14.7,x10^9/L WBC,2025-04-05 11:27,2025-04-05 12:39,2Hrs
+304011,Full Blood Picture,9.1,x10^9/L WBC,2025-04-05 11:54,2025-04-05 16:11,2Hrs
+303513,Serum Creatinine,94,umol/L,2025-04-05 12:45,2025-04-05 15:30,4Hrs
+303821,Serum Creatinine,108,umol/L,2025-04-05 12:52,2025-04-05 13:44,4Hrs
+303998,Full Blood Picture,5.5,x10^9/L WBC,2025-04-05 14:00,2025-04-05 14:40,2Hrs
+303826,Full Blood Picture,8.4,x10^9/L WBC,2025-04-05 17:27,2025-04-05 21:59,2Hrs
+303811,Full Blood Picture,12.1,x10^9/L WBC,2025-04-06 09:28,2025-04-06 15:10,2Hrs
+303796,Blood Culture & Sensitivity,No growth,,2025-04-06 12:13,2025-04-11 17:20,72Hrs
+303811,Sputum Culture & Sensitivity,Streptococcus pneumoniae isolated,,2025-04-06 14:08,2025-04-08 12:21,72Hrs
+303980,Full Blood Picture,7.5,x10^9/L WBC,2025-04-06 14:26,2025-04-06 15:30,2Hrs
+303811,Serum Creatinine,105,umol/L,2025-04-06 15:22,2025-04-06 18:09,4Hrs
+304008,Blood Culture & Sensitivity,No growth,,2025-04-06 17:35,2025-04-09 09:32,72Hrs
+303815,Serum Creatinine,94,umol/L,2025-04-07 07:42,2025-04-07 10:59,4Hrs
+303958,Full Blood Picture,4.0,x10^9/L WBC,2025-04-07 07:53,2025-04-07 08:24,2Hrs
+303793,Malaria RDT,Positive,,2025-04-07 12:27,2025-04-07 15:13,1Hrs
+303958,Serum Creatinine,71,umol/L,2025-04-07 17:55,2025-04-07 20:03,4Hrs
+304036,Full Blood Picture,6.7,x10^9/L WBC,2025-04-07 18:22,2025-04-07 19:42,2Hrs
+303981,Serum Creatinine,78,umol/L,2025-04-08 09:14,2025-04-09 00:01,4Hrs
+304017,Malaria RDT,Positive,,2025-04-08 09:34,2025-04-08 10:08,1Hrs
+303990,Malaria RDT,Positive,,2025-04-09 08:13,2025-04-09 08:40,1Hrs
+303990,Serum Creatinine,59,umol/L,2025-04-09 12:55,2025-04-09 16:01,4Hrs
+303818,Serum Creatinine,54,umol/L,2025-04-09 15:25,2025-04-09 16:46,4Hrs
+303818,Urine Culture & Sensitivity,No growth,,2025-04-09 16:34,2025-04-12 04:19,72Hrs
+303961,Full Blood Picture,8.0,x10^9/L WBC,2025-04-09 18:25,2025-04-09 19:50,2Hrs
+303818,Full Blood Picture,4.3,x10^9/L WBC,2025-04-09 18:51,2025-04-09 23:22,2Hrs
+303870,Serum Creatinine,89,umol/L,2025-04-10 09:01,2025-04-10 09:51,4Hrs
+303954,Full Blood Picture,11.5,x10^9/L WBC,2025-04-10 12:50,2025-04-10 19:14,2Hrs
+303795,Full Blood Picture,14.3,x10^9/L WBC,2025-04-10 14:37,2025-04-10 19:50,2Hrs
+303870,Full Blood Picture,15.2,x10^9/L WBC,2025-04-10 18:20,2025-04-10 19:26,2Hrs
+303795,Serum Creatinine,109,umol/L,2025-04-10 18:34,2025-04-10 19:49,4Hrs
+303869,Random Blood Glucose,10.0,mmol/L,2025-04-11 07:03,2025-04-11 07:22,1Hrs
+303978,Full Blood Picture,7.4,x10^9/L WBC,2025-04-11 08:29,2025-04-11 09:37,2Hrs
+303947,Malaria RDT,Positive,,2025-04-11 08:45,2025-04-11 09:12,1Hrs
+303947,Full Blood Picture,7.8,x10^9/L WBC,2025-04-11 11:10,2025-04-11 11:30,2Hrs
+304035,Stool Culture & Sensitivity,No growth,,2025-04-11 11:35,2025-04-13 05:13,72Hrs
+303934,Serum Creatinine,51,umol/L,2025-04-11 12:17,2025-04-11 15:30,4Hrs
+303944,Full Blood Picture,11.2,x10^9/L WBC,2025-04-11 13:11,2025-04-11 14:29,2Hrs
+304035,Full Blood Picture,6.7,x10^9/L WBC,2025-04-11 16:29,2025-04-11 18:07,2Hrs
+303930,Serum Creatinine,54,umol/L,2025-04-11 17:53,2025-04-11 20:22,4Hrs
+303934,Full Blood Picture,14.7,x10^9/L WBC,2025-04-11 17:53,2025-04-11 19:40,2Hrs
+303858,Serum Creatinine,70,umol/L,2025-04-12 09:30,2025-04-12 20:42,4Hrs
+303781,Full Blood Picture,13.7,x10^9/L WBC,2025-04-12 09:39,2025-04-12 11:15,2Hrs
+303858,Full Blood Picture,6.2,x10^9/L WBC,2025-04-12 10:30,2025-04-12 12:18,2Hrs
+303818,Serum Creatinine,63,umol/L,2025-04-12 10:54,2025-04-12 14:34,4Hrs
+303908,Full Blood Picture,4.5,x10^9/L WBC,2025-04-12 11:52,2025-04-12 12:27,2Hrs
+303994,Serum Creatinine,74,umol/L,2025-04-12 13:25,2025-04-12 21:30,4Hrs
+303781,Serum Creatinine,114,umol/L,2025-04-12 13:32,2025-04-13 01:35,4Hrs
+303994,Full Blood Picture,7.8,x10^9/L WBC,2025-04-12 16:57,2025-04-12 18:26,2Hrs
+303888,Full Blood Picture,10.9,x10^9/L WBC,2025-04-12 17:42,2025-04-12 19:12,2Hrs
+303950,ALT (SGPT),20,U/L,2025-04-13 07:53,2025-04-13 22:13,4Hrs
+303970,Serum Creatinine,99,umol/L,2025-04-13 09:33,2025-04-13 10:57,4Hrs
+303965,Full Blood Picture,15.8,x10^9/L WBC,2025-04-13 09:53,2025-04-13 15:29,2Hrs
+303904,Full Blood Picture,8.1,x10^9/L WBC,2025-04-13 10:28,2025-04-13 13:33,2Hrs
+303970,Full Blood Picture,8.8,x10^9/L WBC,2025-04-13 13:06,2025-04-13 13:31,2Hrs
+303995,Full Blood Picture,8.2,x10^9/L WBC,2025-04-13 13:08,2025-04-13 17:43,2Hrs
+303965,Serum Creatinine,101,umol/L,2025-04-13 16:28,2025-04-13 19:03,4Hrs
+303798,Full Blood Picture,6.5,x10^9/L WBC,2025-04-13 18:48,2025-04-13 20:39,2Hrs
+303973,Blood Culture & Sensitivity,No growth,,2025-04-14 13:13,2025-04-16 17:01,72Hrs
+303807,Serum Creatinine,77,umol/L,2025-04-14 14:22,2025-04-15 00:32,4Hrs
+303913,Serum Creatinine,72,umol/L,2025-04-14 15:38,2025-04-14 19:23,4Hrs
+303913,Full Blood Picture,5.2,x10^9/L WBC,2025-04-14 17:26,2025-04-14 17:58,2Hrs
+304034,Full Blood Picture,15.3,x10^9/L WBC,2025-04-15 09:08,2025-04-15 09:44,2Hrs
+303810,Full Blood Picture,11.6,x10^9/L WBC,2025-04-15 09:42,2025-04-15 12:57,2Hrs
+303810,Malaria RDT,Positive,,2025-04-15 10:11,2025-04-15 11:18,1Hrs
+303833,Full Blood Picture,18.0,x10^9/L WBC,2025-04-15 12:16,2025-04-15 13:43,2Hrs
+303833,Serum Creatinine,63,umol/L,2025-04-15 12:59,2025-04-15 14:41,4Hrs
+303810,Serum Creatinine,104,umol/L,2025-04-15 15:25,2025-04-15 16:21,4Hrs
+303854,Serum Creatinine,92,umol/L,2025-04-15 18:23,2025-04-15 18:52,4Hrs
+303919,Serum Creatinine,60,umol/L,2025-04-16 08:35,2025-04-16 18:53,4Hrs
+303900,Full Blood Picture,7.8,x10^9/L WBC,2025-04-16 14:52,2025-04-16 15:17,2Hrs
+303939,Full Blood Picture,11.4,x10^9/L WBC,2025-04-16 17:59,2025-04-16 19:26,2Hrs
+303894,Serum Creatinine,55,umol/L,2025-04-17 07:02,2025-04-17 10:02,4Hrs
+303968,Full Blood Picture,16.6,x10^9/L WBC,2025-04-17 11:00,2025-04-17 12:42,2Hrs
+303968,Sputum Culture & Sensitivity,No growth,,2025-04-17 15:53,2025-04-20 02:18,72Hrs
+303955,Full Blood Picture,17.7,x10^9/L WBC,2025-04-17 16:24,2025-04-17 23:37,2Hrs
+303823,Full Blood Picture,6.3,x10^9/L WBC,2025-04-18 09:12,2025-04-18 15:53,2Hrs
+303932,Full Blood Picture,13.3,x10^9/L WBC,2025-04-18 10:30,2025-04-18 11:12,2Hrs
+303827,Serum Creatinine,60,umol/L,2025-04-18 17:37,2025-04-18 20:09,4Hrs
+303932,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-04-18 18:18,2025-04-22 04:21,72Hrs
+303823,Serum Creatinine,59,umol/L,2025-04-18 18:49,2025-04-19 03:08,4Hrs
+303833,ALT (SGPT),33,U/L,2025-04-19 10:23,2025-04-19 12:54,4Hrs
+303803,Stool Culture & Sensitivity,Escherichia coli isolated,,2025-04-19 11:31,2025-04-21 13:24,72Hrs
+303922,Full Blood Picture,9.0,x10^9/L WBC,2025-04-19 13:43,2025-04-19 17:59,2Hrs
+304002,Full Blood Picture,9.0,x10^9/L WBC,2025-04-19 15:30,2025-04-19 16:32,2Hrs
+303949,Full Blood Picture,8.1,x10^9/L WBC,2025-04-19 18:07,2025-04-19 19:55,2Hrs
+303834,Full Blood Picture,14.9,x10^9/L WBC,2025-04-20 07:07,2025-04-20 07:51,2Hrs
+303894,Serum Creatinine,81,umol/L,2025-04-20 11:28,2025-04-20 15:01,4Hrs
+303895,Full Blood Picture,15.3,x10^9/L WBC,2025-04-20 12:39,2025-04-20 13:01,2Hrs
+304039,Full Blood Picture,14.2,x10^9/L WBC,2025-04-20 12:59,2025-04-20 13:39,2Hrs
+303813,Urine Culture & Sensitivity,Escherichia coli isolated,,2025-04-20 14:17,2025-04-24 05:57,72Hrs
+303857,Full Blood Picture,8.2,x10^9/L WBC,2025-04-21 17:04,2025-04-21 23:54,2Hrs
+303857,Blood Culture & Sensitivity,No growth,,2025-04-21 17:30,2025-04-23 22:02,72Hrs
+303865,High vaginal swab Culture & Sensitivity,No growth,,2025-04-22 10:16,2025-04-25 07:59,72Hrs
+303859,Serum Creatinine,78,umol/L,2025-04-22 11:08,2025-04-22 12:15,4Hrs
+303780,Full Blood Picture,4.6,x10^9/L WBC,2025-04-22 11:11,2025-04-22 11:58,2Hrs
+303780,Pus Swab Culture & Sensitivity,Pseudomonas aeruginosa isolated,,2025-04-22 12:11,2025-04-24 15:21,72Hrs
+304003,Full Blood Picture,12.0,x10^9/L WBC,2025-04-22 13:41,2025-04-22 14:09,2Hrs
+303874,Full Blood Picture,6.7,x10^9/L WBC,2025-04-22 14:00,2025-04-22 14:32,2Hrs
+303943,Full Blood Picture,12.8,x10^9/L WBC,2025-04-23 07:36,2025-04-23 09:19,2Hrs
+303851,Full Blood Picture,8.6,x10^9/L WBC,2025-04-23 10:46,2025-04-23 12:29,2Hrs
+303993,Full Blood Picture,15.5,x10^9/L WBC,2025-04-23 12:00,2025-04-23 17:23,2Hrs
+303857,Serum Creatinine,68,umol/L,2025-04-24 07:34,2025-04-24 09:55,4Hrs
+303889,Full Blood Picture,12.9,x10^9/L WBC,2025-04-24 07:51,2025-04-24 10:55,2Hrs
+303840,Full Blood Picture,14.8,x10^9/L WBC,2025-04-24 08:00,2025-04-24 09:35,2Hrs
+303840,Urine Culture & Sensitivity,No growth,,2025-04-24 13:50,2025-04-30 01:28,72Hrs
+303937,Full Blood Picture,5.5,x10^9/L WBC,2025-04-24 14:31,2025-04-24 15:53,2Hrs
+303844,Blood Culture & Sensitivity,Enterococcus faecalis isolated,,2025-04-24 14:37,2025-04-28 13:09,72Hrs
+303889,Malaria RDT,Positive,,2025-04-24 14:50,2025-04-24 15:23,1Hrs
+303882,Full Blood Picture,9.7,x10^9/L WBC,2025-04-25 07:13,2025-04-25 12:46,2Hrs
+303830,Serum Creatinine,77,umol/L,2025-04-25 08:46,2025-04-25 10:55,4Hrs
+303852,Electrolytes (Serum Potassium),4.4,mmol/L,2025-04-25 10:07,2025-04-25 13:54,4Hrs
+303830,Full Blood Picture,17.5,x10^9/L WBC,2025-04-25 15:16,2025-04-25 16:05,2Hrs
+303791,Full Blood Picture,6.8,x10^9/L WBC,2025-04-25 16:43,2025-04-25 18:34,2Hrs
+303791,Serum Creatinine,52,umol/L,2025-04-25 18:59,2025-04-25 22:00,4Hrs
+303806,Serum Creatinine,72,umol/L,2025-04-26 07:44,2025-04-26 15:21,4Hrs
+303969,Blood Culture & Sensitivity,No growth,,2025-04-26 08:10,2025-04-28 13:35,72Hrs
+303806,Blood Culture & Sensitivity,No growth,,2025-04-26 14:43,2025-04-28 21:22,72Hrs
+303933,Full Blood Picture,6.9,x10^9/L WBC,2025-04-26 16:16,2025-04-26 18:08,2Hrs
+303786,Full Blood Picture,4.5,x10^9/L WBC,2025-04-26 16:45,2025-04-26 20:27,2Hrs
+303892,Full Blood Picture,5.9,x10^9/L WBC,2025-04-26 17:44,2025-04-26 23:56,2Hrs
+303823,Pus Swab Culture & Sensitivity,Growth,,2025-04-26 18:44,2025-04-30 16:55,72Hrs
+304021,Full Blood Picture,10.1,x10^9/L WBC,2025-04-27 09:39,2025-04-27 10:29,2Hrs
+303884,Pus Swab Culture & Sensitivity,Acinetobacter baumannii isolated,,2025-04-27 12:29,2025-04-29 21:42,72Hrs
+303911,Serum Creatinine,95,umol/L,2025-04-27 17:07,2025-04-27 19:49,4Hrs
+303841,Full Blood Picture,16.7,x10^9/L WBC,2025-04-29 10:04,2025-04-29 11:12,2Hrs
+303831,Serum Creatinine,99,umol/L,2025-04-29 10:08,2025-04-29 13:28,4Hrs
+304037,Blood Culture & Sensitivity,Escherichia coli isolated,,2025-04-29 10:32,2025-05-01 18:25,72Hrs
+303991,Full Blood Picture,15.5,x10^9/L WBC,2025-04-29 13:24,2025-04-29 15:40,2Hrs
+303956,Serum Creatinine,66,umol/L,2025-04-29 13:39,2025-04-29 16:16,4Hrs
+304005,Full Blood Picture,15.5,x10^9/L WBC,2025-04-29 18:39,2025-04-29 20:02,2Hrs
+304037,Full Blood Picture,14.7,x10^9/L WBC,2025-04-29 18:57,2025-04-29 19:36,2Hrs
+303951,Full Blood Picture,13.2,x10^9/L WBC,2025-04-30 07:17,2025-04-30 09:08,2Hrs
+303923,Full Blood Picture,15.2,x10^9/L WBC,2025-04-30 07:40,2025-04-30 08:11,2Hrs
+303830,Serum Creatinine,79,umol/L,2025-04-30 16:38,2025-04-30 20:19,4Hrs
+303801,Serum Creatinine,97,umol/L,2025-04-30 18:38,2025-04-30 20:39,4Hrs
+303882,Serum Creatinine,89,umol/L,2025-05-01 07:02,2025-05-01 09:22,4Hrs
+304354,Serum Creatinine,88,umol/L,2025-05-01 07:29,2025-05-01 17:48,4Hrs
+304324,Random Blood Glucose,23.3,mmol/L,2025-05-01 08:54,2025-05-01 11:48,1Hrs
+304128,Malaria RDT,Positive,,2025-05-01 09:05,2025-05-01 12:22,1Hrs
+303964,Sputum Culture & Sensitivity,No growth,,2025-05-01 09:49,2025-05-03 15:04,72Hrs
+304354,Urine Culture & Sensitivity,Staphylococcus aureus isolated,,2025-05-01 10:39,2025-05-05 03:51,72Hrs
+304186,Full Blood Picture,10.7,x10^9/L WBC,2025-05-01 12:00,2025-05-01 13:35,2Hrs
+304099,Serum Creatinine,74,umol/L,2025-05-01 14:36,2025-05-02 05:36,4Hrs
+304121,Full Blood Picture,15.2,x10^9/L WBC,2025-05-01 15:07,2025-05-01 18:45,2Hrs
+304324,Serum Creatinine,67,umol/L,2025-05-01 16:03,2025-05-01 23:01,4Hrs
+304324,Full Blood Picture,8.6,x10^9/L WBC,2025-05-01 17:14,2025-05-01 18:30,2Hrs
+304354,Full Blood Picture,4.6,x10^9/L WBC,2025-05-01 17:15,2025-05-01 17:46,2Hrs
+304128,Full Blood Picture,11.8,x10^9/L WBC,2025-05-01 18:04,2025-05-01 19:28,2Hrs
+304220,Serum Creatinine,63,umol/L,2025-05-01 18:09,2025-05-02 08:28,4Hrs
+304109,Full Blood Picture,12.1,x10^9/L WBC,2025-05-02 07:49,2025-05-02 09:10,2Hrs
+304299,Serum Creatinine,105,umol/L,2025-05-02 08:24,2025-05-02 10:18,4Hrs
+304121,Stool Culture & Sensitivity,Shigella spp isolated,,2025-05-02 09:12,2025-05-04 18:36,72Hrs
+304056,Serum Creatinine,86,umol/L,2025-05-02 11:12,2025-05-03 02:59,4Hrs
+304168,Malaria RDT,Positive,,2025-05-03 08:50,2025-05-03 09:17,1Hrs
+304335,Full Blood Picture,7.8,x10^9/L WBC,2025-05-03 09:35,2025-05-03 10:58,2Hrs
+304208,Malaria RDT,Positive,,2025-05-03 09:57,2025-05-03 10:39,1Hrs
+304109,Blood Culture & Sensitivity,No growth,,2025-05-03 10:00,2025-05-05 07:29,72Hrs
+304240,Full Blood Picture,13.8,x10^9/L WBC,2025-05-03 13:48,2025-05-03 14:19,2Hrs
+304352,Full Blood Picture,18.0,x10^9/L WBC,2025-05-03 13:48,2025-05-03 14:54,2Hrs
+303923,Electrolytes (Serum Potassium),4.1,mmol/L,2025-05-03 14:12,2025-05-03 17:42,4Hrs
+304208,Full Blood Picture,4.1,x10^9/L WBC,2025-05-03 17:06,2025-05-03 18:07,2Hrs
+304122,Serum Creatinine,90,umol/L,2025-05-03 17:40,2025-05-03 18:27,4Hrs
+304257,Full Blood Picture,14.2,x10^9/L WBC,2025-05-04 08:30,2025-05-04 11:06,2Hrs
+304190,Full Blood Picture,14.5,x10^9/L WBC,2025-05-04 11:49,2025-05-04 15:25,2Hrs
+304187,Pus Swab Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-05-04 14:12,2025-05-07 04:53,72Hrs
+304351,Full Blood Picture,11.9,x10^9/L WBC,2025-05-04 15:20,2025-05-04 15:43,2Hrs
+304257,Serum Creatinine,74,umol/L,2025-05-04 15:55,2025-05-05 01:44,4Hrs
+304187,Serum Creatinine,64,umol/L,2025-05-04 18:24,2025-05-04 19:13,4Hrs
+304351,Blood Culture & Sensitivity,No growth,,2025-05-05 07:36,2025-05-08 03:29,72Hrs
+304133,Full Blood Picture,9.1,x10^9/L WBC,2025-05-05 07:39,2025-05-05 08:14,2Hrs
+304298,Pus Swab Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-05-05 08:13,2025-05-10 20:23,72Hrs
+303991,Serum Creatinine,166,umol/L,2025-05-05 08:22,2025-05-05 10:41,4Hrs
+304330,Full Blood Picture,8.0,x10^9/L WBC,2025-05-05 08:55,2025-05-05 10:45,2Hrs
+304083,Serum Creatinine,87,umol/L,2025-05-05 16:41,2025-05-05 18:23,4Hrs
+304092,Random Blood Glucose,13.4,mmol/L,2025-05-05 17:49,2025-05-05 19:09,1Hrs
+304298,Serum Creatinine,82,umol/L,2025-05-05 18:30,2025-05-05 19:30,4Hrs
+304075,Pus Swab Culture & Sensitivity,Escherichia coli isolated,,2025-05-06 08:20,2025-05-08 11:23,72Hrs
+304301,Full Blood Picture,13.1,x10^9/L WBC,2025-05-06 09:40,2025-05-06 09:58,2Hrs
+304198,Full Blood Picture,4.9,x10^9/L WBC,2025-05-07 08:37,2025-05-07 09:09,2Hrs
+304195,Sputum Culture & Sensitivity,Acinetobacter baumannii isolated,,2025-05-07 08:43,2025-05-11 23:06,72Hrs
+304202,Full Blood Picture,8.3,x10^9/L WBC,2025-05-07 10:21,2025-05-07 11:40,2Hrs
+304202,Serum Creatinine,67,umol/L,2025-05-07 11:10,2025-05-07 18:49,4Hrs
+304195,Full Blood Picture,8.1,x10^9/L WBC,2025-05-07 11:53,2025-05-07 14:15,2Hrs
+304202,Random Blood Glucose,12.7,mmol/L,2025-05-07 12:29,2025-05-07 13:11,1Hrs
+304120,Blood Culture & Sensitivity,Enterococcus faecalis isolated,,2025-05-07 15:57,2025-05-09 12:06,72Hrs
+304120,ALT (SGPT),243,U/L,2025-05-08 07:45,2025-05-08 11:25,4Hrs
+304348,Full Blood Picture,14.2,x10^9/L WBC,2025-05-08 11:28,2025-05-08 12:03,2Hrs
+304091,Full Blood Picture,4.8,x10^9/L WBC,2025-05-08 12:15,2025-05-08 13:42,2Hrs
+304091,Random Blood Glucose,14.8,mmol/L,2025-05-08 14:35,2025-05-08 15:20,1Hrs
+304155,Serum Creatinine,76,umol/L,2025-05-08 18:30,2025-05-09 07:14,4Hrs
+304125,Full Blood Picture,8.8,x10^9/L WBC,2025-05-09 08:55,2025-05-09 10:05,2Hrs
+304304,Serum Creatinine,68,umol/L,2025-05-09 09:51,2025-05-09 12:37,4Hrs
+304125,Serum Creatinine,94,umol/L,2025-05-09 10:21,2025-05-09 20:01,4Hrs
+304050,Full Blood Picture,6.5,x10^9/L WBC,2025-05-09 10:29,2025-05-09 14:48,2Hrs
+304050,Serum Creatinine,90,umol/L,2025-05-09 13:53,2025-05-09 15:04,4Hrs
+304103,Malaria RDT,Positive,,2025-05-09 18:09,2025-05-09 18:42,1Hrs
+304103,Serum Creatinine,61,umol/L,2025-05-09 18:14,2025-05-09 19:40,4Hrs
+304296,Full Blood Picture,11.2,x10^9/L WBC,2025-05-11 15:06,2025-05-11 18:31,2Hrs
+304302,Serum Creatinine,52,umol/L,2025-05-11 17:18,2025-05-11 18:15,4Hrs
+304343,Full Blood Picture,14.8,x10^9/L WBC,2025-05-11 18:00,2025-05-11 20:34,2Hrs
+304207,Full Blood Picture,15.7,x10^9/L WBC,2025-05-12 12:45,2025-05-12 13:33,2Hrs
+304207,Malaria RDT,Positive,,2025-05-12 13:46,2025-05-12 14:30,1Hrs
+304334,Random Blood Glucose,16.2,mmol/L,2025-05-12 15:15,2025-05-12 17:38,1Hrs
+304045,Full Blood Picture,5.1,x10^9/L WBC,2025-05-12 16:03,2025-05-12 17:53,2Hrs
+304076,Serum Creatinine,73,umol/L,2025-05-13 07:39,2025-05-13 11:16,4Hrs
+304171,Serum Creatinine,67,umol/L,2025-05-13 08:07,2025-05-13 08:57,4Hrs
+304091,ALT (SGPT),31,U/L,2025-05-13 09:27,2025-05-13 10:31,4Hrs
+304114,Sputum Culture & Sensitivity,Streptococcus pneumoniae isolated,,2025-05-13 11:00,2025-05-18 05:08,72Hrs
+304114,Serum Creatinine,79,umol/L,2025-05-13 12:13,2025-05-13 18:45,4Hrs
+304114,Full Blood Picture,9.3,x10^9/L WBC,2025-05-13 12:59,2025-05-13 14:08,2Hrs
+304207,ALT (SGPT),41,U/L,2025-05-13 16:58,2025-05-13 19:34,4Hrs
+304285,Electrolytes (Serum Potassium),4.6,mmol/L,2025-05-14 09:05,2025-05-14 15:05,4Hrs
+304269,Malaria RDT,Positive,,2025-05-14 11:15,2025-05-14 11:54,1Hrs
+304136,Electrolytes (Serum Potassium),4.5,mmol/L,2025-05-14 13:16,2025-05-14 15:29,4Hrs
+304269,Serum Creatinine,61,umol/L,2025-05-14 15:03,2025-05-14 17:37,4Hrs
+304172,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-05-14 17:11,2025-05-17 10:52,72Hrs
+304314,Serum Creatinine,66,umol/L,2025-05-15 07:03,2025-05-15 21:01,4Hrs
+304095,Pus Swab Culture & Sensitivity,No growth,,2025-05-15 10:48,2025-05-18 03:49,72Hrs
+304244,Blood Culture & Sensitivity,Escherichia coli isolated,,2025-05-15 11:10,2025-05-17 13:03,72Hrs
+304314,Full Blood Picture,8.0,x10^9/L WBC,2025-05-15 12:02,2025-05-15 19:20,2Hrs
+304244,Serum Creatinine,88,umol/L,2025-05-15 17:06,2025-05-15 19:18,4Hrs
+304315,Full Blood Picture,8.1,x10^9/L WBC,2025-05-15 17:52,2025-05-15 19:35,2Hrs
+304130,Full Blood Picture,6.6,x10^9/L WBC,2025-05-16 08:57,2025-05-16 09:51,2Hrs
+304216,Serum Creatinine,107,umol/L,2025-05-16 09:38,2025-05-16 13:12,4Hrs
+304341,Serum Creatinine,59,umol/L,2025-05-16 10:37,2025-05-16 13:51,4Hrs
+304161,Serum Creatinine,62,umol/L,2025-05-16 11:02,2025-05-16 14:10,4Hrs
+304221,Serum Creatinine,102,umol/L,2025-05-16 11:24,2025-05-17 00:04,4Hrs
+304161,Pus Swab Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-05-16 11:30,2025-05-21 17:25,72Hrs
+304245,Sputum Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-05-16 11:39,2025-05-18 13:48,72Hrs
+304255,Random Blood Glucose,11.3,mmol/L,2025-05-16 11:57,2025-05-16 12:16,1Hrs
+304355,Serum Creatinine,96,umol/L,2025-05-16 13:14,2025-05-16 16:20,4Hrs
+304293,Serum Creatinine,68,umol/L,2025-05-16 13:30,2025-05-16 20:13,4Hrs
+304293,Full Blood Picture,17.9,x10^9/L WBC,2025-05-16 14:13,2025-05-16 15:18,2Hrs
+304245,Serum Creatinine,65,umol/L,2025-05-16 14:17,2025-05-17 00:02,4Hrs
+304341,Full Blood Picture,10.0,x10^9/L WBC,2025-05-16 14:50,2025-05-16 19:35,2Hrs
+304327,Serum Creatinine,110,umol/L,2025-05-16 14:57,2025-05-16 19:45,4Hrs
+304130,Serum Creatinine,83,umol/L,2025-05-16 15:40,2025-05-16 18:55,4Hrs
+304161,Full Blood Picture,4.1,x10^9/L WBC,2025-05-16 16:03,2025-05-16 16:52,2Hrs
+304106,Full Blood Picture,16.4,x10^9/L WBC,2025-05-16 16:08,2025-05-16 17:02,2Hrs
+304198,Pus Swab Culture & Sensitivity,Growth,,2025-05-16 16:09,2025-05-19 10:31,72Hrs
+304307,Full Blood Picture,12.3,x10^9/L WBC,2025-05-16 16:54,2025-05-16 19:37,2Hrs
+304253,Serum Creatinine,80,umol/L,2025-05-17 12:16,2025-05-17 18:19,4Hrs
+304080,Serum Creatinine,60,umol/L,2025-05-17 15:35,2025-05-18 00:45,4Hrs
+304052,Serum Creatinine,108,umol/L,2025-05-18 09:13,2025-05-18 09:32,4Hrs
+304148,Random Blood Glucose,16.9,mmol/L,2025-05-18 09:56,2025-05-18 10:26,1Hrs
+304142,Urine Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-05-18 15:08,2025-05-20 11:20,72Hrs
+304148,Serum Creatinine,68,umol/L,2025-05-18 15:49,2025-05-18 17:50,4Hrs
+304052,Urine Culture & Sensitivity,No growth,,2025-05-18 16:21,2025-05-21 06:31,72Hrs
+304142,Full Blood Picture,5.6,x10^9/L WBC,2025-05-18 17:57,2025-05-18 18:46,2Hrs
+304170,Full Blood Picture,14.9,x10^9/L WBC,2025-05-19 07:08,2025-05-19 08:20,2Hrs
+304170,Serum Creatinine,101,umol/L,2025-05-19 08:27,2025-05-19 11:16,4Hrs
+304149,Full Blood Picture,8.8,x10^9/L WBC,2025-05-19 09:29,2025-05-19 10:35,2Hrs
+304068,Serum Creatinine,93,umol/L,2025-05-19 15:05,2025-05-19 16:43,4Hrs
+304342,Serum Creatinine,102,umol/L,2025-05-19 18:05,2025-05-19 19:57,4Hrs
+304181,Serum Creatinine,82,umol/L,2025-05-20 07:15,2025-05-20 08:10,4Hrs
+304063,Full Blood Picture,13.6,x10^9/L WBC,2025-05-20 08:02,2025-05-20 10:37,2Hrs
+304063,Sputum Culture & Sensitivity,No growth,,2025-05-20 08:47,2025-05-22 01:21,72Hrs
+304058,Full Blood Picture,17.8,x10^9/L WBC,2025-05-20 10:46,2025-05-20 12:00,2Hrs
+304249,Stool Culture & Sensitivity,No growth,,2025-05-20 11:25,2025-05-26 05:14,72Hrs
+304249,Full Blood Picture,17.9,x10^9/L WBC,2025-05-20 11:34,2025-05-20 18:44,2Hrs
+304258,Random Blood Glucose,17.7,mmol/L,2025-05-20 13:11,2025-05-20 13:52,1Hrs
+304151,Full Blood Picture,9.6,x10^9/L WBC,2025-05-20 13:32,2025-05-20 14:52,2Hrs
+304258,Full Blood Picture,14.9,x10^9/L WBC,2025-05-20 15:25,2025-05-20 20:38,2Hrs
+304058,Serum Creatinine,85,umol/L,2025-05-20 17:13,2025-05-20 18:31,4Hrs
+304089,Serum Creatinine,68,umol/L,2025-05-21 08:42,2025-05-21 11:34,4Hrs
+304062,Full Blood Picture,11.8,x10^9/L WBC,2025-05-21 09:57,2025-05-21 10:22,2Hrs
+304074,Blood Culture & Sensitivity,No growth,,2025-05-21 11:19,2025-05-23 18:59,72Hrs
+304338,Pus Swab Culture & Sensitivity,No growth,,2025-05-21 11:28,2025-05-24 02:57,72Hrs
+304205,Full Blood Picture,15.9,x10^9/L WBC,2025-05-21 12:16,2025-05-21 17:15,2Hrs
+304338,Serum Creatinine,100,umol/L,2025-05-21 12:31,2025-05-21 14:12,4Hrs
+304218,Serum Creatinine,58,umol/L,2025-05-21 14:10,2025-05-21 15:31,4Hrs
+304244,Serum Creatinine,70,umol/L,2025-05-21 15:43,2025-05-22 02:03,4Hrs
+304062,Random Blood Glucose,12.8,mmol/L,2025-05-21 16:19,2025-05-21 16:55,1Hrs
+304148,Serum Creatinine,103,umol/L,2025-05-22 09:58,2025-05-22 11:50,4Hrs
+304144,Serum Creatinine,78,umol/L,2025-05-22 12:23,2025-05-22 13:12,4Hrs
+304259,Serum Creatinine,85,umol/L,2025-05-22 16:10,2025-05-22 17:08,4Hrs
+304176,Malaria RDT,Positive,,2025-05-23 08:01,2025-05-23 08:31,1Hrs
+304176,Full Blood Picture,17.5,x10^9/L WBC,2025-05-23 08:17,2025-05-23 14:19,2Hrs
+304203,Serum Creatinine,75,umol/L,2025-05-23 08:33,2025-05-23 19:27,4Hrs
+304222,Full Blood Picture,8.8,x10^9/L WBC,2025-05-23 09:14,2025-05-23 10:04,2Hrs
+304118,Serum Creatinine,91,umol/L,2025-05-23 12:05,2025-05-23 14:01,4Hrs
+304323,Serum Creatinine,103,umol/L,2025-05-23 12:10,2025-05-23 13:55,4Hrs
+304118,Full Blood Picture,16.7,x10^9/L WBC,2025-05-23 18:32,2025-05-23 19:14,2Hrs
+304325,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-05-24 07:53,2025-05-26 09:33,72Hrs
+304100,Full Blood Picture,10.9,x10^9/L WBC,2025-05-24 10:13,2025-05-24 11:06,2Hrs
+304214,Pus Swab Culture & Sensitivity,Growth,,2025-05-24 10:25,2025-05-26 07:10,72Hrs
+304063,Serum Creatinine,99,umol/L,2025-05-24 11:31,2025-05-24 14:25,4Hrs
+304100,Sputum Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-05-24 15:19,2025-05-27 11:45,72Hrs
+304280,Full Blood Picture,7.8,x10^9/L WBC,2025-05-24 18:16,2025-05-24 18:37,2Hrs
+304096,Full Blood Picture,7.0,x10^9/L WBC,2025-05-25 09:21,2025-05-25 09:44,2Hrs
+304096,Random Blood Glucose,18.0,mmol/L,2025-05-25 14:16,2025-05-25 14:50,1Hrs
+304137,Full Blood Picture,13.8,x10^9/L WBC,2025-05-25 15:37,2025-05-25 16:59,2Hrs
+304150,Serum Creatinine,68,umol/L,2025-05-25 15:57,2025-05-25 22:33,4Hrs
+304150,Full Blood Picture,7.9,x10^9/L WBC,2025-05-25 18:40,2025-05-25 23:35,2Hrs
+304282,Serum Creatinine,98,umol/L,2025-05-26 10:49,2025-05-26 11:36,4Hrs
+304282,Full Blood Picture,4.3,x10^9/L WBC,2025-05-26 13:15,2025-05-26 20:14,2Hrs
+304157,Serum Creatinine,101,umol/L,2025-05-26 13:50,2025-05-26 14:56,4Hrs
+304096,Sputum Culture & Sensitivity,Pseudomonas aeruginosa isolated,,2025-05-26 15:58,2025-05-29 12:54,72Hrs
+304138,Full Blood Picture,11.9,x10^9/L WBC,2025-05-27 07:40,2025-05-27 09:07,2Hrs
+304191,Serum Creatinine,67,umol/L,2025-05-27 10:19,2025-05-27 13:52,4Hrs
+304242,Full Blood Picture,15.0,x10^9/L WBC,2025-05-27 11:29,2025-05-27 14:55,2Hrs
+304271,Full Blood Picture,4.8,x10^9/L WBC,2025-05-27 12:33,2025-05-27 13:06,2Hrs
+304138,Serum Creatinine,110,umol/L,2025-05-27 13:20,2025-05-27 20:46,4Hrs
+304226,Full Blood Picture,9.7,x10^9/L WBC,2025-05-28 08:11,2025-05-28 09:48,2Hrs
+304246,Serum Creatinine,70,umol/L,2025-05-28 09:00,2025-05-28 11:07,4Hrs
+304100,ALT (SGPT),28,U/L,2025-05-28 09:03,2025-05-28 23:08,4Hrs
+304246,Full Blood Picture,5.2,x10^9/L WBC,2025-05-28 10:37,2025-05-28 11:53,2Hrs
+304270,Serum Creatinine,105,umol/L,2025-05-28 12:40,2025-05-28 16:19,4Hrs
+304318,Serum Creatinine,71,umol/L,2025-05-28 14:28,2025-05-28 17:02,4Hrs
+304318,Full Blood Picture,10.0,x10^9/L WBC,2025-05-28 15:03,2025-05-28 19:39,2Hrs
+304237,Serum Creatinine,53,umol/L,2025-05-28 15:39,2025-05-29 07:38,4Hrs
+304266,Serum Creatinine,88,umol/L,2025-05-28 16:56,2025-05-28 19:12,4Hrs
+304212,Full Blood Picture,11.1,x10^9/L WBC,2025-05-28 17:38,2025-05-28 22:58,2Hrs
+304140,Serum Creatinine,78,umol/L,2025-05-29 08:17,2025-05-29 09:23,4Hrs
+304226,CSF Culture & Sensitivity,No growth,,2025-05-29 10:13,2025-06-01 03:57,72Hrs
+304266,ALT (SGPT),12,U/L,2025-05-29 12:08,2025-05-29 15:43,4Hrs
+304096,Serum Creatinine,210,umol/L,2025-05-29 12:52,2025-05-29 14:39,4Hrs
+304200,Random Blood Glucose,16.3,mmol/L,2025-05-29 14:18,2025-05-29 16:57,1Hrs
+304140,Full Blood Picture,5.1,x10^9/L WBC,2025-05-29 15:50,2025-05-29 20:57,2Hrs
+304295,Serum Creatinine,66,umol/L,2025-05-30 07:30,2025-05-30 10:05,4Hrs
+304311,Serum Creatinine,55,umol/L,2025-05-30 08:20,2025-05-30 11:02,4Hrs
+304223,Full Blood Picture,12.9,x10^9/L WBC,2025-05-30 11:32,2025-05-30 12:18,2Hrs
+304261,Serum Creatinine,106,umol/L,2025-05-30 12:34,2025-05-31 03:28,4Hrs
+304295,Full Blood Picture,13.3,x10^9/L WBC,2025-05-30 15:14,2025-05-30 16:38,2Hrs
+304311,Full Blood Picture,6.0,x10^9/L WBC,2025-05-30 17:47,2025-05-30 19:10,2Hrs
+304061,Full Blood Picture,15.2,x10^9/L WBC,2025-05-31 07:07,2025-05-31 15:01,2Hrs
+304061,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-05-31 08:12,2025-06-02 15:38,72Hrs
+304111,Full Blood Picture,6.5,x10^9/L WBC,2025-05-31 08:51,2025-05-31 10:30,2Hrs
+304111,Pus Swab Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-05-31 09:04,2025-06-04 10:07,72Hrs
+304228,Full Blood Picture,14.0,x10^9/L WBC,2025-05-31 09:35,2025-05-31 10:19,2Hrs
+304228,Serum Creatinine,102,umol/L,2025-05-31 09:40,2025-05-31 11:47,4Hrs
+304175,Full Blood Picture,8.4,x10^9/L WBC,2025-05-31 10:48,2025-05-31 18:01,2Hrs
+304273,Random Blood Glucose,17.2,mmol/L,2025-05-31 12:19,2025-05-31 15:59,1Hrs
+304127,Full Blood Picture,16.8,x10^9/L WBC,2025-05-31 13:04,2025-05-31 15:50,2Hrs
+304127,Malaria RDT,Positive,,2025-05-31 18:22,2025-05-31 19:04,1Hrs
+304556,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-06-01 08:37,2025-06-03 05:10,72Hrs
+304556,Full Blood Picture,8.1,x10^9/L WBC,2025-06-01 13:02,2025-06-01 14:01,2Hrs
+304458,Full Blood Picture,7.4,x10^9/L WBC,2025-06-01 17:12,2025-06-01 18:14,2Hrs
+304150,Serum Creatinine,105,umol/L,2025-06-01 18:17,2025-06-01 20:42,4Hrs
+304370,Full Blood Picture,7.2,x10^9/L WBC,2025-06-02 10:51,2025-06-02 12:10,2Hrs
+304458,ALT (SGPT),33,U/L,2025-06-02 12:42,2025-06-02 15:37,4Hrs
+304565,Serum Creatinine,60,umol/L,2025-06-02 13:14,2025-06-02 15:33,4Hrs
+304395,Serum Creatinine,56,umol/L,2025-06-02 14:05,2025-06-02 16:51,4Hrs
+304395,Full Blood Picture,13.8,x10^9/L WBC,2025-06-02 18:51,2025-06-02 22:46,2Hrs
+304422,Serum Creatinine,76,umol/L,2025-06-03 10:13,2025-06-04 00:59,4Hrs
+304422,Full Blood Picture,9.8,x10^9/L WBC,2025-06-03 13:40,2025-06-03 14:14,2Hrs
+304577,Blood Culture & Sensitivity,Escherichia coli isolated,,2025-06-03 16:38,2025-06-05 09:46,72Hrs
+304544,Full Blood Picture,14.7,x10^9/L WBC,2025-06-03 17:30,2025-06-03 18:41,2Hrs
+304363,Full Blood Picture,16.7,x10^9/L WBC,2025-06-03 18:21,2025-06-03 19:53,2Hrs
+304363,Pus Swab Culture & Sensitivity,Escherichia coli isolated,,2025-06-03 18:40,2025-06-06 01:36,72Hrs
+304546,Full Blood Picture,13.2,x10^9/L WBC,2025-06-04 07:24,2025-06-04 07:43,2Hrs
+304392,Random Blood Glucose,16.4,mmol/L,2025-06-04 15:52,2025-06-04 16:30,1Hrs
+304376,Full Blood Picture,9.7,x10^9/L WBC,2025-06-05 09:26,2025-06-05 09:57,2Hrs
+304534,Serum Creatinine,101,umol/L,2025-06-05 12:55,2025-06-05 14:35,4Hrs
+304577,Serum Creatinine,57,umol/L,2025-06-06 07:02,2025-06-06 09:43,4Hrs
+304514,Full Blood Picture,4.5,x10^9/L WBC,2025-06-06 09:07,2025-06-06 10:02,2Hrs
+304552,Malaria RDT,Positive,,2025-06-06 10:09,2025-06-06 10:38,1Hrs
+304564,Full Blood Picture,5.6,x10^9/L WBC,2025-06-06 14:08,2025-06-06 14:40,2Hrs
+304564,Serum Creatinine,69,umol/L,2025-06-06 15:02,2025-06-06 17:28,4Hrs
+304529,Full Blood Picture,15.7,x10^9/L WBC,2025-06-06 15:50,2025-06-06 16:42,2Hrs
+304368,Full Blood Picture,16.7,x10^9/L WBC,2025-06-07 11:57,2025-06-07 12:27,2Hrs
+304429,Full Blood Picture,14.3,x10^9/L WBC,2025-06-07 15:46,2025-06-07 17:31,2Hrs
+304516,Serum Creatinine,101,umol/L,2025-06-09 09:21,2025-06-09 10:51,4Hrs
+304457,Full Blood Picture,7.8,x10^9/L WBC,2025-06-09 11:30,2025-06-09 14:44,2Hrs
+304562,Serum Creatinine,76,umol/L,2025-06-09 12:08,2025-06-09 15:45,4Hrs
+304460,Malaria RDT,Positive,,2025-06-09 14:11,2025-06-09 14:53,1Hrs
+304516,Full Blood Picture,12.9,x10^9/L WBC,2025-06-09 14:53,2025-06-09 16:11,2Hrs
+304382,Serum Creatinine,61,umol/L,2025-06-09 17:08,2025-06-09 17:44,4Hrs
+304382,Full Blood Picture,9.1,x10^9/L WBC,2025-06-09 17:36,2025-06-09 19:16,2Hrs
+304432,Serum Creatinine,104,umol/L,2025-06-10 13:32,2025-06-11 01:33,4Hrs
+304454,Urine Culture & Sensitivity,Escherichia coli isolated,,2025-06-10 14:11,2025-06-12 15:17,72Hrs
+304521,Full Blood Picture,17.7,x10^9/L WBC,2025-06-10 14:54,2025-06-10 21:08,2Hrs
+304516,Blood Culture & Sensitivity,No growth,,2025-06-10 15:39,2025-06-12 08:41,72Hrs
+304521,Serum Creatinine,57,umol/L,2025-06-10 18:56,2025-06-11 06:48,4Hrs
+304520,Full Blood Picture,4.9,x10^9/L WBC,2025-06-11 08:23,2025-06-11 09:49,2Hrs
+304581,Full Blood Picture,8.4,x10^9/L WBC,2025-06-11 09:05,2025-06-11 09:24,2Hrs
+304520,Serum Creatinine,83,umol/L,2025-06-11 12:39,2025-06-11 13:53,4Hrs
+304443,Random Blood Glucose,21.2,mmol/L,2025-06-12 07:08,2025-06-12 07:31,1Hrs
+304439,Full Blood Picture,17.2,x10^9/L WBC,2025-06-12 08:27,2025-06-12 14:42,2Hrs
+304504,Full Blood Picture,15.9,x10^9/L WBC,2025-06-12 12:17,2025-06-12 12:43,2Hrs
+304443,Malaria RDT,Positive,,2025-06-12 15:41,2025-06-12 16:16,1Hrs
+304420,Random Blood Glucose,14.5,mmol/L,2025-06-12 17:36,2025-06-12 18:11,1Hrs
+304405,Serum Creatinine,53,umol/L,2025-06-12 18:14,2025-06-12 20:44,4Hrs
+304504,Serum Creatinine,97,umol/L,2025-06-12 18:32,2025-06-12 21:14,4Hrs
+304541,Random Blood Glucose,9.2,mmol/L,2025-06-13 11:00,2025-06-13 14:10,1Hrs
+304541,Malaria RDT,Positive,,2025-06-13 14:16,2025-06-13 14:36,1Hrs
+304494,Serum Creatinine,105,umol/L,2025-06-13 15:02,2025-06-13 18:40,4Hrs
+304497,Serum Creatinine,88,umol/L,2025-06-13 15:42,2025-06-13 19:27,4Hrs
+304533,Full Blood Picture,11.3,x10^9/L WBC,2025-06-13 17:24,2025-06-13 18:30,2Hrs
+304533,Random Blood Glucose,13.9,mmol/L,2025-06-13 18:03,2025-06-13 18:41,1Hrs
+304550,Full Blood Picture,12.9,x10^9/L WBC,2025-06-14 07:23,2025-06-14 08:02,2Hrs
+304383,Serum Creatinine,112,umol/L,2025-06-14 08:00,2025-06-14 10:06,4Hrs
+304525,Full Blood Picture,13.5,x10^9/L WBC,2025-06-14 08:16,2025-06-14 12:53,2Hrs
+304378,Sputum Culture & Sensitivity,Streptococcus pneumoniae isolated,,2025-06-14 10:24,2025-06-17 21:52,72Hrs
+304574,Serum Creatinine,73,umol/L,2025-06-14 11:34,2025-06-14 13:54,4Hrs
+304490,Full Blood Picture,17.6,x10^9/L WBC,2025-06-14 11:57,2025-06-14 12:32,2Hrs
+304490,Blood Culture & Sensitivity,No growth,,2025-06-14 12:00,2025-06-16 21:17,72Hrs
+304550,Serum Creatinine,92,umol/L,2025-06-14 15:13,2025-06-14 16:22,4Hrs
+304378,Full Blood Picture,14.8,x10^9/L WBC,2025-06-14 16:34,2025-06-14 23:03,2Hrs
+304469,Random Blood Glucose,18.7,mmol/L,2025-06-14 17:35,2025-06-14 18:13,1Hrs
+304463,Full Blood Picture,11.2,x10^9/L WBC,2025-06-14 18:45,2025-06-15 01:07,2Hrs
+304462,Serum Creatinine,99,umol/L,2025-06-15 10:19,2025-06-15 13:59,4Hrs
+304423,Serum Creatinine,100,umol/L,2025-06-15 11:52,2025-06-16 03:24,4Hrs
+304499,Serum Creatinine,59,umol/L,2025-06-15 11:54,2025-06-15 17:24,4Hrs
+304423,Full Blood Picture,14.7,x10^9/L WBC,2025-06-15 12:06,2025-06-15 13:35,2Hrs
+304449,Full Blood Picture,13.9,x10^9/L WBC,2025-06-15 12:41,2025-06-15 14:29,2Hrs
+304424,Full Blood Picture,7.4,x10^9/L WBC,2025-06-15 13:01,2025-06-15 18:06,2Hrs
+304472,Serum Creatinine,104,umol/L,2025-06-15 13:46,2025-06-15 15:00,4Hrs
+304424,Serum Creatinine,61,umol/L,2025-06-15 15:28,2025-06-15 17:56,4Hrs
+304499,Full Blood Picture,7.4,x10^9/L WBC,2025-06-15 17:28,2025-06-15 18:33,2Hrs
+304367,Full Blood Picture,10.4,x10^9/L WBC,2025-06-16 08:41,2025-06-16 12:34,2Hrs
+304476,Blood Culture & Sensitivity,No growth,,2025-06-16 10:17,2025-06-20 13:43,72Hrs
+304476,Full Blood Picture,12.9,x10^9/L WBC,2025-06-16 12:17,2025-06-16 19:44,2Hrs
+304571,Full Blood Picture,7.4,x10^9/L WBC,2025-06-16 12:17,2025-06-16 13:26,2Hrs
+304473,Full Blood Picture,5.2,x10^9/L WBC,2025-06-16 12:49,2025-06-16 13:58,2Hrs
+304473,Serum Creatinine,59,umol/L,2025-06-16 17:02,2025-06-16 18:37,4Hrs
+304453,Serum Creatinine,74,umol/L,2025-06-16 18:13,2025-06-17 02:53,4Hrs
+304462,ALT (SGPT),35,U/L,2025-06-17 07:18,2025-06-17 10:59,4Hrs
+304419,Full Blood Picture,4.7,x10^9/L WBC,2025-06-17 09:39,2025-06-17 14:17,2Hrs
+304396,Urine Culture & Sensitivity,No growth,,2025-06-17 10:46,2025-06-19 16:49,72Hrs
+304500,ALT (SGPT),21,U/L,2025-06-17 11:54,2025-06-18 01:06,4Hrs
+304459,Blood Culture & Sensitivity,Staphylococcus aureus isolated,,2025-06-17 12:05,2025-06-19 20:30,72Hrs
+304518,Full Blood Picture,9.3,x10^9/L WBC,2025-06-17 12:47,2025-06-17 15:37,2Hrs
+304459,Full Blood Picture,4.9,x10^9/L WBC,2025-06-17 13:55,2025-06-17 14:16,2Hrs
+304491,Full Blood Picture,9.9,x10^9/L WBC,2025-06-17 16:06,2025-06-17 17:10,2Hrs
+304491,Serum Creatinine,67,umol/L,2025-06-17 18:17,2025-06-17 21:27,4Hrs
+304397,Full Blood Picture,15.5,x10^9/L WBC,2025-06-18 15:14,2025-06-18 16:43,2Hrs
+304462,Serum Creatinine,245,umol/L,2025-06-19 07:31,2025-06-19 11:10,4Hrs
+304383,Random Blood Glucose,17.6,mmol/L,2025-06-19 07:54,2025-06-19 08:21,1Hrs
+304472,Electrolytes (Serum Potassium),4.7,mmol/L,2025-06-19 14:48,2025-06-19 17:38,4Hrs
+304410,Full Blood Picture,5.8,x10^9/L WBC,2025-06-19 17:48,2025-06-19 22:25,2Hrs
+304526,Full Blood Picture,8.6,x10^9/L WBC,2025-06-20 07:24,2025-06-20 13:19,2Hrs
+304483,Serum Creatinine,86,umol/L,2025-06-20 07:53,2025-06-20 10:44,4Hrs
+304381,Full Blood Picture,6.1,x10^9/L WBC,2025-06-20 08:16,2025-06-20 09:04,2Hrs
+304483,Full Blood Picture,13.9,x10^9/L WBC,2025-06-20 10:03,2025-06-20 10:45,2Hrs
+304526,Serum Creatinine,106,umol/L,2025-06-20 16:31,2025-06-21 01:14,4Hrs
+304526,Random Blood Glucose,21.9,mmol/L,2025-06-20 18:59,2025-06-20 19:52,1Hrs
+304388,Serum Creatinine,72,umol/L,2025-06-21 10:49,2025-06-21 11:13,4Hrs
+304388,Full Blood Picture,13.9,x10^9/L WBC,2025-06-21 13:12,2025-06-21 14:06,2Hrs
+304506,Full Blood Picture,8.0,x10^9/L WBC,2025-06-21 17:39,2025-06-21 21:40,2Hrs
+304407,Serum Creatinine,112,umol/L,2025-06-23 09:26,2025-06-23 12:48,4Hrs
+304379,Serum Creatinine,99,umol/L,2025-06-23 11:47,2025-06-23 17:06,4Hrs
+304531,Full Blood Picture,16.9,x10^9/L WBC,2025-06-23 13:04,2025-06-23 14:52,2Hrs
+304531,Pus Swab Culture & Sensitivity,No growth,,2025-06-23 16:32,2025-06-27 06:52,72Hrs
+304575,Serum Creatinine,90,umol/L,2025-06-24 14:15,2025-06-24 14:46,4Hrs
+304482,Serum Creatinine,73,umol/L,2025-06-24 17:24,2025-06-24 18:41,4Hrs
+304542,Serum Creatinine,109,umol/L,2025-06-25 10:12,2025-06-26 00:49,4Hrs
+304485,Pus Swab Culture & Sensitivity,No growth,,2025-06-25 11:56,2025-06-28 17:11,72Hrs
+304485,Serum Creatinine,75,umol/L,2025-06-25 13:50,2025-06-26 05:17,4Hrs
+304575,Sputum Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-06-25 14:04,2025-06-27 08:14,72Hrs
+304475,Full Blood Picture,5.5,x10^9/L WBC,2025-06-25 15:33,2025-06-25 15:56,2Hrs
+304511,ALT (SGPT),30,U/L,2025-06-25 15:49,2025-06-25 22:50,4Hrs
+304542,Blood Culture & Sensitivity,No growth,,2025-06-25 16:39,2025-06-28 05:08,72Hrs
+304427,Pus Swab Culture & Sensitivity,No growth,,2025-06-25 17:17,2025-06-28 04:44,72Hrs
+304446,Serum Creatinine,76,umol/L,2025-06-26 08:29,2025-06-26 08:48,4Hrs
+304566,Full Blood Picture,9.9,x10^9/L WBC,2025-06-26 09:45,2025-06-26 17:02,2Hrs
+304555,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-06-26 10:45,2025-06-29 02:11,72Hrs
+304555,Serum Creatinine,66,umol/L,2025-06-26 13:18,2025-06-26 15:41,4Hrs
+304555,Full Blood Picture,10.5,x10^9/L WBC,2025-06-26 15:00,2025-06-26 15:58,2Hrs
+304406,Blood Culture & Sensitivity,No growth,,2025-06-26 15:55,2025-07-01 06:42,72Hrs
+304573,Malaria RDT,Positive,,2025-06-27 08:18,2025-06-27 09:09,1Hrs
+304573,ALT (SGPT),18,U/L,2025-06-27 09:35,2025-06-27 22:34,4Hrs
+304536,Full Blood Picture,16.6,x10^9/L WBC,2025-06-27 11:04,2025-06-27 11:31,2Hrs
+304483,Serum Creatinine,171,umol/L,2025-06-27 11:09,2025-06-27 17:17,4Hrs
+304536,Serum Creatinine,87,umol/L,2025-06-27 11:47,2025-06-27 17:50,4Hrs
+304540,Serum Creatinine,107,umol/L,2025-06-27 15:38,2025-06-28 04:17,4Hrs
+304373,Full Blood Picture,17.5,x10^9/L WBC,2025-06-28 10:37,2025-06-28 14:36,2Hrs
+304543,Full Blood Picture,11.8,x10^9/L WBC,2025-06-28 11:57,2025-06-28 12:56,2Hrs
+304501,Full Blood Picture,13.0,x10^9/L WBC,2025-06-28 12:10,2025-06-28 12:59,2Hrs
+304501,Pus Swab Culture & Sensitivity,No growth,,2025-06-28 12:23,2025-07-01 09:31,72Hrs
+304515,Full Blood Picture,6.7,x10^9/L WBC,2025-06-29 09:39,2025-06-29 10:02,2Hrs
+304515,Serum Creatinine,70,umol/L,2025-06-29 14:57,2025-06-29 17:46,4Hrs
+304522,Serum Creatinine,89,umol/L,2025-06-29 16:43,2025-06-29 23:19,4Hrs
+304538,Full Blood Picture,6.5,x10^9/L WBC,2025-06-30 08:37,2025-06-30 10:04,2Hrs
+304572,Malaria RDT,Positive,,2025-06-30 09:08,2025-06-30 10:01,1Hrs
+304512,Serum Creatinine,91,umol/L,2025-06-30 10:56,2025-06-30 12:56,4Hrs
+304362,Serum Creatinine,52,umol/L,2025-06-30 10:59,2025-07-01 00:20,4Hrs
+304572,Full Blood Picture,14.9,x10^9/L WBC,2025-06-30 15:49,2025-06-30 17:39,2Hrs
+304512,Full Blood Picture,13.6,x10^9/L WBC,2025-06-30 16:24,2025-06-30 22:40,2Hrs
+304824,Malaria RDT,Positive,,2025-07-01 09:21,2025-07-01 10:02,1Hrs
+304824,Serum Creatinine,107,umol/L,2025-07-01 10:26,2025-07-01 13:17,4Hrs
+304634,Serum Creatinine,55,umol/L,2025-07-02 08:18,2025-07-02 14:27,4Hrs
+304693,Full Blood Picture,4.4,x10^9/L WBC,2025-07-02 13:35,2025-07-02 14:06,2Hrs
+304446,Serum Creatinine,86,umol/L,2025-07-02 13:49,2025-07-03 03:50,4Hrs
+304819,Full Blood Picture,15.9,x10^9/L WBC,2025-07-02 16:07,2025-07-02 17:32,2Hrs
+304756,Full Blood Picture,14.3,x10^9/L WBC,2025-07-02 18:16,2025-07-02 19:03,2Hrs
+304593,Serum Creatinine,95,umol/L,2025-07-03 07:03,2025-07-03 09:28,4Hrs
+304809,Serum Creatinine,91,umol/L,2025-07-03 07:48,2025-07-03 09:41,4Hrs
+304593,Sputum Culture & Sensitivity,No growth,,2025-07-03 08:19,2025-07-05 11:31,72Hrs
+304809,Full Blood Picture,8.6,x10^9/L WBC,2025-07-03 13:15,2025-07-03 14:36,2Hrs
+304756,Pus Swab Culture & Sensitivity,No growth,,2025-07-03 13:24,2025-07-07 20:38,72Hrs
+304688,Blood Culture & Sensitivity,No growth,,2025-07-03 13:29,2025-07-08 03:02,72Hrs
+304789,Full Blood Picture,5.0,x10^9/L WBC,2025-07-03 14:07,2025-07-03 21:47,2Hrs
+304652,Full Blood Picture,15.3,x10^9/L WBC,2025-07-03 17:02,2025-07-03 18:42,2Hrs
+304652,Pus Swab Culture & Sensitivity,Acinetobacter baumannii isolated,,2025-07-03 17:42,2025-07-05 23:49,72Hrs
+304593,Full Blood Picture,17.2,x10^9/L WBC,2025-07-03 17:57,2025-07-03 23:29,2Hrs
+304801,Random Blood Glucose,18.9,mmol/L,2025-07-04 09:24,2025-07-04 12:00,1Hrs
+304744,Pus Swab Culture & Sensitivity,Pseudomonas aeruginosa isolated,,2025-07-04 11:52,2025-07-09 03:11,72Hrs
+304610,Full Blood Picture,17.6,x10^9/L WBC,2025-07-04 13:06,2025-07-04 14:39,2Hrs
+304672,Full Blood Picture,14.7,x10^9/L WBC,2025-07-04 16:10,2025-07-05 00:03,2Hrs
+304691,Full Blood Picture,7.6,x10^9/L WBC,2025-07-04 16:36,2025-07-04 17:38,2Hrs
+304586,Full Blood Picture,15.0,x10^9/L WBC,2025-07-05 07:56,2025-07-05 08:59,2Hrs
+304711,Full Blood Picture,7.2,x10^9/L WBC,2025-07-05 14:00,2025-07-05 18:59,2Hrs
+304711,Serum Creatinine,88,umol/L,2025-07-05 14:17,2025-07-05 16:51,4Hrs
+304711,Pus Swab Culture & Sensitivity,Acinetobacter baumannii isolated,,2025-07-05 14:26,2025-07-10 08:46,72Hrs
+304586,Random Blood Glucose,14.9,mmol/L,2025-07-05 15:17,2025-07-05 15:37,1Hrs
+304586,Serum Creatinine,62,umol/L,2025-07-05 16:17,2025-07-05 17:35,4Hrs
+304652,Serum Creatinine,105,umol/L,2025-07-06 09:28,2025-07-06 09:51,4Hrs
+304638,Serum Creatinine,74,umol/L,2025-07-06 09:40,2025-07-06 19:06,4Hrs
+304638,Full Blood Picture,14.4,x10^9/L WBC,2025-07-06 13:48,2025-07-06 17:42,2Hrs
+304702,Serum Creatinine,52,umol/L,2025-07-06 18:10,2025-07-06 22:44,4Hrs
+304821,Malaria RDT,Positive,,2025-07-07 07:50,2025-07-07 08:45,1Hrs
+304607,ALT (SGPT),224,U/L,2025-07-07 11:05,2025-07-07 12:23,4Hrs
+304593,ALT (SGPT),30,U/L,2025-07-07 16:36,2025-07-07 19:37,4Hrs
+304636,Full Blood Picture,16.2,x10^9/L WBC,2025-07-07 18:36,2025-07-07 19:27,2Hrs
+304665,Urine Culture & Sensitivity,Enterococcus faecalis isolated,,2025-07-08 07:17,2025-07-10 02:14,72Hrs
+304665,Full Blood Picture,6.1,x10^9/L WBC,2025-07-08 09:24,2025-07-08 10:31,2Hrs
+304698,Malaria RDT,Positive,,2025-07-08 10:06,2025-07-08 10:44,1Hrs
+304709,Full Blood Picture,6.5,x10^9/L WBC,2025-07-08 11:56,2025-07-08 13:01,2Hrs
+304775,Full Blood Picture,15.7,x10^9/L WBC,2025-07-08 12:41,2025-07-08 14:08,2Hrs
+304696,Full Blood Picture,7.9,x10^9/L WBC,2025-07-08 13:08,2025-07-08 14:57,2Hrs
+304698,Full Blood Picture,8.2,x10^9/L WBC,2025-07-08 15:54,2025-07-08 22:14,2Hrs
+304682,Full Blood Picture,15.0,x10^9/L WBC,2025-07-08 17:58,2025-07-08 19:49,2Hrs
+304665,Serum Creatinine,77,umol/L,2025-07-08 18:48,2025-07-08 19:59,4Hrs
+304768,Malaria RDT,Positive,,2025-07-09 07:05,2025-07-09 07:43,1Hrs
+304827,Urine Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-07-09 07:45,2025-07-13 00:15,72Hrs
+304827,Full Blood Picture,10.5,x10^9/L WBC,2025-07-09 10:24,2025-07-09 16:59,2Hrs
+304696,Blood Culture & Sensitivity,No growth,,2025-07-09 11:24,2025-07-14 08:33,72Hrs
+304786,Urine Culture & Sensitivity,Escherichia coli isolated,,2025-07-09 11:52,2025-07-11 19:57,72Hrs
+304750,Blood Culture & Sensitivity,Escherichia coli isolated,,2025-07-09 17:40,2025-07-15 10:36,72Hrs
+304787,Full Blood Picture,7.3,x10^9/L WBC,2025-07-09 18:07,2025-07-09 23:21,2Hrs
+304750,Full Blood Picture,11.1,x10^9/L WBC,2025-07-09 18:22,2025-07-09 19:00,2Hrs
+304791,Blood Culture & Sensitivity,No growth,,2025-07-09 18:46,2025-07-11 23:38,72Hrs
+304588,Full Blood Picture,16.0,x10^9/L WBC,2025-07-10 12:17,2025-07-10 13:09,2Hrs
+304723,Full Blood Picture,16.0,x10^9/L WBC,2025-07-10 16:12,2025-07-10 23:24,2Hrs
+304588,Serum Creatinine,99,umol/L,2025-07-10 16:53,2025-07-11 02:18,4Hrs
+304588,Blood Culture & Sensitivity,No growth,,2025-07-10 17:36,2025-07-12 22:57,72Hrs
+304752,Serum Creatinine,98,umol/L,2025-07-10 18:04,2025-07-10 19:30,4Hrs
+304826,Full Blood Picture,8.7,x10^9/L WBC,2025-07-11 08:53,2025-07-11 10:34,2Hrs
+304804,Full Blood Picture,13.6,x10^9/L WBC,2025-07-11 09:15,2025-07-11 09:44,2Hrs
+304826,Serum Creatinine,101,umol/L,2025-07-11 10:37,2025-07-11 13:25,4Hrs
+304804,Malaria RDT,Positive,,2025-07-11 15:16,2025-07-11 15:44,1Hrs
+304783,Full Blood Picture,16.0,x10^9/L WBC,2025-07-11 17:49,2025-07-11 18:54,2Hrs
+304717,Random Blood Glucose,18.5,mmol/L,2025-07-12 07:08,2025-07-12 07:33,1Hrs
+304714,Serum Creatinine,112,umol/L,2025-07-12 08:25,2025-07-12 10:29,4Hrs
+304717,Full Blood Picture,4.8,x10^9/L WBC,2025-07-12 08:57,2025-07-12 15:07,2Hrs
+304781,Serum Creatinine,63,umol/L,2025-07-12 09:19,2025-07-12 21:08,4Hrs
+304672,Pus Swab Culture & Sensitivity,Growth,,2025-07-12 13:58,2025-07-14 09:27,72Hrs
+304791,Serum Creatinine,79,umol/L,2025-07-12 15:05,2025-07-12 18:08,4Hrs
+304602,Full Blood Picture,14.4,x10^9/L WBC,2025-07-12 15:49,2025-07-12 17:02,2Hrs
+304813,Full Blood Picture,11.8,x10^9/L WBC,2025-07-13 10:23,2025-07-13 17:29,2Hrs
+304709,Serum Creatinine,59,umol/L,2025-07-13 16:34,2025-07-13 20:04,4Hrs
+304690,Full Blood Picture,11.2,x10^9/L WBC,2025-07-14 09:19,2025-07-14 10:32,2Hrs
+304758,Serum Creatinine,66,umol/L,2025-07-14 11:45,2025-07-14 18:48,4Hrs
+304774,Sputum Culture & Sensitivity,Pseudomonas aeruginosa isolated,,2025-07-14 15:11,2025-07-16 19:02,72Hrs
+304774,Full Blood Picture,11.6,x10^9/L WBC,2025-07-14 16:45,2025-07-14 18:08,2Hrs
+304747,Full Blood Picture,9.6,x10^9/L WBC,2025-07-14 16:55,2025-07-14 18:30,2Hrs
+304739,Full Blood Picture,7.7,x10^9/L WBC,2025-07-14 17:01,2025-07-14 18:17,2Hrs
+304823,Serum Creatinine,68,umol/L,2025-07-16 10:51,2025-07-16 13:36,4Hrs
+304731,Blood Culture & Sensitivity,No growth,,2025-07-16 12:20,2025-07-19 09:56,72Hrs
+304583,Serum Creatinine,99,umol/L,2025-07-16 12:45,2025-07-16 14:16,4Hrs
+304588,Serum Creatinine,101,umol/L,2025-07-16 16:15,2025-07-16 16:56,4Hrs
+304703,Serum Creatinine,105,umol/L,2025-07-17 07:44,2025-07-17 08:36,4Hrs
+304648,Full Blood Picture,15.4,x10^9/L WBC,2025-07-17 15:42,2025-07-17 16:14,2Hrs
+304708,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-07-17 17:11,2025-07-20 09:54,72Hrs
+304749,Full Blood Picture,4.1,x10^9/L WBC,2025-07-17 17:30,2025-07-17 18:35,2Hrs
+304648,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-07-17 18:14,2025-07-20 08:16,72Hrs
+304594,Serum Creatinine,65,umol/L,2025-07-18 08:40,2025-07-18 10:43,4Hrs
+304678,Full Blood Picture,8.6,x10^9/L WBC,2025-07-18 12:01,2025-07-18 12:44,2Hrs
+304825,Serum Creatinine,75,umol/L,2025-07-18 12:27,2025-07-18 13:38,4Hrs
+304618,Malaria RDT,Positive,,2025-07-18 13:10,2025-07-18 13:32,1Hrs
+304670,Full Blood Picture,10.0,x10^9/L WBC,2025-07-18 15:02,2025-07-18 17:20,2Hrs
+304825,Full Blood Picture,15.5,x10^9/L WBC,2025-07-18 15:53,2025-07-18 17:23,2Hrs
+304618,Full Blood Picture,14.1,x10^9/L WBC,2025-07-18 18:23,2025-07-18 19:24,2Hrs
+304742,Full Blood Picture,6.5,x10^9/L WBC,2025-07-19 10:08,2025-07-19 10:43,2Hrs
+304673,Serum Creatinine,66,umol/L,2025-07-19 17:35,2025-07-19 20:58,4Hrs
+304630,Blood Culture & Sensitivity,No growth,,2025-07-19 18:12,2025-07-22 10:28,72Hrs
+304730,Stool Culture & Sensitivity,No growth,,2025-07-20 07:21,2025-07-22 12:02,72Hrs
+304689,Full Blood Picture,13.4,x10^9/L WBC,2025-07-20 07:26,2025-07-20 08:57,2Hrs
+304611,Full Blood Picture,18.0,x10^9/L WBC,2025-07-20 09:54,2025-07-20 11:07,2Hrs
+304637,Full Blood Picture,11.9,x10^9/L WBC,2025-07-20 10:43,2025-07-20 12:21,2Hrs
+304737,Full Blood Picture,4.7,x10^9/L WBC,2025-07-20 13:26,2025-07-20 14:09,2Hrs
+304716,Full Blood Picture,12.1,x10^9/L WBC,2025-07-20 14:51,2025-07-20 15:56,2Hrs
+304716,Blood Culture & Sensitivity,No growth,,2025-07-20 15:33,2025-07-23 11:30,72Hrs
+304685,Serum Creatinine,70,umol/L,2025-07-20 16:06,2025-07-20 18:10,4Hrs
+304770,Serum Creatinine,95,umol/L,2025-07-20 16:12,2025-07-20 18:47,4Hrs
+304685,Full Blood Picture,6.2,x10^9/L WBC,2025-07-20 18:54,2025-07-20 23:03,2Hrs
+304759,Full Blood Picture,9.6,x10^9/L WBC,2025-07-21 07:09,2025-07-21 08:30,2Hrs
+304759,Serum Creatinine,57,umol/L,2025-07-21 10:10,2025-07-21 12:48,4Hrs
+304760,Electrolytes (Serum Potassium),3.8,mmol/L,2025-07-21 12:12,2025-07-21 13:55,4Hrs
+304699,Random Blood Glucose,17.2,mmol/L,2025-07-21 13:15,2025-07-21 13:53,1Hrs
+304684,Serum Creatinine,69,umol/L,2025-07-21 16:12,2025-07-21 22:52,4Hrs
+304684,Full Blood Picture,7.5,x10^9/L WBC,2025-07-21 16:14,2025-07-21 17:17,2Hrs
+304759,Stool Culture & Sensitivity,No growth,,2025-07-21 16:20,2025-07-26 07:27,72Hrs
+304624,Full Blood Picture,12.5,x10^9/L WBC,2025-07-22 10:54,2025-07-22 11:16,2Hrs
+304726,Full Blood Picture,10.0,x10^9/L WBC,2025-07-22 14:06,2025-07-22 15:44,2Hrs
+304796,Serum Creatinine,93,umol/L,2025-07-23 08:56,2025-07-23 11:40,4Hrs
+304600,Full Blood Picture,16.3,x10^9/L WBC,2025-07-23 10:16,2025-07-23 12:00,2Hrs
+304800,Full Blood Picture,5.0,x10^9/L WBC,2025-07-23 11:47,2025-07-23 18:34,2Hrs
+304800,Malaria RDT,Positive,,2025-07-23 14:16,2025-07-23 15:09,1Hrs
+304600,Serum Creatinine,67,umol/L,2025-07-23 17:08,2025-07-23 19:38,4Hrs
+304641,Serum Creatinine,80,umol/L,2025-07-24 07:14,2025-07-24 10:42,4Hrs
+304762,Full Blood Picture,10.4,x10^9/L WBC,2025-07-25 08:45,2025-07-25 09:22,2Hrs
+304645,Full Blood Picture,13.0,x10^9/L WBC,2025-07-25 10:16,2025-07-25 16:56,2Hrs
+304615,Full Blood Picture,7.5,x10^9/L WBC,2025-07-25 11:42,2025-07-25 12:01,2Hrs
+304645,Serum Creatinine,76,umol/L,2025-07-25 16:20,2025-07-25 17:26,4Hrs
+304612,Full Blood Picture,8.0,x10^9/L WBC,2025-07-25 16:34,2025-07-25 18:54,2Hrs
+304630,Serum Creatinine,171,umol/L,2025-07-25 16:50,2025-07-25 18:16,4Hrs
+304793,Blood Culture & Sensitivity,Enterococcus faecalis isolated,,2025-07-25 17:12,2025-07-29 09:26,72Hrs
+304595,Full Blood Picture,15.5,x10^9/L WBC,2025-07-25 17:39,2025-07-25 19:19,2Hrs
+304661,Blood Culture & Sensitivity,Acinetobacter baumannii isolated,,2025-07-26 07:18,2025-07-29 22:22,72Hrs
+304661,Full Blood Picture,15.8,x10^9/L WBC,2025-07-26 08:26,2025-07-26 09:14,2Hrs
+304816,Malaria RDT,Positive,,2025-07-26 08:38,2025-07-26 09:02,1Hrs
+304653,CSF Culture & Sensitivity,No growth,,2025-07-26 08:43,2025-07-31 04:36,72Hrs
+304623,Sputum Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-07-26 10:02,2025-07-29 15:10,72Hrs
+304614,Random Blood Glucose,11.4,mmol/L,2025-07-26 12:55,2025-07-26 13:22,1Hrs
+304614,Full Blood Picture,6.8,x10^9/L WBC,2025-07-26 14:14,2025-07-26 15:38,2Hrs
+304675,Full Blood Picture,10.9,x10^9/L WBC,2025-07-26 14:18,2025-07-26 16:07,2Hrs
+304816,Random Blood Glucose,15.8,mmol/L,2025-07-26 15:51,2025-07-26 16:15,1Hrs
+304762,Blood Culture & Sensitivity,Acinetobacter baumannii isolated,,2025-07-26 17:40,2025-07-31 21:51,72Hrs
+304745,Pus Swab Culture & Sensitivity,Growth,,2025-07-27 07:29,2025-07-29 05:04,72Hrs
+304769,Serum Creatinine,54,umol/L,2025-07-27 07:54,2025-07-27 09:02,4Hrs
+304769,Full Blood Picture,14.9,x10^9/L WBC,2025-07-27 12:30,2025-07-27 19:28,2Hrs
+304769,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-07-27 16:29,2025-07-30 03:22,72Hrs
+304808,Full Blood Picture,16.9,x10^9/L WBC,2025-07-27 17:21,2025-07-27 18:32,2Hrs
+304799,Full Blood Picture,17.2,x10^9/L WBC,2025-07-28 08:31,2025-07-28 08:49,2Hrs
+304677,Serum Creatinine,60,umol/L,2025-07-28 08:45,2025-07-28 09:50,4Hrs
+304633,Full Blood Picture,7.0,x10^9/L WBC,2025-07-28 09:32,2025-07-28 10:33,2Hrs
+304792,Full Blood Picture,4.9,x10^9/L WBC,2025-07-28 09:43,2025-07-28 17:27,2Hrs
+304792,Pus Swab Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-07-28 11:40,2025-07-31 04:57,72Hrs
+304763,Serum Creatinine,92,umol/L,2025-07-28 12:24,2025-07-28 14:30,4Hrs
+304799,Malaria RDT,Positive,,2025-07-28 13:19,2025-07-28 14:10,1Hrs
+304677,Pus Swab Culture & Sensitivity,No growth,,2025-07-28 13:41,2025-07-30 16:52,72Hrs
+304814,Full Blood Picture,4.5,x10^9/L WBC,2025-07-28 14:48,2025-07-28 15:26,2Hrs
+304763,Full Blood Picture,6.3,x10^9/L WBC,2025-07-28 15:22,2025-07-28 16:39,2Hrs
+304669,Full Blood Picture,7.5,x10^9/L WBC,2025-07-28 17:04,2025-07-28 18:13,2Hrs
+304814,Serum Creatinine,107,umol/L,2025-07-28 17:42,2025-07-28 20:38,4Hrs
+304590,Serum Creatinine,81,umol/L,2025-07-29 07:16,2025-07-29 12:38,4Hrs
+304604,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-07-29 09:01,2025-07-31 15:49,72Hrs
+304669,ALT (SGPT),30,U/L,2025-07-29 09:10,2025-07-29 10:48,4Hrs
+304718,Full Blood Picture,12.4,x10^9/L WBC,2025-07-29 09:27,2025-07-29 10:25,2Hrs
+304604,Full Blood Picture,7.2,x10^9/L WBC,2025-07-29 10:07,2025-07-29 11:02,2Hrs
+304772,Full Blood Picture,14.4,x10^9/L WBC,2025-07-29 13:41,2025-07-29 15:02,2Hrs
+304814,Blood Culture & Sensitivity,No growth,,2025-07-29 17:57,2025-07-31 19:03,72Hrs
+304590,Random Blood Glucose,19.0,mmol/L,2025-07-29 18:04,2025-07-29 18:32,1Hrs
+304623,Serum Creatinine,55,umol/L,2025-07-30 09:08,2025-07-30 12:13,4Hrs
+304778,Full Blood Picture,15.2,x10^9/L WBC,2025-07-30 17:58,2025-07-30 19:24,2Hrs
+304771,Random Blood Glucose,16.3,mmol/L,2025-07-31 08:24,2025-07-31 09:15,1Hrs
+304798,Full Blood Picture,17.4,x10^9/L WBC,2025-07-31 11:34,2025-07-31 13:11,2Hrs
+304797,Full Blood Picture,16.8,x10^9/L WBC,2025-07-31 13:10,2025-07-31 14:19,2Hrs
+304735,Blood Culture & Sensitivity,Escherichia coli isolated,,2025-07-31 17:02,2025-08-05 07:25,72Hrs
+304807,Malaria RDT,Positive,,2025-07-31 18:09,2025-07-31 18:34,1Hrs
+304984,Serum Creatinine,56,umol/L,2025-08-01 07:56,2025-08-01 10:45,4Hrs
+304984,Blood Culture & Sensitivity,Acinetobacter baumannii isolated,,2025-08-01 09:45,2025-08-03 09:48,72Hrs
+304866,Serum Creatinine,65,umol/L,2025-08-01 10:54,2025-08-01 13:27,4Hrs
+304866,Malaria RDT,Positive,,2025-08-01 16:11,2025-08-01 16:37,1Hrs
+304829,Serum Creatinine,114,umol/L,2025-08-01 17:57,2025-08-01 18:51,4Hrs
+304855,Serum Creatinine,71,umol/L,2025-08-03 09:20,2025-08-03 20:59,4Hrs
+304855,Full Blood Picture,15.5,x10^9/L WBC,2025-08-03 10:02,2025-08-03 11:52,2Hrs
+304837,Serum Creatinine,78,umol/L,2025-08-03 10:44,2025-08-03 11:17,4Hrs
+304837,Full Blood Picture,16.6,x10^9/L WBC,2025-08-03 18:03,2025-08-04 01:12,2Hrs
+304746,ALT (SGPT),22,U/L,2025-08-04 11:39,2025-08-04 22:43,4Hrs
+304839,Serum Creatinine,83,umol/L,2025-08-04 11:54,2025-08-05 03:00,4Hrs
+304975,Full Blood Picture,8.0,x10^9/L WBC,2025-08-04 16:42,2025-08-04 17:29,2Hrs
+305007,Full Blood Picture,4.6,x10^9/L WBC,2025-08-05 07:39,2025-08-05 08:21,2Hrs
+305026,Full Blood Picture,17.1,x10^9/L WBC,2025-08-05 07:39,2025-08-05 08:19,2Hrs
+305047,High vaginal swab Culture & Sensitivity,Enterococcus faecalis isolated,,2025-08-05 11:16,2025-08-07 21:05,72Hrs
+305026,Random Blood Glucose,12.7,mmol/L,2025-08-05 11:57,2025-08-05 12:48,1Hrs
+304988,Full Blood Picture,10.0,x10^9/L WBC,2025-08-05 14:37,2025-08-05 15:35,2Hrs
+305032,Full Blood Picture,10.9,x10^9/L WBC,2025-08-05 14:56,2025-08-05 18:39,2Hrs
+305032,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-08-05 18:11,2025-08-10 22:18,72Hrs
+304911,Serum Creatinine,57,umol/L,2025-08-05 18:38,2025-08-05 21:58,4Hrs
+304855,ALT (SGPT),194,U/L,2025-08-06 12:27,2025-08-06 16:08,4Hrs
+304873,Malaria RDT,Positive,,2025-08-06 14:20,2025-08-06 15:40,1Hrs
+305041,Full Blood Picture,5.3,x10^9/L WBC,2025-08-06 18:01,2025-08-06 19:11,2Hrs
+304967,Serum Creatinine,99,umol/L,2025-08-07 11:32,2025-08-08 01:21,4Hrs
+305003,Serum Creatinine,74,umol/L,2025-08-07 11:46,2025-08-07 15:24,4Hrs
+305003,Full Blood Picture,5.4,x10^9/L WBC,2025-08-07 16:56,2025-08-07 17:49,2Hrs
+304984,Serum Creatinine,61,umol/L,2025-08-07 18:09,2025-08-07 19:16,4Hrs
+304846,Full Blood Picture,10.5,x10^9/L WBC,2025-08-07 18:18,2025-08-08 00:52,2Hrs
+304919,Sputum Culture & Sensitivity,No growth,,2025-08-09 09:48,2025-08-12 00:10,72Hrs
+304870,Serum Creatinine,52,umol/L,2025-08-09 18:01,2025-08-10 08:38,4Hrs
+304870,Pus Swab Culture & Sensitivity,No growth,,2025-08-09 18:12,2025-08-12 08:08,72Hrs
+304983,Pus Swab Culture & Sensitivity,No growth,,2025-08-10 07:54,2025-08-12 21:45,72Hrs
+304946,Full Blood Picture,8.8,x10^9/L WBC,2025-08-10 09:52,2025-08-10 15:04,2Hrs
+304898,Full Blood Picture,7.3,x10^9/L WBC,2025-08-10 13:08,2025-08-10 14:25,2Hrs
+305034,Serum Creatinine,87,umol/L,2025-08-10 15:18,2025-08-10 16:39,4Hrs
+304983,Full Blood Picture,8.0,x10^9/L WBC,2025-08-10 15:20,2025-08-10 19:09,2Hrs
+305021,Full Blood Picture,8.9,x10^9/L WBC,2025-08-11 09:15,2025-08-11 09:39,2Hrs
+304952,Full Blood Picture,11.2,x10^9/L WBC,2025-08-11 12:56,2025-08-11 14:13,2Hrs
+304911,Electrolytes (Serum Potassium),3.8,mmol/L,2025-08-11 14:29,2025-08-11 15:42,4Hrs
+304952,Serum Creatinine,59,umol/L,2025-08-11 15:24,2025-08-11 18:31,4Hrs
+305021,Serum Creatinine,91,umol/L,2025-08-11 15:28,2025-08-11 16:09,4Hrs
+304902,Full Blood Picture,6.2,x10^9/L WBC,2025-08-12 10:34,2025-08-12 11:48,2Hrs
+304916,Serum Creatinine,77,umol/L,2025-08-12 12:50,2025-08-12 14:24,4Hrs
+304896,Serum Creatinine,97,umol/L,2025-08-12 17:36,2025-08-12 18:20,4Hrs
+304976,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-08-13 07:52,2025-08-15 04:48,72Hrs
+304902,Sputum Culture & Sensitivity,No growth,,2025-08-13 08:04,2025-08-15 14:02,72Hrs
+305002,Serum Creatinine,192,umol/L,2025-08-13 12:50,2025-08-13 14:59,4Hrs
+304842,Serum Creatinine,88,umol/L,2025-08-13 14:17,2025-08-13 17:14,4Hrs
+304976,Serum Creatinine,112,umol/L,2025-08-13 17:07,2025-08-13 17:40,4Hrs
+305044,Stool Culture & Sensitivity,No growth,,2025-08-14 09:48,2025-08-17 05:55,72Hrs
+304847,Full Blood Picture,7.4,x10^9/L WBC,2025-08-14 10:02,2025-08-14 10:31,2Hrs
+304953,Serum Creatinine,82,umol/L,2025-08-14 11:54,2025-08-14 14:16,4Hrs
+304953,Full Blood Picture,4.0,x10^9/L WBC,2025-08-14 11:57,2025-08-14 13:20,2Hrs
+304847,Serum Creatinine,110,umol/L,2025-08-14 12:48,2025-08-14 14:09,4Hrs
+305044,Serum Creatinine,53,umol/L,2025-08-14 15:26,2025-08-14 17:52,4Hrs
+304980,Full Blood Picture,6.7,x10^9/L WBC,2025-08-14 15:42,2025-08-14 16:08,2Hrs
+304908,Serum Creatinine,66,umol/L,2025-08-14 15:46,2025-08-15 01:39,4Hrs
+304953,Malaria RDT,Positive,,2025-08-14 16:12,2025-08-14 19:13,1Hrs
+305044,Full Blood Picture,10.0,x10^9/L WBC,2025-08-14 17:06,2025-08-14 18:16,2Hrs
+304946,Serum Creatinine,57,umol/L,2025-08-15 08:55,2025-08-15 09:15,4Hrs
+304919,Serum Creatinine,55,umol/L,2025-08-15 10:34,2025-08-15 14:15,4Hrs
+304912,Full Blood Picture,17.6,x10^9/L WBC,2025-08-15 10:47,2025-08-15 11:18,2Hrs
+304923,Serum Creatinine,80,umol/L,2025-08-16 07:06,2025-08-16 22:35,4Hrs
+304906,Serum Creatinine,95,umol/L,2025-08-16 08:35,2025-08-16 12:05,4Hrs
+304906,Full Blood Picture,13.9,x10^9/L WBC,2025-08-16 09:13,2025-08-16 10:34,2Hrs
+305044,ALT (SGPT),33,U/L,2025-08-16 13:39,2025-08-16 15:33,4Hrs
+304899,Malaria RDT,Positive,,2025-08-16 16:47,2025-08-16 17:30,1Hrs
+304976,Serum Creatinine,77,umol/L,2025-08-17 08:54,2025-08-17 11:34,4Hrs
+304985,Full Blood Picture,17.6,x10^9/L WBC,2025-08-17 09:04,2025-08-17 10:18,2Hrs
+305053,Full Blood Picture,7.7,x10^9/L WBC,2025-08-17 10:46,2025-08-17 11:15,2Hrs
+304869,Serum Creatinine,88,umol/L,2025-08-17 12:58,2025-08-17 14:41,4Hrs
+304900,Full Blood Picture,10.1,x10^9/L WBC,2025-08-17 13:08,2025-08-17 14:02,2Hrs
+304869,Full Blood Picture,6.5,x10^9/L WBC,2025-08-17 13:41,2025-08-17 15:30,2Hrs
+304848,Serum Creatinine,93,umol/L,2025-08-17 13:58,2025-08-17 21:38,4Hrs
+304845,Full Blood Picture,15.6,x10^9/L WBC,2025-08-17 14:06,2025-08-17 15:20,2Hrs
+304974,Full Blood Picture,12.3,x10^9/L WBC,2025-08-17 14:46,2025-08-17 16:25,2Hrs
+304985,Serum Creatinine,97,umol/L,2025-08-17 14:59,2025-08-17 18:11,4Hrs
+304848,Malaria RDT,Positive,,2025-08-17 16:43,2025-08-17 18:37,1Hrs
+304917,Random Blood Glucose,11.0,mmol/L,2025-08-18 07:06,2025-08-18 07:33,1Hrs
+304917,Serum Creatinine,115,umol/L,2025-08-18 11:15,2025-08-18 13:37,4Hrs
+304935,Full Blood Picture,6.9,x10^9/L WBC,2025-08-18 14:01,2025-08-18 14:53,2Hrs
+304832,Serum Creatinine,87,umol/L,2025-08-19 07:59,2025-08-19 08:46,4Hrs
+304950,Full Blood Picture,9.0,x10^9/L WBC,2025-08-19 08:39,2025-08-19 09:20,2Hrs
+304872,Full Blood Picture,9.0,x10^9/L WBC,2025-08-19 10:25,2025-08-19 14:52,2Hrs
+304966,Full Blood Picture,16.2,x10^9/L WBC,2025-08-19 15:49,2025-08-19 17:13,2Hrs
+304950,Serum Creatinine,51,umol/L,2025-08-19 15:56,2025-08-19 18:28,4Hrs
+305029,Malaria RDT,Positive,,2025-08-19 18:17,2025-08-19 19:04,1Hrs
+304957,Full Blood Picture,16.6,x10^9/L WBC,2025-08-20 09:23,2025-08-20 10:15,2Hrs
+304851,Serum Creatinine,79,umol/L,2025-08-20 11:45,2025-08-20 14:19,4Hrs
+304970,Malaria RDT,Positive,,2025-08-21 08:54,2025-08-21 09:15,1Hrs
+304966,Electrolytes (Serum Potassium),2.6,mmol/L,2025-08-21 09:43,2025-08-21 12:06,4Hrs
+304922,Malaria RDT,Positive,,2025-08-21 10:48,2025-08-21 11:08,1Hrs
+304922,Full Blood Picture,13.0,x10^9/L WBC,2025-08-21 12:07,2025-08-21 13:50,2Hrs
+305018,Serum Creatinine,88,umol/L,2025-08-21 15:16,2025-08-22 01:46,4Hrs
+304922,ALT (SGPT),39,U/L,2025-08-21 16:26,2025-08-22 03:37,4Hrs
+305018,Full Blood Picture,7.6,x10^9/L WBC,2025-08-21 16:37,2025-08-21 17:20,2Hrs
+304968,Full Blood Picture,14.9,x10^9/L WBC,2025-08-22 07:29,2025-08-22 08:01,2Hrs
+304886,Full Blood Picture,13.7,x10^9/L WBC,2025-08-22 09:37,2025-08-22 17:18,2Hrs
+304977,Serum Creatinine,71,umol/L,2025-08-22 09:54,2025-08-22 13:05,4Hrs
+305025,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-08-22 10:11,2025-08-25 07:18,72Hrs
+304968,Urine Culture & Sensitivity,No growth,,2025-08-22 11:23,2025-08-25 04:16,72Hrs
+305025,Full Blood Picture,4.5,x10^9/L WBC,2025-08-22 11:28,2025-08-22 12:14,2Hrs
+304903,Serum Creatinine,95,umol/L,2025-08-22 12:00,2025-08-22 13:59,4Hrs
+304968,Serum Creatinine,103,umol/L,2025-08-22 12:59,2025-08-22 15:46,4Hrs
+304903,Random Blood Glucose,17.3,mmol/L,2025-08-22 15:38,2025-08-22 16:31,1Hrs
+304886,Pus Swab Culture & Sensitivity,No growth,,2025-08-22 17:10,2025-08-24 14:23,72Hrs
+304897,Full Blood Picture,11.2,x10^9/L WBC,2025-08-22 17:10,2025-08-22 17:30,2Hrs
+304886,Serum Creatinine,60,umol/L,2025-08-22 17:23,2025-08-22 18:55,4Hrs
+304881,Full Blood Picture,6.5,x10^9/L WBC,2025-08-23 10:05,2025-08-23 10:40,2Hrs
+304917,Serum Creatinine,65,umol/L,2025-08-23 10:05,2025-08-23 11:23,4Hrs
+304903,CSF Culture & Sensitivity,No growth,,2025-08-23 11:19,2025-08-27 00:33,72Hrs
+304936,Pus Swab Culture & Sensitivity,Acinetobacter baumannii isolated,,2025-08-23 15:12,2025-08-26 02:16,72Hrs
+304977,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-08-23 16:49,2025-08-25 20:19,72Hrs
+304901,Random Blood Glucose,20.9,mmol/L,2025-08-23 18:06,2025-08-23 20:12,1Hrs
+304901,ALT (SGPT),28,U/L,2025-08-24 07:24,2025-08-24 08:30,4Hrs
+304905,Full Blood Picture,16.9,x10^9/L WBC,2025-08-24 08:57,2025-08-24 14:54,2Hrs
+304935,Pus Swab Culture & Sensitivity,Growth,,2025-08-24 09:48,2025-08-29 02:35,72Hrs
+304992,Blood Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-08-24 12:43,2025-08-29 22:24,72Hrs
+304879,Serum Creatinine,68,umol/L,2025-08-24 13:01,2025-08-24 14:15,4Hrs
+304944,Full Blood Picture,8.7,x10^9/L WBC,2025-08-24 14:20,2025-08-24 20:35,2Hrs
+304879,Full Blood Picture,13.5,x10^9/L WBC,2025-08-24 16:40,2025-08-25 00:26,2Hrs
+304962,Full Blood Picture,9.0,x10^9/L WBC,2025-08-24 18:11,2025-08-24 20:00,2Hrs
+304844,Full Blood Picture,15.9,x10^9/L WBC,2025-08-25 07:19,2025-08-25 07:45,2Hrs
+304854,Full Blood Picture,11.7,x10^9/L WBC,2025-08-25 08:58,2025-08-25 09:27,2Hrs
+304844,Serum Creatinine,99,umol/L,2025-08-25 09:46,2025-08-25 12:00,4Hrs
+304928,Serum Creatinine,110,umol/L,2025-08-25 09:58,2025-08-25 12:46,4Hrs
+305006,Pus Swab Culture & Sensitivity,Pseudomonas aeruginosa isolated,,2025-08-25 10:01,2025-08-27 22:31,72Hrs
+305006,Full Blood Picture,14.1,x10^9/L WBC,2025-08-25 11:31,2025-08-25 13:14,2Hrs
+304957,Serum Creatinine,63,umol/L,2025-08-25 12:11,2025-08-25 13:55,4Hrs
+304969,Full Blood Picture,9.4,x10^9/L WBC,2025-08-25 13:21,2025-08-25 13:48,2Hrs
+304828,Random Blood Glucose,22.1,mmol/L,2025-08-25 15:46,2025-08-25 16:40,1Hrs
+304947,Full Blood Picture,17.8,x10^9/L WBC,2025-08-25 16:06,2025-08-25 17:09,2Hrs
+304844,Random Blood Glucose,18.2,mmol/L,2025-08-25 16:10,2025-08-25 17:30,1Hrs
+304828,Full Blood Picture,10.1,x10^9/L WBC,2025-08-25 16:13,2025-08-25 16:58,2Hrs
+304950,Serum Creatinine,207,umol/L,2025-08-25 16:27,2025-08-25 19:06,4Hrs
+304931,Malaria RDT,Positive,,2025-08-25 16:31,2025-08-25 18:58,1Hrs
+304844,Blood Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-08-25 17:39,2025-08-27 16:18,72Hrs
+305009,Serum Creatinine,65,umol/L,2025-08-26 07:08,2025-08-26 14:05,4Hrs
+304878,Random Blood Glucose,19.7,mmol/L,2025-08-26 08:30,2025-08-26 09:14,1Hrs
+304894,Malaria RDT,Positive,,2025-08-26 12:55,2025-08-26 13:24,1Hrs
+304914,Full Blood Picture,7.1,x10^9/L WBC,2025-08-26 14:01,2025-08-26 14:38,2Hrs
+304880,Full Blood Picture,6.2,x10^9/L WBC,2025-08-26 14:10,2025-08-26 15:17,2Hrs
+305009,Full Blood Picture,11.5,x10^9/L WBC,2025-08-26 14:11,2025-08-26 18:50,2Hrs
+304828,ALT (SGPT),17,U/L,2025-08-26 14:13,2025-08-26 16:15,4Hrs
+304880,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-08-26 15:44,2025-08-28 10:50,72Hrs
+304878,Serum Creatinine,53,umol/L,2025-08-26 16:32,2025-08-26 18:47,4Hrs
+304878,Full Blood Picture,10.7,x10^9/L WBC,2025-08-26 17:33,2025-08-26 20:59,2Hrs
+304963,Full Blood Picture,15.2,x10^9/L WBC,2025-08-26 17:35,2025-08-26 18:52,2Hrs
+304879,Electrolytes (Serum Potassium),2.7,mmol/L,2025-08-27 11:34,2025-08-27 12:12,4Hrs
+304856,Serum Creatinine,92,umol/L,2025-08-28 07:49,2025-08-28 09:26,4Hrs
+305000,Malaria RDT,Positive,,2025-08-28 10:42,2025-08-28 12:39,1Hrs
+304868,Full Blood Picture,14.1,x10^9/L WBC,2025-08-28 12:46,2025-08-28 20:37,2Hrs
+304888,Full Blood Picture,14.3,x10^9/L WBC,2025-08-28 12:56,2025-08-28 19:36,2Hrs
+305012,Serum Creatinine,82,umol/L,2025-08-28 14:27,2025-08-28 16:47,4Hrs
+304888,Serum Creatinine,80,umol/L,2025-08-28 14:49,2025-08-28 20:01,4Hrs
+304939,Full Blood Picture,16.3,x10^9/L WBC,2025-08-29 08:17,2025-08-29 09:43,2Hrs
+304995,Full Blood Picture,12.4,x10^9/L WBC,2025-08-29 08:26,2025-08-29 10:15,2Hrs
+304863,Full Blood Picture,14.4,x10^9/L WBC,2025-08-29 16:05,2025-08-29 17:50,2Hrs
+304834,Full Blood Picture,7.9,x10^9/L WBC,2025-08-29 16:09,2025-08-29 17:45,2Hrs
+305054,Full Blood Picture,15.7,x10^9/L WBC,2025-08-30 10:10,2025-08-30 11:03,2Hrs
+304971,Full Blood Picture,7.0,x10^9/L WBC,2025-08-30 11:14,2025-08-30 11:55,2Hrs
+304858,Full Blood Picture,7.3,x10^9/L WBC,2025-08-30 12:33,2025-08-30 13:09,2Hrs
+304998,Full Blood Picture,11.8,x10^9/L WBC,2025-08-31 11:56,2025-08-31 15:07,2Hrs
+304891,Full Blood Picture,4.3,x10^9/L WBC,2025-08-31 13:23,2025-08-31 20:48,2Hrs
+305212,Pus Swab Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-09-01 07:08,2025-09-03 09:09,72Hrs
+305251,Serum Creatinine,77,umol/L,2025-09-01 11:27,2025-09-01 18:21,4Hrs
+305091,Full Blood Picture,9.6,x10^9/L WBC,2025-09-01 11:42,2025-09-01 12:57,2Hrs
+305184,Malaria RDT,Positive,,2025-09-01 11:54,2025-09-01 12:39,1Hrs
+305091,Serum Creatinine,83,umol/L,2025-09-01 14:10,2025-09-02 03:04,4Hrs
+305137,Pus Swab Culture & Sensitivity,No growth,,2025-09-02 10:20,2025-09-05 00:57,72Hrs
+305108,Sputum Culture & Sensitivity,Acinetobacter baumannii isolated,,2025-09-02 10:37,2025-09-04 05:07,72Hrs
+305282,Full Blood Picture,14.1,x10^9/L WBC,2025-09-02 12:45,2025-09-02 14:18,2Hrs
+305108,Full Blood Picture,10.6,x10^9/L WBC,2025-09-02 16:12,2025-09-02 17:56,2Hrs
+305101,Blood Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-09-03 09:35,2025-09-08 17:21,72Hrs
+305101,Full Blood Picture,9.3,x10^9/L WBC,2025-09-03 10:04,2025-09-03 10:42,2Hrs
+305170,Full Blood Picture,16.7,x10^9/L WBC,2025-09-03 10:16,2025-09-03 13:53,2Hrs
+305179,Full Blood Picture,13.1,x10^9/L WBC,2025-09-03 11:22,2025-09-03 12:18,2Hrs
+305170,Serum Creatinine,77,umol/L,2025-09-03 11:50,2025-09-04 00:13,4Hrs
+305179,Serum Creatinine,75,umol/L,2025-09-03 16:32,2025-09-04 05:56,4Hrs
+305183,Full Blood Picture,11.7,x10^9/L WBC,2025-09-03 17:06,2025-09-03 17:43,2Hrs
+305153,Full Blood Picture,16.6,x10^9/L WBC,2025-09-04 07:46,2025-09-04 09:23,2Hrs
+305183,Blood Culture & Sensitivity,No growth,,2025-09-04 12:18,2025-09-06 17:26,72Hrs
+305112,Malaria RDT,Positive,,2025-09-05 09:13,2025-09-05 09:36,1Hrs
+305133,Full Blood Picture,5.5,x10^9/L WBC,2025-09-05 10:40,2025-09-05 11:40,2Hrs
+305133,Serum Creatinine,102,umol/L,2025-09-05 13:06,2025-09-05 14:45,4Hrs
+305112,Serum Creatinine,50,umol/L,2025-09-05 13:27,2025-09-05 16:23,4Hrs
+305244,Full Blood Picture,10.7,x10^9/L WBC,2025-09-05 15:45,2025-09-05 19:15,2Hrs
+305074,Random Blood Glucose,11.4,mmol/L,2025-09-06 07:16,2025-09-06 07:40,1Hrs
+305170,Serum Creatinine,224,umol/L,2025-09-06 07:50,2025-09-06 14:29,4Hrs
+305108,Serum Creatinine,93,umol/L,2025-09-06 08:29,2025-09-06 12:02,4Hrs
+305168,Full Blood Picture,12.8,x10^9/L WBC,2025-09-06 08:48,2025-09-06 09:10,2Hrs
+305252,Serum Creatinine,58,umol/L,2025-09-06 10:42,2025-09-06 12:41,4Hrs
+305173,Full Blood Picture,11.9,x10^9/L WBC,2025-09-06 12:19,2025-09-06 16:55,2Hrs
+305232,Blood Culture & Sensitivity,No growth,,2025-09-06 12:56,2025-09-09 01:52,72Hrs
+305295,Full Blood Picture,5.6,x10^9/L WBC,2025-09-06 14:17,2025-09-06 15:24,2Hrs
+305168,Malaria RDT,Positive,,2025-09-06 14:30,2025-09-06 15:05,1Hrs
+305136,Full Blood Picture,10.3,x10^9/L WBC,2025-09-06 15:28,2025-09-06 15:55,2Hrs
+305136,Serum Creatinine,106,umol/L,2025-09-06 15:44,2025-09-06 23:25,4Hrs
+305200,Full Blood Picture,11.1,x10^9/L WBC,2025-09-06 15:51,2025-09-06 17:32,2Hrs
+305208,Full Blood Picture,5.1,x10^9/L WBC,2025-09-06 16:08,2025-09-06 22:30,2Hrs
+305232,Full Blood Picture,10.5,x10^9/L WBC,2025-09-06 16:21,2025-09-06 19:49,2Hrs
+305173,Serum Creatinine,56,umol/L,2025-09-06 16:29,2025-09-06 17:36,4Hrs
+305113,Serum Creatinine,52,umol/L,2025-09-06 16:54,2025-09-06 19:30,4Hrs
+305208,Serum Creatinine,82,umol/L,2025-09-06 18:08,2025-09-06 21:55,4Hrs
+305295,Blood Culture & Sensitivity,No growth,,2025-09-06 18:33,2025-09-09 07:18,72Hrs
+305128,Full Blood Picture,12.7,x10^9/L WBC,2025-09-07 07:10,2025-09-07 11:01,2Hrs
+305180,Full Blood Picture,14.2,x10^9/L WBC,2025-09-07 08:01,2025-09-07 15:13,2Hrs
+305095,Pus Swab Culture & Sensitivity,Pseudomonas aeruginosa isolated,,2025-09-07 08:46,2025-09-10 05:52,72Hrs
+305203,Full Blood Picture,4.4,x10^9/L WBC,2025-09-07 15:29,2025-09-07 16:51,2Hrs
+305220,Serum Creatinine,87,umol/L,2025-09-09 08:24,2025-09-09 10:20,4Hrs
+305183,Serum Creatinine,220,umol/L,2025-09-09 08:36,2025-09-09 15:36,4Hrs
+305059,Serum Creatinine,66,umol/L,2025-09-09 08:38,2025-09-09 11:06,4Hrs
+305235,Serum Creatinine,68,umol/L,2025-09-09 11:23,2025-09-09 13:38,4Hrs
+305235,Full Blood Picture,11.6,x10^9/L WBC,2025-09-09 12:57,2025-09-09 14:10,2Hrs
+305220,Pus Swab Culture & Sensitivity,No growth,,2025-09-09 13:02,2025-09-11 19:46,72Hrs
+305178,Full Blood Picture,13.5,x10^9/L WBC,2025-09-09 13:31,2025-09-09 14:58,2Hrs
+305199,Full Blood Picture,16.8,x10^9/L WBC,2025-09-09 13:56,2025-09-09 14:49,2Hrs
+305257,Full Blood Picture,15.5,x10^9/L WBC,2025-09-09 15:28,2025-09-09 16:49,2Hrs
+305288,Full Blood Picture,10.9,x10^9/L WBC,2025-09-09 15:51,2025-09-09 22:51,2Hrs
+305146,Full Blood Picture,8.5,x10^9/L WBC,2025-09-09 18:10,2025-09-09 19:19,2Hrs
+305178,CSF Culture & Sensitivity,No growth,,2025-09-09 18:50,2025-09-13 18:44,72Hrs
+305072,Full Blood Picture,17.9,x10^9/L WBC,2025-09-10 07:12,2025-09-10 07:35,2Hrs
+305159,Serum Creatinine,84,umol/L,2025-09-10 09:41,2025-09-10 11:33,4Hrs
+305069,Full Blood Picture,5.8,x10^9/L WBC,2025-09-10 11:07,2025-09-10 12:00,2Hrs
+305159,Full Blood Picture,17.2,x10^9/L WBC,2025-09-10 11:09,2025-09-10 12:17,2Hrs
+305069,Serum Creatinine,102,umol/L,2025-09-10 13:31,2025-09-10 17:03,4Hrs
+305130,Random Blood Glucose,17.1,mmol/L,2025-09-10 13:34,2025-09-10 14:15,1Hrs
+305159,Malaria RDT,Positive,,2025-09-10 16:22,2025-09-10 16:45,1Hrs
+305175,Full Blood Picture,14.1,x10^9/L WBC,2025-09-10 16:25,2025-09-10 16:46,2Hrs
+305072,Serum Creatinine,83,umol/L,2025-09-10 18:19,2025-09-10 20:23,4Hrs
+305063,Full Blood Picture,5.3,x10^9/L WBC,2025-09-11 08:31,2025-09-11 11:24,2Hrs
+305189,Serum Creatinine,63,umol/L,2025-09-11 15:15,2025-09-11 18:45,4Hrs
+305195,Full Blood Picture,10.6,x10^9/L WBC,2025-09-11 17:19,2025-09-11 18:26,2Hrs
+305268,Full Blood Picture,12.5,x10^9/L WBC,2025-09-12 08:43,2025-09-12 14:33,2Hrs
+305275,Serum Creatinine,76,umol/L,2025-09-12 10:19,2025-09-12 17:31,4Hrs
+305268,Pus Swab Culture & Sensitivity,Pseudomonas aeruginosa isolated,,2025-09-12 12:43,2025-09-14 08:38,72Hrs
+305141,Urine Culture & Sensitivity,Proteus mirabilis isolated,,2025-09-12 13:52,2025-09-14 17:04,72Hrs
+305141,Full Blood Picture,11.2,x10^9/L WBC,2025-09-12 17:21,2025-09-12 19:00,2Hrs
+305189,Stool Culture & Sensitivity,Shigella spp isolated,,2025-09-12 18:13,2025-09-15 14:30,72Hrs
+305275,Full Blood Picture,15.7,x10^9/L WBC,2025-09-12 18:22,2025-09-13 01:22,2Hrs
+305297,Malaria RDT,Positive,,2025-09-13 15:20,2025-09-13 16:13,1Hrs
+305284,Serum Creatinine,74,umol/L,2025-09-13 17:58,2025-09-13 22:48,4Hrs
+305297,Full Blood Picture,12.2,x10^9/L WBC,2025-09-13 18:51,2025-09-14 00:28,2Hrs
+305200,Pus Swab Culture & Sensitivity,Growth,,2025-09-14 07:51,2025-09-16 23:41,72Hrs
+305057,Serum Creatinine,55,umol/L,2025-09-14 08:29,2025-09-14 09:13,4Hrs
+305209,Malaria RDT,Positive,,2025-09-14 09:28,2025-09-14 09:54,1Hrs
+305102,Full Blood Picture,13.4,x10^9/L WBC,2025-09-14 10:41,2025-09-14 11:13,2Hrs
+305121,Serum Creatinine,58,umol/L,2025-09-14 10:44,2025-09-14 14:00,4Hrs
+305207,Serum Creatinine,63,umol/L,2025-09-14 15:54,2025-09-14 18:20,4Hrs
+305151,Full Blood Picture,17.6,x10^9/L WBC,2025-09-14 18:36,2025-09-14 23:13,2Hrs
+305149,Serum Creatinine,73,umol/L,2025-09-14 18:48,2025-09-14 21:28,4Hrs
+305106,Serum Creatinine,88,umol/L,2025-09-15 08:43,2025-09-15 12:18,4Hrs
+305202,Full Blood Picture,8.7,x10^9/L WBC,2025-09-15 09:13,2025-09-15 10:43,2Hrs
+305202,Serum Creatinine,113,umol/L,2025-09-15 14:31,2025-09-15 22:22,4Hrs
+305223,Full Blood Picture,6.5,x10^9/L WBC,2025-09-15 14:35,2025-09-15 15:26,2Hrs
+305118,Serum Creatinine,50,umol/L,2025-09-15 14:54,2025-09-15 15:56,4Hrs
+305106,Full Blood Picture,6.8,x10^9/L WBC,2025-09-15 16:16,2025-09-15 16:34,2Hrs
+305116,Full Blood Picture,15.1,x10^9/L WBC,2025-09-15 16:18,2025-09-15 17:03,2Hrs
+305118,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-09-15 17:35,2025-09-21 03:27,72Hrs
+305174,Full Blood Picture,17.4,x10^9/L WBC,2025-09-16 07:56,2025-09-16 08:22,2Hrs
+305072,Electrolytes (Serum Potassium),4.7,mmol/L,2025-09-16 12:25,2025-09-16 15:54,4Hrs
+305290,Full Blood Picture,4.2,x10^9/L WBC,2025-09-17 09:44,2025-09-17 10:51,2Hrs
+305238,Full Blood Picture,4.6,x10^9/L WBC,2025-09-17 17:42,2025-09-17 18:34,2Hrs
+305120,Blood Culture & Sensitivity,No growth,,2025-09-18 08:34,2025-09-24 01:27,72Hrs
+305269,Random Blood Glucose,17.7,mmol/L,2025-09-18 08:55,2025-09-18 09:43,1Hrs
+305166,Sputum Culture & Sensitivity,No growth,,2025-09-18 10:47,2025-09-20 20:57,72Hrs
+305227,Full Blood Picture,13.3,x10^9/L WBC,2025-09-18 13:50,2025-09-18 15:05,2Hrs
+305166,Full Blood Picture,12.3,x10^9/L WBC,2025-09-18 14:23,2025-09-18 14:48,2Hrs
+305227,Random Blood Glucose,12.7,mmol/L,2025-09-18 15:06,2025-09-18 15:54,1Hrs
+305296,Blood Culture & Sensitivity,No growth,,2025-09-19 09:03,2025-09-21 12:52,72Hrs
+305092,Full Blood Picture,12.6,x10^9/L WBC,2025-09-19 15:06,2025-09-19 16:46,2Hrs
+305256,Full Blood Picture,11.1,x10^9/L WBC,2025-09-21 13:14,2025-09-21 14:42,2Hrs
+305123,Malaria RDT,Positive,,2025-09-21 13:44,2025-09-21 16:40,1Hrs
+305214,Full Blood Picture,17.6,x10^9/L WBC,2025-09-21 16:15,2025-09-21 17:18,2Hrs
+305230,Full Blood Picture,16.4,x10^9/L WBC,2025-09-21 17:11,2025-09-21 18:15,2Hrs
+305263,Full Blood Picture,11.3,x10^9/L WBC,2025-09-22 17:01,2025-09-22 18:12,2Hrs
+305065,Pus Swab Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-09-23 07:20,2025-09-27 13:35,72Hrs
+305157,Full Blood Picture,15.7,x10^9/L WBC,2025-09-23 08:04,2025-09-23 11:43,2Hrs
+305065,Full Blood Picture,16.1,x10^9/L WBC,2025-09-23 10:19,2025-09-23 11:59,2Hrs
+305060,Full Blood Picture,14.2,x10^9/L WBC,2025-09-23 11:13,2025-09-23 12:49,2Hrs
+305065,Serum Creatinine,95,umol/L,2025-09-23 17:45,2025-09-23 20:42,4Hrs
+305196,Full Blood Picture,9.8,x10^9/L WBC,2025-09-24 07:51,2025-09-24 09:33,2Hrs
+305196,Serum Creatinine,51,umol/L,2025-09-24 10:16,2025-09-24 11:57,4Hrs
+305169,Random Blood Glucose,17.3,mmol/L,2025-09-25 07:02,2025-09-25 07:34,1Hrs
+305237,Full Blood Picture,16.4,x10^9/L WBC,2025-09-25 11:00,2025-09-25 17:26,2Hrs
+305169,Full Blood Picture,15.9,x10^9/L WBC,2025-09-25 12:40,2025-09-25 20:29,2Hrs
+305289,Full Blood Picture,9.5,x10^9/L WBC,2025-09-25 17:40,2025-09-25 21:41,2Hrs
+305085,Serum Creatinine,61,umol/L,2025-09-25 18:07,2025-09-25 19:58,4Hrs
+305085,Full Blood Picture,6.5,x10^9/L WBC,2025-09-25 18:23,2025-09-25 18:46,2Hrs
+305169,Serum Creatinine,60,umol/L,2025-09-25 18:30,2025-09-25 19:54,4Hrs
+305280,Serum Creatinine,101,umol/L,2025-09-26 16:02,2025-09-26 18:45,4Hrs
+305250,Full Blood Picture,9.0,x10^9/L WBC,2025-09-27 07:52,2025-09-27 11:03,2Hrs
+305231,Full Blood Picture,17.2,x10^9/L WBC,2025-09-27 11:45,2025-09-27 12:45,2Hrs
+305088,Random Blood Glucose,11.6,mmol/L,2025-09-27 15:10,2025-09-27 19:05,1Hrs
+305204,Full Blood Picture,10.0,x10^9/L WBC,2025-09-27 16:58,2025-09-27 21:42,2Hrs
+305132,Serum Creatinine,56,umol/L,2025-09-28 07:37,2025-09-28 08:11,4Hrs
+305131,Blood Culture & Sensitivity,No growth,,2025-09-28 09:58,2025-10-01 00:25,72Hrs
+305293,Random Blood Glucose,10.4,mmol/L,2025-09-28 12:39,2025-09-28 13:28,1Hrs
+305231,Blood Culture & Sensitivity,No growth,,2025-09-28 13:34,2025-10-02 13:52,72Hrs
+305293,Full Blood Picture,17.4,x10^9/L WBC,2025-09-28 14:00,2025-09-28 19:35,2Hrs
+305278,Malaria RDT,Positive,,2025-09-29 07:09,2025-09-29 07:30,1Hrs
+305278,Full Blood Picture,13.7,x10^9/L WBC,2025-09-29 08:50,2025-09-29 10:03,2Hrs
+305152,Blood Culture & Sensitivity,Staphylococcus aureus isolated,,2025-09-29 10:04,2025-10-02 06:23,72Hrs
+305259,Serum Creatinine,62,umol/L,2025-09-29 10:17,2025-09-29 12:45,4Hrs
+305152,Full Blood Picture,16.2,x10^9/L WBC,2025-09-29 11:27,2025-09-29 11:48,2Hrs
+305237,Serum Creatinine,58,umol/L,2025-09-29 11:35,2025-09-30 00:16,4Hrs
+305292,Full Blood Picture,7.7,x10^9/L WBC,2025-09-29 13:41,2025-09-29 14:16,2Hrs
+305278,Serum Creatinine,111,umol/L,2025-09-29 14:46,2025-09-29 15:21,4Hrs
+305204,ALT (SGPT),22,U/L,2025-09-30 10:04,2025-09-30 10:43,4Hrs
+305098,Full Blood Picture,17.3,x10^9/L WBC,2025-09-30 13:23,2025-09-30 15:03,2Hrs
+305250,Serum Creatinine,64,umol/L,2025-10-01 08:09,2025-10-01 21:12,4Hrs
+305325,Full Blood Picture,14.5,x10^9/L WBC,2025-10-01 09:55,2025-10-01 10:21,2Hrs
+305305,Serum Creatinine,54,umol/L,2025-10-01 12:55,2025-10-01 15:26,4Hrs
+305365,Blood Culture & Sensitivity,No growth,,2025-10-01 13:20,2025-10-04 17:20,72Hrs
+305455,Full Blood Picture,10.6,x10^9/L WBC,2025-10-02 08:00,2025-10-02 08:21,2Hrs
+305160,ALT (SGPT),23,U/L,2025-10-02 10:00,2025-10-02 16:40,4Hrs
+305129,Electrolytes (Serum Potassium),4.3,mmol/L,2025-10-02 10:15,2025-10-02 11:02,4Hrs
+305323,Serum Creatinine,106,umol/L,2025-10-02 17:14,2025-10-02 17:58,4Hrs
+305452,Serum Creatinine,95,umol/L,2025-10-02 17:30,2025-10-02 17:49,4Hrs
+305098,ALT (SGPT),22,U/L,2025-10-03 09:22,2025-10-03 12:40,4Hrs
+305481,Serum Creatinine,111,umol/L,2025-10-03 14:13,2025-10-03 14:41,4Hrs
+305519,Sputum Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-10-03 15:36,2025-10-08 06:22,72Hrs
+305481,Full Blood Picture,16.4,x10^9/L WBC,2025-10-03 17:15,2025-10-03 18:56,2Hrs
+305481,Blood Culture & Sensitivity,No growth,,2025-10-03 18:10,2025-10-06 13:34,72Hrs
+305435,Serum Creatinine,59,umol/L,2025-10-04 12:38,2025-10-04 15:35,4Hrs
+305369,Serum Creatinine,52,umol/L,2025-10-04 15:33,2025-10-04 16:31,4Hrs
+305369,Full Blood Picture,9.2,x10^9/L WBC,2025-10-04 17:41,2025-10-04 18:54,2Hrs
+305472,Serum Creatinine,104,umol/L,2025-10-04 18:03,2025-10-04 20:18,4Hrs
+305287,ALT (SGPT),12,U/L,2025-10-05 07:57,2025-10-05 09:53,4Hrs
+305436,Serum Creatinine,51,umol/L,2025-10-05 10:05,2025-10-05 13:29,4Hrs
+305311,Full Blood Picture,17.2,x10^9/L WBC,2025-10-05 10:55,2025-10-05 11:45,2Hrs
+305436,Full Blood Picture,6.9,x10^9/L WBC,2025-10-05 14:46,2025-10-05 16:14,2Hrs
+305477,Serum Creatinine,64,umol/L,2025-10-05 15:49,2025-10-05 16:58,4Hrs
+305527,Serum Creatinine,113,umol/L,2025-10-05 18:01,2025-10-05 20:39,4Hrs
+305516,Serum Creatinine,111,umol/L,2025-10-05 18:49,2025-10-06 01:38,4Hrs
+305428,CSF Culture & Sensitivity,No growth,,2025-10-06 08:31,2025-10-09 05:24,72Hrs
+305332,Serum Creatinine,69,umol/L,2025-10-06 09:50,2025-10-06 11:51,4Hrs
+305525,Serum Creatinine,95,umol/L,2025-10-06 10:41,2025-10-06 20:31,4Hrs
+305410,Random Blood Glucose,9.8,mmol/L,2025-10-06 11:01,2025-10-06 11:57,1Hrs
+305410,Full Blood Picture,15.9,x10^9/L WBC,2025-10-06 13:08,2025-10-06 17:35,2Hrs
+305428,Full Blood Picture,14.0,x10^9/L WBC,2025-10-06 13:26,2025-10-06 14:43,2Hrs
+305525,Malaria RDT,Positive,,2025-10-06 13:56,2025-10-06 14:18,1Hrs
+305332,Random Blood Glucose,18.1,mmol/L,2025-10-06 17:50,2025-10-06 20:01,1Hrs
+305406,Full Blood Picture,12.4,x10^9/L WBC,2025-10-07 09:02,2025-10-07 09:46,2Hrs
+305365,Serum Creatinine,106,umol/L,2025-10-07 10:16,2025-10-07 11:47,4Hrs
+305360,Full Blood Picture,15.4,x10^9/L WBC,2025-10-07 11:08,2025-10-07 13:00,2Hrs
+305306,Full Blood Picture,4.3,x10^9/L WBC,2025-10-07 13:24,2025-10-07 14:59,2Hrs
+305406,Stool Culture & Sensitivity,Escherichia coli isolated,,2025-10-07 16:01,2025-10-09 15:49,72Hrs
+305460,Full Blood Picture,10.4,x10^9/L WBC,2025-10-07 16:16,2025-10-07 16:47,2Hrs
+305317,Random Blood Glucose,23.6,mmol/L,2025-10-08 12:31,2025-10-08 13:27,1Hrs
+305395,Full Blood Picture,6.1,x10^9/L WBC,2025-10-09 08:58,2025-10-09 10:08,2Hrs
+305427,Blood Culture & Sensitivity,No growth,,2025-10-09 13:27,2025-10-12 04:13,72Hrs
+305482,Serum Creatinine,63,umol/L,2025-10-09 18:42,2025-10-09 19:09,4Hrs
+305385,Full Blood Picture,16.9,x10^9/L WBC,2025-10-10 13:33,2025-10-10 13:56,2Hrs
+305354,Full Blood Picture,5.4,x10^9/L WBC,2025-10-10 13:48,2025-10-10 18:57,2Hrs
+305490,Serum Creatinine,54,umol/L,2025-10-10 14:26,2025-10-11 03:13,4Hrs
+305333,Full Blood Picture,5.7,x10^9/L WBC,2025-10-10 14:56,2025-10-10 15:15,2Hrs
+305358,Full Blood Picture,5.9,x10^9/L WBC,2025-10-10 16:37,2025-10-10 17:45,2Hrs
+305354,Serum Creatinine,52,umol/L,2025-10-10 17:48,2025-10-10 20:35,4Hrs
+305411,Serum Creatinine,103,umol/L,2025-10-11 08:51,2025-10-11 11:38,4Hrs
+305411,Full Blood Picture,5.3,x10^9/L WBC,2025-10-11 09:36,2025-10-11 10:53,2Hrs
+305445,Full Blood Picture,11.5,x10^9/L WBC,2025-10-12 07:15,2025-10-12 08:41,2Hrs
+305470,Serum Creatinine,85,umol/L,2025-10-12 07:29,2025-10-12 10:39,4Hrs
+305445,Serum Creatinine,53,umol/L,2025-10-12 07:46,2025-10-12 08:14,4Hrs
+305386,Serum Creatinine,64,umol/L,2025-10-12 09:02,2025-10-12 09:44,4Hrs
+305309,Electrolytes (Serum Potassium),4.7,mmol/L,2025-10-12 09:50,2025-10-12 12:06,4Hrs
+305470,Full Blood Picture,7.2,x10^9/L WBC,2025-10-12 13:08,2025-10-12 13:53,2Hrs
+305359,Full Blood Picture,11.5,x10^9/L WBC,2025-10-13 08:31,2025-10-13 08:55,2Hrs
+305359,Serum Creatinine,60,umol/L,2025-10-13 11:03,2025-10-13 11:46,4Hrs
+305457,Full Blood Picture,5.3,x10^9/L WBC,2025-10-13 14:56,2025-10-13 17:49,2Hrs
+305359,Blood Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-10-13 15:40,2025-10-16 19:45,72Hrs
+305343,Stool Culture & Sensitivity,No growth,,2025-10-14 09:15,2025-10-16 08:19,72Hrs
+305404,Pus Swab Culture & Sensitivity,Acinetobacter baumannii isolated,,2025-10-14 10:50,2025-10-18 03:37,72Hrs
+305401,Serum Creatinine,77,umol/L,2025-10-14 12:31,2025-10-14 13:40,4Hrs
+305407,Serum Creatinine,52,umol/L,2025-10-14 13:11,2025-10-14 15:16,4Hrs
+305407,Pus Swab Culture & Sensitivity,Pseudomonas aeruginosa isolated,,2025-10-14 13:43,2025-10-17 11:03,72Hrs
+305401,Full Blood Picture,7.8,x10^9/L WBC,2025-10-14 15:24,2025-10-14 16:06,2Hrs
+305450,Full Blood Picture,15.7,x10^9/L WBC,2025-10-15 11:18,2025-10-15 12:41,2Hrs
+305453,Stool Culture & Sensitivity,No growth,,2025-10-16 07:34,2025-10-20 15:17,72Hrs
+305513,Full Blood Picture,6.9,x10^9/L WBC,2025-10-16 08:36,2025-10-16 09:09,2Hrs
+305476,Malaria RDT,Positive,,2025-10-16 09:52,2025-10-16 10:46,1Hrs
+305335,Serum Creatinine,69,umol/L,2025-10-16 10:32,2025-10-16 18:59,4Hrs
+305338,Full Blood Picture,9.5,x10^9/L WBC,2025-10-16 11:43,2025-10-16 12:08,2Hrs
+305513,Serum Creatinine,55,umol/L,2025-10-16 13:40,2025-10-16 14:59,4Hrs
+305338,Serum Creatinine,78,umol/L,2025-10-16 18:10,2025-10-16 19:34,4Hrs
+305476,Serum Creatinine,88,umol/L,2025-10-16 18:53,2025-10-16 22:08,4Hrs
+305441,Random Blood Glucose,19.4,mmol/L,2025-10-17 07:45,2025-10-17 11:02,1Hrs
+305303,Full Blood Picture,5.6,x10^9/L WBC,2025-10-17 10:17,2025-10-17 13:47,2Hrs
+305462,Pus Swab Culture & Sensitivity,No growth,,2025-10-17 10:44,2025-10-22 03:45,72Hrs
+305523,Full Blood Picture,12.7,x10^9/L WBC,2025-10-17 11:53,2025-10-17 14:05,2Hrs
+305500,ALT (SGPT),44,U/L,2025-10-17 11:56,2025-10-17 15:42,4Hrs
+305513,High vaginal swab Culture & Sensitivity,Enterococcus faecalis isolated,,2025-10-17 12:29,2025-10-19 05:25,72Hrs
+305441,Stool Culture & Sensitivity,Salmonella spp isolated,,2025-10-17 14:15,2025-10-19 11:38,72Hrs
+305308,Serum Creatinine,81,umol/L,2025-10-17 14:25,2025-10-17 16:51,4Hrs
+305400,Full Blood Picture,10.7,x10^9/L WBC,2025-10-17 14:43,2025-10-17 16:17,2Hrs
+305308,Full Blood Picture,15.3,x10^9/L WBC,2025-10-17 15:54,2025-10-17 16:55,2Hrs
+305499,Full Blood Picture,10.6,x10^9/L WBC,2025-10-17 15:58,2025-10-17 23:45,2Hrs
+305500,Malaria RDT,Positive,,2025-10-17 17:26,2025-10-17 18:44,1Hrs
+305441,Full Blood Picture,4.8,x10^9/L WBC,2025-10-17 18:54,2025-10-17 19:25,2Hrs
+305451,Full Blood Picture,16.1,x10^9/L WBC,2025-10-18 08:17,2025-10-18 12:17,2Hrs
+305480,Serum Creatinine,61,umol/L,2025-10-18 10:31,2025-10-18 12:05,4Hrs
+305480,Full Blood Picture,14.9,x10^9/L WBC,2025-10-18 15:09,2025-10-18 16:47,2Hrs
+305374,Full Blood Picture,5.0,x10^9/L WBC,2025-10-19 07:24,2025-10-19 08:20,2Hrs
+305441,ALT (SGPT),41,U/L,2025-10-19 09:43,2025-10-19 13:20,4Hrs
+305409,Full Blood Picture,5.5,x10^9/L WBC,2025-10-19 13:41,2025-10-19 14:57,2Hrs
+305409,Serum Creatinine,60,umol/L,2025-10-19 16:21,2025-10-19 18:30,4Hrs
+305366,Full Blood Picture,16.8,x10^9/L WBC,2025-10-19 16:38,2025-10-19 17:13,2Hrs
+305397,Serum Creatinine,95,umol/L,2025-10-19 16:58,2025-10-19 17:44,4Hrs
+305471,Serum Creatinine,112,umol/L,2025-10-20 07:37,2025-10-20 10:41,4Hrs
+305496,Serum Creatinine,90,umol/L,2025-10-20 10:44,2025-10-20 14:17,4Hrs
+305438,Serum Creatinine,54,umol/L,2025-10-20 12:26,2025-10-20 13:02,4Hrs
+305407,Serum Creatinine,238,umol/L,2025-10-20 13:34,2025-10-20 16:26,4Hrs
+305496,Full Blood Picture,5.3,x10^9/L WBC,2025-10-20 14:18,2025-10-20 15:42,2Hrs
+305438,Pus Swab Culture & Sensitivity,Proteus mirabilis isolated,,2025-10-20 14:26,2025-10-22 18:23,72Hrs
+305438,Full Blood Picture,9.9,x10^9/L WBC,2025-10-20 14:55,2025-10-20 15:51,2Hrs
+305334,Full Blood Picture,6.9,x10^9/L WBC,2025-10-20 15:38,2025-10-20 16:38,2Hrs
+305342,Full Blood Picture,10.1,x10^9/L WBC,2025-10-20 17:31,2025-10-20 18:21,2Hrs
+305418,Full Blood Picture,14.3,x10^9/L WBC,2025-10-20 17:51,2025-10-21 01:46,2Hrs
+305496,Blood Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-10-21 07:12,2025-10-25 17:27,72Hrs
+305440,Serum Creatinine,65,umol/L,2025-10-21 10:28,2025-10-21 13:55,4Hrs
+305320,ALT (SGPT),29,U/L,2025-10-21 11:21,2025-10-22 00:42,4Hrs
+305346,Full Blood Picture,7.8,x10^9/L WBC,2025-10-21 11:53,2025-10-21 12:35,2Hrs
+305384,Serum Creatinine,51,umol/L,2025-10-21 12:31,2025-10-21 13:37,4Hrs
+305320,Full Blood Picture,11.0,x10^9/L WBC,2025-10-21 13:56,2025-10-21 14:54,2Hrs
+305372,Sputum Culture & Sensitivity,No growth,,2025-10-21 17:35,2025-10-23 22:32,72Hrs
+305493,Full Blood Picture,15.3,x10^9/L WBC,2025-10-21 18:06,2025-10-22 01:34,2Hrs
+305437,High vaginal swab Culture & Sensitivity,No growth,,2025-10-21 18:21,2025-10-26 02:46,72Hrs
+305517,Full Blood Picture,15.2,x10^9/L WBC,2025-10-22 07:39,2025-10-22 13:58,2Hrs
+305466,Full Blood Picture,8.1,x10^9/L WBC,2025-10-22 10:26,2025-10-22 11:02,2Hrs
+305313,Full Blood Picture,16.3,x10^9/L WBC,2025-10-22 16:22,2025-10-22 17:24,2Hrs
+305433,Random Blood Glucose,12.5,mmol/L,2025-10-23 09:16,2025-10-23 10:06,1Hrs
+305488,Random Blood Glucose,15.4,mmol/L,2025-10-23 10:44,2025-10-23 11:16,1Hrs
+305449,Random Blood Glucose,20.6,mmol/L,2025-10-23 12:54,2025-10-23 13:36,1Hrs
+305387,Full Blood Picture,16.6,x10^9/L WBC,2025-10-23 14:07,2025-10-23 14:55,2Hrs
+305488,Serum Creatinine,52,umol/L,2025-10-23 15:46,2025-10-23 16:49,4Hrs
+305488,Full Blood Picture,9.9,x10^9/L WBC,2025-10-23 17:00,2025-10-23 23:09,2Hrs
+305361,Full Blood Picture,17.7,x10^9/L WBC,2025-10-23 17:58,2025-10-23 19:43,2Hrs
+305449,Serum Creatinine,51,umol/L,2025-10-23 18:44,2025-10-24 08:40,4Hrs
+305434,Serum Creatinine,83,umol/L,2025-10-24 07:23,2025-10-24 09:53,4Hrs
+305433,Sputum Culture & Sensitivity,Streptococcus pneumoniae isolated,,2025-10-24 07:53,2025-10-27 01:55,72Hrs
+305461,Serum Creatinine,71,umol/L,2025-10-24 11:46,2025-10-24 12:40,4Hrs
+305496,Electrolytes (Serum Potassium),3.1,mmol/L,2025-10-24 13:15,2025-10-24 17:43,4Hrs
+305514,Urine Culture & Sensitivity,No growth,,2025-10-24 14:37,2025-10-26 19:13,72Hrs
+305514,Random Blood Glucose,9.1,mmol/L,2025-10-24 14:43,2025-10-24 15:10,1Hrs
+305372,Serum Creatinine,79,umol/L,2025-10-24 14:45,2025-10-24 16:55,4Hrs
+305514,Full Blood Picture,5.8,x10^9/L WBC,2025-10-24 15:14,2025-10-24 16:13,2Hrs
+305461,Full Blood Picture,14.2,x10^9/L WBC,2025-10-24 15:17,2025-10-24 19:53,2Hrs
+305467,Full Blood Picture,5.7,x10^9/L WBC,2025-10-24 15:20,2025-10-24 15:53,2Hrs
+305434,Full Blood Picture,11.0,x10^9/L WBC,2025-10-24 18:13,2025-10-24 18:37,2Hrs
+305461,Blood Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-10-25 15:29,2025-10-27 13:34,72Hrs
+305326,Full Blood Picture,17.6,x10^9/L WBC,2025-10-25 16:43,2025-10-25 23:45,2Hrs
+305301,Full Blood Picture,7.8,x10^9/L WBC,2025-10-25 17:32,2025-10-25 19:50,2Hrs
+305421,Full Blood Picture,12.9,x10^9/L WBC,2025-10-25 18:00,2025-10-25 19:40,2Hrs
+305326,Serum Creatinine,96,umol/L,2025-10-25 18:22,2025-10-25 20:14,4Hrs
+305434,Blood Culture & Sensitivity,No growth,,2025-10-25 18:56,2025-10-27 18:14,72Hrs
+305517,Random Blood Glucose,20.7,mmol/L,2025-10-26 14:14,2025-10-26 14:40,1Hrs
+305511,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-10-27 08:50,2025-10-29 03:13,72Hrs
+305447,Malaria RDT,Positive,,2025-10-28 07:25,2025-10-28 09:23,1Hrs
+305463,Full Blood Picture,7.2,x10^9/L WBC,2025-10-28 08:32,2025-10-28 10:13,2Hrs
+305447,Full Blood Picture,10.9,x10^9/L WBC,2025-10-28 08:37,2025-10-28 09:04,2Hrs
+305530,Full Blood Picture,8.8,x10^9/L WBC,2025-10-28 09:17,2025-10-28 10:38,2Hrs
+305398,Full Blood Picture,8.3,x10^9/L WBC,2025-10-28 09:49,2025-10-28 16:27,2Hrs
+305461,Serum Creatinine,175,umol/L,2025-10-28 11:11,2025-10-29 00:31,4Hrs
+305447,Serum Creatinine,58,umol/L,2025-10-28 12:32,2025-10-28 14:21,4Hrs
+305379,Serum Creatinine,76,umol/L,2025-10-28 12:47,2025-10-29 03:37,4Hrs
+305377,Full Blood Picture,6.8,x10^9/L WBC,2025-10-28 13:00,2025-10-28 20:57,2Hrs
+305463,Serum Creatinine,103,umol/L,2025-10-28 15:11,2025-10-28 16:58,4Hrs
+305307,Full Blood Picture,4.3,x10^9/L WBC,2025-10-28 15:36,2025-10-28 17:17,2Hrs
+305509,Full Blood Picture,10.9,x10^9/L WBC,2025-10-28 18:10,2025-10-28 19:44,2Hrs
+305498,Malaria RDT,Positive,,2025-10-29 11:40,2025-10-29 12:01,1Hrs
+305430,Full Blood Picture,13.4,x10^9/L WBC,2025-10-29 13:43,2025-10-29 16:40,2Hrs
+305380,Serum Creatinine,75,umol/L,2025-10-29 14:30,2025-10-29 21:39,4Hrs
+305352,Full Blood Picture,12.3,x10^9/L WBC,2025-10-29 15:46,2025-10-29 17:31,2Hrs
+305307,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-10-29 17:28,2025-10-31 12:47,72Hrs
+305415,Full Blood Picture,13.0,x10^9/L WBC,2025-10-30 08:41,2025-10-30 09:00,2Hrs
+305351,Serum Creatinine,106,umol/L,2025-10-30 12:10,2025-10-30 13:55,4Hrs
+305350,Full Blood Picture,15.8,x10^9/L WBC,2025-10-30 14:37,2025-10-30 21:20,2Hrs
+305456,Full Blood Picture,14.5,x10^9/L WBC,2025-10-30 14:37,2025-10-30 14:59,2Hrs
+305506,Full Blood Picture,17.1,x10^9/L WBC,2025-10-30 17:17,2025-10-30 18:48,2Hrs
+305399,Full Blood Picture,14.7,x10^9/L WBC,2025-10-31 07:17,2025-10-31 07:41,2Hrs
+305329,Serum Creatinine,67,umol/L,2025-10-31 10:12,2025-10-31 13:21,4Hrs
+305396,Serum Creatinine,78,umol/L,2025-10-31 15:49,2025-10-31 18:37,4Hrs
+305448,Pus Swab Culture & Sensitivity,Pseudomonas aeruginosa isolated,,2025-10-31 16:14,2025-11-02 15:04,72Hrs
+305530,Random Blood Glucose,19.5,mmol/L,2025-11-01 10:02,2025-11-01 10:24,1Hrs
+305554,Random Blood Glucose,23.6,mmol/L,2025-11-01 11:11,2025-11-01 11:53,1Hrs
+305390,Urine Culture & Sensitivity,Escherichia coli isolated,,2025-11-01 12:09,2025-11-04 05:57,72Hrs
+305675,Full Blood Picture,7.1,x10^9/L WBC,2025-11-01 18:58,2025-11-01 20:39,2Hrs
+305599,Full Blood Picture,11.4,x10^9/L WBC,2025-11-02 12:35,2025-11-02 14:13,2Hrs
+305383,Serum Creatinine,76,umol/L,2025-11-03 07:27,2025-11-03 09:41,4Hrs
+305777,Full Blood Picture,7.4,x10^9/L WBC,2025-11-03 07:40,2025-11-03 13:23,2Hrs
+305564,Random Blood Glucose,21.6,mmol/L,2025-11-03 10:56,2025-11-03 14:14,1Hrs
+305689,Full Blood Picture,4.0,x10^9/L WBC,2025-11-03 11:17,2025-11-03 12:47,2Hrs
+305696,Random Blood Glucose,19.3,mmol/L,2025-11-03 13:16,2025-11-03 16:36,1Hrs
+305696,Full Blood Picture,7.9,x10^9/L WBC,2025-11-03 17:20,2025-11-03 18:45,2Hrs
+305704,Full Blood Picture,8.7,x10^9/L WBC,2025-11-03 17:32,2025-11-03 18:00,2Hrs
+305696,Serum Creatinine,61,umol/L,2025-11-03 18:39,2025-11-03 20:30,4Hrs
+305539,Serum Creatinine,110,umol/L,2025-11-04 11:46,2025-11-04 15:11,4Hrs
+305631,Full Blood Picture,9.9,x10^9/L WBC,2025-11-04 13:35,2025-11-04 14:48,2Hrs
+305616,Full Blood Picture,15.4,x10^9/L WBC,2025-11-04 13:55,2025-11-04 14:45,2Hrs
+305726,Full Blood Picture,17.9,x10^9/L WBC,2025-11-04 18:52,2025-11-04 20:39,2Hrs
+305757,Serum Creatinine,115,umol/L,2025-11-05 12:51,2025-11-05 15:13,4Hrs
+305629,Serum Creatinine,57,umol/L,2025-11-05 14:15,2025-11-05 23:01,4Hrs
+305734,Full Blood Picture,5.3,x10^9/L WBC,2025-11-05 17:30,2025-11-05 22:31,2Hrs
+305719,Full Blood Picture,11.8,x10^9/L WBC,2025-11-06 11:05,2025-11-06 14:05,2Hrs
+305705,Full Blood Picture,12.5,x10^9/L WBC,2025-11-06 17:48,2025-11-06 23:13,2Hrs
+305696,ALT (SGPT),23,U/L,2025-11-06 17:51,2025-11-07 08:00,4Hrs
+305719,Blood Culture & Sensitivity,No growth,,2025-11-07 08:22,2025-11-09 00:41,72Hrs
+305608,Malaria RDT,Positive,,2025-11-07 10:25,2025-11-07 10:56,1Hrs
+305789,Full Blood Picture,6.3,x10^9/L WBC,2025-11-07 12:42,2025-11-07 13:24,2Hrs
+305754,Serum Creatinine,82,umol/L,2025-11-07 12:59,2025-11-07 13:34,4Hrs
+305563,Serum Creatinine,69,umol/L,2025-11-07 13:52,2025-11-07 16:33,4Hrs
+305608,Random Blood Glucose,22.4,mmol/L,2025-11-07 15:22,2025-11-07 16:10,1Hrs
+305754,Full Blood Picture,11.9,x10^9/L WBC,2025-11-07 17:03,2025-11-07 17:42,2Hrs
+305772,Full Blood Picture,9.5,x10^9/L WBC,2025-11-07 18:18,2025-11-07 19:52,2Hrs
+305671,Full Blood Picture,15.7,x10^9/L WBC,2025-11-08 07:35,2025-11-08 09:25,2Hrs
+305617,Full Blood Picture,12.4,x10^9/L WBC,2025-11-08 12:23,2025-11-08 13:50,2Hrs
+305629,Serum Creatinine,98,umol/L,2025-11-08 18:44,2025-11-08 22:31,4Hrs
+305747,Pus Swab Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-11-09 16:01,2025-11-12 08:41,72Hrs
+305778,Serum Creatinine,109,umol/L,2025-11-10 11:40,2025-11-10 13:53,4Hrs
+305576,Serum Creatinine,60,umol/L,2025-11-11 11:50,2025-11-11 15:10,4Hrs
+305746,Blood Culture & Sensitivity,Acinetobacter baumannii isolated,,2025-11-11 13:23,2025-11-13 18:34,72Hrs
+305559,Serum Creatinine,70,umol/L,2025-11-11 14:30,2025-11-11 18:14,4Hrs
+305746,Serum Creatinine,75,umol/L,2025-11-11 15:57,2025-11-11 17:41,4Hrs
+305576,Malaria RDT,Positive,,2025-11-11 18:23,2025-11-11 19:17,1Hrs
+305635,Serum Creatinine,74,umol/L,2025-11-12 09:52,2025-11-12 12:35,4Hrs
+305640,Pus Swab Culture & Sensitivity,Proteus mirabilis isolated,,2025-11-12 11:08,2025-11-14 15:05,72Hrs
+305595,Full Blood Picture,12.1,x10^9/L WBC,2025-11-12 12:06,2025-11-12 13:12,2Hrs
+305635,Full Blood Picture,16.7,x10^9/L WBC,2025-11-12 13:51,2025-11-12 14:23,2Hrs
+305718,Full Blood Picture,12.0,x10^9/L WBC,2025-11-13 09:32,2025-11-13 10:56,2Hrs
+305790,Serum Creatinine,94,umol/L,2025-11-13 10:34,2025-11-13 12:15,4Hrs
+305648,Full Blood Picture,7.5,x10^9/L WBC,2025-11-13 12:48,2025-11-13 14:08,2Hrs
+305663,Full Blood Picture,7.8,x10^9/L WBC,2025-11-13 13:56,2025-11-13 15:25,2Hrs
+305611,Pus Swab Culture & Sensitivity,No growth,,2025-11-13 15:19,2025-11-18 03:26,72Hrs
+305566,Pus Swab Culture & Sensitivity,No growth,,2025-11-13 16:38,2025-11-16 12:53,72Hrs
+305737,Serum Creatinine,77,umol/L,2025-11-13 17:16,2025-11-13 22:10,4Hrs
+305748,Random Blood Glucose,14.1,mmol/L,2025-11-14 09:08,2025-11-14 09:52,1Hrs
+305614,Pus Swab Culture & Sensitivity,Growth,,2025-11-14 10:12,2025-11-16 02:43,72Hrs
+305540,Full Blood Picture,4.1,x10^9/L WBC,2025-11-14 11:05,2025-11-14 12:12,2Hrs
+305639,Random Blood Glucose,15.3,mmol/L,2025-11-14 12:49,2025-11-14 13:21,1Hrs
+305748,Serum Creatinine,55,umol/L,2025-11-14 13:06,2025-11-14 14:04,4Hrs
+305702,Serum Creatinine,110,umol/L,2025-11-14 13:28,2025-11-14 14:10,4Hrs
+305604,Full Blood Picture,8.9,x10^9/L WBC,2025-11-14 15:38,2025-11-14 16:39,2Hrs
+305784,Serum Creatinine,88,umol/L,2025-11-14 16:27,2025-11-14 18:43,4Hrs
+305639,Full Blood Picture,15.5,x10^9/L WBC,2025-11-14 18:38,2025-11-15 01:22,2Hrs
+305610,Full Blood Picture,10.4,x10^9/L WBC,2025-11-15 08:00,2025-11-15 08:46,2Hrs
+305640,Serum Creatinine,88,umol/L,2025-11-15 08:39,2025-11-15 12:19,4Hrs
+305597,Serum Creatinine,91,umol/L,2025-11-15 10:18,2025-11-15 10:58,4Hrs
+305658,Full Blood Picture,14.5,x10^9/L WBC,2025-11-15 12:25,2025-11-15 14:38,2Hrs
+305785,Full Blood Picture,12.5,x10^9/L WBC,2025-11-15 13:20,2025-11-15 14:26,2Hrs
+305784,Urine Culture & Sensitivity,No growth,,2025-11-15 15:30,2025-11-17 21:11,72Hrs
+305626,Full Blood Picture,17.9,x10^9/L WBC,2025-11-15 16:07,2025-11-15 21:24,2Hrs
+305740,Full Blood Picture,6.1,x10^9/L WBC,2025-11-15 18:07,2025-11-15 19:13,2Hrs
+305785,Pus Swab Culture & Sensitivity,Proteus mirabilis isolated,,2025-11-15 18:07,2025-11-21 09:24,72Hrs
+305570,Serum Creatinine,56,umol/L,2025-11-16 07:16,2025-11-16 07:47,4Hrs
+305714,Full Blood Picture,15.7,x10^9/L WBC,2025-11-16 08:44,2025-11-16 10:06,2Hrs
+305699,Stool Culture & Sensitivity,No growth,,2025-11-16 18:03,2025-11-19 06:15,72Hrs
+305662,Full Blood Picture,15.9,x10^9/L WBC,2025-11-17 08:16,2025-11-17 09:12,2Hrs
+305547,Full Blood Picture,13.7,x10^9/L WBC,2025-11-17 08:38,2025-11-17 09:22,2Hrs
+305630,Serum Creatinine,114,umol/L,2025-11-17 09:45,2025-11-17 10:29,4Hrs
+305630,Full Blood Picture,17.7,x10^9/L WBC,2025-11-17 16:06,2025-11-17 16:41,2Hrs
+305534,Blood Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-11-17 16:29,2025-11-19 15:06,72Hrs
+305774,Full Blood Picture,17.6,x10^9/L WBC,2025-11-17 16:45,2025-11-17 20:39,2Hrs
+305783,Serum Creatinine,63,umol/L,2025-11-17 16:51,2025-11-17 20:03,4Hrs
+305534,Full Blood Picture,9.9,x10^9/L WBC,2025-11-17 17:02,2025-11-17 18:40,2Hrs
+305712,Malaria RDT,Positive,,2025-11-17 18:34,2025-11-17 19:14,1Hrs
+305547,Serum Creatinine,68,umol/L,2025-11-17 18:37,2025-11-17 19:50,4Hrs
+305605,Full Blood Picture,12.9,x10^9/L WBC,2025-11-18 14:11,2025-11-18 14:30,2Hrs
+305690,Serum Creatinine,98,umol/L,2025-11-18 14:56,2025-11-19 04:08,4Hrs
+305727,Full Blood Picture,10.3,x10^9/L WBC,2025-11-18 16:58,2025-11-18 19:17,2Hrs
+305707,Blood Culture & Sensitivity,Acinetobacter baumannii isolated,,2025-11-18 17:40,2025-11-21 09:36,72Hrs
+305758,Full Blood Picture,6.8,x10^9/L WBC,2025-11-18 18:28,2025-11-18 18:57,2Hrs
+305605,Serum Creatinine,91,umol/L,2025-11-18 18:56,2025-11-18 22:12,4Hrs
+305597,ALT (SGPT),18,U/L,2025-11-19 07:58,2025-11-19 10:30,4Hrs
+305758,Blood Culture & Sensitivity,No growth,,2025-11-19 10:30,2025-11-21 06:29,72Hrs
+305680,Serum Creatinine,91,umol/L,2025-11-19 15:57,2025-11-19 17:59,4Hrs
+305753,Full Blood Picture,10.8,x10^9/L WBC,2025-11-19 16:22,2025-11-19 17:14,2Hrs
+305658,ALT (SGPT),43,U/L,2025-11-19 18:35,2025-11-19 20:15,4Hrs
+305703,Blood Culture & Sensitivity,Escherichia coli isolated,,2025-11-20 07:16,2025-11-22 22:16,72Hrs
+305551,Full Blood Picture,8.6,x10^9/L WBC,2025-11-20 15:09,2025-11-20 18:10,2Hrs
+305562,Full Blood Picture,11.3,x10^9/L WBC,2025-11-21 17:08,2025-11-22 00:43,2Hrs
+305544,Full Blood Picture,18.0,x10^9/L WBC,2025-11-22 07:13,2025-11-22 08:14,2Hrs
+305598,Serum Creatinine,82,umol/L,2025-11-22 07:32,2025-11-22 08:57,4Hrs
+305598,Malaria RDT,Positive,,2025-11-22 08:33,2025-11-22 11:18,1Hrs
+305677,Full Blood Picture,12.6,x10^9/L WBC,2025-11-22 11:21,2025-11-22 12:26,2Hrs
+305749,Serum Creatinine,59,umol/L,2025-11-22 13:38,2025-11-22 14:48,4Hrs
+305534,Serum Creatinine,78,umol/L,2025-11-22 14:54,2025-11-22 18:00,4Hrs
+305649,Serum Creatinine,67,umol/L,2025-11-22 17:01,2025-11-22 20:31,4Hrs
+305749,Pus Swab Culture & Sensitivity,Escherichia coli isolated,,2025-11-23 07:16,2025-11-25 23:12,72Hrs
+305753,Electrolytes (Serum Potassium),4.0,mmol/L,2025-11-23 07:31,2025-11-23 08:42,4Hrs
+305667,Blood Culture & Sensitivity,No growth,,2025-11-23 07:56,2025-11-27 04:44,72Hrs
+305632,Full Blood Picture,8.4,x10^9/L WBC,2025-11-23 11:30,2025-11-23 12:37,2Hrs
+305636,Full Blood Picture,11.8,x10^9/L WBC,2025-11-23 12:08,2025-11-23 13:06,2Hrs
+305703,Serum Creatinine,75,umol/L,2025-11-23 17:23,2025-11-23 19:43,4Hrs
+305681,Malaria RDT,Positive,,2025-11-23 18:33,2025-11-23 20:10,1Hrs
+305558,Full Blood Picture,10.2,x10^9/L WBC,2025-11-24 08:23,2025-11-24 08:45,2Hrs
+305765,Full Blood Picture,10.1,x10^9/L WBC,2025-11-24 11:05,2025-11-24 11:30,2Hrs
+305612,Sputum Culture & Sensitivity,Staphylococcus aureus isolated,,2025-11-24 11:45,2025-11-26 22:05,72Hrs
+305558,Random Blood Glucose,18.3,mmol/L,2025-11-24 15:56,2025-11-24 16:26,1Hrs
+305708,Full Blood Picture,13.2,x10^9/L WBC,2025-11-24 16:56,2025-11-24 19:52,2Hrs
+305765,Malaria RDT,Positive,,2025-11-24 17:18,2025-11-24 18:09,1Hrs
+305612,Serum Creatinine,51,umol/L,2025-11-24 17:37,2025-11-24 20:28,4Hrs
+305612,Full Blood Picture,12.3,x10^9/L WBC,2025-11-24 17:53,2025-11-24 21:43,2Hrs
+305764,ALT (SGPT),37,U/L,2025-11-25 07:32,2025-11-25 08:26,4Hrs
+305553,Blood Culture & Sensitivity,No growth,,2025-11-25 09:21,2025-11-27 15:37,72Hrs
+305638,Serum Creatinine,75,umol/L,2025-11-25 10:16,2025-11-25 10:49,4Hrs
+305553,Full Blood Picture,12.2,x10^9/L WBC,2025-11-25 11:57,2025-11-25 13:49,2Hrs
+305624,Full Blood Picture,7.0,x10^9/L WBC,2025-11-26 08:13,2025-11-26 09:34,2Hrs
+305682,Full Blood Picture,13.6,x10^9/L WBC,2025-11-26 09:55,2025-11-26 16:41,2Hrs
+305715,Full Blood Picture,15.2,x10^9/L WBC,2025-11-26 10:15,2025-11-26 10:51,2Hrs
+305715,Serum Creatinine,63,umol/L,2025-11-26 12:32,2025-11-26 21:24,4Hrs
+305590,Full Blood Picture,14.1,x10^9/L WBC,2025-11-26 18:11,2025-11-26 18:35,2Hrs
+305651,Serum Creatinine,66,umol/L,2025-11-27 08:29,2025-11-27 14:27,4Hrs
+305710,Full Blood Picture,16.6,x10^9/L WBC,2025-11-27 11:18,2025-11-27 12:29,2Hrs
+305651,Pus Swab Culture & Sensitivity,Escherichia coli isolated,,2025-11-27 12:12,2025-11-29 04:54,72Hrs
+305602,Serum Creatinine,84,umol/L,2025-11-27 13:25,2025-11-27 14:57,4Hrs
+305686,Full Blood Picture,7.5,x10^9/L WBC,2025-11-27 13:45,2025-11-27 19:03,2Hrs
+305594,Serum Creatinine,96,umol/L,2025-11-27 15:00,2025-11-27 18:38,4Hrs
+305678,Full Blood Picture,11.1,x10^9/L WBC,2025-11-27 16:27,2025-11-27 18:05,2Hrs
+305602,Full Blood Picture,5.6,x10^9/L WBC,2025-11-27 16:36,2025-11-27 17:35,2Hrs
+305615,Full Blood Picture,4.4,x10^9/L WBC,2025-11-27 16:52,2025-11-27 18:22,2Hrs
+305736,Serum Creatinine,60,umol/L,2025-11-27 18:05,2025-11-27 20:55,4Hrs
+305571,Full Blood Picture,12.0,x10^9/L WBC,2025-11-27 18:26,2025-11-27 19:40,2Hrs
+305557,Full Blood Picture,13.8,x10^9/L WBC,2025-11-28 07:36,2025-11-28 09:07,2Hrs
+305596,Full Blood Picture,8.4,x10^9/L WBC,2025-11-28 11:17,2025-11-28 15:49,2Hrs
+305655,Blood Culture & Sensitivity,No growth,,2025-11-28 12:22,2025-11-30 16:59,72Hrs
+305788,Serum Creatinine,88,umol/L,2025-11-28 13:56,2025-11-28 14:17,4Hrs
+305618,Serum Creatinine,56,umol/L,2025-11-28 17:03,2025-11-29 03:15,4Hrs
+305558,Serum Creatinine,79,umol/L,2025-11-28 17:14,2025-11-28 18:05,4Hrs
+305620,Serum Creatinine,60,umol/L,2025-11-29 10:57,2025-11-29 16:57,4Hrs
+305776,Pus Swab Culture & Sensitivity,Klebsiella pneumoniae isolated,,2025-11-29 11:26,2025-12-01 06:49,72Hrs
+305583,Serum Creatinine,111,umol/L,2025-11-29 13:26,2025-11-30 00:33,4Hrs
+305620,Pus Swab Culture & Sensitivity,No growth,,2025-11-29 16:07,2025-12-01 23:34,72Hrs
+305620,Full Blood Picture,12.5,x10^9/L WBC,2025-11-29 17:03,2025-11-29 17:57,2Hrs
+305536,Full Blood Picture,9.0,x10^9/L WBC,2025-11-29 17:38,2025-11-29 18:12,2Hrs
+305550,Serum Creatinine,71,umol/L,2025-11-30 09:03,2025-11-30 11:08,4Hrs
+305589,Serum Creatinine,96,umol/L,2025-11-30 10:49,2025-11-30 16:51,4Hrs
+305775,Full Blood Picture,4.6,x10^9/L WBC,2025-11-30 13:35,2025-11-30 18:21,2Hrs
+305770,Serum Creatinine,113,umol/L,2025-11-30 15:24,2025-11-30 18:22,4Hrs
+305769,Full Blood Picture,8.4,x10^9/L WBC,2025-11-30 16:19,2025-11-30 16:37,2Hrs
+305580,Blood Culture & Sensitivity,No growth,,2025-11-30 16:21,2025-12-05 10:49,72Hrs
+305552,Serum Creatinine,81,umol/L,2025-11-30 16:27,2025-11-30 16:51,4Hrs
+305550,Full Blood Picture,13.7,x10^9/L WBC,2025-11-30 17:13,2025-11-30 17:54,2Hrs
+305654,Serum Creatinine,59,umol/L,2025-11-30 17:17,2025-11-30 20:05,4Hrs
+306038,Full Blood Picture,17.3,x10^9/L WBC,2025-12-01 14:44,2025-12-01 16:33,2Hrs
+305965,Serum Creatinine,97,umol/L,2025-12-01 16:18,2025-12-01 17:11,4Hrs
+305857,Full Blood Picture,15.5,x10^9/L WBC,2025-12-02 08:49,2025-12-02 10:12,2Hrs
+305991,Full Blood Picture,17.6,x10^9/L WBC,2025-12-02 08:51,2025-12-02 12:37,2Hrs
+305910,Full Blood Picture,5.7,x10^9/L WBC,2025-12-02 10:37,2025-12-02 11:04,2Hrs
+306028,Serum Creatinine,73,umol/L,2025-12-02 11:15,2025-12-02 12:37,4Hrs
+305825,Serum Creatinine,58,umol/L,2025-12-02 13:21,2025-12-02 17:04,4Hrs
+306026,Serum Creatinine,57,umol/L,2025-12-02 14:10,2025-12-02 20:24,4Hrs
+306028,Malaria RDT,Positive,,2025-12-02 16:43,2025-12-02 17:05,1Hrs
+305833,Serum Creatinine,106,umol/L,2025-12-03 07:00,2025-12-03 22:36,4Hrs
+305840,Full Blood Picture,7.3,x10^9/L WBC,2025-12-03 08:30,2025-12-03 09:34,2Hrs
+305894,Full Blood Picture,4.3,x10^9/L WBC,2025-12-03 11:17,2025-12-03 16:00,2Hrs
+305536,Electrolytes (Serum Potassium),4.1,mmol/L,2025-12-03 11:35,2025-12-03 13:16,4Hrs
+305890,Full Blood Picture,13.7,x10^9/L WBC,2025-12-03 15:15,2025-12-03 16:22,2Hrs
+305821,Serum Creatinine,62,umol/L,2025-12-04 10:05,2025-12-04 13:13,4Hrs
+305911,Full Blood Picture,7.1,x10^9/L WBC,2025-12-04 11:55,2025-12-04 12:17,2Hrs
+306030,Full Blood Picture,11.7,x10^9/L WBC,2025-12-04 12:22,2025-12-04 20:18,2Hrs
+306024,Full Blood Picture,5.2,x10^9/L WBC,2025-12-04 12:54,2025-12-04 16:14,2Hrs
+305821,Full Blood Picture,12.0,x10^9/L WBC,2025-12-04 15:11,2025-12-04 15:53,2Hrs
+305931,Full Blood Picture,16.1,x10^9/L WBC,2025-12-04 17:10,2025-12-04 19:27,2Hrs
+305876,Serum Creatinine,68,umol/L,2025-12-05 07:08,2025-12-05 08:09,4Hrs
+305913,Serum Creatinine,107,umol/L,2025-12-05 08:01,2025-12-05 16:13,4Hrs
+305978,Serum Creatinine,73,umol/L,2025-12-05 09:16,2025-12-05 11:18,4Hrs
+306043,Full Blood Picture,17.3,x10^9/L WBC,2025-12-05 12:57,2025-12-05 14:29,2Hrs
+305980,Serum Creatinine,76,umol/L,2025-12-06 08:18,2025-12-06 08:47,4Hrs
+305622,Pus Swab Culture & Sensitivity,Growth,,2025-12-06 08:41,2025-12-08 07:59,72Hrs
+305980,Full Blood Picture,9.4,x10^9/L WBC,2025-12-06 17:04,2025-12-06 22:09,2Hrs
+305991,Electrolytes (Serum Potassium),4.4,mmol/L,2025-12-06 17:45,2025-12-06 18:41,4Hrs
+305963,CSF Culture & Sensitivity,No growth,,2025-12-07 07:07,2025-12-09 15:18,72Hrs
+305949,Serum Creatinine,96,umol/L,2025-12-07 08:19,2025-12-07 11:19,4Hrs
+305963,Serum Creatinine,52,umol/L,2025-12-07 09:07,2025-12-07 12:38,4Hrs
+305888,Serum Creatinine,72,umol/L,2025-12-07 10:47,2025-12-07 21:32,4Hrs
+305865,Full Blood Picture,16.6,x10^9/L WBC,2025-12-07 15:08,2025-12-07 16:59,2Hrs
+305975,Full Blood Picture,14.5,x10^9/L WBC,2025-12-07 15:28,2025-12-07 16:40,2Hrs
+305866,Full Blood Picture,11.2,x10^9/L WBC,2025-12-08 07:54,2025-12-08 09:23,2Hrs
+305865,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-12-08 10:32,2025-12-10 02:42,72Hrs
+305900,Full Blood Picture,4.6,x10^9/L WBC,2025-12-08 11:53,2025-12-08 12:57,2Hrs
+305900,Pus Swab Culture & Sensitivity,No growth,,2025-12-08 12:16,2025-12-10 14:08,72Hrs
+305801,Random Blood Glucose,13.1,mmol/L,2025-12-08 14:15,2025-12-08 15:00,1Hrs
+305998,Blood Culture & Sensitivity,No growth,,2025-12-08 16:45,2025-12-11 09:51,72Hrs
+305903,Blood Culture & Sensitivity,No growth,,2025-12-09 07:21,2025-12-11 02:57,72Hrs
+306004,Serum Creatinine,112,umol/L,2025-12-09 12:29,2025-12-09 13:08,4Hrs
+305923,Full Blood Picture,13.7,x10^9/L WBC,2025-12-09 12:56,2025-12-09 19:28,2Hrs
+306004,Full Blood Picture,6.3,x10^9/L WBC,2025-12-09 13:04,2025-12-09 14:08,2Hrs
+305792,ALT (SGPT),35,U/L,2025-12-09 13:25,2025-12-09 15:55,4Hrs
+305903,Full Blood Picture,8.8,x10^9/L WBC,2025-12-09 15:35,2025-12-09 16:25,2Hrs
+305814,Full Blood Picture,17.9,x10^9/L WBC,2025-12-09 15:40,2025-12-09 16:23,2Hrs
+305907,Full Blood Picture,7.7,x10^9/L WBC,2025-12-09 17:45,2025-12-09 18:42,2Hrs
+305816,Electrolytes (Serum Potassium),4.4,mmol/L,2025-12-10 07:35,2025-12-10 11:00,4Hrs
+306004,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-12-10 07:52,2025-12-16 01:54,72Hrs
+305889,Serum Creatinine,108,umol/L,2025-12-10 09:01,2025-12-10 23:13,4Hrs
+305980,Serum Creatinine,107,umol/L,2025-12-10 10:38,2025-12-10 13:51,4Hrs
+305889,Full Blood Picture,6.0,x10^9/L WBC,2025-12-10 14:24,2025-12-10 14:47,2Hrs
+305834,Full Blood Picture,17.3,x10^9/L WBC,2025-12-11 07:14,2025-12-11 11:39,2Hrs
+305970,Full Blood Picture,4.0,x10^9/L WBC,2025-12-11 09:06,2025-12-11 10:23,2Hrs
+305811,ALT (SGPT),44,U/L,2025-12-11 09:32,2025-12-11 11:47,4Hrs
+305834,Malaria RDT,Positive,,2025-12-11 12:21,2025-12-11 13:07,1Hrs
+305978,Serum Creatinine,107,umol/L,2025-12-11 13:26,2025-12-12 03:53,4Hrs
+305936,Full Blood Picture,8.9,x10^9/L WBC,2025-12-11 13:27,2025-12-11 14:46,2Hrs
+305923,Electrolytes (Serum Potassium),3.8,mmol/L,2025-12-12 13:21,2025-12-12 16:23,4Hrs
+306020,Full Blood Picture,13.5,x10^9/L WBC,2025-12-12 15:54,2025-12-12 17:37,2Hrs
+305957,Full Blood Picture,14.2,x10^9/L WBC,2025-12-12 16:09,2025-12-12 17:20,2Hrs
+305904,Full Blood Picture,17.1,x10^9/L WBC,2025-12-12 18:50,2025-12-12 20:18,2Hrs
+306044,Random Blood Glucose,16.5,mmol/L,2025-12-13 10:21,2025-12-13 11:08,1Hrs
+305864,Full Blood Picture,13.0,x10^9/L WBC,2025-12-13 15:47,2025-12-13 17:22,2Hrs
+305974,Full Blood Picture,15.4,x10^9/L WBC,2025-12-13 17:09,2025-12-13 18:24,2Hrs
+305822,Full Blood Picture,15.2,x10^9/L WBC,2025-12-14 12:59,2025-12-14 13:25,2Hrs
+305822,Serum Creatinine,67,umol/L,2025-12-14 14:07,2025-12-14 15:27,4Hrs
+305839,Random Blood Glucose,20.3,mmol/L,2025-12-14 15:05,2025-12-14 19:03,1Hrs
+305932,Blood Culture & Sensitivity,Acinetobacter baumannii isolated,,2025-12-14 16:49,2025-12-16 14:53,72Hrs
+305809,Full Blood Picture,12.0,x10^9/L WBC,2025-12-15 07:19,2025-12-15 07:56,2Hrs
+305800,Full Blood Picture,6.2,x10^9/L WBC,2025-12-15 07:28,2025-12-15 14:16,2Hrs
+305809,Malaria RDT,Positive,,2025-12-15 09:44,2025-12-15 13:15,1Hrs
+306037,Malaria RDT,Positive,,2025-12-15 11:30,2025-12-15 11:53,1Hrs
+305800,Serum Creatinine,91,umol/L,2025-12-15 12:12,2025-12-15 14:27,4Hrs
+306037,Serum Creatinine,85,umol/L,2025-12-15 15:32,2025-12-16 01:25,4Hrs
+305809,Serum Creatinine,85,umol/L,2025-12-15 16:06,2025-12-16 01:22,4Hrs
+306037,Full Blood Picture,10.5,x10^9/L WBC,2025-12-15 17:42,2025-12-15 18:48,2Hrs
+305985,Pus Swab Culture & Sensitivity,Pseudomonas aeruginosa isolated,,2025-12-16 07:05,2025-12-19 01:38,72Hrs
+305985,Full Blood Picture,15.2,x10^9/L WBC,2025-12-16 12:41,2025-12-16 13:14,2Hrs
+305873,Full Blood Picture,9.7,x10^9/L WBC,2025-12-16 16:18,2025-12-16 20:48,2Hrs
+305832,Full Blood Picture,7.5,x10^9/L WBC,2025-12-17 11:16,2025-12-17 12:16,2Hrs
+305836,Full Blood Picture,10.8,x10^9/L WBC,2025-12-17 11:27,2025-12-17 17:30,2Hrs
+305883,Full Blood Picture,15.4,x10^9/L WBC,2025-12-17 14:45,2025-12-17 16:27,2Hrs
+305832,Random Blood Glucose,20.8,mmol/L,2025-12-17 16:30,2025-12-17 16:55,1Hrs
+305883,Serum Creatinine,76,umol/L,2025-12-17 18:56,2025-12-17 21:34,4Hrs
+305992,Serum Creatinine,67,umol/L,2025-12-18 07:09,2025-12-18 09:00,4Hrs
+305981,Full Blood Picture,12.2,x10^9/L WBC,2025-12-18 07:22,2025-12-18 08:05,2Hrs
+305797,Full Blood Picture,10.6,x10^9/L WBC,2025-12-18 13:28,2025-12-18 13:53,2Hrs
+305992,Full Blood Picture,10.9,x10^9/L WBC,2025-12-18 16:13,2025-12-18 17:19,2Hrs
+306013,Blood Culture & Sensitivity,Enterococcus faecalis isolated,,2025-12-18 16:43,2025-12-21 05:11,72Hrs
+305850,Serum Creatinine,105,umol/L,2025-12-19 10:24,2025-12-19 12:30,4Hrs
+306003,Serum Creatinine,67,umol/L,2025-12-19 12:14,2025-12-20 04:08,4Hrs
+306003,Full Blood Picture,5.9,x10^9/L WBC,2025-12-19 15:25,2025-12-19 16:45,2Hrs
+306005,Serum Creatinine,79,umol/L,2025-12-19 17:14,2025-12-19 20:45,4Hrs
+305981,Sputum Culture & Sensitivity,Staphylococcus aureus isolated,,2025-12-19 17:59,2025-12-21 13:41,72Hrs
+305878,Serum Creatinine,88,umol/L,2025-12-20 07:35,2025-12-20 10:27,4Hrs
+305953,Malaria RDT,Positive,,2025-12-20 08:34,2025-12-20 09:08,1Hrs
+305843,Full Blood Picture,16.7,x10^9/L WBC,2025-12-20 10:28,2025-12-20 12:52,2Hrs
+305843,Random Blood Glucose,16.2,mmol/L,2025-12-20 15:03,2025-12-20 15:39,1Hrs
+305983,Full Blood Picture,14.5,x10^9/L WBC,2025-12-20 15:20,2025-12-20 16:10,2Hrs
+305878,Malaria RDT,Positive,,2025-12-20 15:32,2025-12-20 16:20,1Hrs
+305846,Full Blood Picture,11.1,x10^9/L WBC,2025-12-20 18:28,2025-12-20 18:52,2Hrs
+305828,Full Blood Picture,11.2,x10^9/L WBC,2025-12-21 07:16,2025-12-21 08:49,2Hrs
+306019,Serum Creatinine,82,umol/L,2025-12-21 08:48,2025-12-21 09:38,4Hrs
+306019,Full Blood Picture,8.0,x10^9/L WBC,2025-12-21 11:13,2025-12-21 13:04,2Hrs
+305971,Serum Creatinine,70,umol/L,2025-12-21 13:11,2025-12-21 14:07,4Hrs
+305883,ALT (SGPT),39,U/L,2025-12-21 13:41,2025-12-21 15:29,4Hrs
+305797,Serum Creatinine,68,umol/L,2025-12-21 14:21,2025-12-21 16:21,4Hrs
+305828,Malaria RDT,Positive,,2025-12-21 15:35,2025-12-21 17:41,1Hrs
+306013,Electrolytes (Serum Potassium),3.7,mmol/L,2025-12-21 15:49,2025-12-21 16:15,4Hrs
+305832,Random Blood Glucose,12.6,mmol/L,2025-12-21 16:26,2025-12-21 16:53,1Hrs
+305994,Full Blood Picture,4.5,x10^9/L WBC,2025-12-21 16:43,2025-12-21 17:43,2Hrs
+305966,Stool Culture & Sensitivity,No growth,,2025-12-21 18:52,2025-12-23 13:35,72Hrs
+305828,ALT (SGPT),262,U/L,2025-12-22 07:30,2025-12-22 20:52,4Hrs
+306048,Random Blood Glucose,20.2,mmol/L,2025-12-22 09:45,2025-12-22 10:10,1Hrs
+305808,Full Blood Picture,11.7,x10^9/L WBC,2025-12-22 12:40,2025-12-22 19:29,2Hrs
+306011,Full Blood Picture,16.9,x10^9/L WBC,2025-12-22 13:10,2025-12-22 16:29,2Hrs
+305939,Full Blood Picture,6.1,x10^9/L WBC,2025-12-22 13:18,2025-12-22 13:38,2Hrs
+305939,Pus Swab Culture & Sensitivity,Escherichia coli isolated,,2025-12-22 15:32,2025-12-24 17:04,72Hrs
+305794,Full Blood Picture,6.6,x10^9/L WBC,2025-12-23 08:18,2025-12-23 09:15,2Hrs
+305945,Serum Creatinine,83,umol/L,2025-12-23 08:35,2025-12-23 09:02,4Hrs
+305961,Pus Swab Culture & Sensitivity,Escherichia coli isolated,,2025-12-23 09:41,2025-12-26 03:47,72Hrs
+306015,Stool Culture & Sensitivity,Shigella spp isolated,,2025-12-23 10:20,2025-12-25 11:00,72Hrs
+305916,Urine Culture & Sensitivity,Enterococcus faecalis isolated,,2025-12-23 11:21,2025-12-27 20:53,72Hrs
+305916,Full Blood Picture,9.6,x10^9/L WBC,2025-12-23 11:35,2025-12-23 12:16,2Hrs
+305947,Serum Creatinine,96,umol/L,2025-12-23 12:47,2025-12-23 16:00,4Hrs
+306039,CSF Culture & Sensitivity,No growth,,2025-12-23 14:18,2025-12-25 11:12,72Hrs
+306015,Full Blood Picture,16.6,x10^9/L WBC,2025-12-23 14:33,2025-12-23 21:43,2Hrs
+305947,Full Blood Picture,10.0,x10^9/L WBC,2025-12-23 14:52,2025-12-23 15:56,2Hrs
+305837,Full Blood Picture,6.7,x10^9/L WBC,2025-12-23 15:08,2025-12-23 16:38,2Hrs
+305813,Full Blood Picture,12.5,x10^9/L WBC,2025-12-23 15:20,2025-12-23 16:47,2Hrs
+305916,Serum Creatinine,104,umol/L,2025-12-23 15:51,2025-12-23 22:41,4Hrs
+305886,Full Blood Picture,15.4,x10^9/L WBC,2025-12-23 16:18,2025-12-23 17:12,2Hrs
+305944,Full Blood Picture,8.9,x10^9/L WBC,2025-12-23 16:42,2025-12-23 18:33,2Hrs
+305872,Full Blood Picture,12.0,x10^9/L WBC,2025-12-23 16:43,2025-12-23 22:35,2Hrs
+305922,Serum Creatinine,57,umol/L,2025-12-23 17:27,2025-12-24 07:03,4Hrs
+305813,Serum Creatinine,72,umol/L,2025-12-23 18:27,2025-12-23 19:09,4Hrs
+305897,Full Blood Picture,7.3,x10^9/L WBC,2025-12-24 07:08,2025-12-24 08:24,2Hrs
+305878,ALT (SGPT),147,U/L,2025-12-24 10:53,2025-12-24 12:19,4Hrs
+306008,Full Blood Picture,17.1,x10^9/L WBC,2025-12-24 13:35,2025-12-24 20:12,2Hrs
+305947,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-12-24 15:31,2025-12-26 13:41,72Hrs
+306045,Serum Creatinine,62,umol/L,2025-12-24 15:57,2025-12-24 17:30,4Hrs
+305969,Full Blood Picture,5.4,x10^9/L WBC,2025-12-24 16:40,2025-12-24 17:40,2Hrs
+306054,Serum Creatinine,74,umol/L,2025-12-25 08:56,2025-12-26 00:31,4Hrs
+305827,Blood Culture & Sensitivity,No growth,,2025-12-25 10:51,2025-12-28 01:32,72Hrs
+305892,Full Blood Picture,9.2,x10^9/L WBC,2025-12-25 12:17,2025-12-25 20:14,2Hrs
+305869,Serum Creatinine,106,umol/L,2025-12-26 07:28,2025-12-26 12:15,4Hrs
+305987,Full Blood Picture,16.9,x10^9/L WBC,2025-12-26 07:45,2025-12-26 09:26,2Hrs
+305802,Full Blood Picture,10.1,x10^9/L WBC,2025-12-26 09:13,2025-12-26 10:36,2Hrs
+305872,Serum Creatinine,183,umol/L,2025-12-26 16:23,2025-12-26 19:25,4Hrs
+306025,Blood Culture & Sensitivity,No growth,,2025-12-26 18:00,2025-12-28 14:31,72Hrs
+305881,Serum Creatinine,109,umol/L,2025-12-26 18:27,2025-12-26 19:39,4Hrs
+305802,Malaria RDT,Positive,,2025-12-26 18:58,2025-12-26 19:24,1Hrs
+305841,Serum Creatinine,100,umol/L,2025-12-27 12:24,2025-12-27 14:20,4Hrs
+305990,Pus Swab Culture & Sensitivity,Pseudomonas aeruginosa isolated,,2025-12-27 13:30,2026-01-01 22:08,72Hrs
+305927,Stool Culture & Sensitivity,Salmonella spp isolated,,2025-12-27 13:49,2025-12-30 05:47,72Hrs
+305927,Serum Creatinine,74,umol/L,2025-12-27 14:28,2025-12-27 16:23,4Hrs
+305841,Full Blood Picture,15.3,x10^9/L WBC,2025-12-27 15:56,2025-12-27 17:09,2Hrs
+306017,Serum Creatinine,72,umol/L,2025-12-28 07:02,2025-12-28 07:38,4Hrs
+305924,Full Blood Picture,8.3,x10^9/L WBC,2025-12-28 07:16,2025-12-28 08:28,2Hrs
+306063,Random Blood Glucose,11.3,mmol/L,2025-12-28 08:27,2025-12-28 09:14,1Hrs
+305867,Full Blood Picture,15.1,x10^9/L WBC,2025-12-28 08:31,2025-12-28 08:54,2Hrs
+305928,Full Blood Picture,14.7,x10^9/L WBC,2025-12-28 10:05,2025-12-28 11:03,2Hrs
+305799,Serum Creatinine,92,umol/L,2025-12-28 10:20,2025-12-28 12:35,4Hrs
+305928,Serum Creatinine,95,umol/L,2025-12-28 11:22,2025-12-28 12:34,4Hrs
+305854,Random Blood Glucose,19.0,mmol/L,2025-12-28 12:17,2025-12-28 13:03,1Hrs
+305867,Serum Creatinine,84,umol/L,2025-12-28 13:09,2025-12-28 14:40,4Hrs
+305829,Full Blood Picture,13.5,x10^9/L WBC,2025-12-28 13:51,2025-12-28 15:37,2Hrs
+306063,Serum Creatinine,102,umol/L,2025-12-28 15:33,2025-12-28 19:11,4Hrs
+305854,Serum Creatinine,108,umol/L,2025-12-28 17:29,2025-12-28 18:08,4Hrs
+306031,Full Blood Picture,8.1,x10^9/L WBC,2025-12-29 07:49,2025-12-29 13:33,2Hrs
+306031,Blood Culture & Sensitivity,Staphylococcus aureus isolated,,2025-12-29 10:22,2026-01-01 00:01,72Hrs
+305812,Full Blood Picture,7.8,x10^9/L WBC,2025-12-29 17:51,2025-12-29 19:13,2Hrs
+305835,Full Blood Picture,14.3,x10^9/L WBC,2025-12-30 10:12,2025-12-30 11:47,2Hrs
+306002,Full Blood Picture,7.3,x10^9/L WBC,2025-12-30 11:31,2025-12-30 13:15,2Hrs
+305956,Serum Creatinine,85,umol/L,2025-12-30 15:37,2025-12-30 18:56,4Hrs
+305835,Serum Creatinine,102,umol/L,2025-12-30 17:32,2025-12-30 19:12,4Hrs
+305993,Serum Creatinine,86,umol/L,2025-12-31 07:45,2025-12-31 09:45,4Hrs
+305996,Full Blood Picture,5.2,x10^9/L WBC,2025-12-31 07:57,2025-12-31 09:35,2Hrs
+306040,Serum Creatinine,69,umol/L,2025-12-31 11:50,2025-12-31 12:20,4Hrs
+305973,Full Blood Picture,4.4,x10^9/L WBC,2025-12-31 14:14,2025-12-31 14:37,2Hrs
+305855,Full Blood Picture,8.3,x10^9/L WBC,2025-12-31 14:16,2025-12-31 14:53,2Hrs
+305926,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-12-31 14:55,2026-01-03 10:29,72Hrs
+305926,Serum Creatinine,65,umol/L,2025-12-31 15:26,2025-12-31 16:44,4Hrs
+305996,Pus Swab Culture & Sensitivity,Staphylococcus aureus isolated,,2025-12-31 16:27,2026-01-02 09:27,72Hrs
+306040,Full Blood Picture,13.9,x10^9/L WBC,2025-12-31 16:33,2025-12-31 16:54,2Hrs
+305926,Full Blood Picture,12.8,x10^9/L WBC,2025-12-31 16:42,2025-12-31 23:32,2Hrs
+306025,Serum Creatinine,66,umol/L,2025-12-31 17:26,2025-12-31 20:25,4Hrs

@@ -1,0 +1,578 @@
+DEMO REGIONAL REFERRAL HOSPITAL
+PROCEDURES AND SERVICES REPORT  01/01/2024 - 31/12/2024
+
+Patient ID,Age,Gender,Product Name,Sub Department Name,Ordered Date,Quantity,Price
+300199,51 Years,Female,Debridement and External Fixation,Surgical Ward Female,2024-01-01,1,250000
+300044,63 Years,Female,ORIF Femur,Orthopaedic Ward,2024-01-02,1,150000
+300128,23 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-01-02,1,180000
+300031,50 Years,Male,Laparotomy,Surgical Ward Male,2024-01-03,1,150000
+300219,25 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-01-05,1,180000
+300048,18 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-01-07,1,180000
+300082,60 Years,Female,ORIF Femur,Orthopaedic Ward,2024-01-08,1,300000
+300137,43 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-01-08,1,180000
+300225,44 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-01-08,1,180000
+300169,77 Years,Male,Appendicectomy,Surgical Ward Male,2024-01-09,1,150000
+300078,37 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-01-10,1,180000
+300159,23 Years,Male,Debridement and External Fixation,Orthopaedic Ward,2024-01-10,1,150000
+300195,20 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-01-12,1,180000
+300196,24 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-01-12,1,250000
+300008,44 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-01-13,1,200000
+300054,49 Years,Female,Appendicectomy,Surgical Ward Female,2024-01-13,1,200000
+300222,50 Years,Male,ORIF Femur,Orthopaedic Ward,2024-01-13,1,300000
+300035,29 Years,Male,Amputation Below Knee,Surgical Ward Male,2024-01-14,1,250000
+300047,62 Years,Female,Amputation Below Knee,Surgical Ward Female,2024-01-14,1,200000
+300051,56 Years,Female,Amputation Below Knee,Surgical Ward Female,2024-01-15,1,200000
+300067,52 Years,Male,Amputation Below Knee,Orthopaedic Ward,2024-01-15,1,300000
+300207,55 Years,Male,Laparotomy,Surgical Ward Male,2024-01-15,1,200000
+300057,27 Years,Male,ORIF Femur,Surgical Ward Male,2024-01-16,1,300000
+300160,32 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-01-17,1,180000
+300210,73 Years,Female,Herniorrhaphy,Surgical Ward Female,2024-01-18,1,200000
+300203,37 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-01-19,1,180000
+300144,47 Years,Male,Appendicectomy,Orthopaedic Ward,2024-01-20,1,250000
+300166,49 Years,Female,ORIF Femur,Surgical Ward Female,2024-01-20,1,250000
+300004,21 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-01-22,1,180000
+300107,65 Years,Male,ORIF Femur,Surgical Ward Male,2024-01-23,1,200000
+300184,43 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-01-23,1,180000
+300180,22 Years,Male,Laparotomy,Surgical Ward Male,2024-01-25,1,150000
+300060,45 Years,Male,Appendicectomy,Orthopaedic Ward,2024-01-27,1,300000
+300092,15 Years,Male,Laparotomy,Surgical Ward Male,2024-01-27,1,150000
+300130,44 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-01-28,1,180000
+300012,76 Years,Female,Appendicectomy,Surgical Ward Female,2024-01-30,1,300000
+300103,54 Years,Female,ORIF Femur,Surgical Ward Female,2024-01-30,1,300000
+300124,31 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-01-30,1,180000
+300021,36 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-01-31,1,180000
+300109,48 Years,Male,ORIF Femur,Surgical Ward Male,2024-01-31,1,300000
+300262,43 Years,Female,Herniorrhaphy,Surgical Ward Female,2024-02-01,1,250000
+300295,60 Years,Male,Debridement and External Fixation,Surgical Ward Male,2024-02-01,1,150000
+300251,36 Years,Female,Herniorrhaphy,Surgical Ward Female,2024-02-02,1,150000
+300265,14 Years,Female,Amputation Below Knee,Surgical Ward Female,2024-02-02,1,200000
+300277,83 Years,Male,Appendicectomy,Surgical Ward Male,2024-02-02,1,150000
+300374,43 Years,Female,ORIF Femur,Orthopaedic Ward,2024-02-02,1,250000
+300273,71 Years,Male,Appendicectomy,Surgical Ward Male,2024-02-03,1,200000
+300406,31 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-02-05,1,180000
+300252,38 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-02-06,1,180000
+300304,18 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-02-06,1,180000
+300429,44 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-02-07,1,180000
+300236,46 Years,Female,Laparotomy,Orthopaedic Ward,2024-02-08,1,200000
+300247,44 Years,Female,Herniorrhaphy,Orthopaedic Ward,2024-02-08,1,250000
+300384,58 Years,Female,Herniorrhaphy,Surgical Ward Female,2024-02-08,1,200000
+300256,54 Years,Male,Laparotomy,Orthopaedic Ward,2024-02-09,1,300000
+300392,53 Years,Male,ORIF Femur,Surgical Ward Male,2024-02-09,1,200000
+300289,23 Years,Female,Laparotomy,Surgical Ward Female,2024-02-10,1,300000
+300356,26 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-02-10,1,180000
+300362,39 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-02-10,1,180000
+300268,65 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-02-11,1,300000
+300293,16 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-02-11,1,180000
+300420,32 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-02-11,1,180000
+300453,20 Years,Male,Debridement and External Fixation,Surgical Ward Male,2024-02-11,1,200000
+300346,20 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-02-12,1,180000
+300355,38 Years,Female,Laparotomy,Surgical Ward Female,2024-02-12,1,200000
+300480,62 Years,Female,Amputation Below Knee,Surgical Ward Female,2024-02-12,1,250000
+300316,26 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-02-13,1,180000
+300485,61 Years,Female,Herniorrhaphy,Surgical Ward Female,2024-02-13,1,200000
+300488,62 Years,Male,Laparotomy,Surgical Ward Male,2024-02-13,1,150000
+300492,35 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-02-14,1,180000
+300310,35 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-02-15,1,300000
+300330,56 Years,Female,Herniorrhaphy,Surgical Ward Female,2024-02-15,1,250000
+300433,41 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-02-17,1,300000
+300278,37 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-02-18,1,180000
+300489,17 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-02-18,1,180000
+300413,44 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-02-19,1,180000
+300366,27 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-02-20,1,180000
+300365,57 Years,Male,Appendicectomy,Surgical Ward Male,2024-02-21,1,250000
+300331,73 Years,Female,Laparotomy,Intensive Care Unit,2024-02-22,1,150000
+300399,23 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-02-22,1,180000
+300467,32 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-02-22,1,180000
+300457,27 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-02-23,1,180000
+300364,70 Years,Female,Herniorrhaphy,Surgical Ward Female,2024-02-24,1,200000
+300472,32 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-02-24,1,180000
+300260,26 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-02-25,1,180000
+300343,59 Years,Female,Prostatectomy (Open),Orthopaedic Ward,2024-02-25,1,200000
+300464,59 Years,Female,ORIF Femur,Surgical Ward Female,2024-02-25,1,250000
+300263,39 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-02-26,1,180000
+300426,40 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-02-26,1,180000
+300443,78 Years,Female,Appendicectomy,Surgical Ward Female,2024-02-26,1,200000
+300300,47 Years,Female,ORIF Femur,Surgical Ward Female,2024-02-27,1,300000
+300301,43 Years,Female,Appendicectomy,Surgical Ward Female,2024-02-28,1,150000
+300461,23 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-02-28,1,180000
+300502,22 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-02-28,1,250000
+300422,30 Years,Female,ORIF Femur,Surgical Ward Female,2024-03-01,1,150000
+300588,36 Years,Male,Herniorrhaphy,Orthopaedic Ward,2024-03-02,1,250000
+300523,14 Years,Male,Amputation Below Knee,Orthopaedic Ward,2024-03-03,1,200000
+300604,44 Years,Male,Laparotomy,Surgical Ward Male,2024-03-03,1,250000
+300623,48 Years,Female,Herniorrhaphy,Surgical Ward Female,2024-03-04,1,250000
+300752,34 Years,Male,ORIF Femur,Surgical Ward Male,2024-03-04,1,150000
+300541,33 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-03-05,1,180000
+300728,21 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-03-05,1,180000
+300718,54 Years,Female,ORIF Femur,Surgical Ward Female,2024-03-06,1,250000
+300725,31 Years,Male,Debridement and External Fixation,Surgical Ward Male,2024-03-06,1,200000
+300676,52 Years,Male,Appendicectomy,Surgical Ward Male,2024-03-07,1,150000
+300766,50 Years,Female,ORIF Femur,Orthopaedic Ward,2024-03-07,1,200000
+300616,49 Years,Female,Debridement and External Fixation,Surgical Ward Female,2024-03-08,1,250000
+300672,41 Years,Male,Laparotomy,Orthopaedic Ward,2024-03-08,1,200000
+300613,29 Years,Male,Herniorrhaphy,Orthopaedic Ward,2024-03-09,1,150000
+300562,37 Years,Male,Debridement and External Fixation,Orthopaedic Ward,2024-03-10,1,300000
+300575,71 Years,Male,ORIF Femur,Surgical Ward Male,2024-03-12,1,300000
+300682,73 Years,Female,Laparotomy,Orthopaedic Ward,2024-03-12,1,300000
+300545,39 Years,Female,ORIF Femur,Orthopaedic Ward,2024-03-14,1,150000
+300522,14 Years,Male,Laparotomy,Surgical Ward Male,2024-03-15,1,250000
+300538,45 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-03-15,1,150000
+300710,53 Years,Female,Appendicectomy,Surgical Ward Female,2024-03-15,1,300000
+300670,49 Years,Male,Debridement and External Fixation,Surgical Ward Male,2024-03-16,1,300000
+300685,42 Years,Male,Herniorrhaphy,Orthopaedic Ward,2024-03-16,1,300000
+300772,20 Years,Male,Prostatectomy (Open),Surgical Ward Male,2024-03-16,1,300000
+300648,26 Years,Male,ORIF Femur,Surgical Ward Male,2024-03-17,1,150000
+300770,49 Years,Female,Amputation Below Knee,Surgical Ward Female,2024-03-17,1,150000
+300678,51 Years,Female,Appendicectomy,Surgical Ward Female,2024-03-18,1,300000
+300715,41 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-03-18,1,250000
+300630,37 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-03-20,1,180000
+300627,59 Years,Male,Appendicectomy,Surgical Ward Male,2024-03-21,1,250000
+300634,47 Years,Female,Debridement and External Fixation,Surgical Ward Female,2024-03-21,1,150000
+300775,45 Years,Male,Laparotomy,Orthopaedic Ward,2024-03-22,1,150000
+300584,68 Years,Female,Herniorrhaphy,Surgical Ward Female,2024-03-23,1,250000
+300639,45 Years,Female,Laparotomy,Orthopaedic Ward,2024-03-23,1,300000
+300660,16 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-03-23,1,180000
+300700,25 Years,Female,ORIF Femur,Surgical Ward Female,2024-03-23,1,150000
+300747,18 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-03-23,1,200000
+300635,61 Years,Female,ORIF Femur,Orthopaedic Ward,2024-03-24,1,150000
+300679,28 Years,Male,ORIF Femur,Surgical Ward Male,2024-03-24,1,300000
+300738,25 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-03-24,1,180000
+300514,54 Years,Male,Prostatectomy (Open),Surgical Ward Male,2024-03-25,1,300000
+300520,72 Years,Male,ORIF Femur,Surgical Ward Male,2024-03-25,1,150000
+300549,41 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-03-25,1,180000
+300618,42 Years,Male,Amputation Below Knee,Orthopaedic Ward,2024-03-25,1,150000
+300518,30 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-03-26,1,180000
+300542,31 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-03-27,1,180000
+300622,28 Years,Male,Appendicectomy,Orthopaedic Ward,2024-03-27,1,250000
+300667,42 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-03-27,1,180000
+300729,42 Years,Male,Herniorrhaphy,Orthopaedic Ward,2024-03-27,1,150000
+300540,39 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-03-28,1,180000
+300756,41 Years,Male,ORIF Femur,Surgical Ward Male,2024-03-28,1,300000
+300571,35 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-03-29,1,180000
+300592,14 Years,Female,Herniorrhaphy,Orthopaedic Ward,2024-03-30,1,200000
+300595,61 Years,Female,Herniorrhaphy,Surgical Ward Female,2024-03-30,1,250000
+300677,30 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-03-30,1,180000
+300948,28 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-04-02,1,180000
+300964,84 Years,Male,Appendicectomy,Orthopaedic Ward,2024-04-02,1,250000
+301002,65 Years,Female,Herniorrhaphy,Surgical Ward Female,2024-04-04,1,250000
+300826,19 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-04-05,1,180000
+300901,14 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-04-05,1,250000
+300878,20 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-04-06,1,180000
+300892,53 Years,Female,Herniorrhaphy,Surgical Ward Female,2024-04-06,1,150000
+300910,60 Years,Male,Debridement and External Fixation,Surgical Ward Male,2024-04-06,1,300000
+300815,32 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-04-07,1,180000
+300885,80 Years,Female,Appendicectomy,Surgical Ward Female,2024-04-08,1,200000
+300951,74 Years,Male,Debridement and External Fixation,Orthopaedic Ward,2024-04-08,1,300000
+300971,14 Years,Male,Appendicectomy,Surgical Ward Male,2024-04-08,1,250000
+301010,47 Years,Female,Debridement and External Fixation,Surgical Ward Female,2024-04-08,1,150000
+300781,24 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-04-09,1,180000
+300973,39 Years,Female,Herniorrhaphy,Surgical Ward Female,2024-04-09,1,150000
+300864,40 Years,Male,Appendicectomy,Surgical Ward Male,2024-04-10,1,200000
+300992,76 Years,Female,Amputation Below Knee,Surgical Ward Female,2024-04-11,1,200000
+300809,39 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-04-12,1,150000
+300969,45 Years,Male,Appendicectomy,Surgical Ward Male,2024-04-12,1,300000
+300842,38 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-04-13,1,180000
+300795,50 Years,Female,Amputation Below Knee,Orthopaedic Ward,2024-04-14,1,200000
+300867,44 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-04-16,1,180000
+300942,31 Years,Male,ORIF Femur,Surgical Ward Male,2024-04-17,1,150000
+300943,23 Years,Male,Prostatectomy (Open),Surgical Ward Male,2024-04-19,1,250000
+300990,40 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-04-19,1,200000
+300993,89 Years,Female,Herniorrhaphy,Surgical Ward Female,2024-04-19,1,200000
+300820,26 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-04-21,1,180000
+300782,78 Years,Male,Laparotomy,Surgical Ward Male,2024-04-22,1,300000
+300843,45 Years,Female,Prostatectomy (Open),Surgical Ward Female,2024-04-22,1,250000
+300863,27 Years,Female,Appendicectomy,Orthopaedic Ward,2024-04-23,1,300000
+300915,46 Years,Female,ORIF Femur,Surgical Ward Female,2024-04-24,1,200000
+300923,32 Years,Female,Laparotomy,Surgical Ward Female,2024-04-24,1,200000
+300848,41 Years,Female,Debridement and External Fixation,Surgical Ward Female,2024-04-25,1,250000
+300851,30 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-04-25,1,180000
+300880,45 Years,Female,Herniorrhaphy,Orthopaedic Ward,2024-04-25,1,250000
+300900,35 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-04-25,1,180000
+300868,17 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-04-26,1,180000
+300873,76 Years,Female,Debridement and External Fixation,Surgical Ward Female,2024-04-27,1,150000
+301014,36 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-04-27,1,180000
+300811,26 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-04-28,1,180000
+300882,41 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-04-28,1,180000
+301000,17 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-04-28,1,180000
+301185,63 Years,Female,Prostatectomy (Open),Surgical Ward Female,2024-05-01,1,250000
+301041,48 Years,Female,Prostatectomy (Open),Surgical Ward Female,2024-05-02,1,200000
+301052,79 Years,Male,Appendicectomy,Surgical Ward Male,2024-05-02,1,250000
+301047,53 Years,Male,Laparotomy,Surgical Ward Male,2024-05-03,1,300000
+301081,44 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-05-03,1,180000
+301102,17 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-05-03,1,150000
+301165,22 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-05-03,1,150000
+301145,58 Years,Male,Debridement and External Fixation,Surgical Ward Male,2024-05-04,1,300000
+301238,38 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-05-05,1,180000
+301058,16 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-05-06,1,180000
+301099,36 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-05-06,1,180000
+301115,17 Years,Female,Debridement and External Fixation,Surgical Ward Female,2024-05-06,1,300000
+301097,26 Years,Female,Prostatectomy (Open),Surgical Ward Female,2024-05-07,1,200000
+301150,32 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-05-07,1,180000
+301105,52 Years,Male,Herniorrhaphy,Orthopaedic Ward,2024-05-08,1,300000
+301064,44 Years,Male,Prostatectomy (Open),Orthopaedic Ward,2024-05-09,1,150000
+301252,59 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-05-09,1,200000
+301147,77 Years,Male,ORIF Femur,Surgical Ward Male,2024-05-10,1,300000
+301215,57 Years,Male,Appendicectomy,Surgical Ward Male,2024-05-10,1,150000
+301255,41 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-05-10,1,180000
+301226,29 Years,Male,Appendicectomy,Surgical Ward Male,2024-05-11,1,150000
+301228,52 Years,Female,Herniorrhaphy,Surgical Ward Female,2024-05-11,1,200000
+301093,24 Years,Female,ORIF Femur,Surgical Ward Female,2024-05-12,1,300000
+301048,27 Years,Male,Laparotomy,Orthopaedic Ward,2024-05-13,1,200000
+301122,18 Years,Female,Laparotomy,Surgical Ward Female,2024-05-13,1,300000
+301107,54 Years,Male,Laparotomy,Orthopaedic Ward,2024-05-14,1,150000
+301183,25 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-05-14,1,180000
+301046,23 Years,Male,Appendicectomy,Surgical Ward Male,2024-05-15,1,200000
+301247,23 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-05-15,1,300000
+301094,19 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-05-16,1,250000
+301168,28 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-05-16,1,180000
+301112,30 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-05-17,1,180000
+301256,38 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-05-17,1,180000
+301053,22 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-05-18,1,180000
+301119,36 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-05-18,1,180000
+301269,39 Years,Female,ORIF Femur,Surgical Ward Female,2024-05-19,1,250000
+301072,65 Years,Male,ORIF Femur,Surgical Ward Male,2024-05-20,1,250000
+301076,21 Years,Female,ORIF Femur,Orthopaedic Ward,2024-05-20,1,150000
+301151,35 Years,Male,ORIF Femur,Orthopaedic Ward,2024-05-20,1,150000
+301240,38 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-05-20,1,180000
+301257,35 Years,Male,ORIF Femur,Orthopaedic Ward,2024-05-20,1,250000
+301086,40 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-05-21,1,180000
+301057,29 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-05-22,1,180000
+301032,21 Years,Female,Amputation Below Knee,Surgical Ward Female,2024-05-23,1,250000
+301159,35 Years,Male,Amputation Below Knee,Surgical Ward Male,2024-05-23,1,250000
+301015,36 Years,Male,Herniorrhaphy,Orthopaedic Ward,2024-05-24,1,300000
+301137,50 Years,Male,Prostatectomy (Open),Surgical Ward Male,2024-05-24,1,250000
+301188,28 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-05-24,1,180000
+301219,24 Years,Male,Prostatectomy (Open),Orthopaedic Ward,2024-05-24,1,300000
+301251,30 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-05-24,1,180000
+301117,20 Years,Male,ORIF Femur,Surgical Ward Male,2024-05-26,1,300000
+301156,25 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-05-26,1,180000
+301176,63 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-05-27,1,150000
+301201,40 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-05-27,1,180000
+301213,19 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-05-29,1,180000
+301184,44 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-05-30,1,180000
+301206,56 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-05-30,1,200000
+301243,56 Years,Female,Herniorrhaphy,Surgical Ward Female,2024-05-31,1,200000
+301442,66 Years,Female,ORIF Femur,Orthopaedic Ward,2024-06-01,1,150000
+301493,25 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-06-01,1,180000
+301423,44 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-06-02,1,180000
+301283,41 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-06-03,1,200000
+301433,59 Years,Male,Amputation Below Knee,Surgical Ward Male,2024-06-03,1,200000
+301277,50 Years,Male,Laparotomy,Intensive Care Unit,2024-06-04,1,300000
+301420,31 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-06-06,1,200000
+301468,67 Years,Female,Amputation Below Knee,Orthopaedic Ward,2024-06-06,1,300000
+301278,73 Years,Male,Herniorrhaphy,Orthopaedic Ward,2024-06-07,1,150000
+301316,25 Years,Female,Debridement and External Fixation,Surgical Ward Female,2024-06-08,1,150000
+301417,49 Years,Male,Debridement and External Fixation,Orthopaedic Ward,2024-06-08,1,150000
+301434,24 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-06-08,1,180000
+301452,34 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-06-08,1,180000
+301374,50 Years,Male,Herniorrhaphy,Orthopaedic Ward,2024-06-09,1,250000
+301294,14 Years,Male,Prostatectomy (Open),Surgical Ward Male,2024-06-10,1,200000
+301348,40 Years,Female,Appendicectomy,Surgical Ward Female,2024-06-10,1,300000
+301478,90 Years,Female,Amputation Below Knee,Surgical Ward Female,2024-06-12,1,150000
+301337,27 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-06-13,1,150000
+301355,27 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-06-13,1,180000
+301396,61 Years,Male,Debridement and External Fixation,Surgical Ward Male,2024-06-13,1,200000
+301424,42 Years,Female,Herniorrhaphy,Surgical Ward Female,2024-06-13,1,150000
+301436,24 Years,Female,Debridement and External Fixation,Orthopaedic Ward,2024-06-13,1,150000
+301383,40 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-06-14,1,200000
+301279,56 Years,Male,ORIF Femur,Orthopaedic Ward,2024-06-15,1,300000
+301367,72 Years,Male,Appendicectomy,Orthopaedic Ward,2024-06-16,1,300000
+301384,27 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-06-17,1,180000
+301399,74 Years,Male,Appendicectomy,Surgical Ward Male,2024-06-17,1,300000
+301490,33 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-06-18,1,180000
+301409,26 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-06-21,1,180000
+301400,19 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-06-22,1,180000
+301435,58 Years,Female,Laparotomy,Surgical Ward Female,2024-06-22,1,250000
+301456,85 Years,Female,ORIF Femur,Surgical Ward Female,2024-06-22,1,300000
+301448,39 Years,Female,Debridement and External Fixation,Surgical Ward Female,2024-06-23,1,300000
+301463,37 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-06-23,1,150000
+301282,54 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-06-25,1,200000
+301304,49 Years,Male,Herniorrhaphy,Orthopaedic Ward,2024-06-25,1,300000
+301403,39 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-06-25,1,180000
+301376,38 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-06-27,1,180000
+301289,57 Years,Male,Amputation Below Knee,Orthopaedic Ward,2024-06-28,1,150000
+301479,20 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-06-29,1,200000
+301575,27 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-07-01,1,180000
+301678,67 Years,Female,Debridement and External Fixation,Surgical Ward Female,2024-07-02,1,250000
+301637,60 Years,Female,Debridement and External Fixation,Surgical Ward Female,2024-07-03,1,200000
+301664,17 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-07-03,1,180000
+301688,35 Years,Female,Laparotomy,Orthopaedic Ward,2024-07-03,1,300000
+301502,52 Years,Female,Laparotomy,Surgical Ward Female,2024-07-04,1,200000
+301648,35 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-07-04,1,200000
+301514,29 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-07-05,1,180000
+301520,36 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-07-07,1,180000
+301721,31 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-07-08,1,180000
+301563,16 Years,Male,Appendicectomy,Orthopaedic Ward,2024-07-10,1,250000
+301627,48 Years,Male,Herniorrhaphy,Orthopaedic Ward,2024-07-10,1,250000
+301712,61 Years,Female,Laparotomy,Orthopaedic Ward,2024-07-10,1,150000
+301515,28 Years,Female,ORIF Femur,Surgical Ward Female,2024-07-11,1,300000
+301532,24 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-07-11,1,180000
+301531,53 Years,Male,Laparotomy,Surgical Ward Male,2024-07-12,1,200000
+301594,59 Years,Female,Laparotomy,Surgical Ward Female,2024-07-13,1,250000
+301706,30 Years,Female,Amputation Below Knee,Surgical Ward Female,2024-07-13,1,300000
+301583,51 Years,Male,Prostatectomy (Open),Orthopaedic Ward,2024-07-14,1,200000
+301600,40 Years,Female,Debridement and External Fixation,Surgical Ward Female,2024-07-14,1,250000
+301619,33 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-07-14,1,180000
+301509,17 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-07-15,1,180000
+301542,16 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-07-15,1,180000
+301633,54 Years,Female,Herniorrhaphy,Orthopaedic Ward,2024-07-15,1,250000
+301735,29 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-07-15,1,180000
+301511,42 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-07-17,1,180000
+301713,58 Years,Male,Prostatectomy (Open),Surgical Ward Male,2024-07-17,1,250000
+301641,36 Years,Male,ORIF Femur,Surgical Ward Male,2024-07-18,1,300000
+301662,16 Years,Female,Prostatectomy (Open),Orthopaedic Ward,2024-07-18,1,150000
+301727,63 Years,Female,Prostatectomy (Open),Orthopaedic Ward,2024-07-18,1,250000
+301527,30 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-07-19,1,180000
+301620,35 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-07-22,1,180000
+301516,37 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-07-23,1,180000
+301552,28 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-07-24,1,180000
+301587,18 Years,Female,Herniorrhaphy,Orthopaedic Ward,2024-07-24,1,250000
+301608,22 Years,Female,Herniorrhaphy,Surgical Ward Female,2024-07-25,1,150000
+301642,42 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-07-25,1,180000
+301695,56 Years,Male,ORIF Femur,Orthopaedic Ward,2024-07-25,1,300000
+301566,65 Years,Female,Debridement and External Fixation,Surgical Ward Female,2024-07-26,1,250000
+301580,69 Years,Male,Amputation Below Knee,Surgical Ward Male,2024-07-26,1,300000
+301546,44 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-07-27,1,180000
+301628,43 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-07-27,1,180000
+301660,61 Years,Female,Debridement and External Fixation,Orthopaedic Ward,2024-07-28,1,200000
+301665,34 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-07-28,1,180000
+301694,36 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-07-28,1,180000
+301667,68 Years,Male,Herniorrhaphy,Orthopaedic Ward,2024-07-29,1,300000
+301525,60 Years,Female,Amputation Below Knee,Surgical Ward Female,2024-07-30,1,200000
+301548,66 Years,Male,Herniorrhaphy,Orthopaedic Ward,2024-07-30,1,300000
+301508,17 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-07-31,1,180000
+301655,25 Years,Male,Debridement and External Fixation,Orthopaedic Ward,2024-07-31,1,200000
+301669,19 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-07-31,1,180000
+301730,37 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-07-31,1,200000
+301539,39 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-08-01,1,150000
+301845,34 Years,Female,Debridement and External Fixation,Orthopaedic Ward,2024-08-01,1,150000
+301869,31 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-08-01,1,180000
+301928,14 Years,Female,Appendicectomy,Surgical Ward Female,2024-08-01,1,200000
+301924,24 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-08-02,1,180000
+301871,57 Years,Male,ORIF Femur,Surgical Ward Male,2024-08-03,1,250000
+301770,50 Years,Female,Appendicectomy,Orthopaedic Ward,2024-08-05,1,250000
+301802,14 Years,Female,Appendicectomy,Surgical Ward Female,2024-08-05,1,150000
+301841,45 Years,Male,ORIF Femur,Surgical Ward Male,2024-08-08,1,300000
+301942,67 Years,Male,Herniorrhaphy,Orthopaedic Ward,2024-08-08,1,200000
+301992,47 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-08-09,1,200000
+301888,16 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-08-10,1,250000
+301938,47 Years,Female,Herniorrhaphy,Orthopaedic Ward,2024-08-11,1,150000
+301984,31 Years,Female,Amputation Below Knee,Surgical Ward Female,2024-08-11,1,200000
+301783,38 Years,Male,Appendicectomy,Surgical Ward Male,2024-08-12,1,200000
+301796,31 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-08-12,1,180000
+301892,24 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-08-12,1,180000
+301907,53 Years,Male,Prostatectomy (Open),Surgical Ward Male,2024-08-12,1,250000
+301980,42 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-08-15,1,180000
+301891,29 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-08-16,1,180000
+301979,49 Years,Female,Appendicectomy,Orthopaedic Ward,2024-08-16,1,200000
+301931,22 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-08-17,1,250000
+301807,16 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-08-19,1,180000
+301944,39 Years,Female,Appendicectomy,Surgical Ward Female,2024-08-19,1,200000
+301961,45 Years,Female,Herniorrhaphy,Surgical Ward Female,2024-08-19,1,150000
+301756,64 Years,Male,ORIF Femur,Surgical Ward Male,2024-08-20,1,150000
+301744,16 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-08-21,1,200000
+301962,14 Years,Male,ORIF Femur,Surgical Ward Male,2024-08-21,1,300000
+301919,40 Years,Female,Herniorrhaphy,Surgical Ward Female,2024-08-22,1,250000
+301937,34 Years,Female,ORIF Femur,Surgical Ward Female,2024-08-23,1,250000
+301748,19 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-08-24,1,250000
+301764,49 Years,Male,Appendicectomy,Orthopaedic Ward,2024-08-24,1,250000
+301767,31 Years,Male,ORIF Femur,Surgical Ward Male,2024-08-24,1,250000
+301846,32 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-08-24,1,180000
+301852,41 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-08-26,1,180000
+301899,64 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-08-26,1,150000
+301975,16 Years,Female,Herniorrhaphy,Surgical Ward Female,2024-08-26,1,150000
+301743,38 Years,Male,ORIF Femur,Surgical Ward Male,2024-08-27,1,200000
+301774,36 Years,Male,Herniorrhaphy,Orthopaedic Ward,2024-08-27,1,150000
+301847,30 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-08-27,1,180000
+301867,31 Years,Male,Debridement and External Fixation,Orthopaedic Ward,2024-08-27,1,200000
+301882,34 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-08-27,1,180000
+301965,88 Years,Female,Herniorrhaphy,Orthopaedic Ward,2024-08-27,1,150000
+301739,26 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-08-28,1,180000
+301818,15 Years,Male,Appendicectomy,Surgical Ward Male,2024-08-29,1,300000
+301926,73 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-08-30,1,250000
+301820,14 Years,Female,Herniorrhaphy,Surgical Ward Female,2024-08-31,1,150000
+301887,21 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-08-31,1,300000
+302079,28 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-09-01,1,180000
+302094,24 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-09-01,1,300000
+302155,16 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-09-02,1,180000
+302208,17 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-09-03,1,180000
+302049,59 Years,Male,Appendicectomy,Surgical Ward Male,2024-09-04,1,250000
+302071,33 Years,Male,Appendicectomy,Surgical Ward Male,2024-09-05,1,200000
+302176,33 Years,Male,ORIF Femur,Surgical Ward Male,2024-09-05,1,150000
+302131,52 Years,Male,Debridement and External Fixation,Surgical Ward Male,2024-09-06,1,300000
+302196,43 Years,Female,ORIF Femur,Surgical Ward Female,2024-09-06,1,300000
+302215,34 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-09-06,1,180000
+302088,46 Years,Female,Herniorrhaphy,Surgical Ward Female,2024-09-07,1,200000
+302261,23 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-09-07,1,180000
+302159,36 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-09-09,1,180000
+302189,57 Years,Male,Debridement and External Fixation,Surgical Ward Male,2024-09-09,1,250000
+302136,40 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-09-10,1,180000
+302232,43 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-09-10,1,150000
+302062,53 Years,Female,ORIF Femur,Surgical Ward Female,2024-09-11,1,250000
+302192,43 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-09-11,1,180000
+302206,49 Years,Female,ORIF Femur,Surgical Ward Female,2024-09-12,1,300000
+302210,43 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-09-12,1,300000
+302005,60 Years,Male,Laparotomy,Surgical Ward Male,2024-09-13,1,250000
+302054,36 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-09-13,1,180000
+302084,18 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-09-13,1,180000
+302224,69 Years,Male,ORIF Femur,Surgical Ward Male,2024-09-13,1,300000
+302125,35 Years,Male,ORIF Femur,Surgical Ward Male,2024-09-14,1,250000
+302098,45 Years,Female,Laparotomy,Surgical Ward Female,2024-09-15,1,150000
+302162,40 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-09-15,1,180000
+302008,31 Years,Male,ORIF Femur,Surgical Ward Male,2024-09-16,1,200000
+302024,50 Years,Female,Appendicectomy,Orthopaedic Ward,2024-09-16,1,300000
+302137,61 Years,Male,Debridement and External Fixation,Surgical Ward Male,2024-09-16,1,200000
+302038,23 Years,Male,Appendicectomy,Surgical Ward Male,2024-09-17,1,300000
+302028,41 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-09-18,1,180000
+302246,39 Years,Male,Appendicectomy,Orthopaedic Ward,2024-09-19,1,250000
+301998,35 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-09-20,1,180000
+302047,72 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-09-20,1,200000
+302100,30 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-09-20,1,180000
+302150,42 Years,Male,Debridement and External Fixation,Surgical Ward Male,2024-09-24,1,200000
+302120,60 Years,Female,Laparotomy,Surgical Ward Female,2024-09-25,1,200000
+302161,27 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-09-25,1,250000
+302169,63 Years,Female,ORIF Femur,Orthopaedic Ward,2024-09-25,1,200000
+302135,32 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-09-26,1,180000
+302209,48 Years,Male,ORIF Femur,Orthopaedic Ward,2024-09-26,1,200000
+302214,31 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-09-27,1,180000
+302158,38 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-09-28,1,180000
+302179,36 Years,Female,ORIF Femur,Surgical Ward Female,2024-09-28,1,250000
+302003,32 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-09-29,1,180000
+302144,17 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-09-29,1,180000
+302177,45 Years,Male,ORIF Femur,Surgical Ward Male,2024-10-01,1,250000
+302300,59 Years,Female,Debridement and External Fixation,Surgical Ward Female,2024-10-01,1,200000
+302349,70 Years,Male,Laparotomy,Surgical Ward Male,2024-10-01,1,250000
+302374,53 Years,Male,Amputation Below Knee,Surgical Ward Male,2024-10-02,1,300000
+302497,77 Years,Female,Appendicectomy,Surgical Ward Female,2024-10-02,1,200000
+302496,81 Years,Female,Laparotomy,Surgical Ward Female,2024-10-05,1,300000
+302398,36 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-10-06,1,150000
+302461,71 Years,Male,Amputation Below Knee,Surgical Ward Male,2024-10-10,1,150000
+302358,24 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-10-12,1,180000
+302430,14 Years,Female,Amputation Below Knee,Surgical Ward Female,2024-10-12,1,250000
+302362,36 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-10-13,1,180000
+302343,59 Years,Female,Herniorrhaphy,Surgical Ward Female,2024-10-14,1,150000
+302410,59 Years,Male,Debridement and External Fixation,Surgical Ward Male,2024-10-15,1,150000
+302399,27 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-10-16,1,180000
+302402,19 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-10-16,1,180000
+302282,18 Years,Male,ORIF Femur,Orthopaedic Ward,2024-10-17,1,150000
+302308,54 Years,Male,ORIF Femur,Orthopaedic Ward,2024-10-18,1,300000
+302307,56 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-10-19,1,300000
+302357,56 Years,Female,Debridement and External Fixation,Surgical Ward Female,2024-10-19,1,150000
+302309,70 Years,Male,ORIF Femur,Surgical Ward Male,2024-10-20,1,300000
+302273,57 Years,Female,Laparotomy,Surgical Ward Female,2024-10-21,1,250000
+302311,42 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-10-21,1,180000
+302389,42 Years,Male,Debridement and External Fixation,Surgical Ward Male,2024-10-21,1,150000
+302272,50 Years,Male,Amputation Below Knee,Surgical Ward Male,2024-10-23,1,300000
+302478,23 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-10-23,1,150000
+302340,31 Years,Male,Laparotomy,Surgical Ward Male,2024-10-25,1,200000
+302377,22 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-10-25,1,180000
+302488,33 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-10-25,1,180000
+302386,40 Years,Female,Appendicectomy,Surgical Ward Female,2024-10-26,1,300000
+302500,47 Years,Female,ORIF Femur,Surgical Ward Female,2024-10-26,1,200000
+302289,32 Years,Female,Amputation Below Knee,Surgical Ward Female,2024-10-28,1,150000
+302373,25 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-10-28,1,180000
+302473,45 Years,Male,Debridement and External Fixation,Surgical Ward Male,2024-10-28,1,300000
+302306,30 Years,Female,Amputation Below Knee,Surgical Ward Female,2024-10-29,1,250000
+302431,28 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-10-29,1,180000
+302318,22 Years,Female,Prostatectomy (Open),Surgical Ward Female,2024-10-31,1,200000
+302365,34 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-10-31,1,300000
+302487,40 Years,Male,Appendicectomy,Orthopaedic Ward,2024-11-01,1,300000
+302546,43 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-11-01,1,180000
+302741,17 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-11-02,1,180000
+302682,32 Years,Female,Amputation Below Knee,Surgical Ward Female,2024-11-03,1,200000
+302734,59 Years,Female,Appendicectomy,Orthopaedic Ward,2024-11-03,1,150000
+302705,44 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-11-05,1,150000
+302716,72 Years,Female,Appendicectomy,Surgical Ward Female,2024-11-05,1,150000
+302735,24 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-11-05,1,180000
+302597,31 Years,Female,Amputation Below Knee,Surgical Ward Female,2024-11-06,1,300000
+302522,50 Years,Male,Amputation Below Knee,Orthopaedic Ward,2024-11-08,1,250000
+302617,16 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-11-08,1,180000
+302698,26 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-11-09,1,180000
+302589,37 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-11-10,1,180000
+302595,48 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-11-11,1,250000
+302651,53 Years,Female,Debridement and External Fixation,Surgical Ward Female,2024-11-12,1,150000
+302718,38 Years,Male,Appendicectomy,Surgical Ward Male,2024-11-12,1,250000
+302642,56 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-11-14,1,200000
+302722,27 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-11-14,1,180000
+302665,45 Years,Female,Amputation Below Knee,Orthopaedic Ward,2024-11-15,1,200000
+302588,45 Years,Male,Prostatectomy (Open),Orthopaedic Ward,2024-11-16,1,300000
+302524,47 Years,Female,Laparotomy,Surgical Ward Female,2024-11-18,1,200000
+302601,22 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-11-18,1,180000
+302529,25 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-11-19,1,180000
+302605,49 Years,Female,ORIF Femur,Surgical Ward Female,2024-11-19,1,200000
+302523,32 Years,Female,Appendicectomy,Surgical Ward Female,2024-11-20,1,150000
+302683,36 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-11-20,1,180000
+302509,25 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-11-21,1,180000
+302533,53 Years,Female,Appendicectomy,Orthopaedic Ward,2024-11-21,1,250000
+302569,26 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-11-21,1,180000
+302606,38 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-11-21,1,200000
+302536,35 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-11-23,1,180000
+302549,18 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-11-23,1,180000
+302552,21 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-11-23,1,180000
+302576,80 Years,Female,Herniorrhaphy,Surgical Ward Female,2024-11-23,1,150000
+302598,27 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-11-23,1,180000
+302578,20 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-11-24,1,180000
+302602,41 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-11-24,1,180000
+302532,30 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-11-25,1,180000
+302637,22 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-11-25,1,250000
+302742,39 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-11-25,1,300000
+302512,46 Years,Male,Laparotomy,Surgical Ward Male,2024-11-26,1,150000
+302649,47 Years,Female,Herniorrhaphy,Orthopaedic Ward,2024-11-26,1,250000
+302650,23 Years,Female,Laparotomy,Orthopaedic Ward,2024-11-26,1,150000
+302668,40 Years,Female,Amputation Below Knee,Surgical Ward Female,2024-11-26,1,150000
+302721,70 Years,Male,Herniorrhaphy,Orthopaedic Ward,2024-11-26,1,200000
+302562,40 Years,Female,Laparotomy,Intensive Care Unit,2024-11-28,1,150000
+302676,40 Years,Male,Debridement and External Fixation,Surgical Ward Male,2024-11-28,1,250000
+302615,40 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-12-01,1,180000
+302737,67 Years,Male,Herniorrhaphy,Orthopaedic Ward,2024-12-01,1,150000
+302780,43 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-12-02,1,180000
+302909,27 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-12-02,1,200000
+302964,35 Years,Female,Herniorrhaphy,Orthopaedic Ward,2024-12-02,1,300000
+302758,41 Years,Female,Debridement and External Fixation,Surgical Ward Female,2024-12-04,1,200000
+302832,43 Years,Male,ORIF Femur,Surgical Ward Male,2024-12-04,1,300000
+302905,14 Years,Male,ORIF Femur,Surgical Ward Male,2024-12-05,1,300000
+302941,33 Years,Male,Appendicectomy,Surgical Ward Male,2024-12-05,1,250000
+302815,61 Years,Male,Debridement and External Fixation,Surgical Ward Male,2024-12-06,1,300000
+302760,39 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-12-07,1,180000
+302857,16 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-12-07,1,200000
+302967,23 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-12-07,1,180000
+302817,49 Years,Male,Appendicectomy,Surgical Ward Male,2024-12-08,1,250000
+302839,14 Years,Female,Laparotomy,Surgical Ward Female,2024-12-09,1,300000
+302937,17 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-12-09,1,180000
+302946,42 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-12-09,1,180000
+302768,33 Years,Female,ORIF Femur,Orthopaedic Ward,2024-12-10,1,250000
+302945,31 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-12-10,1,300000
+302809,31 Years,Male,Laparotomy,Surgical Ward Male,2024-12-11,1,300000
+302872,27 Years,Female,ORIF Femur,Orthopaedic Ward,2024-12-11,1,250000
+302749,31 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-12-12,1,180000
+302814,44 Years,Female,Amputation Below Knee,Orthopaedic Ward,2024-12-12,1,200000
+302840,52 Years,Male,Herniorrhaphy,Orthopaedic Ward,2024-12-12,1,200000
+302903,50 Years,Male,Laparotomy,Surgical Ward Male,2024-12-12,1,150000
+302956,36 Years,Male,Amputation Below Knee,Orthopaedic Ward,2024-12-12,1,300000
+302804,38 Years,Female,Herniorrhaphy,Orthopaedic Ward,2024-12-13,1,300000
+302808,37 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-12-14,1,180000
+302790,27 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-12-15,1,180000
+302810,71 Years,Female,Appendicectomy,Surgical Ward Female,2024-12-15,1,250000
+302826,28 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-12-15,1,180000
+302844,42 Years,Female,Herniorrhaphy,Orthopaedic Ward,2024-12-15,1,200000
+302992,74 Years,Male,Laparotomy,Surgical Ward Male,2024-12-15,1,250000
+302805,59 Years,Female,ORIF Femur,Surgical Ward Female,2024-12-16,1,250000
+302978,34 Years,Female,Amputation Below Knee,Orthopaedic Ward,2024-12-17,1,300000
+302940,70 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-12-18,1,300000
+302867,29 Years,Female,Myomectomy,Obstetrics & Gynaecology,2024-12-19,1,150000
+302757,68 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-12-20,1,200000
+302811,62 Years,Female,Laparotomy,Surgical Ward Female,2024-12-23,1,150000
+302896,60 Years,Female,Amputation Below Knee,Surgical Ward Female,2024-12-23,1,250000
+302901,17 Years,Female,Appendicectomy,Surgical Ward Female,2024-12-23,1,250000
+302928,42 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-12-23,1,180000
+302861,30 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-12-25,1,180000
+302785,47 Years,Male,ORIF Femur,Orthopaedic Ward,2024-12-27,1,250000
+302893,57 Years,Male,Debridement and External Fixation,Orthopaedic Ward,2024-12-27,1,200000
+302975,33 Years,Female,Caesarean Section,Obstetrics & Gynaecology,2024-12-27,1,180000
+302864,60 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-12-28,1,150000
+302929,24 Years,Female,ORIF Femur,Surgical Ward Female,2024-12-28,1,200000
+302969,51 Years,Male,Laparotomy,Orthopaedic Ward,2024-12-28,1,150000
+302849,41 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-12-29,1,250000
+302930,40 Years,Female,ORIF Femur,Orthopaedic Ward,2024-12-30,1,300000
+302806,54 Years,Male,Herniorrhaphy,Surgical Ward Male,2024-12-31,1,150000
+302949,51 Years,Male,Laparotomy,Surgical Ward Male,2024-12-31,1,300000

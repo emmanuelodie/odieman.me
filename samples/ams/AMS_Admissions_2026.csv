@@ -1,0 +1,1437 @@
+DEMO REGIONAL REFERRAL HOSPITAL
+INPATIENT ADMISSIONS REGISTER  01/01/2026 - 30/09/2026
+
+Patient ID,Age,Gender,Ward,Date Admitted,Date Discharged,Bed Days,Diagnosis,Procedure,Cesarean Section,SSI Confirmed,Receiving Antibiotic,Status
+306139,1 Years,Male,Paediatric Ward,2026-01-01,2026-01-07,6,Bacterial meningitis,,,,N,Discharged
+306174,40 Years,Male,Surgical Ward Male,2026-01-01,2026-01-05,4,Fracture of femur,ORIF Femur,,,Y,Discharged
+306285,4 Years,Male,Paediatric Ward,2026-01-01,2026-01-06,5,Sepsis,,,,Y,Discharged
+306181,25 Years,Female,Surgical Ward Female,2026-01-02,2026-01-06,4,Diabetic foot ulcer,Amputation Below Knee,,,Y,Discharged
+306191,6 Years,Female,Paediatric Ward,2026-01-02,2026-01-03,1,Severe pneumonia,,,,N,Discharged
+306222,25 Years,Female,Medical Ward Female,2026-01-02,2026-01-06,4,Cellulitis,,,,N,Discharged
+306236,29 Years,Female,Obstetrics & Gynaecology,2026-01-02,2026-01-05,3,Caesarean section - obstructed labour,Caesarean Section,Y,Y,Y,Discharged
+306081,24 Years,Male,Medical Ward Male,2026-01-03,2026-01-08,5,Severe pneumonia,,,,N,Discharged
+306136,9 Months,Female,Paediatric Ward,2026-01-03,2026-01-09,6,Acute gastroenteritis,,,,Y,Discharged
+306196,69 Years,Male,Medical Ward Male,2026-01-03,2026-01-05,2,Pyelonephritis,,,,N,Discharged
+306288,32 Years,Female,Medical Ward Female,2026-01-03,2026-01-06,3,Urinary tract infection,,,,N,Discharged
+306180,14 Years,Male,Medical Ward Male,2026-01-04,2026-01-23,19,Congestive cardiac failure,,,,N,Discharged
+306268,23 Years,Female,Obstetrics & Gynaecology,2026-01-04,2026-01-07,3,Uterine fibroids,Myomectomy,N,,Y,Discharged
+306186,90 Years,Female,Medical Ward Female,2026-01-05,2026-01-14,9,Acute gastroenteritis,,,,N,Discharged
+306091,14 Years,Female,Medical Ward Female,2026-01-06,2026-01-08,2,Acute gastroenteritis,,,,N,Discharged
+306115,41 Years,Female,Medical Ward Female,2026-01-06,2026-01-13,7,Cellulitis,,,,N,Discharged
+306130,39 Years,Male,Medical Ward Male,2026-01-06,2026-01-09,3,Acute gastroenteritis,,,,Y,Discharged
+306151,53 Years,Female,Medical Ward Female,2026-01-06,2026-01-09,3,Bacterial meningitis,,,,Y,Discharged
+306208,39 Years,Male,Surgical Ward Male,2026-01-06,2026-01-09,3,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+306086,32 Years,Female,Obstetrics & Gynaecology,2026-01-07,2026-01-09,2,Normal delivery,,N,,N,Discharged
+306255,82 Years,Male,Medical Ward Male,2026-01-07,2026-01-10,3,Severe pneumonia,,,,Y,Discharged
+306068,31 Years,Female,Surgical Ward Female,2026-01-08,2026-01-24,16,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+306093,64 Years,Female,Surgical Ward Female,2026-01-08,2026-01-11,3,Acute appendicitis,Appendicectomy,,,Y,Discharged
+306098,17 Years,Female,Obstetrics & Gynaecology,2026-01-08,2026-01-11,3,Normal delivery,,N,,N,Discharged
+306147,70 Years,Male,Surgical Ward Male,2026-01-08,2026-01-18,10,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+306223,3 Years,Female,Paediatric Ward,2026-01-08,2026-01-11,3,Acute gastroenteritis,,,,Y,Discharged
+306256,33 Years,Female,Obstetrics & Gynaecology,2026-01-08,2026-01-12,4,Incomplete abortion,,N,,Y,Discharged
+306067,57 Years,Male,Orthopaedic Ward,2026-01-09,2026-01-27,18,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+306228,83 Years,Female,Surgical Ward Female,2026-01-09,2026-01-16,7,Diabetic foot ulcer,Amputation Below Knee,,,Y,Died
+306259,28 Years,Female,Obstetrics & Gynaecology,2026-01-09,2026-01-11,2,Incomplete abortion,,N,,N,Discharged
+306266,33 Years,Female,Obstetrics & Gynaecology,2026-01-09,2026-01-10,1,Pre-eclampsia,,N,,N,Discharged
+306276,43 Years,Female,Obstetrics & Gynaecology,2026-01-09,2026-01-24,15,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306278,35 Years,Male,Medical Ward Male,2026-01-09,2026-01-13,4,Stroke,,,,N,Discharged
+306078,49 Years,Male,Surgical Ward Male,2026-01-10,2026-01-13,3,Acute appendicitis,Appendicectomy,,,Y,Discharged
+306089,14 Years,Male,Surgical Ward Male,2026-01-10,2026-01-11,1,Abscess,,,,Y,Discharged
+306094,12 Years,Male,Paediatric Ward,2026-01-10,2026-01-24,14,Acute gastroenteritis,,,,N,Discharged
+306122,32 Years,Female,Obstetrics & Gynaecology,2026-01-10,2026-01-13,3,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+306179,45 Years,Male,Surgical Ward Male,2026-01-10,2026-01-15,5,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+306231,35 Years,Female,Obstetrics & Gynaecology,2026-01-10,2026-01-11,1,Pre-eclampsia,,N,,N,Discharged
+306232,10 Months,Male,Paediatric Ward,2026-01-10,2026-01-11,1,Severe pneumonia,,,,Y,Discharged
+306241,28 Years,Male,Medical Ward Male,2026-01-10,2026-02-06,27,Sepsis,,,,N,Discharged
+306249,26 Years,Female,Surgical Ward Female,2026-01-10,2026-01-13,3,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+306272,39 Years,Male,Surgical Ward Male,2026-01-10,2026-01-22,12,Abscess,,,,N,Discharged
+306077,39 Years,Female,Surgical Ward Female,2026-01-11,2026-01-25,14,Diabetic foot ulcer,Amputation Below Knee,,,Y,Discharged
+306117,72 Years,Male,Medical Ward Male,2026-01-11,2026-01-12,1,Acute gastroenteritis,,,,N,Discharged
+306152,41 Years,Female,Obstetrics & Gynaecology,2026-01-11,2026-01-19,8,Caesarean section - obstructed labour,Caesarean Section,Y,Y,Y,Discharged
+306159,43 Years,Male,Surgical Ward Male,2026-01-11,2026-01-19,8,Fracture of femur,ORIF Femur,,,Y,Discharged
+306202,42 Years,Female,Surgical Ward Female,2026-01-11,2026-01-15,4,Wound infection,,,,N,Discharged
+306226,45 Years,Female,Surgical Ward Female,2026-01-11,2026-01-12,1,Burns,,,,Y,Discharged
+306235,60 Years,Male,Orthopaedic Ward,2026-01-11,2026-01-14,3,Open fracture of tibia,Debridement and External Fixation,,,Y,Died
+306264,39 Years,Female,Medical Ward Female,2026-01-11,2026-01-13,2,Exacerbation of COPD,,,,N,Discharged
+306289,18 Years,Female,Obstetrics & Gynaecology,2026-01-11,2026-01-15,4,Pelvic inflammatory disease,,N,,N,Discharged
+306107,2 Years,Male,Paediatric Ward,2026-01-12,2026-01-14,2,Bacterial meningitis,,,,N,Discharged
+306134,15 Days,Male,Neonatal Unit,2026-01-12,2026-01-13,1,Prematurity,,,,N,Discharged
+306216,44 Years,Female,Medical Ward Female,2026-01-12,2026-01-17,5,Sepsis,,,,Y,Discharged
+306227,40 Years,Female,Orthopaedic Ward,2026-01-12,2026-01-21,9,Abscess,,,,Y,Discharged
+306230,56 Years,Female,Surgical Ward Female,2026-01-12,2026-01-16,4,Abscess,,,,N,Discharged
+306250,55 Years,Female,Medical Ward Female,2026-01-12,2026-01-13,1,Sepsis,,,,Y,Discharged
+306291,3 Years,Male,Paediatric Ward,2026-01-12,2026-01-21,9,Acute gastroenteritis,,,,Y,Discharged
+306104,63 Years,Male,Orthopaedic Ward,2026-01-13,2026-01-16,3,Intestinal obstruction,Laparotomy,,,Y,Discharged
+306145,5 Years,Male,Paediatric Ward,2026-01-13,2026-01-24,11,Severe pneumonia,,,,N,Discharged
+306212,18 Years,Female,Obstetrics & Gynaecology,2026-01-13,2026-01-16,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306178,57 Years,Female,Surgical Ward Female,2026-01-14,2026-01-18,4,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+306242,65 Years,Female,Orthopaedic Ward,2026-01-14,2026-02-02,19,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+306274,45 Years,Male,Medical Ward Male,2026-01-14,2026-01-15,1,Cellulitis,,,,N,Discharged
+306083,16 Years,Male,Medical Ward Male,2026-01-15,2026-01-25,10,Congestive cardiac failure,,,,N,Discharged
+306138,5 Years,Male,Paediatric Ward,2026-01-15,2026-01-17,2,Severe malaria,,,,N,Discharged
+306144,25 Years,Female,Obstetrics & Gynaecology,2026-01-15,2026-01-21,6,Pre-eclampsia,,N,,N,Discharged
+306193,73 Years,Male,Medical Ward Male,2026-01-15,2026-01-24,9,Sepsis,,,,Y,Discharged
+306205,46 Years,Female,Surgical Ward Female,2026-01-15,2026-01-18,3,Abscess,,,,Y,Discharged
+306294,16 Years,Female,Obstetrics & Gynaecology,2026-01-15,2026-01-18,3,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+306156,21 Years,Female,Surgical Ward Female,2026-01-16,2026-01-19,3,Acute appendicitis,Appendicectomy,,,Y,Discharged
+306173,16 Years,Male,Orthopaedic Ward,2026-01-16,2026-01-21,5,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+306194,49 Years,Female,Surgical Ward Female,2026-01-16,2026-01-20,4,Fracture of femur,ORIF Femur,,,Y,Discharged
+306251,26 Years,Female,Obstetrics & Gynaecology,2026-01-16,2026-01-19,3,Uterine fibroids,Myomectomy,N,,Y,Discharged
+306263,67 Years,Male,Medical Ward Male,2026-01-16,2026-01-18,2,Congestive cardiac failure,,,,N,Discharged
+306124,22 Years,Female,Obstetrics & Gynaecology,2026-01-17,2026-01-20,3,Pelvic inflammatory disease,,N,,Y,Discharged
+306182,26 Days,Male,Neonatal Unit,2026-01-17,2026-01-19,2,Birth asphyxia,,,,N,Died
+306187,37 Years,Female,Obstetrics & Gynaecology,2026-01-17,2026-01-23,6,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+306233,43 Years,Female,Obstetrics & Gynaecology,2026-01-17,2026-01-20,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306275,59 Years,Male,Surgical Ward Male,2026-01-17,2026-01-22,5,Wound infection,,,,Y,Discharged
+306069,2 Years,Male,Paediatric Ward,2026-01-18,2026-01-28,10,Severe acute malnutrition,,,,N,Discharged
+306075,1 Years,Female,Paediatric Ward,2026-01-18,2026-01-21,3,Severe malaria,,,,N,Discharged
+306132,53 Years,Female,Medical Ward Female,2026-01-18,2026-01-24,6,Severe malaria,,,,N,Discharged
+306070,37 Years,Female,Medical Ward Female,2026-01-19,2026-01-28,9,Congestive cardiac failure,,,,N,Discharged
+306119,36 Years,Female,Surgical Ward Female,2026-01-19,2026-02-13,25,Intestinal obstruction,Laparotomy,,,Y,Discharged
+306121,23 Years,Female,Obstetrics & Gynaecology,2026-01-19,2026-01-26,7,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306148,38 Years,Male,Orthopaedic Ward,2026-01-19,2026-01-22,3,Intestinal obstruction,Laparotomy,,,Y,Discharged
+306161,6 Years,Male,Paediatric Ward,2026-01-19,2026-01-25,6,Acute gastroenteritis,,,,N,Discharged
+306247,31 Years,Male,Surgical Ward Male,2026-01-19,2026-02-06,18,Fracture of femur,ORIF Femur,,,Y,Discharged
+306118,53 Years,Male,Medical Ward Male,2026-01-20,2026-01-28,8,Cellulitis,,,,N,Discharged
+306128,20 Years,Female,Medical Ward Female,2026-01-20,2026-01-24,4,Severe pneumonia,,,,Y,Discharged
+306219,35 Years,Male,Orthopaedic Ward,2026-01-20,2026-03-13,52,Fracture of femur,ORIF Femur,,,Y,Discharged
+306245,44 Years,Female,Obstetrics & Gynaecology,2026-01-20,2026-01-23,3,Normal delivery,,N,,N,Discharged
+306064,24 Years,Female,Surgical Ward Female,2026-01-21,2026-01-24,3,Benign prostatic hyperplasia,Prostatectomy (Open),,,Y,Discharged
+306131,53 Years,Female,Medical Ward Female,2026-01-21,2026-01-28,7,Cellulitis,,,,N,Discharged
+306141,50 Years,Male,Surgical Ward Male,2026-01-21,2026-01-24,3,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+306273,64 Years,Male,Medical Ward Male,2026-01-21,2026-01-31,10,Hypertensive urgency,,,,N,Discharged
+306106,38 Years,Female,Obstetrics & Gynaecology,2026-01-22,2026-01-27,5,Puerperal sepsis,,N,,Y,Discharged
+306142,24 Years,Male,Surgical Ward Male,2026-01-22,2026-01-25,3,Fracture of femur,ORIF Femur,,,Y,Discharged
+306155,35 Years,Female,Medical Ward Female,2026-01-22,2026-01-23,1,Sepsis,,,,Y,Discharged
+306163,10 Months,Male,Paediatric Ward,2026-01-22,2026-02-04,13,Bacterial meningitis,,,,Y,Discharged
+306211,27 Days,Female,Neonatal Unit,2026-01-22,2026-01-23,1,Prematurity,,,,N,Discharged
+306248,67 Years,Female,Medical Ward Female,2026-01-22,2026-01-23,1,Acute gastroenteritis,,,,Y,Discharged
+306100,29 Years,Female,Obstetrics & Gynaecology,2026-01-23,2026-01-28,5,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306199,32 Years,Female,Obstetrics & Gynaecology,2026-01-23,2026-01-24,1,Pre-eclampsia,,N,,N,Discharged
+306201,1 Years,Male,Paediatric Ward,2026-01-23,2026-01-23,1,Severe malaria,,,,Y,Died
+306209,65 Years,Male,Surgical Ward Male,2026-01-23,2026-01-26,3,Fracture of femur,ORIF Femur,,,Y,Discharged
+306281,23 Years,Female,Obstetrics & Gynaecology,2026-01-23,2026-01-29,6,Uterine fibroids,Myomectomy,N,,Y,Discharged
+306290,17 Days,Female,Neonatal Unit,2026-01-23,2026-01-27,4,Neonatal sepsis,,,,Y,Discharged
+306071,42 Years,Female,Obstetrics & Gynaecology,2026-01-24,2026-01-27,3,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+306072,32 Years,Female,Obstetrics & Gynaecology,2026-01-24,2026-01-27,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306090,3 Years,Female,Paediatric Ward,2026-01-24,2026-01-27,3,Sepsis,,,,Y,Discharged
+306110,35 Years,Male,Medical Ward Male,2026-01-24,2026-01-26,2,Bacterial meningitis,,,,N,Discharged
+306116,37 Years,Female,Medical Ward Female,2026-01-24,2026-01-29,5,Congestive cardiac failure,,,,N,Discharged
+306192,10 Days,Male,Neonatal Unit,2026-01-24,2026-01-26,2,Prematurity,,,,N,Discharged
+306200,31 Years,Female,Surgical Ward Female,2026-01-24,2026-01-30,6,Diabetic foot ulcer,Amputation Below Knee,,,Y,Discharged
+306267,4 Years,Female,Paediatric Ward,2026-01-24,2026-02-07,14,Acute gastroenteritis,,,,Y,Discharged
+306162,77 Years,Female,Medical Ward Female,2026-01-25,2026-01-27,2,Acute gastroenteritis,,,,N,Discharged
+306169,48 Years,Male,Medical Ward Male,2026-01-25,2026-01-26,1,Acute gastroenteritis,,,,Y,Discharged
+306112,17 Years,Female,Obstetrics & Gynaecology,2026-01-26,2026-02-01,6,Pelvic inflammatory disease,,N,,Y,Discharged
+306166,4 Months,Female,Paediatric Ward,2026-01-26,2026-01-29,3,Severe malaria,,,,Y,Discharged
+306171,27 Years,Male,Surgical Ward Male,2026-01-26,2026-01-28,2,Wound infection,,,,Y,Discharged
+306185,6 Years,Female,Paediatric Ward,2026-01-26,2026-02-03,8,Severe pneumonia,,,,Y,Discharged
+306188,4 Years,Female,Paediatric Ward,2026-01-26,2026-01-30,4,Sepsis,,,,Y,Discharged
+306221,4 Days,Male,Neonatal Unit,2026-01-26,2026-02-08,13,Prematurity,,,,Y,Discharged
+306234,33 Years,Female,Obstetrics & Gynaecology,2026-01-26,2026-02-01,6,Incomplete abortion,,N,,N,Discharged
+306252,20 Years,Male,Surgical Ward Male,2026-01-26,2026-01-31,5,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+306257,54 Years,Female,Orthopaedic Ward,2026-01-26,2026-02-03,8,Osteomyelitis,,,,Y,Discharged
+306260,60 Years,Female,Medical Ward Female,2026-01-26,2026-01-31,5,Bacterial meningitis,,,,Y,Discharged
+306282,60 Years,Female,Medical Ward Female,2026-01-26,2026-02-03,8,Severe pneumonia,,,,Y,Discharged
+306108,17 Years,Female,Obstetrics & Gynaecology,2026-01-27,2026-02-03,7,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306177,68 Years,Female,Medical Ward Female,2026-01-27,2026-02-09,13,Stroke,,,,N,Discharged
+306271,33 Years,Female,Obstetrics & Gynaecology,2026-01-27,2026-01-30,3,Pelvic inflammatory disease,,N,,Y,Discharged
+306154,53 Years,Male,Surgical Ward Male,2026-01-28,2026-02-15,18,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+306213,37 Years,Female,Obstetrics & Gynaecology,2026-01-28,2026-01-31,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306082,53 Years,Female,Medical Ward Female,2026-01-29,2026-01-31,2,Congestive cardiac failure,,,,N,Discharged
+306277,36 Years,Female,Obstetrics & Gynaecology,2026-01-29,2026-02-04,6,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+306087,64 Years,Male,Medical Ward Male,2026-01-30,2026-02-01,2,Congestive cardiac failure,,,,N,Discharged
+306097,40 Years,Female,Obstetrics & Gynaecology,2026-01-30,2026-02-02,3,Caesarean section - obstructed labour,Caesarean Section,Y,Y,Y,Discharged
+306120,16 Years,Female,Obstetrics & Gynaecology,2026-01-30,2026-02-03,4,Normal delivery,,N,,N,Discharged
+306190,3 Years,Male,Paediatric Ward,2026-01-30,2026-02-01,2,Osteomyelitis,,,,Y,Discharged
+306229,49 Years,Male,Medical Ward Male,2026-01-30,2026-01-31,1,Severe pneumonia,,,,N,Discharged
+306238,55 Years,Female,Surgical Ward Female,2026-01-30,2026-03-07,36,Wound infection,,,,Y,Discharged
+306101,51 Years,Male,Medical Ward Male,2026-01-31,2026-02-07,7,Cellulitis,,,,N,Discharged
+306126,64 Years,Female,Medical Ward Female,2026-01-31,2026-02-01,1,Acute gastroenteritis,,,,N,Discharged
+306143,42 Years,Female,Obstetrics & Gynaecology,2026-01-31,2026-02-06,6,Normal delivery,,N,,N,Discharged
+306198,16 Years,Female,Obstetrics & Gynaecology,2026-01-31,2026-02-01,1,Pelvic inflammatory disease,,N,,Y,Discharged
+306314,34 Years,Male,Medical Ward Male,2026-02-01,2026-02-12,11,Pyelonephritis,,,,N,Died
+306336,72 Years,Male,Medical Ward Male,2026-02-01,2026-02-02,1,Urinary tract infection,,,,Y,Discharged
+306358,66 Years,Female,Orthopaedic Ward,2026-02-01,2026-02-04,3,Acute appendicitis,Appendicectomy,,,Y,Discharged
+306367,28 Years,Female,Obstetrics & Gynaecology,2026-02-01,2026-02-04,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306418,59 Years,Male,Medical Ward Male,2026-02-01,2026-02-09,8,Congestive cardiac failure,,,,N,Discharged
+306488,32 Years,Female,Surgical Ward Female,2026-02-01,2026-02-12,11,Intestinal obstruction,Laparotomy,,,Y,Discharged
+306304,56 Years,Male,Orthopaedic Ward,2026-02-02,2026-02-14,12,Fracture of femur,ORIF Femur,,,Y,Discharged
+306414,53 Years,Female,Surgical Ward Female,2026-02-02,2026-02-11,9,Intestinal obstruction,Laparotomy,,,Y,Discharged
+306455,48 Years,Female,Orthopaedic Ward,2026-02-02,2026-02-25,23,Intestinal obstruction,Laparotomy,,,Y,Discharged
+306464,52 Years,Female,Medical Ward Female,2026-02-02,2026-02-09,7,Hypertensive urgency,,,,N,Discharged
+306297,33 Years,Female,Medical Ward Female,2026-02-03,2026-02-10,7,Stroke,,,,N,Discharged
+306299,29 Years,Female,Obstetrics & Gynaecology,2026-02-03,2026-02-17,14,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306341,40 Years,Male,Medical Ward Male,2026-02-03,2026-02-05,2,Urinary tract infection,,,,N,Discharged
+306346,60 Years,Male,Surgical Ward Male,2026-02-03,2026-02-05,2,Intestinal obstruction,Laparotomy,,,Y,Died
+306444,40 Years,Female,Obstetrics & Gynaecology,2026-02-03,2026-02-05,2,Normal delivery,,N,,N,Discharged
+306456,8 Years,Male,Paediatric Ward,2026-02-03,2026-02-05,2,Severe pneumonia,,,,N,Discharged
+306461,39 Years,Female,Obstetrics & Gynaecology,2026-02-03,2026-02-04,1,Normal delivery,,N,,N,Discharged
+306436,45 Years,Female,Medical Ward Female,2026-02-04,2026-02-07,3,Severe pneumonia,,,,Y,Discharged
+306516,4 Years,Male,Paediatric Ward,2026-02-04,2026-02-07,3,Severe pneumonia,,,,N,Discharged
+306295,29 Years,Male,Surgical Ward Male,2026-02-05,2026-02-12,7,Wound infection,,,,Y,Discharged
+306301,48 Years,Male,Medical Ward Male,2026-02-05,2026-02-10,5,Severe malaria,,,,N,Discharged
+306332,19 Years,Female,Obstetrics & Gynaecology,2026-02-05,2026-02-09,4,Incomplete abortion,,N,,N,Discharged
+306340,10 Days,Female,Neonatal Unit,2026-02-05,2026-02-13,8,Birth asphyxia,,,,Y,Died
+306368,37 Years,Female,Obstetrics & Gynaecology,2026-02-05,2026-02-09,4,Caesarean section - previous scar,Caesarean Section,Y,Y,Y,Discharged
+306387,28 Years,Male,Medical Ward Male,2026-02-05,2026-02-06,1,Pyelonephritis,,,,Y,Discharged
+306443,14 Years,Male,Medical Ward Male,2026-02-05,2026-02-08,3,Hypertensive urgency,,,,N,Discharged
+306526,10 Days,Male,Neonatal Unit,2026-02-05,2026-02-08,3,Neonatal sepsis,,,,Y,Discharged
+306528,45 Years,Male,Surgical Ward Male,2026-02-05,2026-02-08,3,Abscess,,,,Y,Discharged
+306401,32 Years,Female,Obstetrics & Gynaecology,2026-02-06,2026-02-09,3,Puerperal sepsis,,N,,Y,Discharged
+306479,63 Years,Female,Orthopaedic Ward,2026-02-06,2026-02-07,1,Wound infection,,,,Y,Discharged
+306497,45 Years,Female,Medical Ward Female,2026-02-06,2026-02-08,2,Bacterial meningitis,,,,Y,Discharged
+306508,14 Years,Female,Medical Ward Female,2026-02-06,2026-02-10,4,Severe pneumonia,,,,N,Discharged
+306342,10 Years,Female,Paediatric Ward,2026-02-07,2026-02-07,1,Severe acute malnutrition,,,,Y,Died
+306356,23 Years,Female,Medical Ward Female,2026-02-07,2026-02-13,6,Acute gastroenteritis,,,,Y,Discharged
+306482,14 Years,Female,Medical Ward Female,2026-02-07,2026-02-24,17,Severe pneumonia,,,,N,Discharged
+306491,32 Years,Female,Obstetrics & Gynaecology,2026-02-07,2026-02-08,1,Normal delivery,,N,,N,Discharged
+306347,79 Years,Male,Surgical Ward Male,2026-02-08,2026-02-15,7,Abscess,,,,Y,Discharged
+306394,19 Years,Male,Orthopaedic Ward,2026-02-08,2026-02-14,6,Acute appendicitis,Appendicectomy,,,Y,Discharged
+306473,32 Years,Female,Obstetrics & Gynaecology,2026-02-08,2026-02-09,1,Normal delivery,,N,,N,Discharged
+306486,57 Years,Female,Medical Ward Female,2026-02-08,2026-02-21,13,Stroke,,,,N,Discharged
+306506,38 Years,Female,Obstetrics & Gynaecology,2026-02-08,2026-02-17,9,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+306509,31 Years,Female,Obstetrics & Gynaecology,2026-02-08,2026-02-11,3,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+306348,57 Years,Female,Medical Ward Female,2026-02-09,2026-02-13,4,Sepsis,,,,N,Discharged
+306296,26 Days,Female,Neonatal Unit,2026-02-10,2026-02-17,7,Neonatal sepsis,,,,Y,Discharged
+306345,14 Years,Male,Surgical Ward Male,2026-02-10,2026-02-13,3,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+306357,21 Years,Female,Obstetrics & Gynaecology,2026-02-10,2026-02-11,1,Puerperal sepsis,,N,,N,Discharged
+306376,48 Years,Female,Medical Ward Female,2026-02-10,2026-02-12,2,Severe pneumonia,,,,Y,Discharged
+306398,40 Years,Male,Medical Ward Male,2026-02-10,2026-02-11,1,Pyelonephritis,,,,Y,Discharged
+306467,27 Years,Male,Medical Ward Male,2026-02-10,2026-02-13,3,Congestive cardiac failure,,,,N,Discharged
+306469,14 Years,Male,Medical Ward Male,2026-02-10,2026-02-15,5,Cellulitis,,,,N,Discharged
+306313,55 Years,Male,Surgical Ward Male,2026-02-11,2026-02-12,1,Burns,,,,N,Discharged
+306489,20 Years,Female,Obstetrics & Gynaecology,2026-02-11,2026-02-14,3,Normal delivery,,N,,N,Discharged
+306311,14 Years,Female,Medical Ward Female,2026-02-12,2026-02-16,4,Congestive cardiac failure,,,,Y,Discharged
+306322,63 Years,Male,Medical Ward Male,2026-02-12,2026-02-18,6,Severe pneumonia,,,,Y,Discharged
+306334,36 Years,Female,Obstetrics & Gynaecology,2026-02-12,2026-02-27,15,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306404,28 Years,Female,Intensive Care Unit,2026-02-12,2026-02-13,1,Severe head injury,,,,Y,Discharged
+306480,35 Years,Female,Obstetrics & Gynaecology,2026-02-12,2026-02-17,5,Normal delivery,,N,,N,Discharged
+306303,55 Years,Female,Intensive Care Unit,2026-02-13,2026-02-13,1,Eclampsia,,,,N,Died
+306364,62 Years,Female,Orthopaedic Ward,2026-02-13,2026-02-17,4,Acute appendicitis,Appendicectomy,,,Y,Discharged
+306428,10 Years,Female,Paediatric Ward,2026-02-13,2026-02-15,2,Acute gastroenteritis,,,,Y,Discharged
+306445,53 Years,Female,Medical Ward Female,2026-02-13,2026-02-21,8,Urinary tract infection,,,,Y,Discharged
+306454,33 Years,Female,Obstetrics & Gynaecology,2026-02-13,2026-02-15,2,Normal delivery,,N,,N,Discharged
+306484,6 Years,Female,Paediatric Ward,2026-02-13,2026-02-14,1,Severe malaria,,,,N,Discharged
+306485,84 Years,Male,Surgical Ward Male,2026-02-13,2026-03-03,18,Abscess,,,,Y,Discharged
+306315,57 Years,Female,Orthopaedic Ward,2026-02-14,2026-02-19,5,Abscess,,,,N,Discharged
+306384,3 Years,Female,Paediatric Ward,2026-02-14,2026-02-17,3,Severe acute malnutrition,,,,Y,Discharged
+306410,45 Years,Male,Orthopaedic Ward,2026-02-14,2026-02-17,3,Fracture of femur,ORIF Femur,,,Y,Discharged
+306433,24 Days,Female,Neonatal Unit,2026-02-14,2026-02-15,1,Birth asphyxia,,,,N,Discharged
+306317,43 Years,Female,Surgical Ward Female,2026-02-15,2026-02-18,3,Fracture of femur,ORIF Femur,,,Y,Discharged
+306325,27 Years,Male,Medical Ward Male,2026-02-15,2026-02-17,2,Severe pneumonia,,,,Y,Died
+306349,37 Years,Female,Obstetrics & Gynaecology,2026-02-15,2026-02-20,5,Puerperal sepsis,,N,,N,Discharged
+306365,16 Days,Male,Neonatal Unit,2026-02-15,2026-03-04,17,Birth asphyxia,,,,Y,Discharged
+306408,39 Years,Female,Orthopaedic Ward,2026-02-15,2026-02-19,4,Burns,,,,Y,Discharged
+306424,21 Years,Female,Obstetrics & Gynaecology,2026-02-15,2026-02-24,9,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+306472,33 Years,Male,Surgical Ward Male,2026-02-15,2026-02-23,8,Diabetic foot ulcer,Amputation Below Knee,,,Y,Discharged
+306353,8 Years,Male,Paediatric Ward,2026-02-16,2026-02-26,10,Sepsis,,,,Y,Discharged
+306360,33 Years,Female,Obstetrics & Gynaecology,2026-02-16,2026-02-19,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306417,62 Years,Male,Surgical Ward Male,2026-02-16,2026-03-04,16,Wound infection,,,,Y,Discharged
+306419,44 Years,Female,Obstetrics & Gynaecology,2026-02-16,2026-02-21,5,Normal delivery,,N,,N,Discharged
+306308,50 Years,Male,Medical Ward Male,2026-02-17,2026-02-22,5,Exacerbation of COPD,,,,Y,Discharged
+306395,59 Years,Female,Medical Ward Female,2026-02-17,2026-02-28,11,Sepsis,,,,N,Discharged
+306411,41 Years,Female,Medical Ward Female,2026-02-17,2026-02-23,6,Severe pneumonia,,,,N,Discharged
+306439,29 Years,Male,Medical Ward Male,2026-02-17,2026-02-19,2,Severe pneumonia,,,,N,Discharged
+306514,76 Years,Male,Medical Ward Male,2026-02-17,2026-02-19,2,Congestive cardiac failure,,,,N,Discharged
+306316,23 Years,Male,Orthopaedic Ward,2026-02-18,2026-02-25,7,Fracture of femur,ORIF Femur,,,Y,Discharged
+306409,33 Years,Male,Surgical Ward Male,2026-02-18,2026-02-21,3,Fracture of femur,ORIF Femur,,,Y,Discharged
+306441,39 Years,Male,Surgical Ward Male,2026-02-18,2026-02-19,1,Burns,,,,Y,Discharged
+306468,2 Years,Male,Paediatric Ward,2026-02-18,2026-02-20,2,Bacterial meningitis,,,,Y,Discharged
+306329,3 Months,Male,Paediatric Ward,2026-02-19,2026-02-21,2,Severe pneumonia,,,,Y,Discharged
+306477,63 Years,Female,Medical Ward Female,2026-02-19,2026-02-21,2,Severe pneumonia,,,,N,Discharged
+306318,17 Years,Female,Obstetrics & Gynaecology,2026-02-20,2026-02-27,7,Caesarean section - previous scar,Caesarean Section,Y,Y,Y,Discharged
+306359,21 Years,Female,Obstetrics & Gynaecology,2026-02-20,2026-02-25,5,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306390,20 Years,Female,Medical Ward Female,2026-02-20,2026-02-21,1,Diabetic ketoacidosis,,,,N,Discharged
+306403,24 Years,Female,Obstetrics & Gynaecology,2026-02-20,2026-02-23,3,Normal delivery,,N,,N,Discharged
+306413,84 Years,Male,Medical Ward Male,2026-02-20,2026-02-25,5,Severe pneumonia,,,,N,Discharged
+306420,42 Years,Male,Medical Ward Male,2026-02-20,2026-03-11,19,Stroke,,,,N,Discharged
+306423,37 Years,Male,Medical Ward Male,2026-02-20,2026-02-21,1,Acute gastroenteritis,,,,Y,Discharged
+306470,1 Years,Male,Paediatric Ward,2026-02-20,2026-02-21,1,Bacterial meningitis,,,,Y,Discharged
+306474,52 Years,Male,Surgical Ward Male,2026-02-20,2026-03-08,16,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+306362,27 Years,Male,Medical Ward Male,2026-02-21,2026-02-22,1,Urinary tract infection,,,,N,Discharged
+306372,47 Years,Male,Medical Ward Male,2026-02-21,2026-02-23,2,Urinary tract infection,,,,Y,Discharged
+306431,18 Years,Female,Obstetrics & Gynaecology,2026-02-21,2026-02-25,4,Uterine fibroids,Myomectomy,N,,Y,Discharged
+306306,33 Years,Male,Intensive Care Unit,2026-02-22,2026-02-22,1,Septic shock,,,,Y,Died
+306352,50 Years,Male,Surgical Ward Male,2026-02-22,2026-02-25,3,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+306425,55 Years,Female,Medical Ward Female,2026-02-22,2026-02-25,3,Severe pneumonia,,,,N,Discharged
+306448,45 Years,Female,Medical Ward Female,2026-02-22,2026-02-22,1,Diabetic ketoacidosis,,,,N,Died
+306451,63 Years,Male,Surgical Ward Male,2026-02-22,2026-03-04,10,Acute appendicitis,Appendicectomy,,,Y,Discharged
+306478,18 Years,Female,Obstetrics & Gynaecology,2026-02-22,2026-02-27,5,Normal delivery,,N,,N,Discharged
+306512,49 Years,Female,Intensive Care Unit,2026-02-22,2026-02-23,1,Septic shock,,,,Y,Died
+306375,16 Years,Female,Surgical Ward Female,2026-02-23,2026-02-26,3,Fracture of femur,ORIF Femur,,,Y,Discharged
+306381,58 Years,Female,Medical Ward Female,2026-02-23,2026-03-07,12,Bacterial meningitis,,,,Y,Discharged
+306393,55 Years,Male,Medical Ward Male,2026-02-23,2026-02-25,2,Hypertensive urgency,,,,N,Discharged
+306421,36 Years,Female,Medical Ward Female,2026-02-23,2026-02-27,4,Urinary tract infection,,,,Y,Discharged
+306446,37 Years,Male,Surgical Ward Male,2026-02-23,2026-03-01,6,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+306450,64 Years,Female,Medical Ward Female,2026-02-23,2026-02-26,3,Severe malaria,,,,N,Discharged
+306465,90 Years,Male,Orthopaedic Ward,2026-02-23,2026-03-03,8,Burns,,,,Y,Discharged
+306503,8 Years,Female,Paediatric Ward,2026-02-23,2026-02-26,3,Bacterial meningitis,,,,N,Discharged
+306300,25 Days,Female,Neonatal Unit,2026-02-24,2026-03-01,5,Neonatal sepsis,,,,Y,Discharged
+306326,21 Years,Male,Medical Ward Male,2026-02-24,2026-03-09,13,Exacerbation of COPD,,,,N,Discharged
+306363,43 Years,Female,Obstetrics & Gynaecology,2026-02-24,2026-02-25,1,Normal delivery,,N,,N,Discharged
+306370,35 Years,Female,Medical Ward Female,2026-02-24,2026-02-25,1,Severe malaria,,,,N,Discharged
+306371,68 Years,Male,Orthopaedic Ward,2026-02-24,2026-03-19,23,Fracture of femur,ORIF Femur,,,Y,Discharged
+306378,41 Years,Male,Medical Ward Male,2026-02-24,2026-02-26,2,Cellulitis,,,,N,Discharged
+306405,34 Years,Male,Surgical Ward Male,2026-02-24,2026-03-10,14,Benign prostatic hyperplasia,Prostatectomy (Open),,,Y,Discharged
+306449,46 Years,Male,Surgical Ward Male,2026-02-24,2026-03-03,7,Abscess,,,,N,Discharged
+306344,44 Years,Female,Surgical Ward Female,2026-02-25,2026-03-04,7,Abscess,,,,N,Discharged
+306432,36 Years,Female,Surgical Ward Female,2026-02-25,2026-03-09,12,Wound infection,,,,Y,Discharged
+306466,41 Years,Female,Medical Ward Female,2026-02-25,2026-03-04,7,Severe pneumonia,,,,Y,Discharged
+306504,73 Years,Male,Medical Ward Male,2026-02-25,2026-02-28,3,Severe pneumonia,,,,N,Discharged
+306523,22 Years,Female,Medical Ward Female,2026-02-25,2026-03-06,9,Acute gastroenteritis,,,,Y,Discharged
+306321,66 Years,Female,Surgical Ward Female,2026-02-26,2026-03-01,3,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+306339,58 Years,Male,Medical Ward Male,2026-02-26,2026-03-05,7,Cellulitis,,,,N,Discharged
+306350,19 Years,Female,Obstetrics & Gynaecology,2026-02-26,2026-03-04,6,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306459,26 Years,Female,Medical Ward Female,2026-02-26,2026-03-15,17,Hypertensive urgency,,,,N,Discharged
+306460,71 Years,Male,Medical Ward Male,2026-02-26,2026-03-02,4,Severe malaria,,,,N,Discharged
+306500,25 Years,Female,Obstetrics & Gynaecology,2026-02-26,2026-03-02,4,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+306527,14 Years,Male,Medical Ward Male,2026-02-26,2026-02-27,1,Congestive cardiac failure,,,,N,Died
+306457,30 Years,Female,Obstetrics & Gynaecology,2026-02-27,2026-03-07,8,Uterine fibroids,Myomectomy,N,,Y,Discharged
+306481,58 Years,Female,Orthopaedic Ward,2026-02-27,2026-02-28,1,Wound infection,,,,N,Discharged
+306521,68 Years,Female,Medical Ward Female,2026-02-27,2026-02-28,1,Severe pneumonia,,,,N,Discharged
+306361,74 Years,Male,Surgical Ward Male,2026-02-28,2026-03-18,18,Osteomyelitis,,,,Y,Discharged
+306494,21 Years,Female,Obstetrics & Gynaecology,2026-02-28,2026-03-02,2,Pelvic inflammatory disease,,N,,N,Discharged
+306519,18 Years,Female,Obstetrics & Gynaecology,2026-02-28,2026-03-04,4,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+306643,14 Years,Female,Orthopaedic Ward,2026-03-01,2026-03-05,4,Wound infection,,,,Y,Discharged
+306708,37 Years,Male,Surgical Ward Male,2026-03-01,2026-03-22,21,Abscess,,,,Y,Discharged
+306717,62 Years,Male,Medical Ward Male,2026-03-01,2026-03-03,2,Stroke,,,,N,Discharged
+306737,2 Years,Female,Paediatric Ward,2026-03-01,2026-03-09,8,Severe pneumonia,,,,Y,Discharged
+306775,33 Years,Female,Medical Ward Female,2026-03-01,2026-03-06,5,Congestive cardiac failure,,,,N,Discharged
+306826,70 Years,Female,Medical Ward Female,2026-03-01,2026-03-13,12,Hypertensive urgency,,,,N,Discharged
+306537,16 Years,Female,Obstetrics & Gynaecology,2026-03-02,2026-03-04,2,Normal delivery,,N,,N,Discharged
+306731,77 Years,Male,Surgical Ward Male,2026-03-02,2026-03-05,3,Wound infection,,,,Y,Discharged
+306773,54 Years,Female,Orthopaedic Ward,2026-03-02,2026-03-05,3,Fracture of femur,ORIF Femur,,,Y,Discharged
+306779,17 Years,Female,Obstetrics & Gynaecology,2026-03-02,2026-03-05,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306830,45 Years,Male,Medical Ward Male,2026-03-02,2026-03-04,2,Exacerbation of COPD,,,,N,Discharged
+306669,14 Years,Male,Medical Ward Male,2026-03-03,2026-03-06,3,Severe pneumonia,,,,Y,Discharged
+306720,42 Years,Female,Orthopaedic Ward,2026-03-03,2026-03-16,13,Abscess,,,,N,Discharged
+306557,23 Years,Male,Surgical Ward Male,2026-03-04,2026-03-07,3,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+306563,30 Years,Male,Medical Ward Male,2026-03-04,2026-03-15,11,Cellulitis,,,,N,Discharged
+306586,57 Years,Female,Surgical Ward Female,2026-03-04,2026-03-05,1,Burns,,,,Y,Discharged
+306622,9 Months,Male,Paediatric Ward,2026-03-04,2026-03-05,1,Severe pneumonia,,,,Y,Discharged
+306630,50 Years,Male,Surgical Ward Male,2026-03-04,2026-03-06,2,Abscess,,,,Y,Discharged
+306674,63 Years,Female,Surgical Ward Female,2026-03-04,2026-03-10,6,Fracture of femur,ORIF Femur,,,Y,Discharged
+306726,47 Years,Female,Medical Ward Female,2026-03-04,2026-03-07,3,Pyelonephritis,,,,N,Discharged
+306743,30 Years,Female,Obstetrics & Gynaecology,2026-03-04,2026-03-08,4,Normal delivery,,N,,N,Discharged
+306751,43 Years,Male,Surgical Ward Male,2026-03-04,2026-03-08,4,Wound infection,,,,N,Discharged
+306754,30 Years,Female,Obstetrics & Gynaecology,2026-03-04,2026-03-09,5,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306802,64 Years,Male,Orthopaedic Ward,2026-03-04,2026-03-13,9,Wound infection,,,,Y,Discharged
+306545,20 Years,Male,Medical Ward Male,2026-03-05,2026-03-18,13,Congestive cardiac failure,,,,N,Discharged
+306590,31 Years,Female,Obstetrics & Gynaecology,2026-03-05,2026-03-08,3,Normal delivery,,N,,N,Discharged
+306636,58 Years,Male,Medical Ward Male,2026-03-05,2026-03-08,3,Sepsis,,,,N,Discharged
+306712,29 Years,Female,Obstetrics & Gynaecology,2026-03-05,2026-03-08,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306763,48 Years,Female,Orthopaedic Ward,2026-03-05,2026-03-08,3,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+306816,34 Years,Female,Obstetrics & Gynaecology,2026-03-05,2026-03-10,5,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+306573,33 Years,Female,Obstetrics & Gynaecology,2026-03-06,2026-03-15,9,Pelvic inflammatory disease,,N,,N,Discharged
+306581,35 Years,Female,Surgical Ward Female,2026-03-06,2026-03-12,6,Fracture of femur,ORIF Femur,,,Y,Discharged
+306619,37 Years,Female,Obstetrics & Gynaecology,2026-03-06,2026-03-08,2,Normal delivery,,N,,N,Discharged
+306672,34 Years,Female,Obstetrics & Gynaecology,2026-03-06,2026-03-09,3,Puerperal sepsis,,N,,Y,Discharged
+306770,61 Years,Female,Surgical Ward Female,2026-03-06,2026-03-12,6,Fracture of femur,ORIF Femur,,,Y,Discharged
+306817,17 Years,Female,Obstetrics & Gynaecology,2026-03-06,2026-03-09,3,Uterine fibroids,Myomectomy,N,,Y,Discharged
+306565,28 Years,Male,Medical Ward Male,2026-03-07,2026-03-10,3,Severe pneumonia,,,,N,Discharged
+306570,73 Years,Male,Medical Ward Male,2026-03-07,2026-03-09,2,Bacterial meningitis,,,,Y,Discharged
+306633,17 Years,Female,Obstetrics & Gynaecology,2026-03-07,2026-03-10,3,Puerperal sepsis,,N,,N,Discharged
+306657,37 Years,Female,Obstetrics & Gynaecology,2026-03-07,2026-03-09,2,Normal delivery,,N,,N,Discharged
+306701,67 Years,Male,Medical Ward Male,2026-03-07,2026-03-08,1,Sepsis,,,,N,Discharged
+306728,90 Years,Male,Surgical Ward Male,2026-03-07,2026-03-17,10,Acute appendicitis,Appendicectomy,,,Y,Discharged
+306793,52 Years,Female,Orthopaedic Ward,2026-03-07,2026-03-19,12,Abscess,,,,N,Discharged
+306820,35 Years,Female,Obstetrics & Gynaecology,2026-03-07,2026-03-10,3,Normal delivery,,N,,N,Discharged
+306653,52 Years,Male,Surgical Ward Male,2026-03-08,2026-03-14,6,Benign prostatic hyperplasia,Prostatectomy (Open),,,Y,Discharged
+306692,25 Years,Female,Obstetrics & Gynaecology,2026-03-08,2026-03-11,3,Pre-eclampsia,,N,,N,Discharged
+306705,66 Years,Female,Surgical Ward Female,2026-03-08,2026-03-31,23,Intestinal obstruction,Laparotomy,,,Y,Discharged
+306758,90 Years,Female,Medical Ward Female,2026-03-08,2026-03-09,1,Cellulitis,,,,N,Discharged
+306530,19 Years,Female,Obstetrics & Gynaecology,2026-03-09,2026-03-10,1,Normal delivery,,N,,N,Discharged
+306550,77 Years,Female,Surgical Ward Female,2026-03-09,2026-03-12,3,Fracture of femur,ORIF Femur,,,Y,Discharged
+306583,27 Days,Male,Neonatal Unit,2026-03-09,2026-03-18,9,Prematurity,,,,Y,Discharged
+306608,10 Years,Male,Paediatric Ward,2026-03-09,2026-03-28,19,Severe pneumonia,,,,Y,Discharged
+306694,23 Years,Female,Obstetrics & Gynaecology,2026-03-09,2026-03-13,4,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306801,37 Years,Female,Medical Ward Female,2026-03-09,2026-03-16,7,Acute gastroenteritis,,,,Y,Discharged
+306580,29 Years,Female,Surgical Ward Female,2026-03-10,2026-03-13,3,Fracture of femur,ORIF Femur,,,Y,Discharged
+306587,52 Years,Female,Surgical Ward Female,2026-03-10,2026-03-20,10,Burns,,,,Y,Discharged
+306612,43 Years,Female,Medical Ward Female,2026-03-10,2026-03-29,19,Congestive cardiac failure,,,,N,Discharged
+306788,12 Years,Male,Paediatric Ward,2026-03-10,2026-03-15,5,Severe pneumonia,,,,Y,Discharged
+306559,55 Years,Female,Surgical Ward Female,2026-03-11,2026-03-14,3,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+306591,51 Years,Male,Surgical Ward Male,2026-03-11,2026-03-19,8,Fracture of femur,ORIF Femur,,,Y,Discharged
+306658,18 Years,Female,Obstetrics & Gynaecology,2026-03-11,2026-03-15,4,Pelvic inflammatory disease,,N,,Y,Discharged
+306666,56 Years,Male,Orthopaedic Ward,2026-03-11,2026-03-23,12,Acute appendicitis,Appendicectomy,,,Y,Discharged
+306680,33 Years,Female,Medical Ward Female,2026-03-11,2026-03-25,14,Hypertensive urgency,,,,N,Discharged
+306769,47 Years,Male,Medical Ward Male,2026-03-11,2026-03-11,1,Severe malaria,,,,N,Died
+306785,71 Years,Female,Medical Ward Female,2026-03-11,2026-03-12,1,Congestive cardiac failure,,,,N,Discharged
+306805,81 Years,Male,Surgical Ward Male,2026-03-11,2026-03-25,14,Abscess,,,,Y,Discharged
+306569,41 Years,Female,Orthopaedic Ward,2026-03-12,2026-03-15,3,Fracture of femur,ORIF Femur,,,Y,Discharged
+306577,33 Years,Female,Obstetrics & Gynaecology,2026-03-12,2026-03-17,5,Normal delivery,,N,,N,Discharged
+306639,75 Years,Female,Medical Ward Female,2026-03-12,2026-03-14,2,Stroke,,,,N,Discharged
+306649,45 Years,Female,Medical Ward Female,2026-03-12,2026-03-20,8,Severe pneumonia,,,,N,Discharged
+306740,54 Years,Male,Surgical Ward Male,2026-03-12,2026-03-20,8,Acute appendicitis,Appendicectomy,,,Y,Discharged
+306772,2 Years,Male,Paediatric Ward,2026-03-12,2026-03-16,4,Severe malaria,,,,N,Discharged
+306782,33 Years,Female,Obstetrics & Gynaecology,2026-03-12,2026-03-13,1,Normal delivery,,N,,N,Discharged
+306585,21 Days,Female,Neonatal Unit,2026-03-13,2026-03-15,2,Neonatal sepsis,,,,Y,Discharged
+306687,81 Years,Female,Medical Ward Female,2026-03-13,2026-03-17,4,Pyelonephritis,,,,Y,Discharged
+306700,12 Years,Male,Paediatric Ward,2026-03-13,2026-03-15,2,Severe pneumonia,,,,N,Discharged
+306718,30 Years,Male,Surgical Ward Male,2026-03-13,2026-03-16,3,Acute appendicitis,Appendicectomy,,,Y,Discharged
+306541,11 Days,Male,Neonatal Unit,2026-03-14,2026-03-15,1,Prematurity,,,,N,Died
+306635,14 Years,Male,Medical Ward Male,2026-03-14,2026-03-15,1,Diabetic ketoacidosis,,,,N,Discharged
+306654,61 Years,Male,Medical Ward Male,2026-03-14,2026-03-19,5,Severe pneumonia,,,,Y,Discharged
+306723,42 Years,Female,Medical Ward Female,2026-03-14,2026-03-16,2,Severe pneumonia,,,,Y,Discharged
+306749,37 Years,Female,Obstetrics & Gynaecology,2026-03-14,2026-03-18,4,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306556,54 Years,Female,Surgical Ward Female,2026-03-15,2026-03-19,4,Acute appendicitis,Appendicectomy,,,Y,Discharged
+306566,57 Years,Female,Surgical Ward Female,2026-03-15,2026-03-18,3,Fracture of femur,ORIF Femur,,,Y,Discharged
+306637,66 Years,Male,Medical Ward Male,2026-03-15,2026-03-20,5,Severe malaria,,,,N,Discharged
+306645,5 Months,Male,Paediatric Ward,2026-03-15,2026-03-20,5,Severe pneumonia,,,,Y,Discharged
+306659,2 Years,Female,Paediatric Ward,2026-03-15,2026-03-17,2,Osteomyelitis,,,,Y,Discharged
+306686,38 Years,Female,Obstetrics & Gynaecology,2026-03-15,2026-03-19,4,Normal delivery,,N,,N,Discharged
+306564,36 Years,Male,Medical Ward Male,2026-03-16,2026-03-23,7,Sepsis,,,,N,Discharged
+306652,28 Years,Female,Medical Ward Female,2026-03-16,2026-03-23,7,Pyelonephritis,,,,Y,Discharged
+306690,1 Years,Female,Paediatric Ward,2026-03-16,2026-03-19,3,Urinary tract infection,,,,Y,Discharged
+306710,17 Years,Female,Obstetrics & Gynaecology,2026-03-16,2026-03-19,3,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+306730,10 Years,Male,Paediatric Ward,2026-03-16,2026-03-17,1,Severe malaria,,,,N,Discharged
+306732,43 Years,Female,Obstetrics & Gynaecology,2026-03-16,2026-03-19,3,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+306746,15 Years,Male,Surgical Ward Male,2026-03-16,2026-03-24,8,Diabetic foot ulcer,Amputation Below Knee,,,Y,Discharged
+306560,16 Years,Female,Obstetrics & Gynaecology,2026-03-17,2026-03-18,1,Normal delivery,,N,,N,Discharged
+306561,54 Years,Male,Surgical Ward Male,2026-03-17,2026-03-21,4,Wound infection,,,,Y,Discharged
+306588,54 Years,Female,Surgical Ward Female,2026-03-17,2026-03-20,3,Abscess,,,,Y,Discharged
+306693,46 Years,Female,Medical Ward Female,2026-03-17,2026-03-30,13,Urinary tract infection,,,,N,Discharged
+306813,45 Years,Male,Medical Ward Male,2026-03-17,2026-03-19,2,Acute gastroenteritis,,,,Y,Discharged
+306584,68 Years,Male,Medical Ward Male,2026-03-18,2026-03-21,3,Urinary tract infection,,,,N,Discharged
+306609,19 Years,Female,Surgical Ward Female,2026-03-18,2026-03-22,4,Fracture of femur,ORIF Femur,,,Y,Discharged
+306615,25 Days,Male,Neonatal Unit,2026-03-18,2026-03-21,3,Neonatal sepsis,,,,Y,Discharged
+306741,40 Years,Female,Surgical Ward Female,2026-03-18,2026-04-07,20,Abscess,,,,Y,Discharged
+306828,5 Years,Female,Paediatric Ward,2026-03-18,2026-03-24,6,Bacterial meningitis,,,,N,Discharged
+306553,1 Years,Male,Paediatric Ward,2026-03-19,2026-03-21,2,Severe pneumonia,,,,Y,Discharged
+306616,19 Years,Female,Obstetrics & Gynaecology,2026-03-19,2026-03-27,8,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306664,54 Years,Female,Medical Ward Female,2026-03-19,2026-03-24,5,Bacterial meningitis,,,,Y,Discharged
+306689,38 Years,Female,Medical Ward Female,2026-03-19,2026-03-22,3,Cellulitis,,,,Y,Discharged
+306697,67 Years,Female,Orthopaedic Ward,2026-03-19,2026-03-22,3,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+306618,59 Years,Male,Surgical Ward Male,2026-03-20,2026-03-29,9,Intestinal obstruction,Laparotomy,,,Y,Discharged
+306646,51 Years,Female,Orthopaedic Ward,2026-03-20,2026-03-30,10,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+306665,17 Years,Male,Surgical Ward Male,2026-03-20,2026-03-26,6,Abscess,,,,Y,Discharged
+306711,25 Years,Male,Medical Ward Male,2026-03-20,2026-04-16,27,Severe pneumonia,,,,Y,Discharged
+306734,46 Years,Female,Medical Ward Female,2026-03-20,2026-03-27,7,Pyelonephritis,,,,N,Discharged
+306767,51 Years,Female,Medical Ward Female,2026-03-20,2026-03-22,2,Severe pneumonia,,,,Y,Died
+306534,48 Years,Female,Medical Ward Female,2026-03-21,2026-03-28,7,Severe pneumonia,,,,N,Discharged
+306714,52 Years,Female,Orthopaedic Ward,2026-03-21,2026-03-27,6,Abscess,,,,Y,Discharged
+306771,34 Years,Female,Obstetrics & Gynaecology,2026-03-21,2026-03-29,8,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+306784,29 Years,Female,Obstetrics & Gynaecology,2026-03-21,2026-03-26,5,Uterine fibroids,Myomectomy,N,,Y,Discharged
+306791,26 Days,Female,Neonatal Unit,2026-03-21,2026-03-28,7,Neonatal sepsis,,,,Y,Died
+306794,39 Years,Male,Medical Ward Male,2026-03-21,2026-03-26,5,Severe pneumonia,,,,Y,Discharged
+306808,12 Years,Male,Paediatric Ward,2026-03-21,2026-03-25,4,Severe pneumonia,,,,N,Discharged
+306613,54 Years,Female,Medical Ward Female,2026-03-22,2026-03-26,4,Hypertensive urgency,,,,N,Discharged
+306663,1 Years,Male,Paediatric Ward,2026-03-22,2026-03-28,6,Acute gastroenteritis,,,,Y,Discharged
+306677,22 Days,Male,Neonatal Unit,2026-03-22,2026-03-24,2,Neonatal sepsis,,,,Y,Discharged
+306683,58 Years,Male,Medical Ward Male,2026-03-22,2026-03-25,3,Sepsis,,,,N,Discharged
+306572,30 Years,Male,Surgical Ward Male,2026-03-23,2026-03-30,7,Benign prostatic hyperplasia,Prostatectomy (Open),,,Y,Discharged
+306605,29 Years,Male,Orthopaedic Ward,2026-03-23,2026-03-26,3,Intestinal obstruction,Laparotomy,,,Y,Discharged
+306617,33 Years,Male,Medical Ward Male,2026-03-23,2026-03-25,2,Urinary tract infection,,,,N,Died
+306662,39 Years,Female,Obstetrics & Gynaecology,2026-03-23,2026-03-24,1,Pre-eclampsia,,N,,N,Discharged
+306822,44 Years,Female,Medical Ward Female,2026-03-23,2026-04-03,11,Exacerbation of COPD,,,,N,Discharged
+306582,2 Years,Male,Paediatric Ward,2026-03-24,2026-03-26,2,Acute gastroenteritis,,,,Y,Discharged
+306598,42 Years,Male,Medical Ward Male,2026-03-24,2026-03-27,3,Diabetic ketoacidosis,,,,Y,Discharged
+306600,28 Years,Female,Obstetrics & Gynaecology,2026-03-24,2026-03-25,1,Pre-eclampsia,,N,,N,Discharged
+306625,73 Years,Male,Surgical Ward Male,2026-03-24,2026-03-27,3,Acute appendicitis,Appendicectomy,,,Y,Discharged
+306675,53 Years,Female,Surgical Ward Female,2026-03-24,2026-03-31,7,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+306762,63 Years,Male,Orthopaedic Ward,2026-03-24,2026-03-27,3,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+306790,51 Years,Female,Surgical Ward Female,2026-03-24,2026-03-26,2,Abscess,,,,Y,Discharged
+306796,58 Years,Male,Medical Ward Male,2026-03-24,2026-03-27,3,Exacerbation of COPD,,,,N,Discharged
+306595,36 Years,Female,Surgical Ward Female,2026-03-25,2026-04-01,7,Abscess,,,,N,Discharged
+306670,69 Years,Male,Surgical Ward Male,2026-03-25,2026-03-28,3,Osteomyelitis,,,,Y,Discharged
+306685,38 Years,Male,Medical Ward Male,2026-03-25,2026-03-27,2,Severe pneumonia,,,,Y,Discharged
+306764,77 Years,Female,Surgical Ward Female,2026-03-25,2026-03-26,1,Abscess,,,,N,Discharged
+306781,14 Years,Male,Intensive Care Unit,2026-03-26,2026-03-31,5,Septic shock,,,,Y,Discharged
+306592,31 Years,Female,Medical Ward Female,2026-03-27,2026-04-01,5,Severe pneumonia,,,,Y,Discharged
+306627,1 Months,Female,Paediatric Ward,2026-03-27,2026-03-30,3,Sepsis,,,,Y,Discharged
+306634,21 Years,Male,Medical Ward Male,2026-03-27,2026-04-10,14,Congestive cardiac failure,,,,N,Discharged
+306702,46 Years,Female,Medical Ward Female,2026-03-27,2026-03-30,3,Stroke,,,,N,Discharged
+306715,58 Years,Female,Medical Ward Female,2026-03-27,2026-03-31,4,Cellulitis,,,,Y,Discharged
+306819,35 Years,Female,Obstetrics & Gynaecology,2026-03-27,2026-03-30,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306593,46 Years,Male,Surgical Ward Male,2026-03-28,2026-04-04,7,Acute appendicitis,Appendicectomy,,,Y,Discharged
+306599,47 Years,Male,Medical Ward Male,2026-03-28,2026-03-29,1,Acute gastroenteritis,,,,Y,Discharged
+306676,43 Years,Female,Obstetrics & Gynaecology,2026-03-28,2026-03-31,3,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+306761,80 Years,Female,Medical Ward Female,2026-03-28,2026-03-30,2,Congestive cardiac failure,,,,N,Died
+306778,6 Months,Female,Paediatric Ward,2026-03-28,2026-03-29,1,Bacterial meningitis,,,,N,Discharged
+306811,35 Years,Female,Medical Ward Female,2026-03-28,2026-03-30,2,Diabetic ketoacidosis,,,,Y,Discharged
+306531,5 Years,Male,Paediatric Ward,2026-03-29,2026-04-04,6,Severe malaria,,,,N,Discharged
+306544,39 Years,Female,Obstetrics & Gynaecology,2026-03-29,2026-04-01,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306547,55 Years,Male,Medical Ward Male,2026-03-29,2026-04-08,10,Stroke,,,,N,Discharged
+306558,8 Years,Female,Paediatric Ward,2026-03-29,2026-04-01,3,Sepsis,,,,Y,Discharged
+306574,42 Years,Male,Surgical Ward Male,2026-03-29,2026-04-01,3,Benign prostatic hyperplasia,Prostatectomy (Open),,,Y,Discharged
+306638,39 Years,Male,Surgical Ward Male,2026-03-29,2026-04-11,13,Wound infection,,,,Y,Discharged
+306640,43 Years,Male,Medical Ward Male,2026-03-29,2026-03-31,2,Severe pneumonia,,,,Y,Discharged
+306704,43 Years,Female,Obstetrics & Gynaecology,2026-03-29,2026-04-05,7,Normal delivery,,N,,N,Discharged
+306755,52 Years,Female,Surgical Ward Female,2026-03-29,2026-04-01,3,Acute appendicitis,Appendicectomy,,,Y,Discharged
+306799,1 Years,Female,Paediatric Ward,2026-03-29,2026-03-31,2,Severe pneumonia,,,,Y,Discharged
+306823,32 Years,Female,Obstetrics & Gynaecology,2026-03-29,2026-04-01,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306540,9 Days,Female,Neonatal Unit,2026-03-30,2026-04-26,27,Neonatal sepsis,,,,Y,Discharged
+306554,29 Years,Female,Obstetrics & Gynaecology,2026-03-30,2026-04-03,4,Puerperal sepsis,,N,,N,Discharged
+306603,21 Days,Male,Neonatal Unit,2026-03-30,2026-04-03,4,Neonatal sepsis,,,,Y,Discharged
+306611,40 Years,Female,Surgical Ward Female,2026-03-30,2026-04-03,4,Diabetic foot ulcer,Amputation Below Knee,,,Y,Discharged
+306673,49 Years,Female,Medical Ward Female,2026-03-30,2026-04-06,7,Bacterial meningitis,,,,N,Discharged
+306727,62 Years,Female,Medical Ward Female,2026-03-30,2026-04-10,11,Stroke,,,,N,Discharged
+306783,17 Years,Female,Obstetrics & Gynaecology,2026-03-30,2026-04-02,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306786,10 Years,Male,Paediatric Ward,2026-03-30,2026-04-09,10,Acute gastroenteritis,,,,N,Discharged
+306829,19 Years,Female,Obstetrics & Gynaecology,2026-03-30,2026-04-02,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306596,6 Years,Male,Paediatric Ward,2026-03-31,2026-04-01,1,Severe acute malnutrition,,,,N,Discharged
+306597,66 Years,Female,Medical Ward Female,2026-03-31,2026-04-10,10,Urinary tract infection,,,,Y,Discharged
+306695,31 Years,Female,Surgical Ward Female,2026-03-31,2026-04-07,7,Wound infection,,,,Y,Discharged
+306976,28 Years,Female,Obstetrics & Gynaecology,2026-04-01,2026-04-04,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307002,29 Years,Female,Obstetrics & Gynaecology,2026-04-01,2026-04-02,1,Puerperal sepsis,,N,,Y,Discharged
+307030,28 Years,Female,Obstetrics & Gynaecology,2026-04-01,2026-04-08,7,Pre-eclampsia,,N,,N,Discharged
+307033,15 Years,Female,Medical Ward Female,2026-04-01,2026-04-03,2,Urinary tract infection,,,,N,Discharged
+307035,38 Years,Male,Surgical Ward Male,2026-04-01,2026-04-05,4,Fracture of femur,ORIF Femur,,,Y,Discharged
+307089,8 Years,Female,Paediatric Ward,2026-04-01,2026-04-04,3,Severe pneumonia,,,,Y,Discharged
+306834,24 Years,Male,Surgical Ward Male,2026-04-02,2026-04-07,5,Benign prostatic hyperplasia,Prostatectomy (Open),,,Y,Discharged
+306939,31 Years,Female,Medical Ward Female,2026-04-02,2026-04-03,1,Severe malaria,,,,N,Discharged
+307031,2 Years,Female,Paediatric Ward,2026-04-02,2026-04-05,3,Acute gastroenteritis,,,,Y,Discharged
+307055,33 Years,Female,Surgical Ward Female,2026-04-02,2026-04-10,8,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+307065,25 Years,Female,Obstetrics & Gynaecology,2026-04-02,2026-04-08,6,Normal delivery,,N,,N,Discharged
+307094,4 Days,Female,Neonatal Unit,2026-04-02,2026-04-05,3,Neonatal pneumonia,,,,N,Discharged
+306837,36 Years,Male,Surgical Ward Male,2026-04-03,2026-04-12,9,Burns,,,,Y,Discharged
+306861,58 Years,Male,Medical Ward Male,2026-04-03,2026-04-17,14,Congestive cardiac failure,,,,N,Discharged
+306877,35 Years,Male,Medical Ward Male,2026-04-03,2026-04-06,3,Severe malaria,,,,N,Discharged
+306878,42 Years,Male,Surgical Ward Male,2026-04-03,2026-04-09,6,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+306879,64 Years,Male,Surgical Ward Male,2026-04-03,2026-04-08,5,Fracture of femur,ORIF Femur,,,Y,Discharged
+306914,44 Years,Female,Obstetrics & Gynaecology,2026-04-03,2026-04-06,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306952,17 Years,Male,Orthopaedic Ward,2026-04-03,2026-04-06,3,Intestinal obstruction,Laparotomy,,,Y,Discharged
+307008,2 Years,Female,Paediatric Ward,2026-04-03,2026-04-04,1,Sepsis,,,,Y,Discharged
+306894,55 Years,Male,Medical Ward Male,2026-04-04,2026-04-05,1,Sepsis,,,,Y,Discharged
+306895,36 Years,Female,Medical Ward Female,2026-04-04,2026-04-13,9,Sepsis,,,,Y,Discharged
+306922,49 Years,Male,Orthopaedic Ward,2026-04-04,2026-04-16,12,Abscess,,,,N,Discharged
+307024,30 Years,Female,Surgical Ward Female,2026-04-04,2026-04-19,15,Abscess,,,,Y,Discharged
+307071,47 Years,Female,Surgical Ward Female,2026-04-04,2026-05-03,29,Abscess,,,,Y,Discharged
+307076,25 Years,Male,Surgical Ward Male,2026-04-04,2026-04-25,21,Intestinal obstruction,Laparotomy,,,Y,Discharged
+307093,29 Years,Male,Orthopaedic Ward,2026-04-04,2026-04-11,7,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+307048,68 Years,Female,Orthopaedic Ward,2026-04-05,2026-04-16,11,Intestinal obstruction,Laparotomy,,,Y,Discharged
+307053,22 Years,Female,Surgical Ward Female,2026-04-05,2026-04-08,3,Diabetic foot ulcer,Amputation Below Knee,,,Y,Discharged
+306831,29 Years,Male,Medical Ward Male,2026-04-06,2026-04-08,2,Urinary tract infection,,,,N,Discharged
+306854,33 Years,Female,Obstetrics & Gynaecology,2026-04-06,2026-04-07,1,Normal delivery,,N,,N,Discharged
+306989,42 Years,Female,Obstetrics & Gynaecology,2026-04-06,2026-04-07,1,Incomplete abortion,,N,,N,Discharged
+306832,42 Years,Female,Obstetrics & Gynaecology,2026-04-07,2026-04-13,6,Normal delivery,,N,,N,Discharged
+306942,49 Years,Female,Orthopaedic Ward,2026-04-07,2026-04-14,7,Wound infection,,,,Y,Discharged
+306846,33 Years,Male,Medical Ward Male,2026-04-08,2026-05-01,23,Severe malaria,,,,N,Discharged
+306851,39 Years,Female,Obstetrics & Gynaecology,2026-04-08,2026-04-12,4,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306896,40 Years,Female,Medical Ward Female,2026-04-08,2026-04-11,3,Severe pneumonia,,,,Y,Discharged
+306921,4 Years,Male,Paediatric Ward,2026-04-08,2026-04-10,2,Sepsis,,,,Y,Discharged
+306954,31 Years,Female,Obstetrics & Gynaecology,2026-04-08,2026-04-14,6,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306964,49 Years,Female,Medical Ward Female,2026-04-08,2026-04-12,4,Urinary tract infection,,,,N,Discharged
+307014,53 Years,Male,Surgical Ward Male,2026-04-08,2026-04-18,10,Benign prostatic hyperplasia,Prostatectomy (Open),,,Y,Discharged
+307029,37 Years,Male,Medical Ward Male,2026-04-08,2026-04-19,11,Severe pneumonia,,,,Y,Discharged
+307034,60 Years,Male,Medical Ward Male,2026-04-08,2026-04-10,2,Severe pneumonia,,,,N,Discharged
+307039,5 Years,Female,Paediatric Ward,2026-04-08,2026-04-18,10,Acute gastroenteritis,,,,N,Discharged
+307051,27 Years,Female,Surgical Ward Female,2026-04-08,2026-04-12,4,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+306847,30 Years,Female,Obstetrics & Gynaecology,2026-04-09,2026-04-12,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306957,51 Years,Male,Medical Ward Male,2026-04-09,2026-04-09,1,Sepsis,,,,Y,Died
+307057,10 Days,Female,Neonatal Unit,2026-04-09,2026-04-09,1,Neonatal sepsis,,,,Y,Died
+307075,63 Years,Female,Medical Ward Female,2026-04-09,2026-04-12,3,Congestive cardiac failure,,,,N,Discharged
+306835,56 Years,Female,Surgical Ward Female,2026-04-10,2026-04-11,1,Abscess,,,,N,Discharged
+306853,34 Years,Male,Medical Ward Male,2026-04-10,2026-04-21,11,Severe pneumonia,,,,Y,Discharged
+307045,49 Years,Female,Medical Ward Female,2026-04-10,2026-04-13,3,Urinary tract infection,,,,Y,Discharged
+307081,33 Years,Female,Medical Ward Female,2026-04-10,2026-04-21,11,Acute gastroenteritis,,,,N,Discharged
+307082,54 Years,Male,Orthopaedic Ward,2026-04-10,2026-04-20,10,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+306908,61 Years,Female,Surgical Ward Female,2026-04-11,2026-04-14,3,Intestinal obstruction,Laparotomy,,,Y,Discharged
+307007,25 Years,Female,Obstetrics & Gynaecology,2026-04-11,2026-04-17,6,Pre-eclampsia,,N,,N,Discharged
+307023,74 Years,Male,Surgical Ward Male,2026-04-11,2026-04-13,2,Abscess,,,,Y,Discharged
+307028,2 Years,Male,Paediatric Ward,2026-04-11,2026-04-12,1,Severe malaria,,,,N,Discharged
+307038,20 Days,Male,Neonatal Unit,2026-04-11,2026-04-23,12,Prematurity,,,,Y,Discharged
+306859,22 Years,Female,Obstetrics & Gynaecology,2026-04-12,2026-04-16,4,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306923,1 Years,Female,Paediatric Ward,2026-04-12,2026-04-15,3,Bacterial meningitis,,,,N,Discharged
+306933,52 Years,Male,Surgical Ward Male,2026-04-12,2026-04-16,4,Fracture of femur,ORIF Femur,,,Y,Discharged
+306947,49 Years,Male,Medical Ward Male,2026-04-12,2026-04-13,1,Exacerbation of COPD,,,,Y,Discharged
+307006,41 Years,Female,Obstetrics & Gynaecology,2026-04-12,2026-04-15,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307032,52 Years,Male,Intensive Care Unit,2026-04-12,2026-04-15,3,Septic shock,,,,N,Died
+307068,54 Years,Male,Medical Ward Male,2026-04-12,2026-04-29,17,Congestive cardiac failure,,,,N,Discharged
+306864,4 Years,Female,Paediatric Ward,2026-04-13,2026-04-22,9,Sepsis,,,,Y,Discharged
+306865,40 Years,Female,Obstetrics & Gynaecology,2026-04-13,2026-04-20,7,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306866,32 Years,Male,Surgical Ward Male,2026-04-13,2026-04-14,1,Abscess,,,,Y,Discharged
+306870,46 Years,Female,Medical Ward Female,2026-04-13,2026-04-14,1,Cellulitis,,,,Y,Discharged
+306906,17 Years,Female,Surgical Ward Female,2026-04-13,2026-04-29,16,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+306935,22 Years,Female,Obstetrics & Gynaecology,2026-04-13,2026-04-14,1,Pre-eclampsia,,N,,N,Discharged
+306945,63 Years,Male,Surgical Ward Male,2026-04-13,2026-04-21,8,Osteomyelitis,,,,N,Discharged
+306972,33 Years,Male,Medical Ward Male,2026-04-13,2026-05-04,21,Diabetic ketoacidosis,,,,N,Discharged
+306988,46 Years,Male,Orthopaedic Ward,2026-04-13,2026-04-18,5,Diabetic foot ulcer,Amputation Below Knee,,,Y,Discharged
+306994,14 Years,Female,Medical Ward Female,2026-04-13,2026-04-14,1,Hypertensive urgency,,,,N,Discharged
+307020,1 Days,Male,Neonatal Unit,2026-04-13,2026-04-17,4,Neonatal sepsis,,,,Y,Discharged
+306924,2 Years,Male,Paediatric Ward,2026-04-14,2026-04-20,6,Severe pneumonia,,,,Y,Discharged
+306950,8 Years,Male,Paediatric Ward,2026-04-14,2026-04-15,1,Severe malaria,,,,N,Discharged
+306955,14 Years,Male,Medical Ward Male,2026-04-14,2026-04-16,2,Acute gastroenteritis,,,,N,Discharged
+306893,36 Years,Female,Surgical Ward Female,2026-04-15,2026-04-20,5,Wound infection,,,,Y,Discharged
+306897,14 Years,Male,Surgical Ward Male,2026-04-15,2026-04-18,3,Abscess,,,,Y,Discharged
+306903,54 Years,Female,Orthopaedic Ward,2026-04-15,2026-04-21,6,Open fracture of tibia,Debridement and External Fixation,,,Y,Died
+306968,48 Years,Male,Orthopaedic Ward,2026-04-15,2026-04-18,3,Acute appendicitis,Appendicectomy,,,Y,Discharged
+306982,29 Years,Female,Obstetrics & Gynaecology,2026-04-15,2026-04-17,2,Normal delivery,,N,,N,Discharged
+307015,10 Years,Male,Paediatric Ward,2026-04-15,2026-04-16,1,Severe pneumonia,,,,Y,Discharged
+307042,30 Years,Female,Obstetrics & Gynaecology,2026-04-15,2026-04-16,1,Puerperal sepsis,,N,,Y,Discharged
+307054,55 Years,Male,Medical Ward Male,2026-04-15,2026-04-21,6,Severe pneumonia,,,,N,Discharged
+306920,51 Years,Male,Medical Ward Male,2026-04-16,2026-04-18,2,Bacterial meningitis,,,,N,Discharged
+307079,28 Years,Male,Surgical Ward Male,2026-04-16,2026-04-29,13,Burns,,,,Y,Discharged
+306849,82 Years,Male,Orthopaedic Ward,2026-04-17,2026-04-21,4,Abscess,,,,N,Discharged
+306998,42 Years,Male,Medical Ward Male,2026-04-17,2026-04-28,11,Exacerbation of COPD,,,,Y,Discharged
+307069,31 Years,Male,Medical Ward Male,2026-04-17,2026-04-22,5,Severe pneumonia,,,,Y,Discharged
+306884,66 Years,Female,Medical Ward Female,2026-04-18,2026-04-27,9,Pyelonephritis,,,,N,Discharged
+306907,44 Years,Female,Orthopaedic Ward,2026-04-18,2026-04-21,3,Intestinal obstruction,Laparotomy,,,Y,Discharged
+306927,39 Years,Female,Surgical Ward Female,2026-04-18,2026-04-28,10,Intestinal obstruction,Laparotomy,,,Y,Discharged
+306937,30 Years,Female,Medical Ward Female,2026-04-18,2026-04-20,2,Severe pneumonia,,,,Y,Discharged
+306953,46 Years,Female,Medical Ward Female,2026-04-18,2026-04-24,6,Acute gastroenteritis,,,,N,Discharged
+306971,24 Years,Female,Medical Ward Female,2026-04-18,2026-04-28,10,Pyelonephritis,,,,N,Discharged
+306983,10 Years,Female,Paediatric Ward,2026-04-18,2026-04-22,4,Severe pneumonia,,,,N,Discharged
+306839,17 Years,Female,Obstetrics & Gynaecology,2026-04-19,2026-04-24,5,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+306883,60 Years,Female,Medical Ward Female,2026-04-19,2026-04-21,2,Severe pneumonia,,,,N,Discharged
+306930,71 Years,Female,Medical Ward Female,2026-04-19,2026-05-03,14,Severe malaria,,,,N,Discharged
+306967,37 Years,Female,Obstetrics & Gynaecology,2026-04-19,2026-04-28,9,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307017,57 Years,Female,Surgical Ward Female,2026-04-19,2026-04-20,1,Osteomyelitis,,,,Y,Discharged
+307092,14 Years,Male,Medical Ward Male,2026-04-19,2026-04-22,3,Diabetic ketoacidosis,,,,N,Discharged
+306862,33 Years,Female,Surgical Ward Female,2026-04-20,2026-05-01,11,Abscess,,,,N,Discharged
+306874,38 Years,Male,Medical Ward Male,2026-04-20,2026-04-28,8,Sepsis,,,,N,Discharged
+306980,29 Years,Female,Medical Ward Female,2026-04-20,2026-05-02,12,Urinary tract infection,,,,N,Discharged
+306987,65 Years,Male,Surgical Ward Male,2026-04-20,2026-04-23,3,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+307016,35 Years,Female,Obstetrics & Gynaecology,2026-04-20,2026-04-23,3,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+307021,36 Years,Female,Intensive Care Unit,2026-04-20,2026-05-05,15,Severe head injury,,,,Y,Discharged
+307072,12 Years,Male,Paediatric Ward,2026-04-20,2026-04-21,1,Severe malaria,,,,N,Discharged
+307085,57 Years,Female,Surgical Ward Female,2026-04-20,2026-04-23,3,Intestinal obstruction,Laparotomy,,,Y,Discharged
+306885,25 Years,Female,Medical Ward Female,2026-04-21,2026-04-24,3,Pyelonephritis,,,,N,Discharged
+306902,29 Years,Male,Medical Ward Male,2026-04-21,2026-04-22,1,Stroke,,,,N,Discharged
+306911,38 Years,Female,Medical Ward Female,2026-04-21,2026-04-23,2,Diabetic ketoacidosis,,,,N,Discharged
+306929,28 Years,Female,Obstetrics & Gynaecology,2026-04-21,2026-05-02,11,Normal delivery,,N,,N,Discharged
+307059,39 Years,Male,Medical Ward Male,2026-04-21,2026-04-22,1,Severe pneumonia,,,,Y,Discharged
+306857,36 Years,Female,Medical Ward Female,2026-04-22,2026-04-30,8,Pyelonephritis,,,,Y,Discharged
+306917,53 Years,Male,Medical Ward Male,2026-04-22,2026-04-28,6,Urinary tract infection,,,,Y,Discharged
+306918,43 Years,Male,Medical Ward Male,2026-04-22,2026-04-23,1,Stroke,,,,N,Discharged
+306940,47 Years,Male,Surgical Ward Male,2026-04-22,2026-04-25,3,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+307011,37 Years,Female,Obstetrics & Gynaecology,2026-04-22,2026-04-24,2,Normal delivery,,N,,N,Discharged
+307074,67 Years,Male,Surgical Ward Male,2026-04-22,2026-04-23,1,Abscess,,,,Y,Discharged
+307080,31 Years,Female,Surgical Ward Female,2026-04-22,2026-05-10,18,Acute appendicitis,Appendicectomy,,,Y,Discharged
+307083,39 Years,Female,Medical Ward Female,2026-04-22,2026-04-23,1,Congestive cardiac failure,,,,N,Discharged
+307086,41 Years,Male,Surgical Ward Male,2026-04-22,2026-04-25,3,Acute appendicitis,Appendicectomy,,,Y,Discharged
+306867,79 Years,Female,Surgical Ward Female,2026-04-23,2026-04-30,7,Acute appendicitis,Appendicectomy,,,Y,Discharged
+306873,31 Years,Female,Medical Ward Female,2026-04-23,2026-04-24,1,Severe malaria,,,,N,Discharged
+306912,35 Years,Female,Obstetrics & Gynaecology,2026-04-23,2026-04-26,3,Uterine fibroids,Myomectomy,N,,Y,Discharged
+306961,20 Years,Female,Obstetrics & Gynaecology,2026-04-23,2026-04-24,1,Normal delivery,,N,,N,Discharged
+306977,36 Years,Male,Medical Ward Male,2026-04-23,2026-05-06,13,Pyelonephritis,,,,Y,Discharged
+306858,19 Years,Female,Obstetrics & Gynaecology,2026-04-24,2026-05-03,9,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306943,66 Years,Male,Surgical Ward Male,2026-04-24,2026-05-02,8,Wound infection,,,,N,Discharged
+306841,4 Years,Male,Paediatric Ward,2026-04-25,2026-04-30,5,Severe acute malnutrition,,,,N,Discharged
+306919,1 Years,Female,Paediatric Ward,2026-04-25,2026-04-28,3,Severe pneumonia,,,,Y,Discharged
+307013,3 Years,Male,Paediatric Ward,2026-04-25,2026-05-02,7,Acute gastroenteritis,,,,Y,Discharged
+307050,55 Years,Male,Surgical Ward Male,2026-04-25,2026-05-04,9,Fracture of femur,ORIF Femur,,,Y,Discharged
+306850,36 Years,Female,Medical Ward Female,2026-04-26,2026-04-30,4,Pyelonephritis,,,,N,Discharged
+306888,22 Years,Female,Medical Ward Female,2026-04-26,2026-04-28,2,Sepsis,,,,Y,Discharged
+306984,51 Years,Female,Surgical Ward Female,2026-04-26,2026-05-06,10,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+306997,14 Days,Female,Neonatal Unit,2026-04-26,2026-05-25,29,Neonatal sepsis,,,,N,Discharged
+307036,42 Years,Female,Obstetrics & Gynaecology,2026-04-26,2026-05-03,7,Incomplete abortion,,N,,Y,Discharged
+306848,27 Years,Male,Medical Ward Male,2026-04-27,2026-05-24,27,Congestive cardiac failure,,,,N,Discharged
+306880,56 Years,Male,Medical Ward Male,2026-04-27,2026-05-13,16,Congestive cardiac failure,,,,N,Discharged
+306904,60 Years,Male,Medical Ward Male,2026-04-27,2026-05-03,6,Severe pneumonia,,,,N,Discharged
+306958,35 Years,Female,Obstetrics & Gynaecology,2026-04-27,2026-05-01,4,Normal delivery,,N,,N,Discharged
+306990,77 Years,Female,Medical Ward Female,2026-04-27,2026-05-08,11,Urinary tract infection,,,,Y,Discharged
+307001,72 Years,Male,Orthopaedic Ward,2026-04-27,2026-05-20,23,Fracture of femur,ORIF Femur,,,Y,Discharged
+307047,18 Years,Female,Obstetrics & Gynaecology,2026-04-27,2026-05-01,4,Normal delivery,,N,,N,Discharged
+307062,87 Years,Female,Medical Ward Female,2026-04-27,2026-04-28,1,Hypertensive urgency,,,,N,Discharged
+306844,22 Years,Female,Obstetrics & Gynaecology,2026-04-28,2026-05-05,7,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306852,49 Years,Male,Medical Ward Male,2026-04-28,2026-05-02,4,Sepsis,,,,N,Discharged
+306889,14 Years,Female,Orthopaedic Ward,2026-04-28,2026-05-26,28,Osteomyelitis,,,,Y,Discharged
+306891,64 Years,Male,Medical Ward Male,2026-04-28,2026-05-03,5,Congestive cardiac failure,,,,N,Discharged
+307044,37 Years,Female,Medical Ward Female,2026-04-28,2026-05-20,22,Severe malaria,,,,N,Discharged
+307066,17 Days,Female,Neonatal Unit,2026-04-28,2026-05-03,5,Neonatal sepsis,,,,Y,Discharged
+307073,39 Years,Female,Obstetrics & Gynaecology,2026-04-28,2026-05-06,8,Normal delivery,,N,,N,Discharged
+306899,3 Years,Male,Paediatric Ward,2026-04-29,2026-05-04,5,Acute gastroenteritis,,,,Y,Discharged
+306916,44 Years,Female,Surgical Ward Female,2026-04-29,2026-05-02,3,Benign prostatic hyperplasia,Prostatectomy (Open),,,Y,Discharged
+306991,58 Years,Female,Medical Ward Female,2026-04-29,2026-04-30,1,Congestive cardiac failure,,,,N,Discharged
+307003,24 Days,Female,Neonatal Unit,2026-04-29,2026-05-15,16,Neonatal sepsis,,,,Y,Discharged
+307012,42 Years,Female,Obstetrics & Gynaecology,2026-04-29,2026-05-02,3,Normal delivery,,N,,N,Discharged
+307025,34 Years,Male,Medical Ward Male,2026-04-29,2026-05-02,3,Severe pneumonia,,,,N,Discharged
+307046,60 Years,Female,Medical Ward Female,2026-04-29,2026-05-06,7,Congestive cardiac failure,,,,N,Discharged
+307052,31 Years,Female,Obstetrics & Gynaecology,2026-04-29,2026-05-05,6,Pre-eclampsia,,N,,N,Discharged
+307056,16 Years,Male,Surgical Ward Male,2026-04-29,2026-05-02,3,Intestinal obstruction,Laparotomy,,,Y,Discharged
+306900,26 Years,Female,Surgical Ward Female,2026-04-30,2026-05-07,7,Osteomyelitis,,,,N,Discharged
+306913,30 Years,Female,Obstetrics & Gynaecology,2026-04-30,2026-05-03,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+306973,44 Years,Female,Surgical Ward Female,2026-04-30,2026-05-18,18,Abscess,,,,Y,Discharged
+307063,6 Years,Male,Paediatric Ward,2026-04-30,2026-05-03,3,Severe pneumonia,,,,Y,Discharged
+307084,15 Years,Male,Orthopaedic Ward,2026-04-30,2026-05-03,3,Fracture of femur,ORIF Femur,,,Y,Discharged
+307147,12 Years,Female,Paediatric Ward,2026-05-01,2026-05-13,12,Sepsis,,,,Y,Discharged
+307169,16 Years,Male,Medical Ward Male,2026-05-01,2026-05-02,1,Cellulitis,,,,Y,Discharged
+307215,6 Years,Female,Paediatric Ward,2026-05-01,2026-05-13,12,Severe pneumonia,,,,N,Discharged
+307252,45 Years,Male,Medical Ward Male,2026-05-01,2026-05-02,1,Congestive cardiac failure,,,,N,Discharged
+307325,50 Years,Female,Orthopaedic Ward,2026-05-01,2026-05-04,3,Fracture of femur,ORIF Femur,,,Y,Discharged
+307349,29 Years,Female,Medical Ward Female,2026-05-01,2026-05-04,3,Severe pneumonia,,,,Y,Discharged
+307148,37 Years,Male,Medical Ward Male,2026-05-02,2026-05-03,1,Severe pneumonia,,,,Y,Discharged
+307192,18 Years,Female,Obstetrics & Gynaecology,2026-05-02,2026-05-05,3,Pelvic inflammatory disease,,N,,Y,Discharged
+307209,6 Days,Female,Neonatal Unit,2026-05-02,2026-05-08,6,Prematurity,,,,N,Discharged
+307258,49 Years,Male,Medical Ward Male,2026-05-02,2026-05-08,6,Pyelonephritis,,,,N,Died
+307319,29 Years,Male,Surgical Ward Male,2026-05-02,2026-05-24,22,Intestinal obstruction,Laparotomy,,,Y,Discharged
+307104,22 Days,Male,Neonatal Unit,2026-05-03,2026-05-18,15,Neonatal sepsis,,,,Y,Died
+307114,44 Years,Female,Obstetrics & Gynaecology,2026-05-03,2026-05-06,3,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+307204,51 Years,Male,Surgical Ward Male,2026-05-03,2026-05-17,14,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+307228,17 Years,Female,Obstetrics & Gynaecology,2026-05-03,2026-05-06,3,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+307241,28 Years,Female,Surgical Ward Female,2026-05-03,2026-05-10,7,Diabetic foot ulcer,Amputation Below Knee,,,Y,Discharged
+307283,39 Years,Male,Orthopaedic Ward,2026-05-03,2026-05-10,7,Abscess,,,,Y,Discharged
+307310,35 Years,Female,Obstetrics & Gynaecology,2026-05-03,2026-05-05,2,Pre-eclampsia,,N,,N,Discharged
+307339,57 Years,Female,Medical Ward Female,2026-05-03,2026-05-12,9,Diabetic ketoacidosis,,,,N,Discharged
+307125,50 Years,Female,Medical Ward Female,2026-05-04,2026-05-06,2,Severe pneumonia,,,,Y,Discharged
+307133,23 Years,Female,Obstetrics & Gynaecology,2026-05-04,2026-05-10,6,Incomplete abortion,,N,,N,Discharged
+307161,48 Years,Female,Medical Ward Female,2026-05-04,2026-05-07,3,Exacerbation of COPD,,,,Y,Discharged
+307162,12 Days,Male,Neonatal Unit,2026-05-04,2026-05-07,3,Neonatal sepsis,,,,N,Died
+307250,3 Years,Male,Paediatric Ward,2026-05-04,2026-05-20,16,Severe pneumonia,,,,N,Discharged
+307309,5 Years,Female,Paediatric Ward,2026-05-04,2026-05-12,8,Severe pneumonia,,,,N,Discharged
+307382,41 Years,Female,Medical Ward Female,2026-05-04,2026-05-18,14,Severe pneumonia,,,,N,Discharged
+307264,71 Years,Male,Medical Ward Male,2026-05-05,2026-05-07,2,Congestive cardiac failure,,,,Y,Died
+307273,47 Years,Male,Orthopaedic Ward,2026-05-05,2026-06-02,28,Abscess,,,,Y,Discharged
+307353,50 Years,Female,Medical Ward Female,2026-05-05,2026-05-10,5,Sepsis,,,,Y,Discharged
+307386,55 Years,Female,Medical Ward Female,2026-05-05,2026-05-17,12,Acute gastroenteritis,,,,N,Discharged
+307118,29 Years,Male,Medical Ward Male,2026-05-06,2026-05-07,1,Stroke,,,,N,Discharged
+307181,12 Days,Female,Neonatal Unit,2026-05-06,2026-05-17,11,Neonatal sepsis,,,,Y,Discharged
+307186,40 Years,Female,Obstetrics & Gynaecology,2026-05-06,2026-05-09,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307245,30 Years,Male,Medical Ward Male,2026-05-06,2026-05-09,3,Congestive cardiac failure,,,,N,Discharged
+307291,83 Years,Male,Orthopaedic Ward,2026-05-06,2026-05-09,3,Acute appendicitis,Appendicectomy,,,Y,Discharged
+307298,2 Years,Female,Paediatric Ward,2026-05-06,2026-05-13,7,Severe pneumonia,,,,Y,Discharged
+307367,39 Years,Female,Obstetrics & Gynaecology,2026-05-06,2026-05-09,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307119,60 Years,Male,Medical Ward Male,2026-05-07,2026-05-08,1,Urinary tract infection,,,,Y,Discharged
+307226,68 Years,Female,Surgical Ward Female,2026-05-07,2026-05-10,3,Acute appendicitis,Appendicectomy,,,Y,Discharged
+307244,36 Years,Male,Surgical Ward Male,2026-05-07,2026-05-24,17,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+307338,36 Years,Male,Medical Ward Male,2026-05-07,2026-05-11,4,Exacerbation of COPD,,,,Y,Discharged
+307178,63 Years,Female,Medical Ward Female,2026-05-08,2026-05-14,6,Cellulitis,,,,Y,Discharged
+307193,39 Years,Male,Medical Ward Male,2026-05-08,2026-05-09,1,Acute gastroenteritis,,,,N,Discharged
+307238,1 Years,Male,Paediatric Ward,2026-05-08,2026-05-19,11,Sepsis,,,,Y,Discharged
+307259,10 Months,Female,Paediatric Ward,2026-05-08,2026-05-16,8,Sepsis,,,,Y,Discharged
+307274,62 Years,Male,Surgical Ward Male,2026-05-08,2026-05-13,5,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+307337,20 Years,Female,Medical Ward Female,2026-05-08,2026-05-24,16,Severe pneumonia,,,,Y,Discharged
+307132,37 Years,Male,Medical Ward Male,2026-05-09,2026-05-18,9,Severe pneumonia,,,,Y,Discharged
+307210,1 Years,Female,Paediatric Ward,2026-05-09,2026-05-12,3,Sepsis,,,,N,Discharged
+307267,55 Years,Female,Medical Ward Female,2026-05-09,2026-05-10,1,Congestive cardiac failure,,,,N,Discharged
+307311,1 Years,Female,Paediatric Ward,2026-05-09,2026-05-13,4,Severe malaria,,,,N,Discharged
+307363,29 Years,Female,Obstetrics & Gynaecology,2026-05-09,2026-05-17,8,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307111,62 Years,Male,Orthopaedic Ward,2026-05-10,2026-05-17,7,Acute appendicitis,Appendicectomy,,,Y,Discharged
+307140,62 Years,Male,Medical Ward Male,2026-05-10,2026-05-17,7,Pyelonephritis,,,,Y,Discharged
+307151,1 Years,Male,Paediatric Ward,2026-05-10,2026-05-22,12,Acute gastroenteritis,,,,Y,Discharged
+307314,24 Years,Female,Obstetrics & Gynaecology,2026-05-10,2026-05-13,3,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+307352,13 Days,Male,Neonatal Unit,2026-05-10,2026-05-13,3,Neonatal sepsis,,,,Y,Discharged
+307096,49 Years,Male,Medical Ward Male,2026-05-11,2026-05-12,1,Exacerbation of COPD,,,,N,Discharged
+307343,43 Years,Female,Surgical Ward Female,2026-05-11,2026-05-14,3,Intestinal obstruction,Laparotomy,,,Y,Discharged
+307138,31 Years,Male,Surgical Ward Male,2026-05-12,2026-06-01,20,Abscess,,,,N,Discharged
+307177,56 Years,Female,Medical Ward Female,2026-05-12,2026-05-15,3,Bacterial meningitis,,,,N,Discharged
+307270,29 Years,Female,Orthopaedic Ward,2026-05-12,2026-05-13,1,Burns,,,,N,Died
+307364,19 Days,Male,Neonatal Unit,2026-05-12,2026-05-15,3,Neonatal sepsis,,,,Y,Discharged
+307380,36 Years,Female,Medical Ward Female,2026-05-12,2026-05-24,12,Urinary tract infection,,,,N,Discharged
+307303,54 Years,Male,Medical Ward Male,2026-05-13,2026-05-18,5,Pyelonephritis,,,,N,Discharged
+307317,19 Years,Female,Obstetrics & Gynaecology,2026-05-13,2026-05-17,4,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+307097,31 Years,Female,Medical Ward Female,2026-05-14,2026-05-30,16,Bacterial meningitis,,,,Y,Discharged
+307113,49 Years,Female,Medical Ward Female,2026-05-14,2026-05-17,3,Urinary tract infection,,,,N,Discharged
+307136,30 Years,Female,Obstetrics & Gynaecology,2026-05-14,2026-05-16,2,Normal delivery,,N,,N,Discharged
+307196,58 Years,Male,Intensive Care Unit,2026-05-14,2026-05-24,10,Severe head injury,,,,N,Discharged
+307292,37 Years,Female,Surgical Ward Female,2026-05-14,2026-05-17,3,Intestinal obstruction,Laparotomy,,,Y,Discharged
+307296,44 Years,Female,Surgical Ward Female,2026-05-14,2026-05-19,5,Diabetic foot ulcer,Amputation Below Knee,,,Y,Discharged
+307344,20 Years,Female,Medical Ward Female,2026-05-14,2026-05-17,3,Congestive cardiac failure,,,,N,Discharged
+307356,23 Years,Female,Obstetrics & Gynaecology,2026-05-14,2026-05-17,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307127,27 Days,Male,Neonatal Unit,2026-05-15,2026-05-16,1,Prematurity,,,,N,Died
+307142,66 Years,Female,Surgical Ward Female,2026-05-15,2026-05-18,3,Acute appendicitis,Appendicectomy,,,Y,Discharged
+307187,38 Years,Female,Obstetrics & Gynaecology,2026-05-15,2026-05-19,4,Normal delivery,,N,,N,Discharged
+307191,28 Years,Female,Obstetrics & Gynaecology,2026-05-15,2026-05-18,3,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+307195,48 Years,Male,Orthopaedic Ward,2026-05-15,2026-05-30,15,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+307199,41 Years,Male,Surgical Ward Male,2026-05-15,2026-05-21,6,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+307203,37 Years,Male,Medical Ward Male,2026-05-15,2026-05-16,1,Hypertensive urgency,,,,N,Discharged
+307218,39 Years,Female,Medical Ward Female,2026-05-15,2026-05-19,4,Hypertensive urgency,,,,N,Discharged
+307275,61 Years,Male,Orthopaedic Ward,2026-05-15,2026-05-20,5,Abscess,,,,Y,Discharged
+307315,41 Years,Female,Surgical Ward Female,2026-05-15,2026-05-16,1,Abscess,,,,N,Discharged
+307358,71 Years,Male,Medical Ward Male,2026-05-15,2026-05-19,4,Severe pneumonia,,,,N,Discharged
+307381,57 Years,Female,Medical Ward Female,2026-05-15,2026-05-16,1,Diabetic ketoacidosis,,,,N,Discharged
+307271,19 Years,Female,Obstetrics & Gynaecology,2026-05-16,2026-05-20,4,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307299,46 Years,Male,Medical Ward Male,2026-05-16,2026-05-17,1,Diabetic ketoacidosis,,,,N,Discharged
+307153,41 Years,Female,Medical Ward Female,2026-05-17,2026-05-22,5,Severe pneumonia,,,,Y,Discharged
+307286,47 Years,Male,Surgical Ward Male,2026-05-17,2026-05-25,8,Abscess,,,,Y,Discharged
+307290,17 Years,Female,Obstetrics & Gynaecology,2026-05-17,2026-05-20,3,Incomplete abortion,,N,,Y,Discharged
+307306,39 Years,Female,Obstetrics & Gynaecology,2026-05-17,2026-05-21,4,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307332,56 Years,Male,Surgical Ward Male,2026-05-17,2026-05-21,4,Wound infection,,,,N,Discharged
+307100,8 Years,Female,Paediatric Ward,2026-05-18,2026-05-20,2,Severe malaria,,,,N,Discharged
+307130,37 Years,Female,Medical Ward Female,2026-05-18,2026-05-21,3,Bacterial meningitis,,,,Y,Discharged
+307155,16 Years,Female,Obstetrics & Gynaecology,2026-05-18,2026-06-04,17,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+307278,10 Years,Female,Paediatric Ward,2026-05-18,2026-05-19,1,Urinary tract infection,,,,Y,Discharged
+307280,38 Years,Male,Medical Ward Male,2026-05-18,2026-06-02,15,Acute gastroenteritis,,,,Y,Discharged
+307285,28 Years,Female,Obstetrics & Gynaecology,2026-05-18,2026-05-21,3,Uterine fibroids,Myomectomy,N,,Y,Discharged
+307316,4 Days,Male,Neonatal Unit,2026-05-18,2026-05-18,1,Neonatal sepsis,,,,N,Died
+307340,3 Years,Female,Paediatric Ward,2026-05-18,2026-05-22,4,Osteomyelitis,,,,Y,Discharged
+307369,60 Years,Male,Orthopaedic Ward,2026-05-18,2026-06-05,18,Abscess,,,,Y,Discharged
+307098,40 Years,Male,Medical Ward Male,2026-05-19,2026-05-22,3,Severe malaria,,,,Y,Discharged
+307163,75 Years,Male,Intensive Care Unit,2026-05-19,2026-05-27,8,Post-operative laparotomy,Laparotomy,,,Y,Died
+307198,21 Years,Female,Obstetrics & Gynaecology,2026-05-19,2026-05-22,3,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+307219,33 Years,Female,Obstetrics & Gynaecology,2026-05-19,2026-05-20,1,Normal delivery,,N,,N,Discharged
+307227,31 Years,Male,Medical Ward Male,2026-05-19,2026-05-20,1,Severe pneumonia,,,,N,Discharged
+307122,56 Years,Female,Medical Ward Female,2026-05-20,2026-05-21,1,Severe pneumonia,,,,N,Discharged
+307221,74 Years,Female,Medical Ward Female,2026-05-20,2026-05-21,1,Urinary tract infection,,,,Y,Discharged
+307233,33 Years,Female,Obstetrics & Gynaecology,2026-05-20,2026-05-21,1,Normal delivery,,N,,N,Discharged
+307234,28 Years,Female,Obstetrics & Gynaecology,2026-05-20,2026-05-21,1,Pre-eclampsia,,N,,N,Discharged
+307279,6 Years,Female,Paediatric Ward,2026-05-20,2026-05-24,4,Sepsis,,,,Y,Discharged
+307347,19 Years,Female,Obstetrics & Gynaecology,2026-05-20,2026-05-22,2,Normal delivery,,N,,N,Discharged
+307360,53 Years,Female,Orthopaedic Ward,2026-05-20,2026-05-22,2,Burns,,,,Y,Discharged
+307165,78 Years,Male,Surgical Ward Male,2026-05-21,2026-06-17,27,Wound infection,,,,Y,Discharged
+307173,33 Years,Female,Medical Ward Female,2026-05-21,2026-05-31,10,Severe malaria,,,,N,Discharged
+307185,38 Years,Male,Medical Ward Male,2026-05-21,2026-05-26,5,Severe malaria,,,,N,Discharged
+307230,17 Years,Female,Obstetrics & Gynaecology,2026-05-21,2026-05-22,1,Pre-eclampsia,,N,,N,Discharged
+307312,63 Years,Female,Surgical Ward Female,2026-05-21,2026-06-12,22,Burns,,,,N,Discharged
+307328,53 Years,Female,Orthopaedic Ward,2026-05-21,2026-05-30,9,Intestinal obstruction,Laparotomy,,,Y,Discharged
+307330,47 Years,Female,Medical Ward Female,2026-05-21,2026-05-24,3,Acute gastroenteritis,,,,Y,Discharged
+307346,8 Years,Female,Paediatric Ward,2026-05-21,2026-06-10,20,Severe pneumonia,,,,Y,Discharged
+307158,90 Years,Male,Orthopaedic Ward,2026-05-22,2026-06-21,30,Abscess,,,,N,Discharged
+307174,7 Days,Male,Neonatal Unit,2026-05-22,2026-05-23,1,Neonatal pneumonia,,,,Y,Discharged
+307179,14 Years,Female,Medical Ward Female,2026-05-22,2026-05-27,5,Bacterial meningitis,,,,N,Discharged
+307277,57 Years,Female,Medical Ward Female,2026-05-22,2026-05-25,3,Severe malaria,,,,N,Discharged
+307365,22 Years,Female,Obstetrics & Gynaecology,2026-05-22,2026-05-24,2,Pelvic inflammatory disease,,N,,N,Discharged
+307095,10 Years,Female,Paediatric Ward,2026-05-23,2026-05-24,1,Severe malaria,,,,N,Died
+307164,27 Years,Female,Obstetrics & Gynaecology,2026-05-23,2026-05-26,3,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+307167,29 Years,Female,Obstetrics & Gynaecology,2026-05-23,2026-05-26,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307211,6 Years,Female,Paediatric Ward,2026-05-23,2026-05-25,2,Severe malaria,,,,N,Discharged
+307224,21 Years,Female,Obstetrics & Gynaecology,2026-05-23,2026-05-26,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307229,8 Months,Female,Paediatric Ward,2026-05-23,2026-05-24,1,Severe pneumonia,,,,Y,Discharged
+307322,19 Years,Female,Obstetrics & Gynaecology,2026-05-23,2026-05-31,8,Normal delivery,,N,,N,Discharged
+307336,41 Years,Female,Obstetrics & Gynaecology,2026-05-23,2026-05-24,1,Normal delivery,,N,,N,Discharged
+307354,29 Years,Male,Medical Ward Male,2026-05-23,2026-05-25,2,Sepsis,,,,Y,Discharged
+307368,60 Years,Male,Surgical Ward Male,2026-05-23,2026-05-26,3,Fracture of femur,ORIF Femur,,,Y,Discharged
+307372,1 Years,Male,Paediatric Ward,2026-05-23,2026-05-24,1,Severe pneumonia,,,,Y,Discharged
+307103,52 Years,Male,Medical Ward Male,2026-05-24,2026-05-28,4,Congestive cardiac failure,,,,N,Discharged
+307124,27 Years,Female,Obstetrics & Gynaecology,2026-05-24,2026-05-26,2,Normal delivery,,N,,N,Discharged
+307214,65 Years,Male,Surgical Ward Male,2026-05-24,2026-05-25,1,Open fracture of tibia,Debridement and External Fixation,,,Y,Died
+307297,39 Years,Male,Medical Ward Male,2026-05-24,2026-05-30,6,Urinary tract infection,,,,Y,Discharged
+307300,25 Years,Female,Obstetrics & Gynaecology,2026-05-24,2026-05-30,6,Incomplete abortion,,N,,N,Discharged
+307348,51 Years,Male,Medical Ward Male,2026-05-24,2026-05-25,1,Urinary tract infection,,,,N,Discharged
+307375,63 Years,Male,Medical Ward Male,2026-05-24,2026-06-06,13,Severe pneumonia,,,,N,Discharged
+307383,12 Years,Male,Paediatric Ward,2026-05-24,2026-05-31,7,Severe malaria,,,,N,Discharged
+307159,58 Years,Female,Surgical Ward Female,2026-05-25,2026-05-26,1,Wound infection,,,,Y,Discharged
+307170,52 Years,Female,Orthopaedic Ward,2026-05-25,2026-06-07,13,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+307194,33 Years,Female,Obstetrics & Gynaecology,2026-05-25,2026-05-28,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307200,59 Years,Female,Medical Ward Female,2026-05-25,2026-06-18,24,Congestive cardiac failure,,,,N,Discharged
+307236,32 Years,Female,Obstetrics & Gynaecology,2026-05-25,2026-05-30,5,Normal delivery,,N,,N,Discharged
+307255,6 Days,Male,Neonatal Unit,2026-05-25,2026-06-05,11,Birth asphyxia,,,,N,Discharged
+307302,41 Years,Male,Medical Ward Male,2026-05-25,2026-05-28,3,Urinary tract infection,,,,N,Discharged
+307389,5 Years,Male,Paediatric Ward,2026-05-25,2026-05-26,1,Severe pneumonia,,,,N,Discharged
+307392,42 Years,Female,Obstetrics & Gynaecology,2026-05-25,2026-05-26,1,Pre-eclampsia,,N,,N,Discharged
+307105,22 Years,Female,Obstetrics & Gynaecology,2026-05-26,2026-05-27,1,Incomplete abortion,,N,,Y,Discharged
+307108,46 Years,Male,Medical Ward Male,2026-05-26,2026-05-29,3,Urinary tract infection,,,,Y,Discharged
+307190,8 Days,Male,Neonatal Unit,2026-05-26,2026-05-31,5,Neonatal pneumonia,,,,Y,Discharged
+307262,65 Years,Male,Surgical Ward Male,2026-05-26,2026-06-15,20,Abscess,,,,Y,Discharged
+307276,27 Years,Male,Surgical Ward Male,2026-05-26,2026-05-29,3,Fracture of femur,ORIF Femur,,,Y,Discharged
+307318,12 Years,Male,Paediatric Ward,2026-05-26,2026-05-29,3,Urinary tract infection,,,,N,Discharged
+307143,26 Years,Female,Obstetrics & Gynaecology,2026-05-27,2026-05-30,3,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+307235,25 Years,Female,Medical Ward Female,2026-05-27,2026-06-01,5,Stroke,,,,N,Discharged
+307220,43 Years,Female,Orthopaedic Ward,2026-05-28,2026-06-03,6,Benign prostatic hyperplasia,Prostatectomy (Open),,,Y,Discharged
+307263,2 Years,Male,Paediatric Ward,2026-05-28,2026-06-02,5,Severe acute malnutrition,,,,N,Discharged
+307289,44 Years,Male,Medical Ward Male,2026-05-28,2026-05-29,1,Cellulitis,,,,N,Discharged
+307293,69 Years,Female,Surgical Ward Female,2026-05-28,2026-05-29,1,Wound infection,,,,Y,Discharged
+307378,39 Years,Male,Medical Ward Male,2026-05-28,2026-05-31,3,Severe pneumonia,,,,N,Discharged
+307126,4 Years,Female,Paediatric Ward,2026-05-29,2026-05-30,1,Acute gastroenteritis,,,,Y,Discharged
+307144,57 Years,Female,Surgical Ward Female,2026-05-29,2026-05-31,2,Wound infection,,,,Y,Discharged
+307180,43 Years,Female,Obstetrics & Gynaecology,2026-05-29,2026-06-03,5,Incomplete abortion,,N,,Y,Discharged
+307188,43 Years,Female,Obstetrics & Gynaecology,2026-05-29,2026-06-03,5,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307202,26 Years,Female,Medical Ward Female,2026-05-29,2026-06-07,9,Cellulitis,,,,Y,Discharged
+307225,64 Years,Male,Medical Ward Male,2026-05-29,2026-06-06,8,Urinary tract infection,,,,N,Discharged
+307323,35 Years,Female,Orthopaedic Ward,2026-05-29,2026-06-04,6,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+307115,64 Years,Female,Medical Ward Female,2026-05-30,2026-06-05,6,Exacerbation of COPD,,,,N,Discharged
+307160,12 Years,Female,Paediatric Ward,2026-05-30,2026-06-04,5,Severe pneumonia,,,,N,Discharged
+307189,38 Years,Female,Medical Ward Female,2026-05-30,2026-06-05,6,Pyelonephritis,,,,N,Discharged
+307213,40 Years,Male,Surgical Ward Male,2026-05-30,2026-06-03,4,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+307335,64 Years,Male,Orthopaedic Ward,2026-05-30,2026-06-07,8,Intestinal obstruction,Laparotomy,,,Y,Discharged
+307184,1 Years,Male,Paediatric Ward,2026-05-31,2026-06-06,6,Severe pneumonia,,,,Y,Discharged
+307206,35 Years,Male,Surgical Ward Male,2026-05-31,2026-06-03,3,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+307208,10 Years,Female,Paediatric Ward,2026-05-31,2026-06-06,6,Severe malaria,,,,N,Discharged
+307247,51 Years,Female,Intensive Care Unit,2026-05-31,2026-05-31,1,Septic shock,,,,Y,Died
+307393,85 Years,Female,Medical Ward Female,2026-06-01,2026-06-03,2,Acute gastroenteritis,,,,N,Discharged
+307417,31 Years,Female,Medical Ward Female,2026-06-01,2026-06-10,9,Pyelonephritis,,,,Y,Discharged
+307462,46 Years,Male,Surgical Ward Male,2026-06-01,2026-06-12,11,Osteomyelitis,,,,N,Discharged
+307501,42 Years,Female,Obstetrics & Gynaecology,2026-06-01,2026-06-06,5,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307555,10 Years,Male,Paediatric Ward,2026-06-01,2026-06-04,3,Osteomyelitis,,,,Y,Discharged
+307562,35 Years,Female,Obstetrics & Gynaecology,2026-06-01,2026-06-04,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307610,37 Years,Male,Medical Ward Male,2026-06-01,2026-06-03,2,Congestive cardiac failure,,,,N,Discharged
+307478,55 Years,Female,Surgical Ward Female,2026-06-02,2026-06-05,3,Wound infection,,,,Y,Discharged
+307484,48 Years,Female,Medical Ward Female,2026-06-02,2026-06-04,2,Bacterial meningitis,,,,Y,Discharged
+307520,34 Years,Female,Orthopaedic Ward,2026-06-02,2026-07-03,31,Acute appendicitis,Appendicectomy,,,Y,Discharged
+307532,4 Days,Female,Neonatal Unit,2026-06-02,2026-06-08,6,Prematurity,,,,N,Discharged
+307578,52 Years,Female,Medical Ward Female,2026-06-02,2026-06-04,2,Congestive cardiac failure,,,,N,Discharged
+307638,66 Years,Male,Medical Ward Male,2026-06-02,2026-06-04,2,Severe malaria,,,,N,Discharged
+307457,14 Years,Male,Surgical Ward Male,2026-06-03,2026-06-11,8,Diabetic foot ulcer,Amputation Below Knee,,,Y,Discharged
+307637,3 Days,Female,Neonatal Unit,2026-06-03,2026-06-09,6,Prematurity,,,,N,Discharged
+307398,4 Years,Male,Paediatric Ward,2026-06-04,2026-06-09,5,Severe acute malnutrition,,,,Y,Discharged
+307463,20 Years,Female,Obstetrics & Gynaecology,2026-06-04,2026-06-05,1,Normal delivery,,N,,N,Discharged
+307498,67 Years,Male,Medical Ward Male,2026-06-04,2026-06-12,8,Exacerbation of COPD,,,,N,Discharged
+307512,34 Years,Female,Obstetrics & Gynaecology,2026-06-04,2026-06-07,3,Uterine fibroids,Myomectomy,N,,Y,Discharged
+307431,10 Years,Female,Paediatric Ward,2026-06-05,2026-06-06,1,Severe pneumonia,,,,N,Discharged
+307460,49 Years,Male,Surgical Ward Male,2026-06-05,2026-06-21,16,Acute appendicitis,Appendicectomy,,,Y,Discharged
+307485,26 Days,Female,Neonatal Unit,2026-06-05,2026-06-09,4,Neonatal sepsis,,,,Y,Discharged
+307502,41 Years,Female,Obstetrics & Gynaecology,2026-06-05,2026-06-11,6,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+307583,45 Years,Female,Medical Ward Female,2026-06-05,2026-06-18,13,Severe pneumonia,,,,Y,Discharged
+307587,52 Years,Female,Surgical Ward Female,2026-06-05,2026-06-14,9,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+307433,4 Years,Female,Paediatric Ward,2026-06-06,2026-06-10,4,Acute gastroenteritis,,,,Y,Discharged
+307550,57 Years,Female,Medical Ward Female,2026-06-06,2026-06-11,5,Severe malaria,,,,N,Discharged
+307582,20 Years,Female,Obstetrics & Gynaecology,2026-06-06,2026-06-07,1,Incomplete abortion,,N,,Y,Discharged
+307595,62 Years,Female,Medical Ward Female,2026-06-06,2026-06-07,1,Exacerbation of COPD,,,,N,Discharged
+307598,55 Years,Female,Surgical Ward Female,2026-06-06,2026-06-11,5,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+307602,14 Years,Male,Medical Ward Male,2026-06-06,2026-06-10,4,Severe pneumonia,,,,Y,Discharged
+307471,1 Years,Female,Paediatric Ward,2026-06-07,2026-06-08,1,Sepsis,,,,N,Discharged
+307503,51 Years,Female,Medical Ward Female,2026-06-07,2026-06-11,4,Sepsis,,,,Y,Died
+307593,20 Years,Female,Obstetrics & Gynaecology,2026-06-07,2026-06-10,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307617,25 Years,Male,Surgical Ward Male,2026-06-07,2026-06-17,10,Fracture of femur,ORIF Femur,,,Y,Discharged
+307405,23 Years,Male,Surgical Ward Male,2026-06-08,2026-06-16,8,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+307416,35 Years,Male,Surgical Ward Male,2026-06-08,2026-06-11,3,Intestinal obstruction,Laparotomy,,,Y,Discharged
+307494,90 Years,Male,Surgical Ward Male,2026-06-08,2026-06-11,3,Intestinal obstruction,Laparotomy,,,Y,Discharged
+307517,28 Years,Male,Medical Ward Male,2026-06-08,2026-06-18,10,Diabetic ketoacidosis,,,,Y,Discharged
+307535,21 Years,Female,Obstetrics & Gynaecology,2026-06-08,2026-06-27,19,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307537,34 Years,Female,Obstetrics & Gynaecology,2026-06-08,2026-06-10,2,Normal delivery,,N,,N,Discharged
+307557,61 Years,Male,Surgical Ward Male,2026-06-08,2026-06-18,10,Fracture of femur,ORIF Femur,,,Y,Discharged
+307559,47 Years,Male,Surgical Ward Male,2026-06-08,2026-06-25,17,Abscess,,,,Y,Discharged
+307442,5 Years,Male,Paediatric Ward,2026-06-09,2026-06-10,1,Severe malaria,,,,N,Discharged
+307446,35 Years,Female,Obstetrics & Gynaecology,2026-06-09,2026-06-16,7,Normal delivery,,N,,N,Discharged
+307453,46 Years,Female,Medical Ward Female,2026-06-09,2026-06-12,3,Congestive cardiac failure,,,,N,Discharged
+307458,49 Years,Male,Medical Ward Male,2026-06-09,2026-06-14,5,Urinary tract infection,,,,Y,Discharged
+307506,60 Years,Female,Orthopaedic Ward,2026-06-09,2026-07-10,31,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+307599,18 Years,Male,Medical Ward Male,2026-06-09,2026-06-10,1,Severe malaria,,,,N,Discharged
+307481,35 Years,Female,Medical Ward Female,2026-06-10,2026-06-17,7,Acute gastroenteritis,,,,Y,Discharged
+307521,14 Years,Female,Surgical Ward Female,2026-06-10,2026-06-13,3,Benign prostatic hyperplasia,Prostatectomy (Open),,,Y,Discharged
+307619,3 Years,Female,Paediatric Ward,2026-06-10,2026-06-15,5,Sepsis,,,,N,Discharged
+307418,22 Years,Male,Medical Ward Male,2026-06-11,2026-06-19,8,Hypertensive urgency,,,,N,Discharged
+307473,3 Years,Female,Paediatric Ward,2026-06-11,2026-06-14,3,Severe malaria,,,,N,Discharged
+307516,14 Years,Male,Medical Ward Male,2026-06-11,2026-06-14,3,Congestive cardiac failure,,,,N,Discharged
+307577,44 Years,Female,Orthopaedic Ward,2026-06-11,2026-06-16,5,Acute appendicitis,Appendicectomy,,,Y,Discharged
+307628,44 Years,Female,Obstetrics & Gynaecology,2026-06-11,2026-06-14,3,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+307412,7 Months,Female,Paediatric Ward,2026-06-12,2026-06-18,6,Severe pneumonia,,,,Y,Discharged
+307447,12 Days,Female,Neonatal Unit,2026-06-12,2026-06-18,6,Birth asphyxia,,,,N,Discharged
+307467,4 Months,Male,Paediatric Ward,2026-06-12,2026-06-25,13,Severe pneumonia,,,,Y,Discharged
+307499,67 Years,Male,Surgical Ward Male,2026-06-12,2026-06-25,13,Burns,,,,Y,Discharged
+307554,24 Years,Female,Obstetrics & Gynaecology,2026-06-12,2026-06-15,3,Normal delivery,,N,,N,Discharged
+307399,35 Years,Male,Medical Ward Male,2026-06-13,2026-06-17,4,Severe pneumonia,,,,N,Discharged
+307432,6 Years,Female,Paediatric Ward,2026-06-13,2026-06-15,2,Acute gastroenteritis,,,,N,Discharged
+307534,29 Years,Male,Orthopaedic Ward,2026-06-13,2026-06-19,6,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+307544,34 Years,Female,Obstetrics & Gynaecology,2026-06-13,2026-06-14,1,Normal delivery,,N,,N,Discharged
+307507,34 Years,Male,Medical Ward Male,2026-06-14,2026-06-17,3,Cellulitis,,,,N,Discharged
+307439,21 Years,Female,Medical Ward Female,2026-06-15,2026-06-20,5,Exacerbation of COPD,,,,Y,Discharged
+307545,42 Years,Male,Surgical Ward Male,2026-06-15,2026-07-05,20,Abscess,,,,N,Discharged
+307565,47 Years,Male,Medical Ward Male,2026-06-15,2026-06-17,2,Acute gastroenteritis,,,,Y,Discharged
+307590,42 Years,Female,Medical Ward Female,2026-06-15,2026-06-17,2,Pyelonephritis,,,,N,Discharged
+307627,53 Years,Male,Surgical Ward Male,2026-06-15,2026-06-16,1,Abscess,,,,Y,Discharged
+307395,40 Years,Female,Obstetrics & Gynaecology,2026-06-16,2026-06-26,10,Normal delivery,,N,,N,Discharged
+307424,30 Years,Male,Surgical Ward Male,2026-06-16,2026-06-29,13,Abscess,,,,Y,Discharged
+307461,22 Years,Female,Surgical Ward Female,2026-06-16,2026-06-20,4,Diabetic foot ulcer,Amputation Below Knee,,,Y,Discharged
+307549,33 Years,Female,Orthopaedic Ward,2026-06-16,2026-07-03,17,Fracture of femur,ORIF Femur,,,Y,Discharged
+307551,26 Years,Female,Medical Ward Female,2026-06-16,2026-06-23,7,Severe pneumonia,,,,N,Discharged
+307592,23 Years,Female,Medical Ward Female,2026-06-16,2026-06-22,6,Sepsis,,,,N,Discharged
+307423,17 Years,Female,Obstetrics & Gynaecology,2026-06-17,2026-06-26,9,Normal delivery,,N,,N,Discharged
+307434,40 Years,Female,Obstetrics & Gynaecology,2026-06-17,2026-06-22,5,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307524,29 Years,Female,Obstetrics & Gynaecology,2026-06-17,2026-06-24,7,Normal delivery,,N,,N,Discharged
+307543,25 Years,Female,Obstetrics & Gynaecology,2026-06-17,2026-06-20,3,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+307546,30 Years,Female,Obstetrics & Gynaecology,2026-06-17,2026-06-19,2,Normal delivery,,N,,N,Discharged
+307616,76 Years,Female,Medical Ward Female,2026-06-17,2026-06-19,2,Severe pneumonia,,,,N,Discharged
+307415,60 Years,Male,Surgical Ward Male,2026-06-18,2026-06-24,6,Burns,,,,Y,Discharged
+307491,39 Years,Female,Obstetrics & Gynaecology,2026-06-18,2026-06-21,3,Puerperal sepsis,,N,,Y,Discharged
+307510,46 Years,Male,Orthopaedic Ward,2026-06-18,2026-07-23,35,Benign prostatic hyperplasia,Prostatectomy (Open),,,Y,Discharged
+307526,43 Years,Male,Surgical Ward Male,2026-06-18,2026-06-27,9,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+307533,65 Years,Female,Medical Ward Female,2026-06-18,2026-06-21,3,Diabetic ketoacidosis,,,,N,Discharged
+307558,25 Years,Female,Orthopaedic Ward,2026-06-18,2026-06-21,3,Acute appendicitis,Appendicectomy,,,Y,Discharged
+307396,6 Years,Female,Paediatric Ward,2026-06-19,2026-06-25,6,Severe malaria,,,,N,Discharged
+307402,19 Years,Female,Obstetrics & Gynaecology,2026-06-19,2026-06-22,3,Incomplete abortion,,N,,N,Discharged
+307436,15 Years,Female,Medical Ward Female,2026-06-19,2026-07-01,12,Sepsis,,,,N,Discharged
+307466,48 Years,Female,Surgical Ward Female,2026-06-19,2026-06-25,6,Osteomyelitis,,,,Y,Discharged
+307568,53 Years,Female,Surgical Ward Female,2026-06-19,2026-06-22,3,Fracture of femur,ORIF Femur,,,Y,Discharged
+307580,14 Years,Male,Medical Ward Male,2026-06-19,2026-06-20,1,Severe pneumonia,,,,N,Discharged
+307635,5 Years,Female,Paediatric Ward,2026-06-19,2026-07-06,17,Severe pneumonia,,,,N,Discharged
+307525,39 Years,Male,Surgical Ward Male,2026-06-20,2026-07-09,19,Fracture of femur,ORIF Femur,,,Y,Discharged
+307547,49 Years,Male,Surgical Ward Male,2026-06-20,2026-06-27,7,Intestinal obstruction,Laparotomy,,,Y,Discharged
+307624,20 Years,Female,Obstetrics & Gynaecology,2026-06-20,2026-06-28,8,Puerperal sepsis,,N,,N,Discharged
+307629,79 Years,Female,Surgical Ward Female,2026-06-20,2026-06-24,4,Abscess,,,,Y,Discharged
+307435,21 Years,Female,Medical Ward Female,2026-06-21,2026-06-29,8,Acute gastroenteritis,,,,Y,Discharged
+307495,38 Years,Female,Medical Ward Female,2026-06-21,2026-06-23,2,Severe pneumonia,,,,N,Discharged
+307576,47 Years,Female,Orthopaedic Ward,2026-06-22,2026-06-25,3,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+307605,66 Years,Female,Surgical Ward Female,2026-06-22,2026-06-26,4,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+307607,8 Years,Female,Paediatric Ward,2026-06-22,2026-07-01,9,Severe malaria,,,,Y,Discharged
+307397,66 Years,Male,Surgical Ward Male,2026-06-23,2026-06-26,3,Acute appendicitis,Appendicectomy,,,Y,Discharged
+307444,38 Years,Female,Obstetrics & Gynaecology,2026-06-23,2026-06-26,3,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+307470,18 Years,Female,Obstetrics & Gynaecology,2026-06-23,2026-06-27,4,Uterine fibroids,Myomectomy,N,,Y,Discharged
+307475,32 Years,Male,Orthopaedic Ward,2026-06-23,2026-06-26,3,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+307591,3 Months,Female,Paediatric Ward,2026-06-23,2026-07-02,9,Severe pneumonia,,,,Y,Discharged
+307606,54 Years,Male,Medical Ward Male,2026-06-23,2026-06-30,7,Sepsis,,,,Y,Discharged
+307419,43 Years,Female,Obstetrics & Gynaecology,2026-06-24,2026-06-26,2,Normal delivery,,N,,N,Discharged
+307422,39 Years,Female,Obstetrics & Gynaecology,2026-06-24,2026-06-26,2,Pelvic inflammatory disease,,N,,N,Discharged
+307425,38 Years,Female,Orthopaedic Ward,2026-06-24,2026-07-11,17,Abscess,,,,Y,Discharged
+307500,19 Years,Female,Obstetrics & Gynaecology,2026-06-24,2026-06-29,5,Normal delivery,,N,,N,Discharged
+307561,33 Years,Female,Medical Ward Female,2026-06-24,2026-06-30,6,Acute gastroenteritis,,,,Y,Discharged
+307631,45 Years,Female,Medical Ward Female,2026-06-24,2026-06-25,1,Bacterial meningitis,,,,N,Discharged
+307408,1 Years,Female,Paediatric Ward,2026-06-25,2026-06-26,1,Severe pneumonia,,,,N,Discharged
+307451,65 Years,Male,Surgical Ward Male,2026-06-25,2026-07-01,6,Burns,,,,Y,Discharged
+307505,35 Years,Male,Medical Ward Male,2026-06-25,2026-07-06,11,Congestive cardiac failure,,,,Y,Discharged
+307528,35 Years,Male,Medical Ward Male,2026-06-25,2026-07-05,10,Severe pneumonia,,,,N,Discharged
+307621,43 Years,Male,Medical Ward Male,2026-06-25,2026-06-30,5,Severe pneumonia,,,,N,Discharged
+307450,51 Years,Female,Orthopaedic Ward,2026-06-26,2026-07-02,6,Fracture of femur,ORIF Femur,,,Y,Discharged
+307454,2 Years,Male,Paediatric Ward,2026-06-26,2026-06-30,4,Severe malaria,,,,N,Discharged
+307464,10 Days,Male,Neonatal Unit,2026-06-26,2026-07-12,16,Neonatal sepsis,,,,Y,Discharged
+307527,79 Years,Female,Medical Ward Female,2026-06-26,2026-07-06,10,Severe pneumonia,,,,Y,Discharged
+307588,28 Years,Female,Obstetrics & Gynaecology,2026-06-26,2026-06-27,1,Normal delivery,,N,,N,Discharged
+307400,27 Years,Female,Medical Ward Female,2026-06-27,2026-06-28,1,Pyelonephritis,,,,N,Discharged
+307529,50 Years,Male,Medical Ward Male,2026-06-27,2026-07-06,9,Sepsis,,,,N,Discharged
+307636,23 Years,Female,Obstetrics & Gynaecology,2026-06-27,2026-06-30,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307445,54 Years,Female,Orthopaedic Ward,2026-06-28,2026-07-09,11,Wound infection,,,,Y,Discharged
+307489,33 Years,Male,Medical Ward Male,2026-06-28,2026-07-07,9,Bacterial meningitis,,,,Y,Discharged
+307571,2 Years,Female,Paediatric Ward,2026-06-28,2026-07-02,4,Severe pneumonia,,,,N,Discharged
+307409,74 Years,Male,Medical Ward Male,2026-06-29,2026-06-30,1,Severe pneumonia,,,,Y,Discharged
+307488,27 Years,Male,Medical Ward Male,2026-06-29,2026-07-01,2,Sepsis,,,,Y,Discharged
+307519,27 Years,Female,Medical Ward Female,2026-06-29,2026-07-05,6,Urinary tract infection,,,,Y,Discharged
+307523,76 Years,Male,Medical Ward Male,2026-06-29,2026-07-01,2,Pyelonephritis,,,,Y,Discharged
+307574,23 Days,Female,Neonatal Unit,2026-06-29,2026-07-07,8,Neonatal sepsis,,,,Y,Discharged
+307586,10 Years,Male,Paediatric Ward,2026-06-29,2026-06-30,1,Acute gastroenteritis,,,,Y,Discharged
+307612,17 Years,Female,Medical Ward Female,2026-06-29,2026-07-08,9,Congestive cardiac failure,,,,N,Discharged
+307633,49 Years,Male,Medical Ward Male,2026-06-29,2026-07-04,5,Congestive cardiac failure,,,,Y,Discharged
+307428,2 Years,Female,Paediatric Ward,2026-06-30,2026-07-06,6,Severe acute malnutrition,,,,Y,Discharged
+307511,35 Years,Female,Medical Ward Female,2026-06-30,2026-07-02,2,Severe pneumonia,,,,Y,Discharged
+307513,72 Years,Female,Orthopaedic Ward,2026-06-30,2026-07-11,11,Burns,,,,Y,Discharged
+307540,42 Years,Female,Surgical Ward Female,2026-06-30,2026-07-01,1,Wound infection,,,,Y,Discharged
+307581,31 Years,Female,Obstetrics & Gynaecology,2026-06-30,2026-07-04,4,Pelvic inflammatory disease,,N,,Y,Discharged
+307600,86 Years,Male,Surgical Ward Male,2026-06-30,2026-07-28,28,Acute appendicitis,Appendicectomy,,,Y,Discharged
+307615,60 Years,Female,Medical Ward Female,2026-06-30,2026-07-14,14,Acute gastroenteritis,,,,Y,Discharged
+307648,59 Years,Male,Medical Ward Male,2026-07-01,2026-07-06,5,Diabetic ketoacidosis,,,,N,Discharged
+307663,1 Years,Male,Paediatric Ward,2026-07-01,2026-07-11,10,Severe pneumonia,,,,Y,Discharged
+307689,12 Years,Female,Paediatric Ward,2026-07-01,2026-07-05,4,Bacterial meningitis,,,,Y,Discharged
+307721,33 Years,Female,Intensive Care Unit,2026-07-01,2026-07-08,7,Ventilator associated pneumonia,,,,Y,Discharged
+307729,40 Years,Female,Medical Ward Female,2026-07-01,2026-07-10,9,Pyelonephritis,,,,Y,Discharged
+307753,24 Years,Male,Medical Ward Male,2026-07-01,2026-07-03,2,Severe malaria,,,,N,Discharged
+307755,44 Years,Female,Obstetrics & Gynaecology,2026-07-01,2026-07-02,1,Normal delivery,,N,,N,Discharged
+307769,12 Years,Male,Paediatric Ward,2026-07-01,2026-07-09,8,Acute gastroenteritis,,,,N,Died
+307880,80 Years,Male,Orthopaedic Ward,2026-07-01,2026-07-04,3,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+307708,53 Years,Female,Surgical Ward Female,2026-07-02,2026-07-10,8,Acute appendicitis,Appendicectomy,,,Y,Discharged
+307710,42 Years,Female,Surgical Ward Female,2026-07-02,2026-07-07,5,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+307732,1 Years,Male,Paediatric Ward,2026-07-02,2026-07-06,4,Acute gastroenteritis,,,,Y,Discharged
+307760,58 Years,Male,Surgical Ward Male,2026-07-02,2026-07-06,4,Abscess,,,,Y,Discharged
+307838,17 Years,Female,Obstetrics & Gynaecology,2026-07-02,2026-07-14,12,Pelvic inflammatory disease,,N,,Y,Discharged
+307842,35 Years,Female,Surgical Ward Female,2026-07-02,2026-07-05,3,Intestinal obstruction,Laparotomy,,,Y,Discharged
+307733,43 Years,Male,Surgical Ward Male,2026-07-03,2026-07-10,7,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+307831,27 Years,Male,Medical Ward Male,2026-07-03,2026-07-04,1,Severe pneumonia,,,,Y,Discharged
+307835,40 Years,Female,Obstetrics & Gynaecology,2026-07-03,2026-07-07,4,Pelvic inflammatory disease,,N,,N,Discharged
+307645,39 Years,Male,Medical Ward Male,2026-07-04,2026-07-10,6,Severe pneumonia,,,,Y,Discharged
+307650,37 Years,Female,Obstetrics & Gynaecology,2026-07-04,2026-07-06,2,Normal delivery,,N,,N,Discharged
+307659,47 Years,Male,Surgical Ward Male,2026-07-04,2026-07-14,10,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+307673,58 Years,Female,Medical Ward Female,2026-07-04,2026-07-04,1,Urinary tract infection,,,,Y,Died
+307736,37 Years,Female,Medical Ward Female,2026-07-04,2026-07-05,1,Pyelonephritis,,,,N,Discharged
+307801,23 Days,Male,Neonatal Unit,2026-07-04,2026-07-07,3,Neonatal sepsis,,,,Y,Discharged
+307851,59 Years,Female,Surgical Ward Female,2026-07-04,2026-07-05,1,Osteomyelitis,,,,Y,Discharged
+307882,30 Years,Female,Medical Ward Female,2026-07-04,2026-07-13,9,Sepsis,,,,N,Discharged
+307910,5 Years,Male,Paediatric Ward,2026-07-04,2026-07-05,1,Severe pneumonia,,,,Y,Discharged
+307679,62 Years,Female,Medical Ward Female,2026-07-05,2026-07-11,6,Severe malaria,,,,N,Discharged
+307690,3 Years,Male,Paediatric Ward,2026-07-05,2026-07-14,9,Severe acute malnutrition,,,,N,Discharged
+307703,58 Years,Male,Medical Ward Male,2026-07-05,2026-07-10,5,Severe pneumonia,,,,Y,Discharged
+307712,17 Years,Female,Obstetrics & Gynaecology,2026-07-05,2026-07-08,3,Normal delivery,,N,,N,Discharged
+307794,52 Years,Male,Surgical Ward Male,2026-07-05,2026-07-18,13,Wound infection,,,,Y,Discharged
+307836,82 Years,Male,Medical Ward Male,2026-07-05,2026-07-18,13,Severe pneumonia,,,,Y,Discharged
+307876,36 Years,Female,Obstetrics & Gynaecology,2026-07-05,2026-07-08,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307758,21 Days,Male,Neonatal Unit,2026-07-06,2026-07-22,16,Neonatal sepsis,,,,Y,Discharged
+307770,26 Years,Male,Medical Ward Male,2026-07-06,2026-07-08,2,Urinary tract infection,,,,N,Discharged
+307787,38 Years,Male,Medical Ward Male,2026-07-06,2026-07-10,4,Sepsis,,,,Y,Discharged
+307797,33 Years,Female,Medical Ward Female,2026-07-06,2026-07-15,9,Cellulitis,,,,N,Discharged
+307848,32 Years,Female,Obstetrics & Gynaecology,2026-07-06,2026-07-10,4,Normal delivery,,N,,N,Discharged
+307855,2 Years,Male,Paediatric Ward,2026-07-06,2026-07-08,2,Sepsis,,,,N,Discharged
+307862,67 Years,Male,Medical Ward Male,2026-07-06,2026-07-13,7,Urinary tract infection,,,,N,Discharged
+307699,51 Years,Male,Medical Ward Male,2026-07-07,2026-07-08,1,Congestive cardiac failure,,,,N,Discharged
+307771,85 Years,Female,Surgical Ward Female,2026-07-07,2026-07-26,19,Burns,,,,Y,Discharged
+307778,30 Years,Female,Obstetrics & Gynaecology,2026-07-07,2026-07-10,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307809,84 Years,Male,Surgical Ward Male,2026-07-07,2026-07-22,15,Intestinal obstruction,Laparotomy,,,Y,Discharged
+307902,62 Years,Female,Medical Ward Female,2026-07-07,2026-07-08,1,Severe pneumonia,,,,N,Discharged
+307676,9 Days,Female,Neonatal Unit,2026-07-08,2026-07-11,3,Birth asphyxia,,,,N,Discharged
+307759,18 Years,Female,Medical Ward Female,2026-07-08,2026-07-12,4,Severe pneumonia,,,,N,Discharged
+307857,55 Years,Male,Medical Ward Male,2026-07-08,2026-07-10,2,Urinary tract infection,,,,N,Discharged
+307658,87 Years,Female,Medical Ward Female,2026-07-09,2026-07-12,3,Severe pneumonia,,,,N,Discharged
+307717,62 Years,Female,Orthopaedic Ward,2026-07-09,2026-07-31,22,Abscess,,,,N,Discharged
+307806,7 Months,Male,Paediatric Ward,2026-07-09,2026-07-19,10,Severe malaria,,,,N,Discharged
+307818,44 Years,Female,Intensive Care Unit,2026-07-09,2026-07-14,5,Septic shock,,,,Y,Discharged
+307802,37 Years,Female,Medical Ward Female,2026-07-10,2026-07-18,8,Severe pneumonia,,,,Y,Discharged
+307872,5 Years,Female,Paediatric Ward,2026-07-10,2026-07-14,4,Severe acute malnutrition,,,,Y,Discharged
+307890,28 Years,Male,Medical Ward Male,2026-07-10,2026-07-11,1,Congestive cardiac failure,,,,N,Died
+307899,78 Years,Male,Surgical Ward Male,2026-07-10,2026-07-14,4,Fracture of femur,ORIF Femur,,,Y,Discharged
+307654,12 Years,Male,Paediatric Ward,2026-07-11,2026-07-14,3,Acute gastroenteritis,,,,Y,Discharged
+307737,52 Years,Male,Surgical Ward Male,2026-07-11,2026-07-13,2,Burns,,,,Y,Discharged
+307764,10 Years,Male,Paediatric Ward,2026-07-11,2026-07-14,3,Severe acute malnutrition,,,,Y,Discharged
+307873,10 Years,Female,Paediatric Ward,2026-07-11,2026-07-17,6,Sepsis,,,,Y,Discharged
+307875,26 Years,Female,Surgical Ward Female,2026-07-11,2026-07-18,7,Acute appendicitis,Appendicectomy,,,Y,Discharged
+307900,27 Years,Female,Obstetrics & Gynaecology,2026-07-11,2026-07-12,1,Pre-eclampsia,,N,,N,Discharged
+307666,39 Years,Male,Orthopaedic Ward,2026-07-12,2026-07-15,3,Intestinal obstruction,Laparotomy,,,Y,Discharged
+307695,46 Years,Male,Surgical Ward Male,2026-07-12,2026-07-16,4,Intestinal obstruction,Laparotomy,,,Y,Discharged
+307709,43 Years,Female,Obstetrics & Gynaecology,2026-07-12,2026-07-13,1,Normal delivery,,N,,N,Discharged
+307856,25 Years,Male,Medical Ward Male,2026-07-12,2026-07-16,4,Exacerbation of COPD,,,,Y,Discharged
+307705,22 Years,Female,Obstetrics & Gynaecology,2026-07-13,2026-07-17,4,Normal delivery,,N,,N,Discharged
+307740,19 Years,Female,Obstetrics & Gynaecology,2026-07-13,2026-07-16,3,Normal delivery,,N,,N,Discharged
+307763,62 Years,Female,Surgical Ward Female,2026-07-13,2026-07-18,5,Fracture of femur,ORIF Femur,,,Y,Discharged
+307774,27 Years,Male,Medical Ward Male,2026-07-13,2026-07-27,14,Severe pneumonia,,,,Y,Discharged
+307871,41 Years,Female,Obstetrics & Gynaecology,2026-07-13,2026-07-14,1,Pre-eclampsia,,N,,N,Discharged
+307891,41 Years,Male,Medical Ward Male,2026-07-13,2026-07-16,3,Hypertensive urgency,,,,N,Discharged
+307715,53 Years,Female,Surgical Ward Female,2026-07-14,2026-07-17,3,Diabetic foot ulcer,Amputation Below Knee,,,Y,Discharged
+307821,31 Years,Female,Obstetrics & Gynaecology,2026-07-14,2026-07-21,7,Pre-eclampsia,,N,,N,Discharged
+307843,63 Years,Female,Surgical Ward Female,2026-07-14,2026-07-17,3,Benign prostatic hyperplasia,Prostatectomy (Open),,,Y,Discharged
+307850,40 Years,Female,Obstetrics & Gynaecology,2026-07-14,2026-07-16,2,Normal delivery,,N,,N,Discharged
+307905,2 Years,Female,Paediatric Ward,2026-07-14,2026-07-15,1,Severe acute malnutrition,,,,Y,Discharged
+307694,26 Years,Female,Obstetrics & Gynaecology,2026-07-15,2026-07-18,3,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+307707,83 Years,Male,Medical Ward Male,2026-07-15,2026-07-17,2,Stroke,,,,N,Died
+307868,21 Years,Female,Obstetrics & Gynaecology,2026-07-15,2026-07-21,6,Incomplete abortion,,N,,Y,Discharged
+307652,20 Years,Male,Surgical Ward Male,2026-07-16,2026-07-19,3,Diabetic foot ulcer,Amputation Below Knee,,,Y,Discharged
+307686,57 Years,Male,Surgical Ward Male,2026-07-16,2026-07-19,3,Diabetic foot ulcer,Amputation Below Knee,,,Y,Discharged
+307744,52 Years,Male,Surgical Ward Male,2026-07-16,2026-07-19,3,Fracture of femur,ORIF Femur,,,Y,Discharged
+307784,43 Years,Female,Medical Ward Female,2026-07-16,2026-07-20,4,Cellulitis,,,,N,Discharged
+307813,51 Years,Male,Medical Ward Male,2026-07-16,2026-07-21,5,Severe pneumonia,,,,N,Discharged
+307879,24 Years,Female,Obstetrics & Gynaecology,2026-07-16,2026-07-25,9,Pre-eclampsia,,N,,N,Discharged
+307908,38 Years,Female,Obstetrics & Gynaecology,2026-07-16,2026-07-19,3,Uterine fibroids,Myomectomy,N,,Y,Discharged
+307706,39 Years,Female,Medical Ward Female,2026-07-17,2026-07-30,13,Severe malaria,,,,N,Discharged
+307754,21 Years,Female,Obstetrics & Gynaecology,2026-07-17,2026-07-20,3,Pre-eclampsia,,N,,N,Discharged
+307822,26 Years,Female,Obstetrics & Gynaecology,2026-07-17,2026-07-20,3,Normal delivery,,N,,N,Discharged
+307912,57 Years,Female,Medical Ward Female,2026-07-17,2026-07-19,2,Severe pneumonia,,,,Y,Died
+307642,90 Years,Female,Surgical Ward Female,2026-07-18,2026-07-21,3,Diabetic foot ulcer,Amputation Below Knee,,,Y,Discharged
+307649,31 Years,Female,Obstetrics & Gynaecology,2026-07-18,2026-07-19,1,Normal delivery,,N,,N,Discharged
+307656,14 Years,Female,Medical Ward Female,2026-07-18,2026-07-21,3,Severe pneumonia,,,,N,Discharged
+307692,31 Years,Female,Obstetrics & Gynaecology,2026-07-18,2026-07-19,1,Normal delivery,,N,,N,Discharged
+307702,68 Years,Male,Medical Ward Male,2026-07-18,2026-07-20,2,Severe pneumonia,,,,Y,Discharged
+307791,47 Years,Male,Medical Ward Male,2026-07-18,2026-07-26,8,Congestive cardiac failure,,,,N,Discharged
+307810,53 Years,Male,Medical Ward Male,2026-07-18,2026-07-19,1,Severe malaria,,,,N,Discharged
+307672,55 Years,Male,Surgical Ward Male,2026-07-19,2026-07-22,3,Acute appendicitis,Appendicectomy,,,Y,Discharged
+307750,8 Months,Female,Paediatric Ward,2026-07-19,2026-08-01,13,Severe pneumonia,,,,Y,Discharged
+307782,54 Years,Male,Surgical Ward Male,2026-07-19,2026-07-24,5,Osteomyelitis,,,,Y,Discharged
+307904,10 Years,Male,Paediatric Ward,2026-07-19,2026-07-24,5,Bacterial meningitis,,,,Y,Discharged
+307911,44 Years,Female,Surgical Ward Female,2026-07-19,2026-07-22,3,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+307662,1 Years,Male,Paediatric Ward,2026-07-20,2026-07-21,1,Severe pneumonia,,,,Y,Discharged
+307790,14 Years,Female,Medical Ward Female,2026-07-20,2026-08-03,14,Stroke,,,,N,Discharged
+307651,46 Years,Female,Medical Ward Female,2026-07-21,2026-07-23,2,Pyelonephritis,,,,Y,Discharged
+307653,47 Years,Female,Surgical Ward Female,2026-07-21,2026-07-24,3,Abscess,,,,Y,Discharged
+307828,50 Years,Male,Medical Ward Male,2026-07-21,2026-07-22,1,Severe pneumonia,,,,N,Discharged
+307833,64 Years,Male,Medical Ward Male,2026-07-21,2026-07-30,9,Acute gastroenteritis,,,,N,Discharged
+307903,39 Years,Female,Obstetrics & Gynaecology,2026-07-21,2026-07-24,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307677,5 Years,Male,Paediatric Ward,2026-07-22,2026-08-13,22,Severe malaria,,,,N,Discharged
+307748,86 Years,Female,Medical Ward Female,2026-07-22,2026-07-25,3,Urinary tract infection,,,,N,Died
+307808,21 Years,Female,Obstetrics & Gynaecology,2026-07-22,2026-07-24,2,Pelvic inflammatory disease,,N,,N,Discharged
+307863,63 Years,Male,Medical Ward Male,2026-07-22,2026-07-25,3,Cellulitis,,,,N,Discharged
+307888,37 Years,Female,Obstetrics & Gynaecology,2026-07-22,2026-07-25,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307641,10 Years,Male,Paediatric Ward,2026-07-23,2026-07-24,1,Osteomyelitis,,,,Y,Died
+307646,23 Years,Female,Medical Ward Female,2026-07-23,2026-07-31,8,Sepsis,,,,Y,Discharged
+307684,43 Years,Female,Medical Ward Female,2026-07-23,2026-08-10,18,Diabetic ketoacidosis,,,,N,Discharged
+307685,1 Years,Female,Paediatric Ward,2026-07-23,2026-07-25,2,Urinary tract infection,,,,Y,Discharged
+307701,44 Years,Female,Obstetrics & Gynaecology,2026-07-23,2026-07-26,3,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+307747,70 Years,Male,Medical Ward Male,2026-07-23,2026-07-28,5,Bacterial meningitis,,,,N,Discharged
+307767,49 Years,Male,Medical Ward Male,2026-07-23,2026-07-27,4,Congestive cardiac failure,,,,N,Discharged
+307798,45 Years,Male,Medical Ward Male,2026-07-23,2026-07-28,5,Congestive cardiac failure,,,,N,Discharged
+307841,51 Years,Male,Surgical Ward Male,2026-07-23,2026-07-24,1,Wound infection,,,,N,Discharged
+307870,38 Years,Female,Medical Ward Female,2026-07-23,2026-07-25,2,Urinary tract infection,,,,Y,Discharged
+307885,21 Days,Female,Neonatal Unit,2026-07-23,2026-08-10,18,Neonatal sepsis,,,,Y,Discharged
+307892,77 Years,Female,Medical Ward Female,2026-07-23,2026-07-25,2,Severe pneumonia,,,,Y,Discharged
+307901,35 Years,Female,Medical Ward Female,2026-07-23,2026-07-24,1,Severe pneumonia,,,,Y,Discharged
+307844,43 Years,Female,Obstetrics & Gynaecology,2026-07-24,2026-07-27,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307859,14 Years,Male,Surgical Ward Male,2026-07-24,2026-08-06,13,Fracture of femur,ORIF Femur,,,Y,Discharged
+307668,41 Years,Male,Medical Ward Male,2026-07-25,2026-07-27,2,Severe pneumonia,,,,Y,Discharged
+307671,23 Years,Female,Obstetrics & Gynaecology,2026-07-25,2026-07-28,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307720,8 Years,Male,Paediatric Ward,2026-07-25,2026-07-30,5,Severe malaria,,,,Y,Discharged
+307865,1 Years,Female,Paediatric Ward,2026-07-25,2026-08-18,24,Sepsis,,,,Y,Discharged
+307682,3 Years,Male,Paediatric Ward,2026-07-26,2026-08-10,15,Sepsis,,,,Y,Discharged
+307725,29 Years,Female,Obstetrics & Gynaecology,2026-07-26,2026-08-02,7,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307741,2 Years,Male,Paediatric Ward,2026-07-26,2026-07-29,3,Severe pneumonia,,,,N,Discharged
+307749,32 Years,Female,Obstetrics & Gynaecology,2026-07-26,2026-08-04,9,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307800,12 Years,Male,Paediatric Ward,2026-07-26,2026-08-02,7,Severe pneumonia,,,,Y,Discharged
+307814,38 Years,Male,Medical Ward Male,2026-07-26,2026-07-30,4,Severe pneumonia,,,,Y,Discharged
+307815,84 Years,Male,Medical Ward Male,2026-07-26,2026-07-27,1,Exacerbation of COPD,,,,N,Discharged
+307816,29 Years,Female,Obstetrics & Gynaecology,2026-07-26,2026-08-01,6,Pelvic inflammatory disease,,N,,N,Discharged
+307657,14 Years,Female,Intensive Care Unit,2026-07-27,2026-08-01,5,Septic shock,,,,Y,Discharged
+307716,23 Years,Female,Obstetrics & Gynaecology,2026-07-27,2026-08-01,5,Incomplete abortion,,N,,N,Discharged
+307730,75 Years,Female,Medical Ward Female,2026-07-27,2026-08-03,7,Urinary tract infection,,,,Y,Discharged
+307826,29 Years,Female,Obstetrics & Gynaecology,2026-07-27,2026-07-28,1,Normal delivery,,N,,N,Discharged
+307864,5 Days,Female,Neonatal Unit,2026-07-27,2026-08-06,10,Neonatal sepsis,,,,Y,Died
+307698,23 Years,Male,Medical Ward Male,2026-07-28,2026-07-30,2,Hypertensive urgency,,,,N,Discharged
+307728,35 Years,Female,Obstetrics & Gynaecology,2026-07-28,2026-07-31,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307776,33 Years,Male,Intensive Care Unit,2026-07-28,2026-07-29,1,Septic shock,,,,Y,Discharged
+307781,34 Years,Female,Obstetrics & Gynaecology,2026-07-28,2026-07-30,2,Normal delivery,,N,,N,Discharged
+307832,67 Years,Male,Intensive Care Unit,2026-07-29,2026-08-04,6,Ventilator associated pneumonia,,,,Y,Died
+307803,50 Years,Male,Surgical Ward Male,2026-07-30,2026-08-02,3,Fracture of femur,ORIF Femur,,,Y,Discharged
+307825,41 Years,Male,Medical Ward Male,2026-07-30,2026-08-09,10,Acute gastroenteritis,,,,N,Discharged
+307852,88 Years,Female,Medical Ward Female,2026-07-30,2026-08-01,2,Acute gastroenteritis,,,,N,Discharged
+307898,6 Days,Male,Neonatal Unit,2026-07-30,2026-08-08,9,Neonatal pneumonia,,,,Y,Discharged
+307704,10 Years,Male,Paediatric Ward,2026-07-31,2026-08-06,6,Severe pneumonia,,,,Y,Discharged
+307722,1 Years,Male,Paediatric Ward,2026-07-31,2026-08-07,7,Severe malaria,,,,N,Discharged
+307756,33 Years,Female,Medical Ward Female,2026-07-31,2026-08-04,4,Sepsis,,,,Y,Discharged
+307819,1 Years,Female,Paediatric Ward,2026-07-31,2026-08-04,4,Acute gastroenteritis,,,,N,Discharged
+307846,14 Days,Female,Neonatal Unit,2026-07-31,2026-08-03,3,Neonatal sepsis,,,,N,Discharged
+307883,28 Years,Female,Obstetrics & Gynaecology,2026-07-31,2026-08-01,1,Puerperal sepsis,,N,,Y,Discharged
+307895,36 Years,Female,Obstetrics & Gynaecology,2026-07-31,2026-08-03,3,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+307935,53 Years,Male,Medical Ward Male,2026-08-01,2026-08-06,5,Exacerbation of COPD,,,,Y,Discharged
+307942,51 Years,Male,Surgical Ward Male,2026-08-01,2026-08-04,3,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+307988,26 Years,Female,Obstetrics & Gynaecology,2026-08-01,2026-08-06,5,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+308013,41 Years,Female,Medical Ward Female,2026-08-01,2026-08-11,10,Urinary tract infection,,,,N,Discharged
+308024,49 Years,Female,Medical Ward Female,2026-08-01,2026-08-03,2,Exacerbation of COPD,,,,Y,Discharged
+308038,38 Years,Female,Obstetrics & Gynaecology,2026-08-01,2026-08-03,2,Normal delivery,,N,,N,Discharged
+308086,16 Years,Female,Obstetrics & Gynaecology,2026-08-01,2026-08-04,3,Pelvic inflammatory disease,,N,,Y,Discharged
+308119,36 Years,Female,Obstetrics & Gynaecology,2026-08-01,2026-08-04,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+308130,35 Years,Female,Medical Ward Female,2026-08-01,2026-08-10,9,Cellulitis,,,,Y,Discharged
+308136,48 Years,Male,Medical Ward Male,2026-08-01,2026-08-07,6,Cellulitis,,,,N,Discharged
+307950,10 Years,Male,Paediatric Ward,2026-08-02,2026-08-04,2,Urinary tract infection,,,,N,Discharged
+308020,27 Days,Female,Neonatal Unit,2026-08-02,2026-08-03,1,Neonatal sepsis,,,,Y,Discharged
+308066,15 Days,Female,Neonatal Unit,2026-08-03,2026-08-09,6,Neonatal sepsis,,,,N,Discharged
+308070,6 Days,Male,Neonatal Unit,2026-08-03,2026-08-08,5,Prematurity,,,,Y,Discharged
+307974,15 Years,Male,Surgical Ward Male,2026-08-04,2026-08-04,1,Diabetic foot ulcer,Amputation Below Knee,,,Y,Died
+307981,29 Years,Female,Obstetrics & Gynaecology,2026-08-04,2026-08-05,1,Pre-eclampsia,,N,,N,Discharged
+308003,36 Years,Female,Obstetrics & Gynaecology,2026-08-04,2026-08-07,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+308057,3 Years,Female,Paediatric Ward,2026-08-04,2026-08-07,3,Severe malaria,,,,N,Discharged
+308063,29 Years,Female,Obstetrics & Gynaecology,2026-08-04,2026-08-07,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+308122,56 Years,Female,Surgical Ward Female,2026-08-04,2026-08-06,2,Wound infection,,,,Y,Discharged
+307940,4 Days,Male,Neonatal Unit,2026-08-05,2026-08-06,1,Neonatal pneumonia,,,,N,Discharged
+308015,28 Years,Female,Obstetrics & Gynaecology,2026-08-05,2026-08-10,5,Normal delivery,,N,,N,Discharged
+308126,24 Years,Female,Medical Ward Female,2026-08-05,2026-08-11,6,Acute gastroenteritis,,,,Y,Discharged
+308139,62 Years,Male,Surgical Ward Male,2026-08-05,2026-08-26,21,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+307991,74 Years,Male,Orthopaedic Ward,2026-08-06,2026-08-11,5,Burns,,,,N,Discharged
+308002,79 Years,Male,Medical Ward Male,2026-08-06,2026-08-11,5,Severe malaria,,,,Y,Discharged
+308043,59 Years,Female,Medical Ward Female,2026-08-06,2026-08-09,3,Acute gastroenteritis,,,,N,Discharged
+308065,27 Days,Female,Neonatal Unit,2026-08-06,2026-08-15,9,Neonatal sepsis,,,,N,Discharged
+308135,75 Years,Female,Surgical Ward Female,2026-08-06,2026-08-09,3,Diabetic foot ulcer,Amputation Below Knee,,,Y,Discharged
+307952,41 Years,Female,Medical Ward Female,2026-08-07,2026-08-11,4,Pyelonephritis,,,,N,Discharged
+308010,2 Years,Male,Paediatric Ward,2026-08-07,2026-08-16,9,Severe pneumonia,,,,Y,Discharged
+308037,50 Years,Female,Medical Ward Female,2026-08-07,2026-08-11,4,Severe pneumonia,,,,N,Discharged
+308049,42 Years,Female,Medical Ward Female,2026-08-07,2026-08-16,9,Sepsis,,,,Y,Discharged
+308129,64 Years,Female,Orthopaedic Ward,2026-08-07,2026-08-21,14,Abscess,,,,N,Discharged
+307922,58 Years,Male,Surgical Ward Male,2026-08-08,2026-08-16,8,Fracture of femur,ORIF Femur,,,Y,Discharged
+307932,52 Years,Male,Surgical Ward Male,2026-08-08,2026-08-11,3,Abscess,,,,Y,Discharged
+307996,78 Years,Female,Medical Ward Female,2026-08-08,2026-08-12,4,Severe pneumonia,,,,Y,Discharged
+308028,27 Years,Female,Obstetrics & Gynaecology,2026-08-08,2026-08-11,3,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+308103,78 Years,Female,Surgical Ward Female,2026-08-08,2026-08-13,5,Fracture of femur,ORIF Femur,,,Y,Discharged
+307937,21 Years,Male,Surgical Ward Male,2026-08-09,2026-08-17,8,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+308029,43 Years,Male,Orthopaedic Ward,2026-08-09,2026-08-25,16,Acute appendicitis,Appendicectomy,,,Y,Discharged
+308048,59 Years,Male,Intensive Care Unit,2026-08-09,2026-08-22,13,Septic shock,,,,N,Died
+308085,55 Years,Female,Surgical Ward Female,2026-08-09,2026-08-21,12,Intestinal obstruction,Laparotomy,,,Y,Discharged
+308102,48 Years,Female,Medical Ward Female,2026-08-09,2026-08-16,7,Cellulitis,,,,Y,Discharged
+307913,65 Years,Male,Orthopaedic Ward,2026-08-10,2026-09-21,42,Wound infection,,,,N,Discharged
+307921,46 Years,Female,Medical Ward Female,2026-08-10,2026-08-13,3,Diabetic ketoacidosis,,,,N,Discharged
+307984,54 Years,Male,Medical Ward Male,2026-08-10,2026-08-12,2,Severe malaria,,,,Y,Discharged
+308056,79 Years,Male,Medical Ward Male,2026-08-10,2026-08-12,2,Hypertensive urgency,,,,N,Discharged
+308088,21 Days,Female,Neonatal Unit,2026-08-10,2026-08-16,6,Neonatal sepsis,,,,Y,Discharged
+308104,43 Years,Female,Obstetrics & Gynaecology,2026-08-10,2026-08-13,3,Pre-eclampsia,,N,,N,Discharged
+308140,29 Years,Female,Obstetrics & Gynaecology,2026-08-10,2026-08-13,3,Incomplete abortion,,N,,N,Discharged
+308017,53 Years,Male,Intensive Care Unit,2026-08-11,2026-08-12,1,Severe head injury,,,,Y,Discharged
+308060,16 Years,Female,Obstetrics & Gynaecology,2026-08-11,2026-08-14,3,Normal delivery,,N,,N,Discharged
+308107,23 Years,Female,Obstetrics & Gynaecology,2026-08-11,2026-08-16,5,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+308123,34 Years,Female,Medical Ward Female,2026-08-11,2026-08-17,6,Urinary tract infection,,,,N,Discharged
+307994,41 Years,Female,Medical Ward Female,2026-08-12,2026-08-16,4,Pyelonephritis,,,,Y,Discharged
+308006,67 Years,Female,Medical Ward Female,2026-08-12,2026-08-15,3,Urinary tract infection,,,,N,Discharged
+308071,41 Years,Female,Obstetrics & Gynaecology,2026-08-12,2026-08-15,3,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+308094,38 Years,Female,Surgical Ward Female,2026-08-12,2026-08-16,4,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+308128,83 Years,Female,Surgical Ward Female,2026-08-12,2026-08-22,10,Benign prostatic hyperplasia,Prostatectomy (Open),,,Y,Discharged
+307929,45 Years,Female,Medical Ward Female,2026-08-13,2026-08-14,1,Congestive cardiac failure,,,,N,Discharged
+307931,14 Years,Female,Medical Ward Female,2026-08-13,2026-08-25,12,Urinary tract infection,,,,Y,Discharged
+307968,57 Years,Male,Surgical Ward Male,2026-08-13,2026-08-17,4,Acute appendicitis,Appendicectomy,,,Y,Discharged
+308069,42 Years,Male,Medical Ward Male,2026-08-13,2026-08-16,3,Diabetic ketoacidosis,,,,N,Discharged
+308108,56 Years,Female,Medical Ward Female,2026-08-13,2026-08-25,12,Congestive cardiac failure,,,,N,Died
+308137,70 Years,Female,Orthopaedic Ward,2026-08-13,2026-08-16,3,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+307947,47 Years,Female,Surgical Ward Female,2026-08-14,2026-08-17,3,Diabetic foot ulcer,Amputation Below Knee,,,Y,Discharged
+308041,46 Years,Male,Medical Ward Male,2026-08-14,2026-08-24,10,Severe pneumonia,,,,N,Discharged
+307967,4 Months,Male,Paediatric Ward,2026-08-15,2026-08-19,4,Severe acute malnutrition,,,,Y,Discharged
+307998,33 Years,Female,Obstetrics & Gynaecology,2026-08-15,2026-08-17,2,Incomplete abortion,,N,,Y,Discharged
+308050,90 Years,Female,Surgical Ward Female,2026-08-15,2026-08-21,6,Osteomyelitis,,,,Y,Discharged
+308052,56 Years,Female,Intensive Care Unit,2026-08-15,2026-08-25,10,Septic shock,,,,Y,Discharged
+308076,36 Years,Male,Medical Ward Male,2026-08-15,2026-08-21,6,Acute gastroenteritis,,,,N,Discharged
+308090,43 Years,Female,Obstetrics & Gynaecology,2026-08-15,2026-08-23,8,Incomplete abortion,,N,,N,Discharged
+307956,35 Years,Female,Obstetrics & Gynaecology,2026-08-16,2026-08-19,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+308046,44 Years,Female,Medical Ward Female,2026-08-16,2026-08-20,4,Diabetic ketoacidosis,,,,N,Discharged
+308096,57 Years,Female,Medical Ward Female,2026-08-16,2026-08-18,2,Stroke,,,,N,Discharged
+308098,56 Years,Female,Medical Ward Female,2026-08-16,2026-08-19,3,Sepsis,,,,N,Discharged
+307944,46 Years,Male,Surgical Ward Male,2026-08-17,2026-08-20,3,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+307976,43 Years,Female,Obstetrics & Gynaecology,2026-08-17,2026-08-20,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+308074,50 Years,Male,Medical Ward Male,2026-08-17,2026-08-29,12,Hypertensive urgency,,,,N,Discharged
+307958,42 Years,Female,Obstetrics & Gynaecology,2026-08-18,2026-08-24,6,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+308095,6 Years,Female,Paediatric Ward,2026-08-18,2026-08-19,1,Sepsis,,,,Y,Discharged
+307919,90 Years,Male,Medical Ward Male,2026-08-19,2026-08-24,5,Severe pneumonia,,,,Y,Discharged
+307923,30 Years,Male,Surgical Ward Male,2026-08-19,2026-08-27,8,Abscess,,,,Y,Discharged
+307995,42 Years,Female,Obstetrics & Gynaecology,2026-08-19,2026-08-30,11,Pre-eclampsia,,N,,N,Discharged
+308087,39 Years,Male,Surgical Ward Male,2026-08-19,2026-08-22,3,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+307916,76 Years,Male,Medical Ward Male,2026-08-20,2026-08-23,3,Acute gastroenteritis,,,,N,Discharged
+308004,22 Years,Female,Obstetrics & Gynaecology,2026-08-20,2026-08-23,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+308035,29 Years,Female,Obstetrics & Gynaecology,2026-08-20,2026-08-23,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+308036,51 Years,Male,Surgical Ward Male,2026-08-20,2026-08-26,6,Fracture of femur,ORIF Femur,,,Y,Discharged
+308067,66 Years,Female,Medical Ward Female,2026-08-20,2026-08-22,2,Severe pneumonia,,,,Y,Discharged
+308084,19 Years,Female,Obstetrics & Gynaecology,2026-08-20,2026-08-24,4,Normal delivery,,N,,N,Discharged
+308031,37 Years,Male,Surgical Ward Male,2026-08-21,2026-08-24,3,Acute appendicitis,Appendicectomy,,,Y,Discharged
+308053,42 Years,Female,Obstetrics & Gynaecology,2026-08-21,2026-08-22,1,Normal delivery,,N,,N,Discharged
+308079,25 Years,Male,Medical Ward Male,2026-08-21,2026-08-24,3,Pyelonephritis,,,,Y,Discharged
+308127,8 Months,Female,Paediatric Ward,2026-08-21,2026-08-27,6,Severe pneumonia,,,,N,Discharged
+308143,49 Years,Female,Medical Ward Female,2026-08-22,2026-08-25,3,Bacterial meningitis,,,,Y,Discharged
+307933,68 Years,Male,Medical Ward Male,2026-08-23,2026-08-29,6,Urinary tract infection,,,,N,Discharged
+308082,10 Years,Female,Paediatric Ward,2026-08-23,2026-08-24,1,Sepsis,,,,N,Discharged
+308114,38 Years,Female,Medical Ward Female,2026-08-23,2026-09-03,11,Severe pneumonia,,,,N,Discharged
+308133,37 Years,Female,Obstetrics & Gynaecology,2026-08-23,2026-08-24,1,Normal delivery,,N,,N,Discharged
+307963,17 Years,Female,Obstetrics & Gynaecology,2026-08-24,2026-08-30,6,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307978,15 Years,Female,Medical Ward Female,2026-08-24,2026-08-28,4,Sepsis,,,,N,Discharged
+307979,37 Years,Female,Obstetrics & Gynaecology,2026-08-24,2026-08-27,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307999,14 Years,Female,Medical Ward Female,2026-08-24,2026-09-12,19,Congestive cardiac failure,,,,N,Discharged
+308014,12 Days,Male,Neonatal Unit,2026-08-24,2026-08-24,1,Neonatal sepsis,,,,Y,Died
+308100,15 Years,Male,Medical Ward Male,2026-08-24,2026-08-25,1,Acute gastroenteritis,,,,Y,Discharged
+307961,55 Years,Male,Medical Ward Male,2026-08-25,2026-08-31,6,Urinary tract infection,,,,Y,Died
+308032,29 Years,Female,Surgical Ward Female,2026-08-25,2026-08-30,5,Wound infection,,,,Y,Discharged
+308051,63 Years,Male,Surgical Ward Male,2026-08-25,2026-08-26,1,Abscess,,,,Y,Discharged
+308101,59 Years,Female,Intensive Care Unit,2026-08-25,2026-09-02,8,Eclampsia,,,,N,Discharged
+307920,45 Years,Male,Surgical Ward Male,2026-08-26,2026-09-09,14,Diabetic foot ulcer,Amputation Below Knee,,,Y,Discharged
+307960,71 Years,Female,Surgical Ward Female,2026-08-26,2026-08-31,5,Acute appendicitis,Appendicectomy,,,Y,Discharged
+308001,58 Years,Male,Orthopaedic Ward,2026-08-26,2026-08-29,3,Benign prostatic hyperplasia,Prostatectomy (Open),,,Y,Discharged
+308009,87 Years,Female,Medical Ward Female,2026-08-26,2026-08-31,5,Pyelonephritis,,,,Y,Discharged
+308030,2 Years,Male,Paediatric Ward,2026-08-26,2026-08-28,2,Severe pneumonia,,,,Y,Discharged
+308044,42 Years,Female,Orthopaedic Ward,2026-08-26,2026-09-21,26,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+308078,56 Years,Male,Medical Ward Male,2026-08-26,2026-08-28,2,Urinary tract infection,,,,N,Discharged
+308117,29 Years,Female,Medical Ward Female,2026-08-26,2026-09-02,7,Sepsis,,,,N,Discharged
+308118,24 Years,Male,Intensive Care Unit,2026-08-26,2026-08-31,5,Ventilator associated pneumonia,,,,Y,Discharged
+308022,58 Years,Male,Medical Ward Male,2026-08-27,2026-09-01,5,Hypertensive urgency,,,,N,Discharged
+308007,27 Days,Male,Neonatal Unit,2026-08-28,2026-08-31,3,Neonatal sepsis,,,,Y,Discharged
+307925,67 Years,Female,Intensive Care Unit,2026-08-29,2026-09-12,14,Ventilator associated pneumonia,,,,Y,Discharged
+307926,83 Years,Male,Surgical Ward Male,2026-08-29,2026-09-06,8,Intestinal obstruction,Laparotomy,,,Y,Discharged
+307953,19 Years,Female,Obstetrics & Gynaecology,2026-08-29,2026-08-31,2,Normal delivery,,N,,N,Discharged
+307964,57 Years,Female,Orthopaedic Ward,2026-08-29,2026-09-02,4,Acute appendicitis,Appendicectomy,,,Y,Discharged
+307971,20 Years,Female,Obstetrics & Gynaecology,2026-08-29,2026-08-31,2,Puerperal sepsis,,N,,Y,Discharged
+307985,62 Years,Male,Medical Ward Male,2026-08-29,2026-09-06,8,Severe malaria,,,,N,Discharged
+307993,45 Years,Male,Surgical Ward Male,2026-08-29,2026-09-02,4,Fracture of femur,ORIF Femur,,,Y,Discharged
+308023,25 Years,Male,Medical Ward Male,2026-08-29,2026-08-30,1,Exacerbation of COPD,,,,Y,Discharged
+308106,90 Years,Female,Medical Ward Female,2026-08-29,2026-09-07,9,Severe pneumonia,,,,Y,Discharged
+307954,37 Years,Female,Obstetrics & Gynaecology,2026-08-30,2026-08-31,1,Pre-eclampsia,,N,,N,Discharged
+307955,33 Years,Male,Orthopaedic Ward,2026-08-30,2026-09-04,5,Acute appendicitis,Appendicectomy,,,Y,Discharged
+307962,20 Years,Male,Medical Ward Male,2026-08-30,2026-09-03,4,Cellulitis,,,,Y,Discharged
+307975,5 Years,Male,Paediatric Ward,2026-08-30,2026-08-31,1,Acute gastroenteritis,,,,Y,Discharged
+308068,3 Years,Female,Paediatric Ward,2026-08-30,2026-09-04,5,Acute gastroenteritis,,,,Y,Discharged
+308109,9 Days,Female,Neonatal Unit,2026-08-30,2026-09-04,5,Neonatal sepsis,,,,Y,Discharged
+307965,18 Years,Female,Obstetrics & Gynaecology,2026-08-31,2026-09-04,4,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+307966,11 Days,Female,Neonatal Unit,2026-08-31,2026-09-08,8,Neonatal pneumonia,,,,Y,Discharged
+308025,38 Years,Female,Obstetrics & Gynaecology,2026-08-31,2026-09-05,5,Incomplete abortion,,N,,N,Discharged
+308093,27 Years,Female,Obstetrics & Gynaecology,2026-08-31,2026-09-02,2,Normal delivery,,N,,N,Discharged
+308112,47 Years,Male,Medical Ward Male,2026-08-31,2026-09-05,5,Diabetic ketoacidosis,,,,N,Discharged
+308171,1 Years,Female,Paediatric Ward,2026-09-01,2026-09-02,1,Sepsis,,,,Y,Discharged
+308319,49 Years,Female,Surgical Ward Female,2026-09-01,2026-09-04,3,Acute appendicitis,Appendicectomy,,,Y,Discharged
+308352,66 Years,Male,Medical Ward Male,2026-09-01,2026-09-10,9,Diabetic ketoacidosis,,,,N,Discharged
+308201,14 Years,Male,Medical Ward Male,2026-09-02,2026-09-10,8,Acute gastroenteritis,,,,Y,Discharged
+308223,29 Years,Female,Obstetrics & Gynaecology,2026-09-02,2026-09-07,5,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+308234,38 Years,Female,Medical Ward Female,2026-09-02,2026-09-14,12,Congestive cardiac failure,,,,Y,Discharged
+308267,13 Days,Male,Neonatal Unit,2026-09-02,2026-09-13,11,Birth asphyxia,,,,Y,Discharged
+308285,45 Years,Female,Surgical Ward Female,2026-09-02,2026-09-03,1,Burns,,,,Y,Discharged
+308304,34 Years,Male,Medical Ward Male,2026-09-02,2026-09-06,4,Severe pneumonia,,,,N,Died
+308327,51 Years,Female,Orthopaedic Ward,2026-09-02,2026-09-08,6,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+308341,43 Years,Female,Obstetrics & Gynaecology,2026-09-02,2026-09-03,1,Normal delivery,,N,,N,Discharged
+308157,18 Years,Male,Medical Ward Male,2026-09-03,2026-09-06,3,Sepsis,,,,N,Discharged
+308214,34 Years,Female,Obstetrics & Gynaecology,2026-09-03,2026-09-06,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+308259,38 Years,Male,Surgical Ward Male,2026-09-03,2026-09-07,4,Burns,,,,Y,Discharged
+308306,40 Years,Female,Obstetrics & Gynaecology,2026-09-03,2026-09-06,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+308337,46 Years,Male,Medical Ward Male,2026-09-03,2026-09-13,10,Severe malaria,,,,N,Discharged
+308343,20 Years,Male,Surgical Ward Male,2026-09-03,2026-09-06,3,Fracture of femur,ORIF Femur,,,Y,Discharged
+308356,22 Days,Male,Neonatal Unit,2026-09-03,2026-09-16,13,Neonatal sepsis,,,,N,Discharged
+308162,39 Years,Male,Surgical Ward Male,2026-09-04,2026-09-23,19,Benign prostatic hyperplasia,Prostatectomy (Open),,,Y,Discharged
+308263,32 Years,Female,Obstetrics & Gynaecology,2026-09-04,2026-09-10,6,Normal delivery,,N,,N,Discharged
+308282,2 Days,Male,Neonatal Unit,2026-09-04,2026-09-19,15,Neonatal pneumonia,,,,Y,Discharged
+308177,64 Years,Male,Medical Ward Male,2026-09-05,2026-09-19,14,Severe pneumonia,,,,N,Discharged
+308268,37 Years,Male,Medical Ward Male,2026-09-05,2026-09-07,2,Hypertensive urgency,,,,N,Discharged
+308300,55 Years,Male,Medical Ward Male,2026-09-05,2026-09-06,1,Hypertensive urgency,,,,N,Discharged
+308309,33 Years,Female,Medical Ward Female,2026-09-05,2026-09-12,7,Diabetic ketoacidosis,,,,N,Discharged
+308365,40 Years,Male,Surgical Ward Male,2026-09-05,2026-09-10,5,Acute appendicitis,Appendicectomy,,,Y,Discharged
+308180,79 Years,Female,Medical Ward Female,2026-09-06,2026-09-14,8,Hypertensive urgency,,,,N,Discharged
+308221,6 Years,Female,Paediatric Ward,2026-09-06,2026-09-07,1,Severe pneumonia,,,,Y,Discharged
+308242,46 Years,Male,Medical Ward Male,2026-09-06,2026-09-10,4,Hypertensive urgency,,,,N,Discharged
+308292,52 Years,Female,Medical Ward Female,2026-09-06,2026-09-13,7,Sepsis,,,,N,Discharged
+308332,69 Years,Male,Surgical Ward Male,2026-09-06,2026-09-15,9,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+308152,1 Years,Male,Paediatric Ward,2026-09-07,2026-09-16,9,Severe acute malnutrition,,,,Y,Discharged
+308158,45 Years,Male,Orthopaedic Ward,2026-09-07,2026-09-25,18,Abscess,,,,Y,Discharged
+308191,45 Years,Female,Medical Ward Female,2026-09-07,2026-09-08,1,Cellulitis,,,,Y,Discharged
+308215,37 Years,Male,Surgical Ward Male,2026-09-07,2026-09-15,8,Diabetic foot ulcer,Amputation Below Knee,,,Y,Discharged
+308243,66 Years,Female,Medical Ward Female,2026-09-07,2026-09-09,2,Severe pneumonia,,,,Y,Died
+308264,18 Years,Female,Obstetrics & Gynaecology,2026-09-07,2026-09-10,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Died
+308269,14 Years,Female,Medical Ward Female,2026-09-07,2026-09-13,6,Pyelonephritis,,,,N,Discharged
+308346,47 Years,Male,Medical Ward Male,2026-09-07,2026-09-11,4,Pyelonephritis,,,,Y,Discharged
+308370,31 Years,Female,Medical Ward Female,2026-09-07,2026-09-16,9,Stroke,,,,N,Discharged
+308200,56 Years,Male,Orthopaedic Ward,2026-09-08,2026-09-11,3,Intestinal obstruction,Laparotomy,,,Y,Discharged
+308241,1 Years,Male,Paediatric Ward,2026-09-08,2026-09-15,7,Acute gastroenteritis,,,,N,Discharged
+308254,45 Years,Male,Orthopaedic Ward,2026-09-08,2026-09-12,4,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+308258,25 Years,Female,Surgical Ward Female,2026-09-08,2026-09-11,3,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+308301,36 Years,Female,Orthopaedic Ward,2026-09-08,2026-09-23,15,Wound infection,,,,N,Discharged
+308325,46 Years,Female,Medical Ward Female,2026-09-08,2026-09-10,2,Urinary tract infection,,,,N,Discharged
+308376,38 Years,Male,Medical Ward Male,2026-09-08,2026-09-09,1,Severe pneumonia,,,,N,Discharged
+308244,66 Years,Female,Medical Ward Female,2026-09-09,2026-09-16,7,Urinary tract infection,,,,Y,Discharged
+308284,38 Years,Female,Obstetrics & Gynaecology,2026-09-09,2026-09-13,4,Pelvic inflammatory disease,,N,,Y,Discharged
+308321,34 Years,Male,Surgical Ward Male,2026-09-09,2026-09-13,4,Wound infection,,,,Y,Discharged
+308336,28 Years,Male,Medical Ward Male,2026-09-09,2026-09-26,17,Exacerbation of COPD,,,,N,Discharged
+308374,27 Years,Female,Obstetrics & Gynaecology,2026-09-09,2026-09-11,2,Normal delivery,,N,,N,Discharged
+308149,37 Years,Male,Surgical Ward Male,2026-09-10,2026-09-16,6,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+308218,28 Years,Female,Medical Ward Female,2026-09-10,2026-09-12,2,Exacerbation of COPD,,,,Y,Discharged
+308361,67 Years,Male,Medical Ward Male,2026-09-10,2026-09-13,3,Sepsis,,,,N,Died
+308144,25 Years,Male,Medical Ward Male,2026-09-11,2026-09-16,5,Severe pneumonia,,,,N,Discharged
+308228,18 Years,Female,Obstetrics & Gynaecology,2026-09-11,2026-09-14,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+308257,49 Years,Female,Medical Ward Female,2026-09-11,2026-09-24,13,Urinary tract infection,,,,N,Discharged
+308270,66 Years,Female,Medical Ward Female,2026-09-11,2026-09-16,5,Severe pneumonia,,,,N,Discharged
+308299,10 Days,Female,Neonatal Unit,2026-09-11,2026-09-29,18,Neonatal sepsis,,,,Y,Discharged
+308324,6 Years,Female,Paediatric Ward,2026-09-11,2026-09-12,1,Acute gastroenteritis,,,,N,Discharged
+308154,4 Years,Female,Paediatric Ward,2026-09-12,2026-09-15,3,Severe pneumonia,,,,Y,Discharged
+308239,33 Years,Female,Obstetrics & Gynaecology,2026-09-12,2026-09-16,4,Pre-eclampsia,,N,,N,Discharged
+308273,54 Years,Male,Medical Ward Male,2026-09-12,2026-09-13,1,Urinary tract infection,,,,Y,Discharged
+308283,61 Years,Female,Medical Ward Female,2026-09-12,2026-09-24,12,Severe pneumonia,,,,Y,Discharged
+308315,37 Years,Male,Orthopaedic Ward,2026-09-12,2026-09-22,10,Fracture of femur,ORIF Femur,,,Y,Discharged
+308187,42 Years,Female,Obstetrics & Gynaecology,2026-09-13,2026-09-22,9,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+308194,2 Years,Female,Paediatric Ward,2026-09-13,2026-09-21,8,Osteomyelitis,,,,Y,Discharged
+308199,27 Years,Male,Medical Ward Male,2026-09-13,2026-09-14,1,Severe pneumonia,,,,N,Discharged
+308339,12 Years,Female,Paediatric Ward,2026-09-13,2026-09-27,14,Acute gastroenteritis,,,,Y,Discharged
+308369,14 Years,Male,Orthopaedic Ward,2026-09-13,2026-09-16,3,Fracture of femur,ORIF Femur,,,Y,Discharged
+308175,31 Years,Male,Surgical Ward Male,2026-09-14,2026-09-22,8,Abscess,,,,Y,Discharged
+308224,42 Years,Female,Obstetrics & Gynaecology,2026-09-14,2026-09-17,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+308233,21 Years,Female,Obstetrics & Gynaecology,2026-09-14,2026-09-17,3,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+308286,18 Years,Female,Obstetrics & Gynaecology,2026-09-14,2026-09-19,5,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+308320,44 Years,Female,Medical Ward Female,2026-09-14,2026-09-18,4,Cellulitis,,,,N,Discharged
+308333,42 Years,Female,Surgical Ward Female,2026-09-14,2026-09-17,3,Intestinal obstruction,Laparotomy,,,Y,Discharged
+308179,59 Years,Male,Medical Ward Male,2026-09-15,2026-09-16,1,Pyelonephritis,,,,Y,Discharged
+308252,55 Years,Female,Medical Ward Female,2026-09-15,2026-09-16,1,Acute gastroenteritis,,,,N,Discharged
+308272,24 Years,Female,Medical Ward Female,2026-09-16,,14,Exacerbation of COPD,,,,N,Admitted
+308291,48 Years,Female,Medical Ward Female,2026-09-16,2026-09-19,3,Congestive cardiac failure,,,,N,Discharged
+308195,1 Years,Female,Paediatric Ward,2026-09-17,2026-09-18,1,Sepsis,,,,Y,Discharged
+308219,30 Years,Female,Obstetrics & Gynaecology,2026-09-17,2026-09-20,3,Uterine fibroids,Myomectomy,N,,Y,Discharged
+308249,49 Years,Female,Medical Ward Female,2026-09-17,2026-09-19,2,Acute gastroenteritis,,,,N,Discharged
+308288,33 Years,Male,Medical Ward Male,2026-09-17,2026-09-21,4,Cellulitis,,,,Y,Discharged
+308295,17 Years,Female,Obstetrics & Gynaecology,2026-09-17,2026-09-18,1,Puerperal sepsis,,N,,N,Discharged
+308297,52 Years,Female,Orthopaedic Ward,2026-09-17,,13,Intestinal obstruction,Laparotomy,,,Y,Admitted
+308318,48 Years,Male,Medical Ward Male,2026-09-17,2026-09-19,2,Hypertensive urgency,,,,N,Discharged
+308164,31 Years,Male,Medical Ward Male,2026-09-18,2026-09-21,3,Congestive cardiac failure,,,,N,Discharged
+308211,6 Months,Female,Paediatric Ward,2026-09-18,2026-09-19,1,Sepsis,,,,Y,Died
+308226,5 Years,Female,Paediatric Ward,2026-09-18,2026-09-19,1,Severe pneumonia,,,,Y,Discharged
+308279,4 Months,Male,Paediatric Ward,2026-09-18,2026-09-19,1,Severe malaria,,,,N,Discharged
+308167,26 Years,Female,Surgical Ward Female,2026-09-19,,11,Fracture of femur,ORIF Femur,,,Y,Admitted
+308265,22 Years,Female,Obstetrics & Gynaecology,2026-09-19,2026-09-23,4,Uterine fibroids,Myomectomy,N,,Y,Discharged
+308326,47 Years,Male,Surgical Ward Male,2026-09-19,2026-09-22,3,Open fracture of tibia,Debridement and External Fixation,,,Y,Discharged
+308153,19 Years,Female,Obstetrics & Gynaecology,2026-09-20,2026-09-24,4,Incomplete abortion,,N,,N,Discharged
+308202,53 Years,Male,Surgical Ward Male,2026-09-20,2026-09-22,2,Wound infection,,,,Y,Discharged
+308358,34 Years,Male,Medical Ward Male,2026-09-20,2026-09-22,2,Diabetic ketoacidosis,,,,N,Discharged
+308371,70 Years,Male,Orthopaedic Ward,2026-09-20,2026-09-23,3,Inguinal hernia,Herniorrhaphy,,,Y,Discharged
+308184,51 Years,Female,Surgical Ward Female,2026-09-21,,9,Diabetic foot ulcer,Amputation Below Knee,,,Y,Admitted
+308231,50 Years,Female,Medical Ward Female,2026-09-21,2026-09-24,3,Stroke,,,,Y,Discharged
+308236,49 Years,Male,Surgical Ward Male,2026-09-21,2026-09-29,8,Abscess,,,,Y,Discharged
+308255,41 Years,Female,Surgical Ward Female,2026-09-21,,9,Abscess,,,,Y,Died
+308293,22 Years,Female,Medical Ward Female,2026-09-21,2026-09-22,1,Bacterial meningitis,,,,Y,Discharged
+308312,2 Years,Male,Paediatric Ward,2026-09-21,2026-09-22,1,Severe pneumonia,,,,N,Discharged
+308342,72 Years,Female,Medical Ward Female,2026-09-21,,9,Urinary tract infection,,,,Y,Admitted
+308165,21 Years,Female,Obstetrics & Gynaecology,2026-09-22,2026-09-26,4,Pelvic inflammatory disease,,N,,Y,Discharged
+308166,17 Years,Female,Obstetrics & Gynaecology,2026-09-22,2026-09-25,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+308173,61 Years,Male,Orthopaedic Ward,2026-09-22,,8,Wound infection,,,,Y,Admitted
+308186,37 Years,Female,Obstetrics & Gynaecology,2026-09-22,2026-09-26,4,Caesarean section - previous scar,Caesarean Section,Y,N,Y,Discharged
+308357,49 Years,Male,Medical Ward Male,2026-09-22,2026-09-23,1,Severe pneumonia,,,,N,Discharged
+308145,67 Years,Male,Medical Ward Male,2026-09-23,2026-09-24,1,Severe pneumonia,,,,Y,Discharged
+308260,1 Days,Female,Neonatal Unit,2026-09-23,2026-09-30,7,Neonatal sepsis,,,,N,Discharged
+308338,32 Years,Female,Obstetrics & Gynaecology,2026-09-23,2026-09-26,3,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Discharged
+308348,52 Years,Male,Medical Ward Male,2026-09-23,2026-09-26,3,Severe pneumonia,,,,Y,Discharged
+308350,36 Years,Female,Medical Ward Female,2026-09-23,2026-09-24,1,Severe malaria,,,,N,Discharged
+308353,47 Years,Female,Medical Ward Female,2026-09-23,2026-09-28,5,Stroke,,,,N,Discharged
+308362,8 Years,Female,Paediatric Ward,2026-09-23,,7,Severe pneumonia,,,,Y,Admitted
+308146,16 Years,Female,Obstetrics & Gynaecology,2026-09-24,2026-09-26,2,Normal delivery,,N,,N,Discharged
+308159,48 Years,Male,Medical Ward Male,2026-09-24,,6,Acute gastroenteritis,,,,Y,Admitted
+308168,47 Years,Male,Surgical Ward Male,2026-09-24,,6,Open fracture of tibia,Debridement and External Fixation,,,Y,Admitted
+308183,2 Years,Male,Paediatric Ward,2026-09-24,2026-09-26,2,Severe malaria,,,,N,Discharged
+308220,37 Years,Male,Surgical Ward Male,2026-09-24,2026-09-27,3,Intestinal obstruction,Laparotomy,,,Y,Discharged
+308310,51 Years,Male,Medical Ward Male,2026-09-24,2026-09-25,1,Severe malaria,,,,N,Died
+308340,30 Years,Female,Orthopaedic Ward,2026-09-24,2026-09-27,3,Benign prostatic hyperplasia,Prostatectomy (Open),,,Y,Discharged
+308174,53 Years,Male,Surgical Ward Male,2026-09-25,,5,Acute appendicitis,Appendicectomy,,,Y,Admitted
+308328,35 Years,Female,Medical Ward Female,2026-09-25,2026-09-29,4,Hypertensive urgency,,,,N,Discharged
+308329,61 Years,Female,Medical Ward Female,2026-09-25,2026-09-26,1,Severe pneumonia,,,,N,Discharged
+308197,54 Years,Female,Medical Ward Female,2026-09-26,,4,Acute gastroenteritis,,,,N,Admitted
+308203,47 Years,Male,Orthopaedic Ward,2026-09-26,,4,Benign prostatic hyperplasia,Prostatectomy (Open),,,Y,Admitted
+308229,10 Days,Male,Neonatal Unit,2026-09-26,2026-09-27,1,Birth asphyxia,,,,N,Discharged
+308247,58 Years,Male,Intensive Care Unit,2026-09-26,2026-09-27,1,Septic shock,,,,Y,Discharged
+308330,44 Years,Female,Obstetrics & Gynaecology,2026-09-26,2026-09-27,1,Pelvic inflammatory disease,,N,,N,Discharged
+308209,64 Years,Female,Medical Ward Female,2026-09-27,,3,Congestive cardiac failure,,,,N,Admitted
+308308,30 Years,Male,Medical Ward Male,2026-09-27,2026-09-28,1,Diabetic ketoacidosis,,,,N,Discharged
+308193,56 Years,Male,Surgical Ward Male,2026-09-28,,2,Acute appendicitis,Appendicectomy,,,Y,Admitted
+308331,67 Years,Male,Medical Ward Male,2026-09-28,,2,Diabetic ketoacidosis,,,,N,Admitted
+308182,29 Years,Female,Surgical Ward Female,2026-09-29,,1,Acute appendicitis,Appendicectomy,,,Y,Admitted
+308208,2 Years,Female,Paediatric Ward,2026-09-29,2026-09-30,1,Severe pneumonia,,,,Y,Discharged
+308246,2 Years,Male,Paediatric Ward,2026-09-29,,1,Bacterial meningitis,,,,Y,Admitted
+308313,19 Years,Female,Obstetrics & Gynaecology,2026-09-29,2026-09-30,1,Incomplete abortion,,N,,N,Discharged
+308317,2 Years,Female,Paediatric Ward,2026-09-29,,1,Urinary tract infection,,,,Y,Admitted
+308368,10 Years,Male,Paediatric Ward,2026-09-29,,1,Acute gastroenteritis,,,,N,Admitted
+308150,22 Days,Female,Neonatal Unit,2026-09-30,,1,Neonatal pneumonia,,,,N,Admitted
+308176,12 Years,Male,Paediatric Ward,2026-09-30,,1,Severe malaria,,,,N,Admitted
+308190,32 Years,Male,Surgical Ward Male,2026-09-30,,1,Wound infection,,,,Y,Admitted
+308206,43 Years,Female,Obstetrics & Gynaecology,2026-09-30,,1,Incomplete abortion,,N,,N,Admitted
+308276,16 Years,Female,Obstetrics & Gynaecology,2026-09-30,,1,Caesarean section - obstructed labour,Caesarean Section,Y,N,Y,Admitted
+308298,26 Years,Female,Surgical Ward Female,2026-09-30,,1,Acute appendicitis,Appendicectomy,,,Y,Admitted
