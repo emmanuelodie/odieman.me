@@ -162,7 +162,7 @@ h2{font-size:16px;margin:22px 0 10px}
 <body>
 <div class="app">
 <aside>
-  <div class="logo"><b>Odieman PPS Pro</b><span>Point Prevalence Survey · v3.0</span></div>
+  <div class="logo"><b>Odieman PPS Pro</b><span>Point Prevalence Survey · v3.1</span></div>
   <nav id="nav"></nav>
 </aside>
 <main>
@@ -215,7 +215,7 @@ const FORMULARY = {
  "Imipenem-cilastatin":{atc:"J01DH51",aware:"Watch",route:"P",ddd:{P:2}},
  "Piperacillin-tazobactam":{atc:"J01CR05",aware:"Watch",route:"P",ddd:{P:14}},
  "Vancomycin":{atc:"J01XA01",aware:"Watch",route:"P",ddd:{P:2,O:2}},
- "Amikacin":{atc:"J01GB06",aware:"Watch",route:"P",ddd:{P:1}},
+ "Amikacin":{atc:"J01GB06",aware:"Access",route:"P",ddd:{P:1}},
  "Linezolid":{atc:"J01XX08",aware:"Reserve",route:"P",ddd:{O:1.2,P:1.2}},
  "Colistin":{atc:"J01XB01",aware:"Reserve",route:"P",unit:"IU",ddd:{P:9000000}},
  "Tigecycline":{atc:"J01AA12",aware:"Reserve",route:"P",ddd:{P:0.1}},
@@ -229,6 +229,10 @@ const ALIASES={"augmentin":"Amoxicillin-clavulanate","co-amoxiclav":"Amoxicillin
  "crystalline penicillin":"Benzylpenicillin","x-pen":"Benzylpenicillin","penicillin g":"Benzylpenicillin","flagyl":"Metronidazole",
  "rocephin":"Ceftriaxone","cipro":"Ciprofloxacin","pip-tazo":"Piperacillin-tazobactam","tazocin":"Piperacillin-tazobactam",
  "imipenem":"Imipenem-cilastatin","cephalexin":"Cefalexin","coartem":"Artemether-lumefantrine","alu":"Artemether-lumefantrine"};
+/* v3.1: route-aware look-ups — a reference-list update can class the oral and injectable forms of one
+   antibiotic differently (e.g. fosfomycin: oral Watch, injection Reserve). */
+function fCls(f,route){return (f&&f.awareByRoute&&route&&f.awareByRoute[route])||(f&&f.aware)||""}
+function fAtc(f,route){return (f&&f.atcByRoute&&route&&f.atcByRoute[route])||(f&&f.atc)||""}
 const DX={PNEU:"Pneumonia",BRON:"Bronchitis / LRTI",CNS:"CNS infection",BAC:"Bacteraemia",CSEP:"Clinical sepsis",PYE:"Upper UTI / pyelonephritis",
  CYS:"Lower UTI / cystitis",GI:"Gastrointestinal infection",IA:"Intra-abdominal infection",SST:"Skin & soft tissue",BJ:"Bone & joint",
  OBGY:"Obstetric / gynaecological",FN:"Febrile neutropenia",UND:"Undefined site",MAL:"Malaria",PROK:"Surgical prophylaxis",PROF:"Medical prophylaxis",
@@ -357,7 +361,7 @@ function normDate(d){if(!d)return"";if(/^\d{4}-\d{2}-\d{2}/.test(d))return d.sli
 function rowToPatient(o){const abs=[];
  for(let i=1;i<=6;i++){const n=drugName(o[`ab${i}_name`]);if(!n)continue;const f=FORMULARY[n]||{};
   let rt=String(o[`ab${i}_route`]||f.route||"").trim().toUpperCase();rt=rt.startsWith("I")||rt==="P"?"P":rt.startsWith("O")||rt==="PO"?"O":rt;
-  abs.push({name:n,atc:o[`ab${i}_atc`]||f.atc||"",aware:normAware(o[`ab${i}_aware`])||f.aware||"Not classified",route:rt,dose:parseFloat(o[`ab${i}_dose_mg`])||null,freq:parseFloat(o[`ab${i}_doses_per_day`])||null})}
+  abs.push({name:n,atc:o[`ab${i}_atc`]||fAtc(f,rt)||"",aware:normAware(o[`ab${i}_aware`])||fCls(f,rt)||"Not classified",route:rt,dose:parseFloat(o[`ab${i}_dose_mg`])||null,freq:parseFloat(o[`ab${i}_doses_per_day`])||null})}
  let on=YN(o.on_antimicrobial);if(!on)on=abs.length?"Y":"N";
  return{code:o.patient_code||"",ward:o.ward||"",wardCode:o.ward_code||"",wardType:(o.ward_type||"").toUpperCase(),age:o.age_years===""?null:parseFloat(o.age_years),
   sex:(o.sex||"").toUpperCase().slice(0,1),weight:o.weight_kg===""||o.weight_kg==null?null:parseFloat(o.weight_kg),adm:normDate(o.admission_date||""),on,
@@ -398,16 +402,17 @@ const DATAFILE="odieman_pps_data.json";
 async function onFolderReady(){
  pill();
  const txt=await FS.read(DATAFILE);let added=0;
- if(txt){try{const fdb=JSON.parse(txt);mergeDB(fdb);log(`Loaded ${DATAFILE} (${fdb.surveys.length} surveys)`)}catch(e){toast("Saved data file in folder could not be read; a backup copy is kept in /backups")}}
+ if(txt){try{const fdb=JSON.parse(txt);mergeDB(fdb);if(window.ODMREF){ODMREF.sync();fillDrugList()}log(`Loaded ${DATAFILE} (${fdb.surveys.length} surveys)`)}catch(e){toast("Saved data file in folder could not be read; a backup copy is kept in /backups")}}
  added=await scanFolder(true);
  DB.surveys.forEach(s=>dirty.add(s.id));
  await FS.write("README.txt",readmeText()).catch(()=>{});
  await saveNow();
  if(!UI.sid&&DB.surveys.length)UI.sid=sorted().at(-1).id;
  render();toast(`Data folder “${FS.handle.name}” connected${added?` · ${added} survey file(s) imported`:""}. Changes now save automatically.`)}
-function mergeDB(fdb){if(!fdb||!Array.isArray(fdb.surveys))return;
+function mergeDB(fdb){if(!fdb||!Array.isArray(fdb.surveys))return;const _rp=DB.meta.refPack;
  DB.meta=Object.assign({},fdb.meta||{},DB.meta.facility?{facility:DB.meta.facility}:{},{ignored:[...new Set([...(fdb.meta?.ignored||[]),...(DB.meta.ignored||[])])]});
  if(!DB.meta.author)DB.meta.author="Odindo Emmanuel Thomas";
+ if(_rp&&(!DB.meta.refPack||!DB.meta.refPack.pack||DB.meta.refPack.pack.serial<_rp.pack.serial))DB.meta.refPack=_rp;
  fdb.surveys.forEach(fs=>{const cur=getS(fs.id);if(!cur)DB.surveys.push(fs);else if((fs.updated||0)>(cur.updated||0))Object.assign(cur,fs)})}
 async function scanFolder(quiet){if(FS.state!=="connected")return 0;let added=0;
  const files=[...(await FS.list("")).map(f=>({...f,path:f.name})),...(await FS.list("surveys")).map(f=>({...f,path:"surveys/"+f.name}))];
@@ -695,8 +700,9 @@ function vSettings(){return`<div class="grid g2"><div class="card"><h3>Settings<
  <div class="card"><h3>CSV format</h3><p>One file per survey, one row per inpatient. Required: <span class="mono">ward</span>, and either <span class="mono">on_antimicrobial</span> or antimicrobial names. Recommended columns:</p>
  <p class="mono" style="font-size:11.5px;word-break:break-all">${HEAD.join(", ")}</p>
  <p>Codes – <b>indication</b>: ${Object.keys(INDN).join(", ")} · <b>diagnosis</b>: ${Object.keys(DX).join(", ")} · <b>route</b>: P (parenteral) or O (oral) · Yes/No fields: Y, N (NA allowed for guideline).</p>
- <p>ATC code and AWaRe group are filled in automatically from the built-in formulary when left blank. Common brand names (Augmentin, Septrin, Flagyl, X-pen…) are recognised.</p>
- <button class="btn ghost" data-act="template">Download blank template</button></div></div>`}
+ <p>ATC code and AWaRe group are filled in automatically from the reference list in use (see <b>Reference lists</b> below) when left blank. Common brand names (Augmentin, Septrin, Flagyl, X-pen…) are recognised.</p>
+ <button class="btn ghost" data-act="template">Download blank template</button></div>
+ <div class="card" style="grid-column:1/-1"><h3>Reference lists — AWaRe groups, ATC codes &amp; WHO DDDs</h3><div class="sub">WHO revises the AWaRe classification every two years and the ATC/DDD Index every year. Check here for the latest list instead of waiting for a new copy of PPS Pro. You see exactly what would change before anything is applied.</div>${window.ODMREF?ODMREF.cardHTML():""}</div></div>`}
 
 function vGuide(){
  const open=(k,l)=>`<button class="btn small ghost" data-goto="${k}">${l||"Open"} →</button>`;
@@ -799,7 +805,7 @@ function newSurvey(){const d=prompt("Survey date (YYYY-MM-DD)",today());if(!d)re
  if(getS(id))return toast("A survey with that ID already exists");DB.surveys.push({id,date:nd,facility:DB.meta.facility||sorted().at(-1)?.facility||"",source:"",imported:new Date().toISOString(),updated:Date.now(),patients:[]});
  UI.sid=id;UI.page="entry";touch(id);render()}
 function readPatient(){const g=id=>document.getElementById(id).value.trim();const s=getS(UI.sid);
- const abs=[0,1,2,3].map(i=>{const n=drugName(g(`a${i}_name`));if(!n)return null;const f=FORMULARY[n]||{};return{name:n,atc:f.atc||"",aware:f.aware||"Not classified",route:g(`a${i}_route`)||f.route||"",dose:parseFloat(g(`a${i}_dose`))||null,freq:parseFloat(g(`a${i}_freq`))||null}}).filter(Boolean);
+ const abs=[0,1,2,3].map(i=>{const n=drugName(g(`a${i}_name`));if(!n)return null;const f=FORMULARY[n]||{};const rt=g(`a${i}_route`)||f.route||"";return{name:n,atc:fAtc(f,rt),aware:fCls(f,rt)||"Not classified",route:rt,dose:parseFloat(g(`a${i}_dose`))||null,freq:parseFloat(g(`a${i}_freq`))||null}}).filter(Boolean);
  let on=g("e_on")||"N";if(abs.length)on="Y";
  const ward=g("e_ward");if(!ward){toast("Ward is required");return null}
  const code=g("e_code")||`${s.id.replace(/\D/g,"")}-${(ward.match(/\b\w/g)||[]).join("").toUpperCase().slice(0,3)}-${String(s.patients.length+1).padStart(3,"0")}`;
@@ -856,7 +862,8 @@ document.addEventListener("dragover",e=>{e.preventDefault();document.body.classL
 document.addEventListener("dragleave",e=>{if(!e.relatedTarget)document.body.classList.remove("drop")});
 document.addEventListener("drop",e=>{e.preventDefault();document.body.classList.remove("drop");importFiles([...e.dataTransfer.files])});
 let lastScan=0;window.addEventListener("focus",()=>{if(FS.state==="connected"&&Date.now()-lastScan>4000){lastScan=Date.now();scanFolder(false)}});
-document.getElementById("drugList").innerHTML=Object.keys(FORMULARY).map(n=>`<option value="${n}">`).join("");
+function fillDrugList(){const d=document.getElementById("drugList");if(d)d.innerHTML=Object.keys(FORMULARY).sort((a,b)=>a.localeCompare(b)).map(n=>`<option value="${esc(n)}">`).join("")}
+fillDrugList();
 async function runDemo(){
  const bar=document.createElement("div");bar.className="warnbox noprint";bar.style.cssText="margin:12px 0 0";
  bar.innerHTML='<b>Live demo.</b> Five simulated surveys of a fictional hospital (2024–2026) are loaded in your browser. Nothing you do here is saved or sent anywhere. <a href="../index.html#download" target="_top">Request the full version</a> to use PPS Pro with your own data.';
@@ -865,7 +872,301 @@ async function runDemo(){
   for(const n of list){const t=await (await fetch(base+n)).text();csvToSurveys(t,n).forEach(x=>{x.source=n;DB.surveys.push(x)})}
   DB.meta.facility="Demo Regional Referral Hospital";{const want=new URLSearchParams(location.search).get("view");UI.page=want&&PAGES.some(([,it])=>it.some(([k])=>k===want))?want:"overview"}UI.sid=sorted().at(-1).id;render();toast(DB.surveys.length+" sample surveys loaded")}
  catch(e){$("#view").innerHTML=`<div class="warnbox">The sample data could not be loaded (${esc(e.message)}). The live demo works when opened from the website; offline, open the PPS_Data folder that comes with the download instead.</div>`}}
+/* ============================= Odieman reference-list updates (v1) =============================
+   AWaRe groups, ATC codes and WHO DDDs can be updated without a new copy of the tool: "Check for
+   updates" downloads one small file (updates/aware-ddd.json) from the Odieman website, shows what
+   would change for THIS tool and its data, and applies it only when the user says so. The same file
+   can be carried on a flash drive and opened with "Load update file" on a computer with no internet.
+   Nothing from the computer is ever sent. The file in use is kept with the tool's own saved data,
+   so reports stay reproducible, and "Go back to the built-in list" always restores the original.
+   Shared by AMS Pro, PPS Pro and VigiWard; each tool supplies an adapter (see ODMREF.init). */
+window.ODMREF=(function(){
+  const URL="https://emmanuelodie.github.io/odieman.me/updates/aware-ddd.json";
+  const PAGE="https://emmanuelodie.github.io/odieman.me/updates/";
+  const FORMAT="odieman-aware-ddd", MAXV=1, CLS=["Access","Watch","Reserve"], ATC_RE=/^[A-Z]\d{2}[A-Z]{2}\d{2}$/;
+  let A=null, applied=null, msg=null, pending=null, showList=false, filter="";
+  const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const isRoute=r=>r==="O"||r==="P";
+  function isCls(v){ if(typeof v==="string") return CLS.includes(v);
+    return !!v&&typeof v==="object"&&Object.keys(v).length>0&&Object.entries(v).every(([r,c])=>isRoute(r)&&CLS.includes(c)); }
+  function validate(p){
+    const err=[];
+    if(!p||typeof p!=="object"||Array.isArray(p)) return {ok:false,errors:["This is not an Odieman reference-list file."]};
+    if(p.format!==FORMAT) return {ok:false,errors:["This is not an Odieman AWaRe/DDD update file."]};
+    if(!(p.formatVersion>=1)) err.push("The file has no format version.");
+    else if(p.formatVersion>MAXV) return {ok:false,errors:["This update file needs a newer version of "+(A?A.tool:"the tool")+". Ask for the latest copy."]};
+    if(!(Number.isInteger(p.serial)&&p.serial>0)) err.push("The file has no edition number.");
+    if(!Array.isArray(p.antibiotics)||!p.antibiotics.length) err.push("The file has no antibiotic list.");
+    if(err.length) return {ok:false,errors:err};
+    const seen=new Set();
+    p.antibiotics.forEach((a,i)=>{
+      const w="Entry "+(i+1)+(a&&a.key?" ("+a.key+")":"");
+      if(!a||typeof a.key!=="string"||!a.key.trim()||a.key!==a.key.toLowerCase().trim()){ err.push(w+": the name (key) must be lower-case text."); return; }
+      if(seen.has(a.key)) err.push(w+": listed twice."); seen.add(a.key);
+      if(!isCls(a.aware)) err.push(w+": the AWaRe group must be Access, Watch or Reserve.");
+      if(a.atc){ const codes=typeof a.atc==="string"?[a.atc]:(typeof a.atc==="object"?Object.entries(a.atc):null);
+        if(!codes||!codes.every(c=>Array.isArray(c)?(isRoute(c[0])&&ATC_RE.test(c[1])):ATC_RE.test(c))) err.push(w+": the ATC code is not valid."); }
+      if(a.ddd!=null){ if(typeof a.ddd!=="object"||!Object.entries(a.ddd).every(([r,v])=>isRoute(r)&&typeof v==="number"&&v>0&&v<1e6)) err.push(w+": a DDD must be a positive number for route O or P."); }
+      if(a.dddUnit!=null){ const u=typeof a.dddUnit==="string"?[a.dddUnit]:(typeof a.dddUnit==="object"?Object.values(a.dddUnit):[null]); if(!u.every(x=>x==="g"||x==="MU")) err.push(w+': the DDD unit must be "g" or "MU".'); }
+    });
+    if(p.notRecommended!=null&&!Array.isArray(p.notRecommended)) err.push("The not-recommended list is not valid.");
+    (p.notRecommended||[]).forEach((n,i)=>{ if(!n||typeof n.key!=="string"||n.key!==n.key.toLowerCase()) err.push("Not-recommended entry "+(i+1)+": the name (key) must be lower-case text."); });
+    const tz=p.tanzania&&p.tanzania.differences;
+    if(tz!=null&&!Array.isArray(tz)) err.push("The Tanzania list is not valid.");
+    (tz||[]).forEach((t,i)=>{ if(!t||typeof t.key!=="string"||!CLS.concat(["Not recommended"]).includes(t.aware)) err.push("Tanzania entry "+(i+1)+" is not valid."); });
+    if(p.aliases!=null&&(typeof p.aliases!=="object"||Array.isArray(p.aliases)||!Object.entries(p.aliases).every(([k,v])=>typeof v==="string"&&k===k.toLowerCase()))) err.push("The alternative-names list is not valid.");
+    if(err.length>8){ const n=err.length-8; err.length=8; err.push("…and "+n+" more problems."); }
+    return {ok:!err.length,errors:err};
+  }
+  /* ---- small helpers the adapters share ---- */
+  function clsFor(aw,route){ if(!aw) return null; if(typeof aw==="string") return aw; return (route&&aw[route])||aw.O||aw.P||null; }
+  function atcList(a){ return !a||!a.atc?[]:typeof a.atc==="string"?[a.atc]:Object.values(a.atc); }
+  function unitOf(a,r){ return a&&a.dddUnit&&typeof a.dddUnit==="object"?(a.dddUnit[r]||"g"):((a&&a.dddUnit)||"g"); }
+  function dddGrams(a){ const o={}; if(a&&a.ddd) Object.entries(a.ddd).forEach(([r,v])=>{ if(unitOf(a,r)==="g") o[r]=v; }); return o; }
+  function fmtCls(v){ if(!v) return "—"; if(typeof v==="string") return v; const o=v.O,p=v.P; return o===p?o:(o?o+" (oral)":"")+(o&&p?" / ":"")+(p?p+" (injection)":""); }
+  function fmtAtc(v){ if(!v) return ""; if(typeof v==="string") return v; return Object.entries(v).map(([r,c])=>c+(r==="O"?" (oral)":" (inj.)")).join(", "); }
+  function fmtDdd(d,u){ if(!d) return ""; return Object.entries(d).map(([r,v])=>(r==="O"?"oral ":"inj. ")+(+v.toFixed(4))+" "+((u&&typeof u==="object"?u[r]:u)||"g")).join(" · "); }
+  function same(a,b){ return JSON.stringify(a==null?null:a)===JSON.stringify(b==null?null:b); }
+  function tag(v){ const c=typeof v==="string"?v:null;
+    const bg={Access:"rgba(46,160,67,.18)",Watch:"rgba(210,153,34,.2)",Reserve:"rgba(218,54,51,.18)","Not recommended":"rgba(127,127,127,.2)"}[c]||"rgba(127,127,127,.14)";
+    return '<span style="display:inline-block;padding:1px 7px;border-radius:9px;background:'+bg+';font-size:11.5px;font-weight:600;white-space:nowrap">'+esc(fmtCls(v))+'</span>'; }
+  function dstr(iso){ if(!iso) return ""; const d=new Date(iso.length===10?iso+"T00:00:00":iso); return isNaN(d)?iso:d.toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"}); }
+  /* ---- comparing what the tool uses now with what it would use ---- */
+  function compare(before,after){
+    const U=(A&&A.uses)||{aware:true,ddd:true,atc:true};
+    const ch={aware:[],added:[],ddd:[],atc:0};
+    Object.keys(after).forEach(k=>{ const a=after[k], b=before[k];
+      if(!b){ ch.added.push(a.name||k); return; }
+      if(!same(b.aware,a.aware)&&a.aware) ch.aware.push({name:a.name||b.name||k,from:b.aware,to:a.aware});
+      const bd=b.ddd||{}, ad=a.ddd||{};
+      const un=r=>{ const u=a.unit; return (u&&typeof u==="object"?u[r]:u)||"g"; };
+      if(U.ddd) ["O","P"].forEach(r=>{ if(ad[r]!=null&&bd[r]!=null&&Math.abs(ad[r]-bd[r])>1e-9) ch.ddd.push({name:a.name||k,route:r,from:bd[r],to:ad[r],u:un(r)});
+        else if(ad[r]!=null&&bd[r]==null) ch.ddd.push({name:a.name||k,route:r,from:null,to:ad[r],u:un(r)}); });
+      if(U.atc&&a.atc&&!same(b.atc,a.atc)) ch.atc++;
+    });
+    ch.added.sort(); ch.aware.sort((x,y)=>x.name.localeCompare(y.name));
+    return ch;
+  }
+  function trial(pack){
+    const before=A.view(), mb=A.measure?A.measure():null;
+    A.restore(); A.applyPack(pack);
+    const after=A.view(), ma=A.measure?A.measure():null;
+    A.restore(); if(applied) A.applyPack(applied.pack);
+    return {ch:compare(before,after), impact:A.impact?A.impact(mb,ma):"", before, after};
+  }
+  /* ---- state kept with the tool's data ---- */
+  function readStore(){ try{ const s=A.getStore(); if(s&&s.pack&&validate(s.pack).ok) return s; }catch(e){} return null; }
+  /* Called whenever the tool's saved data is loaded or replaced. The newest list seen wins, so a
+     restore of an older backup never silently takes the tool back to an older list. */
+  function sync(){
+    if(!A) return false;
+    const s=readStore();
+    if(s&&(!applied||s.pack.serial>applied.pack.serial)){ A.restore(); A.applyPack(s.pack); applied=s; try{ paint(); }catch(e){} return true; }
+    if(applied&&(!s||s.pack.serial<applied.pack.serial)){ try{ A.setStore(applied,true); }catch(e){} }
+    return false;
+  }
+  function label(){
+    if(!applied) return {head:"Built-in list", sub:A.builtinLabel()};
+    const p=applied.pack;
+    return {head:"Update "+p.edition+" — "+(p.title||""), sub:"Released "+dstr(p.released)+" · in use since "+dstr(applied.appliedAt)+" · "+(p.antibiotics.length)+" antibiotics"+(p.notRecommended?" + "+p.notRecommended.length+" not-recommended combinations":"")};
+  }
+  function changesHTML(t,p){
+    const c=t.ch, C=A.cls;
+    const n=c.aware.length+c.added.length+c.ddd.length+c.atc;
+    if(!n) return '<div>This list gives the same results as the one in use — nothing would change for '+esc(A.tool)+'.</div>';
+    let h='<ul style="margin:6px 0 4px 18px;padding:0">';
+    if(c.aware.length) h+='<li><b>'+c.aware.length+'</b> antibiotic'+(c.aware.length>1?"s change":" changes")+' AWaRe group</li>';
+    if(c.added.length) h+='<li><b>'+c.added.length+'</b> antibiotic'+(c.added.length>1?"s or combinations are":" is")+' added to the list</li>';
+    if(c.ddd.length) h+='<li><b>'+c.ddd.length+'</b> WHO DDD value'+(c.ddd.length>1?"s are":" is")+' added or changed</li>';
+    if(c.atc) h+='<li><b>'+c.atc+'</b> ATC code'+(c.atc>1?"s are":" is")+' added or changed</li>';
+    h+='</ul>';
+    if(t.impact) h+='<div style="margin:4px 0 6px"><b>Your data:</b> '+t.impact+'</div>';
+    if(c.aware.length) h+='<details open style="margin-top:6px"><summary style="cursor:pointer">Group changes</summary><div style="margin-top:6px">'+c.aware.map(x=>esc(x.name)+': '+(x.from?tag(x.from):'<i>not classified</i>')+' &rarr; '+tag(x.to)).join("<br>")+'</div></details>';
+    if(c.ddd.length) h+='<details style="margin-top:6px"><summary style="cursor:pointer">DDD changes</summary><div style="margin-top:6px">'+c.ddd.map(x=>esc(x.name)+' ('+(x.route==="O"?"oral":"injection")+'): '+(x.from==null?"none":+x.from.toFixed(4)+' '+esc(x.u))+' &rarr; '+(+x.to.toFixed(4))+' '+esc(x.u)).join("<br>")+'</div></details>';
+    if(c.added.length) h+='<details style="margin-top:6px"><summary style="cursor:pointer">Antibiotics added ('+c.added.length+')</summary><div style="margin-top:6px;font-size:12px;line-height:1.6">'+c.added.map(esc).join(", ")+'</div></details>';
+    if(p&&p.changes&&p.changes.length){ const last=p.changes[p.changes.length-1]; if(last&&last.notes&&last.notes.length) h+='<details style="margin-top:6px"><summary style="cursor:pointer">Release notes</summary><div style="margin-top:6px">'+last.notes.map(esc).join("<br>")+'</div></details>'; }
+    return h;
+  }
+  function msgHTML(){
+    if(!msg) return "";
+    const C=A.cls;
+    if(msg.kind==="busy") return '<div class="'+C.note+'" style="margin-top:12px">'+esc(msg.text)+'</div>';
+    if(msg.kind==="error") return '<div class="'+C.warn+'" style="margin-top:12px">'+msg.html+'</div>';
+    if(msg.kind==="info") return '<div class="'+C.good+'" style="margin-top:12px">'+msg.html+'</div>';
+    if(msg.kind==="offer"&&pending){
+      const p=pending.pack, t=pending.t, newer=!applied||p.serial>applied.pack.serial;
+      const head=newer?'<b>Update '+esc(p.edition)+' is available</b> — '+esc(p.title||"")+' (released '+esc(dstr(p.released))+')'
+        :(applied&&p.serial===applied.pack.serial?'<b>You already have update '+esc(p.edition)+'.</b> It is the list in use.':'<b>This file is older than the list in use</b> (update '+esc(p.edition)+'; in use: '+esc(applied.pack.edition)+').');
+      const canApply=!applied||p.serial!==applied.pack.serial;
+      return '<div class="'+(newer?C.good:C.note)+'" style="margin-top:12px">'+head+(pending.from?'<div style="font-size:12px;opacity:.8;margin-top:2px">From: '+esc(pending.from)+'</div>':'')+
+        '<div style="margin-top:8px">'+changesHTML(t,p)+'</div>'+
+        (p.sources&&p.sources.length?'<details style="margin-top:6px"><summary style="cursor:pointer">Sources</summary><div style="margin-top:6px;font-size:12px">'+p.sources.map(s=>'<b>'+esc(s.what)+':</b> '+esc(s.name)+(s.ref?' — '+esc(s.ref):'')+(s.checked?' (checked '+esc(dstr(s.checked))+')':'')).join("<br>")+'</div></details>':'')+
+        '<div class="'+C.row+'" style="margin-top:12px">'+(canApply?'<button class="'+C.btn+'" onclick="ODMREF.apply()">'+(newer?"Apply update":"Use this older list")+'</button>':'')+'<button class="'+C.ghost+'" onclick="ODMREF.dismiss()">'+(canApply?"Not now":"Close")+'</button></div>'+
+        (canApply&&A.applyNote?'<div style="font-size:12px;opacity:.85;margin-top:8px">'+A.applyNote+'</div>':'')+'</div>';
+    }
+    return "";
+  }
+  function listHTML(){
+    if(!showList) return "";
+    const v=A.view(), keys=Object.keys(v).sort((a,b)=>(v[a].name||a).localeCompare(v[b].name||b));
+    const f=filter.trim().toLowerCase();
+    const rows=keys.filter(k=>!f||(v[k].name||k).toLowerCase().indexOf(f)>=0||fmtCls(v[k].aware).toLowerCase().indexOf(f)>=0||fmtAtc(v[k].atc).toLowerCase().indexOf(f)>=0);
+    return '<div style="margin-top:12px"><input id="odmref-filter" placeholder="Filter: name, group or ATC code" value="'+esc(filter)+'" oninput="ODMREF.setFilter(this.value)" style="max-width:300px;width:100%;margin-bottom:8px">'+
+      '<div style="max-height:420px;overflow:auto;border:1px solid rgba(127,127,127,.3);border-radius:8px"><table style="width:100%;border-collapse:collapse;font-size:12.5px"><thead><tr>'+
+      ['Antibiotic','AWaRe','ATC','WHO DDD'].map(h=>'<th style="text-align:left;padding:6px 8px;border-bottom:1px solid rgba(127,127,127,.35);position:sticky;top:0;background:'+(A.cls.thBg||'inherit')+'">'+h+'</th>').join("")+'</tr></thead><tbody id="odmref-tbody">'+
+      rows.map(k=>{ const x=v[k]; return '<tr><td style="padding:4px 8px;border-bottom:1px solid rgba(127,127,127,.18)">'+esc(x.name||k)+'</td><td style="padding:4px 8px;border-bottom:1px solid rgba(127,127,127,.18)">'+tag(x.aware)+'</td><td style="padding:4px 8px;border-bottom:1px solid rgba(127,127,127,.18);font-family:monospace">'+esc(fmtAtc(x.atc))+'</td><td style="padding:4px 8px;border-bottom:1px solid rgba(127,127,127,.18)">'+esc(fmtDdd(x.ddd,x.unit))+'</td></tr>'; }).join("")+
+      '</tbody></table></div><div style="font-size:12px;opacity:.75;margin-top:6px">'+rows.length+' of '+keys.length+' shown. '+esc(A.listNote||"")+'</div></div>';
+  }
+  function cardHTML(){
+    if(!A) return "";
+    const C=A.cls, L=label();
+    return '<div id="odmref-root">'+
+      '<div class="'+(applied?C.good:C.note)+'">In use: <b>'+esc(L.head)+'</b><div style="font-size:12px;opacity:.85;margin-top:2px">'+esc(L.sub)+'</div></div>'+
+      '<div class="'+C.row+'" style="margin-top:10px">'+
+        '<button class="'+C.btn+'" onclick="ODMREF.check()">Check for updates</button>'+
+        (A.demo?'':'<button class="'+C.ghost+'" onclick="ODMREF.pick()">Load update file&hellip;</button>')+
+        (applied?'<button class="'+C.ghost+'" onclick="ODMREF.revert()">Go back to the built-in list</button>':'')+
+        '<button class="'+C.ghost+'" onclick="ODMREF.toggleList()">'+(showList?"Hide the list":"Show the list in use")+'</button>'+
+      '</div>'+
+      '<input type="file" id="odmref-file" accept=".json,application/json" style="display:none" onchange="ODMREF.fileChosen(this)">'+
+      msgHTML()+listHTML()+
+      '<div style="font-size:12px;opacity:.8;margin-top:10px;line-height:1.5">Checking downloads one small file from the Odieman website (emmanuelodie.github.io) and sends nothing from this computer. Nothing changes until you press <i>Apply update</i>.'+(A.demo?' In the demo, an update lasts until the page is closed.':' No internet on this computer? Download <code>aware-ddd.json</code> from <a href="'+PAGE+'" target="_blank" rel="noopener">'+PAGE.replace("https://","")+'</a> on another computer, bring it on a flash drive and use <i>Load update file</i>.')+'</div>'+
+    '</div>';
+  }
+  function paint(){ const el=document.getElementById("odmref-root"); if(el){ const f=document.activeElement&&document.activeElement.id==="odmref-filter"; el.outerHTML=cardHTML(); if(f){ const i=document.getElementById("odmref-filter"); if(i){ i.focus(); i.setSelectionRange(i.value.length,i.value.length); } } } }
+  function offer(pack,from){
+    const v=validate(pack);
+    if(!v.ok){ pending=null; msg={kind:"error",html:'<b>This update file cannot be used.</b><div style="margin-top:4px">'+v.errors.map(esc).join("<br>")+'</div>'}; paint(); return; }
+    pending={pack,from,t:trial(pack)}; msg={kind:"offer"}; paint();
+  }
+  async function check(){
+    msg={kind:"busy",text:"Checking the Odieman website for a newer list…"}; pending=null; paint();
+    let pack;
+    try{
+      const ctl=new AbortController(), tm=setTimeout(()=>ctl.abort(),20000);
+      try{ const r=await fetch(URL+"?t="+Date.now(),{cache:"no-store",signal:ctl.signal}); if(!r.ok) throw new Error("the website answered "+r.status); pack=await r.json(); }
+      finally{ clearTimeout(tm); }
+    }catch(e){
+      msg={kind:"error",html:'<b>Could not reach the Odieman website.</b> Check the internet connection and try again'+(A.demo?'.':', or load the update file from a flash drive (<i>Load update file</i>).')+'<div style="font-size:12px;opacity:.8;margin-top:4px">'+esc(e&&e.name==="AbortError"?"No answer within 20 seconds.":(e&&e.message)||e)+'</div>'}; paint(); return;
+    }
+    if(applied&&pack&&pack.serial===applied.pack.serial&&validate(pack).ok){ pending=null; msg={kind:"info",html:'<b>You have the latest list</b> — update '+esc(applied.pack.edition)+' ('+esc(applied.pack.title||"")+').'}; paint(); return; }
+    offer(pack,"the Odieman website");
+  }
+  function pick(){ const i=document.getElementById("odmref-file"); if(i){ i.value=""; i.click(); } }
+  function fileChosen(inp){ const f=inp.files&&inp.files[0]; if(!f) return;
+    if(f.size>3e6){ msg={kind:"error",html:"<b>This file is too large to be an update file.</b>"}; paint(); return; }
+    const r=new FileReader(); r.onload=()=>{ let p; try{ p=JSON.parse(r.result); }catch(e){ msg={kind:"error",html:"<b>This file could not be read.</b> It is not a valid update file (JSON)."}; paint(); return; } offer(p,f.name); };
+    r.onerror=()=>{ msg={kind:"error",html:"<b>The file could not be opened.</b>"}; paint(); }; r.readAsText(f); }
+  function apply(){
+    if(!pending) return;
+    const pk=pending.pack, from=pending.from||"";
+    pending=null; msg={kind:"busy",text:"Applying update "+pk.edition+"…"}; paint();
+    setTimeout(()=>{
+      const before=A.view(), mb=A.measure?A.measure():null;
+      const s={pack:pk, appliedAt:new Date().toISOString(), from};
+      A.restore(); A.applyPack(s.pack); applied=s; A.setStore(s,false);
+      msg={kind:"info",html:'<b>Update '+esc(pk.edition)+' is now in use.</b> '+esc(A.afterText||"")};
+      try{ A.refresh("apply",before,A.view(),mb); }catch(e){ console.error(e); }
+      paint();
+    },40);
+  }
+  function revert(){
+    if(!applied) return;
+    if(!confirm("Go back to the list built into "+A.tool+"?\n\nThe update file stays on the website; you can apply it again at any time.")) return;
+    pending=null; msg={kind:"busy",text:"Going back to the built-in list…"}; paint();
+    setTimeout(()=>{
+      const before=A.view(), mb=A.measure?A.measure():null;
+      A.restore(); applied=null; A.setStore(null,false);
+      msg={kind:"info",html:"<b>The built-in list is in use again.</b> "+esc(A.afterText||"")};
+      try{ A.refresh("revert",before,A.view(),mb); }catch(e){ console.error(e); }
+      paint();
+    },40);
+  }
+  function dismiss(){ pending=null; msg=null; paint(); }
+  function toggleList(){ showList=!showList; paint(); }
+  function setFilter(v){ filter=v; paint(); }
+  function init(adapter){ A=adapter; A.snapshot(); applied=null; try{ sync(); }catch(e){ console.error("reference list:",e); } return true; }
+  function info(){ return applied?{edition:applied.pack.edition,title:applied.pack.title,serial:applied.pack.serial,released:applied.pack.released}:null; }
+  /* One line for report footers and exports: which list produced the figures. */
+  function sourceLine(){ return applied?"Reference list: Odieman update "+applied.pack.edition+" ("+(applied.pack.title||"")+")":"Reference list: built into "+(A?A.tool:"the tool"); }
+  return {init,sync,validate,check,pick,fileChosen,apply,revert,dismiss,toggleList,setFilter,cardHTML,paint,info,sourceLine,
+          clsFor,atcList,unitOf,dddGrams,fmtCls,URL,PAGE,get applied(){return applied;}};
+})();
+
+/* ---- PPS Pro adapter for ODMREF: the built-in formulary is what an update may change ---- */
+(function(){
+  const deep=o=>JSON.parse(JSON.stringify(o));
+  const BASE={};
+  const SYN={"clavulanate":"clavulanic acid","cotrimoxazole":"sulfamethoxazole + trimethoprim"};
+  /* formulary display name ("Amoxicillin-clavulanate") -> reference key ("amoxicillin + clavulanic acid") */
+  function keyOf(name){ const lc=String(name||"").toLowerCase().trim(); if(SYN[lc]) return SYN[lc];
+    const parts=lc.split("-").map(s=>SYN[s.trim()]||s.trim()).filter(Boolean); return parts.length>1?parts.slice().sort().join(" + "):(parts[0]||""); }
+  function display(a){ const parts=String(a.name).split(/\s*\+\s*/); return parts.length>1?parts.map((x,i)=>i?x.toLowerCase():x).join("-"):a.name; }
+  const ABX=["Access","Watch","Reserve","Not recommended"];
+  function eachAb(cb){ (DB.surveys||[]).forEach(s=>(s.patients||[]).forEach(p=>(p.abs||[]).forEach(a=>cb(a,s)))); }
+  /* A stored antibiotic is re-checked only when its group matched the list in use when it was
+     entered (or it was "Not classified" because the list did not know it). Groups a CSV file set
+     differently on purpose are left alone. */
+  const follows=x=>x&&((x.cls!=null&&x.cur===x.cls)||(x.cls==null&&(!x.cur||x.cur==="Not classified")));
+  ODMREF.init({
+    tool:"PPS Pro", demo:DEMO,
+    cls:{btn:"btn small",ghost:"btn small ghost",note:"note",good:"note",warn:"warnbox",row:"row",thBg:"var(--card)"},
+    snapshot(){ BASE.f=deep(FORMULARY); BASE.a=deep(ALIASES); },
+    restore(){ Object.keys(FORMULARY).forEach(k=>delete FORMULARY[k]); Object.assign(FORMULARY,deep(BASE.f));
+      Object.keys(ALIASES).forEach(k=>delete ALIASES[k]); Object.assign(ALIASES,deep(BASE.a)); },
+    applyPack(p){
+      const byKey={}; Object.keys(FORMULARY).forEach(n=>{ byKey[keyOf(n)]=n; });
+      const singles={}; p.antibiotics.forEach(a=>{ if(a.key.indexOf(" + ")<0) singles[a.key]=1; });
+      p.antibiotics.forEach(a=>{
+        const atcs=ODMREF.atcList(a); if(atcs.length&&atcs.every(x=>x.indexOf("J04")===0)&&!byKey[a.key]) return; /* anti-TB (J04) left out, as before */
+        const n=byKey[a.key]||display(a); byKey[a.key]=n;
+        const f=FORMULARY[n]||(FORMULARY[n]={});
+        if(a.ddd){ const rs=Object.keys(a.ddd);
+          if(rs.length&&rs.every(r=>ODMREF.unitOf(a,r)==="MU")){ f.unit="IU"; f.ddd={}; rs.forEach(r=>{ f.ddd[r]=a.ddd[r]*1e6; }); }
+          else { delete f.unit; f.ddd=ODMREF.dddGrams(a); } }
+        else if(!f.ddd) f.ddd={};
+        if(!f.route) f.route=(f.ddd.P!=null||!Object.keys(f.ddd).length)?"P":"O";
+        if(typeof a.aware==="string"){ f.aware=a.aware; delete f.awareByRoute; }
+        else { f.awareByRoute=Object.assign({},a.aware); f.aware=a.aware[f.route]||a.aware.O||a.aware.P; }
+        if(a.atc){ if(typeof a.atc==="string"){ f.atc=a.atc; delete f.atcByRoute; } else { f.atcByRoute=Object.assign({},a.atc); f.atc=a.atc[f.route]||a.atc.P||a.atc.O; } }
+        else if(f.atc==null) f.atc="";
+      });
+      /* WHO "Not recommended" two-antibiotic combinations (e.g. ampicillin + cloxacillin) are added so a
+         survey that records them shows the WHO group instead of "not in formulary". */
+      (p.notRecommended||[]).forEach(nr=>{ const parts=nr.key.split(" + "); if(parts.length!==2||!parts.every(x=>singles[x])||byKey[nr.key]) return;
+        const n=display(nr); if(FORMULARY[n]) return; FORMULARY[n]={atc:"",aware:"Not recommended",route:"O",ddd:{}}; byKey[nr.key]=n; });
+      Object.entries(p.aliases||{}).forEach(([al,k])=>{ const n=byKey[k]; if(n&&!ALIASES[al]&&!Object.keys(FORMULARY).some(x=>x.toLowerCase()===al)) ALIASES[al]=n; });
+    },
+    view(){ const v={}; Object.entries(FORMULARY).forEach(([n,f])=>{ if(!f||!ABX.includes(f.aware)) return;
+      const iu=f.unit==="IU", d=f.ddd&&Object.keys(f.ddd).length?Object.fromEntries(Object.entries(f.ddd).map(([r,x])=>[r,iu?x/1e6:x])):null;
+      v[keyOf(n)]={name:n,aware:f.awareByRoute?Object.assign({},f.awareByRoute):f.aware,atc:f.atcByRoute?Object.assign({},f.atcByRoute):(f.atc||""),ddd:d,unit:iu?"MU":"g"}; });
+      return v; },
+    measure(){ const out=[]; eachAb(a=>{ const f=FORMULARY[a.name]||FORMULARY[drugName(a.name)]; out.push({cls:f&&ABX.includes(fCls(f,a.route))?fCls(f,a.route):null,atc:f?fAtc(f,a.route):"",cur:a.aware,curAtc:a.atc}); }); return out; },
+    impact(b,a){ if(!b||!b.length) return "no survey data is loaded yet.";
+      let n=0,kept=0; b.forEach((x,i)=>{ const y=a[i]; if(!y) return; const to=y.cls||(x.cls?"Not classified":null); if(!to||to===x.cur) return; if(follows(x)) n++; else kept++; });
+      return n.toLocaleString()+" of "+b.length.toLocaleString()+" antibiotic entries in your surveys would change AWaRe group"+(kept?"; "+kept.toLocaleString()+" whose group was set differently in the CSV would be left as they are":"")+"."; },
+    refresh(kind,before,after,mb){
+      const ma=this.measure(); let i=0; const changed=new Set();
+      eachAb((a,s)=>{ const x=mb&&mb[i], y=ma[i]; i++;
+        if(!x||!y||!follows(x)) return;
+        const to=y.cls||(x.cls?"Not classified":null); if(!to) return;
+        const atcFollows=!a.atc||a.atc===(x.atc||"");
+        if(a.aware!==to||(y.atc&&atcFollows&&a.atc!==y.atc)){ a.aware=to; if(y.atc&&atcFollows) a.atc=y.atc; changed.add(s.id); } });
+      changed.forEach(id=>touch(id)); if(!changed.size) touch();
+      fillDrugList(); render();
+      toast(changed.size?("Reference list "+(kind==="apply"?"applied":"reset")+" — "+changed.size+" survey(s) re-checked"):("Reference list "+(kind==="apply"?"applied":"reset")));
+    },
+    getStore(){ return (DB.meta&&DB.meta.refPack)||null; },
+    setStore(s,quiet){ DB.meta.refPack=s||null; if(!quiet) touch(); },
+    builtinLabel(){ const n=Object.values(BASE.f||{}).filter(f=>ABX.includes(f.aware)).length; return "Built into PPS Pro: "+n+" antibiotics with WHO AWaRe 2023 groups, ATC codes and WHO DDDs."; },
+    applyNote:"Antibiotics already in your surveys are re-checked: an entry whose group matched the old list is updated; an entry your CSV file set differently is left as it was.",
+    afterText:"New entries and the Antimicrobial use page now use this list.",
+    listNote:"Antibiotics not on the list keep showing as Not classified."
+  });
+})();
+
 if(DEMO){runDemo()}else (async()=>{try{const d=await IDB.get("db");if(d&&Array.isArray(d.surveys))DB=Object.assign(DB,d,{meta:Object.assign(DB.meta,d.meta||{})})}catch(e){}
+ if(window.ODMREF){try{ODMREF.sync()}catch(e){console.error(e)}fillDrugList()}
  await FS.restore();if(!DB.surveys.length&&FS.state!=="connected"&&FS.state!=="needs-permission")UI.page="guide";pill();render();if(FS.state==="connected")await onFolderReady()})();
 </script>
 </body>
