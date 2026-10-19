@@ -54,7 +54,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Odieman AMS Pro v4.6 (demo)</title>
+<title>Odieman AMS Pro v4.7 (demo)</title>
 <style>
 :root{
   --bg:#0d1117; --panel:#161b22; --panel2:#1c2230; --line:#2b3340;
@@ -206,7 +206,7 @@ td input.wide{min-width:220px;white-space:normal}
 <body>
 <header>
   <div class="logo">Odieman <b>AMS&nbsp;Pro</b></div>
-  <div class="tag">Offline Antimicrobial Stewardship Suite &mdash; Data Entry, Bulk Ingestion &amp; Reporting&nbsp;&middot;&nbsp;v4.6</div>
+  <div class="tag">Offline Antimicrobial Stewardship Suite &mdash; Data Entry, Bulk Ingestion &amp; Reporting&nbsp;&middot;&nbsp;v4.7</div>
   <div class="spacer"></div>
   <button id="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle navigation" title="Toggle navigation">&#9776;</button>
   <div id="backup-badge" class="bbadge" onclick="backupBadgeClick()" title="Backup status — click to manage">&#9211; No backup yet</div>
@@ -28982,6 +28982,135 @@ function deleteSnapshot(name){
   try{ saveSnapshotIndex(listSnapshots().filter(s=>s.name!==name)); }catch(e){}
   renderExport(); toast("Snapshot deleted");
 }
+/* ============================= STANDARD-FORMAT EXPORTS (v4.7) =============================
+   Hands AMS Pro's results to the WHO-family tools instead of keeping them inside AMS Pro:
+   (1) antibiotic use by WHO ATC code, route and DDD, with AWaRe class (ATC/DDD methodology);
+   (2) culture & sensitivity results one row per isolate with WHONET antibiotic codes, ready for
+       WHONET's data import;
+   (3) a GLASS-style resistance summary: first isolate per patient per organism, by specimen.
+   All three are built from data already loaded; nothing is re-parsed. */
+const ATC_CODES={
+  "amoxicillin":"J01CA04","amoxicillin + clavulanic acid":"J01CR02","ampicillin":"J01CA01","ampicillin + sulbactam":"J01CR01",
+  "cloxacillin":"J01CF02","flucloxacillin":"J01CF05","phenoxymethylpenicillin":"J01CE02","benzylpenicillin":"J01CE01",
+  "benzathine benzylpenicillin":"J01CE08","procaine benzylpenicillin":"J01CE09","piperacillin + tazobactam":"J01CR05",
+  "cefalexin":"J01DB01","cefazolin":"J01DB04","cefuroxime":"J01DC02","ceftriaxone":"J01DD04","cefotaxime":"J01DD01",
+  "ceftazidime":"J01DD02","cefixime":"J01DD08","cefpodoxime":"J01DD13","cefepime":"J01DE01",
+  "meropenem":"J01DH02","cilastatin + imipenem":"J01DH51","ertapenem":"J01DH03",
+  "erythromycin":"J01FA01","clarithromycin":"J01FA09","azithromycin":"J01FA10","clindamycin":"J01FF01",
+  "ciprofloxacin":"J01MA02","levofloxacin":"J01MA12","norfloxacin":"J01MA06","ofloxacin":"J01MA01","moxifloxacin":"J01MA14","nalidixic acid":"J01MB02",
+  "gentamicin":"J01GB03","amikacin":"J01GB06","kanamycin":"J01GB04","streptomycin":"J01GA01",
+  "doxycycline":"J01AA02","tetracycline":"J01AA07","tigecycline":"J01AA12","chloramphenicol":"J01BA01",
+  "sulfamethoxazole + trimethoprim":"J01EE01","trimethoprim":"J01EA01","nitrofurantoin":"J01XE01","fosfomycin":"J01XX01",
+  "linezolid":"J01XX08","colistin":"J01XB01","teicoplanin":"J01XA02",
+  "vancomycin":{O:"A07AA09",P:"J01XA01"},"metronidazole":{O:"P01AB01",P:"J01XD01"},"tinidazole":{O:"P01AB02",P:"J01XD02"}
+};
+function atcFor(gen,route){
+  const a=ATC_CODES[(gen||"").toLowerCase()];
+  if(!a) return "";
+  if(typeof a==="string") return a;
+  return a[route]||"";
+}
+const WHONET_AB={
+  "ampicillin":"AMP","amoxicillin":"AMX","amoxicillin + clavulanic acid":"AMC","ampicillin + sulbactam":"SAM","piperacillin + tazobactam":"TZP",
+  "penicillin":"PEN","benzylpenicillin":"PEN","oxacillin":"OXA","cloxacillin":"CLO","cefoxitin":"FOX","cefalexin":"LEX","cefazolin":"CZO",
+  "cefuroxime":"CXM","ceftriaxone":"CRO","cefotaxime":"CTX","ceftazidime":"CAZ","cefixime":"CFM","cefepime":"FEP","ceftazidime + avibactam":"CZA",
+  "meropenem":"MEM","imipenem":"IPM","cilastatin + imipenem":"IPM","ertapenem":"ETP",
+  "ciprofloxacin":"CIP","levofloxacin":"LVX","norfloxacin":"NOR","ofloxacin":"OFX","moxifloxacin":"MFX","nalidixic acid":"NAL",
+  "gentamicin":"GEN","amikacin":"AMK","tobramycin":"TOB","streptomycin":"STR",
+  "erythromycin":"ERY","azithromycin":"AZM","clindamycin":"CLI","tetracycline":"TCY","doxycycline":"DOX","tigecycline":"TGC",
+  "chloramphenicol":"CHL","sulfamethoxazole + trimethoprim":"SXT","trimethoprim":"TMP","nitrofurantoin":"NIT","fosfomycin":"FOS",
+  "vancomycin":"VAN","teicoplanin":"TEC","linezolid":"LNZ","colistin":"COL","rifampicin":"RIF","fusidic acid":"FUS"
+};
+const GLASS_PATHOGENS=[["escherichia coli","E. coli"],["klebsiella pneumoniae","K. pneumoniae"],["acinetobacter","Acinetobacter spp."],
+  ["staphylococcus aureus","S. aureus"],["streptococcus pneumoniae","S. pneumoniae"],["salmonella","Salmonella spp."],["shigella","Shigella spp."],["neisseria gonorrhoeae","N. gonorrhoeae"]];
+function glassPathogen(org){ const o=(org||"").toLowerCase(); const m=GLASS_PATHOGENS.find(p=>o.indexOf(p[0])>=0); return m?m[1]:""; }
+function glassSpecimen(spec){
+  const s=(spec||"").toLowerCase();
+  if(/blood|bld|haemo|hemo/.test(s)) return "Blood";
+  if(/urin|\bmsu\b|\bcsu\b/.test(s)) return "Urine";
+  if(/stool|faec|fec|rectal/.test(s)) return "Stool";
+  if(/urethr|cervic|vagin|hvs|genital/.test(s)) return "Urogenital";
+  return "Other";
+}
+function stdFirstIsolates(){
+  const seen={}, out=[];
+  (DB.isolates||[]).slice().sort((a,b)=>(a.date||"").localeCompare(b.date||"")).forEach(iso=>{
+    const k=(iso.patientId||"(unspecified)")+"|"+normH(iso.organism);
+    if(seen[k]) return; seen[k]=1; out.push(iso);
+  });
+  return out;
+}
+function stdStamp(){ return safeFileName((DB.facility.name||"Facility").slice(0,40))+"_"+new Date().toISOString().slice(0,10); }
+
+function exportAmuAtcDddCSV(){
+  const refMap={}; (DB.doseRef||[]).forEach(r=>{ refMap[normH(r.drug)]=r; });
+  const g={};
+  scopedPharmacyTx().filter(t=>t.drugMatched).forEach(t=>{
+    const gen=t.drugMatched.toLowerCase(), route=t.dddRoute||dddRoute(t)||"";
+    const key=gen+"|"+route;
+    const o=g[key]||(g[key]={gen:t.drugMatched,route,atc:atcFor(gen,route),aware:awareBucket(t.awareCls),lines:0,units:0,ddds:0,dddLines:0,dddG:"",why:{}});
+    o.lines++; o.units+=num(t.qty)||0;
+    if(t.dddContribution!=null){
+      o.ddds+=t.dddContribution; o.dddLines++;
+      const w=WHO_DDD[gen]; o.dddG=(w&&route&&w[route])||(refMap[normH(t.drugMatched)]&&num(refMap[normH(t.drugMatched)].whoDddG))||o.dddG;
+    } else { const w=t.dddWhy||"not computed"; o.why[w]=(o.why[w]||0)+1; }
+  });
+  const bd=num(DB.metrics.bedDaysTotal);
+  const AW={Access:"Access",Watch:"Watch",Reserve:"Reserve",NR:"Not recommended",Unclassified:"Unclassified"};
+  const head=["Facility","Period","ATC code (WHO)","Antibiotic (INN)","Route (O=oral, P=parenteral)","AWaRe category","Dispensing lines","Units dispensed",
+    "WHO DDD (g)","Total grams (active ingredient)","Number of DDDs","DDD per 100 bed-days","Lines with a DDD","Why some lines have no DDD"];
+  const rows=Object.values(g).sort((a,b)=>(a.atc||"Z").localeCompare(b.atc||"Z")||a.gen.localeCompare(b.gen)).map(o=>[
+    DB.facility.name||"",DB.facility.period||"",o.atc,o.gen,o.route,AW[o.aware]||o.aware,o.lines,+o.units.toFixed(2),
+    o.dddG||"",o.dddG&&o.dddLines?+(o.ddds*o.dddG).toFixed(2):"",o.dddLines?+o.ddds.toFixed(2):"",
+    o.dddLines&&bd?+(o.ddds/bd*100).toFixed(3):"",`${o.dddLines} of ${o.lines}`,
+    Object.entries(o.why).map(([w,n])=>`${w} (${n})`).join("; ")]);
+  const tot=Object.values(g).reduce((s,o)=>s+o.ddds,0);
+  rows.push([]);
+  rows.push(["Total DDDs",+tot.toFixed(2),"Bed-days",bd||"not available","DDD per 100 bed-days (all)",bd?+(tot/bd*100).toFixed(2):"","Bed-days source",DB.metrics.bedDaysSource||""]);
+  rows.push(["Method","WHO ATC/DDD methodology: DDDs = grams dispensed ÷ WHO DDD for the route. Topical items excluded. Fixed-dose combinations without a WHO DDD (e.g. ampicillin + cloxacillin) are listed with no DDD. AWaRe class as per the scheme selected in Setup."]);
+  dl(`AMU_ATC_DDD_AWaRe_${stdStamp()}.csv`,toCSV([head].concat(rows)),"text/csv");
+  toast(`Antibiotic use by ATC/DDD downloaded — ${Object.keys(g).length} antibiotic/route rows`);
+}
+
+function exportWhonetCSV(){
+  const iso=DB.isolates||[];
+  if(!iso.length){ toast("No culture & sensitivity results loaded yet"); return; }
+  const drugSet=new Set(); iso.forEach(i=>Object.keys(i.results||{}).forEach(d=>drugSet.add(d)));
+  const drugs=[...drugSet].sort();
+  const code=d=>WHONET_AB[(d||"").toLowerCase()]||d.replace(/[^A-Za-z0-9]+/g,"_").toUpperCase();
+  const head=["Identification number","Specimen number","Laboratory","Organism","Specimen date","Specimen type","Location"].concat(drugs.map(code));
+  const rows=iso.slice().sort((a,b)=>(a.date||"").localeCompare(b.date||"")).map((i,n)=>[
+    i.patientId||"",`ODM${String(n+1).padStart(6,"0")}`,DB.facility.name||"",i.organism||"",i.date||"",i.specimenType||"",i.department||""
+  ].concat(drugs.map(d=>{ const r=(i.results||{})[d]; return r==="S"||r==="I"||r==="R"?r:""; })));
+  dl(`WHONET_ready_isolates_${stdStamp()}.csv`,toCSV([head].concat(rows)),"text/csv");
+  toast(`WHONET-ready file downloaded — ${iso.length} isolates, ${drugs.length} antibiotics`);
+}
+
+function exportGlassSummaryCSV(){
+  const first=stdFirstIsolates();
+  if(!first.length){ toast("No culture & sensitivity results loaded yet"); return; }
+  const agg={};
+  first.forEach(i=>{
+    const spec=glassSpecimen(i.specimenType);
+    Object.entries(i.results||{}).forEach(([d,r])=>{
+      if(r!=="S"&&r!=="I"&&r!=="R") return;
+      const k=spec+"|"+i.organism+"|"+d;
+      const o=agg[k]||(agg[k]={spec,org:i.organism,drug:d,S:0,I:0,R:0});
+      o[r]++;
+    });
+  });
+  const head=["Facility","Period","Specimen (GLASS group)","Organism","GLASS priority pathogen","Antibiotic","WHONET code","Isolates tested","S","I","R","% resistant (R)","% non-susceptible (I+R)","Fewer than 30 isolates"];
+  const rows=Object.values(agg).sort((a,b)=>a.spec.localeCompare(b.spec)||a.org.localeCompare(b.org)||a.drug.localeCompare(b.drug)).map(o=>{
+    const n=o.S+o.I+o.R;
+    return [DB.facility.name||"",DB.facility.period||"",o.spec,o.org,glassPathogen(o.org),o.drug,WHONET_AB[o.drug.toLowerCase()]||"",n,o.S,o.I,o.R,
+      +(o.R/n*100).toFixed(1),+((o.I+o.R)/n*100).toFixed(1),n<30?"yes":""];
+  });
+  rows.push([]);
+  rows.push(["Method",`First isolate per patient per organism (CLSI M39 / GLASS deduplication): ${first.length} of ${(DB.isolates||[]).length} isolates. Specimens grouped as GLASS does (blood, urine, stool, urogenital); everything else is "Other". Percentages from fewer than 30 isolates are unreliable.`]);
+  dl(`GLASS_style_resistance_summary_${stdStamp()}.csv`,toCSV([head].concat(rows)),"text/csv");
+  toast(`GLASS-style resistance summary downloaded — ${rows.length-2} specimen/organism/antibiotic rows`);
+}
+
 function renderExport(){
   const snaps=listSnapshots();
   $("#v-export").innerHTML=`
@@ -28995,6 +29124,20 @@ function renderExport(){
       <button class="btn" onclick="exportCRF1CSV()">CRF01_Dispensing.csv (${DB.crf1.rows.length})</button>
       <button class="btn" onclick="exportCRF3CSV()">CRF03_AuditLog.csv (${DB.crf3.rows.length})</button>
       <button class="btn" onclick="exportPatientMasterCSV()">PatientMaster.csv (one row per patient, joined by ID)</button>
+    </div>
+  </div>
+  <div class="panel">
+    <h2>Standard formats &mdash; for WHO tools and national reporting</h2>
+    <div class="sub">The same results, laid out the way the WHO-family tools expect, so AMS Pro feeds them instead of standing apart.</div>
+    <div class="row">
+      <button class="btn" onclick="exportAmuAtcDddCSV()">Antibiotic use &mdash; ATC / DDD / AWaRe (.csv)</button>
+      <button class="btn" onclick="exportWhonetCSV()">Culture results &mdash; WHONET-ready (${(DB.isolates||[]).length} isolates)</button>
+      <button class="btn" onclick="exportGlassSummaryCSV()">Resistance summary &mdash; GLASS-style (.csv)</button>
+    </div>
+    <div class="sub" style="margin-top:10px;line-height:1.55">
+      <b>ATC / DDD / AWaRe:</b> one row per antibiotic and route with its WHO ATC code, WHO DDD, number of DDDs and DDD per 100 bed-days &mdash; the WHO ATC/DDD methodology used for national and GLASS antimicrobial-use reporting.<br>
+      <b>WHONET-ready:</b> one row per isolate, antibiotics named by their WHONET codes (AMP, CRO, CIP&hellip;) with S / I / R results. In WHONET use <i>Data import</i> (BacLink) once to map the columns, choosing &ldquo;interpretation&rdquo; for the antibiotic columns; save the configuration and later files import directly.<br>
+      <b>GLASS-style summary:</b> first isolate per patient per organism, grouped by specimen as GLASS does (blood, urine, stool, urogenital), with % resistant for each organism&ndash;antibiotic pair and the GLASS priority pathogens marked.
     </div>
   </div>
   <div class="panel">

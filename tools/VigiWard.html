@@ -3000,7 +3000,7 @@ function genManuscript(){
     else if(type==='squire')title='Reducing under-reported adverse drug reactions through routine signal detection at '+setting;
     else title='Active detection of adverse drug reactions from routine dispensing data at '+setting+': a cross-sectional study';
   }
-  const head=title+'\n'+authors+'\n'+setting+'\nDraft generated '+date+' · VigiWard v3.6 · '+items.length+' finding(s) · format: '+cls.label+'\n'+'='.repeat(70)+'\n\nNOTE: square-bracketed text marks what you must add or verify (consent,\nclinical outcome, mechanism, literature). Nothing here is fabricated;\nfigures are drawn from your detected, criterion-qualified findings.\n\n';
+  const head=title+'\n'+authors+'\n'+setting+'\nDraft generated '+date+' · VigiWard v3.7 · '+items.length+' finding(s) · format: '+cls.label+'\n'+'='.repeat(70)+'\n\nNOTE: square-bracketed text marks what you must add or verify (consent,\nclinical outcome, mechanism, literature). Nothing here is fabricated;\nfigures are drawn from your detected, criterion-qualified findings.\n\n';
   let t;
   if(type==='care'){const x=top;
     t=head+'ABSTRACT\nBackground: [one line on '+x.drug+' and '+(x.pt||x.inferred)+'.] We report a case detected by active surveillance of routine dispensing data.\nCase summary: A de-identified patient ('+x.pid+') with a temporal drug–reaction pattern consistent with '+(x.pt||x.inferred)+'. Causality: '+causal(x)+'.\nConclusion: [lesson for prescribing/monitoring.]\nKeywords: pharmacovigilance; adverse drug reaction; '+x.drug+'; '+(x.pt||x.inferred)+'; routine data.\n\n1. INTRODUCTION\n[Background on '+x.drug+'; known association with '+(x.pt||x.inferred)+'; the under-reporting problem this detection method addresses.]\n\n2. PATIENT INFORMATION & TIMELINE (de-identified — '+x.pid+')\nDetection method: '+x.type+'. Suspected culprit: '+x.drug+'. Reaction: '+(x.pt||x.inferred)+' ('+x.soc+').\nChronology / evidence: '+x.ev+'.\nVerifiable basis: '+(x.verify||x.why)+'\n[Add demographics in ranges only, relevant history, and the de-identified timeline.]\n\n3. DIAGNOSTIC & CAUSALITY ASSESSMENT\nMechanistic class (Rawlins–Thompson): '+x.rawlins+'. Seriousness: '+(x.serious?'serious':'non-serious')+'.\nCausality: '+causal(x)+' (add WHO-UMC category). Verification basis: '+(x.type==='Lab-supported'?'objective laboratory confirmation':'temporal/clinical pattern — '+labNote)+'.\n[Add differential diagnoses and how alternative causes were excluded.]\n\n4. THERAPEUTIC INTERVENTION & OUTCOME\n[Dispensing data may not show outcome — state what is known: dechallenge/rechallenge if visible'+(x.rescue?', rescue medication ('+x.rescue+')':'')+'; otherwise mark as not ascertainable.]\n\n5. DISCUSSION\nStrengths: the case was surfaced from routine data that spontaneous reporting had missed. [Compare to literature.]\nLimitations: dispensing data cannot confirm administration, indication, or outcome; single case.\n[Mechanism and clinical implication.]\n\n6. PATIENT PERSPECTIVE & CONSENT\n[Confirm informed consent for publication, or institutional waiver for de-identified data.]\n\n7. CONCLUSION\n[Prescribing/monitoring lesson.]\n\nReporting guideline: CARE (Gagnier et al., 2013).';
@@ -3045,97 +3045,274 @@ function tmdaReport(id){
   document.getElementById('tmda-overlay').classList.add('open');
 }
 function closeTmda(){document.getElementById('tmda-overlay').classList.remove('open')}
-function buildTmdaText(reveal){
-  const s=TMDA_SIG;const idm=(DB._idmap&&DB._idmap[s.pid])||{};
+/* ============================================================
+   TMDA REPORT (v3.7) — laid out exactly like TMDA's online form
+   (SQRT · Drugs and Vaccines › Healthcare Workers, 11 steps) and
+   printable as the paper Yellow Form (revised 2021).
+   Option wording is TMDA's own, spelling included, so every value
+   can be picked straight from the portal's lists.
+   ============================================================ */
+const SQRT={
+  seriousness:['Serious Adverse Event (SAE) -Death','Life threatning','Hospitalization required / prolonged','Persistent or significant disability/ incapacity','Conginetal Anomaly/ birth defect','Otherwise medically important'],
+  outcome:['Recovered/Resolved','Recovered with sequealae','Not Recovered','Died','Unknown'],
+  severity:['Mild','Moderate','Severe'],
+  freq:['After every 24 hours','After every 12 hours','After every 8 hours','After every 6 hours','As needed','In the morning','At night','Immediately','Others'],
+  action:['Discontinue Regimen','Dose adjustment','Change regimen','Unknown','Continue regimen','Others'],
+  salutation:['Mr','Mrs','Miss','Dr','Ms','Prof','Sir'],
+  level:['Hospital','Dispensary','Health Center','Other (Specify)'],
+  profession:['Medical Doctor','Clinical Officer','Assistant medical officer','Pharmacist','Nurse','Nurse Midwife','Pharamaceutical Technician','Pharamaceutical Assistant','Laboratory Technologist','Others(specify)'],
+  regions:['Arusha','Dar es Salaam','Dodoma','Geita','Iringa','Kagera','Katavi','Kigoma','Kilimanjaro','Lindi','Manyara','Mara','Mbeya','Morogoro','Mtwara','Mwanza','Njombe','Pwani','Rukwa','Ruvuma','Shinyanga','Simiyu','Singida','Songwe','Tabora','Tanga'],
+  whoUmc:['Certain','Probable/Likely','Possible','Unlikely','Unclassifiable']
+};
+const TODO='⚠ TO COMPLETE';
+function sqrtRoute(raw,drug){
+  const r=(raw||'').toUpperCase(), d=(drug||'').toUpperCase();
+  const pick=s=>{
+    if(/\b(PO|ORAL|MOUTH)\b/.test(s))return'Oral';
+    if(/\bI\.?V\.?\b|INTRAVEN/.test(s))return'Intravenous (not otherwise specified)';
+    if(/\bI\.?M\.?\b|INTRAMUS/.test(s))return'Intramuscular';
+    if(/\bS\.?C\.?\b|SUBCUT/.test(s))return'Subcutaneous';
+    if(/\bSL\b|SUBLING/.test(s))return'Sublingual';
+    if(/\bPR\b|RECTAL|SUPPOS/.test(s))return'Rectal';
+    if(/INHAL|NEBUL/.test(s))return'Respiratory (inhalation)';
+    if(/\bEYE\b|OPHTH/.test(s))return'Ophthalmic';
+    if(/\bEAR\b|OTIC/.test(s))return'Auricular (otic)';
+    if(/NASAL/.test(s))return'Nasal';
+    if(/VAGIN|PESSARY|\bPV\b/.test(s))return'Vaginal';
+    if(/TOPICAL|CREAM|OINT/.test(s))return'Topical';
+    return'';
+  };
+  return pick(r)||(/\bINJ|VIAL|AMPOULE|INFUSION/.test(d)?'Parenteral':/\bTAB|\bCAP|SYRUP|SUSP|ORAL/.test(d)?'Oral':pick(d));
+}
+function sqrtFreq(raw){
+  const f=(raw||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
+  if(!f)return'';
+  if(/^(OD|QD|DAILY|ONCEDAILY|24H?|Q24H?)$/.test(f))return'After every 24 hours';
+  if(/^(BD|BID|12H?|Q12H?|TWICEDAILY)$/.test(f))return'After every 12 hours';
+  if(/^(TDS|TID|8H?|Q8H?)$/.test(f))return'After every 8 hours';
+  if(/^(QID|QDS|6H?|Q6H?)$/.test(f))return'After every 6 hours';
+  if(/^(PRN|SOS)$/.test(f))return'As needed';
+  if(/^(MANE|AM|OM)$/.test(f))return'In the morning';
+  if(/^(NOCTE|HS|ON|PM)$/.test(f))return'At night';
+  if(/^STAT$/.test(f))return'Immediately';
+  return'Others ('+raw+')';
+}
+function sqrtAge(a){
+  const m=String(a||'').match(/(\d+(?:\.\d+)?)\s*(y|m|w|d)?/i);
+  if(!m)return null;
+  const u={y:'Years',m:'Months',w:'Weeks',d:'Days'}[(m[2]||'y').toLowerCase()];
+  return{n:m[1],unit:u};
+}
+function sqrtGeneric(x){return String(x||'').replace(/\b(injection|inj|tablets?|tabs?|capsules?|caps?|syrup|suspension|infusion|solution|oral|retard|sr|er|dispersible|vial|ampoule|powder|for|drops?|cream|ointment)\b\.?/gi,' ').replace(/\d+(\.\d+)?\s*(mg|g|mcg|ug|iu|ml|%)(\s*\/\s*\d*(\.\d+)?\s*(ml|g|mg))?/gi,' ').replace(/\s+/g,' ').trim().replace(/\b\w/g,m=>m.toUpperCase());}
+function sqrtSex(s){s=(s||'').toLowerCase();return s.startsWith('m')?'Male':s.startsWith('f')?'Female':'';}
+function sqrtSeverity(s){s=(s||'').toLowerCase();return s.startsWith('sev')?'Severe':s.startsWith('mod')?'Moderate':s.startsWith('mil')?'Mild':'';}
+function naranjoToUmc(cat){return{Definite:'Certain',Probable:'Probable/Likely',Possible:'Possible',Doubtful:'Unlikely'}[cat]||'';}
+function sqrtCase(s,reveal){
+  const idm=(DB._idmap&&DB._idmap[s.pid])||{};
+  const key=s.key||sigKey(s); const tr=DB.triage[key]||{};
   const dates=(s.ev.match(/\d{4}-\d{2}-\d{2}/g)||[]);
-  const start=dates[0]||'____',onset=dates[dates.length-1]||'____';
+  const start=dates[0]||'', onset=dates[dates.length-1]||'';
   const rec=DB.pharmacy.find(r=>r.pid===s.pid&&r.drugRaw===s.drug);
   const dz=parseDosage(rec&&rec.dosage);
-  const pid=reveal&&idm.id?idm.id:(s.pid+' (de-identified)');
-  const inits=reveal&&idm.initials?idm.initials:'____';
-  const age=(idm.age||'').replace(/\s*years?/i,'').trim()||'____';
-  const sex=idm.sex||'____';
-  const sev=s.serious?'Serious':'Non-serious';
-  const seriousCriteria=s.serious?'[ ] death  [ ] life-threatening  [ ] hospitalisation/prolonged  [ ] disability  [ ] congenital anomaly  [ ] other medically important':'Not serious';
-  return (
-`SUSPECTED ADVERSE DRUG REACTION (ADR) REPORTING FORM
-Tanzania Medicines and Medical Devices Authority (TMDA)
-National Pharmacovigilance Centre  ·  Ref. No. (official use): ________
-Generated by VigiWard from routine dispensing data — review & complete before submission.
-${'='.repeat(64)}
-
-I. PATIENT INFORMATION
-   Patient ID (facility): ${pid}
-   Initials: ${inits}        Age: ${age}        Sex: ${sex}        Weight (kg): ____
-   Ward/Clinic: ____        Pregnancy status (if applicable): ____
-
-II. SUSPECTED DRUG(S)
-   1) Drug (generic/brand): ${s.drug}
-      Dose: ${dz.dose||'____'}    Route: ${dz.route||'____'}    Frequency: ${dz.freq||'____'}
-      Indication / reason for use: ____
-      Date started: ${start}        Date stopped: ____
-      Batch/Lot no.: ____           Manufacturer: ____
-   2) (add other suspected drug if any): ____
-
-III. ADVERSE REACTION
-   Description (suspected reaction): ${s.pt}
-      MedDRA System Organ Class: ${s.soc}
-      Reaction type (Rawlins–Thompson): ${RAWLINS[s.rawlins]}
-   Date of onset: ${onset}
-   Seriousness (ICH): ${sev}
-      ${seriousCriteria}
-   Severity: ${s.sev}
-   Dechallenge — reaction subsided after stopping / reducing dose?  [ ] Yes  [ ] No  [ ] Unknown
-   Rechallenge — reaction reappeared on re-administration?           [ ] Yes  [ ] No  [ ] Not done
-   Treatment given for the reaction: ____
-   Outcome:  [ ] recovered  [ ] recovering  [ ] not yet recovered  [ ] recovered with sequelae  [ ] fatal  [ ] unknown
-
-IV. CONCOMITANT MEDICATIONS (name, dose, route, dates): ____
-
-V. RELEVANT HISTORY (comorbidities, allergies, renal/hepatic status, lab results): 
-   ${s.type==='Lab-supported'?s.ev:'____'}
-
-VI. CAUSALITY ASSESSMENT
-   Detection method: ${s.type}  ·  Automatic signal strength (data pattern, not causality): ${sigStrength(s.confidence)}
-   Basis for signal (verify against patient record): ${s.verify||s.why}
-   Pharmacological basis (mechanism supporting plausibility): ${(MONOGRAPHS[monoFor(s)]||MONOGRAPHS.generic).summary}
-   WHO-UMC category (reporter): [ ] Certain [ ] Probable/Likely [ ] Possible [ ] Unlikely [ ] Conditional [ ] Unassessable
-   Naranjo score (if computed): ____
-
-VII. PARTICULARS OF REPORTER / HEALTH-CARE PROVIDER
-   Name: ____            Profession: ____
-   Facility: ____        Phone/Email: ____
-   Date: ${new Date().toISOString().slice(0,10)}      Signature: ____
-
-${'='.repeat(64)}
-HOW TO SUBMIT THIS REPORT TO TMDA:
- • Online (recommended): ${TMDA_PORTAL}  (E-services → Safety & Quality Reporting Tool)
- • Email: ${TMDA_EMAIL}
- • USSD / Toll-free, or the Med Safety app (Google Play / App Store)
- • Post: Director General, TMDA, P.O. Box 1253, Dodoma
-A separate form must be used for each patient. Auto-filled fields are suggestions from
-dispensing data and MUST be verified against the patient record before submission.`);
+  const died=(DB.deaths||[]).some(d=>d.pid===s.pid);
+  const age=sqrtAge(idm.age||s.age||(rec&&rec.age));
+  // Other medicines dispensed to the same patient from 30 days before the suspect started up to onset
+  const from=start?new Date(new Date(start).getTime()-30*864e5).toISOString().slice(0,10):'';
+  // A drug-interaction signal names two suspected medicines ("A + B"); each becomes its own product entry.
+  const parts=(rec||!/ \+ /.test(s.drug))?[s.drug]:s.drug.split(/ \+ /);
+  const products=parts.map(name=>{
+    const w=name.toLowerCase().split(/\s+/)[0];
+    const r=name===s.drug&&rec?rec:DB.pharmacy.filter(x=>x.pid===s.pid&&x.drugRaw.toLowerCase().indexOf(w)>=0&&(!onset||!x.date||x.date<=onset)).sort((a,b)=>(a.date||'').localeCompare(b.date||''))[0];
+    const z=parseDosage(r&&r.dosage);
+    return{item:r?r.drugRaw:name,generic:sqrtGeneric(r&&r.ing?r.ing:name)||name,
+      route:sqrtRoute(z.route,r?r.drugRaw:name),freq:sqrtFreq(z.freq),dose:/^as charted$/i.test(z.dose||'')?'':z.dose,start:(r&&r.date)||(parts.length===1?start:'')};
+  });
+  const conc=[];const seen=new Set([s.drug].concat(products.map(x=>x.item)));
+  DB.pharmacy.filter(r=>r.pid===s.pid&&!r.topical&&r.date&&(!from||r.date>=from)&&(!onset||r.date<=onset)).sort((a,b)=>a.date.localeCompare(b.date)).forEach(r=>{
+    if(seen.has(r.drugRaw))return;seen.add(r.drugRaw);const z=parseDosage(r.dosage);
+    conc.push({name:r.drugRaw,route:sqrtRoute(z.route,r.drugRaw),freq:sqrtFreq(z.freq),dose:/^as charted$/i.test(z.dose||'')?'':z.dose,start:r.date});
+  });
+  const umc=tr.whoUmc||naranjoToUmc(tr.naranjo&&tr.naranjo.cat);
+  return{
+    s,tr,reveal,start,onset,died,
+    initials:reveal&&idm.initials?idm.initials:'',
+    recordNo:reveal&&idm.id?idm.id:'',
+    age, sex:sqrtSex(idm.sex||s.sex||(rec&&rec.sex)),
+    generic:(rec&&rec.ing?String(rec.ing).replace(/\b\w/g,m=>m.toUpperCase()):s.drug),
+    route:sqrtRoute(dz.route,s.drug), freq:sqrtFreq(dz.freq), dose:/^as charted$/i.test(dz.dose||'')?'':dz.dose,
+    serious:s.serious||died,
+    seriousness:tr.seriousness||(died?SQRT.seriousness[0]:(s.serious?SQRT.seriousness[2]:'')),
+    severity:tr.severity||sqrtSeverity(s.sev),
+    outcome:tr.outcome||(died?'Died':''),
+    lab:s.type==='Lab-supported', products,
+    conc, umc,
+    umcBasis:tr.whoUmc?'reviewer (WHO-UMC)':(tr.naranjo?`derived from Naranjo ${tr.naranjo.cat} (score ${tr.naranjo.score})`:'')
+  };
 }
+function sqrtReporter(){return Object.assign({salutation:'',name:'',email:'',phone:'',facility:'',address:'',level:'',profession:'',region:'',street:''},(DB.settings&&DB.settings.reporter)||{});}
+function buildTmdaText(reveal){
+  const c=sqrtCase(TMDA_SIG,reveal), s=c.s, R=sqrtReporter();
+  const v=(x,req)=>x?x:(req?TODO+' (required)':'____');
+  const L=[];const H=t=>L.push('',t,'-'.repeat(t.length));const F=(label,val)=>L.push('   '+label+': '+val);
+  L.push('TMDA ADVERSE DRUG REACTION REPORT — prepared for the online form (SQRT)');
+  L.push('Drugs and Vaccines › Healthcare Workers  ·  fields below follow the form, step by step');
+  L.push('Values in quotes are the exact options to pick from TMDA\'s lists. '+TODO+' = fill from the patient file.');
+  H('STEP 1 · Administrative Details');
+  F('Product Type','"Medicine"');F('Case Type','"Initial"');
+  H('STEP 2 · Patient Details');
+  F('Patient Initials',v(c.initials,true)+(c.reveal?'':'  (tick "Include patient ID & initials" above, or copy from the file)'));
+  F('Patient Record No (if available)',c.recordNo||'____');
+  F('Patient Age or Birth Date','"Age"');
+  F('Age',c.age?c.age.n:v('',true));F('Age Description',c.age?'"'+c.age.unit+'"':v('',true));
+  F('Gender',c.sex?'"'+c.sex+'"':v('',true));
+  F('Height (Cm)','____');F('Weight (Kg)','____');F('Any known Allergy','____ ("Yes" / "No")');
+  H('STEP 3 · Event Details');
+  F('Event Description',`${s.pt}${s.soc?' ('+s.soc+')':''}. ${s.why||''}`.trim());
+  F('Event Start Date',v(c.onset,true)+(c.onset?'  (date the pattern was seen — confirm actual onset)':''));
+  F('Event continues ?','____ ("Yes" / "No")');
+  F('Is the event serious ?','"'+(c.serious?'Yes':'No')+'"'+(c.serious&&!c.died?'  (confirm)':''));
+  if(c.serious)F('Seriousnes',c.seriousness?'"'+c.seriousness+'"'+(c.tr.seriousness?'':'  (suggested — confirm)'):v('',true));
+  F('Event Severity',c.severity?'"'+c.severity+'"':'____');
+  F('Outcome of event',c.outcome?'"'+c.outcome+'"':'____ ('+SQRT.outcome.map(x=>'"'+x+'"').join(' / ')+')');
+  H('STEP 4 · Lab Test');
+  F('Lab Test(s) done',c.lab?'"Yes"':v('',true)+' ("Yes" / "No")');
+  if(c.lab)F('Results (name, date, result, reference range, unit)',s.ev);
+  H('STEP 5 · Medical History');
+  F('Medical History','____ (kidney/liver problems, HIV, allergies, pregnancy, smoking, alcohol…)');
+  const fq=f=>f?'"'+f.replace(/^Others \(.*\)$/,'Others')+'"'+(f.startsWith('Others')?'  — '+f.slice(7):''):'____';
+  c.products.forEach((p,i)=>{
+    H('STEP 6 · Product Details — Drugs Product No. '+(i+1)+' (suspected)'+(i?'  — use "Add Drug"':''));
+    F('Brand Name','____');F('Generic Name',p.generic);F('Batch No','____');F('Expiry Date','____');
+    F('Manufacturer Name','____');F('Product Strength','____ (item dispensed: '+p.item+')');
+    F('Dose',p.dose||'____');
+    F('Route of Administration',p.route?'"'+p.route+'"':v('',true));
+    F('Frequency',fq(p.freq));
+    F('Therapy Start Date',p.start||'____');F('Therapy Continues ?','____ ("Yes" / "No")');F('Indication','____');
+  });
+  H('STEP 7 · Concomitants');
+  F('Are there any current and/or other medicine(s) that have been used ?',c.conc.length?'"Yes"':'"No" (none dispensed in the 30 days before — confirm)');
+  c.conc.slice(0,12).forEach((x,i)=>L.push(`     ${i+1}) ${x.name}  ·  route "${x.route||'____'}"  ·  frequency ${x.freq?'"'+x.freq.replace(/^Others \(.*\)$/,'Others')+'"':'____'}${x.dose?'  ·  dose '+x.dose:''}  ·  started ${x.start}`));
+  if(c.conc.length>12)L.push(`     … and ${c.conc.length-12} more in the dispensing record`);
+  c.products.forEach(p=>{
+    H('STEP 8 · Event Management — Choose Product: '+p.generic);
+    F('Medicine withdrawn ?','____');F('Did the event stop ?','____ ("Yes" / "No" / "Result Uknown")');
+    F('Was the medicine re-introduced ?','____');F('Did the event re-occur ?','____');
+    F('Action Taken','____ ('+SQRT.action.map(x=>'"'+x+'"').join(' / ')+')');
+    F('Treatment of adverse event ?','____');
+  });
+  H('STEP 9 · Additional Information');
+  L.push('   Causality (WHO-UMC): '+(c.umc?c.umc+' — '+c.umcBasis:'not yet assessed — grade the signal in VigiWard first'));
+  if(c.tr.naranjo)L.push(`   Naranjo score: ${c.tr.naranjo.score} (${c.tr.naranjo.cat})`);
+  L.push('   Detected from routine pharmacy'+(c.lab?' and laboratory':'')+' records ('+s.type+'). Basis: '+(s.verify||s.why||''));
+  H('STEP 10 · Reporter Name and Contact Address');
+  F('Salutation',R.salutation?'"'+R.salutation+'"':v('',true));F('Name',v(R.name,true));
+  F('E-mail (if available)',R.email||'____');F('Contact Phone',v(R.phone,true));
+  F('Name of Health Facility',v(R.facility,true));F('Facility Physical address',v(R.address,true));
+  F('Level of Facility',R.level?'"'+R.level+'"':v('',true));F('Profession',R.profession?'"'+R.profession+'"':v('',true));
+  F('Region',R.region?'"'+R.region+'"':v('',true));F('Street',v(R.street,true));
+  H('STEP 11 · Finalizing form submission');
+  L.push('   Tick both declarations on the portal yourself after checking every step.');
+  L.push('','Report each patient separately. Suggested values come from dispensing data and must be checked against the patient file before submission.');
+  return L.join('\n');
+}
+function tmdaSetCase(field,val){
+  const key=TMDA_SIG.key||sigKey(TMDA_SIG);const tr=DB.triage[key]||(DB.triage[key]={status:'new',note:''});
+  if(val)tr[field]=val;else delete tr[field];save();renderTmda(TMDA_REVEAL);
+}
+function tmdaSetRep(field,val){DB.settings.reporter=Object.assign(sqrtReporter(),{[field]:val});save();renderTmda(TMDA_REVEAL);}
+let TMDA_REVEAL=false;
 function renderTmda(reveal){
+  TMDA_REVEAL=!!reveal;
   const txt=buildTmdaText(reveal);
-  const idm=(DB._idmap&&DB._idmap[TMDA_SIG.pid])||{};
-  const haveId=!!idm.id;
+  const idm=(DB._idmap&&DB._idmap[TMDA_SIG.pid])||{};const haveId=!!idm.id;
+  const key=TMDA_SIG.key||sigKey(TMDA_SIG);const tr=DB.triage[key]||{};const R=sqrtReporter();
+  const sel=(opts,cur,on,blank)=>`<select onchange="${on}">${'<option value="">'+(blank||'—')+'</option>'+opts.map(o=>`<option${o===cur?' selected':''}>${esc(o)}</option>`).join('')}</select>`;
+  const inp=(f,ph)=>`<input value="${esc(R[f]||'')}" placeholder="${esc(ph)}" onchange="tmdaSetRep('${f}',this.value)">`;
+  const reported=tr.reported;
   document.getElementById('tmda-body').innerHTML=
-   `<div class="privacy" style="margin-bottom:14px"><strong>Patient identity</strong><br>
-      By default the report is de-identified. Tick below to include the facility ID and initials for your internal/official copy — this never leaves your browser until you submit.
+   `<div class="privacy" style="margin-bottom:12px"><strong>Patient identity</strong><br>
+      De-identified by default. Tick to include the facility ID and initials for the copy you type into the portal — nothing leaves this computer.
       <div style="margin-top:8px"><label style="display:inline-flex;align-items:center;gap:8px;font-size:13px;cursor:pointer">
         <input type="checkbox" style="width:auto" ${reveal?'checked':''} ${haveId?'':'disabled'} onchange="renderTmda(this.checked)">
         Include patient ID &amp; initials ${haveId?'':'(not available — re-import data with IDs)'}</label></div></div>
-    <textarea id="tmda-text" style="width:100%;min-height:360px;font-family:var(--mono);font-size:12px;line-height:1.6">${esc(txt)}</textarea>
-    <div class="row" style="margin-top:14px;gap:8px">
-      <a class="btn primary" href="${TMDA_PORTAL}" target="_blank" rel="noopener">🌐 Open TMDA portal (SQRT)</a>
-      <button class="btn" onclick="tmdaEmail()">✉ Email to TMDA</button>
+    <details ${R.name&&R.facility?'':'open'} style="margin-bottom:12px"><summary style="cursor:pointer;font-weight:600">Reporter &amp; facility (step 10) — entered once, used on every report</summary>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:8px">
+        <label>Salutation ${sel(SQRT.salutation,R.salutation,"tmdaSetRep('salutation',this.value)")}</label>
+        <label>Name ${inp('name','Full name')}</label>
+        <label>Contact Phone ${inp('phone','07…')}</label>
+        <label>E-mail ${inp('email','optional')}</label>
+        <label>Name of Health Facility ${inp('facility','same spelling every time')}</label>
+        <label>Facility Physical address ${inp('address','')}</label>
+        <label>Level of Facility ${sel(SQRT.level,R.level,"tmdaSetRep('level',this.value)")}</label>
+        <label>Profession ${sel(SQRT.profession,R.profession,"tmdaSetRep('profession',this.value)")}</label>
+        <label>Region ${sel(SQRT.regions,R.region,"tmdaSetRep('region',this.value)")}</label>
+        <label>Street ${inp('street','')}</label>
+      </div></details>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-bottom:12px">
+      <label>Causality (WHO-UMC, your assessment) ${sel(SQRT.whoUmc,tr.whoUmc,"tmdaSetCase('whoUmc',this.value)",tr.naranjo?'from Naranjo: '+naranjoToUmc(tr.naranjo.cat):'not assessed')}</label>
+      <label>Seriousnes ${sel(SQRT.seriousness,tr.seriousness,"tmdaSetCase('seriousness',this.value)",'suggested')}</label>
+      <label>Event Severity ${sel(SQRT.severity,tr.severity,"tmdaSetCase('severity',this.value)",'suggested')}</label>
+      <label>Outcome of event ${sel(SQRT.outcome,tr.outcome,"tmdaSetCase('outcome',this.value)",'not known yet')}</label>
+    </div>
+    <textarea id="tmda-text" style="width:100%;min-height:340px;font-family:var(--mono);font-size:12px;line-height:1.55">${esc(txt)}</textarea>
+    <div class="row" style="margin-top:12px;gap:8px;flex-wrap:wrap">
+      <a class="btn primary" href="${TMDA_PORTAL}" target="_blank" rel="noopener">🌐 Open TMDA online form (SQRT)</a>
+      <button class="btn" onclick="tmdaYellowForm()">🖨 Print Yellow Form (paper)</button>
       <button class="btn" onclick="tmdaCopy()">Copy</button>
       <button class="btn" onclick="tmdaDownload()">Download</button>
-      ${(()=>{const k=TMDA_SIG.key||sigKey(TMDA_SIG);const r=(DB.triage[k]||{}).reported;return r?`<button class="btn ghost" onclick="markReported('${k}',false);renderTmda(${reveal?'true':'false'})">✓ Reported ${esc(r)} — undo</button>`:`<button class="btn" style="border-color:var(--accent);color:var(--accent)" onclick="markReported('${k}',true);renderTmda(${reveal?'true':'false'})">✓ Mark as reported to TMDA</button>`;})()}
+      <button class="btn" onclick="tmdaEmail()">✉ Email to TMDA</button>
+      ${reported?`<button class="btn ghost" onclick="markReported('${key}',false);renderTmda(TMDA_REVEAL)">✓ Reported ${esc(reported)} — undo</button>`:`<button class="btn" style="border-color:var(--accent);color:var(--accent)" onclick="markReported('${key}',true);renderTmda(TMDA_REVEAL)">Mark as reported to TMDA</button>`}
     </div>
-    <div class="note" style="margin-top:8px">Online submission needs internet. The portal opens in a new tab; paste or use the copied report to complete the official fields.</div>`;
+    <div class="note" style="margin-top:8px">TMDA's online form takes one report at a time; follow the steps above in order. The online form has no causality field, so it goes under Additional Information. The paper Yellow Form has its own causality boxes.</div>`;
 }
+function tmdaYellowForm(){
+  const c=sqrtCase(TMDA_SIG,TMDA_REVEAL), s=c.s, R=sqrtReporter();
+  const box=(on,label)=>`<span class="cb">${on?'☒':'☐'} ${label}</span>`;
+  const sevPaper=c.died?'Fatal':(c.severity||'');
+  const reasons={'Serious Adverse Event (SAE) -Death':'Death','Life threatning':'Life threatening','Hospitalization required / prolonged':'Prolonged hospitalization','Persistent or significant disability/ incapacity':'Disability','Conginetal Anomaly/ birth defect':'Caused a congenital anomaly'};
+  const reason=c.serious?reasons[c.seriousness]||'':'';
+  const outPaper={'Recovered/Resolved':'Recovered','Recovered with sequealae':'Recovered with sequalae','Not Recovered':'Not recovered','Died':'Death','Unknown':'Unknown'}[c.outcome]||'';
+  const e=x=>esc(x||'');
+  const conc=c.conc.slice(0,4);
+  const html=`<!doctype html><html><head><meta charset="utf-8"><title>ADR Reporting Form — ${e(s.drug)}</title><style>
+  body{font-family:Arial,sans-serif;font-size:11.5px;margin:18px;color:#000}h1{font-size:14px;text-align:center;margin:2px 0}h2{font-size:12px;background:#eee;padding:3px 6px;margin:10px 0 4px;border:1px solid #999}
+  .c{text-align:center;font-weight:bold;font-size:11px}.g{display:grid;grid-template-columns:1fr 1fr;gap:3px 14px}.f{border-bottom:1px dotted #555;min-height:16px}.f b{font-weight:normal;color:#333}
+  table{border-collapse:collapse;width:100%}th,td{border:1px solid #777;padding:3px;vertical-align:top;text-align:left;font-size:10.5px}th{background:#f3f3f3}.cb{display:inline-block;margin-right:12px}
+  .t{border:1px solid #999;min-height:34px;padding:3px}@media print{.np{display:none}}</style></head><body>
+  <div class="np" style="margin-bottom:10px"><button onclick="print()">Print</button> Check every entry against the patient file before signing.</div>
+  <div class="c">THE UNITED REPUBLIC OF TANZANIA<br>TANZANIA MEDICINES AND MEDICAL DEVICES AUTHORITY</div><h1>ADR REPORTING FORM</h1>
+  <h2>Type of Report</h2>${box(true,'Initial')}${box(false,'Follow up')}${box(c.serious,'Serious')}${box(!c.serious,'Not Serious')}${box(true,'Medical')}${box(false,'Vaccine')}
+  <h2>Patient Information</h2><div class="g">
+   <div class="f"><b>Patient ID/ Initials:</b> ${e([c.recordNo,c.initials].filter(Boolean).join(' / '))}</div>
+   <div class="f"><b>Gender:</b> ${box(c.sex==='Male','Male')}${box(c.sex==='Female','Female')}</div>
+   <div class="f"><b>Weight(kg):</b></div><div class="f"><b>Pregnancy status:</b> ${box(false,'Yes')}${box(false,'No')}</div>
+   <div class="f"><b>Full address:</b></div><div class="f"><b>Telephone Number:</b></div>
+   <div class="f"><b>Date of Birth</b> ___/___/_____ <b>OR Age at onset:</b> ${c.age?e(c.age.n+' '+c.age.unit.toLowerCase()):''}</div></div>
+  <h2>Medical History (relevant medical history and laboratory results including dates)</h2><div class="t">${c.lab?e(s.ev):''}</div>
+  <h2>Therapeutic failure</h2><div class="t"></div><h2>Medication errors</h2><div class="t"></div>
+  <h2>Additional Information</h2><div class="t">Detected from routine pharmacy${c.lab?' and laboratory':''} records (${e(s.type)}). ${e(s.verify||s.why)}${c.tr.naranjo?` Naranjo score ${c.tr.naranjo.score} (${e(c.tr.naranjo.cat)}).`:''}</div>
+  <h2>Administrative information</h2><div class="g">
+   <div class="f"><b>Report Title:</b> ${e(s.pt)} — ${e(s.drug)}</div><div class="f"><b>Form ID number:</b></div>
+   <div class="f"><b>Date of reporting:</b> ${new Date().toISOString().slice(0,10)}</div><div class="f"><b>Country:</b> Tanzania</div>
+   <div class="f"><b>Name and Address of Institution:</b> ${e([R.facility,R.address,R.street,R.region].filter(Boolean).join(', '))}</div><div class="f"><b>Email Address:</b> ${e(R.email)}</div>
+   <div class="f"><b>Name of reporter:</b> ${e([R.salutation,R.name].filter(Boolean).join(' '))}${R.profession?' ('+e(R.profession.replace(/Pharamaceutical/,'Pharmaceutical'))+')':''}</div><div class="f"><b>Contact /Tel No:</b> ${e(R.phone)}</div></div>
+  <h2>Details of suspected medical product</h2><table><tr><th>#</th><th>Name of suspected medicine(s) (brand/manufacturer if known)</th><th>Generic name</th><th>Route</th><th>Dose and frequency</th><th>Date started</th><th>Date stopped</th><th>Batch No &amp; Expiry date</th><th>Indication</th></tr>
+   ${c.products.concat(c.products.length<2?[{}]:[]).slice(0,2).map((p,i)=>`<tr><td>${i+1}</td><td>${e(p.item)}</td><td>${e(p.generic)}</td><td>${e(p.route)}</td><td>${e([p.dose,p.freq].filter(Boolean).join(', '))}</td><td>${e(p.start)}</td><td></td><td></td><td></td></tr>`).join('')}</table>
+  <h2>Other medicines used at the same time and/or one month before (including herbal medicines)</h2><table><tr><th>#</th><th>Medicine</th><th>Route</th><th>Dose and frequency</th><th>Date started</th></tr>
+   ${(conc.length?conc:[{},{}]).map((x,i)=>`<tr><td>${i+1}</td><td>${e(x.name)}</td><td>${e(x.route)}</td><td>${e([x.dose,x.freq].filter(Boolean).join(', '))}</td><td>${e(x.start)}</td></tr>`).join('')}</table>
+  <div class="g" style="margin-top:8px"><div class="f"><b>Date of ADR onset:</b> ${e(c.onset)}</div><div class="f"><b>Time of onset:</b></div><div class="f"><b>Date ADR stopped:</b></div><div></div></div>
+  <h2>Severity of the ADR</h2>${['Mild','Moderate','Severe','Fatal','Unknown'].map(x=>box(sevPaper===x,x)).join('')}
+  <h2>Reasons for seriousness</h2>${['Prolonged hospitalization','Caused a congenital anomaly','Disability','Death','Life threatening'].map(x=>box(reason===x,x)).join('')}
+  <h2>Action taken</h2>${['Dose increased','Dose reduced','Dose changed','Not applicable','Unknown'].map(x=>box(false,x)).join('')}
+  <h2>Outcome</h2>${['Recovering','Recovered with sequalae','Not recovered','Death','Unknown','Recovered'].map(x=>box(outPaper===x,x)).join('')}
+  <h2>Causality of the ADR/AEFI</h2>${SQRT.whoUmc.map(x=>box(c.umc===x,x)).join('')}
+  <div style="margin-top:22px" class="g"><div class="f"><b>Signature:</b></div><div class="f"><b>Date:</b></div></div>
+  </body></html>`;
+  const w=window.open('','_blank');
+  if(!w){toast('Allow pop-ups to open the printable Yellow Form');return}
+  w.document.write(html);w.document.close();
+}
+
 function tmdaCopy(){const t=document.getElementById('tmda-text').value;navigator.clipboard?.writeText(t).then(()=>toast('TMDA report copied'),()=>toast('Select the text to copy'))}
 function tmdaDownload(){const t=document.getElementById('tmda-text').value;vwfSaveOut('TMDA_ADR_report.txt',new Blob([t],{type:'text/plain'}))}
 function tmdaEmail(){const t=document.getElementById('tmda-text').value;const sub=encodeURIComponent('Suspected ADR report — '+(TMDA_SIG?TMDA_SIG.pt:'ADR'));const body=encodeURIComponent(t);window.location.href=`mailto:${TMDA_EMAIL}?subject=${sub}&body=${body}`}
