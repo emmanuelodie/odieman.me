@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technical documentation — Odieman Health Tools</title>
+<meta name="description" content="What AMS Pro, PPS Pro and VigiWard read from a hospital system, where they keep their data, what they produce and the one connection they can make.">
+<meta name="author" content="Odindo Emmanuel Thomas">
+<link rel="stylesheet" href="style.css">
+<style>
+  .tscroll{overflow-x:auto;margin:14px 0;}
+  .tscroll table.bench{margin:0;min-width:560px;}
+  table.bench td code,.section-note code,.module-row code,.citebox code,li code{font-family:"Consolas","SF Mono",monospace;font-size:12.5px;background:#F4F2EC;padding:1px 4px;}
+  table.bench th.c,table.bench td.c{text-align:center;}
+  table.bench td.c{color:var(--teal);font-weight:700;}
+  .tree{white-space:pre !important;overflow-x:auto;font-size:13px;}
+  h3.sub{font-family:"Segoe UI",sans-serif;font-size:17px;color:var(--navy-deep);margin:34px 0 4px;}
+  details.more{font-family:"Segoe UI",sans-serif;font-size:14px;margin:10px 0 0;border:1px solid var(--paper-line);background:#fff;}
+  details.more summary{cursor:pointer;padding:10px 14px;color:var(--teal);font-weight:600;}
+  details.more > div{padding:0 14px 6px;}
+  ul.plain{font-family:"Segoe UI",sans-serif;font-size:14.5px;color:var(--ink-soft);padding-left:20px;line-height:1.65;max-width:72ch;}
+  ul.plain li{margin-bottom:6px;}
+  ul.plain b{color:var(--ink);}
+  section[id]{scroll-margin-top:140px;}
+  @media (max-width:760px){section[id]{scroll-margin-top:0;}}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">Odieman Health Tools
+      <small>Field-built instruments for antimicrobial stewardship, PPS &amp; pharmacovigilance</small>
+    </a>
+    <nav class="links sans">
+      <a href="index.html#tools">Tools</a>
+      <a href="methodology.html">Methodology</a>
+      <a href="technical.html">Technical</a>
+      <a href="index.html#demo">Live demos</a>
+      <a href="story.html">The story</a>
+      <a href="index.html#download">Get the tools</a>
+      <a href="index.html#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <p class="crumb"><a href="index.html">Home</a> / Technical documentation</p>
+
+  <section class="page-hero">
+    <span class="tag">Technical reference &middot; AMS Pro 4.8, PPS Pro 3.2 and VigiWard 3.8 &middot; October 2026</span>
+    <h1>What the tools read, keep and produce</h1>
+    <p class="lede">For the hospital ICT officer, the hospital-system team, the reviewer and the partner organisation: what each tool needs from your hospital system, where it keeps its data, what it hands back, and the one connection it can make. Written from the tools' own code. The statistics behind the figures are on the <a href="methodology.html">methodology page</a>.</p>
+    <p class="sans" style="font-size:14px;color:var(--ink-soft);">Jump to:
+      <a href="#glance">At a glance</a> &middot;
+      <a href="#run">How a tool runs</a> &middot;
+      <a href="#data">Data the tools read</a> &middot;
+      <a href="#source">One source, three tools</a> &middot;
+      <a href="#kept">Where data is kept</a> &middot;
+      <a href="#outputs">Outputs &amp; standard formats</a> &middot;
+      <a href="#connections">Connections</a> &middot;
+      <a href="#reflist">Reference list file</a> &middot;
+      <a href="#requirements">Requirements</a> &middot;
+      <a href="#components">Built-in components</a>
+    </p>
+  </section>
+
+  <!-- ============================== AT A GLANCE ============================== -->
+  <section id="glance">
+    <h2>At a glance</h2>
+    <p class="section-note">Each tool is one HTML file with everything inside it: the program, the components it uses and its reference lists. It is opened straight from the computer's disk in Google Chrome or Microsoft Edge. Nothing is installed, nothing runs on a server, and no account is needed.</p>
+    <div class="tscroll"><table class="bench">
+      <tr><th></th><th>AMS Pro</th><th>PPS Pro</th><th>VigiWard</th></tr>
+      <tr><td>File</td><td><code>Odieman_AMS_Pro.html</code></td><td><code>Odieman_PPS_Pro.html</code></td><td><code>VigiWard.html</code></td></tr>
+      <tr><td>Version</td><td>4.8</td><td>3.2</td><td>3.8</td></tr>
+      <tr><td>Size</td><td>~2.1 MB</td><td>~0.1 MB</td><td>~1.3 MB</td></tr>
+      <tr><td>Reads</td><td>Excel (.xlsx, .xlsm) or CSV exports</td><td>One CSV per survey, or entry on screen</td><td>Excel (.xlsx, .xls) or CSV exports</td></tr>
+      <tr><td>Saves to</td><td colspan="3">A data folder you choose on your own computer (Chrome or Edge), with the browser's own storage alongside</td></tr>
+      <tr><td>Database file</td><td><code>odieman_ams_pro_data.json</code></td><td><code>odieman_pps_data.json</code></td><td><code>vigiward_data.json</code></td></tr>
+      <tr><td>Produces</td><td>Word, PowerPoint, CSV, JSON</td><td>ZIP (WHO PPS format), CSV, HTML, PNG, JSON</td><td>XML, RTF, CSV, Excel, text</td></tr>
+      <tr><td>Internet</td><td colspan="3">Not needed. Used only if someone presses <i>Check for updates</i> on the Reference lists page</td></tr>
+      <tr><td>Install, server, account</td><td colspan="3">None</td></tr>
+    </table></div>
+  </section>
+
+  <!-- ============================== HOW A TOOL RUNS ============================== -->
+  <section id="run">
+    <h2>How a tool runs</h2>
+    <p class="section-note">The same five steps in all three tools. Every step happens inside the browser on the computer in front of you.</p>
+    <div class="diagram">
+      <div class="diag-box"><b>Your export</b>Excel or CSV from the hospital system</div>
+      <div class="diag-arrow">→</div>
+      <div class="diag-box"><b>The tool</b>reads, classifies, links, calculates</div>
+      <div class="diag-arrow">→</div>
+      <div class="diag-box"><b>Your data folder</b>database, backups, exports, reports</div>
+    </div>
+    <p class="diag-off">No server in the middle. No upload. The export never leaves the computer.</p>
+
+    <div style="margin-top:28px">
+      <div class="module-row">
+        <h4>1. Open</h4>
+        <p>Open the HTML file in Chrome or Edge. If a data folder was chosen before, the tool asks the browser for permission to use it again (one click after a browser restart) and loads the saved database from it. The browser remembers which folder was chosen; the tool cannot see any other folder.</p>
+      </div>
+      <div class="module-row">
+        <h4>2. Import</h4>
+        <p>You choose the export files. Excel workbooks are unpacked in the browser and CSV files read directly. AMS Pro and VigiWard find the header row automatically near the top of the sheet, so title rows above it are skipped; AMS Pro matches column names without regard to capitals, spaces or punctuation. PPS Pro expects its own CSV layout, with the header in the first row.</p>
+      </div>
+      <div class="module-row">
+        <h4>3. Classify &amp; link</h4>
+        <p>Each item name is matched to its generic name, WHO AWaRe group, ATC code and WHO DDD from the reference list built into the tool (or the newer list you applied). Files are linked by patient ID; in AMS Pro, dispensing is linked to bed-days by ward name.</p>
+      </div>
+      <div class="module-row">
+        <h4>4. Calculate</h4>
+        <p>Indicators, trends, control charts, signals and tests run in the browser's memory. The methods are set out on the <a href="methodology.html">methodology page</a>.</p>
+      </div>
+      <div class="module-row">
+        <h4>5. Save &amp; report</h4>
+        <p>Every change is written to the data folder automatically, with a daily backup. Word, PowerPoint, CSV, XML and other files are made in the browser and saved into the folder's <code>reports/</code> or <code>exports/</code>, or downloaded when no folder is open.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== DATA IN ============================== -->
+  <section id="data">
+    <h2>Data the tools read</h2>
+    <p class="section-note">The minimum each tool needs, and what more data unlocks. Only the pharmacy dispensing export is essential for AMS Pro and VigiWard; every other file adds analyses. The same tables are in each tool's built-in user guide.</p>
+
+    <h3 class="sub">AMS Pro</h3>
+    <p class="section-note" style="margin-bottom:0">Several files per type are merged automatically (for example one export per year), and any single import can be undone. CSV reads much faster than Excel for very large files.</p>
+    <div class="tscroll"><table class="bench">
+      <tr><th>Import</th><th>Minimum columns</th><th>Recommended extra columns</th><th>What it unlocks</th></tr>
+      <tr><td>Pharmacy dispensing<br><span style="font-weight:400;font-size:12.5px;color:var(--ochre)">the one essential file</span></td><td>Item Name, Quantity, Date</td><td>Patient ID, Department/Ward, Dosage text (route; frequency; duration), Price, Prescriber, Age, Gender, Payment Type</td><td>AWaRe shares, DDD (strength in the item name &times; quantity), DOT (from &ldquo;Duration: 5 /7&rdquo;), consumption, cost, run charts, time-out flags, prescriber recognition</td></tr>
+      <tr><td>Admissions / ward</td><td>Patient ID or Ward</td><td>Ward, Date Admitted, Date Discharged, Bed Days, Diagnosis, Procedure, Caesarean Section, SSI Confirmed, Receiving Antibiotic</td><td>Bed-days denominator for DDD and DOT per 1,000 patient-days, ward scope, CRF02 (SSI after caesarean section), CRF03 roster, diagnosis profile</td></tr>
+      <tr><td>Laboratory</td><td>Test name, with turnaround timestamps or flag columns</td><td>Patient Number, Sample Collected Time, Submission Time, TAT Expected (e.g. &ldquo;72Hrs&rdquo;)</td><td>Turnaround-time indicator, laboratory activity, culture use, the Reserve-without-culture check</td></tr>
+      <tr><td>Culture &amp; sensitivity</td><td>Patient ID, Sample date, Organism, and S/I/R results</td><td>Specimen</td><td>Antibiogram (first isolate per patient, CLSI M39), empirical-therapy review, bug&ndash;drug mismatches</td></tr>
+      <tr><td>Procedures / services</td><td>Product Name or Procedure</td><td>Patient ID, Sub Department Name, Ordered Date, Price</td><td>Surgical prophylaxis continued beyond 24 hours, Patient Master</td></tr>
+    </table></div>
+    <div class="citebox"><b>Linking rule:</b> the ward names in the admissions file must be written exactly as the <i>Department</i> names in the dispensing file. That is how AMS Pro links bed-days to dispensing and decides which wards are in scope. <b>Culture results</b> can be laid out wide (one column per antibiotic, holding S, I or R) or long (one row per test, with an <i>Antibiotic</i> and a <i>Result</i> column); a blank template is on the Bug&ndash;drug Check page.</div>
+
+    <details class="more">
+      <summary>Column names AMS Pro recognises</summary>
+      <div>
+        <p style="color:var(--ink-soft);margin:4px 0 0">Any of these header names is accepted, in any mix of capitals. A system whose export uses other names can be read once its columns are renamed to one of these.</p>
+        <div class="tscroll"><table class="bench">
+          <tr><th>File</th><th>Field</th><th>Accepted header names</th></tr>
+          <tr><td>Dispensing</td><td>Item</td><td>item name, drug name</td></tr>
+          <tr><td></td><td>Quantity</td><td>quantity, qty</td></tr>
+          <tr><td></td><td>Date</td><td>date</td></tr>
+          <tr><td></td><td>Dosage text</td><td>dosage</td></tr>
+          <tr><td></td><td>Ward</td><td>department, clinic, ward</td></tr>
+          <tr><td></td><td>Patient ID</td><td>patient id, patient no, patient code, mrn, hospital number</td></tr>
+          <tr><td></td><td>Price</td><td>price, unit price, selling price</td></tr>
+          <tr><td></td><td>Prescriber</td><td>prescriber, prescriber name, ordered by, consultant, consultant name, doctor, attending clinician, requested by</td></tr>
+          <tr><td></td><td>Others</td><td>payment type &middot; age &middot; gender, sex</td></tr>
+          <tr><td>Admissions</td><td>Patient ID</td><td>patient id, patient code, mrn, hospital number, patient number, patient no, registration</td></tr>
+          <tr><td></td><td>Ward</td><td>ward, department</td></tr>
+          <tr><td></td><td>Bed-days</td><td>bed days, length of stay, los days, patient days, days</td></tr>
+          <tr><td></td><td>Admitted</td><td>date admitted, admission date, check in date, checked in date, check-in date</td></tr>
+          <tr><td></td><td>Discharged</td><td>date discharge, date discharged, discharge date</td></tr>
+          <tr><td></td><td>Diagnosis</td><td>diagnosis, chief complaint, final diagnosis</td></tr>
+          <tr><td></td><td>Procedure</td><td>procedure, procedure performed, surgery type</td></tr>
+          <tr><td></td><td>Caesarean section</td><td>cesarean section, c section, caesarean section</td></tr>
+          <tr><td></td><td>SSI</td><td>ssi confirmed, surgical site infection, ssi y n</td></tr>
+          <tr><td></td><td>On antibiotic</td><td>receiving antibiotic, on antibiotics, antibiotic given, receiving ab</td></tr>
+          <tr><td>Laboratory</td><td>Patient ID</td><td>patient number, patient id, patient no, patient code, registration</td></tr>
+          <tr><td></td><td>Test</td><td>test name, sample type, investigation, test</td></tr>
+          <tr><td></td><td>Collected</td><td>sample collected time, sample collected, collection time, date collected</td></tr>
+          <tr><td></td><td>Reported</td><td>to dr submission time, submission time, result time, reported time, date reported, date result reported</td></tr>
+          <tr><td></td><td>Expected TAT</td><td>tat expected, expected tat, target tat</td></tr>
+          <tr><td>Culture &amp; sensitivity</td><td>Patient ID</td><td>patient id, patient no, patient number, registration, mrn, hospital number, patient code</td></tr>
+          <tr><td></td><td>Sample date</td><td>sample date, collection date, date collected, specimen date, date</td></tr>
+          <tr><td></td><td>Organism</td><td>organism, isolate, bacteria, pathogen, organism isolated</td></tr>
+          <tr><td></td><td>Specimen</td><td>specimen, sample type, specimen type, sample</td></tr>
+          <tr><td></td><td>Long layout</td><td>antibiotic, drug, antimicrobial, agent &middot; result, interpretation, sir, s/i/r, susceptibility</td></tr>
+          <tr><td>Procedures</td><td>Procedure</td><td>product name, procedure, procedure performed</td></tr>
+          <tr><td></td><td>Department</td><td>sub department name, department</td></tr>
+          <tr><td></td><td>Others</td><td>ordered by &middot; ordered date, date &middot; quantity, qty &middot; price</td></tr>
+        </table></div>
+      </div>
+    </details>
+
+    <h3 class="sub">PPS Pro</h3>
+    <p class="section-note" style="margin-bottom:0">One CSV file per survey, one row per inpatient, up to four antimicrobials per patient. Surveys can also be entered patient by patient on screen. A blank template is on the Settings page.</p>
+    <div class="tscroll"><table class="bench">
+      <tr><th>Part</th><th>Columns</th></tr>
+      <tr><td>Required</td><td><code>ward</code>, and either <code>on_antimicrobial</code> or the antimicrobial names</td></tr>
+      <tr><td>Survey &amp; ward</td><td><code>survey_id</code>, <code>survey_date</code>, <code>facility</code>, <code>ward</code>, <code>ward_code</code>, <code>ward_type</code></td></tr>
+      <tr><td>Patient</td><td><code>patient_code</code>, <code>age_years</code>, <code>sex</code>, <code>weight_kg</code>, <code>admission_date</code>, <code>on_antimicrobial</code>, <code>surgery_last_30d</code>, <code>catheter_or_line</code></td></tr>
+      <tr><td>Indication &amp; quality</td><td><code>diagnosis</code>, <code>indication</code>, <code>reason_in_notes</code>, <code>guideline_compliant</code>, <code>culture_taken</code>, <code>stop_review_date</code></td></tr>
+      <tr><td>Antimicrobials (n = 1&ndash;4)</td><td><code>ab<i>n</i>_name</code>, <code>ab<i>n</i>_atc</code>, <code>ab<i>n</i>_aware</code>, <code>ab<i>n</i>_route</code>, <code>ab<i>n</i>_dose_mg</code>, <code>ab<i>n</i>_doses_per_day</code></td></tr>
+    </table></div>
+    <div class="tscroll"><table class="bench">
+      <tr><th>Field</th><th>Codes</th></tr>
+      <tr><td>indication</td><td>CAI community-acquired infection &middot; HAI hospital-acquired infection &middot; SP1 surgical prophylaxis, 1 dose &middot; SP2 one day &middot; SP3 more than one day &middot; MP medical prophylaxis &middot; OTH other &middot; UNK unknown</td></tr>
+      <tr><td>diagnosis</td><td>PNEU, BRON, CNS, BAC, CSEP, PYE, CYS, GI, IA, SST, BJ, OBGY, FN, UND, MAL, PROK, PROF, EYE, ENT, CVS, ASB, GUM, SIRS (meanings in the tool's guide)</td></tr>
+      <tr><td>route</td><td>P parenteral (IV/IM) &middot; O oral</td></tr>
+      <tr><td>ward_type</td><td>MED, SUR, OBG, PED, NEO, ICU, MIX</td></tr>
+      <tr><td>Yes/No fields</td><td>Y, N; <code>guideline_compliant</code> also NA when it cannot be assessed</td></tr>
+    </table></div>
+    <div class="citebox">ATC code and AWaRe group are filled in automatically when left blank, and common brand names (Augmentin, Septrin, Flagyl and others) are recognised.</div>
+
+    <h3 class="sub">VigiWard</h3>
+    <p class="section-note" style="margin-bottom:0">One file per type: export the whole period (for example three years) as a single file. Columns are found by their content. Patient names are removed on import.</p>
+    <div class="tscroll"><table class="bench">
+      <tr><th>File</th><th>Columns it needs</th><th>Helpful extras</th><th>What it unlocks</th></tr>
+      <tr><td>Pharmacy dispensing<br><span style="font-weight:400;font-size:12.5px;color:var(--ochre)">essential</span></td><td>Patient ID, Item Name, Date</td><td>Dosage text, Department, Age, Gender, Patient Name (used only for the TMDA initials, never saved)</td><td>All ADR signals, Watch-list, Spike alerts, Interactions, Ward huddle, Cardiometabolic audit, aDSM cohort</td></tr>
+      <tr><td>Lab results</td><td>Patient ID, test name, numeric value, date</td><td>Creatinine, ALT/AST, potassium, glucose, neutrophils and INR are the tests used</td><td>Lab-supported signals, monitoring gaps (e.g. an aminoglycoside without a creatinine), aDSM monitoring</td></tr>
+      <tr><td>Deaths register</td><td>Patient ID, date of death</td><td>Cause of death</td><td>Flags suspected reactions in patients who later died (a time link, not a cause)</td></tr>
+      <tr><td>BP / glucose readings</td><td>Patient ID and any of: Systolic, Diastolic, HbA1c, FBS, Cholesterol</td><td>Age, Sex, Smoker</td><td>Control and risk in the Cardiometabolic audit</td></tr>
+    </table></div>
+    <div class="citebox"><b>Linking rule:</b> the same patient ID must be used in every file. VigiWard turns it into the same code (<code>P_XXXX</code>) everywhere, which is how lab results and deaths are linked to dispensing.</div>
+  </section>
+
+  <!-- ============================== ONE SOURCE ============================== -->
+  <section id="source">
+    <h2>One source, three tools</h2>
+    <p class="section-note">The tools read the exports a hospital system already produces, so nothing is typed twice. They were built around Afya eHMS, and read other systems' exports when the columns carry recognisable names. Each tool uses only what is relevant to it.</p>
+    <div class="tscroll"><table class="bench">
+      <tr><th>Export</th><th class="c">AMS Pro</th><th class="c">VigiWard</th><th class="c">PPS Pro</th><th>Used for</th></tr>
+      <tr><td>Pharmacy dispensing</td><td class="c">&#10003;</td><td class="c">&#10003;</td><td class="c"></td><td>AWaRe, DDD and DOT, review lists (AMS Pro); ADR signals, interactions, NCD and aDSM audits (VigiWard)</td></tr>
+      <tr><td>Admissions / ward register</td><td class="c">&#10003;</td><td class="c"></td><td class="c"></td><td>Bed-days, ward scope, caesarean-section and SSI forms</td></tr>
+      <tr><td>Laboratory results</td><td class="c">&#10003;</td><td class="c">&#10003;</td><td class="c"></td><td>Turnaround times (AMS Pro); creatinine, liver tests, potassium and others behind lab-supported signals (VigiWard)</td></tr>
+      <tr><td>Culture &amp; sensitivity</td><td class="c">&#10003;</td><td class="c"></td><td class="c"></td><td>Antibiogram, bug&ndash;drug check, WHONET and GLASS-style files</td></tr>
+      <tr><td>Procedures / services</td><td class="c">&#10003;</td><td class="c"></td><td class="c"></td><td>Surgical prophylaxis beyond 24 hours</td></tr>
+      <tr><td>Deaths register</td><td class="c"></td><td class="c">&#10003;</td><td class="c"></td><td>Outcome layer on suspected reactions</td></tr>
+      <tr><td>BP / glucose readings</td><td class="c"></td><td class="c">&#10003;</td><td class="c"></td><td>Cardiometabolic control and risk</td></tr>
+      <tr><td>PPS ward forms</td><td class="c"></td><td class="c"></td><td class="c">&#10003;</td><td>Point prevalence surveys and their trends</td></tr>
+    </table></div>
+  </section>
+
+  <!-- ============================== WHERE DATA IS KEPT ============================== -->
+  <section id="kept">
+    <h2>Where the data is kept</h2>
+    <p class="section-note">In Chrome or Edge, each tool keeps its work in a folder the user picks once, on their own computer. The folder is laid out the same way every time and carries a <code>README.txt</code> explaining it. The browser's own storage keeps working alongside the folder.</p>
+
+    <h3 class="sub">AMS Pro</h3>
+<div class="formula tree">AMS_Data/                      <span class="cm">(any name, chosen by the user)</span>
+  odieman_ams_pro_data.json    <span class="cm">main database, rewritten about half a second after each change</span>
+  backups/                     <span class="cm">one copy per day (last 30) + a safety copy before any reset,</span>
+                               <span class="cm">erase, restore or snapshot load</span>
+  exports/                     <span class="cm">CSV and JSON exports</span>
+  reports/                     <span class="cm">Word (.docx) and PowerPoint (.pptx) reports</span>
+  snapshots/                   <span class="cm">named snapshots, e.g. one per ward or reporting period</span>
+  README.txt</div>
+
+    <h3 class="sub">PPS Pro</h3>
+<div class="formula tree">PPS_Data/
+  odieman_pps_data.json        <span class="cm">main database (all surveys)</span>
+  surveys/                     <span class="cm">one CSV per survey, rewritten whenever that survey changes</span>
+  backups/                     <span class="cm">daily copy of the database (last 30 by default; set on Settings)</span>
+  reports/                     <span class="cm">reports, charts and exports</span>
+  *.csv                        <span class="cm">new survey files dropped here are imported when the tool opens</span>
+  README.txt</div>
+
+    <h3 class="sub">VigiWard</h3>
+<div class="formula tree">VigiWard_Data/
+  vigiward_data.json           <span class="cm">signals, review decisions, Naranjo and TMDA-reported marks,</span>
+                               <span class="cm">detection settings, data-quality report, cardiometabolic profile</span>
+  datasets/                    <span class="cm">the de-identified imported datasets (pharmacy, lab, deaths,</span>
+                               <span class="cm">readings), reloaded next time so nothing is re-imported</span>
+  backups/                     <span class="cm">daily copy (last 30), safety copies, and the previous datasets</span>
+                               <span class="cm">before an import replaces them (backups/datasets/)</span>
+  exports/                     <span class="cm">CSV and Excel exports</span>
+  reports/                     <span class="cm">TMDA report, E2B XML, RTF reports, manuscript drafts</span>
+  README.txt</div>
+
+    <h3 class="sub">Rules that protect the data</h3>
+    <ul class="plain">
+      <li><b>Nothing is overwritten unread.</b> In AMS Pro and VigiWard, when the browser copy and the folder copy differ, the newer one is used (or the user chooses) and the other is written into <code>backups/</code> first. PPS Pro merges the two survey by survey, keeping the most recently changed version of each.</li>
+      <li><b>No half-written files.</b> In AMS Pro and VigiWard, writes run one at a time and each file is swapped in only once it is completely written, so a power cut mid-save leaves the previous file intact.</li>
+      <li><b>Real patient identities stay out of VigiWard's folder.</b> Real patient IDs, names and initials are held in memory only, for the TMDA form in that session; the saved datasets carry the <code>P_XXXX</code> codes.</li>
+      <li><b>Without a folder</b> (or in a browser other than Chrome or Edge), AMS Pro and VigiWard keep their data in the browser's local storage, which holds only about 5&ndash;10 MB (VigiWard keeps only its top 2,000 signals there). PPS Pro keeps its surveys in the browser's IndexedDB. In this case, download a backup after each working session.</li>
+      <li><b>Moving to another computer:</b> copy the whole data folder together with the tool's HTML file, open the tool in Chrome or Edge and choose that folder. Its data opens straight away.</li>
+    </ul>
+  </section>
+
+  <!-- ============================== OUTPUTS ============================== -->
+  <section id="outputs">
+    <h2>Outputs and standard formats</h2>
+    <p class="section-note">Everything a tool produces is made in the browser and saved into the data folder. Where a WHO-family tool or a national system has its own format, the tools lay their results out that way, so they feed those systems instead of standing apart.</p>
+
+    <h3 class="sub">AMS Pro</h3>
+    <div class="tscroll"><table class="bench">
+      <tr><th>Output</th><th>Format</th><th>Laid out for</th></tr>
+      <tr><td>Deep Report</td><td>Word (.docx) and PowerPoint (.pptx), editable</td><td>The AMS committee and hospital management</td></tr>
+      <tr><td>Antibiotic use by ATC / DDD / AWaRe</td><td>CSV: one row per antibiotic and route with WHO ATC code, AWaRe group, units, WHO DDD, number of DDDs and DDD per 100 bed-days</td><td>National and GLASS antimicrobial-use reporting (WHO ATC/DDD methodology)</td></tr>
+      <tr><td>Culture results, WHONET-ready</td><td>CSV: one row per isolate &mdash; identification number, specimen number, laboratory, organism, specimen date, specimen type, location &mdash; then one column per antibiotic, named by its WHONET code (AMP, CRO, CIP&hellip;), holding S, I or R</td><td>WHONET: map the columns once with BacLink (antibiotic columns as &ldquo;interpretation&rdquo;), save the configuration, and later files import directly</td></tr>
+      <tr><td>Resistance summary, GLASS-style</td><td>CSV: first isolate per patient per organism, grouped by GLASS specimen (blood, urine, stool, urogenital), with % resistant and % non-susceptible per organism&ndash;antibiotic pair; GLASS priority pathogens marked; cells under 30 isolates flagged</td><td>National AMR surveillance and committee review</td></tr>
+      <tr><td>Tanzania GHS-CQI indicators</td><td>CSV with numerator, denominator, value, source and status</td><td>Facility GHS-CQI submission</td></tr>
+      <tr><td>Working tables</td><td>CSV: indicators, consumption, pharmacy transactions, CRF01 dispensing, CRF03 audit log, patient master</td><td>Onward analysis</td></tr>
+      <tr><td>Full backup</td><td>JSON</td><td>Restore, or moving to another computer</td></tr>
+    </table></div>
+
+    <h3 class="sub">PPS Pro</h3>
+    <div class="tscroll"><table class="bench">
+      <tr><th>Output</th><th>Format</th><th>Laid out for</th></tr>
+      <tr><td>WHO PPS format</td><td>ZIP of six CSV files &mdash; <code>1_Hospital</code>, <code>2_Ward</code>, <code>3_Patient</code>, <code>4_Indication</code>, <code>5_Antibiotic</code>, <code>6_Indicators</code> &mdash; using the forms and variable names of the WHO PPS methodology (WHO/EMP/IAU/2018.01)</td><td>WHO-format survey reporting and pooled analysis</td></tr>
+      <tr><td>Survey files</td><td>CSV, one per survey, in the input format above</td><td>Re-import, sharing between surveyors</td></tr>
+      <tr><td>Indicators</td><td>CSV</td><td>Onward analysis</td></tr>
+      <tr><td>Trend report</td><td>HTML, printable to PDF</td><td>The AMS committee</td></tr>
+      <tr><td>Charts</td><td>PNG</td><td>Slides, posters, reports</td></tr>
+      <tr><td>Full backup</td><td>JSON</td><td>Restore, or moving to another computer</td></tr>
+    </table></div>
+
+    <h3 class="sub">VigiWard</h3>
+    <div class="tscroll"><table class="bench">
+      <tr><th>Output</th><th>Format</th><th>Laid out for</th></tr>
+      <tr><td>TMDA report</td><td>Laid out like TMDA's online form (SQRT, 11 steps), with TMDA's own option wording; printable as the paper Yellow Form; copy, download or email</td><td>TMDA</td></tr>
+      <tr><td>ICSR drafts</td><td>XML aligned to ICH E2B(R3), with a VigiFlow entry worksheet (CSV) keyed to the E2B element codes</td><td>VigiFlow, after coding and review</td></tr>
+      <tr><td>MedDRA mapping worksheet</td><td>CSV of reaction descriptors with blank code columns</td><td>A licensed MedDRA coder</td></tr>
+      <tr><td>Facility pharmacovigilance report</td><td>RTF (opens in Word)</td><td>The DTC and AMS committee</td></tr>
+      <tr><td>Working lists</td><td>CSV: watch-list, spike alerts, PV indicators, monitoring gaps, aDSM gaps, ward huddle, sequence symmetry, validation log; signal line list in Excel</td><td>Review meetings and follow-up</td></tr>
+      <tr><td>Abstract and manuscript drafts</td><td>Plain text (.txt), from a group of verified findings</td><td>Publication, after the author checks every statement</td></tr>
+    </table></div>
+
+    <div class="citebox"><b>Ready for, not validated by.</b> These files are laid out for the systems named, but they are not certified submissions. A WHONET import needs the one-time BacLink mapping. The E2B XML is a draft: reaction terms need licensed MedDRA coding, medicines need WHODrug coding, and a person must complete and review every field before anything goes to VigiFlow or TMDA.</div>
+  </section>
+
+  <!-- ============================== CONNECTIONS ============================== -->
+  <section id="connections">
+    <h2>What the tools connect to</h2>
+    <p class="section-note">A full list, taken from the tool files themselves.</p>
+    <div class="tscroll"><table class="bench">
+      <tr><th>Connection</th><th>When</th><th>What goes out</th></tr>
+      <tr><td>Reference list check</td><td>Only when someone presses <i>Check for updates</i> on the Reference lists page. Gives up after 20 seconds.</td><td>Nothing. It downloads one file, <code>updates/aware-ddd.json</code>, from this website. Nothing changes until <i>Apply update</i> is pressed.</td></tr>
+      <tr><td>Links in the tools</td><td>Only when clicked: TMDA's online form (VigiWard), WhatsApp contact</td><td>They open in the browser like any link. &ldquo;Email to TMDA&rdquo; opens the computer's own email program with the report filled in, for the user to send or not.</td></tr>
+      <tr><td>Anything else</td><td>Never</td><td>No analytics, no automatic update checks, no fonts or scripts loaded from the internet. Every component is inside the file.</td></tr>
+    </table></div>
+    <div class="citebox"><b>The website is separate from the tools.</b> The live demos on this website are demo copies that also download the simulated sample data from this website. Visits to the website are counted anonymously with GoatCounter, without cookies. The request form sends nothing to the website: it opens your own WhatsApp or email, and nothing goes until you press Send there.</div>
+  </section>
+
+  <!-- ============================== REFERENCE LIST ============================== -->
+  <section id="reflist">
+    <h2>The reference list file</h2>
+    <p class="section-note">WHO revises the AWaRe classification every two years and the ATC/DDD Index every year. One file, published on the <a href="updates/">reference list page</a>, carries the new lists to every copy of the tools. On a computer with no internet, the same file can be brought on a flash drive and opened with <i>Load update file</i>.</p>
+<div class="formula tree"><span class="cm">// updates/aware-ddd.json (shortened)</span>
+{
+  "format": "odieman-aware-ddd",     <span class="cm">// the tools refuse any other file</span>
+  "formatVersion": 1,                <span class="cm">// a higher number asks for a newer copy of the tool</span>
+  "serial": 1,                       <span class="cm">// edition number; higher = newer</span>
+  "edition": "2026.1",
+  "released": "2026-10-18",
+  "title": "WHO AWaRe 2025 · WHO ATC/DDD Index 2026",
+  "sources": [ ... ], "notes": [ ... ], "changes": [ ... ],
+  "antibiotics": [
+    { "key": "amoxicillin", "name": "Amoxicillin", "aware": "Access",
+      "atc": "J01CA04", "ddd": { "O": 1.5, "P": 3.0 }, "dddUnit": "g" },
+    ...
+  ],
+  "notRecommended": [ { "key": "...", "name": "..." }, ... ],
+  "tanzania": { "name": "Tanzania STG/NEMLIT 2021", "differences": [ ... ] },
+  "aliases":  { "amoxycillin": "amoxicillin", "gentamycin": "gentamicin", ... }
+}</div>
+    <div class="tscroll"><table class="bench">
+      <tr><th>Field</th><th>Meaning</th><th>Checked before use</th></tr>
+      <tr><td><code>key</code></td><td>The antibiotic's name, in lower case, as the tools match it</td><td>Present, lower case, listed only once</td></tr>
+      <tr><td><code>aware</code></td><td>Access, Watch or Reserve; or by route where WHO classes the oral and injectable forms differently, as for fosfomycin: <code>{"O": "Watch", "P": "Reserve"}</code></td><td>One of the three groups, routes O or P only</td></tr>
+      <tr><td><code>atc</code></td><td>WHO ATC code at level 5, e.g. J01CA04</td><td>A letter, two digits, two letters, two digits</td></tr>
+      <tr><td><code>ddd</code></td><td>WHO DDD for the oral (O) and parenteral (P) route</td><td>A positive number for route O or P</td></tr>
+      <tr><td><code>dddUnit</code></td><td><code>g</code> (grams) or <code>MU</code> (million units)</td><td>One of the two</td></tr>
+      <tr><td><code>notRecommended</code></td><td>Fixed-dose combinations WHO advises against</td><td>Lower-case names</td></tr>
+      <tr><td><code>tanzania</code></td><td>Where the Tanzania STG/NEMLIT view differs from WHO (used by AMS Pro)</td><td>Access, Watch, Reserve or Not recommended</td></tr>
+      <tr><td><code>aliases</code></td><td>Other spellings and names that point to a key</td><td>Lower-case names pointing to text</td></tr>
+    </table></div>
+    <div class="citebox">A file that fails any check is refused as a whole, and the tool lists the problems it found. Before applying, each tool shows what would change for it and for the data already loaded (for example, how many dispensing lines would change AWaRe group). The list in use is saved with the tool's data, so a report can be re-run on the same list later, and <i>Go back to the built-in list</i> undoes the update at any time. Current edition: 2026.1, released 18 October 2026, with 258 antibiotics and 106 not-recommended combinations.</div>
+  </section>
+
+  <!-- ============================== REQUIREMENTS ============================== -->
+  <section id="requirements">
+    <h2>Requirements and limits</h2>
+    <ul class="plain">
+      <li><b>Browser:</b> Google Chrome or Microsoft Edge on a desktop or laptop. Saving to a data folder needs one of these two. Other browsers open the tools, but keep data in browser storage only.</li>
+      <li><b>Computer:</b> any hospital PC that runs Chrome or Edge. Nothing is installed, so no administrator rights are needed.</li>
+      <li><b>Internet:</b> not needed to use the tools. The live demos on this website need it, and are best on a laptop.</li>
+      <li><b>Data volume:</b> three years of AMS Pro data is about 14 MB, more than browser storage alone holds, so open a data folder before importing more than a few months.</li>
+      <li><b>Large exports:</b> CSV reads much faster than Excel for very large files.</li>
+      <li><b>Files per type:</b> AMS Pro merges several files per type (for example one per year); VigiWard reads one file per type, so export the whole period at once; PPS Pro takes one CSV per survey.</li>
+    </ul>
+  </section>
+
+  <!-- ============================== VERSIONS ============================== -->
+  <section id="versions">
+    <h2>Versions and updates</h2>
+    <p class="section-note">Current versions: AMS Pro 4.8, PPS Pro 3.2 and VigiWard 3.8. Each tool shows its version on screen.</p>
+    <ul class="plain">
+      <li><b>Reference lists</b> (AWaRe groups, ATC codes, DDDs) are updated through this website, without a new copy of the tool. See the <a href="updates/">reference list page</a>.</li>
+      <li><b>Fixes and new versions</b> are sent to registered holders. Each licensed copy is registered to its facility, which is how news of updates reaches it. <a href="index.html#download">Request the tools</a>.</li>
+    </ul>
+  </section>
+
+  <!-- ============================== COMPONENTS ============================== -->
+  <section id="components">
+    <h2>Built-in components</h2>
+    <p class="section-note">Open-source components carried inside the tool files, with their licences. None is loaded from the internet. PPS Pro uses none: it draws its own charts and writes its own ZIP files.</p>
+    <div class="tscroll"><table class="bench">
+      <tr><th>Component</th><th>Version</th><th>Used for</th><th>Licence</th><th>In</th></tr>
+      <tr><td>Chart.js</td><td>4.5.1</td><td>Charts</td><td>MIT</td><td>AMS Pro</td></tr>
+      <tr><td>docx</td><td>9.6.1</td><td>Word reports</td><td>MIT</td><td>AMS Pro</td></tr>
+      <tr><td>PptxGenJS</td><td>4.0.1</td><td>PowerPoint reports</td><td>MIT</td><td>AMS Pro</td></tr>
+      <tr><td>JSZip</td><td>3.10.1</td><td>Packing PowerPoint files (used by PptxGenJS)</td><td>MIT or GPLv3</td><td>AMS Pro</td></tr>
+      <tr><td>SheetJS Community Edition</td><td>0.18.5</td><td>Reading Excel workbooks, writing Excel exports</td><td>Apache 2.0</td><td>VigiWard</td></tr>
+    </table></div>
+    <div class="license" style="margin-top:22px">The tools themselves are not open source. Free of charge for government (public) health facilities and government institutions in Tanzania; all other use by written licence agreement. Modification or redistribution requires the author's written consent. &copy; 2024&ndash;2026 Odindo Emmanuel Thomas. <a href="index.html#download">Licence and requests</a>.</div>
+  </section>
+
+  <a href="index.html" class="back-link">&larr; Back to home</a>
+</main>
+
+<footer class="wrap">
+  <div class="fline">
+    <span>&copy; 2026 Odieman Health Tools.</span>
+    <span>No patient data is collected by this website; visits are counted anonymously, without cookies (GoatCounter).</span>
+  </div>
+</footer>
+
+<script>
+/* Visit counting: GoatCounter, no cookies, no personal data. Events record only which demo or tool was opened. */
+window.odmEvent=function(path,title){try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:path,title:title||path,event:true});}catch(e){}};
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href');
+  var m=h.match(/(Odieman_AMS_Pro|Odieman_PPS_Pro|VigiWard)\.html\?demo=1/);if(m){odmEvent('demo-'+m[1].replace('Odieman_',''),'Live demo opened');return;}
+  if(/^https:\/\/wa\.me\//.test(h))odmEvent('contact-whatsapp','WhatsApp link');else if(/^mailto:/.test(h))odmEvent('contact-email','Email link');else if(/\.vcf$/.test(h))odmEvent('contact-vcard','Contact saved');else if(/\.pdf$/.test(h))odmEvent('abstract-pdf','Abstract downloaded');});
+</script>
+<script data-goatcounter="https://emmanuelodie94.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>
