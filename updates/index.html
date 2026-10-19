@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AWaRe &amp; DDD reference list — Odieman Health Tools</title>
+<meta name="author" content="Odindo Emmanuel Thomas">
+<link rel="stylesheet" href="../style.css">
+<style>
+  .ref-filter{font:15px "Segoe UI",sans-serif;padding:8px 10px;border:1px solid var(--paper-line);width:100%;max-width:340px;margin:6px 0 4px;}
+  .ref-wrap{max-height:560px;overflow:auto;border:1px solid var(--paper-line);background:#fff;}
+  .ref-wrap table.bench{margin:0;}
+  .ref-wrap table.bench th{position:sticky;top:0;background:#fff;}
+  .aw{display:inline-block;padding:1px 8px;font-size:12.5px;font-weight:600;white-space:nowrap;border-radius:10px;}
+  .aw.Access{background:#E3F2E7;color:#1F6B37;} .aw.Watch{background:#FFF1D6;color:#8A5A00;} .aw.Reserve{background:#FBE2E1;color:#9B2420;} .aw.NR{background:#ECECEC;color:#4B4B4B;}
+  .ref-meta{font-family:"Segoe UI",sans-serif;font-size:13.5px;color:var(--ink-soft);margin-top:6px;}
+  .steps{font-family:"Segoe UI",sans-serif;font-size:15px;color:var(--ink-soft);max-width:70ch;padding-left:20px;}
+  .steps li{margin:0 0 8px;}
+  code{font-size:.92em;}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav-inner">
+    <a href="../index.html" class="brand">Odieman Health Tools
+      <small>Field-built instruments for antimicrobial stewardship, PPS &amp; pharmacovigilance</small>
+    </a>
+    <nav class="links sans">
+      <a href="../index.html#tools">Tools</a>
+      <a href="../methodology.html">Methodology</a>
+      <a href="../index.html#demo">Live demos</a>
+      <a href="../story.html">The story</a>
+      <a href="../index.html#download">Get the tools</a>
+      <a href="../index.html#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <p class="crumb"><a href="../index.html">Home</a> / Reference list updates</p>
+
+  <section class="page-hero">
+    <span class="tag sans" id="ref-tag">Reference list &middot; AWaRe groups, ATC codes &amp; WHO DDDs</span>
+    <h1>AWaRe &amp; DDD reference list</h1>
+    <p class="lede">AMS Pro, PPS Pro and VigiWard classify antibiotics by the WHO AWaRe groups and count their use in WHO Defined Daily Doses. WHO revises AWaRe every two years and the ATC/DDD Index every year. This one file lets every copy of the tools take up the new list without a new download.</p>
+    <div class="cta-row">
+      <a href="aware-ddd.json" download="aware-ddd.json" class="btn primary sans" id="ref-dl">Download the update file</a>
+      <a href="#how" class="btn ghost sans">How to use it</a>
+    </div>
+    <p class="ref-meta" id="ref-meta">Current edition: see below.</p>
+  </section>
+
+  <section id="how">
+    <h2>How to use it</h2>
+    <ol class="steps">
+      <li>Open the tool and go to <b>Reference lists</b>: in AMS Pro under <i>Setup</i>, in PPS Pro under <i>Settings</i>, in VigiWard in the <i>Data hub</i>.</li>
+      <li>Press <b>Check for updates</b>. The tool downloads this one file and shows what would change for it and for your data (for example, how many dispensing lines would change AWaRe group). Nothing from your computer is sent.</li>
+      <li>Press <b>Apply update</b> if you agree. The list in use is saved with your data, and AMS Pro names it on the ATC/DDD export. <b>Go back to the built-in list</b> undoes it at any time.</li>
+      <li>No internet on the computer that runs the tool? Download the file above on another computer, bring it on a flash drive and use <b>Load update file</b>.</li>
+    </ol>
+    <div class="citebox">The tools read this file; they never change it. Each tool checks every entry before using it (AWaRe group, ATC code format, DDD values) and refuses a file that is damaged or not in the expected format. Anti-TB medicines (ATC J04, such as rifampicin) stay outside the tools&rsquo; AWaRe counts, as before, because they are managed by the TB programme.</div>
+  </section>
+
+  <section>
+    <h2>Sources</h2>
+    <div id="ref-sources" class="ref-meta">Loading&hellip;</div>
+  </section>
+
+  <section>
+    <h2>What changed</h2>
+    <div id="ref-changes" class="ref-meta">Loading&hellip;</div>
+  </section>
+
+  <section>
+    <h2>The list</h2>
+    <p class="section-note" style="margin-bottom:10px">Every antibiotic WHO classifies as Access, Watch or Reserve, with its ATC code and WHO DDD (grams per day unless shown as MU, million units). Where WHO classes the oral and injectable forms differently, both are shown.</p>
+    <input class="ref-filter" id="ref-q" placeholder="Filter by name, group or ATC code" oninput="refDraw()">
+    <div class="ref-meta" id="ref-count"></div>
+    <div class="ref-wrap"><table class="bench"><thead><tr><th>Antibiotic</th><th>AWaRe group</th><th>ATC code</th><th>WHO DDD</th></tr></thead><tbody id="ref-body"><tr><td colspan="4">Loading&hellip;</td></tr></tbody></table></div>
+    <h3 style="margin-top:28px;font-size:18px">WHO &ldquo;Not recommended&rdquo; combinations</h3>
+    <p class="section-note" style="margin-bottom:8px">Fixed-dose antibiotic combinations WHO advises against. AMS Pro also treats any antibacterial combination not listed by WHO as Not recommended.</p>
+    <details class="ref-meta"><summary style="cursor:pointer" id="ref-nr-sum">Show the list</summary><div id="ref-nr" style="margin-top:8px;line-height:1.7"></div></details>
+    <h3 style="margin-top:28px;font-size:18px">Tanzania national view (AMS Pro)</h3>
+    <p class="section-note" style="margin-bottom:8px">Differences from WHO used when AMS Pro is set to the Tanzania STG/NEMLIT scheme. Each facility can still edit these in AMS Pro; confirm them against the current NEMLIT copy.</p>
+    <div class="ref-wrap" style="max-height:none"><table class="bench"><thead><tr><th>Antibiotic</th><th>Tanzania group</th><th>Basis</th></tr></thead><tbody id="ref-tz"></tbody></table></div>
+  </section>
+
+  <a href="../index.html" class="back-link">&larr; Back to home</a>
+</main>
+
+<footer class="wrap">
+  <div class="fline">
+    <span>&copy; 2026 Odieman Health Tools.</span>
+    <span>No patient data is collected by this website; visits are counted anonymously, without cookies (GoatCounter).</span>
+  </div>
+</footer>
+
+<script>
+var REF=null;
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function cap(s){s=String(s||"");return s.charAt(0).toUpperCase()+s.slice(1);}
+function dstr(iso){if(!iso)return"";var d=new Date(iso+"T00:00:00");return isNaN(d)?iso:d.toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"});}
+function aw(v){if(!v)return"";if(typeof v==="string")return '<span class="aw '+(v==="Not recommended"?"NR":v)+'">'+esc(v)+'</span>';
+  return (v.O===v.P)?aw(v.O):aw(v.O)+' <span style="font-size:12px">oral</span> &nbsp;'+aw(v.P)+' <span style="font-size:12px">injection</span>';}
+function atc(v){if(!v)return"";if(typeof v==="string")return esc(v);return Object.keys(v).map(function(r){return esc(v[r])+(r==="O"?" (oral)":" (inj.)");}).join("<br>");}
+function ddd(a){if(!a.ddd)return a.note?'<span style="font-size:12.5px">'+esc(a.note)+'</span>':"";
+  return Object.keys(a.ddd).map(function(r){var u=typeof a.dddUnit==="object"?a.dddUnit[r]:(a.dddUnit||"g");return (r==="O"?"oral ":"inj. ")+(+a.ddd[r].toFixed(4))+" "+u;}).join("<br>")+(a.dddRefersTo?'<br><span style="font-size:12.5px">as '+esc(a.dddRefersTo)+'</span>':"");}
+function refDraw(){
+  if(!REF)return;var q=(document.getElementById("ref-q").value||"").trim().toLowerCase();
+  var rows=REF.antibiotics.filter(function(a){if(!q)return true;var s=(a.name+" "+JSON.stringify(a.aware)+" "+JSON.stringify(a.atc||"")).toLowerCase();return s.indexOf(q)>=0;});
+  document.getElementById("ref-body").innerHTML=rows.map(function(a){return "<tr><td>"+esc(a.name)+"</td><td>"+aw(a.aware)+'</td><td style="font-family:monospace">'+atc(a.atc)+"</td><td>"+ddd(a)+"</td></tr>";}).join("")||'<tr><td colspan="4">No match.</td></tr>';
+  document.getElementById("ref-count").textContent=rows.length+" of "+REF.antibiotics.length+" antibiotics shown";
+}
+fetch("aware-ddd.json",{cache:"no-store"}).then(function(r){return r.json();}).then(function(p){
+  REF=p;
+  document.getElementById("ref-tag").innerHTML="Edition "+esc(p.edition)+" &middot; released "+esc(dstr(p.released));
+  document.getElementById("ref-meta").innerHTML="Current edition: <b>"+esc(p.edition)+"</b> &mdash; "+esc(p.title)+" &middot; "+p.antibiotics.length+" antibiotics, "+(p.notRecommended||[]).length+" not-recommended combinations.";
+  document.getElementById("ref-sources").innerHTML=(p.sources||[]).map(function(s){return "<p style=\"margin:0 0 10px\"><b>"+esc(s.what)+":</b> "+esc(s.name)+"<br>"+esc(s.ref||"")+(s.checked?" &middot; checked "+esc(dstr(s.checked)):"")+"</p>";}).join("");
+  document.getElementById("ref-changes").innerHTML=(p.changes||[]).slice().reverse().map(function(c){return "<p style=\"margin:0 0 10px\"><b>Edition "+esc(c.edition)+"</b> ("+esc(dstr(c.date))+")<br>"+(c.notes||[]).map(esc).join("<br>")+"</p>";}).join("");
+  var nr=p.notRecommended||[];document.getElementById("ref-nr-sum").textContent="Show the list ("+nr.length+")";
+  document.getElementById("ref-nr").innerHTML=nr.map(function(n){return esc(n.name);}).join(" &middot; ");
+  var tz=(p.tanzania&&p.tanzania.differences)||[];
+  document.getElementById("ref-tz").innerHTML=tz.map(function(t){return "<tr><td>"+esc(cap(t.key))+"</td><td>"+aw(t.aware)+"</td><td>"+esc(t.basis||"")+"</td></tr>";}).join("");
+  refDraw();
+}).catch(function(){
+  document.getElementById("ref-body").innerHTML='<tr><td colspan="4">The list could not be loaded here. The update file itself can still be downloaded with the button above.</td></tr>';
+  ["ref-sources","ref-changes"].forEach(function(id){document.getElementById(id).textContent="Not available.";});
+});
+</script>
+<script>
+/* Visit counting: GoatCounter, no cookies, no personal data. Events record only which demo or tool was opened. */
+window.odmEvent=function(path,title){try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:path,title:title||path,event:true});}catch(e){}};
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href');
+  if(/aware-ddd\.json$/.test(h))odmEvent('update-file-download','Reference list downloaded');
+  else if(/^https:\/\/wa\.me\//.test(h))odmEvent('contact-whatsapp','WhatsApp link');else if(/^mailto:/.test(h))odmEvent('contact-email','Email link');});
+</script>
+<script data-goatcounter="https://emmanuelodie94.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>

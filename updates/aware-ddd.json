@@ -1,0 +1,3114 @@
+{
+ "format": "odieman-aware-ddd",
+ "formatVersion": 1,
+ "serial": 1,
+ "edition": "2026.1",
+ "released": "2026-10-18",
+ "title": "WHO AWaRe 2025 · WHO ATC/DDD Index 2026",
+ "publisher": "Odieman Health Tools — Odindo Emmanuel Thomas",
+ "sources": [
+  {
+   "what": "AWaRe groups",
+   "name": "WHO AWaRe (Access, Watch, Reserve) classification of antibiotics for evaluation and monitoring of use, 2025",
+   "ref": "WHO, 5 Sep 2025 (B09489), as listed on the WHO AWaRe antibiotic portal, aware.essentialmeds.org/list",
+   "checked": "2026-10-18"
+  },
+  {
+   "what": "ATC codes and DDDs",
+   "name": "WHO ATC/DDD Index 2026",
+   "ref": "WHO Collaborating Centre for Drug Statistics Methodology, atcddd.fhi.no — groups J01, J04AB, A07AA, P01AB (index last updated 2026-01-20)",
+   "checked": "2026-10-18"
+  },
+  {
+   "what": "Tanzania national groups",
+   "name": "Tanzania STG/NEMLIT 2021 (differences from WHO only)",
+   "ref": "As built into AMS Pro; confirm against the current NEMLIT copy",
+   "checked": "2026-10-18"
+  }
+ ],
+ "notes": [
+  "Route-specific groups: where WHO classifies the oral and injectable forms differently (fosfomycin, minocycline), \"aware\" gives both, as {\"O\": ..., \"P\": ...}.",
+  "DDDs are WHO values in grams per day (dddUnit \"MU\" = million units) for the oral (O) and parenteral (P) routes; inhaled and rectal DDDs are not used by the tools.",
+  "For beta-lactamase-inhibitor combinations the WHO DDD refers to one component (dddRefersTo).",
+  "Fixed-dose combinations in \"notRecommended\" are WHO \"Not recommended\"; any antibacterial combination not listed at all is also treated as Not recommended by AMS Pro."
+ ],
+ "changes": [
+  {
+   "edition": "2026.1",
+   "date": "2026-10-18",
+   "notes": [
+    "First published edition: WHO AWaRe 2025 (including the 2025 additions such as aztreonam-avibactam, gepotidacin and benzathine phenoxymethylpenicillin) and WHO ATC/DDD Index 2026."
+   ]
+  }
+ ],
+ "counts": {
+  "antibiotics": 258,
+  "notRecommended": 106
+ },
+ "antibiotics": [
+  {
+   "key": "amikacin",
+   "name": "Amikacin",
+   "aware": "Access",
+   "atc": "J01GB06",
+   "ddd": {
+    "P": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "amoxicillin",
+   "name": "Amoxicillin",
+   "aware": "Access",
+   "atc": "J01CA04",
+   "ddd": {
+    "O": 1.5,
+    "P": 3.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "amoxicillin + clavulanic acid",
+   "name": "Amoxicillin + clavulanic acid",
+   "aware": "Access",
+   "atc": "J01CR02",
+   "ddd": {
+    "O": 1.5,
+    "P": 3.0
+   },
+   "dddUnit": "g",
+   "dddRefersTo": "amoxicillin"
+  },
+  {
+   "key": "amoxicillin + sulbactam",
+   "name": "Amoxicillin + sulbactam",
+   "aware": "Access",
+   "atc": "J01CR02",
+   "ddd": {
+    "O": 1.5,
+    "P": 3.0
+   },
+   "dddUnit": "g",
+   "dddRefersTo": "amoxicillin"
+  },
+  {
+   "key": "ampicillin",
+   "name": "Ampicillin",
+   "aware": "Access",
+   "atc": "J01CA01",
+   "ddd": {
+    "O": 2.0,
+    "P": 6.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "ampicillin + sulbactam",
+   "name": "Ampicillin + sulbactam",
+   "aware": "Access",
+   "atc": "J01CR01",
+   "ddd": {
+    "P": 6.0
+   },
+   "dddUnit": "g",
+   "dddRefersTo": "ampicillin"
+  },
+  {
+   "key": "arbekacin",
+   "name": "Arbekacin",
+   "aware": "Watch",
+   "atc": "J01GB12",
+   "ddd": {
+    "P": 0.2
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "aspoxicillin",
+   "name": "Aspoxicillin",
+   "aware": "Watch",
+   "atc": "J01CA19",
+   "ddd": {
+    "P": 4.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "avibactam + aztreonam",
+   "name": "Aztreonam + avibactam",
+   "aware": "Reserve",
+   "atc": "J01DF51",
+   "ddd": {
+    "P": 6.0
+   },
+   "dddUnit": "g",
+   "dddRefersTo": "aztreonam"
+  },
+  {
+   "key": "avibactam + ceftazidime",
+   "name": "Ceftazidime + avibactam",
+   "aware": "Reserve",
+   "atc": "J01DD52",
+   "ddd": {
+    "P": 6.0
+   },
+   "dddUnit": "g",
+   "dddRefersTo": "ceftazidime"
+  },
+  {
+   "key": "azanidazole",
+   "name": "Azanidazole",
+   "aware": "Access",
+   "atc": "P01AB04"
+  },
+  {
+   "key": "azidocillin",
+   "name": "Azidocillin",
+   "aware": "Access",
+   "atc": "J01CE04",
+   "ddd": {
+    "O": 1.5
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "azithromycin",
+   "name": "Azithromycin",
+   "aware": "Watch",
+   "atc": "J01FA10",
+   "ddd": {
+    "O": 0.3,
+    "P": 0.5
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "azlocillin",
+   "name": "Azlocillin",
+   "aware": "Watch",
+   "atc": "J01CA09",
+   "ddd": {
+    "P": 12.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "aztreonam",
+   "name": "Aztreonam",
+   "aware": "Reserve",
+   "atc": "J01DF01",
+   "ddd": {
+    "P": 4.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "bacampicillin",
+   "name": "Bacampicillin",
+   "aware": "Access",
+   "atc": "J01CA06",
+   "ddd": {
+    "O": 1.2
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "bekanamycin",
+   "name": "Bekanamycin",
+   "aware": "Watch",
+   "atc": "J01GB13",
+   "ddd": {
+    "P": 0.6
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "benzathine benzylpenicillin",
+   "name": "Benzathine benzylpenicillin",
+   "aware": "Access",
+   "atc": "J01CE08",
+   "ddd": {
+    "P": 3.6
+   },
+   "dddUnit": "g",
+   "note": "DDD expressed as benzylpenicillin"
+  },
+  {
+   "key": "benzathine phenoxymethylpenicillin",
+   "name": "Benzathine phenoxymethylpenicillin",
+   "aware": "Access",
+   "atc": "J01CE10",
+   "ddd": {
+    "O": 2.0
+   },
+   "dddUnit": "g",
+   "note": "DDD expressed as phenoxymethylpenicillin"
+  },
+  {
+   "key": "benzylpenicillin",
+   "name": "Benzylpenicillin",
+   "aware": "Access",
+   "atc": "J01CE01",
+   "ddd": {
+    "P": 3.6
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "biapenem",
+   "name": "Biapenem",
+   "aware": "Watch",
+   "atc": "J01DH05",
+   "ddd": {
+    "P": 1.2
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "brodimoprim",
+   "name": "Brodimoprim",
+   "aware": "Access",
+   "atc": "J01EA02",
+   "ddd": {
+    "O": 0.2
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "capreomycin",
+   "name": "Capreomycin",
+   "aware": "Access",
+   "atc": "J04AB30",
+   "ddd": {
+    "P": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "carbenicillin",
+   "name": "Carbenicillin",
+   "aware": "Watch",
+   "atc": "J01CA03",
+   "ddd": {
+    "P": 12.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "carindacillin",
+   "name": "Carindacillin",
+   "aware": "Watch",
+   "atc": "J01CA05",
+   "ddd": {
+    "O": 4.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "carumonam",
+   "name": "Carumonam",
+   "aware": "Reserve",
+   "atc": "J01DF02",
+   "ddd": {
+    "P": 2.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefacetrile",
+   "name": "Cefacetrile",
+   "aware": "Access",
+   "atc": "J01DB10"
+  },
+  {
+   "key": "cefaclor",
+   "name": "Cefaclor",
+   "aware": "Watch",
+   "atc": "J01DC04",
+   "ddd": {
+    "O": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefadroxil",
+   "name": "Cefadroxil",
+   "aware": "Access",
+   "atc": "J01DB05",
+   "ddd": {
+    "O": 2.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefalexin",
+   "name": "Cefalexin",
+   "aware": "Access",
+   "atc": "J01DB01",
+   "ddd": {
+    "O": 2.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefaloridine",
+   "name": "Cefaloridine",
+   "aware": "Access",
+   "atc": "J01DB02",
+   "ddd": {
+    "P": 3.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefalotin",
+   "name": "Cefalotin",
+   "aware": "Access",
+   "atc": "J01DB03",
+   "ddd": {
+    "P": 4.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefamandole",
+   "name": "Cefamandole",
+   "aware": "Watch",
+   "atc": "J01DC03",
+   "ddd": {
+    "P": 6.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefapirin",
+   "name": "Cefapirin",
+   "aware": "Access",
+   "atc": "J01DB08",
+   "ddd": {
+    "P": 4.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefatrizine",
+   "name": "Cefatrizine",
+   "aware": "Access",
+   "atc": "J01DB07",
+   "ddd": {
+    "O": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefazedone",
+   "name": "Cefazedone",
+   "aware": "Access",
+   "atc": "J01DB06",
+   "ddd": {
+    "P": 3.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefazolin",
+   "name": "Cefazolin",
+   "aware": "Access",
+   "atc": "J01DB04",
+   "ddd": {
+    "P": 3.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefbuperazone",
+   "name": "Cefbuperazone",
+   "aware": "Watch",
+   "atc": "J01DC13",
+   "ddd": {
+    "P": 2.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefcapene",
+   "name": "Cefcapene",
+   "aware": "Watch",
+   "atc": "J01DD17",
+   "ddd": {
+    "O": 0.45
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefdinir",
+   "name": "Cefdinir",
+   "aware": "Watch",
+   "atc": "J01DD15",
+   "ddd": {
+    "O": 0.6
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefditoren",
+   "name": "Cefditoren",
+   "aware": "Watch",
+   "atc": "J01DD16",
+   "ddd": {
+    "O": 0.4
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefepime",
+   "name": "Cefepime",
+   "aware": "Watch",
+   "atc": "J01DE01",
+   "ddd": {
+    "P": 4.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefetamet",
+   "name": "Cefetamet",
+   "aware": "Watch",
+   "atc": "J01DD10",
+   "ddd": {
+    "O": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefiderocol",
+   "name": "Cefiderocol",
+   "aware": "Reserve",
+   "atc": "J01DI04",
+   "ddd": {
+    "P": 6.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefixime",
+   "name": "Cefixime",
+   "aware": "Watch",
+   "atc": "J01DD08",
+   "ddd": {
+    "O": 0.4
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefmenoxime",
+   "name": "Cefmenoxime",
+   "aware": "Watch",
+   "atc": "J01DD05",
+   "ddd": {
+    "P": 2.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefmetazole",
+   "name": "Cefmetazole",
+   "aware": "Watch",
+   "atc": "J01DC09",
+   "ddd": {
+    "P": 4.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefminox",
+   "name": "Cefminox",
+   "aware": "Watch",
+   "atc": "J01DC12",
+   "ddd": {
+    "P": 4.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefodizime",
+   "name": "Cefodizime",
+   "aware": "Watch",
+   "atc": "J01DD09",
+   "ddd": {
+    "P": 2.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefonicid",
+   "name": "Cefonicid",
+   "aware": "Watch",
+   "atc": "J01DC06",
+   "ddd": {
+    "P": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefoperazone",
+   "name": "Cefoperazone",
+   "aware": "Watch",
+   "atc": "J01DD12",
+   "ddd": {
+    "P": 4.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "ceforanide",
+   "name": "Ceforanide",
+   "aware": "Watch",
+   "atc": "J01DC11",
+   "ddd": {
+    "P": 4.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefoselis",
+   "name": "Cefoselis",
+   "aware": "Watch",
+   "atc": ""
+  },
+  {
+   "key": "cefotaxime",
+   "name": "Cefotaxime",
+   "aware": "Watch",
+   "atc": "J01DD01",
+   "ddd": {
+    "P": 4.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefotetan",
+   "name": "Cefotetan",
+   "aware": "Watch",
+   "atc": "J01DC05",
+   "ddd": {
+    "P": 4.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefotiam",
+   "name": "Cefotiam",
+   "aware": "Watch",
+   "atc": "J01DC07",
+   "ddd": {
+    "O": 1.2,
+    "P": 4.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefoxitin",
+   "name": "Cefoxitin",
+   "aware": "Watch",
+   "atc": "J01DC01",
+   "ddd": {
+    "P": 6.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefozopran",
+   "name": "Cefozopran",
+   "aware": "Watch",
+   "atc": "J01DE03",
+   "ddd": {
+    "P": 4.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefpiramide",
+   "name": "Cefpiramide",
+   "aware": "Watch",
+   "atc": "J01DD11",
+   "ddd": {
+    "P": 2.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefpirome",
+   "name": "Cefpirome",
+   "aware": "Watch",
+   "atc": "J01DE02",
+   "ddd": {
+    "P": 4.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefpodoxime",
+   "name": "Cefpodoxime",
+   "aware": "Watch",
+   "atc": "J01DD13",
+   "ddd": {
+    "O": 0.4
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefprozil",
+   "name": "Cefprozil",
+   "aware": "Watch",
+   "atc": "J01DC10",
+   "ddd": {
+    "O": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefradine",
+   "name": "Cefradine",
+   "aware": "Access",
+   "atc": "J01DB09",
+   "ddd": {
+    "O": 2.0,
+    "P": 2.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefroxadine",
+   "name": "Cefroxadine",
+   "aware": "Access",
+   "atc": "J01DB11",
+   "ddd": {
+    "O": 2.1
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefsulodin",
+   "name": "Cefsulodin",
+   "aware": "Watch",
+   "atc": "J01DD03",
+   "ddd": {
+    "P": 4.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "ceftaroline",
+   "name": "Ceftaroline",
+   "aware": "Reserve",
+   "atc": "J01DI02",
+   "ddd": {
+    "P": 1.2
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "ceftazidime",
+   "name": "Ceftazidime",
+   "aware": "Watch",
+   "atc": "J01DD02",
+   "ddd": {
+    "P": 4.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefteram",
+   "name": "Cefteram",
+   "aware": "Watch",
+   "atc": "J01DD18",
+   "ddd": {
+    "O": 0.4
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "ceftezole",
+   "name": "Ceftezole",
+   "aware": "Access",
+   "atc": "J01DB12",
+   "ddd": {
+    "P": 3.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "ceftibuten",
+   "name": "Ceftibuten",
+   "aware": "Watch",
+   "atc": "J01DD14",
+   "ddd": {
+    "O": 0.4
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "ceftizoxime",
+   "name": "Ceftizoxime",
+   "aware": "Watch",
+   "atc": "J01DD07",
+   "ddd": {
+    "P": 4.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "ceftobiprole",
+   "name": "Ceftobiprole",
+   "aware": "Reserve",
+   "atc": "J01DI01",
+   "ddd": {
+    "P": 1.5
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "ceftolozane + tazobactam",
+   "name": "Ceftolozane + tazobactam",
+   "aware": "Reserve",
+   "atc": "J01DI54",
+   "ddd": {
+    "P": 3.0
+   },
+   "dddUnit": "g",
+   "dddRefersTo": "ceftolozane"
+  },
+  {
+   "key": "ceftriaxone",
+   "name": "Ceftriaxone",
+   "aware": "Watch",
+   "atc": "J01DD04",
+   "ddd": {
+    "P": 2.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cefuroxime",
+   "name": "Cefuroxime",
+   "aware": "Watch",
+   "atc": "J01DC02",
+   "ddd": {
+    "O": 0.5,
+    "P": 3.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "chloramphenicol",
+   "name": "Chloramphenicol",
+   "aware": "Access",
+   "atc": "J01BA01",
+   "ddd": {
+    "O": 3.0,
+    "P": 3.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "chlortetracycline",
+   "name": "Chlortetracycline",
+   "aware": "Watch",
+   "atc": "J01AA03",
+   "ddd": {
+    "O": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cilastatin + imipenem",
+   "name": "Imipenem + cilastatin",
+   "aware": "Watch",
+   "atc": "J01DH51",
+   "ddd": {
+    "P": 2.0
+   },
+   "dddUnit": "g",
+   "dddRefersTo": "imipenem"
+  },
+  {
+   "key": "cilastatin + imipenem + relebactam",
+   "name": "Imipenem + cilastatin + relebactam",
+   "aware": "Reserve",
+   "atc": "J01DH56",
+   "ddd": {
+    "P": 2.0
+   },
+   "dddUnit": "g",
+   "dddRefersTo": "imipenem"
+  },
+  {
+   "key": "cinoxacin",
+   "name": "Cinoxacin",
+   "aware": "Watch",
+   "atc": "J01MB06",
+   "ddd": {
+    "O": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "ciprofloxacin",
+   "name": "Ciprofloxacin",
+   "aware": "Watch",
+   "atc": "J01MA02",
+   "ddd": {
+    "O": 1.0,
+    "P": 0.8
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "clarithromycin",
+   "name": "Clarithromycin",
+   "aware": "Watch",
+   "atc": "J01FA09",
+   "ddd": {
+    "O": 0.5,
+    "P": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "clavulanic acid + ticarcillin",
+   "name": "Ticarcillin + clavulanic acid",
+   "aware": "Watch",
+   "atc": "J01CR03",
+   "ddd": {
+    "P": 15.0
+   },
+   "dddUnit": "g",
+   "dddRefersTo": "ticarcillin"
+  },
+  {
+   "key": "clindamycin",
+   "name": "Clindamycin",
+   "aware": "Access",
+   "atc": "J01FF01",
+   "ddd": {
+    "O": 1.2,
+    "P": 1.8
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "clofoctol",
+   "name": "Clofoctol",
+   "aware": "Watch",
+   "atc": "J01XX03"
+  },
+  {
+   "key": "clometocillin",
+   "name": "Clometocillin",
+   "aware": "Access",
+   "atc": "J01CE07",
+   "ddd": {
+    "O": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "clomocycline",
+   "name": "Clomocycline",
+   "aware": "Watch",
+   "atc": "J01AA11",
+   "ddd": {
+    "O": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "cloxacillin",
+   "name": "Cloxacillin",
+   "aware": "Access",
+   "atc": "J01CF02",
+   "ddd": {
+    "O": 2.0,
+    "P": 2.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "colistin",
+   "name": "Colistin",
+   "aware": "Reserve",
+   "atc": {
+    "O": "A07AA10",
+    "P": "J01XB01"
+   },
+   "ddd": {
+    "O": 9.0,
+    "P": 9.0
+   },
+   "dddUnit": "MU"
+  },
+  {
+   "key": "dalbavancin",
+   "name": "Dalbavancin",
+   "aware": "Reserve",
+   "atc": "J01XA04",
+   "note": "WHO DDD 1.5 g is a course dose, not a daily dose — not used for daily DDD counts"
+  },
+  {
+   "key": "dalfopristin + quinupristin",
+   "name": "Dalfopristin + quinupristin",
+   "aware": "Reserve",
+   "atc": "J01FG02",
+   "ddd": {
+    "P": 1.5
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "daptomycin",
+   "name": "Daptomycin",
+   "aware": "Reserve",
+   "atc": "J01XX09",
+   "ddd": {
+    "P": 0.28
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "delafloxacin",
+   "name": "Delafloxacin",
+   "aware": "Watch",
+   "atc": "J01MA23",
+   "ddd": {
+    "O": 0.9,
+    "P": 0.6
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "demeclocycline",
+   "name": "Demeclocycline",
+   "aware": "Watch",
+   "atc": "J01AA01",
+   "ddd": {
+    "O": 0.6
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "dibekacin",
+   "name": "Dibekacin",
+   "aware": "Watch",
+   "atc": "J01GB09",
+   "ddd": {
+    "P": 0.14
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "dicloxacillin",
+   "name": "Dicloxacillin",
+   "aware": "Access",
+   "atc": "J01CF01",
+   "ddd": {
+    "O": 2.0,
+    "P": 2.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "dirithromycin",
+   "name": "Dirithromycin",
+   "aware": "Watch",
+   "atc": "J01FA13",
+   "ddd": {
+    "O": 0.5
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "doripenem",
+   "name": "Doripenem",
+   "aware": "Watch",
+   "atc": "J01DH04",
+   "ddd": {
+    "P": 1.5
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "doxycycline",
+   "name": "Doxycycline",
+   "aware": "Access",
+   "atc": "J01AA02",
+   "ddd": {
+    "O": 0.1,
+    "P": 0.1
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "enoxacin",
+   "name": "Enoxacin",
+   "aware": "Watch",
+   "atc": "J01MA04",
+   "ddd": {
+    "O": 0.8
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "epicillin",
+   "name": "Epicillin",
+   "aware": "Access",
+   "atc": "J01CA07",
+   "ddd": {
+    "O": 2.0,
+    "P": 2.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "eravacycline",
+   "name": "Eravacycline",
+   "aware": "Reserve",
+   "atc": "J01AA13",
+   "ddd": {
+    "P": 0.14
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "ertapenem",
+   "name": "Ertapenem",
+   "aware": "Watch",
+   "atc": "J01DH03",
+   "ddd": {
+    "P": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "erythromycin",
+   "name": "Erythromycin",
+   "aware": "Watch",
+   "atc": "J01FA01",
+   "ddd": {
+    "O": 1.0,
+    "P": 1.0
+   },
+   "dddUnit": "g",
+   "note": "Erythromycin ethylsuccinate tablets: WHO DDD 2 g (oral)"
+  },
+  {
+   "key": "faropenem",
+   "name": "Faropenem",
+   "aware": "Reserve",
+   "atc": "J01DI03",
+   "ddd": {
+    "O": 0.75
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "fidaxomicin",
+   "name": "Fidaxomicin",
+   "aware": "Watch",
+   "atc": "A07AA12",
+   "ddd": {
+    "O": 0.4
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "fleroxacin",
+   "name": "Fleroxacin",
+   "aware": "Watch",
+   "atc": "J01MA08",
+   "ddd": {
+    "O": 0.4,
+    "P": 0.4
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "flomoxef",
+   "name": "Flomoxef",
+   "aware": "Watch",
+   "atc": "J01DC14",
+   "ddd": {
+    "P": 2.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "flucloxacillin",
+   "name": "Flucloxacillin",
+   "aware": "Access",
+   "atc": "J01CF05",
+   "ddd": {
+    "O": 2.0,
+    "P": 2.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "flumequine",
+   "name": "Flumequine",
+   "aware": "Watch",
+   "atc": "J01MB07",
+   "ddd": {
+    "O": 1.2
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "flurithromycin",
+   "name": "Flurithromycin",
+   "aware": "Watch",
+   "atc": "J01FA14",
+   "ddd": {
+    "O": 0.75
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "fosfomycin",
+   "name": "Fosfomycin",
+   "aware": {
+    "O": "Watch",
+    "P": "Reserve"
+   },
+   "atc": "J01XX01",
+   "ddd": {
+    "O": 3.0,
+    "P": 8.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "furazidin",
+   "name": "Furazidin",
+   "aware": "Access",
+   "atc": "J01XE03",
+   "ddd": {
+    "O": 0.3
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "fusidic acid",
+   "name": "Fusidic acid",
+   "aware": "Watch",
+   "atc": "J01XC01",
+   "ddd": {
+    "O": 1.5,
+    "P": 1.5
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "garenoxacin",
+   "name": "Garenoxacin",
+   "aware": "Watch",
+   "atc": "J01MA19",
+   "ddd": {
+    "O": 0.4
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "gatifloxacin",
+   "name": "Gatifloxacin",
+   "aware": "Watch",
+   "atc": "J01MA16",
+   "ddd": {
+    "O": 0.4,
+    "P": 0.4
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "gemifloxacin",
+   "name": "Gemifloxacin",
+   "aware": "Watch",
+   "atc": "J01MA15",
+   "ddd": {
+    "O": 0.32,
+    "P": 0.2
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "gentamicin",
+   "name": "Gentamicin",
+   "aware": "Access",
+   "atc": "J01GB03",
+   "ddd": {
+    "P": 0.24
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "gepotidacin",
+   "name": "Gepotidacin",
+   "aware": "Watch",
+   "atc": "J01XX13"
+  },
+  {
+   "key": "grepafloxacin",
+   "name": "Grepafloxacin",
+   "aware": "Watch",
+   "atc": "J01MA11",
+   "ddd": {
+    "O": 0.4
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "hetacillin",
+   "name": "Hetacillin",
+   "aware": "Access",
+   "atc": "J01CA18",
+   "ddd": {
+    "O": 2.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "iclaprim",
+   "name": "Iclaprim",
+   "aware": "Reserve",
+   "atc": "J01EA03"
+  },
+  {
+   "key": "isepamicin",
+   "name": "Isepamicin",
+   "aware": "Watch",
+   "atc": "J01GB11",
+   "ddd": {
+    "P": 0.4
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "josamycin",
+   "name": "Josamycin",
+   "aware": "Watch",
+   "atc": "J01FA07",
+   "ddd": {
+    "O": 2.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "kanamycin",
+   "name": "Kanamycin",
+   "aware": "Watch",
+   "atc": {
+    "O": "A07AA08",
+    "P": "J01GB04"
+   },
+   "ddd": {
+    "O": 3.0,
+    "P": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "lascufloxacin",
+   "name": "Lascufloxacin",
+   "aware": "Watch",
+   "atc": "J01MA25",
+   "ddd": {
+    "O": 0.075
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "latamoxef",
+   "name": "Latamoxef",
+   "aware": "Watch",
+   "atc": "J01DD06",
+   "ddd": {
+    "P": 4.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "lefamulin",
+   "name": "Lefamulin",
+   "aware": "Reserve",
+   "atc": "J01XX12"
+  },
+  {
+   "key": "levofloxacin",
+   "name": "Levofloxacin",
+   "aware": "Watch",
+   "atc": "J01MA12",
+   "ddd": {
+    "O": 0.5,
+    "P": 0.5
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "levonadifloxacin",
+   "name": "Levonadifloxacin",
+   "aware": "Watch",
+   "atc": "J01MA24"
+  },
+  {
+   "key": "lincomycin",
+   "name": "Lincomycin",
+   "aware": "Watch",
+   "atc": "J01FF02",
+   "ddd": {
+    "O": 1.8,
+    "P": 1.8
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "linezolid",
+   "name": "Linezolid",
+   "aware": "Reserve",
+   "atc": "J01XX08",
+   "ddd": {
+    "O": 1.2,
+    "P": 1.2
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "lomefloxacin",
+   "name": "Lomefloxacin",
+   "aware": "Watch",
+   "atc": "J01MA07",
+   "ddd": {
+    "O": 0.4
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "loracarbef",
+   "name": "Loracarbef",
+   "aware": "Watch",
+   "atc": "J01DC08",
+   "ddd": {
+    "O": 0.6
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "lymecycline",
+   "name": "Lymecycline",
+   "aware": "Watch",
+   "atc": "J01AA04",
+   "ddd": {
+    "O": 0.6,
+    "P": 0.6
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "mecillinam",
+   "name": "Mecillinam",
+   "aware": "Access",
+   "atc": "J01CA11",
+   "ddd": {
+    "P": 1.2
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "meropenem",
+   "name": "Meropenem",
+   "aware": "Watch",
+   "atc": "J01DH02",
+   "ddd": {
+    "P": 3.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "meropenem + vaborbactam",
+   "name": "Meropenem + vaborbactam",
+   "aware": "Reserve",
+   "atc": "J01DH52",
+   "ddd": {
+    "P": 3.0
+   },
+   "dddUnit": "g",
+   "dddRefersTo": "meropenem"
+  },
+  {
+   "key": "metacycline",
+   "name": "Metacycline",
+   "aware": "Watch",
+   "atc": "J01AA05",
+   "ddd": {
+    "O": 0.6
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "metampicillin",
+   "name": "Metampicillin",
+   "aware": "Access",
+   "atc": "J01CA14",
+   "ddd": {
+    "O": 1.5,
+    "P": 1.5
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "meticillin",
+   "name": "Meticillin",
+   "aware": "Access",
+   "atc": "J01CF03",
+   "ddd": {
+    "P": 4.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "metronidazole",
+   "name": "Metronidazole",
+   "aware": "Access",
+   "atc": {
+    "O": "P01AB01",
+    "P": "J01XD01"
+   },
+   "ddd": {
+    "O": 2.0,
+    "P": 1.5
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "mezlocillin",
+   "name": "Mezlocillin",
+   "aware": "Watch",
+   "atc": "J01CA10",
+   "ddd": {
+    "P": 6.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "micronomicin",
+   "name": "Micronomicin",
+   "aware": "Watch",
+   "atc": ""
+  },
+  {
+   "key": "midecamycin",
+   "name": "Midecamycin",
+   "aware": "Watch",
+   "atc": "J01FA03",
+   "ddd": {
+    "O": 1.2,
+    "P": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "minocycline",
+   "name": "Minocycline",
+   "aware": {
+    "O": "Watch",
+    "P": "Reserve"
+   },
+   "atc": "J01AA08",
+   "ddd": {
+    "O": 0.2,
+    "P": 0.2
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "miocamycin",
+   "name": "Miocamycin",
+   "aware": "Watch",
+   "atc": "J01FA11",
+   "ddd": {
+    "O": 1.2
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "moxifloxacin",
+   "name": "Moxifloxacin",
+   "aware": "Watch",
+   "atc": "J01MA14",
+   "ddd": {
+    "O": 0.4,
+    "P": 0.4
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "nafcillin",
+   "name": "Nafcillin",
+   "aware": "Access",
+   "atc": "J01CF06",
+   "ddd": {
+    "P": 3.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "nalidixic acid",
+   "name": "Nalidixic acid",
+   "aware": "Watch",
+   "atc": "J01MB02",
+   "ddd": {
+    "O": 4.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "nemonoxacin",
+   "name": "Nemonoxacin",
+   "aware": "Watch",
+   "atc": "J01MB08"
+  },
+  {
+   "key": "neomycin",
+   "name": "Neomycin",
+   "aware": "Watch",
+   "atc": {
+    "O": "A07AA01",
+    "P": "J01GB05"
+   },
+   "ddd": {
+    "O": 5.0,
+    "P": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "netilmicin",
+   "name": "Netilmicin",
+   "aware": "Watch",
+   "atc": "J01GB07",
+   "ddd": {
+    "O": 0.35,
+    "P": 0.35
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "nifurtoinol",
+   "name": "Nifurtoinol",
+   "aware": "Access",
+   "atc": "J01XE02",
+   "ddd": {
+    "O": 0.16
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "nimorazole",
+   "name": "Nimorazole",
+   "aware": "Access",
+   "atc": "P01AB06",
+   "ddd": {
+    "O": 2.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "nitrofurantoin",
+   "name": "Nitrofurantoin",
+   "aware": "Access",
+   "atc": "J01XE01",
+   "ddd": {
+    "O": 0.2
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "norfloxacin",
+   "name": "Norfloxacin",
+   "aware": "Watch",
+   "atc": "J01MA06",
+   "ddd": {
+    "O": 0.8
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "ofloxacin",
+   "name": "Ofloxacin",
+   "aware": "Watch",
+   "atc": "J01MA01",
+   "ddd": {
+    "O": 0.4,
+    "P": 0.4
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "oleandomycin",
+   "name": "Oleandomycin",
+   "aware": "Watch",
+   "atc": "J01FA05",
+   "ddd": {
+    "O": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "omadacycline",
+   "name": "Omadacycline",
+   "aware": "Reserve",
+   "atc": "J01AA15",
+   "ddd": {
+    "O": 0.3,
+    "P": 0.1
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "oritavancin",
+   "name": "Oritavancin",
+   "aware": "Reserve",
+   "atc": "J01XA05"
+  },
+  {
+   "key": "ornidazole",
+   "name": "Ornidazole",
+   "aware": "Access",
+   "atc": {
+    "O": "P01AB03",
+    "P": "J01XD03"
+   },
+   "ddd": {
+    "O": 1.5,
+    "P": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "oxacillin",
+   "name": "Oxacillin",
+   "aware": "Access",
+   "atc": "J01CF04",
+   "ddd": {
+    "O": 2.0,
+    "P": 2.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "oxolinic acid",
+   "name": "Oxolinic acid",
+   "aware": "Watch",
+   "atc": "J01MB05",
+   "ddd": {
+    "O": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "oxytetracycline",
+   "name": "Oxytetracycline",
+   "aware": "Watch",
+   "atc": "J01AA06",
+   "ddd": {
+    "O": 1.0,
+    "P": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "panipenem",
+   "name": "Panipenem",
+   "aware": "Watch",
+   "atc": "J01DH55",
+   "ddd": {
+    "P": 2.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "paromomycin",
+   "name": "Paromomycin",
+   "aware": "Watch",
+   "atc": "A07AA06",
+   "ddd": {
+    "O": 3.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "pazufloxacin",
+   "name": "Pazufloxacin",
+   "aware": "Watch",
+   "atc": "J01MA18",
+   "ddd": {
+    "P": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "pefloxacin",
+   "name": "Pefloxacin",
+   "aware": "Watch",
+   "atc": "J01MA03",
+   "ddd": {
+    "O": 0.8,
+    "P": 0.8
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "penamecillin",
+   "name": "Penamecillin",
+   "aware": "Access",
+   "atc": "J01CE06",
+   "ddd": {
+    "O": 1.05
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "penimepicycline",
+   "name": "Penimepicycline",
+   "aware": "Watch",
+   "atc": "J01AA10"
+  },
+  {
+   "key": "pheneticillin",
+   "name": "Pheneticillin",
+   "aware": "Watch",
+   "atc": "J01CE05",
+   "ddd": {
+    "O": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "phenoxymethylpenicillin",
+   "name": "Phenoxymethylpenicillin",
+   "aware": "Access",
+   "atc": "J01CE02",
+   "ddd": {
+    "O": 2.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "pipemidic acid",
+   "name": "Pipemidic acid",
+   "aware": "Watch",
+   "atc": "J01MB04",
+   "ddd": {
+    "O": 0.8
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "piperacillin",
+   "name": "Piperacillin",
+   "aware": "Watch",
+   "atc": "J01CA12",
+   "ddd": {
+    "P": 14.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "piperacillin + tazobactam",
+   "name": "Piperacillin + tazobactam",
+   "aware": "Watch",
+   "atc": "J01CR05",
+   "ddd": {
+    "P": 14.0
+   },
+   "dddUnit": "g",
+   "dddRefersTo": "piperacillin"
+  },
+  {
+   "key": "piromidic acid",
+   "name": "Piromidic acid",
+   "aware": "Watch",
+   "atc": "J01MB03",
+   "ddd": {
+    "O": 2.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "pivampicillin",
+   "name": "Pivampicillin",
+   "aware": "Access",
+   "atc": "J01CA02",
+   "ddd": {
+    "O": 1.05
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "pivmecillinam",
+   "name": "Pivmecillinam",
+   "aware": "Access",
+   "atc": "J01CA08",
+   "ddd": {
+    "O": 0.6
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "plazomicin",
+   "name": "Plazomicin",
+   "aware": "Reserve",
+   "atc": "J01GB14"
+  },
+  {
+   "key": "polymyxin b",
+   "name": "Polymyxin B",
+   "aware": "Reserve",
+   "atc": {
+    "O": "A07AA05",
+    "P": "J01XB02"
+   },
+   "ddd": {
+    "O": 3.0,
+    "P": 0.15
+   },
+   "dddUnit": {
+    "O": "MU",
+    "P": "g"
+   }
+  },
+  {
+   "key": "pristinamycin",
+   "name": "Pristinamycin",
+   "aware": "Watch",
+   "atc": "J01FG01",
+   "ddd": {
+    "O": 2.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "procaine benzylpenicillin",
+   "name": "Procaine benzylpenicillin",
+   "aware": "Access",
+   "atc": "J01CE09",
+   "ddd": {
+    "P": 0.6
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "propenidazole",
+   "name": "Propenidazole",
+   "aware": "Access",
+   "atc": "P01AB05"
+  },
+  {
+   "key": "propicillin",
+   "name": "Propicillin",
+   "aware": "Access",
+   "atc": "J01CE03",
+   "ddd": {
+    "O": 0.9
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "prulifloxacin",
+   "name": "Prulifloxacin",
+   "aware": "Watch",
+   "atc": "J01MA17",
+   "ddd": {
+    "O": 0.6
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "ribostamycin",
+   "name": "Ribostamycin",
+   "aware": "Watch",
+   "atc": "J01GB10",
+   "ddd": {
+    "P": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "rifabutin",
+   "name": "Rifabutin",
+   "aware": "Watch",
+   "atc": "J04AB04",
+   "ddd": {
+    "O": 0.15
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "rifampicin",
+   "name": "Rifampicin",
+   "aware": "Watch",
+   "atc": "J04AB02",
+   "ddd": {
+    "O": 0.6,
+    "P": 0.6
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "rifamycin",
+   "name": "Rifamycin",
+   "aware": "Watch",
+   "atc": {
+    "O": "A07AA13",
+    "P": "J04AB03"
+   },
+   "ddd": {
+    "O": 0.8,
+    "P": 0.6
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "rifaximin",
+   "name": "Rifaximin",
+   "aware": "Watch",
+   "atc": "A07AA11",
+   "ddd": {
+    "O": 0.6
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "rokitamycin",
+   "name": "Rokitamycin",
+   "aware": "Watch",
+   "atc": "J01FA12",
+   "ddd": {
+    "O": 0.8
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "rolitetracycline",
+   "name": "Rolitetracycline",
+   "aware": "Watch",
+   "atc": "J01AA09",
+   "ddd": {
+    "P": 0.35
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "rosoxacin",
+   "name": "Rosoxacin",
+   "aware": "Watch",
+   "atc": "J01MB01",
+   "ddd": {
+    "O": 0.3
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "roxithromycin",
+   "name": "Roxithromycin",
+   "aware": "Watch",
+   "atc": "J01FA06",
+   "ddd": {
+    "O": 0.3
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "rufloxacin",
+   "name": "Rufloxacin",
+   "aware": "Watch",
+   "atc": "J01MA10",
+   "ddd": {
+    "O": 0.2
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "sarecycline",
+   "name": "Sarecycline",
+   "aware": "Watch",
+   "atc": "J01AA14",
+   "ddd": {
+    "O": 0.1
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "satranidazole",
+   "name": "Satranidazole",
+   "aware": "Access",
+   "atc": "P01AB08"
+  },
+  {
+   "key": "secnidazole",
+   "name": "Secnidazole",
+   "aware": "Access",
+   "atc": "P01AB07",
+   "ddd": {
+    "O": 2.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "sisomicin",
+   "name": "Sisomicin",
+   "aware": "Watch",
+   "atc": "J01GB08",
+   "ddd": {
+    "P": 0.24
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "sitafloxacin",
+   "name": "Sitafloxacin",
+   "aware": "Watch",
+   "atc": "J01MA21",
+   "ddd": {
+    "O": 0.1
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "solithromycin",
+   "name": "Solithromycin",
+   "aware": "Watch",
+   "atc": "J01FA16"
+  },
+  {
+   "key": "sparfloxacin",
+   "name": "Sparfloxacin",
+   "aware": "Watch",
+   "atc": "J01MA09",
+   "ddd": {
+    "O": 0.2
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "spectinomycin",
+   "name": "Spectinomycin",
+   "aware": "Access",
+   "atc": "J01XX04",
+   "ddd": {
+    "P": 3.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "spiramycin",
+   "name": "Spiramycin",
+   "aware": "Watch",
+   "atc": "J01FA02",
+   "ddd": {
+    "O": 3.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "streptoduocin",
+   "name": "Streptoduocin",
+   "aware": "Watch",
+   "atc": "J01GA02",
+   "ddd": {
+    "P": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "streptomycin",
+   "name": "Streptomycin",
+   "aware": "Watch",
+   "atc": {
+    "O": "A07AA04",
+    "P": "J01GA01"
+   },
+   "ddd": {
+    "P": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "sulbactam",
+   "name": "Sulbactam",
+   "aware": "Access",
+   "atc": "J01CG01",
+   "ddd": {
+    "P": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "sulbenicillin",
+   "name": "Sulbenicillin",
+   "aware": "Watch",
+   "atc": "J01CA16",
+   "ddd": {
+    "P": 15.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "sulfadiazine",
+   "name": "Sulfadiazine",
+   "aware": "Access",
+   "atc": "J01EC02",
+   "ddd": {
+    "O": 0.6
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "sulfadiazine + tetroxoprim",
+   "name": "Sulfadiazine + tetroxoprim",
+   "aware": "Access",
+   "atc": "J01EE06"
+  },
+  {
+   "key": "sulfadiazine + trimethoprim",
+   "name": "Sulfadiazine + trimethoprim",
+   "aware": "Access",
+   "atc": "J01EE02"
+  },
+  {
+   "key": "sulfadimethoxine",
+   "name": "Sulfadimethoxine",
+   "aware": "Access",
+   "atc": "J01ED01",
+   "ddd": {
+    "O": 0.5
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "sulfadimidine",
+   "name": "Sulfadimidine",
+   "aware": "Access",
+   "atc": "J01EB03",
+   "ddd": {
+    "O": 4.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "sulfadimidine + trimethoprim",
+   "name": "Sulfadimidine + trimethoprim",
+   "aware": "Access",
+   "atc": "J01EE05"
+  },
+  {
+   "key": "sulfafurazole",
+   "name": "Sulfafurazole",
+   "aware": "Access",
+   "atc": "J01EB05",
+   "ddd": {
+    "O": 4.0,
+    "P": 4.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "sulfaisodimidine",
+   "name": "Sulfaisodimidine",
+   "aware": "Access",
+   "atc": "J01EB01",
+   "ddd": {
+    "O": 4.0,
+    "P": 4.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "sulfalene",
+   "name": "Sulfalene",
+   "aware": "Access",
+   "atc": "J01ED02",
+   "ddd": {
+    "O": 0.1
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "sulfamazone",
+   "name": "Sulfamazone",
+   "aware": "Access",
+   "atc": "J01ED09",
+   "ddd": {
+    "O": 1.5
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "sulfamerazine",
+   "name": "Sulfamerazine",
+   "aware": "Access",
+   "atc": "J01ED07",
+   "ddd": {
+    "O": 3.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "sulfamerazine + trimethoprim",
+   "name": "Sulfamerazine + trimethoprim",
+   "aware": "Access",
+   "atc": "J01EE07"
+  },
+  {
+   "key": "sulfamethizole",
+   "name": "Sulfamethizole",
+   "aware": "Access",
+   "atc": "J01EB02",
+   "ddd": {
+    "O": 4.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "sulfamethizole + trimethoprim",
+   "name": "Sulfamethizole + trimethoprim",
+   "aware": "Access",
+   "atc": ""
+  },
+  {
+   "key": "sulfamethoxazole",
+   "name": "Sulfamethoxazole",
+   "aware": "Access",
+   "atc": "J01EC01",
+   "ddd": {
+    "O": 2.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "sulfamethoxazole + trimethoprim",
+   "name": "Sulfamethoxazole + trimethoprim",
+   "aware": "Access",
+   "atc": "J01EE01",
+   "note": "WHO DDD is given in unit doses (UD), not grams"
+  },
+  {
+   "key": "sulfamethoxypyridazine",
+   "name": "Sulfamethoxypyridazine",
+   "aware": "Access",
+   "atc": "J01ED05",
+   "ddd": {
+    "O": 0.5
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "sulfametomidine",
+   "name": "Sulfametomidine",
+   "aware": "Access",
+   "atc": "J01ED03"
+  },
+  {
+   "key": "sulfametoxydiazine",
+   "name": "Sulfametoxydiazine",
+   "aware": "Access",
+   "atc": "J01ED04",
+   "ddd": {
+    "O": 0.5
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "sulfametrole + trimethoprim",
+   "name": "Sulfametrole + trimethoprim",
+   "aware": "Access",
+   "atc": "J01EE03"
+  },
+  {
+   "key": "sulfamoxole",
+   "name": "Sulfamoxole",
+   "aware": "Access",
+   "atc": "J01EC03",
+   "ddd": {
+    "O": 1.0,
+    "P": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "sulfamoxole + trimethoprim",
+   "name": "Sulfamoxole + trimethoprim",
+   "aware": "Access",
+   "atc": "J01EE04"
+  },
+  {
+   "key": "sulfanilamide",
+   "name": "Sulfanilamide",
+   "aware": "Access",
+   "atc": "J01EB06"
+  },
+  {
+   "key": "sulfaperin",
+   "name": "Sulfaperin",
+   "aware": "Access",
+   "atc": "J01ED06",
+   "ddd": {
+    "O": 0.5
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "sulfaphenazole",
+   "name": "Sulfaphenazole",
+   "aware": "Access",
+   "atc": "J01ED08",
+   "ddd": {
+    "O": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "sulfapyridine",
+   "name": "Sulfapyridine",
+   "aware": "Access",
+   "atc": "J01EB04",
+   "ddd": {
+    "O": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "sulfathiazole",
+   "name": "Sulfathiazole",
+   "aware": "Access",
+   "atc": "J01EB07"
+  },
+  {
+   "key": "sulfathiourea",
+   "name": "Sulfathiourea",
+   "aware": "Access",
+   "atc": "J01EB08",
+   "ddd": {
+    "O": 6.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "sultamicillin",
+   "name": "Sultamicillin",
+   "aware": "Access",
+   "atc": "J01CR04",
+   "ddd": {
+    "O": 1.5
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "talampicillin",
+   "name": "Talampicillin",
+   "aware": "Access",
+   "atc": "J01CA15",
+   "ddd": {
+    "O": 2.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "tazobactam",
+   "name": "Tazobactam",
+   "aware": "Watch",
+   "atc": "J01CG02"
+  },
+  {
+   "key": "tebipenem",
+   "name": "Tebipenem",
+   "aware": "Watch",
+   "atc": "J01DH06",
+   "ddd": {
+    "O": 0.56
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "tedizolid",
+   "name": "Tedizolid",
+   "aware": "Reserve",
+   "atc": "J01XX11",
+   "ddd": {
+    "O": 0.2,
+    "P": 0.2
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "teicoplanin",
+   "name": "Teicoplanin",
+   "aware": "Watch",
+   "atc": "J01XA02",
+   "ddd": {
+    "P": 0.4
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "telavancin",
+   "name": "Telavancin",
+   "aware": "Reserve",
+   "atc": "J01XA03"
+  },
+  {
+   "key": "telithromycin",
+   "name": "Telithromycin",
+   "aware": "Watch",
+   "atc": "J01FA15",
+   "ddd": {
+    "O": 0.8
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "temafloxacin",
+   "name": "Temafloxacin",
+   "aware": "Watch",
+   "atc": "J01MA05",
+   "ddd": {
+    "O": 0.8
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "temocillin",
+   "name": "Temocillin",
+   "aware": "Watch",
+   "atc": "J01CA17",
+   "ddd": {
+    "P": 4.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "tetracycline",
+   "name": "Tetracycline",
+   "aware": "Access",
+   "atc": "J01AA07",
+   "ddd": {
+    "O": 1.0,
+    "P": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "thiamphenicol",
+   "name": "Thiamphenicol",
+   "aware": "Access",
+   "atc": "J01BA02",
+   "ddd": {
+    "O": 1.5,
+    "P": 1.5
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "ticarcillin",
+   "name": "Ticarcillin",
+   "aware": "Watch",
+   "atc": "J01CA13",
+   "ddd": {
+    "P": 15.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "tigecycline",
+   "name": "Tigecycline",
+   "aware": "Reserve",
+   "atc": "J01AA12",
+   "ddd": {
+    "P": 0.1
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "tinidazole",
+   "name": "Tinidazole",
+   "aware": "Access",
+   "atc": {
+    "O": "P01AB02",
+    "P": "J01XD02"
+   },
+   "ddd": {
+    "O": 2.0,
+    "P": 1.5
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "tobramycin",
+   "name": "Tobramycin",
+   "aware": "Watch",
+   "atc": "J01GB01",
+   "ddd": {
+    "P": 0.24
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "tosufloxacin",
+   "name": "Tosufloxacin",
+   "aware": "Watch",
+   "atc": "J01MA22",
+   "ddd": {
+    "O": 0.45
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "trimethoprim",
+   "name": "Trimethoprim",
+   "aware": "Access",
+   "atc": "J01EA01",
+   "ddd": {
+    "O": 0.4,
+    "P": 0.4
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "troleandomycin",
+   "name": "Troleandomycin",
+   "aware": "Watch",
+   "atc": "J01FA08",
+   "ddd": {
+    "O": 1.0
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "trovafloxacin",
+   "name": "Trovafloxacin",
+   "aware": "Watch",
+   "atc": "J01MA13",
+   "ddd": {
+    "O": 0.2,
+    "P": 0.2
+   },
+   "dddUnit": "g"
+  },
+  {
+   "key": "vancomycin",
+   "name": "Vancomycin",
+   "aware": "Watch",
+   "atc": {
+    "O": "A07AA09",
+    "P": "J01XA01"
+   },
+   "ddd": {
+    "O": 2.0,
+    "P": 2.0
+   },
+   "dddUnit": "g"
+  }
+ ],
+ "notRecommended": [
+  {
+   "key": "acetylspiramycin + metronidazole",
+   "name": "Acetylspiramycin + metronidazole"
+  },
+  {
+   "key": "amikacin + cefepime",
+   "name": "Amikacin + cefepime"
+  },
+  {
+   "key": "amoxicillin + bacillus coagulans + cloxacillin",
+   "name": "Amoxicillin + bacillus coagulans + cloxacillin"
+  },
+  {
+   "key": "amoxicillin + bacillus coagulans + dicloxacillin",
+   "name": "Amoxicillin + bacillus coagulans + dicloxacillin"
+  },
+  {
+   "key": "amoxicillin + clavulanic acid + lactic ferments",
+   "name": "Amoxicillin + clavulanic acid + lactic ferments"
+  },
+  {
+   "key": "amoxicillin + clavulanic acid + lactobacillus acidophilus",
+   "name": "Amoxicillin + clavulanic acid + lactobacillus acidophilus"
+  },
+  {
+   "key": "amoxicillin + clavulanic acid + nimesulide",
+   "name": "Amoxicillin + clavulanic acid + nimesulide"
+  },
+  {
+   "key": "amoxicillin + cloxacillin",
+   "name": "Amoxicillin + cloxacillin"
+  },
+  {
+   "key": "amoxicillin + cloxacillin + lactic acid",
+   "name": "Amoxicillin + cloxacillin + lactic acid"
+  },
+  {
+   "key": "amoxicillin + cloxacillin + lactobacillus acidophilus + serrapeptase",
+   "name": "Amoxicillin + cloxacillin + lactobacillus acidophilus + serrapeptase"
+  },
+  {
+   "key": "amoxicillin + cloxacillin + lactobacillus lactis",
+   "name": "Amoxicillin + cloxacillin + lactobacillus lactis"
+  },
+  {
+   "key": "amoxicillin + cloxacillin + serrapeptase",
+   "name": "Amoxicillin + cloxacillin + serrapeptase"
+  },
+  {
+   "key": "amoxicillin + dicloxacillin",
+   "name": "Amoxicillin + dicloxacillin"
+  },
+  {
+   "key": "amoxicillin + dicloxacillin + saccharomyces boulardii",
+   "name": "Amoxicillin + dicloxacillin + saccharomyces boulardii"
+  },
+  {
+   "key": "amoxicillin + flucloxacillin",
+   "name": "Amoxicillin + flucloxacillin"
+  },
+  {
+   "key": "amoxicillin + flucloxacillin + lactobacillus acidophilus",
+   "name": "Amoxicillin + flucloxacillin + lactobacillus acidophilus"
+  },
+  {
+   "key": "amoxicillin + metronidazole",
+   "name": "Amoxicillin + metronidazole"
+  },
+  {
+   "key": "amoxicillin + pivsulbactam",
+   "name": "Amoxicillin + pivsulbactam"
+  },
+  {
+   "key": "ampicillin + cloxacillin",
+   "name": "Ampicillin + cloxacillin"
+  },
+  {
+   "key": "ampicillin + cloxacillin + lactobacillus acidophilus",
+   "name": "Ampicillin + cloxacillin+ lactobacillus acidophilus"
+  },
+  {
+   "key": "ampicillin + cloxacillin + saccharomyces boulardii",
+   "name": "Ampicillin + cloxacillin + saccharomyces boulardii"
+  },
+  {
+   "key": "ampicillin + dicloxacillin",
+   "name": "Ampicillin + dicloxacillin"
+  },
+  {
+   "key": "ampicillin + dicloxacillin + lactobacillus acidophilus",
+   "name": "Ampicillin + dicloxacillin + lactobacillus acidophilus"
+  },
+  {
+   "key": "ampicillin + flucloxacillin",
+   "name": "Ampicillin + flucloxacillin"
+  },
+  {
+   "key": "ampicillin + oxacillin",
+   "name": "Ampicillin + oxacillin"
+  },
+  {
+   "key": "ampicillin + sultamicillin",
+   "name": "Ampicillin + sultamicillin"
+  },
+  {
+   "key": "ascorbic acid + benzylpenicillin + metamizole sodium + streptomycin",
+   "name": "Ascorbic acid + metamizole sodium + benzylpenicillin + streptomycin"
+  },
+  {
+   "key": "azithromycin + cefixime",
+   "name": "Azithromycin + cefixime"
+  },
+  {
+   "key": "azithromycin + cefixime + lactobacillus acidophilus",
+   "name": "Azithromycin + cefixime + lactobacillus acidophilus"
+  },
+  {
+   "key": "azithromycin + cefpodoxime",
+   "name": "Azithromycin + cefpodoxime proxetil"
+  },
+  {
+   "key": "azithromycin + fluconazole + secnidazole",
+   "name": "Azithromycin + fluconazole + secnidazole"
+  },
+  {
+   "key": "azithromycin + levofloxacin",
+   "name": "Azithromycin + levofloxacin"
+  },
+  {
+   "key": "azithromycin + ofloxacin",
+   "name": "Azithromycin + ofloxacin"
+  },
+  {
+   "key": "benzathine benzylpenicillin + benzylpenicillin + procaine benzylpenicillin",
+   "name": "Benzylpenicillin + procaine benzylpenicillin + benzathine benzylpenicillin"
+  },
+  {
+   "key": "benzylpenicillin + kanamycin",
+   "name": "Kanamycin + benzylpenicillin"
+  },
+  {
+   "key": "benzylpenicillin + streptomycin",
+   "name": "Benzylpenicillin + streptomycin"
+  },
+  {
+   "key": "bromelains + doxycycline + lactobacillus reuteri + lactobacillus rhamnosus + ornidazole",
+   "name": "Bromelains + doxycycline + lactobacillus reuteri + lactobacillus rhamnosus + ornidazole"
+  },
+  {
+   "key": "bromhexine + sulfamethoxazole + trimethoprim",
+   "name": "Bromhexine + sulfamethoxazole + trimethoprim"
+  },
+  {
+   "key": "cefaclor + clavulanic acid",
+   "name": "Cefaclor + clavulanic acid"
+  },
+  {
+   "key": "cefadroxil + clavulanic acid",
+   "name": "Cefadroxil + clavulanic acid"
+  },
+  {
+   "key": "cefadroxil + trimethoprim",
+   "name": "Cefadroxil + trimethoprim"
+  },
+  {
+   "key": "cefalexin + trimethoprim",
+   "name": "Cefalexin + trimethoprim"
+  },
+  {
+   "key": "cefdinir + clavulanic acid",
+   "name": "Cefdinir + clavulanic acid"
+  },
+  {
+   "key": "cefepime + sulbactam",
+   "name": "Cefepime + sulbactam"
+  },
+  {
+   "key": "cefepime + tazobactam",
+   "name": "Cefepime + tazobactam"
+  },
+  {
+   "key": "cefixime + cefpodoxime",
+   "name": "Cefixime + cefpodoxime proxetil"
+  },
+  {
+   "key": "cefixime + clavulanic acid",
+   "name": "Cefixime + clavulanic acid"
+  },
+  {
+   "key": "cefixime + clavulanic acid + lactobacillus acidophilus",
+   "name": "Cefixime + clavulanic acid + lactobacillus acidophilus"
+  },
+  {
+   "key": "cefixime + cloxacillin",
+   "name": "Cefixime + cloxacillin"
+  },
+  {
+   "key": "cefixime + cloxacillin + lactobacillus acidophilus",
+   "name": "Cefixime + cloxacillin + lactobacillus acidophilus"
+  },
+  {
+   "key": "cefixime + dicloxacillin",
+   "name": "Cefixime + dicloxacillin"
+  },
+  {
+   "key": "cefixime + lactobacillus acidophilus + ofloxacin",
+   "name": "Cefixime + lactobacillus acidophilus + ofloxacin"
+  },
+  {
+   "key": "cefixime + levofloxacin",
+   "name": "Cefixime + levofloxacin"
+  },
+  {
+   "key": "cefixime + linezolid",
+   "name": "Cefixime + linezolid"
+  },
+  {
+   "key": "cefixime + moxifloxacin",
+   "name": "Cefixime + moxifloxacin"
+  },
+  {
+   "key": "cefixime + ofloxacin",
+   "name": "Cefixime + ofloxacin"
+  },
+  {
+   "key": "cefixime + ornidazole",
+   "name": "Cefixime + ornidazole"
+  },
+  {
+   "key": "cefoperazone + sulbactam",
+   "name": "Cefoperazone + sulbactam"
+  },
+  {
+   "key": "cefoperazone + tazobactam",
+   "name": "Cefoperazone + tazobactam"
+  },
+  {
+   "key": "cefotaxime + sulbactam",
+   "name": "Cefotaxime + sulbactam"
+  },
+  {
+   "key": "cefpodoxime + clavulanic acid",
+   "name": "Cefpodoxime proxetil + clavulanic acid"
+  },
+  {
+   "key": "cefpodoxime + cloxacillin + lactobacillus acidophilus",
+   "name": "Cefpodoxime proxetil + cloxacillin + lactobacillus acidophilus"
+  },
+  {
+   "key": "cefpodoxime + dicloxacillin",
+   "name": "Cefpodoxime proxetil + dicloxacillin"
+  },
+  {
+   "key": "cefpodoxime + dicloxacillin + lactobacillus acidophilus",
+   "name": "Cefpodoxime proxetil + dicloxacillin + lactobacillus acidophilus"
+  },
+  {
+   "key": "cefpodoxime + levofloxacin",
+   "name": "Cefpodoxime proxetil + levofloxacin"
+  },
+  {
+   "key": "cefpodoxime + ofloxacin",
+   "name": "Cefpodoxime proxetil + ofloxacin"
+  },
+  {
+   "key": "cefpodoxime + sulbactam",
+   "name": "Cefpodoxime proxetil + sulbactam"
+  },
+  {
+   "key": "ceftazidime + sulbactam",
+   "name": "Ceftazidime + sulbactam"
+  },
+  {
+   "key": "ceftazidime + tazobactam",
+   "name": "Ceftazidime + tazobactam"
+  },
+  {
+   "key": "ceftibuten + clavulanic acid",
+   "name": "Ceftibuten + clavulanic acid"
+  },
+  {
+   "key": "ceftriaxone + sulbactam",
+   "name": "Ceftriaxone + sulbactam"
+  },
+  {
+   "key": "ceftriaxone + tazobactam",
+   "name": "Ceftriaxone + tazobactam"
+  },
+  {
+   "key": "ceftriaxone + vancomycin",
+   "name": "Ceftriaxone + vancomycin"
+  },
+  {
+   "key": "cefuroxime + clavulanic acid",
+   "name": "Cefuroxime + clavulanic acid"
+  },
+  {
+   "key": "cefuroxime + linezolid",
+   "name": "Cefuroxime axetil + linezolid"
+  },
+  {
+   "key": "cefuroxime + metronidazole",
+   "name": "Cefuroxime + metronidazole"
+  },
+  {
+   "key": "chloramphenicol + tetracycline",
+   "name": "Chloramphenicol + tetracycline"
+  },
+  {
+   "key": "chlortetracycline + demeclocycline + tetracycline",
+   "name": "Tetracycline + chlortetracycline + demeclocycline"
+  },
+  {
+   "key": "ciprofloxacin + metronidazole",
+   "name": "Ciprofloxacin + metronidazole"
+  },
+  {
+   "key": "ciprofloxacin + ornidazole",
+   "name": "Ciprofloxacin + ornidazole"
+  },
+  {
+   "key": "ciprofloxacin + tinidazole",
+   "name": "Ciprofloxacin + tinidazole"
+  },
+  {
+   "key": "diloxanide + metronidazole",
+   "name": "Metronidazole + diloxanide"
+  },
+  {
+   "key": "diloxanide + tinidazole",
+   "name": "Tinidazole + diloxanide"
+  },
+  {
+   "key": "doxycycline + tinidazole",
+   "name": "Doxycycline + tinidazole"
+  },
+  {
+   "key": "erythromycin + sulfamethoxazole + trimethoprim",
+   "name": "Erythromycin + sulfamethoxazole + trimethoprim"
+  },
+  {
+   "key": "erythromycin + trimethoprim",
+   "name": "Erythromycin + trimethoprim"
+  },
+  {
+   "key": "fosfomycin + trimethoprim",
+   "name": "Fosfomycin + trimethoprim"
+  },
+  {
+   "key": "furazolidone + metronidazole",
+   "name": "Metronidazole + furazolidone"
+  },
+  {
+   "key": "gatifloxacin + ornidazole",
+   "name": "Gatifloxacin + ornidazole"
+  },
+  {
+   "key": "levofloxacin + metronidazole",
+   "name": "Levofloxacin + metronidazole"
+  },
+  {
+   "key": "levofloxacin + ornidazole",
+   "name": "Levofloxacin + ornidazole"
+  },
+  {
+   "key": "meropenem + sulbactam",
+   "name": "Meropenem + sulbactam"
+  },
+  {
+   "key": "metronidazole + norfloxacin",
+   "name": "Metronidazole + norfloxacin"
+  },
+  {
+   "key": "metronidazole + spiramycin",
+   "name": "Metronidazole + spiramycin"
+  },
+  {
+   "key": "metronidazole + tetracycline",
+   "name": "Metronidazole + tetracycline"
+  },
+  {
+   "key": "mezlocillin + sulbactam",
+   "name": "Mezlocillin + sulbactam"
+  },
+  {
+   "key": "nitazoxanide + ofloxacin",
+   "name": "Ofloxacin + nitazoxanide"
+  },
+  {
+   "key": "norfloxacin + tinidazole",
+   "name": "Norfloxacin + tinidazole"
+  },
+  {
+   "key": "nystatin + tetracycline",
+   "name": "Tetracycline + nystatin"
+  },
+  {
+   "key": "ofloxacin + ornidazole",
+   "name": "Ofloxacin + ornidazole"
+  },
+  {
+   "key": "ofloxacin + tinidazole",
+   "name": "Ofloxacin + tinidazole"
+  },
+  {
+   "key": "oleandomycin + tetracycline",
+   "name": "Oleandomycin + tetracycline"
+  },
+  {
+   "key": "piperacillin + sulbactam",
+   "name": "Piperacillin + sulbactam"
+  },
+  {
+   "key": "pivampicillin + pivmecillinam",
+   "name": "Pivampicillin + pivmecillinam"
+  },
+  {
+   "key": "sulfacarbamide + sulfadiazine + sulfadimidine",
+   "name": "Sulfacarbamide + sulfadiazine + sulfadimidine"
+  },
+  {
+   "key": "sulfadiazine + sulfamethoxazole + trimethoprim",
+   "name": "Sulfadiazine + sulfamethoxazole + trimethoprim"
+  }
+ ],
+ "tanzania": {
+  "name": "Tanzania STG/NEMLIT 2021",
+  "differences": [
+   {
+    "key": "ampicillin + cloxacillin",
+    "aware": "Access",
+    "basis": "STG/NEMLIT 2021 first-line (Access in Tanzanian AWaRe use, e.g. Zimbwe et al., BMJ Open 2024)"
+   },
+   {
+    "key": "amoxicillin + flucloxacillin",
+    "aware": "Access",
+    "basis": "STG/NEMLIT 2021 first-line (Access in Tanzanian AWaRe use, e.g. Zimbwe et al., BMJ Open 2024)"
+   },
+   {
+    "key": "ceftriaxone + sulbactam",
+    "aware": "Watch",
+    "basis": "Facility default: classed by its ceftriaxone component — check NEMLIT"
+   },
+   {
+    "key": "meropenem",
+    "aware": "Reserve",
+    "basis": "Reserve under STG/NEMLIT 2021 (Zimbwe et al., BMJ Open 2024, Table 2)"
+   },
+   {
+    "key": "imipenem",
+    "aware": "Reserve",
+    "basis": "Carbapenem — set to match meropenem; check NEMLIT"
+   },
+   {
+    "key": "cilastatin + imipenem",
+    "aware": "Reserve",
+    "basis": "Carbapenem — set to match meropenem; check NEMLIT"
+   }
+  ]
+ },
+ "aliases": {
+  "amoxycillin": "amoxicillin",
+  "gentamycin": "gentamicin",
+  "cephalexin": "cefalexin",
+  "cephazolin": "cefazolin",
+  "cephradine": "cefradine",
+  "cefuroxim": "cefuroxime",
+  "chloramphenical": "chloramphenicol",
+  "polymixin b": "polymyxin b",
+  "rifampin": "rifampicin",
+  "sulphamethoxazole": "sulfamethoxazole",
+  "sulphadiazine": "sulfadiazine",
+  "co-trimoxazole": "sulfamethoxazole + trimethoprim",
+  "cotrimoxazole": "sulfamethoxazole + trimethoprim",
+  "septrin": "sulfamethoxazole + trimethoprim",
+  "bactrim": "sulfamethoxazole + trimethoprim",
+  "augmentin": "amoxicillin + clavulanic acid",
+  "co-amoxiclav": "amoxicillin + clavulanic acid",
+  "amoxiclav": "amoxicillin + clavulanic acid",
+  "ampiclox": "ampicillin + cloxacillin",
+  "tazocin": "piperacillin + tazobactam",
+  "pip-tazo": "piperacillin + tazobactam",
+  "imipenem": "cilastatin + imipenem",
+  "flagyl": "metronidazole",
+  "x-pen": "benzylpenicillin",
+  "crystalline penicillin": "benzylpenicillin",
+  "penicillin g": "benzylpenicillin",
+  "benzathine penicillin": "benzathine benzylpenicillin",
+  "procaine penicillin": "procaine benzylpenicillin",
+  "pen v": "phenoxymethylpenicillin",
+  "penicillin v": "phenoxymethylpenicillin"
+ }
+}
