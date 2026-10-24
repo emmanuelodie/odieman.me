@@ -51,18 +51,29 @@ half-width = z &middot; &radic;(p&#770;(1&minus;p&#770;)/n + z&sup2;/4n&sup2;) /
   </section>
 
   <section id="aware">
-    <h2>AWaRe classification — WHO, with a Tanzania view</h2>
+    <h2>AWaRe classification — WHO, with a Tanzania view checked against it</h2>
     <p class="section-note">Every antibiotic dispensed or prescribed is tagged Access, Watch or Reserve — WHO's framework for stewardship targets. Fixed-dose combinations that WHO lists as &ldquo;Not recommended&rdquo; are kept as their own group, never folded into one ingredient's class.</p>
-    <p>AMS Pro reports the WHO classification by default and shows a Tanzania STG/NEMLIT view <em>side by side</em>, so the effect of the ruler is visible. The Tanzania view changes only the agents listed below; the list is editable on the Setup page, because the pharmacist holding the current NEMLIT copy is the final authority — entries marked &ldquo;check&rdquo; should be confirmed against it.</p>
+    <p>AMS Pro and PPS Pro report the WHO classification by default and show the Tanzania STG/NEMLIT 2021 grouping <em>side by side</em>, taken from the book itself (NEMLIT §6.2.1–6.2.3, pages 7–9). The national group is followed only where it is <b>stricter than WHO and the book's own level of care supports it</b>. Where the book contradicts itself, or groups an antibiotic lower than WHO, WHO is used and the tool says so, with the page. Antibiotics not in the NEMLIT lists keep their WHO group.</p>
     <table class="bench">
-      <tr><th>Agent</th><th>WHO</th><th>Tanzania view (AMS Pro)</th><th>Basis recorded in the tool</th></tr>
-      <tr><td>Meropenem</td><td>Watch</td><td><span class="badge reserve">Reserve</span></td><td>STG/NEMLIT 2021 (Zimbwe et al., BMJ Open 2024, Table 2)</td></tr>
-      <tr><td>Imipenem, imipenem-cilastatin</td><td>Watch</td><td><span class="badge reserve">Reserve</span></td><td>Set to match meropenem — check NEMLIT</td></tr>
-      <tr><td>Ampicillin + cloxacillin (&ldquo;Ampiclox&rdquo;)</td><td>Not recommended</td><td><span class="badge access">Access</span></td><td>STG/NEMLIT 2021 first-line; two Access penicillins</td></tr>
-      <tr><td>Amoxicillin + flucloxacillin</td><td>Not recommended</td><td><span class="badge access">Access</span></td><td>STG/NEMLIT 2021 first-line; two Access penicillins</td></tr>
-      <tr><td>Ceftriaxone + sulbactam</td><td>Not recommended</td><td><span class="badge watch">Watch</span></td><td>Classed by its ceftriaxone component — check NEMLIT</td></tr>
+      <tr><th>Followed: stricter national group</th><th>WHO</th><th>Tanzania view</th><th>NEMLIT 2021</th></tr>
+      <tr><td>Meropenem</td><td><span class="badge watch">Watch</span></td><td><span class="badge reserve">Reserve</span></td><td>§6.2.3, p.9, level S</td></tr>
+      <tr><td>Vancomycin</td><td><span class="badge watch">Watch</span></td><td><span class="badge reserve">Reserve</span></td><td>§6.2.3, p.9, level S</td></tr>
+      <tr><td>Cefepime</td><td><span class="badge watch">Watch</span></td><td><span class="badge reserve">Reserve</span></td><td>§6.2.3, p.9, level S</td></tr>
+      <tr><td>Amikacin</td><td><span class="badge access">Access</span></td><td><span class="badge reserve">Reserve</span></td><td>§6.2.3, p.9, level S</td></tr>
+      <tr><td>Clindamycin</td><td><span class="badge access">Access</span></td><td><span class="badge reserve">Reserve</span></td><td>§6.2.3, p.9, level S</td></tr>
+      <tr><td>Chloramphenicol</td><td><span class="badge access">Access</span></td><td><span class="badge watch">Watch</span></td><td>§6.2.2, p.8, level B (reserved for meningitis)</td></tr>
+      <tr><td>Ampicillin + sulbactam</td><td><span class="badge access">Access</span></td><td><span class="badge watch">Watch</span></td><td>§6.2.2, p.8, level C</td></tr>
     </table>
-    <p>A report run under WHO rules and one run under Tanzania rules can show different Access/Watch/Reserve splits for the <em>same prescribing</em> — not because prescribing changed, but because the ruler changed. Every AWaRe figure states which rule set produced it. PPS Pro and VigiWard use the WHO classification.</p>
+    <table class="bench">
+      <tr><th>Not followed: WHO used</th><th>NEMLIT prints</th><th>Used</th><th>Why</th></tr>
+      <tr><td>Gentamicin</td><td><span class="badge watch">Watch</span></td><td><span class="badge access">Access</span></td><td>p.9: printed as Watch at level A (every dispensary), which contradicts the Watch definition</td></tr>
+      <tr><td>Sulfamethoxazole + trimethoprim (cotrimoxazole)</td><td><span class="badge watch">Watch</span></td><td><span class="badge access">Access</span></td><td>p.9: printed as Watch at level A, which contradicts the Watch definition</td></tr>
+      <tr><td>Erythromycin</td><td><span class="badge access">Access</span></td><td><span class="badge watch">Watch</span></td><td>p.8: less strict than WHO</td></tr>
+      <tr><td>Ampicillin + cloxacillin (&ldquo;Ampiclox&rdquo;)</td><td><span class="badge access">Access</span></td><td>Not recommended</td><td>p.7: WHO does not recommend this fixed-dose combination</td></tr>
+      <tr><td>Amoxicillin + flucloxacillin</td><td><span class="badge access">Access</span></td><td>Not recommended</td><td>p.8: WHO does not recommend this fixed-dose combination</td></tr>
+      <tr><td>Ceftriaxone + sulbactam</td><td><span class="badge watch">Watch</span></td><td>Not recommended</td><td>p.8: WHO does not recommend this fixed-dose combination</td></tr>
+    </table>
+    <p>Gentamicin and cotrimoxazole are among the most dispensed antibiotics in Tanzanian hospitals, so this choice matters: on the demonstration data, applying the book exactly as printed would lower the Access share by 10 to 20 percentage points (AMS Pro and PPS Pro sample hospitals) without any change in prescribing. Every AWaRe figure states which rule set produced it, and the list stays editable on the Setup page. VigiWard uses the WHO classification.</p>
     <div class="citebox"><b>Target used:</b> at least 70% of human antibiotic use from the Access group by 2030 (UN General Assembly Political Declaration on AMR, 2024), which supersedes the earlier WHO target of 60%. AWaRe shares in AMS Pro are shares of antibiotic dispensing lines; a DDD-weighted share is shown beside them.</div>
   </section>
 

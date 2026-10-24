@@ -55,6 +55,10 @@
       <p>Each patient's antimicrobials are compared with the regimens in the STG/NEMLIT 2021 for the diagnosis, age group and indication — 56 rules, each citing its section and page. Where the STG gives no regimen (neonatal sepsis and meningitis, surgical prophylaxis outside obstetrics), clearly labelled WHO rules are used instead. It is a suggestion: the surveyor decides. A newer STG edition can be loaded as a rules file.</p>
     </div>
     <div class="module-row">
+      <h4>Type the drug, the tool does the rest</h4>
+      <p>Write the name as it appears on the chart or pharmacy list (&ldquo;Ceftriaxone 1g IV&rdquo;, &ldquo;amoxyclav&rdquo;, &ldquo;metronidazol&rdquo;). PPS Pro fills in the ATC code, the WHO DDD and the AWaRe group, and asks &ldquo;Did you mean&hellip;?&rdquo; when it is not sure. AWaRe is shown both ways, WHO and the Tanzania STG/NEMLIT 2021 list, checked against each other. The national group is followed where it is stricter and the book's own level of care supports it (meropenem, amikacin and vancomycin as Reserve). Where the book contradicts itself (gentamicin and cotrimoxazole printed as Watch, yet stocked at every dispensary) or is less strict than WHO, WHO wins, and the tool shows the page and the reason. The WHO export always uses WHO.</p>
+    </div>
+    <div class="module-row">
       <h4>Deeper analysis</h4>
       <p>Adults, children and neonates reported separately; surgical prophylaxis by duration, ward type and agent; empiric versus culture-targeted treatment and biomarker use; appropriateness in NAPS categories (optimal, adequate, suboptimal, inadequate) with reasons; and the survey set beside published Tanzanian point prevalence surveys, with full references.</p>
     </div>
@@ -89,17 +93,17 @@
   </section>
 
   <section>
-    <h2>What a real survey looks like</h2>
-    <p class="section-note">From an actual June 2026 survey round, recomputed independently start to finish:</p>
+    <h2>What a survey report looks like</h2>
+    <p class="section-note">From the demonstration hospital's July 2026 survey (simulated data, the same one in the live demo):</p>
     <table class="bench">
       <tr><th>Metric</th><th>Value</th></tr>
-      <tr><td>Patients surveyed</td><td>229</td></tr>
-      <tr><td>Overall prevalence</td><td>49.3% <span style="color:var(--ink-soft);font-weight:400;">(95% CI 42.9&ndash;55.8%)</span></td></tr>
-      <tr><td>AWaRe mix (191 prescriptions)</td><td><span class="badge access">Access 74.9%</span><span class="badge watch">Watch 23.6%</span><span class="badge reserve">Reserve 1.6%</span></td></tr>
-      <tr><td>Surgical prophylaxis &gt; 1 day</td><td><span class="warn">52% (14/27)</span> — above WHO single-dose best practice</td></tr>
-      <tr><td>Culture sample taken before treatment</td><td><span class="warn">7.8% (9/116)</span></td></tr>
+      <tr><td>Inpatients surveyed</td><td>247 (9 wards)</td></tr>
+      <tr><td>Antimicrobial prevalence</td><td>44.9% <span style="color:var(--ink-soft);font-weight:400;">(95% CI 38.9&ndash;51.2%)</span></td></tr>
+      <tr><td>AWaRe mix (162 prescriptions)</td><td><span class="badge access">Access 69.8%</span><span class="badge watch">Watch 27.2%</span><span class="badge reserve">Reserve 0%</span></td></tr>
+      <tr><td>Guideline compliance</td><td><span class="warn">58% (58/100)</span></td></tr>
+      <tr><td>Surgical prophylaxis &gt; 1 day</td><td><span class="warn">30% (6/20)</span> — above WHO single-dose best practice</td></tr>
     </table>
-    <p style="font-size:14.5px;color:var(--ink-soft);">Every figure above was reproduced independently from the raw survey export, including a from-scratch Wilson score interval calculation — not taken from the tool's own summary on faith. The raw export also contained the ordinary mess of real fieldwork: the same ward recorded under five different spellings (<code>WD-B4</code>, <code>WDB4</code>, a stray space, a duplicated letter). PPS Pro's data-quality pass exists precisely because that kind of mess is the norm, not the exception.</p>
+    <p style="font-size:14.5px;color:var(--ink-soft);">Open the live demo to see this survey's full report, ward feedback and trend tests. Real survey files are rarely clean: the same ward written several ways, day and month swapped, broken rows. PPS Pro's data-quality pass finds these and lists every correction for review, never making one silently.</p>
   </section>
 
   <a href="index.html" class="back-link">&larr; Back to home</a>
