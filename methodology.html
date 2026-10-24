@@ -30,11 +30,11 @@
   <p class="crumb"><a href="index.html">Home</a> / Methodology</p>
 
   <section class="page-hero">
-    <span class="tag">Reviewer's page &middot; checked against AMS Pro 4.6, PPS Pro 3.0 and VigiWard 3.6 &middot; October 2026</span>
+    <span class="tag">Reviewer's page &middot; checked against AMS Pro 4.6, PPS Pro 3.0 and VigiWard 3.6, with the PPS Pro 3.3 survey-quality features added &middot; October 2026</span>
     <h1>Every number traces to a named method.</h1>
     <p class="lede">This page exists for the person whose job is to be skeptical: a biostatistician, an AMS committee chair, a TMDA or MOH reviewer. Below is the exact arithmetic behind the figures the tools produce — written from the tools' source code, not from a marketing description of it. Where a method is a simplification, it says so. Data formats, storage and outputs are on the <a href="technical.html">technical documentation</a> page.</p>
     <p class="sans" style="font-size:14px;color:var(--ink-soft);">Jump to:
-      <a href="#wilson">Wilson CI</a> &middot; <a href="#aware">AWaRe</a> &middot; <a href="#ddd">DDD &amp; DOT</a> &middot; <a href="#spc">Run charts</a> &middot; <a href="#trend">Trends over time</a> &middot; <a href="#projection">Projections</a> &middot; <a href="#antibiogram">Antibiogram</a> &middot; <a href="#review">Review rules</a> &middot; <a href="#ssa">Sequence symmetry</a> &middot; <a href="#spike">Spike alerts</a> &middot; <a href="#ipc">IPC indicators</a></p>
+      <a href="#wilson">Wilson CI</a> &middot; <a href="#ppsquality">PPS guideline check &amp; agreement</a> &middot; <a href="#aware">AWaRe</a> &middot; <a href="#ddd">DDD &amp; DOT</a> &middot; <a href="#spc">Run charts</a> &middot; <a href="#trend">Trends over time</a> &middot; <a href="#projection">Projections</a> &middot; <a href="#antibiogram">Antibiogram</a> &middot; <a href="#review">Review rules</a> &middot; <a href="#ssa">Sequence symmetry</a> &middot; <a href="#spike">Spike alerts</a> &middot; <a href="#ipc">IPC indicators</a></p>
   </section>
 
   <section id="wilson">
@@ -183,6 +183,25 @@ alert when O_p &ge; 3, O_p / &lambda;_p &ge; 2 and p &lt; 0.01</div>
     <p class="section-note">Infection prevention and control indicators follow the Tanzania Ministry of Health Global Health Security continuous quality improvement (GHS-CQI) framework, with the Tanzania National IPC Guidelines and WHO/AFRO IPC core components as references.</p>
     <p>AMS Pro carries twelve IPC indicators: surgical site infection, hazardous waste segregation, quarterly IPC programme assessment, IPCAF score, hand hygiene compliance (WHO &ldquo;My 5 Moments&rdquo;), CAUTI, VAP and CLABSI rates per 1,000 device-days, sharps injuries, WASH availability, standard precautions and CSSD reprocessing. The <strong>SSI rate after caesarean section</strong> is computed automatically from the admissions data (confirmed SSI &divide; caesarean sections, also shown on CRF02); the others are observation- or audit-based and entered on the Indicators page with their numerator and denominator.</p>
     <div class="citebox"><b>Applies in:</b> AMS Pro Indicators and CRF Forms; exported as the GHS-CQI indicator CSV for facility submission</div>
+  </section>
+
+  <section id="ppsquality">
+    <h2>PPS Pro 3.3 — guideline check, appropriateness and surveyor agreement</h2>
+    <p class="section-note">How the survey-quality features added in PPS Pro 3.3 work, so a reviewer can check them.</p>
+    <h4 class="sans" style="color:var(--navy-deep);">Guideline check</h4>
+    <p>For each patient on an antimicrobial, the recorded diagnosis (WHO PPS code), age group (neonate &lt; 28 days, child, adult) and indication select the matching rules transcribed from the Tanzania STG/NEMLIT 2021 — 50 rules, each citing its section and printed page. An agent passes if it is listed in any matching rule; the result is shown with the regimen and page, and offered as a suggestion for the “guideline compliant” field, which the surveyor sets. Only the choice of agent is checked, not dose or duration. Where the STG gives no regimen — neonatal sepsis and meningitis, and surgical prophylaxis outside obstetrics — six rules from the WHO Essential Medicines List 2023 and the WHO surgical site infection guidelines are used and labelled as WHO. A Tanzanian rule always takes precedence. Where neither applies (for example medical prophylaxis), the result is “not assessable”. The rules can be exported, edited from a newer STG and loaded back.</p>
+    <h4 class="sans" style="color:var(--navy-deep);">Appropriateness</h4>
+    <p>Rated per patient by the survey team in categories adapted from Australia's National Antimicrobial Prescribing Survey: optimal, adequate, suboptimal, inadequate, not assessable, with reasons for the last two. <b>Appropriate = (optimal + adequate) / assessable patients</b>, reported with a Wilson 95% interval.</p>
+    <h4 class="sans" style="color:var(--navy-deep);">Empiric vs targeted, biomarkers</h4>
+    <p>For treated infections (community- or hospital-acquired): targeted = treatment chosen on a culture or microbiology result, reported as targeted / treated infections where the field was recorded. Biomarker-guided = CRP, procalcitonin or white cell count used / recorded.</p>
+    <h4 class="sans" style="color:var(--navy-deep);">Agreement between surveyors</h4>
+    <div class="formula">p<sub>o</sub> = agreeing pairs / pairs
+p<sub>e</sub> = &Sigma;<sub>c</sub> (share of surveyor A answering c) &times; (share of surveyor B answering c)
+&kappa; = (p<sub>o</sub> &minus; p<sub>e</sub>) / (1 &minus; p<sub>e</sub>)</div>
+    <p>A second surveyor re-surveys a random 10% of patients in every ward (fixed seed per survey, so the list can be reprinted). Records are matched by patient code; for each field, pairs where both surveyors answered are compared. Strength follows Landis &amp; Koch (0.61&ndash;0.80 substantial, &gt; 0.80 almost perfect); kappa is reported with percent agreement because it falls when nearly all answers are the same.</p>
+    <h4 class="sans" style="color:var(--navy-deep);">Pharmacy pre-fill</h4>
+    <p>An antimicrobial counts as given on survey day when <b>dispensing date &le; survey date &le; dispensing date + duration</b> (duration from the dosage text, minimum one day). With an admission register, a patient is included if admitted before the survey day (or at or before 08:00 on it, when a time is recorded) and not discharged before it. Patients not on an antimicrobial are kept only as a count. Pre-filled patients are marked for checking at the bedside.</p>
+    <div class="citebox"><b>Applies in:</b> PPS Pro 3.3 — Data entry, Survey dashboard, Data quality, Training &amp; agreement, Ward feedback, Trend report. <b>Sources:</b> Tanzania STG/NEMLIT 2021; WHO EML 2023; WHO Global Guidelines for the Prevention of Surgical Site Infection (2016/2018); NAPS (Australian Commission on Safety and Quality in Health Care); Landis &amp; Koch, Biometrics 1977.</div>
   </section>
 
   <a href="index.html" class="back-link">&larr; Back to home</a>

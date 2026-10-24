@@ -48,7 +48,7 @@
   <p class="crumb"><a href="index.html">Home</a> / Technical documentation</p>
 
   <section class="page-hero">
-    <span class="tag">Technical reference &middot; AMS Pro 4.8, PPS Pro 3.2 and VigiWard 3.8 &middot; October 2026</span>
+    <span class="tag">Technical reference &middot; AMS Pro 4.8, PPS Pro 3.3 and VigiWard 3.8 &middot; October 2026</span>
     <h1>What the tools read, keep and produce</h1>
     <p class="lede">For the hospital ICT officer, the hospital-system team, the reviewer and the partner organisation: what each tool needs from your hospital system, where it keeps its data, what it hands back, and the one connection it can make. Written from the tools' own code. The statistics behind the figures are on the <a href="methodology.html">methodology page</a>.</p>
     <p class="sans" style="font-size:14px;color:var(--ink-soft);">Jump to:
@@ -103,7 +103,7 @@
       </div>
       <div class="module-row">
         <h4>2. Import</h4>
-        <p>You choose the export files. Excel workbooks are unpacked in the browser and CSV files read directly. AMS Pro and VigiWard find the header row automatically near the top of the sheet, so title rows above it are skipped; AMS Pro matches column names without regard to capitals, spaces or punctuation. PPS Pro expects its own CSV layout, with the header in the first row.</p>
+        <p>You choose the export files. Excel workbooks are unpacked in the browser and CSV files read directly. AMS Pro and VigiWard find the header row automatically near the top of the sheet, so title rows above it are skipped; AMS Pro matches column names without regard to capitals, spaces or punctuation. PPS Pro (3.3) reads its own CSV layout, the same layout in Excel, the WHO PPS data-entry tables (Patient, Indication, Antibiotic, Ward, Hospital — separate files or one workbook), and — for the optional pre-fill — Afya eHMS pharmacy dispensing and admission reports, finding the header row under report titles and recognising unlabeled patient columns by their content. Names, prescriber names, payment and insurance numbers in those reports are never read into the tool.</p>
       </div>
       <div class="module-row">
         <h4>3. Classify &amp; link</h4>
@@ -180,7 +180,7 @@
     </details>
 
     <h3 class="sub">PPS Pro</h3>
-    <p class="section-note" style="margin-bottom:0">One CSV file per survey, one row per inpatient, up to four antimicrobials per patient. Surveys can also be entered patient by patient on screen. A blank template is on the Settings page.</p>
+    <p class="section-note" style="margin-bottom:0">One CSV or Excel file per survey, one row per inpatient, up to four antimicrobials per patient; title lines above the header row are allowed. Surveys can also be entered patient by patient on screen, imported from the WHO PPS tables, or pre-filled from the pharmacy and admission exports. A blank template is on the Settings page.</p>
     <div class="tscroll"><table class="bench">
       <tr><th>Part</th><th>Columns</th></tr>
       <tr><td>Required</td><td><code>ward</code>, and either <code>on_antimicrobial</code> or the antimicrobial names</td></tr>
@@ -188,6 +188,7 @@
       <tr><td>Patient</td><td><code>patient_code</code>, <code>age_years</code>, <code>sex</code>, <code>weight_kg</code>, <code>admission_date</code>, <code>on_antimicrobial</code>, <code>surgery_last_30d</code>, <code>catheter_or_line</code></td></tr>
       <tr><td>Indication &amp; quality</td><td><code>diagnosis</code>, <code>indication</code>, <code>reason_in_notes</code>, <code>guideline_compliant</code>, <code>culture_taken</code>, <code>stop_review_date</code></td></tr>
       <tr><td>Antimicrobials (n = 1&ndash;4)</td><td><code>ab<i>n</i>_name</code>, <code>ab<i>n</i>_atc</code>, <code>ab<i>n</i>_aware</code>, <code>ab<i>n</i>_route</code>, <code>ab<i>n</i>_dose_mg</code>, <code>ab<i>n</i>_doses_per_day</code></td></tr>
+      <tr><td>Added in 3.3 (optional)</td><td><code>treatment_type</code> (E empiric, T targeted), <code>biomarker</code> (CRP, PCT, WBC, OTHER, NONE), <code>appropriateness</code> (OPT, ADQ, SUB, INA, NA), <code>appropriateness_reasons</code> (e.g. SPEC_BROAD;DURATION) — older files without them still import</td></tr>
     </table></div>
     <div class="tscroll"><table class="bench">
       <tr><th>Field</th><th>Codes</th></tr>
@@ -381,7 +382,7 @@
   <!-- ============================== VERSIONS ============================== -->
   <section id="versions">
     <h2>Versions and updates</h2>
-    <p class="section-note">Current versions: AMS Pro 4.8, PPS Pro 3.2 and VigiWard 3.8. Each tool shows its version on screen.</p>
+    <p class="section-note">Current versions: AMS Pro 4.8, PPS Pro 3.3 and VigiWard 3.8. Each tool shows its version on screen.</p>
     <ul class="plain">
       <li><b>Reference lists</b> (AWaRe groups, ATC codes, DDDs) are updated through this website, without a new copy of the tool. See the <a href="updates/">reference list page</a>.</li>
       <li><b>Fixes and new versions</b> are sent to registered holders. Each licensed copy is registered to its facility, which is how news of updates reaches it. <a href="index.html#download">Request the tools</a>.</li>

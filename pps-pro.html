@@ -30,37 +30,61 @@
   <p class="crumb"><a href="index.html">Home</a> / Tools / PPS Pro</p>
 
   <section class="page-hero">
-    <span class="tag sans">v3.2 &middot; ~0.1 MB &middot; single file &middot; offline</span>
+    <span class="tag sans">v3.3 &middot; ~1 MB &middot; single file &middot; offline</span>
     <h1>PPS Pro</h1>
-    <p class="lede">A WHO-methodology point prevalence survey tool: capture data ward by ward, get automatic AWaRe classification and a properly-computed confidence interval on every figure — then follow every indicator across survey rounds with formal trend tests, so you can show whether stewardship is working.</p>
+    <p class="lede">A WHO-methodology point prevalence survey tool that works with the data Tanzanian hospitals really have: type patients in at the bedside, or start from the pharmacy and admission exports and the WHO PPS tables — then check every prescription against the Tanzania STG, give each ward its own feedback, and follow every indicator across survey rounds with formal trend tests.</p>
     <div class="cta-row">
       <a href="tools/Odieman_PPS_Pro.html?demo=1" target="_blank" rel="noopener" class="btn primary sans">Open the live demo</a>
       <a href="index.html#download" class="btn ghost sans">Request PPS Pro</a>
-      
+    </div>
+  </section>
+
+  <section>
+    <h2>New in version 3.3</h2>
+    <p class="section-note">Built after a review of the leading survey tools — WHO PPS, Global-PPS and Australia's NAPS — keeping what fits a Tanzanian hospital and leaving out what needs an IT department.</p>
+    <div class="module-row">
+      <h4>Reads real hospital files</h4>
+      <p>Excel as well as CSV; the WHO PPS data-entry tables (Patient, Indication, Antibiotic — as separate files or one workbook, several surveys split automatically); and Afya eHMS pharmacy and admission reports, even when the patient columns have no headings. Only what a survey can use is kept — non-antimicrobial items, eye and skin preparations, broken rows, names and insurance numbers are dropped — and every correction (swapped day and month, merged ward-code spellings) is listed for review, never made silently.</p>
+    </div>
+    <div class="module-row">
+      <h4>Optional pre-fill from pharmacy and admissions</h4>
+      <p>From the exports, PPS Pro adds the inpatients present at 08:00 on survey day with their antimicrobials, dose, route and frequency, and prints a bedside worklist for what only the chart shows. A readiness check says plainly what the files can and cannot give a survey. Patients not on an antimicrobial are kept only as a count for the denominator. Typing patients in by hand works exactly as before.</p>
+    </div>
+    <div class="module-row">
+      <h4>Guideline check against the Tanzania STG</h4>
+      <p>Each patient's antimicrobials are compared with the regimens in the STG/NEMLIT 2021 for the diagnosis, age group and indication — 56 rules, each citing its section and page. Where the STG gives no regimen (neonatal sepsis and meningitis, surgical prophylaxis outside obstetrics), clearly labelled WHO rules are used instead. It is a suggestion: the surveyor decides. A newer STG edition can be loaded as a rules file.</p>
+    </div>
+    <div class="module-row">
+      <h4>Deeper analysis</h4>
+      <p>Adults, children and neonates reported separately; surgical prophylaxis by duration, ward type and agent; empiric versus culture-targeted treatment and biomarker use; appropriateness in NAPS categories (optimal, adequate, suboptimal, inadequate) with reasons; and the survey set beside published Tanzanian point prevalence surveys, with full references.</p>
+    </div>
+    <div class="module-row">
+      <h4>One-page feedback for every ward</h4>
+      <p>Each ward in-charge gets their own results next to the hospital and their previous survey, what stands out, what is going well, and space for the actions agreed at the ward meeting. No patient or prescriber is named.</p>
+    </div>
+    <div class="module-row">
+      <h4>Survey quality you can show</h4>
+      <p>Practice cases for every surveyor (80% to pass, as NAPS requires) and an agreement check: a second surveyor re-surveys one patient in ten, and PPS Pro reports percent agreement and Cohen's kappa field by field.</p>
     </div>
   </section>
 
   <section>
     <h2>How a survey runs</h2>
     <div class="module-row">
-      <h4>1. Patient capture</h4>
-      <p>Enter each surveyed patient directly — ward, age, sex, weight for children, whether they're on an antimicrobial that day, diagnosis, indication and up to four agents with dose and route — or import a CSV per survey. ATC code and AWaRe group are filled in automatically, and common brand names are recognised.</p>
+      <h4>1. Prepare</h4>
+      <p>Surveyors complete the practice cases. Ward names and WHO ward types are set once. If the pharmacy and admission exports are available, pre-fill the survey and print the bedside worklist.</p>
     </div>
     <div class="module-row">
-      <h4>2. Multi-surveyor merge</h4>
-      <p>When more than one person surveys different wards on the same day, each surveyor's file merges into the same survey — and patient codes that appear in both files are listed on the data-quality page for review, never silently overwritten.</p>
+      <h4>2. Survey day</h4>
+      <p>On each ward, every inpatient present at 08:00: confirm or enter the antimicrobials, and record diagnosis, indication, reason in notes, guideline compliance (with the STG check beside it), culture, stop/review date, empiric or targeted, biomarker and appropriateness. Patients not on antimicrobials only need counting. Several surveyors' files merge into one survey.</p>
     </div>
     <div class="module-row">
-      <h4>3. Data quality pass</h4>
-      <p>Before analysis, the tool checks integrity: duplicate patient codes, missing ward or age, admission after the survey date, hospital-acquired infection within 48 hours of admission, prophylaxis without surgery, missing doses or routes — the same checks a statistician would run by hand, run automatically.</p>
+      <h4>3. Data quality</h4>
+      <p>Duplicate codes, missing ward or age, admission after the survey date, hospital-acquired infection within 48 hours, prophylaxis without surgery, targeted treatment without a culture, unchecked pre-filled patients, and every correction made on import — checked automatically. A 10% re-survey list and the agreement report show how reliable the data are.</p>
     </div>
     <div class="module-row">
-      <h4>4. Trends across rounds</h4>
-      <p>Every indicator is followed across survey rounds: prevalence, Access/Watch/Reserve share, parenteral route, reason in notes, guideline compliance, culture, stop/review date, surgical prophylaxis beyond one day and more — each with a Cochran&ndash;Armitage test for trend, ward heat-maps and a printable trend report.</p>
-    </div>
-    <div class="module-row">
-      <h4>5. Executive snapshot</h4>
-      <p>Overall antimicrobial prevalence with a Wilson 95% confidence interval, AWaRe mix (Access/Watch/Reserve), antibiotics per treated patient, and a ward-by-ward breakdown — ready to present to the AMS committee or export as a report.</p>
+      <h4>4. Results</h4>
+      <p>Prevalence with a Wilson 95% confidence interval, AWaRe mix, the new analyses above, ward-by-ward results, and every indicator across rounds with a Cochran&ndash;Armitage test for trend — in a printable trend report, the WHO PPS export format, and one feedback sheet per ward.</p>
     </div>
   </section>
 
