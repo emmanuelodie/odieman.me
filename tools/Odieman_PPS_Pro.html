@@ -51,7 +51,6 @@
   window.addEventListener("paste",function(e){var d=e.clipboardData;if(e.isTrusted&&d&&d.files&&d.files.length){e.preventDefault();e.stopImmediatePropagation();notice();}},true);
 })();
 </script>
-
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="author" content="Odindo Emmanuel Thomas">
@@ -267,9 +266,9 @@ const ALIASES={"ampiclox":"Ampicillin-cloxacillin","magnapen":"Amoxicillin-flucl
 function fCls(f,route){return (f&&f.awareByRoute&&route&&f.awareByRoute[route])||(f&&f.aware)||""}
 function fAtc(f,route){return (f&&f.atcByRoute&&route&&f.atcByRoute[route])||(f&&f.atc)||""}
 const DX={PNEU:"Pneumonia",BRON:"Bronchitis / LRTI",CNS:"CNS infection",BAC:"Bacteraemia",CSEP:"Clinical sepsis",PYE:"Upper UTI / pyelonephritis",
- CYS:"Lower UTI / cystitis",GI:"Gastrointestinal infection",IA:"Intra-abdominal infection",SST:"Skin & soft tissue",BJ:"Bone & joint",
+ CYS:"Lower UTI / cystitis",GI:"Gastrointestinal infection",IA:"Intra-abdominal infection",SST:"Skin & soft tissue","SST-SSI":"Skin & soft tissue – surgical site","SST-O":"Skin & soft tissue – not surgical site",BJ:"Bone & joint","BJ-SSI":"Bone & joint – surgical site","BJ-O":"Bone & joint – not surgical site",
  OBGY:"Obstetric / gynaecological",FN:"Febrile neutropenia",UND:"Undefined site",MAL:"Malaria",PROK:"Surgical prophylaxis",PROF:"Medical prophylaxis",
- EYE:"Eye",ENT:"Ear, nose, throat",CVS:"Cardiovascular",ASB:"Asymptomatic bacteriuria",GUM:"Genito-urinary (male)",SIRS:"SIRS"};
+ EYE:"Eye",ENT:"Ear, nose, throat",CVS:"Cardiovascular",ASB:"Asymptomatic bacteriuria",GUM:"Genito-urinary (male)",SIRS:"SIRS",CF:"Cystic fibrosis",STD:"Sexually transmitted infection"};
 const INDN={CAI:"Community-acquired infection",HAI:"Hospital-acquired infection",SP1:"Surgical prophylaxis, 1 dose",SP2:"Surgical prophylaxis, 1 day",
  SP3:"Surgical prophylaxis, >1 day",MP:"Medical prophylaxis",OTH:"Other",UNK:"Unknown"};
 const AWC={Access:"#2e7d4f",Watch:"#d08a1a",Reserve:"#b23b3b","Not classified":"#8a9699"};
@@ -359,15 +358,15 @@ function calc(s){
  const sp=T.filter(p=>/^SP/.test(p.ind)),ass=T.filter(p=>p.guide==="Y"||p.guide==="N");
  const ddd=rx.reduce((a,x)=>a+abDDD(x),0);
  const out={N,t,rx:rx.length,
-  prev:R(t,N),access:R(cnt(rx,a=>a.aware==="Access"),rx.length),watch:R(cnt(rx,a=>a.aware==="Watch"),rx.length),
-  reserve:R(cnt(rx,a=>a.aware==="Reserve"),rx.length),nc:R(cnt(rx,a=>!["Access","Watch","Reserve"].includes(a.aware)),rx.length),
+  prev:R(t,N),access:R(cnt(rx,a=>awOf(a)==="Access"),rx.length),watch:R(cnt(rx,a=>awOf(a)==="Watch"),rx.length),
+  reserve:R(cnt(rx,a=>awOf(a)==="Reserve"),rx.length),nc:R(cnt(rx,a=>!["Access","Watch","Reserve"].includes(awOf(a))),rx.length),
   parenteral:R(cnt(rx,a=>a.route==="P"),rx.length),reason:R(cnt(T,p=>p.reason==="Y"),t),guide:R(cnt(ass,p=>p.guide==="Y"),ass.length),
   cult:R(cnt(T,p=>p.culture==="Y"),t),stop:R(cnt(T,p=>p.stop==="Y"),t),spLong:R(cnt(sp,p=>p.ind==="SP3"),sp.length),
   combo:R(cnt(T,p=>p.abs.length>=2),t),targeted:R(cnt(T,p=>isTher(p)&&p.tx==="T"),cnt(T,p=>isTher(p)&&!!p.tx)),approp:R(cnt(T,p=>p.appr==="OPT"||p.appr==="ADQ"),cnt(T,p=>p.appr&&p.appr!=="NA")),biomk:R(cnt(T,p=>isTher(p)&&p.bio&&p.bio!=="NONE"),cnt(T,p=>isTher(p)&&!!p.bio)),hai:R(cnt(T,p=>p.ind==="HAI"),t),
   perPt:{v:t?rx.length/t:null},ddd100:{v:N?ddd/N*100:null},ddd};
  const by=(arr,f)=>{const m={};arr.forEach(x=>{const k=f(x)||"(blank)";m[k]=(m[k]||0)+1});return m};
  out.drugs=by(rx,a=>a.name);out.dx=by(T,p=>p.dx);out.indic=by(T,p=>p.ind);out.route=by(rx,a=>a.route);
- const W={};P.forEach(p=>{const w=W[p.ward]||(W[p.ward]={N:0,t:0,rx:0,acc:0,type:p.wardType});w.N++;if(p.on==="Y"){w.t++;p.abs.forEach(a=>{w.rx++;if(a.aware==="Access")w.acc++})}});
+ const W={};P.forEach(p=>{const w=W[p.ward]||(W[p.ward]={N:0,t:0,rx:0,acc:0,type:p.wardType});w.N++;if(p.on==="Y"){w.t++;p.abs.forEach(a=>{w.rx++;if(awOf(a)==="Access")w.acc++})}});
  out.wards=W;_cache.set(key,out);return out}
 
 /* ============ CSV ============ */
@@ -546,12 +545,12 @@ const PAGES=[
  ["Start",[["guide","User guide"]]],
  ["Analyse",[["overview","Overview"],["dash","Survey dashboard"],["trends","Trends"],["wards","Ward analysis"],["drugs","Antimicrobial use"],["stats","Statistics"]]],
  ["Data",[["surveys","Surveys"],["entry","Data entry"],["quality","Data quality"],["qa","Training & agreement"]]],
- ["Output",[["report","Trend report"],["feedback","Ward feedback"],["folder","Data folder"],["settings","Settings"]]]];
+ ["Output",[["report","Trend report"],["feedback","Ward feedback"],["who","WHO PPS export"],["folder","Data folder"],["settings","Settings"]]]];
 function navHTML(){return PAGES.map(([g,items])=>`<div class="navgrp">${g}</div>`+items.map(([k,l])=>`<a data-page="${k}" class="${UI.page===k?"on":""}">${l}</a>`).join("")).join("")}
 function go(p){UI.page=p;render();window.scrollTo(0,0)}
 function render(){$("#nav").innerHTML=navHTML();const t=PAGES.flatMap(g=>g[1]).find(x=>x[0]===UI.page);$("#ptitle").textContent=t?t[1]:"";
  if(UI.sid&&!getS(UI.sid))UI.sid=null;if(!UI.sid&&DB.surveys.length)UI.sid=sorted().at(-1).id;
- const fn={guide:vGuide,overview:vOverview,dash:vDash,trends:vTrends,wards:vWards,drugs:vDrugs,stats:vStats,surveys:vSurveys,entry:vEntry,quality:vQuality,report:vReport,feedback:vFeedback,qa:vQA,folder:vFolder,settings:vSettings}[UI.page];
+ const fn={guide:vGuide,overview:vOverview,dash:vDash,trends:vTrends,wards:vWards,drugs:vDrugs,stats:vStats,surveys:vSurveys,entry:vEntry,quality:vQuality,report:vReport,feedback:vFeedback,qa:vQA,who:vWho,folder:vFolder,settings:vSettings}[UI.page];
  $("#view").innerHTML=fn();bindView()}
 function noData(){return`<div class="empty"><h3>No survey data yet</h3><p>Open your data folder (any PPS CSV files inside are imported automatically) or click <b>Import CSV</b>.</p>
  <div class="row" style="justify-content:center"><button class="btn" data-act="folder">Open data folder</button><button class="btn ghost" data-act="import">Import CSV</button></div></div>`}
@@ -575,7 +574,7 @@ function vDash(){if(!DB.surveys.length)return noData();const s=getS(UI.sid),c=ca
  h+=`<div class="kpis"><div class="kpi"><div class="l">Inpatients surveyed</div><div class="v">${c.N}</div><div class="d muted">${Object.keys(c.wards).length} wards</div></div><div class="kpi"><div class="l">Prescriptions</div><div class="v">${c.rx}</div><div class="d muted">${c.t} treated patients</div></div>`+
   kp.map(k=>{const ci=c[k].d!=null?wilson(c[k].n,c[k].d):null;return`<div class="kpi"><div class="l">${IND[k].label}</div><div class="v">${fmtInd(k,c[k].v)}</div><div class="d muted">${c[k].d!=null?`${c[k].n}/${c[k].d} · 95% CI ${pct(ci[0],0)}–${pct(ci[1],0)}${c[k].d<20?` · <span style="color:var(--warn)" title="Fewer than 20 in the denominator — the estimate is unstable">⚠ n&lt;20</span>`:""}`:IND[k].desc}</div></div>`}).join("")+`</div>`;
  const aw=["Access","Watch","Reserve","Not classified"].map(k=>({label:k,value:c.rx?(k==="Not classified"?c.nc.n:c[k.toLowerCase()].n)/c.rx:0,color:AWC[k]}));
- const drugs=Object.entries(c.drugs).sort((a,b)=>b[1]-a[1]).slice(0,12).map(([k,v])=>({label:k,value:v/c.rx,text:`${v} (${pct(v/c.rx)})`,color:AWC[FORMULARY[k]?.aware]||"#8a9699"}));
+ const drugs=Object.entries(c.drugs).sort((a,b)=>b[1]-a[1]).slice(0,12).map(([k,v])=>({label:k,value:v/c.rx,text:`${v} (${pct(v/c.rx)})`,color:AWC[awName(k)]||"#8a9699"}));
  const wards=Object.entries(c.wards).map(([k,w])=>({label:k,value:w.N?w.t/w.N:0,text:`${pct(w.N?w.t/w.N:0)} (${w.t}/${w.N})`})).sort((a,b)=>b.value-a.value);
  const ind=Object.entries(c.indic).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({label:INDN[k]||k,value:v/c.t,text:`${v} (${pct(v/c.t)})`,color:/^SP/.test(k)?"#c9772b":k==="HAI"?"#b23b3b":"#13737a"}));
  const dx=Object.entries(c.dx).sort((a,b)=>b[1]-a[1]).slice(0,10).map(([k,v])=>({label:DX[k]||k,value:v/c.t,text:`${v} (${pct(v/c.t)})`,color:"#5b6ec7"}));
@@ -585,6 +584,7 @@ function vDash(){if(!DB.surveys.length)return noData();const s=getS(UI.sid),c=ca
  ${chartCard("Indication for treatment","Treated patients",barH(ind,{lw:200}),"indication_"+s.id)}
  ${chartCard("Diagnosis (site of infection)","Top 10, treated patients",barH(dx,{lw:200}),"dx_"+s.id)}
  ${chartCard("Route of administration","Share of prescriptions",barH([{label:"Parenteral",value:c.parenteral.v||0,color:"#c9772b"},{label:"Oral",value:1-(c.parenteral.v||0),color:"#13737a"}],{pct:1,max:1}),"route_"+s.id)}</div>`;
+ h+=`<div class="card section"><h3>AWaRe — WHO and Tanzania</h3><div class="sub">The Tanzania STG/NEMLIT 2021 groups some antibiotics differently from WHO. PPS Pro follows the national group where it is stricter and the book's own level of care supports it (meropenem, vancomycin, amikacin as Reserve…); where the book contradicts itself or is laxer than WHO, WHO wins and the reason is shown.</div>${awCard(s)}</div>`;
  h+=`<div class="card section"><h3>Adults, children and neonates</h3><div class="sub">Neonates: under 28 days · children: 28 days to 17 years · adults: 18 years and over. Antibiotic use differs sharply between these groups, so a hospital-wide figure can hide a problem in one of them.</div>${ageTable(s)}</div>`;
  h+=`<div class="card section"><h3>Empiric or targeted treatment</h3><div class="sub">Treatment based on a culture result (targeted) versus chosen before results (empiric), and whether a biomarker such as CRP guided it. Low targeted treatment with low culture use means prescribing is guesswork; a culture taken but never acted on is a missed chance.</div>${txCard(s)}</div>`;
  h+=`<div class="card section"><h3>Appropriateness</h3><div class="sub">The survey team's judgement of each patient's treatment — agent, dose, route and duration — in NAPS categories: optimal, adequate, suboptimal, inadequate, not assessable.</div>${apprCard(s)}</div>`;
@@ -650,7 +650,7 @@ function vSurveys(){let h=`<div class="row section"><button class="btn" data-act
  if(!DB.surveys.length)return h+noData();
  h+=`<div class="tablewrap"><table><tr><th>Survey ID</th><th>Date</th><th>Facility</th><th class="n">Inpatients</th><th class="n">On AM</th><th class="n">Prevalence</th><th>Source</th><th></th></tr>`+
   sorted().map(s=>{const c=calc(s);return`<tr><td><b>${esc(s.id)}</b></td><td>${fmtDate(s.date)}</td><td>${esc(s.facility)}</td><td class="n">${c.N}</td><td class="n">${c.t}</td><td class="n">${pct(c.prev.v)}</td><td class="muted">${esc(s.source||"manual")}</td>
-  <td style="white-space:nowrap"><button class="btn small ghost" data-open="${esc(s.id)}">Dashboard</button> <button class="btn small ghost" data-edit="${esc(s.id)}">Edit</button> <button class="btn small ghost" data-exp="${esc(s.id)}">CSV</button> <button class="btn small danger" data-del="${esc(s.id)}">Delete</button></td></tr>`}).join("")+`</table></div>`;
+  <td style="white-space:nowrap"><button class="btn small ghost" data-open="${esc(s.id)}">Dashboard</button> <button class="btn small ghost" data-edit="${esc(s.id)}">Edit</button> <button class="btn small ghost" data-exp="${esc(s.id)}">CSV</button> <button class="btn small ghost" data-whosv="${esc(s.id)}" title="WHO PPS export">WHO</button> <button class="btn small danger" data-del="${esc(s.id)}">Delete</button></td></tr>`}).join("")+`</table></div>`;
  return h}
 function vEntry(){if(!DB.surveys.length)return`<div class="row section"><button class="btn" data-act="newsurvey">Create a survey</button></div>`+noData();
  const s=getS(UI.sid),p=UI.editIdx!=null?s.patients[UI.editIdx]:null,v=(k,d="")=>esc(p?.[k]??d);
@@ -689,7 +689,7 @@ function vEntry(){if(!DB.surveys.length)return`<div class="row section"><button 
  ${[0,1,2,3].map(i=>{const a=p?.abs[i]||{};return`<div class="abgrid"><label class="f">Antimicrobial ${i+1}<input id="a${i}_name" list="drugList" value="${esc(a.name||"")}" data-ab="${i}"></label>
   <label class="f">Route<select id="a${i}_route">${opt([["",""],["P","Parenteral"],["O","Oral"],["R","Rectal"],["I","Inhaled"]],a.route)}</select></label>
   <label class="f">Dose (mg)<input id="a${i}_dose" type="number" value="${esc(a.dose??"")}"></label><label class="f">Doses/day<input id="a${i}_freq" type="number" value="${esc(a.freq??"")}"></label>
-  <label class="f">ATC<input id="a${i}_atc" value="${esc(a.atc||"")}" readonly></label><label class="f">AWaRe<input id="a${i}_aware" value="${esc(a.aware||"")}" readonly></label></div>`}).join("")}
+  <div class="f" id="a${i}_info" style="grid-column:span 2;align-self:end;font-size:12.5px;line-height:1.5;padding-bottom:4px"></div></div>`}).join("")}
  <div id="stgBox"></div>
  <div class="row" style="margin-top:14px"><button class="btn" data-act="savepat">${p?"Save changes":"Add patient"}</button>${p?'<button class="btn ghost" data-act="cancelpat">Cancel</button>':""}<span class="muted">Saved automatically to the data folder.</span></div></div>`;
  h+=`<div class="row section"><input class="inp" id="patSearch" placeholder="Search patient code, ward, drug…" style="min-width:280px"></div><div class="tablewrap" id="patTable">${patTable(s,"")}</div>`;
@@ -698,7 +698,7 @@ function patTable(s,q){q=q.toLowerCase();const cb=cntSummary(s),nC=Object.values
  const cntLine=nC?`<p class="muted" style="margin:0 0 8px">+ ${nC} patient(s) not on antimicrobials, counted for the denominator only: ${Object.entries(cb).map(([w,n])=>esc(w)+" "+n).join(" · ")} <button class="btn small ghost" data-act="cnttoggle">${UI.showCnt?"Hide":"Show"}</button></p>`:"";
  const rows=s.patients.map((p,i)=>[p,i]).filter(([p])=>UI.showCnt||!p.cnt).filter(([p])=>!q||[p.code,p.hid||"",p.ward,p.dx,p.ind,...p.abs.map(a=>a.name)].join(" ").toLowerCase().includes(q));
  return cntLine+`<table><tr><th>Code</th><th>Ward</th><th class="n">Age</th><th>Sex</th><th>On AM</th><th>Indication</th><th>Diagnosis</th><th>Antimicrobials</th><th></th></tr>`+rows.slice(0,400).map(([p,i])=>`<tr><td class="mono">${esc(p.code)}${p.pf&&p.chk!=="Y"?' <span class="tag nc" title="Pre-filled from hospital exports; not yet checked at the bedside">to check</span>':""}</td><td>${esc(p.ward)}</td><td class="n">${p.age??""}</td><td>${esc(p.sex)}</td><td>${p.on}</td><td>${esc(p.ind)}</td><td>${esc(p.dx)}</td>
- <td>${p.abs.map(a=>`<span class="tag ${["Access","Watch","Reserve"].includes(a.aware)?a.aware:"nc"}">${esc(a.name)}</span>`).join(" ")}</td><td style="white-space:nowrap"><button class="btn small ghost" data-pedit="${i}">Edit</button> <button class="btn small danger" data-pdel="${i}">✕</button></td></tr>`).join("")+`</table>${rows.length>400?`<p class="muted">Showing 400 of ${rows.length}. Use search to narrow.</p>`:""}`}
+ <td>${p.abs.map(a=>`<span class="tag ${["Access","Watch","Reserve"].includes(awOf(a))?awOf(a):"nc"}">${esc(a.name)}</span>`).join(" ")}</td><td style="white-space:nowrap"><button class="btn small ghost" data-pedit="${i}">Edit</button> <button class="btn small danger" data-pdel="${i}">✕</button></td></tr>`).join("")+`</table>${rows.length>400?`<p class="muted">Showing 400 of ${rows.length}. Use search to narrow.</p>`:""}`}
 function dqCheck(s){const out=[];const seen=new Set();
  s.patients.forEach(p=>{const id=p.code||"(no code)";const add=(lvl,msg)=>out.push({s:s.id,id,lvl,msg});
   (p.whoFlags||[]).forEach(f=>add(/No”|unreadable|after the survey/.test(f)?"Warning":"Info",f));
@@ -751,9 +751,9 @@ function reportHTML(){const S=sorted(),C=S.map(calc),labels=S.map(s=>monYr(s.dat
  <h2>7. Empiric or targeted treatment (${esc(S.at(-1).id)})</h2>${txCard(S.at(-1),1)}
  <h2>8. Appropriateness (${esc(S.at(-1).id)})</h2>${apprCard(S.at(-1),1)}
  <h2>9. Comparison with published Tanzanian surveys</h2>${benchCard(S.at(-1),1)}
- <h2>10. Methods note</h2><p>Surveys followed the WHO point prevalence survey methodology: all inpatients present on the ward at 08:00 on the survey day were included. Antimicrobials were classified with the WHO AWaRe list and ATC/DDD index. Trends were tested with the Cochran–Armitage test for trend using time in years; 95% confidence intervals use the Wilson method. Surgical prophylaxis duration uses the WHO PPS codes (single dose, one day, more than one day); WHO surgical site infection guidelines (2016, 2018) recommend not continuing prophylaxis after the operation. Age groups: neonates under 28 days, children 28 days to 17 years, adults 18 years and over. Results are aggregate; no patient identifiers are reported.</p></div>`}
+ <h2>10. Methods note</h2><p>Surveys followed the WHO point prevalence survey methodology: all inpatients present on the ward at 08:00 on the survey day were included. Antimicrobials were classified with the ${awView()==="TZ"?"Tanzania STG/NEMLIT 2021 national AWaRe grouping, checked against WHO (WHO where not listed, contradictory or less strict)":"WHO AWaRe list"} and the WHO ATC/DDD index. Trends were tested with the Cochran–Armitage test for trend using time in years; 95% confidence intervals use the Wilson method. Surgical prophylaxis duration uses the WHO PPS codes (single dose, one day, more than one day); WHO surgical site infection guidelines (2016, 2018) recommend not continuing prophylaxis after the operation. Age groups: neonates under 28 days, children 28 days to 17 years, adults 18 years and over. Results are aggregate; no patient identifiers are reported.</p></div>`}
 function vReport(){if(sorted().length<2)return DB.surveys.length?`<div class="warnbox">The trend report needs at least two surveys.</div>`:noData();
- return`<div class="row section noprint"><button class="btn" data-act="print">Print / Save as PDF</button><button class="btn ghost" data-act="savereport">Save report (HTML) to folder</button><button class="btn ghost" data-act="savesummary">Save indicator table (CSV)</button><button class="btn ghost" data-act="whopps" title="Hospital, ward, patient, indication and antibiotic tables with WHO PPS variable names">Export in WHO PPS format (ZIP)</button></div>`+reportHTML()}
+ return`<div class="row section noprint"><button class="btn" data-act="print">Print / Save as PDF</button><button class="btn ghost" data-act="savereport">Save report (HTML) to folder</button><button class="btn ghost" data-act="savesummary">Save indicator table (CSV)</button></div>`+reportHTML()}
 function vFolder(){const st=FS.state;let h=`<div class="card section"><h3>Data folder</h3>`;
  if(st==="unsupported")h+=`<div class="warnbox">This browser cannot save to a folder. Open this file in <b>Google Chrome</b> or <b>Microsoft Edge</b>. Until then data is kept inside this browser only – use “Download full backup” regularly.</div>`;
  else if(st==="connected")h+=`<p><span class="dot ok" style="display:inline-block"></span> Connected to <b>${esc(FS.handle.name)}</b>. Every change is saved automatically ${FS.lastSave?"(last save "+FS.lastSave.toLocaleTimeString()+")":""}.</p>`;
@@ -774,6 +774,7 @@ function vSettings(){return`<div class="grid g2"><div class="card"><h3>Settings<
  <p>Codes – <b>indication</b>: ${Object.keys(INDN).join(", ")} · <b>diagnosis</b>: ${Object.keys(DX).join(", ")} · <b>route</b>: P (parenteral) or O (oral) · Yes/No fields: Y, N (NA allowed for guideline).</p>
  <p>ATC code and AWaRe group are filled in automatically from the reference list in use (see <b>Reference lists</b> below) when left blank. Common brand names (Augmentin, Septrin, Flagyl, X-pen…) are recognised.</p>
  <button class="btn ghost" data-act="template">Download blank template</button></div>
+ ${learnedCard()}
  ${wardMapCard()}
  ${stgCard()}
  <div class="card" style="grid-column:1/-1"><h3>Reference lists — AWaRe groups, ATC codes &amp; WHO DDDs</h3><div class="sub">WHO revises the AWaRe classification every two years and the ATC/DDD Index every year. Check here for the latest list instead of waiting for a new copy of PPS Pro. You see exactly what would change before anything is applied.</div>${window.ODMREF?ODMREF.cardHTML():""}</div></div>`}
@@ -813,6 +814,8 @@ function vGuide(){
   <li><b>Guideline compliance:</b> once the diagnosis, indication and antimicrobials are entered, PPS Pro shows an <b>STG check</b> — whether each agent is listed in the Tanzania STG/NEMLIT for that diagnosis and age group, with the section and page. It is a suggestion: you decide, and can set the field with one click. It checks the choice of agent, not dose or duration. Where the STG has no regimen (neonatal sepsis and meningitis, surgical prophylaxis outside obstetrics), clearly marked WHO rules are used instead. The rules can be seen, exported, and replaced with a newer STG edition under Settings.</li>
   <li><b>Empiric or targeted</b> (treated infections only): targeted means the choice is based on a culture or other microbiology result; empiric means chosen before any result. <b>Biomarker used</b>: CRP, procalcitonin or white cell count used to start or guide treatment — or None.</li>
   <li><b>Appropriateness</b> (ideally rated by two people from the AMS team): <b>optimal</b> — what a stewardship expert would choose; <b>adequate</b> — a reasonable alternative; <b>suboptimal</b> — reasonable but with a problem (spectrum, dose, route, duration, double cover); <b>inadequate</b> — unlikely to work, unsafe, or not needed; <b>not assessable</b>. Tick the reason for suboptimal or inadequate. Categories adapted from Australia's NAPS.</li>
+  <li><b>AWaRe:</b> every antibiotic gets its WHO group and its Tanzania NEMLIT 2021 group. The national group is followed only where it is stricter than WHO and the book's level of care supports it; where the book contradicts itself (gentamicin and cotrimoxazole printed as Watch but stocked at dispensary level) or is laxer than WHO, WHO wins and the dashboard says why, with the page. You choose which grouping results are counted in. The WHO PPS export always uses WHO.</li>
+  <li><b>Antimicrobial names:</b> type them as written on the chart — “Ceftriaxone 1g IV BD”, “Augmentin 625”, “Ampiclox”, even with a spelling slip. PPS Pro finds the drug, fills route, dose and doses per day where it can, and shows the ATC code and AWaRe group itself; you never type them. If it is not sure it asks “Did you mean…?”, and remembers your answer (Settings › Drug names taught).</li>
   <li>Use the chart, treatment sheet and notes — not the patient's memory. Record what is prescribed on the survey day.</li>
   <li>Repeat at the same time of year where possible, with the same wards and the same method, so surveys can be compared.</li></ul></div>
 
@@ -836,6 +839,7 @@ function vGuide(){
   ${page("entry","Data entry","Add or edit patients one by one, with the antimicrobial list, ATC and AWaRe filled in for you.","Saved automatically to the data folder.")}
   ${page("quality","Data quality","Errors and warnings: missing ward or age, duplicate codes, admission after survey date, HAI within 48 h, prophylaxis without surgery, missing doses or routes.","Fix errors before reporting.")}
   ${page("report","Trend report","A complete report: summary, surveys included, indicator table with trend p-values, charts and a methods note.","Print / Save as PDF, or save the HTML into the data folder.")}
+  ${page("who","WHO PPS export","One survey in the WHO PPS structure: Hospital, Ward, Patient, Indication and Antibiotic sheets with WHO variable names and codes, as an Excel workbook or CSV files. An About sheet explains every conversion; a Check sheet lists values to confirm.","Fill in the hospital form and ward types once; read the Check list before sending the file to a survey coordinator.")}
   ${page("folder","Data folder","Connection status, what is kept in the folder, backup and restore, activity log.","Reconnect here after restarting the browser.")}
   ${page("settings","Settings","Facility name, who prepared the report, number of daily backups, CSV format and blank template.","Set once.")}
   </table></div></div>
@@ -875,6 +879,169 @@ function vGuide(){
   <tr><td><b>ATC</b></td><td>WHO Anatomical Therapeutic Chemical code of a medicine.</td></tr></table></div></div>
  </div>`}
 
+/* ============ WHO PPS export (v3.2) ============
+   One survey written in the structure of the WHO Methodology for Point Prevalence Survey on Antibiotic Use in
+   Hospitals (WHO/EMP/IAU/2018.01): Hospital, Ward, Patient, Indication and Antibiotic levels with WHO variable
+   names and codes. Values PPS Pro does not collect are left blank; every value that had to be converted or
+   guessed is listed on the Check sheet. Written here, offline, as an Excel workbook or as one CSV per level. */
+const PPS_VER="3.2";
+const WHO_WT=[["AMW","Adult medical ward"],["ASW","Adult surgical ward"],["AHRW","Adult high-risk ward"],["AICU","Adult intensive care unit"],
+ ["PMW","Paediatric medical ward"],["PSW","Paediatric surgical ward"],["PHRW","Paediatric high-risk ward"],["PICU","Paediatric intensive care unit"],
+ ["NMW","Neonatal medical ward"],["NICU","Neonatal intensive care unit"],["MXW","Mixed ward"]];
+const WHO_WT_DEF={MED:"AMW",SUR:"ASW",OBG:"ASW",PED:"PMW",NEO:"NMW",ICU:"AICU",MIX:"MXW"};
+const WHO_HTYPE=[["Primary","Primary"],["Secondary","Secondary"],["Tertiary","Tertiary"],["Specialized","Specialized"]];
+const WHO_OWN=[["PUB","Public"],["PRVNFP","Private, not for profit"],["PRVFP","Private, for profit"],["OTH","Other"],["UNK","Unknown"]];
+const WHO_DX=["CNS","EYE","ENT","BRON","PNEU","CF","CVS","GI","IA","SST-SSI","SST-O","BJ-SSI","BJ-O","CYS","PYE","ASB","OBGY","GUM","STD","BAC","CSEP","FN","SIRS","UND"];
+const WHO_INN={"Amoxicillin-clavulanate":"amoxicillin and beta-lactamase inhibitor","Ampicillin-sulbactam":"ampicillin and beta-lactamase inhibitor",
+ "Piperacillin-tazobactam":"piperacillin and beta-lactamase inhibitor","Ceftazidime-avibactam":"ceftazidime and beta-lactamase inhibitor",
+ "Imipenem-cilastatin":"imipenem and cilastatin","Cotrimoxazole":"sulfamethoxazole and trimethoprim"};
+/* WHO PPS counts antibacterials: J01, intestinal antibiotics A07AA, nitroimidazoles P01AB and antimycobacterials J04.
+   Antifungals, antimalarials etc. recorded in PPS Pro are left out (and counted on the About sheet). */
+const WHO_ABX=/^(J01|A07AA|P01AB|J04)/;
+const WHO_LV={
+ Hospital:["HospitalID","HospitalCode","SurveyStartDate","SurveyEndDate","HospitalType","HospitalOwnership","HospitalTotalBeds","HospitalAcuteBeds","HospitalICUBeds",
+  "HospitalIncludedBeds","HospitalEligiblePatients","HospitalIncludedPatients","PatientSampling"],
+ Ward:["HospitalCode","WardID","WardCode","WardInvestigator","WardSurveyDate","WardType","WardTotalPatients","WardEligiblePatients","WardIncludedPatients","WardSpecialties"],
+ Patient:["HospitalCode","WardCode","PatientID","PatientCode","Gender","AgeYear","AgeMonth","PreTermBirth","Child12YearWeight","NeonatesBirthWeight","AdmissionDate",
+  "SurgerySinceAdmission","CentralVascularCatheter","PeripheralVascularCatheter","UrinaryCatheter","Intubation","PatientOnAntibiotic","PatientNumberAntibiotics"],
+ Indication:["HospitalCode","WardCode","PatientCode","IndicationCounter","IndicationType","SurgicalProphylaxisDuration","SurgicalProphylaxisSite","Diagnosis",
+  "StartDateTreatment","ReasonInNotes","CultureSampleTaken"],
+ Antibiotic:["HospitalCode","WardCode","PatientCode","AntibioticCounter","IndicationCounters","AntibioticNotesName","AntibioticINNName","AntibioticWrittenInINN",
+  "StartDateAntibiotic","PrescriberType","UnitDose","UnitDosesCombination","UnitDoseMeasureUnit","UnitDoseFrequency","AdministrationRoute","ParenteralType",
+  "OralSwitch","NbMissedDoses","MissedDosesReason","GuidelinesCompliance","TreatmentType","ATCCode","AWaReGroup"]};
+const WHO_CHK=["Level","PatientCode","Field","Value in PPS Pro","Exported as","What to do"];
+function whoCfg(){const w=DB.meta.who||(DB.meta.who={});if(!w.wards||typeof w.wards!=="object")w.wards={};if(w.anon==null)w.anon=true;return w}
+function whoWardInfo(name){const c=whoCfg(),saved=c.wards[name]||{};
+ const all=[...new Set(DB.surveys.flatMap(s=>s.patients.map(p=>p.ward)))].sort((a,b)=>a.localeCompare(b));
+ let any=null;for(const s of DB.surveys){any=s.patients.find(p=>p.ward===name);if(any)break}any=any||{};
+ return{code:saved.code||any.wardCode||("W"+String(all.indexOf(name)+1).padStart(2,"0")),type:saved.type||WHO_WT_DEF[any.wardType]||"MXW"}}
+function whoInn(n){if(WHO_INN[n])return WHO_INN[n];const lc=String(n||"").toLowerCase().trim();
+ /* combinations from a reference-list update are named "Ampicillin-cloxacillin"; an unrecognised name is kept as typed */
+ return(FORMULARY[n]?lc.replace(/\s*-\s*/g," and "):lc).replace(/\s*(\+|\/)\s*/g," and ")}
+function whoNum(v){return v===""||v==null||isNaN(+v)?"":+v}
+function whoBuild(s){const c=whoCfg(),N=s.patients.length,chk=[],hc=String(c.hcode||"").trim()||"H01";
+ const ck=(lv,pc,field,was,now,todo)=>chk.push([lv,pc,field,was,now,todo]);
+ if(!String(c.hcode||"").trim())ck("Hospital","","HospitalCode","","H01","Replace H01 with the anonymous hospital code your survey coordinator gives you (WHO PPS export page).");
+ if(!c.htype)ck("Hospital","","HospitalType","","","Choose the hospital type on the WHO PPS export page.");
+ if(!c.own)ck("Hospital","","HospitalOwnership","","","Choose the ownership on the WHO PPS export page.");
+ const wardNames=[...new Set(s.patients.map(p=>p.ward))],WI={},cnt={},seen={};
+ wardNames.forEach(n=>{WI[n]=whoWardInfo(n);const k=WI[n].code;if(seen[k])ck("Ward","","WardCode",n,k,`Same WardCode as ${seen[k]}. Give each ward its own code.`);else seen[k]=n});
+ s.patients.forEach(p=>cnt[p.ward]=(cnt[p.ward]||0)+1);
+ const L={Hospital:[[c.anon?"":(s.facility||DB.meta.facility||""),hc,s.date,s.date,c.htype||"",c.own||"",whoNum(c.beds),whoNum(c.acute),whoNum(c.icu),whoNum(c.incl),N,N,"N"]],
+  Ward:wardNames.map(n=>[hc,n,WI[n].code,"",s.date,WI[n].type,cnt[n],cnt[n],cnt[n],""]),Patient:[],Indication:[],Antibiotic:[]};
+ const YNU=v=>v==="Y"||v==="N"?v:"UNK";let left=0;const leftNames={};const codes=new Set();
+ s.patients.forEach((p,pi)=>{let pc=String(p.code||"").trim();
+  if(!pc||codes.has(pc)){const was=pc;pc=`P${String(pi+1).padStart(4,"0")}`;ck("Patient",pc,"PatientCode",was||"(blank)",pc,was?"Patient code used twice in this survey; this row was given a new code.":"No patient code in PPS Pro; a code was made for the export.")}
+  codes.add(pc);const wc=WI[p.ward].code;
+  const abx=p.abs.filter(a=>{const ok=!a.atc||WHO_ABX.test(a.atc);if(!ok){left++;leftNames[a.name]=(leftNames[a.name]||0)+1}return ok});
+  let ay="",am="";if(p.age!=null&&!isNaN(p.age)){if(p.age>=2)ay=Math.floor(p.age);else am=Math.max(0,Math.min(23,Math.floor(p.age*12+1e-6)))}
+  const line=p.line==="N"?"N":"UNK";
+  L.Patient.push([hc,wc,"",pc,p.sex==="M"||p.sex==="F"?p.sex:"UNK",ay,am,"",p.age!=null&&p.age<13&&p.weight?p.weight:"","",p.adm||"",YNU(p.surgery),line,line,line,"",abx.length?"Y":"N",abx.length]);
+  if(!abx.length)return;
+  abx.filter(a=>!a.atc).forEach(a=>ck("Antibiotic",pc,"AntibioticINNName",a.name,whoInn(a.name),"Name not recognised, so it has no ATC code. Check it is an antibiotic and use the generic name."));
+  const ind=p.ind,sp=/^SP[123]$/.test(ind),it=["CAI","HAI","MP"].includes(ind)?ind:sp?"SP":ind==="OTH"?"O":"";
+  if(!it)ck("Indication",pc,"IndicationType",ind||"(blank)","",ind==="UNK"?"WHO has no 'unknown' indication type. Choose HAI, CAI, SP, MP or O.":"Indication missing. Choose HAI, CAI, SP, MP or O.");
+  const dx=p.dx;let dxo="";
+  if(sp||ind==="MP"){dxo="NA";if(dx&&!["PROK","PROF","NA"].includes(dx))ck("Indication",pc,"Diagnosis",dx,"NA","WHO codes the diagnosis of prophylaxis as NA, so the diagnosis recorded in PPS Pro was not exported.")}
+  else if(WHO_DX.includes(dx))dxo=dx;
+  else if(dx==="SST"||dx==="BJ"){dxo=dx+(p.surgery==="Y"&&ind==="HAI"?"-SSI":"-O");
+   ck("Indication",pc,"Diagnosis",dx,dxo,dxo.endsWith("SSI")?"PPS Pro did not say if this was a surgical-site infection; SSI was assumed (hospital-acquired, after surgery). Check the notes.":"PPS Pro did not say if this was a surgical-site infection; not surgical site was assumed. Check the notes.")}
+  else ck("Indication",pc,"Diagnosis",dx||"(blank)","",dx==="MAL"?"Malaria is not a WHO PPS diagnosis for antibiotic use. Choose the site the antibiotic was given for.":dx==="PROK"||dx==="PROF"?"Prophylaxis is recorded as the diagnosis but the indication is treatment. Check indication and diagnosis.":"Choose a WHO diagnosis code.");
+  L.Indication.push([hc,wc,pc,1,it,sp?ind:"","",dxo,"",p.reason==="Y"||p.reason==="N"?p.reason:"",YNU(p.culture)]);
+  const gc=["Y","N","NA"].includes(p.guide)?p.guide:"NI";
+  abx.forEach((a,i)=>{const f=FORMULARY[a.name]||{},has=a.dose!=null&&a.dose!=="";
+   L.Antibiotic.push([hc,wc,pc,i+1,"1",a.name,whoInn(a.name),"","","",has?a.dose:"","",has?(f.unit==="IU"?"IU":"mg"):"",a.freq??"",{P:"P",O:"O",R:"R",I:"INH"}[a.route]||"","","","","",gc,"",a.atc||"",a.aware||""])})});
+ return{L,chk,left,leftNames,hc,N}}
+function whoAbout(s,r){const c=whoCfg(),L=r.L;const lst=Object.entries(r.leftNames).map(([k,v])=>`${k} ${v}`).join(", ");
+ return[["Item","Value"],
+  ["Content","One point prevalence survey (PPS) of antibiotic use, in the structure of the WHO data collection forms"],
+  ["Method","WHO Methodology for Point Prevalence Survey on Antibiotic Use in Hospitals (WHO/EMP/IAU/2018.01)"],
+  ["Survey",s.id],["Survey date",s.date],["HospitalCode",r.hc],...(c.anon?[]:[["Hospital",s.facility||DB.meta.facility||""]]),
+  ["Sheets",`Hospital 1 row, Ward ${L.Ward.length}, Patient ${L.Patient.length}, Indication ${L.Indication.length}, Antibiotic ${L.Antibiotic.length}, Check ${r.chk.length}`],
+  ["How the sheets link","Every row carries HospitalCode. Patients link to wards by WardCode; indications and antibiotics link to patients by PatientCode; antibiotics link to indications through IndicationCounters."],
+  ["Antibiotics included","ATC J01 (antibacterials for systemic use), A07AA (intestinal antibiotics), P01AB (nitroimidazoles, e.g. oral metronidazole) and J04 (antimycobacterials). Names PPS Pro could not recognise are kept and listed on the Check sheet."],
+  ["Left out",r.left?`${r.left} other antimicrobial entr${r.left===1?"y":"ies"} recorded in PPS Pro (${lst}). Antifungals and antimalarials are not antibiotics in the WHO PPS.`:"Nothing"],
+  ["Patient privacy","PatientID (the hospital number) is left blank, as WHO requires. PatientCode is the anonymous code from PPS Pro."+(c.anon?" The hospital's name is left out (HospitalID blank).":"")],
+  ["Not collected by PPS Pro (left blank)","PreTermBirth, NeonatesBirthWeight, Intubation, WardInvestigator, WardSpecialties, SurgicalProphylaxisSite, StartDateTreatment, AntibioticWrittenInINN, StartDateAntibiotic, PrescriberType, UnitDosesCombination, ParenteralType, OralSwitch, NbMissedDoses, MissedDosesReason, TreatmentType"],
+  ["Converted from PPS Pro","SurgerySinceAdmission comes from PPS Pro's 'surgery in the last 30 days'. Central, peripheral and urinary catheter come from 'catheter or line': No gives N for all three; Yes gives UNK, because PPS Pro does not record which. Blank Yes/No answers are UNK; blank guideline compliance is NI (no information). Ages under 2 years are in months. UnitDose is per administration in mg (IU for colistin)."],
+  ["Ward counts","WardTotalPatients, WardEligiblePatients and WardIncludedPatients are the number of patients recorded for the ward, because PPS Pro records every inpatient on the ward at 08:00."],
+  ["Columns added to the WHO list","ATCCode and AWaReGroup on the Antibiotic sheet; HospitalCode, WardCode and PatientCode repeated on the lower levels for linking."],
+  ["Reference list",window.ODMREF?ODMREF.sourceLine():"Built into PPS Pro"],
+  ["Prepared by",DB.meta.author||""],["Exported",`${today()} with Odieman PPS Pro v${PPS_VER}`]]}
+/* --- minimal ZIP (stored) and XLSX writers: no library, works offline --- */
+let _crcT=null;
+function whoCrc(u){let t=_crcT;if(!t){t=_crcT=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}}
+ let c=0xFFFFFFFF;for(let i=0;i<u.length;i++)c=t[(c^u[i])&255]^(c>>>8);return(c^0xFFFFFFFF)>>>0}
+function whoZip(files){const enc=new TextEncoder(),parts=[],cd=[];let off=0;const d=new Date();
+ const tm=(d.getHours()<<11)|(d.getMinutes()<<5)|(d.getSeconds()>>1),dt=((d.getFullYear()-1980)<<9)|((d.getMonth()+1)<<5)|d.getDate();
+ for(const f of files){const nm=enc.encode(f.name),dat=typeof f.data==="string"?enc.encode(f.data):f.data,crc=whoCrc(dat);
+  const h=new DataView(new ArrayBuffer(30));h.setUint32(0,0x04034b50,true);h.setUint16(4,20,true);h.setUint16(6,0x0800,true);h.setUint16(8,0,true);
+  h.setUint16(10,tm,true);h.setUint16(12,dt,true);h.setUint32(14,crc,true);h.setUint32(18,dat.length,true);h.setUint32(22,dat.length,true);h.setUint16(26,nm.length,true);h.setUint16(28,0,true);
+  parts.push(new Uint8Array(h.buffer),nm,dat);
+  const c=new DataView(new ArrayBuffer(46));c.setUint32(0,0x02014b50,true);c.setUint16(4,20,true);c.setUint16(6,20,true);c.setUint16(8,0x0800,true);c.setUint16(10,0,true);
+  c.setUint16(12,tm,true);c.setUint16(14,dt,true);c.setUint32(16,crc,true);c.setUint32(20,dat.length,true);c.setUint32(24,dat.length,true);c.setUint16(28,nm.length,true);c.setUint32(42,off,true);
+  cd.push(new Uint8Array(c.buffer),nm);off+=30+nm.length+dat.length}
+ const size=cd.reduce((a,x)=>a+x.length,0),e=new DataView(new ArrayBuffer(22));e.setUint32(0,0x06054b50,true);e.setUint16(8,files.length,true);e.setUint16(10,files.length,true);
+ e.setUint32(12,size,true);e.setUint32(16,off,true);return new Blob([...parts,...cd,new Uint8Array(e.buffer)],{type:"application/zip"})}
+function whoXlsx(sheets,title){const X=v=>String(v).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+ const col=i=>{let s="";i++;while(i){const m=(i-1)%26;s=String.fromCharCode(65+m)+s;i=Math.floor((i-1)/26)}return s};
+ const hd='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n',NS="http://schemas.openxmlformats.org",who=X(DB.meta.author||"Odindo Emmanuel Thomas");
+ const iso=new Date().toISOString().replace(/\.\d+Z$/,"Z");
+ const sheetXml=sh=>{const R=sh.rows,nc=Math.max(1,...R.map(r=>r.length));
+  const w=[...Array(nc)].map((_,j)=>Math.min(sh.wide?90:46,Math.max(8,...R.slice(0,400).map(r=>String(r[j]??"").length+2))));
+  let o=hd+`<worksheet xmlns="${NS}/spreadsheetml/2006/main" xmlns:r="${NS}/officeDocument/2006/relationships"><sheetViews><sheetView workbookViewId="0"${sh.first?' tabSelected="1"':""}>`+
+   (R.length>1?`<pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/>`:"")+`</sheetView></sheetViews><sheetFormatPr defaultRowHeight="15"/><cols>`+
+   w.map((v,j)=>`<col min="${j+1}" max="${j+1}" width="${v}" customWidth="1"/>`).join("")+`</cols><sheetData>`;
+  R.forEach((r,i)=>{o+=`<row r="${i+1}">`;r.forEach((v,j)=>{if(v==null||v==="")return;const ref=col(j)+(i+1),st=i===0?' s="1"':sh.wide&&j===1?' s="2"':"";
+   o+=typeof v==="number"&&isFinite(v)?`<c r="${ref}"${st}><v>${v}</v></c>`:`<c r="${ref}"${st} t="inlineStr"><is><t xml:space="preserve">${X(v)}</t></is></c>`});o+=`</row>`});
+  return o+`</sheetData></worksheet>`};
+ const files=[
+  {name:"[Content_Types].xml",data:hd+`<Types xmlns="${NS}/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>`+
+   sheets.map((_,i)=>`<Override PartName="/xl/worksheets/sheet${i+1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join("")+
+   `<Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/><Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml"/><Override PartName="/docProps/app.xml" ContentType="application/vnd.openxmlformats-officedocument.extended-properties+xml"/></Types>`},
+  {name:"_rels/.rels",data:hd+`<Relationships xmlns="${NS}/package/2006/relationships"><Relationship Id="rId1" Type="${NS}/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/><Relationship Id="rId2" Type="${NS}/package/2006/relationships/metadata/core-properties" Target="docProps/core.xml"/><Relationship Id="rId3" Type="${NS}/officeDocument/2006/relationships/extended-properties" Target="docProps/app.xml"/></Relationships>`},
+  {name:"docProps/core.xml",data:hd+`<cp:coreProperties xmlns:cp="${NS}/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><dc:title>${X(title)}</dc:title><dc:creator>${who}</dc:creator><cp:lastModifiedBy>${who}</cp:lastModifiedBy><dcterms:created xsi:type="dcterms:W3CDTF">${iso}</dcterms:created><dcterms:modified xsi:type="dcterms:W3CDTF">${iso}</dcterms:modified></cp:coreProperties>`},
+  {name:"docProps/app.xml",data:hd+`<Properties xmlns="${NS}/officeDocument/2006/extended-properties"><Application>Odieman PPS Pro</Application></Properties>`},
+  {name:"xl/workbook.xml",data:hd+`<workbook xmlns="${NS}/spreadsheetml/2006/main" xmlns:r="${NS}/officeDocument/2006/relationships"><bookViews><workbookView activeTab="0"/></bookViews><sheets>`+
+   sheets.map((s,i)=>`<sheet name="${X(s.name)}" sheetId="${i+1}" r:id="rId${i+1}"/>`).join("")+`</sheets></workbook>`},
+  {name:"xl/_rels/workbook.xml.rels",data:hd+`<Relationships xmlns="${NS}/package/2006/relationships">`+sheets.map((_,i)=>`<Relationship Id="rId${i+1}" Type="${NS}/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${i+1}.xml"/>`).join("")+
+   `<Relationship Id="rId${sheets.length+1}" Type="${NS}/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>`},
+  {name:"xl/styles.xml",data:hd+`<styleSheet xmlns="${NS}/spreadsheetml/2006/main"><fonts count="2"><font><sz val="11"/><name val="Calibri"/><family val="2"/></font><font><b/><sz val="11"/><name val="Calibri"/><family val="2"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FFE3F1F0"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="3"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1"/><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1"><alignment wrapText="1" vertical="top"/></xf></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>`},
+  ...sheets.map((s,i)=>({name:`xl/worksheets/sheet${i+1}.xml`,data:sheetXml(Object.assign({first:i===0},s))}))];
+ return whoZip(files)}
+function whoSheets(s,r){return[{name:"About",rows:whoAbout(s,r),wide:1},...Object.keys(WHO_LV).map(k=>({name:k,rows:[WHO_LV[k],...r.L[k]]})),{name:"Check",rows:[WHO_CHK,...r.chk]}]}
+function whoFileBase(s){return"WHO_PPS_"+String(s.id).replace(/[^\w.\-]+/g,"_")}
+function whoExport(kind){const s=getS(UI.sid);if(!s)return;const r=whoBuild(s),sh=whoSheets(s,r),base=whoFileBase(s);
+ if(kind==="xlsx"){saveOut(base+".xlsx",whoXlsx(sh,`WHO PPS ${s.id}`),"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")}
+ else{const files=sh.filter(x=>x.name!=="About").map(x=>({name:`${base}_${x.name}.csv`,data:"﻿"+x.rows.map(row=>row.map(csvCell).join(",")).join("\r\n")+"\r\n"}));
+  files.unshift({name:`${base}_README.txt`,data:sh[0].rows.slice(1).map(([k,v])=>`${k}: ${v}`).join("\r\n")+"\r\n"});
+  saveOut(base+"_csv.zip",whoZip(files),"application/zip")}
+ log(`WHO PPS export of ${s.id} (${kind}): ${r.L.Patient.length} patients, ${r.L.Antibiotic.length} antibiotics, ${r.chk.length} to check`)}
+function vWho(){if(!DB.surveys.length)return noData();const s=getS(UI.sid),c=whoCfg(),r=whoBuild(s),L=r.L;
+ const opt=(arr,cur)=>`<option value=""></option>`+arr.map(([k,l])=>`<option value="${k}" ${k===cur?"selected":""}>${esc(l)}</option>`).join("");
+ const wards=[...new Set(s.patients.map(p=>p.ward))],cnt={};s.patients.forEach(p=>cnt[p.ward]=(cnt[p.ward]||0)+1);
+ const wtype=n=>(s.patients.find(p=>p.ward===n)||{}).wardType||"";const num=(k,l)=>`<label class="f">${l}<input data-whof="${k}" type="number" min="0" value="${esc(c[k]??"")}"></label>`;
+ let h=`<div class="note section">Writes one survey in the structure of the <b>WHO Methodology for Point Prevalence Survey on Antibiotic Use in Hospitals</b>: the Hospital, Ward, Patient, Indication and Antibiotic forms, with WHO variable names and codes. Use it to send a survey to a national or WHO survey coordinator, or to analyse it in Excel, Epi Info, R or Stata. PatientID (the hospital number) is always left blank, as WHO requires.</div>
+ <div class="row section">Survey ${surveySelect()} <span class="muted">${fmtDate(s.date)} · ${s.patients.length} inpatients</span></div>
+ <div class="grid g2"><div class="card"><h3>Hospital form</h3><div class="sub">Filled in once and kept with your data.</div><div class="formgrid">
+  <label class="f">HospitalCode (anonymous)<input data-whof="hcode" value="${esc(c.hcode||"")}" placeholder="H01"></label>
+  <label class="f">Hospital type<select data-whof="htype">${opt(WHO_HTYPE,c.htype)}</select></label>
+  <label class="f">Ownership<select data-whof="own">${opt(WHO_OWN,c.own)}</select></label>
+  ${num("beds","Total beds")}${num("acute","Acute beds")}${num("icu","ICU beds")}${num("incl","Beds in the surveyed wards")}</div>
+  <label style="display:flex;gap:8px;align-items:center;margin-top:12px;font-size:13px"><input type="checkbox" data-whof="anon" ${c.anon?"checked":""}> Leave the hospital's name out of the file (for sending to a coordinator)</label></div>
+ <div class="card"><h3>What the file will contain</h3><table>
+  <tr><td>Hospital</td><td class="n">1 row</td></tr><tr><td>Ward</td><td class="n">${L.Ward.length} rows</td></tr><tr><td>Patient</td><td class="n">${L.Patient.length} rows</td></tr>
+  <tr><td>Indication</td><td class="n">${L.Indication.length} rows</td></tr><tr><td>Antibiotic</td><td class="n">${L.Antibiotic.length} rows</td></tr>
+  <tr><td>Other antimicrobials left out <span class="muted">(e.g. antifungals, antimalarials)</span></td><td class="n">${r.left}</td></tr>
+  <tr><td>Values to check before sending</td><td class="n"><b>${r.chk.length}</b></td></tr></table>
+  <div class="row" style="margin-top:12px"><button class="btn" data-act="whoxlsx">Export Excel workbook (.xlsx)</button><button class="btn ghost" data-act="whocsv">Export CSV files (.zip)</button></div>
+  <p class="muted" style="font-size:12.5px;margin-bottom:0">The workbook also has an <b>About</b> sheet (how PPS Pro fields were converted) and a <b>Check</b> sheet (the list below).${FS.state==="connected"?" Files are saved to the data folder › reports.":""}</p></div></div>
+ <h2>Wards: WHO code and type</h2><p class="muted" style="margin-top:-4px">The WHO type is suggested from the PPS Pro ward type. PPS Pro's Obs &amp; Gyn type has no WHO equivalent, so it is suggested as adult surgical; change any ward your survey coordinator classes differently.</p>
+ <div class="tablewrap section"><table><tr><th>Ward</th><th>PPS Pro type</th><th class="n">Inpatients</th><th>WardCode</th><th>WHO ward type</th></tr>`+
+  wards.map(n=>{const w=whoWardInfo(n);return`<tr><td>${esc(n)}</td><td>${esc(wtype(n))}</td><td class="n">${cnt[n]}</td><td><input class="inp" style="width:96px" data-whow="${esc(n)}" data-k="code" value="${esc(w.code)}"></td><td><select class="sel" data-whow="${esc(n)}" data-k="type">${WHO_WT.map(([k,l])=>`<option value="${k}" ${k===w.type?"selected":""}>${k} · ${esc(l)}</option>`).join("")}</select></td></tr>`}).join("")+`</table></div>
+ <h2>Please check (${r.chk.length})</h2>`+(r.chk.length?`<div class="tablewrap"><table><tr>${WHO_CHK.map(x=>`<th>${x}</th>`).join("")}</tr>${r.chk.slice(0,300).map(x=>`<tr>${x.map((v,i)=>`<td${i===1?' class="mono"':""}>${esc(v)}</td>`).join("")}</tr>`).join("")}</table></div>${r.chk.length>300?`<p class="muted">Showing 300 of ${r.chk.length}; all of them are on the Check sheet.</p>`:""}`:`<div class="note">Nothing to check.</div>`);
+ return h}
+
 /* ============ Actions ============ */
 async function importFiles(files){files=await whoImportFiles([...files]);let n=0;for(const f of files){try{
   if(/\.json$/i.test(f.name)){const d=JSON.parse(await f.text());const before=DB.surveys.length;mergeDB(d);n+=DB.surveys.length-before;DB.surveys.forEach(s=>dirty.add(s.id));continue}
@@ -913,9 +1080,8 @@ function bindView(){const v=$("#view");
  ["cmpA","cmpB"].forEach(k=>{const el=document.getElementById(k);if(el)el.onchange=()=>{UI[k]=el.value;render()}});
  const dq=$("#selDQ");if(dq)dq.onchange=()=>{UI.dqSid=dq.value;render()};
  const ps=$("#patSearch");if(ps)ps.oninput=()=>{$("#patTable").innerHTML=patTable(getS(UI.sid),ps.value);bindView()};
- v.querySelectorAll("[data-ab]").forEach(el=>el.onchange=()=>{const i=el.dataset.ab,n=drugName(el.value),f=FORMULARY[n];el.value=n;
-  document.getElementById(`a${i}_atc`).value=f?.atc||"";document.getElementById(`a${i}_aware`).value=f?.aware||(n?"Not classified":"");
-  const r=document.getElementById(`a${i}_route`);if(f&&!r.value)r.value=f.route;if(n)document.getElementById("e_on").value="Y"});
+ v.querySelectorAll("[data-ab]").forEach(el=>{const i=el.dataset.ab;el.oninput=()=>{el.dataset.orig=el.value;abRefresh(i)};el.onchange=()=>abApply(i,el.dataset.orig||el.value);abRefresh(i)});
+ v.querySelectorAll("[data-unlearn]").forEach(b=>b.onclick=()=>{delete userAlias()[b.dataset.unlearn];log(`Taught drug name removed: ${b.dataset.unlearn}`);touch();render()});
  v.querySelectorAll("[data-png]").forEach(b=>b.onclick=()=>svgToPng(b.closest(".card").querySelector("svg"),b.dataset.png));
  v.querySelectorAll("[data-open]").forEach(b=>b.onclick=()=>{UI.sid=b.dataset.open;go("dash")});
  v.querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>{UI.sid=b.dataset.edit;UI.editIdx=null;go("entry")});
@@ -925,6 +1091,9 @@ function bindView(){const v=$("#view");
   if(FS.state==="connected"){await FS.remove(`surveys/${s.id}.csv`);DB.meta.ignored=[...new Set([...(DB.meta.ignored||[]),`surveys/${s.id}.csv`])]}log(`Deleted survey ${s.id}`);touch();render()});
  v.querySelectorAll("[data-pedit]").forEach(b=>b.onclick=()=>{UI.editIdx=+b.dataset.pedit;render();window.scrollTo(0,0)});
  v.querySelectorAll("[data-pdel]").forEach(b=>b.onclick=()=>{const s=getS(UI.sid),i=+b.dataset.pdel;if(!confirm(`Remove patient ${s.patients[i].code}?`))return;s.patients.splice(i,1);UI.editIdx=null;touch(s.id);render()});
+ v.querySelectorAll("[data-whosv]").forEach(b=>b.onclick=()=>{UI.sid=b.dataset.whosv;go("who")});
+ v.querySelectorAll("[data-whof]").forEach(el=>el.onchange=()=>{const c=whoCfg(),k=el.dataset.whof;c[k]=el.type==="checkbox"?el.checked:el.value.trim();touch();render()});
+ v.querySelectorAll("[data-whow]").forEach(el=>el.onchange=()=>{const c=whoCfg(),n=el.dataset.whow,cur=whoWardInfo(n);c.wards[n]=Object.assign({code:cur.code,type:cur.type},c.wards[n]||{},{[el.dataset.k]:el.value.trim()});touch();render()});
  ["e_dx","e_ind","e_age","e_wardType","e_on","a0_name","a1_name","a2_name","a3_name"].forEach(id=>{const el=document.getElementById(id);if(el){el.addEventListener("change",stgRefresh);el.addEventListener("input",stgRefresh)}});stgRefresh();
  v.querySelectorAll("[data-fbw]").forEach(c=>c.onchange=()=>{c.checked?UI.fbOff.delete(c.dataset.fbw):UI.fbOff.add(c.dataset.fbw)});
  const fp=$("#fbPrev");if(fp)fp.onchange=()=>{UI.fbWard=fp.value;render()};
@@ -933,6 +1102,7 @@ function bindView(){const v=$("#view");
  const ag=$("#agIn");if(ag)ag.onchange=e=>{if(e.target.files[0])agreeLoad(e.target.files[0]);e.target.value=""};
  const si=$("#stgIn");if(si)si.onchange=e=>{if(e.target.files[0])stgImport(e.target.files[0]);e.target.value=""};
  v.querySelectorAll("[data-act]").forEach(b=>b.onclick=()=>act(b.dataset.act));
+ const awv=$("#awView");if(awv)awv.onchange=()=>awSet(awv.value);
  const em=$("#entryMode");if(em)em.onchange=()=>{UI.entryMode=em.value;render()};
  const cw=$("#cnt_ward");if(cw)cw.onchange=()=>{if(cw.value==="__new"){const w=(prompt("Name of the new ward")||"").trim();if(w){UI.cntWard=w}cw.value=UI.cntWard||"";render()}else UI.cntWard=cw.value};
  const pfi=$("#pfIn");if(pfi)pfi.onchange=e=>{pfLoad([...e.target.files]);e.target.value=""};
@@ -956,10 +1126,10 @@ async function act(a){switch(a){
  case"pfclear":PF.pharm=null;PF.adm=null;PF.wardsOff=new Set();render();return;
  case"print":return window.print();
  case"savereport":return saveOut(`PPS_trend_report_${today()}.html`,reportStandalone(),"text/html");
- case"whopps":return exportWhoPPS();
-case"savesummary":return saveOut(`PPS_indicators_${today()}.csv`,summaryCSV(),"text/csv");
+ case"savesummary":return saveOut(`PPS_indicators_${today()}.csv`,summaryCSV(),"text/csv");
  case"backup":return saveOut(`odieman_pps_backup_${today()}.json`,JSON.stringify(DB),"application/json");
  case"restore":{const i=document.createElement("input");i.type="file";i.accept=".json";i.onchange=()=>importFiles(i.files);i.click();return}
+ case"whoxlsx":return whoExport("xlsx");case"whocsv":return whoExport("csv");
  case"savesettings":DB.meta.facility=$("#set_fac").value.trim();DB.meta.author=$("#set_author").value.trim();DB.meta.keepBackups=Math.max(3,+$("#set_keep").value||30);touch();toast("Settings saved");return}}
 
 
@@ -1002,7 +1172,10 @@ function pfMap(hdr){const k=hdr.map(pfKey),m={};for(const[f,names]of Object.entr
 function pfDetect(rows){for(let i=0;i<Math.min(rows.length,40);i++){const m=pfMap(rows[i]);
   if(m.id==null&&m.item!=null&&m.date!=null)pfInfer(rows,i,m);   /* report with unlabeled patient columns: infer them from the data */
   if(m.id==null)continue;
-  if(m.item!=null)return{kind:"pharm",m,body:rows.slice(i+1)};if(m.adm!=null)return{kind:"adm",m,body:rows.slice(i+1)}}return null}
+  if(m.item!=null){ /* v3.3: records split over several rows by the export are joined back first (same rule as AMS Pro and VigiWard) */
+   const q=rows[i].map(pfKey).findIndex(x=>["quantity","qty","quantity_dispensed","qty_dispensed"].includes(x));let jn=0;
+   if(q>=0&&m.dosage!=null){const g=odieJoinSplitRows(rows,{headerRowIdx:i,colIndex:{itemName:m.item,quantity:q,date:m.date,dosage:m.dosage}});jn=g._joined||0;rows=g}
+   return{kind:"pharm",m,body:rows.slice(i+1),joined:jn}}if(m.adm!=null)return{kind:"adm",m,body:rows.slice(i+1)}}return null}
 /* Looks at up to 300 data rows and recognises columns by their content: patient number, age ("47 years"),
    sex, department/clinic. Columns that hold names, insurance numbers or payment type are never used. */
 function pfInfer(rows,hi,m){const body=rows.slice(hi+1,hi+301).filter(r=>r&&r[m.item]),n=body.length;if(!n)return;const W=Math.max(...body.map(r=>r.length));
@@ -1155,7 +1328,7 @@ function cntCard(s){const wards=[...new Set([...s.patients.map(p=>p.ward),...DB.
 
 /* What the loaded files can and cannot give a WHO point prevalence survey — said plainly. */
 function pfReady(s){const P=PF.pharm,A=PF.adm,S=pfDay(s.date)?.day;const ok=(c,t)=>`<li><span style="color:${c===1?"#2e7d4f":c===0?"#b23b3b":"#d08a1a"};font-weight:700">${c===1?"✓":c===0?"✗":"!"}</span> ${t}</li>`;let li="";
- if(P){const st=P.st;const d=P.days;li+=ok(1,`Antimicrobials: ${st.abx.toLocaleString()} lines kept of ${st.rows.toLocaleString()} (dropped: ${st.other.toLocaleString()} non-antimicrobial items${st.topical?`, ${st.topical} eye/ear/skin preparations`:""}${st.bad?`, ${st.bad} unreadable rows`:""}${st.repeatHdr?`, ${st.repeatHdr} repeated header rows`:""}).`);
+ if(P){const st=P.st;const d=P.days;li+=ok(1,`Antimicrobials: ${st.abx.toLocaleString()} lines kept of ${st.rows.toLocaleString()} (dropped: ${st.other.toLocaleString()} non-antimicrobial items${st.topical?`, ${st.topical} eye/ear/skin preparations`:""}${st.bad?`, ${st.bad} unreadable rows`:""}${st.repeatHdr?`, ${st.repeatHdr} repeated header rows`:""}).${P.joined?` ${P.joined.toLocaleString()} records that the export had split over several rows were joined back first.`:""}`);
   li+=ok(P.hasDur/Math.max(1,st.abx)>.7?1:2,`Dose, route, frequency and duration read from the dosage text for ${pct(P.hasDur/Math.max(1,st.abx),0)} of lines — duration decides who is on treatment on survey day.`);
   li+=ok(1,`Patient names, prescriber names, payment and insurance numbers are not used and not stored.`);
   if(d)li+=ok(S!=null&&S>=d[0]&&S<=d[1]+14?1:0,`Dispensing covers ${pfIso(d[0])} to ${pfIso(d[1])}; the survey day (${esc(s.date)}) ${S!=null&&S>=d[0]&&S<=d[1]+14?"falls inside it":"is outside it — choose a survey date within this period"}.`);
@@ -1174,7 +1347,7 @@ function pfReady(s){const P=PF.pharm,A=PF.adm,S=pfDay(s.date)?.day;const ok=(c,t
 const AGEG=[["NEO","Neonates","< 28 days"],["CHI","Children","28 days – 17 years"],["ADU","Adults","18 years +"],["UNK","Age not recorded",""]];
 function ageGroup(p){const a=p.age;if(a==null||isNaN(a))return p.wardType==="NEO"?"NEO":"UNK";return a<28/365?"NEO":a<18?"CHI":"ADU"}
 function calcAge(s){const G={};AGEG.forEach(([k])=>G[k]={N:0,t:0,rx:0,acc:0,wat:0,res:0,par:0,drugs:{}});
- s.patients.forEach(p=>{const g=G[ageGroup(p)];g.N++;if(p.on!=="Y")return;g.t++;p.abs.forEach(a=>{g.rx++;if(a.aware==="Access")g.acc++;else if(a.aware==="Watch")g.wat++;else if(a.aware==="Reserve")g.res++;if(a.route==="P")g.par++;g.drugs[a.name]=(g.drugs[a.name]||0)+1})});
+ s.patients.forEach(p=>{const g=G[ageGroup(p)];g.N++;if(p.on!=="Y")return;g.t++;p.abs.forEach(a=>{g.rx++;if(awOf(a)==="Access")g.acc++;else if(awOf(a)==="Watch")g.wat++;else if(awOf(a)==="Reserve")g.res++;if(a.route==="P")g.par++;g.drugs[a.name]=(g.drugs[a.name]||0)+1})});
  return G}
 function ageTable(s,forReport){const G=calcAge(s);const ci=(n,d)=>{if(!d)return"";const w=wilson(n,d);return` <span class="muted">(${pct(w[0],0)}–${pct(w[1],0)})</span>`};
  const rows=AGEG.filter(([k])=>G[k].N||k!=="UNK").map(([k,l,r])=>{const g=G[k];const top=Object.entries(g.drugs).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([n,c])=>`${esc(n)} ${c}`).join(", ");
@@ -1193,7 +1366,7 @@ const SPG=[["SP1","Single dose","#2e7d4f"],["SP2","One day","#d08a1a"],["SP3","M
 const WTN={MED:"Medical",SUR:"Surgical",OBG:"Obs & Gyn",PED:"Paediatric",NEO:"Neonatal",ICU:"Intensive care",MIX:"Mixed","":"Not recorded"};
 function calcSP(s){const P=s.patients.filter(p=>p.on==="Y"&&/^SP[123]$/.test(p.ind));const R={n:P.length,g:{SP1:0,SP2:0,SP3:0},wt:{},drugs:{},combo:0,par:0,rx:0,noSurg:0};
  P.forEach(p=>{R.g[p.ind]++;const w=R.wt[p.wardType||""]||(R.wt[p.wardType||""]={SP1:0,SP2:0,SP3:0,n:0});w[p.ind]++;w.n++;if(p.abs.length>=2)R.combo++;if(p.surgery==="N")R.noSurg++;
-  p.abs.forEach(a=>{R.rx++;if(a.route==="P")R.par++;const d=R.drugs[a.name]||(R.drugs[a.name]={n:0,aware:a.aware});d.n++})});return R}
+  p.abs.forEach(a=>{R.rx++;if(a.route==="P")R.par++;const d=R.drugs[a.name]||(R.drugs[a.name]={n:0,aware:awOf(a)});d.n++})});return R}
 function spCard(s,forReport){const R=calcSP(s);
  if(!R.n)return`<p class="muted">No patients on surgical prophylaxis in ${esc(s.id)}.</p>`;
  const ci=(n,d)=>{const w=wilson(n,d);return forReport?"":` <span class="muted">(95% CI ${pct(w[0],0)}–${pct(w[1],0)})</span>`};
@@ -1296,7 +1469,7 @@ function stgKey(n){n=String(n||"").toLowerCase().replace(/\bampiclox\b/g,"ampici
 function stgActive(){const m=DB.meta.stgRules;return m&&Array.isArray(m.rules)&&m.rules.length?m:STG_BUILTIN}
 function stgRulesFor(p){const g=ageGroup(p),R=stgActive().rules;
  const m=/^SP[123]$/.test(p.ind)?R.filter(r=>r.sp&&(!r.ward||stgList(r.ward).includes(p.wardType||"MIX")))
-  :R.filter(r=>!r.sp&&stgList(r.dx).includes(p.dx)&&stgList(r.age||"CHI; ADU").includes(g)&&(!r.ind||stgList(r.ind).includes(p.ind)));
+  :R.filter(r=>!r.sp&&stgList(r.dx).includes(String(p.dx||"").split("-")[0])&&stgList(r.age||"CHI; ADU").includes(g)&&(!r.ind||stgList(r.ind).includes(p.ind)));
  const tz=m.filter(r=>r.org!=="WHO");return tz.length?tz:m}   /* Tanzania STG wins; WHO only fills a gap */
 function stgCheck(p){if(!p||p.on!=="Y"||!p.abs||!p.abs.length)return null;const g=ageGroup(p);
  if(!/^SP[123]$/.test(p.ind)&&!p.dx)return{st:"wait",msg:"Choose the diagnosis (and indication) to see the STG check."};
@@ -1368,11 +1541,11 @@ const FBI=[
 function wardStats(s,ward){const P=ward==null?s.patients:s.patients.filter(p=>p.ward===ward),T=P.filter(p=>p.on==="Y"),rx=T.flatMap(p=>p.abs);
  const R=(n,d)=>({n,d,v:d?n/d:null}),c=(a,f)=>a.filter(f).length;
  const ass=T.filter(p=>p.guide==="Y"||p.guide==="N"),chk=T.map(p=>[p,stgCheck(p)]).filter(([,x])=>x&&(x.st==="yes"||x.st==="no")),sp=T.filter(p=>/^SP[123]$/.test(p.ind));
- const drugs={};rx.forEach(a=>{const d=drugs[a.name]||(drugs[a.name]={n:0,aware:a.aware});d.n++});
+ const drugs={};rx.forEach(a=>{const d=drugs[a.name]||(drugs[a.name]={n:0,aware:awOf(a)});d.n++});
  const notListed={};chk.filter(([,x])=>x.st==="no").forEach(([p])=>{const x=stgCheck(p);(x.rules&&p.abs||[]).forEach(a=>{const k=stgKey(a.name);if(!x.rules.some(r=>stgList(r.agents).some(y=>stgKey(y)===k)))notListed[a.name]=(notListed[a.name]||0)+1})});
  return{N:P.length,t:T.length,rx:rx.length,type:(P.find(p=>p.wardType)||{}).wardType||"",
-  prev:R(T.length,P.length),access:R(c(rx,a=>a.aware==="Access"),rx.length),watch:R(c(rx,a=>a.aware==="Watch"),rx.length),reserve:R(c(rx,a=>a.aware==="Reserve"),rx.length),
-  notrec:R(c(rx,a=>a.aware==="Not recommended"),rx.length),parenteral:R(c(rx,a=>a.route==="P"),rx.length),reason:R(c(T,p=>p.reason==="Y"),T.length),stop:R(c(T,p=>p.stop==="Y"),T.length),
+  prev:R(T.length,P.length),access:R(c(rx,a=>awOf(a)==="Access"),rx.length),watch:R(c(rx,a=>awOf(a)==="Watch"),rx.length),reserve:R(c(rx,a=>awOf(a)==="Reserve"),rx.length),
+  notrec:R(c(rx,a=>awOf(a)==="Not recommended"),rx.length),parenteral:R(c(rx,a=>a.route==="P"),rx.length),reason:R(c(T,p=>p.reason==="Y"),T.length),stop:R(c(T,p=>p.stop==="Y"),T.length),
   cult:R(c(T,p=>p.culture==="Y"),T.length),targeted:R(c(T,p=>isTher(p)&&p.tx==="T"),c(T,p=>isTher(p)&&!!p.tx)),approp:R(c(T,p=>p.appr==="OPT"||p.appr==="ADQ"),c(T,p=>p.appr&&p.appr!=="NA")),guide:R(c(ass,p=>p.guide==="Y"),ass.length),stg:R(c(chk,([,x])=>x.st==="yes"),chk.length),spLong:R(c(sp,p=>p.ind==="SP3"),sp.length),
   sp:{n:sp.length,g:{SP1:c(sp,p=>p.ind==="SP1"),SP2:c(sp,p=>p.ind==="SP2"),SP3:c(sp,p=>p.ind==="SP3")}},drugs,notListed,
   reserveDrugs:Object.entries(drugs).filter(([,d])=>d.aware==="Reserve")}}
@@ -1409,7 +1582,7 @@ function wardSheet(s,ward){const W=wardStats(s,ward),H=wardStats(s,null),ps=prev
  ${good.length?`<h2>Going well</h2><ul>${good.map(t=>`<li>${t}</li>`).join("")}</ul>`:""}
  <h2>Actions agreed with the ward team</h2><div class="lines"><div>1.</div><div>2.</div><div>3.</div></div>
  <p class="m">Discussed on ____________ with ______________________ (ward in-charge) and ______________________ (AMS team).</p>
- <div class="ft">Aggregate figures from the WHO-method point prevalence survey; no patient or prescriber is identified. Guideline check: ${esc(stgActive().edition)}, with WHO guidance only where the STG has no regimen. ▲▼ compare with this ward's previous survey (green = better). Prepared ${fmtDate(today())}${DB.meta.author?` by ${esc(DB.meta.author)}`:""} with Odieman PPS Pro.</div></section>`}
+ <div class="ft">Aggregate figures from the WHO-method point prevalence survey; no patient or prescriber is identified. AWaRe: ${awView()==="TZ"?"Tanzania NEMLIT 2021, checked against WHO":"WHO"}. Guideline check: ${esc(stgActive().edition)}, with WHO guidance only where the STG has no regimen. ▲▼ compare with this ward's previous survey (green = better). Prepared ${fmtDate(today())}${DB.meta.author?` by ${esc(DB.meta.author)}`:""} with Odieman PPS Pro.</div></section>`}
 const FB_CSS=`.fbs{font:13px/1.45 "Segoe UI",Arial,sans-serif;color:#1b1f24;background:#fff;max-width:760px;margin:0 auto 24px;padding:22px 26px;border:1px solid #dde3e4;border-radius:8px}
 .fbs .hd{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;border-bottom:2px solid #13737a;padding-bottom:10px;margin-bottom:10px}
 .fbs h1{font-size:22px;margin:2px 0;color:#0f3d40}.fbs h2{font-size:14px;margin:12px 0 4px;color:#0f3d40}.fbs .m{color:#5b6b6d;font-size:11.5px}
@@ -1571,62 +1744,62 @@ function vQA(){if(!DB.surveys.length)return trainHTML();return trainHTML()+agree
    Accepts the WHO PPS tool's exports as separate CSV files or one Excel workbook. Every correction
    made while reading (swapped day/month, unreadable dates, ward-code spellings…) is listed on Data
    quality so nothing is changed silently. */
-const whoK=x=>String(x||"").trim().toLowerCase().replace(/\(.*?\)/g,"").replace(/[^a-z0-9]/g,"");
-const whoCode=v=>String(v||"").trim().split(/\s+/)[0].toUpperCase();
-const whoYN=v=>{v=String(v||"").trim().toLowerCase();if(/^(y|yes)$/.test(v))return"Y";if(/^(n|no)$/.test(v))return"N";if(/^(na|n\/a|not applicable|nap)/.test(v))return"NA";if(/^(unk|unknown)/.test(v))return"";return""};
-function whoKind(h){const k=h.map(whoK);if(k.includes("patientonantibiotic")&&k.includes("wardcode"))return"patient";
+const odieWhoK=x=>String(x||"").trim().toLowerCase().replace(/\(.*?\)/g,"").replace(/[^a-z0-9]/g,"");
+const odieWhoCode=v=>String(v||"").trim().split(/\s+/)[0].toUpperCase();
+const odieWhoYN=v=>{v=String(v||"").trim().toLowerCase();if(/^(y|yes)$/.test(v))return"Y";if(/^(n|no)$/.test(v))return"N";if(/^(na|n\/a|not applicable|nap)/.test(v))return"NA";if(/^(unk|unknown)/.test(v))return"";return""};
+function odieWhoKind(h){const k=h.map(odieWhoK);if(k.includes("patientonantibiotic")&&k.includes("wardcode"))return"patient";
  if(k.includes("surveystartdate")||k.includes("hospitalincludedpatients"))return"hosp";
  if(k.includes("indicationtype")||(k.includes("indicationcounter")&&k.includes("diagnosis")))return"ind";
  if(k.includes("antibioticinnname")||k.includes("atc5")||(k.includes("antibioticcounter")))return"abx";
  if(k.includes("wardincludedpatients")||(k.includes("wardcode")&&k.includes("wardtype")&&!k.includes("patientcode")))return"ward";return""}
-function whoTable(rows){for(let i=0;i<Math.min(rows.length,10);i++){const kind=whoKind(rows[i]);if(kind){const h=rows[i].map(whoK);
+function odieWhoTable(rows){for(let i=0;i<Math.min(rows.length,10);i++){const kind=odieWhoKind(rows[i]);if(kind){const h=rows[i].map(odieWhoK);
   const body=rows.slice(i+1).filter(r=>r.some(x=>String(x).trim()!==""));return{kind,body:body.map(r=>{const o={};h.forEach((k,j)=>{if(k)o[k]=String(r[j]??"").trim()});return o})}}}return null}
-function whoWardNorm(c,hosp){let w=String(c||"").toUpperCase().trim();const hp=String(hosp||"").toUpperCase().trim();
+function odieWhoWardNorm(c,hosp){let w=String(c||"").toUpperCase().trim();const hp=String(hosp||"").toUpperCase().trim();
  w=w.replace(/^B+R+H+[\s\-]*/,"");if(hp&&hp!=="BRRH")w=w.replace(new RegExp("^"+hp.replace(/[^A-Z0-9]/g,"")+"[\\s\\-]*"),"");
  return w.replace(/\s+/g,"").replace(/^-+|-+$/g,"")||""}
-function whoDate(raw,sd){const s=String(raw||"").trim();if(!s)return{d:""};const m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/)||null;
+function odieWhoDate(raw,sd){const s=String(raw||"").trim();if(!s)return{d:""};const m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/)||null;
  let y,mo,d;if(m){[,y,mo,d]=m.map(Number)}else{const n=normDate(s);const m2=String(n).match(/^(\d{4})-(\d{2})-(\d{2})$/);if(!m2)return{d:"",bad:s};[,y,mo,d]=m2.map(Number)}
  const iso=(Y,M,D)=>`${Y}-${String(M).padStart(2,"0")}-${String(D).padStart(2,"0")}`,ok=(Y,M,D)=>M>=1&&M<=12&&D>=1&&D<=31;
  const S=sd?Date.parse(sd):null;if(y<2000||y>2100||!ok(y,mo,d))return{d:"",bad:s};
  if(S&&Date.parse(iso(y,mo,d))>S&&d<=12&&ok(y,d,mo)&&Date.parse(iso(y,d,mo))<=S)return{d:iso(y,d,mo),fix:`${s} → ${iso(y,d,mo)} (day and month swapped)`};
  if(S&&Date.parse(iso(y,mo,d))>S)return{d:iso(y,mo,d),late:s};return{d:iso(y,mo,d)}}
-function whoAge(o){const y=o.ageyear,mo=o.agemonth;const yn=y===""||y==null?null:parseFloat(y),mn=mo===""||mo==null?null:parseFloat(mo);
+function odieWhoAge(o){const y=o.ageyear,mo=o.agemonth;const yn=y===""||y==null?null:parseFloat(y),mn=mo===""||mo==null?null:parseFloat(mo);
  if(yn!=null&&!isNaN(yn)&&yn>=1)return yn;if(mn!=null&&!isNaN(mn))return mn===0?0.03:Math.round(mn/12*1000)/1000;if(yn===0)return null;return null}
-function whoDrug(name,atc){const n=drugName(name);if(FORMULARY[n])return n;const k=stgKey(String(name||"").replace(/\band\b.*inhibitor/i,"+ clavulanic acid"));
+function odieWhoDrug(name,atc){const n=drugName(name);if(FORMULARY[n])return n;const k=stgKey(String(name||"").replace(/\band\b.*inhibitor/i,"+ clavulanic acid"));
  const hit=Object.keys(FORMULARY).find(f=>stgKey(f)===k);if(hit)return hit;if(atc){const a=Object.keys(FORMULARY).find(f=>FORMULARY[f].atc===String(atc).trim().toUpperCase());if(a)return a}
  return name?String(name).trim().replace(/^./,c=>c.toUpperCase()):""}
-function whoRoute(v){const c=whoCode(v);if(/^(P|IV|IM|PARENTERAL|INJ)/.test(c))return"P";if(/^(O|PO|ORAL)/.test(c))return"O";if(/^(R|PR)/.test(c))return"R";if(/^(I|INH)/.test(c))return"I";return""}
-function whoDoseMg(dose,unit){const d=parseFloat(String(dose||"").replace(",","."));if(isNaN(d))return null;const u=String(unit||"").toLowerCase();
+function odieWhoRoute(v){const c=odieWhoCode(v);if(/^(P|IV|IM|PARENTERAL|INJ)/.test(c))return"P";if(/^(O|PO|ORAL)/.test(c))return"O";if(/^(R|PR)/.test(c))return"R";if(/^(I|INH)/.test(c))return"I";return""}
+function odieWhoDoseMg(dose,unit){const d=parseFloat(String(dose||"").replace(",","."));if(isNaN(d))return null;const u=String(unit||"").toLowerCase();
  if(/^g/.test(u))return d*1000;if(/^mu|miu/.test(u))return d*1e6;if(/^mcg|^µg|^ug/.test(u))return d/1000;return d}
-const WHO_WT={AMW:"MED",ASW:"SUR",AHRW:"MIX",AICU:"ICU",PMW:"PED",PSW:"PED",PHRW:"PED",PICU:"ICU",NMW:"NEO",NICU:"NEO",MXW:"MIX",MXAW:"MIX",MXPW:"MIX"};
-function whoBuild(tabs,fname,known){const P=tabs.patient,I=tabs.ind||[],A=tabs.abx||[],notes=[];known=known||{};
+const ODIE_WT={AMW:"MED",ASW:"SUR",AHRW:"MIX",AICU:"ICU",PMW:"PED",PSW:"PED",PHRW:"PED",PICU:"ICU",NMW:"NEO",NICU:"NEO",MXW:"MIX",MXAW:"MIX",MXPW:"MIX"};
+function odieWhoBuild(tabs,fname,known){const P=tabs.patient,I=tabs.ind||[],A=tabs.abx||[],notes=[];known=known||{};
  const fdate=(String(fname||"").match(/(20\d\d)[-_.](\d\d)[-_.](\d\d)/)||[]);let sd=(P.find(o=>o.surveydate||o.surveystartdate)||{}).surveydate||(P.find(o=>o.surveystartdate)||{}).surveystartdate||"";
  sd=normDate(sd)||(fdate.length?`${fdate[1]}-${fdate[2]}-${fdate[3]}`:"");
  if(known.date)sd=known.date;else{const ask=prompt(`Survey date for ${known.sid||fname}${sd?" (from the file"+(fdate.length&&!P.some(o=>o.surveydate)?" name":"")+")":""} — check it, it is used to judge admission dates (YYYY-MM-DD)`,sd||today());if(!ask)return null;sd=normDate(ask)}
  const hosp=(P.find(o=>o.hospitalid||o.hospitalcode)||{}).hospitalid||(P.find(o=>o.hospitalcode)||{}).hospitalcode||"";
  const sid=((P.find(o=>o.surveyid)||{}).surveyid)||`${hosp||"PPS"}-${sd}`;
  const byCode={};I.forEach(o=>{const c=(o.patientcode||o.patientid||"").trim();(byCode[c]=byCode[c]||{ind:[],abx:[]}).ind.push(o)});A.forEach(o=>{const c=(o.patientcode||o.patientid||"").trim();(byCode[c]=byCode[c]||{ind:[],abx:[]}).abx.push(o)});
- const map=Object.assign({},DB.meta.wardMap||{});(tabs.ward||[]).forEach(w=>{const c=whoWardNorm(w.wardcode,hosp);if(!c)return;const t=(w.odieman_ward_type||w.odiemanwardtype||"").toUpperCase()||WHO_WT[whoCode(w.wardtype)]||"";
+ const map=Object.assign({},DB.meta.wardMap||{});(tabs.ward||[]).forEach(w=>{const c=odieWhoWardNorm(w.wardcode,hosp);if(!c)return;const t=(w.odieman_ward_type||w.odiemanwardtype||"").toUpperCase()||ODIE_WT[odieWhoCode(w.wardtype)]||"";
   map[c]=Object.assign({},map[c]||{},{name:(map[c]||{}).name||w.wardname||"",type:(map[c]||{}).type||t})});const spell={};let fixes=0,badD=0,late=0,conflict=0,wt=0;
  const pts=P.filter(o=>(o.patientcode||o.patientid||"").trim()).map(o=>{const code=(o.patientcode||o.patientid).trim(),flags=[];
-  const wc=whoWardNorm(o.wardcode,hosp);(spell[wc||"(blank)"]=spell[wc||"(blank)"]||new Set()).add(o.wardcode);
-  const dd=whoDate(o.admissiondate,sd);if(dd.fix){fixes++;flags.push(`Admission date corrected: ${dd.fix}`)}if(dd.bad){badD++;flags.push(`Admission date unreadable: “${dd.bad}” — left blank`)}if(dd.late){late++;flags.push(`Admission date ${dd.late} is after the survey date`)}
-  const age=whoAge(o);const ex=byCode[code]||byCode[(o.patientid||"").trim()]||{ind:[],abx:[]};
-  let on=whoYN(o.patientonantibiotic)||"";const nAb=parseInt(o.patientnumberantibiotics)||0;
+  const wc=odieWhoWardNorm(o.wardcode,hosp);(spell[wc||"(blank)"]=spell[wc||"(blank)"]||new Set()).add(o.wardcode);
+  const dd=odieWhoDate(o.admissiondate,sd);if(dd.fix){fixes++;flags.push(`Admission date corrected: ${dd.fix}`)}if(dd.bad){badD++;flags.push(`Admission date unreadable: “${dd.bad}” — left blank`)}if(dd.late){late++;flags.push(`Admission date ${dd.late} is after the survey date`)}
+  const age=odieWhoAge(o);const ex=byCode[code]||byCode[(o.patientid||"").trim()]||{ind:[],abx:[]};
+  let on=odieWhoYN(o.patientonantibiotic)||"";const nAb=parseInt(o.patientnumberantibiotics)||0;
   if(ex.abx.length&&on!=="Y"){flags.push(`“On antibiotic” was ${on||"blank"} but ${ex.abx.length} antibiotic(s) are recorded — set to Yes`);on="Y"}
   else if(on==="N"&&nAb>0){conflict++;flags.push(`“On antibiotic: No” but number of antibiotics = ${nAb} — check the form`)}
   const ind0=ex.ind.slice().sort((a,b)=>(+a.indicationcounter||0)-(+b.indicationcounter||0))[0]||{};
-  let ind=whoCode(ind0.indicationtype);if(ind==="SP"){const d=whoCode(ind0.surgicalprophylaxisduration);ind=/^SP[123]$/.test(d)?d:d==="1"||/^(SINGLE|1D)/.test(d)?"SP1":"SP3"}
+  let ind=odieWhoCode(ind0.indicationtype);if(ind==="SP"){const d=odieWhoCode(ind0.surgicalprophylaxisduration);ind=/^SP[123]$/.test(d)?d:d==="1"||/^(SINGLE|1D)/.test(d)?"SP1":"SP3"}
   if(ind==="O")ind="OTH";if(ind&&!INDN[ind])ind="UNK";
-  const abs=ex.abx.slice(0,6).map(a=>{const n=whoDrug(a.antibioticinnname||a.antibioticname,a.atc5),f=FORMULARY[n]||{},rt=whoRoute(a.administrationroute)||f.route||"";
-   return{name:n,atc:(a.atc5||fAtc(f,rt)||"").toUpperCase(),aware:normAware(a.aware)||fCls(f,rt)||"Not classified",route:rt,dose:whoDoseMg(a.unitdose,a.unitdosemeasureunit),freq:parseFloat(a.unitdosefrequency)||null,gc:whoYN(a.guidelinescompliance)}});
+  const abs=ex.abx.slice(0,6).map(a=>{const n=odieWhoDrug(a.antibioticinnname||a.antibioticname,a.atc5),f=FORMULARY[n]||{},rt=odieWhoRoute(a.administrationroute)||f.route||"";
+   return{name:n,atc:(a.atc5||fAtc(f,rt)||"").toUpperCase(),aware:normAware(a.aware)||fCls(f,rt)||"Not classified",route:rt,dose:odieWhoDoseMg(a.unitdose,a.unitdosemeasureunit),freq:parseFloat(a.unitdosefrequency)||null,gc:odieWhoYN(a.guidelinescompliance)}});
   const gcs=abs.map(a=>a.gc).filter(Boolean);const guide=!gcs.length?"":gcs.includes("N")?"N":gcs.every(x=>x==="NA")?"NA":"Y";
-  const yes=k=>whoYN(o[k])==="Y",lineAny=["centralvascularcatheter","peripheralvascularcatheter","urinarycatheter","intubation"];
+  const yes=k=>odieWhoYN(o[k])==="Y",lineAny=["centralvascularcatheter","peripheralvascularcatheter","urinarycatheter","intubation"];
   const m=map[wc]||{};const wtype=m.type||(/NICU|NEO/.test(wc)?"NEO":/ICU/.test(wc)?"ICU":/PAED|PED/.test(wc)?"PED":"");if(!m.type)wt++;
   const weight=age!=null&&age<12&&o.child12yearweight?parseFloat(o.child12yearweight):null;if(o.child12yearweight&&(age==null||age>=12))flags.push(`Child weight ${o.child12yearweight} recorded for age ${age??"?"} — ignored`);
-  return{code,hid:(o.patientid||"").trim(),ward:m.name||wc||"(no ward code)",wardCode:wc,wardType:wtype,age,sex:whoCode(o.gender).slice(0,1),weight,adm:dd.d,on:on||(nAb>0?"Y":"N"),
-   dx:whoCode(ind0.diagnosis)&&DX[whoCode(ind0.diagnosis)]?whoCode(ind0.diagnosis):"",ind:on==="Y"?ind:"",reason:whoYN(ind0.reasoninnotes),guide,culture:whoYN(ind0.culturesampletaken),stop:whoYN(ind0.odieman_stop_review_date_documented||ind0.odiemanstopreviewdatedocumented||ind0.stopreviewdatedocumented),
-   surgery:yes("surgerysinceadmission")?"Y":whoYN(o.surgerysinceadmission),line:lineAny.some(yes)?"Y":lineAny.every(k=>whoYN(o[k])==="N")?"N":"",abs:abs.map(({gc,...a})=>a),nAbWho:nAb,whoFlags:flags,
+  return{code,hid:(o.patientid||"").trim(),ward:m.name||wc||"(no ward code)",wardCode:wc,wardType:wtype,age,sex:odieWhoCode(o.gender).slice(0,1),weight,adm:dd.d,on:on||(nAb>0?"Y":"N"),
+   dx:odieWhoCode(ind0.diagnosis)&&DX[odieWhoCode(ind0.diagnosis)]?odieWhoCode(ind0.diagnosis):"",ind:on==="Y"?ind:"",reason:odieWhoYN(ind0.reasoninnotes),guide,culture:odieWhoYN(ind0.culturesampletaken),stop:odieWhoYN(ind0.odieman_stop_review_date_documented||ind0.odiemanstopreviewdatedocumented||ind0.stopreviewdatedocumented),
+   surgery:yes("surgerysinceadmission")?"Y":odieWhoYN(o.surgerysinceadmission),line:lineAny.some(yes)?"Y":lineAny.every(k=>odieWhoYN(o[k])==="N")?"N":"",abs:abs.map(({gc,...a})=>a),nAbWho:nAb,whoFlags:flags,
    who:{hiv:o.hivstatus,malaria:o.malariastatus,tb:o.tuberculosisstatus,preterm:o.pretermbirth,birthweight:o.neonatesbirthweight,mccabe:o.mccabescore,transfer:o.transferfromhospital,hosp90:o.hospitalisation90days}}});
  Object.entries(spell).forEach(([w,set])=>{if(set.size>1)notes.push(`Ward ${w}: ${set.size} spellings merged (${[...set].map(x=>"“"+x+"”").join(", ")})`)});
  if(fixes)notes.push(`${fixes} admission date(s) had day and month swapped and were corrected (each listed per patient)`);if(badD)notes.push(`${badD} admission date(s) were unreadable and left blank`);
@@ -1637,12 +1810,12 @@ function whoBuild(tabs,fname,known){const P=tabs.patient,I=tabs.ind||[],A=tabs.a
 /* called by importFiles before the normal CSV path: returns the files it did NOT handle */
 async function whoImportFiles(files){const tabs={patient:[],ind:[],abx:[],ward:[],hosp:[]},used=new Set();let pname="";
  for(const f of files){if(/\.json$/i.test(f.name))continue;let sheets;try{sheets=await readSheets(f)}catch(e){continue}
-  for(const rows of sheets){const t=whoTable(rows);if(t){tabs[t.kind].push(...t.body);used.add(f);if(t.kind==="patient")pname=pname||f.name}}}
+  for(const rows of sheets){const t=odieWhoTable(rows);if(t){tabs[t.kind].push(...t.body);used.add(f);if(t.kind==="patient")pname=pname||f.name}}}
  if(!used.size)return files;
  if(tabs.patient.length){const sids=[...new Set(tabs.patient.map(o=>o.surveyid).filter(Boolean))];const groups=sids.length>1?sids:[sids[0]||""];let done=0;
   for(const sid of groups){const f=o=>!sid||!o.surveyid||o.surveyid===sid;const h=tabs.hosp.find(o=>o.surveyid===sid)||(groups.length===1?tabs.hosp[0]:null);const wd=tabs.ward.find(o=>f(o)&&o.wardsurveydate);
    const date=normDate((h&&h.surveystartdate)||(wd&&wd.wardsurveydate)||"");
-   const s=whoBuild({patient:tabs.patient.filter(f),ind:tabs.ind.filter(f),abx:tabs.abx.filter(f),ward:tabs.ward.filter(f)},pname,{date,sid});if(!s)continue;if(sid)s.id=sid;if(h&&h.hospitalcode&&!DB.meta.facility)s.facility=h.hospitalcode;
+   const s=odieWhoBuild({patient:tabs.patient.filter(f),ind:tabs.ind.filter(f),abx:tabs.abx.filter(f),ward:tabs.ward.filter(f)},pname,{date,sid});if(!s)continue;if(sid)s.id=sid;if(h&&h.hospitalcode&&!DB.meta.facility)s.facility=h.hospitalcode;
    const cur=getS(s.id);if(cur&&!confirm(`Survey ${s.id} already exists — replace it with this WHO PPS import?`))continue;
    DB.surveys=DB.surveys.filter(x=>x.id!==s.id);DB.surveys.push(s);UI.sid=s.id;dirty.add(s.id);touch(s.id);done++;log(`WHO PPS import: ${s.id}, ${s.patients.length} patients (${s.who.tables.join(", ")})`)}
   if(done){toast(`WHO PPS: ${done} survey(s) imported — see Data quality for the corrections made`);UI.page="dash";render()}}
@@ -1651,7 +1824,7 @@ async function whoImportFiles(files){const tabs={patient:[],ind:[],abx:[],ward:[
   if(!s)toast("Indication/Antibiotic table: no survey with matching patient codes — import the Patient table together with them");
   else{const P=s.patients.map(p=>({patientcode:p.code,patientid:p.hid||"",wardcode:p.wardCode||p.ward,gender:p.sex,ageyear:p.age>=1?String(p.age):"",agemonth:p.age!=null&&p.age<1?String(Math.round(p.age*12)):"",admissiondate:p.adm,
     patientonantibiotic:p.on==="Y"?"Yes":"No",patientnumberantibiotics:String(p.nAbWho||""),surgerysinceadmission:p.surgery==="Y"?"Yes":"No"}));
-   const n=whoBuild({patient:P,ind:tabs.ind,abx:tabs.abx},s.source);if(n){n.id=s.id;n.facility=s.facility;n.patients.forEach((p,i)=>{const o=s.patients[i];if(o){p.ward=o.ward;p.wardType=o.wardType;p.whoFlags=[...(o.whoFlags||[]),...p.whoFlags.filter(x=>!/Admission date/.test(x))]}});
+   const n=odieWhoBuild({patient:P,ind:tabs.ind,abx:tabs.abx},s.source);if(n){n.id=s.id;n.facility=s.facility;n.patients.forEach((p,i)=>{const o=s.patients[i];if(o){p.ward=o.ward;p.wardType=o.wardType;p.whoFlags=[...(o.whoFlags||[]),...p.whoFlags.filter(x=>!/Admission date/.test(x))]}});
     n.who.notes=[...(s.who?.notes||[]).filter(x=>!/Only the WHO Patient table/.test(x)),`Indication/Antibiotic tables added from ${[...used].map(f=>f.name).join(", ")}`];Object.assign(s,n,{updated:Date.now()});dirty.add(s.id);touch(s.id);toast(`Indication and antibiotic tables added to ${s.id}`);render()}}}
  return files.filter(f=>!used.has(f))}
 /* Settings: give ward codes a name and a ward type (applied to every survey and future imports) */
@@ -1665,6 +1838,178 @@ function wardMapSave(){const m=DB.meta.wardMap=DB.meta.wardMap||{};document.quer
  document.querySelectorAll("[data-wmt]").forEach(s=>{const c=s.dataset.wmt;m[c]=Object.assign(m[c]||{},{type:s.value})});
  let n=0;DB.surveys.forEach(s=>{s.patients.forEach(p=>{const c=p.wardCode||p.ward;const x=m[c];if(!x)return;if(x.name&&p.ward!==x.name){if(!p.wardCode)p.wardCode=c;p.ward=x.name;n++}if(x.type&&p.wardType!==x.type){p.wardType=x.type;n++}});s.updated=Date.now();dirty.add(s.id)});
  log(`Ward names/types saved (${n} patient records updated)`);touch();toast("Ward names and types saved");render()}
+
+
+/* ============ v3.3: antimicrobial names recognised however they are typed — ATC and AWaRe are never typed ============
+   Order: exact name or known alias → a name the team taught the tool → a pharmacy-style name with strength,
+   form or combination ("Ceftriaxone 1g inj", "Amoxycillin + Clavulanic acid 625mg") → a close spelling
+   ("ceftriaxon", "metronidazol"). When unsure, the tool asks "Did you mean…?" rather than guessing. */
+function lev(a,b){if(a===b)return 0;const m=a.length,n=b.length;if(!m)return n;if(!n)return m;let p=Array.from({length:n+1},(_,j)=>j);
+ for(let i=1;i<=m;i++){const c=[i];for(let j=1;j<=n;j++)c[j]=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]===b[j-1]?0:1));p=c}return p[n]}
+const userAlias=()=>DB.meta.userAliases||(DB.meta.userAliases={});
+const TOPICAL=/\b(eye|ear|drops?|ointment|oint|cream|gel|topical|ophthalmic|otic|vaginal|pessar\w*|mouth ?wash|lotion|skin)\b/i;
+function drugResolve(text){const t=String(text||"").trim();if(!t)return{name:"",how:"empty"};const lc=t.toLowerCase();
+ const ex=Object.keys(FORMULARY).find(k=>k.toLowerCase()===lc);if(ex)return{name:ex,how:"exact"};
+ if(ALIASES[lc])return{name:ALIASES[lc],how:"exact"};
+ const ua=userAlias()[lc];if(ua&&FORMULARY[ua])return{name:ua,how:"learned"};
+ if(TOPICAL.test(t))return{name:"",how:"topical"};
+ const pf=pfDrug(t);if(pf&&FORMULARY[pf])return{name:pf,how:pf.toLowerCase()===lc?"exact":"parsed"};
+ const norm=s=>s.toLowerCase().replace(/amoxycill/g,"amoxicill").replace(/[^a-z]/g,"");
+ const words=lc.replace(/[^a-z\s+\-\/]/g," ").split(/[\s+\-\/]+/).filter(w=>w.length>2&&!/^(inj|injection|tab|tabs|tablet|caps?|capsule|syrup|susp|suspension|iv|im|po|oral|vial|sodium|powder|for|mg|gm|and|plus|bd|tds|od|qid|stat|daily)$/.test(w));
+ const key=words.slice(0,2).join(""),key1=words[0]||"";if(!key1)return{name:"",how:"none"};
+ const cands=[...Object.keys(FORMULARY).map(k=>[norm(k),k]),...Object.entries(ALIASES).map(([a,k])=>[norm(a),k])].filter(([,k])=>FORMULARY[k]);
+ const sc=cands.map(([c,k])=>[Math.min(lev(c,key),lev(c,key1)),k,c]).sort((a,b)=>a[0]-b[0]);const best=sc[0],thr=key1.length>=7?2:1;
+ const second=sc.find(x=>x[1]!==best[1]);
+ if(best&&best[0]<=thr&&(!second||second[0]>best[0]))return{name:best[1],how:"fuzzy"};
+ if(best&&best[0]<=thr+1)return{name:"",how:"suggest",sug:best[1]};
+ const pre=key1.length>=4?[...new Set(cands.filter(([c])=>c.startsWith(key1)).map(([,k])=>k))]:[];if(pre.length===1)return{name:"",how:"suggest",sug:pre[0]};
+ return{name:"",how:"none"}}
+/* drugName now uses the resolver everywhere (form, CSV/Excel import, WHO import, STG check) */
+const drugNameExact=drugName;
+drugName=function(n){const r=drugResolve(n);return r.name||String(n||"").trim()};
+/* "ceftriaxone 1g IV BD" → route, dose and doses per day */
+function parseRegimen(text,name){const t=String(text||"");return{route:/\b(iv|im|inj|injection|vial|infusion|powder for)\b/i.test(t)?"P":/\b(po|oral|tab|tabs|tablet|caps?|capsule|syrup|susp|suspension|dispersible)\b/i.test(t)?"O":"",
+ dose:pfDose(t),freq:pfFreq(t)}}
+function abInfoHTML(i,text){const r=drugResolve(text);if(r.how==="empty")return"";
+ if(r.name){const f=FORMULARY[r.name]||{};const rt=(document.getElementById(`a${i}_route`)||{}).value||f.route||"";const aw=fCls(f,rt)||"Not classified",atc=fAtc(f,rt)||"–";
+  const dk=f.ddd&&(f.ddd[rt]!=null?rt:Object.keys(f.ddd)[0]),dv=dk?f.ddd[dk]:null,ddd=dv!=null?` · WHO DDD ${f.unit==="IU"?(dv/1e6)+" MU":dv+" g"}${dk?" ("+(dk==="P"?"injection":dk==="O"?"oral":dk)+")":""}`:"";const ti=awTzInfo(r.name,aw),tz=ti.used;
+  return`<span style="color:#2e7d4f">✓</span> <b>${esc(r.name)}</b> · ATC ${esc(atc)} · WHO <span class="tag ${["Access","Watch","Reserve"].includes(aw)?aw:"nc"}">${esc(aw)}</span>${tz!==aw?` · Tanzania <span class="tag ${["Access","Watch","Reserve"].includes(tz)?tz:"nc"}">${esc(tz)}</span>`:""}${ddd}${ti.why?` <span class="muted" title="${esc(ti.why)}">(NEMLIT 2021 prints ${esc(ti.printed)}, p.${ti.page}; WHO used)</span>`:""}${r.how==="parsed"||r.how==="fuzzy"||r.how==="learned"?` <span class="muted">recognised from “${esc(text)}”</span>`:""}`}
+ if(r.how==="suggest")return`Did you mean <b>${esc(r.sug)}</b>? <button type="button" class="btn small ghost" data-abuse="${i}" data-n="${esc(r.sug)}">Use ${esc(r.sug)}</button>`;
+ if(r.how==="topical")return`<span style="color:#d08a1a">!</span> Eye, ear and skin preparations are not counted in a point prevalence survey.`;
+ return`<span style="color:#b23b3b">?</span> Not in the drug list — pick a name from the list (start typing), or it is recorded as “Not classified”.`}
+const setBox=(box,h)=>{if(box&&box.dataset.h!==h){box.innerHTML=h;box.dataset.h=h}};   /* redraw only when it changes, so a click is never lost */
+function abRefresh(i){const el=document.getElementById(`a${i}_name`),box=document.getElementById(`a${i}_info`);if(el&&box)setBox(box,abInfoHTML(i,el.value))}
+function abApply(i,orig){const el=document.getElementById(`a${i}_name`);if(!el)return;const r=drugResolve(orig);
+ if(r.name){el.value=r.name;const pr=parseRegimen(orig,r.name),f=FORMULARY[r.name]||{};const set=(id,v)=>{const x=document.getElementById(id);if(x&&!x.value&&v!=null&&v!=="")x.value=v};
+  set(`a${i}_route`,pr.route||f.route);set(`a${i}_dose`,pr.dose);set(`a${i}_freq`,pr.freq);document.getElementById("e_on").value="Y"}
+ abRefresh(i);if(r.name||r.how==="suggest")abRefreshInfo(i,orig)}
+function abRefreshInfo(i,orig){const box=document.getElementById(`a${i}_info`);if(!box)return;const cur=document.getElementById(`a${i}_name`).value;let h=abInfoHTML(i,cur===orig?orig:cur);
+ const r=drugResolve(orig);if(r.name&&orig&&orig.toLowerCase()!==r.name.toLowerCase())h+=` <span class="muted">(from “${esc(orig)}”)</span>`;setBox(box,h)}
+function learnedCard(){const m=userAlias(),e=Object.entries(m);
+ return`<div class="card" style="grid-column:1/-1"><h3>Drug names taught to PPS Pro</h3><div class="sub">When a name is not recognised and someone picks the right drug (“Did you mean…?”), PPS Pro remembers it for the form and for imports. ${e.length?"Remove any that are wrong.":"None yet."}</div>
+ ${e.length?`<div class="tablewrap" style="max-height:260px"><table><tr><th>Typed as</th><th>Recorded as</th><th></th></tr>${e.sort().map(([a,n])=>`<tr><td>${esc(a)}</td><td>${esc(n)}</td><td><button class="btn small ghost" data-unlearn="${esc(a)}">Remove</button></td></tr>`).join("")}</table></div>`:""}</div>`}
+
+document.addEventListener("mousedown",e=>{const b=e.target.closest&&e.target.closest("[data-abuse]");if(!b)return;e.preventDefault();   /* mousedown: acts before the name box loses focus */const i=b.dataset.abuse,el=document.getElementById(`a${i}_name`);if(!el)return;
+ const orig=(el.dataset.orig||el.value).trim();if(orig)userAlias()[orig.toLowerCase()]=b.dataset.n;log(`Drug name taught: “${orig}” = ${b.dataset.n}`);touch();abApply(i,orig);toast(`Remembered: “${orig}” = ${b.dataset.n}`)});
+
+/* ============ v3.3: AWaRe — WHO and Tanzania (NEMLIT 2021), checked against each other ============
+   The Tanzania STG/NEMLIT 2021 groups antibiotics nationally (NEMLIT 6.2.1 Access, 6.2.2 Watch, 6.2.3 Reserve,
+   p.7–9). PPS Pro follows the national group only where it is STRICTER than WHO and the book's own level of care
+   supports it (B, C or S). Where the book puts a dispensary-level (A) antibiotic in Watch or Reserve, or puts an
+   antibiotic in a lower group than WHO, WHO wins — and the tool says so, with the page.
+   Stored data and the WHO PPS export always use WHO. */
+const TZ_BOOK=[ // [name as printed, group as printed, level of care, page]
+ ["ampicillin","Access","A",7],["ampicillin + cloxacillin","Access","B",7],["amoxicillin","Access","A",7],["amoxicillin + clavulanic acid","Access","B",7],
+ ["benzathine benzylpenicillin","Access","A",8],["benzylpenicillin","Access","A",8],["cefalexin","Access","B",8],["cloxacillin","Access","B",8],["doxycycline","Access","A",8],
+ ["erythromycin","Access","A",8],["flucloxacillin + amoxicillin","Access","C",8],["flucloxacillin","Access","C",8],["metronidazole","Access","A",8],["nitrofurantoin","Access","A",8],
+ ["phenoxymethylpenicillin","Access","A",8],["tetracycline","Access","S",8],
+ ["ampicillin + sulbactam","Watch","C",8],["azithromycin","Watch","B",8],["clarithromycin","Watch","C",8],["chloramphenicol","Watch","B",8],["ceftriaxone","Watch","B",8],
+ ["ceftriaxone + sulbactam","Watch","D",8],["ciprofloxacin","Watch","A",8],["gentamicin","Watch","A",9],["piperacillin + tazobactam","Watch","S",9],
+ ["sulfamethoxazole + trimethoprim","Watch","A",9],["ceftazidime","Watch","D",9],["cefixime","Watch","S",9],["cefuroxime","Watch","D",9],
+ ["amikacin","Reserve","S",9],["cefepime","Reserve","S",9],["clindamycin","Reserve","S",9],["colistin","Reserve","S",9],["meropenem","Reserve","S",9],["vancomycin","Reserve","S",9],
+ ["linezolid","Reserve","S",9]];
+const TZ_SRC="Tanzania STG/NEMLIT 2021, NEMLIT 6.2.1–6.2.3, p.7–9";
+const TZ_BK=(()=>{const m={};TZ_BOOK.forEach(([n,g,l,p])=>m[stgKey(n)]={g,l,p});return m})();
+const AW_RANK={Access:1,Watch:2,Reserve:3};
+const awView=()=>DB.meta.awareView==="TZ"?"TZ":"WHO";
+/* the national group after checking it against WHO: {used, printed, page, level, why} */
+function awTzInfo(name,who){const b=TZ_BK[stgKey(name)];if(!b)return{used:who||"Not classified",printed:null};
+ const base={printed:b.g,page:b.p,level:b.l};const w=who&&AW_RANK[who]?who:null;
+ if(who==="Not recommended"&&b.g!=="Not recommended")return{...base,used:who,why:`NEMLIT 2021 (p.${b.p}) lists it as ${b.g}; WHO does not recommend this fixed-dose combination. PPS Pro uses WHO.`};
+ if(!w)return{...base,used:b.g};
+ if(b.g===w)return{...base,used:w};
+ if(AW_RANK[b.g]<AW_RANK[w])return{...base,used:w,why:`NEMLIT 2021 (p.${b.p}) lists it as ${b.g}; WHO groups it as ${w}. PPS Pro never counts an antibiotic in a lower group than WHO.`};
+ if(b.l==="A")return{...base,used:w,why:`NEMLIT 2021 (p.${b.p}) lists it as ${b.g}, but at level of care A (stocked at every dispensary), which contradicts the ${b.g} definition. WHO: ${w}. PPS Pro uses WHO.`};
+ return{...base,used:b.g,why:null,stricter:true}}
+function awTz(name,who){return awTzInfo(name,who).used}
+/* the group used for counting, in the view chosen (WHO by default) */
+function awOf(a){return awView()==="TZ"?awTz(a.name,a.aware):a.aware}
+function awName(n){const f=FORMULARY[n]||{};return awView()==="TZ"?awTz(n,f.aware):f.aware}
+function awSet(v){DB.meta.awareView=v;_cache.clear();log(`AWaRe view: ${v==="TZ"?"Tanzania NEMLIT 2021, checked against WHO":"WHO"}`);touch();render()}
+function awCard(s){const rx=s.patients.filter(p=>p.on==="Y").flatMap(p=>p.abs);if(!rx.length)return`<p class="muted">No prescriptions in ${esc(s.id)}.</p>`;
+ const G=["Access","Watch","Reserve","Not recommended","Not classified"],cnt=f=>{const c={};G.forEach(g=>c[g]=0);rx.forEach(a=>{const g=f(a);c[G.includes(g)?g:"Not classified"]++});return c};
+ const W=cnt(a=>a.aware),T=cnt(a=>awTz(a.name,a.aware)),P=cnt(a=>{const i=awTzInfo(a.name,a.aware);return i.printed||a.aware}),n=rx.length;
+ const tag=g=>`<span class="tag ${["Access","Watch","Reserve"].includes(g)?g:"nc"}">${g}</span>`;
+ const rows=G.filter(g=>W[g]||T[g]).map(g=>`<tr><td>${tag(g)}</td><td class="n">${W[g]} <span class="muted">${pct(W[g]/n,0)}</span></td><td class="n">${T[g]} <span class="muted">${pct(T[g]/n,0)}</span></td></tr>`).join("");
+ const by={};rx.forEach(a=>{const i=awTzInfo(a.name,a.aware);if(i.printed&&i.printed!==a.aware){const k=a.name;(by[k]=by[k]||{i,w:a.aware,c:0}).c++}});
+ const ap=Object.entries(by).filter(([,v])=>v.i.stricter),ov=Object.entries(by).filter(([,v])=>v.i.why);
+ return`<div class="row" style="margin:0 0 8px">Count results in: <select class="sel" id="awView"><option value="WHO" ${awView()==="WHO"?"selected":""}>WHO AWaRe</option><option value="TZ" ${awView()==="TZ"?"selected":""}>Tanzania NEMLIT 2021, checked against WHO</option></select>
+ <span class="muted">Stored data and the WHO PPS export always use WHO.</span></div>
+ <div class="tablewrap"><table><tr><th>Group</th><th class="n">WHO AWaRe</th><th class="n">Tanzania, checked</th></tr>${rows}</table></div>
+ ${ap.length?`<p style="margin:8px 0 0"><b>Stricter national groups, followed:</b> ${ap.map(([k,v])=>`${esc(k)} ×${v.c} (WHO ${esc(v.w)} → ${esc(v.i.used)}, level ${v.i.level}, p.${v.i.page})`).join(" · ")}.</p>`:""}
+ ${ov.length?`<div class="warnbox" style="margin-top:8px"><b>Where the NEMLIT 2021 list is not followed:</b><ul style="margin:4px 0 0 18px">${ov.map(([k,v])=>`<li>${esc(k)} ×${v.c}: ${esc(v.i.why)}</li>`).join("")}</ul>
+ <div class="muted" style="margin-top:4px">Applied exactly as printed, Access would be ${pct(P.Access/n,0)} (WHO ${pct(W.Access/n,0)}). Worth raising with the NEMLIT committee.</div></div>`:""}
+ <p class="muted" style="margin-top:6px">${TZ_SRC}. Antibiotics not in those lists keep their WHO group. Target: WHO / UN 2030 ≥ 70% Access (WHO grouping).</p>`}
+
+
+/* ============================= v4.9: dispensing records split over several rows =============================
+   Some hospital exports (seen in Afya eHMS) break one dispensing record over two or more rows when the
+   prescriber typed a line break or comma inside the dosage text: the first row has the drug but no quantity,
+   the next rows carry the rest of the text and then price, quantity ... date, shifted out of their columns.
+   Those records used to be skipped. They are joined back here by anchoring on the END of the record (the
+   date and quantity, which are always intact); the text in between becomes the dosage. A record is only
+   joined when its quantity is a number and its date is a date; otherwise it is left exactly as it was. */
+/* a cell that holds a date: text like 2026-01-20 or 20/01/2026, or an Excel day number between 1960 and 2100.
+   Never passes other numbers (quantities, insurance numbers) to the date converter. */
+function odieIsDate(v){ if(v==null) return false; if(v instanceof Date) return !isNaN(v);
+  const s=(""+v).trim(); if(!s) return false;
+  if(/^\d+(\.\d+)?$/.test(s)){ const n=Number(s); return n>=21916&&n<=73051; }
+  return /^\d{4}-\d{2}-\d{2}/.test(s)||/^\d{1,2}[\/.\-]\d{1,2}[\/.\-]\d{2,4}\b/.test(s); }
+/* a cell that is a plain number and nothing else ("6", "3000", 2.5) — "6 UNITS" or "12.5mg" are not */
+function odieNum(v){ if(typeof v==="number") return isFinite(v)?v:null; const t=(v==null?"":""+v).trim().replace(/,(?=\d{3}\b)/g,""); return /^-?\d+(\.\d+)?$/.test(t)?Number(t):null; }
+function odieJoinSplitRows(grid,layout){
+  const c=layout.colIndex, H=layout.headerRowIdx; const D=c.dosage, Q=c.quantity, T=c.date, I=c.itemName;
+  if(D==null||Q==null||T==null||I==null||!(I<D&&D<Q&&D<T)) return grid;
+  const W=Math.max(...grid.slice(H,H+1).map(r=>(r||[]).length), T+1);
+  const tail=Object.values(c).filter(x=>x!=null&&x>D); if(!tail.length) return grid;
+  const off=T-(D+1), qOff=Q-(D+1), TL=W-1-D;
+  /* does this file write dates as text (2026-01-20) or as Excel day numbers? decided from complete rows */
+  let tx_=0, nm_=0; for(let i=H+1;i<grid.length&&tx_+nm_<300;i++){ const v=(grid[i]||[])[T]; if(v==null||(""+v).trim()==="") continue; if(/^\d+(\.\d+)?$/.test((""+v).trim())) nm_++; else if(odieIsDate(v)) tx_++; }
+  const numDates=nm_>tx_;
+  const isD=v=>{ if(v==null) return false; const t=(""+v).trim(); return /^\d+(\.\d+)?$/.test(t)?(numDates&&odieIsDate(t)):odieIsDate(t); };
+  const empty=v=>v==null||(""+v).trim()==="";
+  const lastIdx=r=>{ let k=(r||[]).length-1; while(k>=0&&empty(r[k])) k--; return k; };
+  const cells=(r,from)=>{ const o=[]; for(let k=from;k<=lastIdx(r);k++){ const v=r[k]; if(typeof v==="string"&&(v.match(/,/g)||[]).length>=4) v.split(",").forEach(x=>o.push(x)); else o.push(v); } return o; };
+  const out=grid.slice(0,H+1); let joined=0;
+  for(let i=H+1;i<grid.length;i++){
+    const r=grid[i]||[];
+    if(!empty(r[I])&&odieNum(r[Q])==null){
+      let comb=cells(r,0), done=null;
+      for(let j=i+1;j<Math.min(i+6,grid.length)&&!done;j++){
+        const nx=grid[j]||[]; if(!empty(nx[I])&&odieNum(nx[Q])!=null&&isD(nx[T])) break;   // next row is a complete record of its own
+        comb=comb.concat(cells(nx,(nx[0]!=null&&nx[0]===r[0])?1:0));
+        for(let p=D+1+off;p<comb.length;p++){ if(isD(comb[p])&&odieNum(comb[p-off+qOff])!=null){
+          const ts=p-off; const rec=comb.slice(0,D).concat([comb.slice(D,ts).filter(x=>!empty(x)).join(" ")],comb.slice(ts,ts+TL));
+          while(rec.length<W) rec.push(""); done={j,rec}; break; } }
+      }
+      if(done){ out.push(done.rec); joined++; i=done.j; continue; }
+    }
+    out.push(r);
+  }
+  out._joined=joined; return joined?out:grid;
+}
+/* Department read from an unlabeled column when the labelled one is missing or empty (Afya exports carry the
+   ward/clinic in a column with no header, while their "Clinic" column is often blank). Same rule as PPS Pro:
+   a column of short upper-case labels repeated across rows, never a payment-type column. */
+function odieFixDepartment(grid,L){ const c=L.colIndex, I=c.itemName, Q=c.quantity; if(I==null) return;
+  const body=[]; for(let r=L.headerRowIdx+1;r<grid.length&&body.length<400;r++){ const row=grid[r]||[]; if(row[I]!=null&&(""+row[I]).trim()&&(Q==null||odieNum(row[Q])!=null)) body.push(row); }
+  const n=body.length; if(n<20) return;
+  const val=(row,k)=>(row[k]==null?"":(""+row[k]).trim());
+  const filled=k=>body.filter(r=>val(r,k)).length/n;
+  if(c.department!=null&&filled(c.department)>=0.05) return;      // the labelled column is in use
+  const was=c.department, used=new Set(Object.values(c).filter(x=>x!=null&&x!==was)); const W=Math.max(...body.map(r=>r.length));
+  const hdr=grid[L.headerRowIdx]||[];
+  const PAY=/^(CASH|NHIF|NSSF|CHF|ICHF|INSURANCE|EXEMPT\w*|JWTZ|STRATEGIES|AAR|JUBILEE|SANLAM|ASSEMBLE|CREDIT|COST SHARING)\b/i;
+  for(let k=0;k<W;k++){ if(used.has(k)||k===was) continue; if(hdr[k]!=null&&(""+hdr[k]).trim()&&!/\.csv$/i.test((""+hdr[k]).trim())) continue;
+    const v=body.map(r=>val(r,k)).filter(Boolean); if(v.length/n<0.8) continue;
+    if(v.filter(x=>PAY.test(x)).length/v.length>0.5) continue;
+    if(v.filter(x=>/^[A-Z][A-Z0-9 ()&\/.\-]{1,60}$/.test(x)).length/v.length<0.7) continue;
+    if(new Set(v).size>=80) continue;
+    c.department=k; if(L.missing&&L.missing.indexOf("department")>=0) L.missing.splice(L.missing.indexOf("department"),1);
+    if(L.found&&L.found.indexOf("department")>=0) L.found.splice(L.found.indexOf("department"),1);
+    if(L.inferred&&L.inferred.indexOf("department")<0) L.inferred.push("department");
+    L.deptNote=was!=null?`Department read from an unlabeled column — the “${(""+(hdr[was]||"")).trim()||"department"}” column is empty in this file.`:"Department read from an unlabeled column.";
+    return; } }
 
 /* ============ Start ============ */
 $("#btnImport").onclick=()=>$("#fileIn").click();
@@ -1858,7 +2203,7 @@ window.ODMREF=(function(){
     let pack;
     try{
       const ctl=new AbortController(), tm=setTimeout(()=>ctl.abort(),20000);
-      try{ const r=await fetch(URL+"?t="+Date.now(),{cache:"no-store",signal:ctl.signal}); if(!r.ok) throw new Error("the website answered "+r.status); pack=await r.json(); }
+      try{ const r=await fetch(URL+"?t="+Date.now(),{cache:"no-store",signal:ctl.signal}); if(r.status===404){ pending=null; msg={kind:"info",html:'<b>No newer list has been published on the Odieman website yet.</b> This copy keeps using its built-in list.'}; paint(); return; } if(!r.ok) throw new Error("the website answered "+r.status); pack=await r.json(); }
       finally{ clearTimeout(tm); }
     }catch(e){
       msg={kind:"error",html:'<b>Could not reach the Odieman website.</b> Check the internet connection and try again'+(A.demo?'.':', or load the update file from a flash drive (<i>Load update file</i>).')+'<div style="font-size:12px;opacity:.8;margin-top:4px">'+esc(e&&e.name==="AbortError"?"No answer within 20 seconds.":(e&&e.message)||e)+'</div>'}; paint(); return;
@@ -1978,130 +2323,6 @@ window.ODMREF=(function(){
     listNote:"Antibiotics not on the list keep showing as Not classified."
   });
 })();
-
-/* ============================================================
-   WHO PPS FORMAT (v3.2) — every survey laid out in the forms and
-   variable names of the WHO Methodology for Point Prevalence Survey
-   on Antibiotic Use in Hospitals (WHO/EMP/IAU/2018.01, v1.1):
-   Hospital, Ward, Patient, Indication and Antibiotic tables, plus
-   the headline indicators. One ZIP file, plain CSV inside.
-   ============================================================ */
-const WHO_WARD={MED:"AMW",SUR:"ASW",OBG:"ASW",PED:"PMW",NEO:"NMW",MIX:"MXW"};
-function whoWardType(code,ages){
-  const c=String(code||"").toUpperCase();
-  if(c==="ICU"){ const a=ages.filter(x=>x!=null).sort((x,y)=>x-y); const med=a.length?a[Math.floor(a.length/2)]:null;
-    return med==null?"AICU":med<0.08?"NICU":med<18?"PICU":"AICU"; }
-  return WHO_WARD[c]||(/^(PMW|PSW|PHRW|PICU|NMW|NICU|AMW|ASW|AHRW|AICU|MXW|MXAW|MXPW)$/.test(c)?c:"");
-}
-function whoInd(i){
-  const c=String(i||"").toUpperCase();
-  if(/^SP[123]$/.test(c)) return {type:"SP",dur:c};
-  if(c==="CAI"||c==="HAI"||c==="MP") return {type:c,dur:""};
-  if(c==="OTH"||c==="O") return {type:"O",dur:""};
-  return {type:c==="UNK"?"UNK":c,dur:""};
-}
-const WHO_YN=v=>v==="Y"?"Y":v==="N"?"N":v==="NA"?"NA":v?"UNK":"";
-function whoCsv(rows){return rows.map(r=>r.map(csvCell).join(",")).join("\r\n")+"\r\n";}
-function whoPPSTables(){
-  const H=[["SurveyID","HospitalCode","SurveyStartDate","SurveyEndDate","HospitalIncludedPatients","HospitalIncludedWards","PatientSampling"]];
-  const W=[["SurveyID","WardCode","WardName","WardSurveyDate","WardType","WardIncludedPatients","Odieman_ward_type"]];
-  const P=[["SurveyID","WardCode","PatientCode","Gender","AgeYear","AgeMonth","Child12YearWeight","AdmissionDate","PatientOnAntibiotic","PatientNumberAntibiotics","Odieman_surgery_last_30d","Odieman_catheter_or_line"]];
-  const I=[["SurveyID","PatientCode","IndicationCounter","IndicationType","SurgicalProphylaxisDuration","Diagnosis","ReasonInNotes","CultureSampleTaken","Odieman_stop_review_date_documented"]];
-  const A=[["SurveyID","PatientCode","AntibioticCounter","IndicationCounters","AntibioticINNName","ATC5","AWaRe","UnitDose","UnitDoseMeasureUnit","UnitDoseFrequency","AdministrationRoute","GuidelinesCompliance"]];
-  const K=[["SurveyID","Survey date","Patients surveyed","Patients on antibiotics","Prevalence of antibiotic use %","Antibiotic prescriptions","Antibiotics per treated patient",
-    "Access %","Watch %","Reserve %","Not classified %","Parenteral %","CAI %","HAI %","Surgical prophylaxis %","SP > 1 day (SP3) % of SP","Medical prophylaxis %",
-    "Reason in notes %","Guideline compliant % (assessable)","Culture taken %","Stop/review date documented %"]];
-  const pc=(n,d)=>d?+(n/d*100).toFixed(1):"";
-  sorted().forEach(s=>{
-    const sid=s.id, date=s.date, pts=s.patients||[];
-    const wards={}; pts.forEach(p=>{const k=p.wardCode||p.ward||"(ward)";(wards[k]=wards[k]||{name:p.ward||k,type:p.wardType,pts:[]}).pts.push(p);});
-    H.push([sid,s.facility||DB.meta.facility||"",date,date,pts.length,Object.keys(wards).length,"N"]);
-    Object.entries(wards).forEach(([k,w])=>W.push([sid,k,w.name,date,whoWardType(w.type,w.pts.map(p=>p.age)),w.pts.length,w.type||""]));
-    let on=0,rx=0,acc=0,wat=0,res=0,nc=0,par=0,ind={CAI:0,HAI:0,SP:0,MP:0},sp3=0,reason=0,gY=0,gA=0,cult=0,cultD=0,stop=0;
-    pts.forEach(p=>{
-      const code=p.code||"", abs=p.abs||[], age=p.age;
-      const ay=age==null?"":Math.floor(age), am=age!=null&&age<2?Math.round(age*12):"";
-      P.push([sid,p.wardCode||p.ward||"",code,{M:"M",F:"F"}[p.sex]||"UNK",ay,am,age!=null&&age<12&&p.weight!=null?p.weight:"",p.adm||"",p.on==="Y"?"Y":"N",abs.length,WHO_YN(p.surgery),WHO_YN(p.line)]);
-      if(p.on!=="Y") return;
-      on++;
-      const iw=whoInd(p.ind);
-      I.push([sid,code,1,iw.type,iw.dur,p.dx||"",WHO_YN(p.reason),WHO_YN(p.culture),WHO_YN(p.stop)]);
-      if(ind[iw.type]!=null) ind[iw.type]++; if(iw.dur==="SP3") sp3++;
-      if(p.reason==="Y") reason++; if(p.stop==="Y") stop++;
-      if(p.guide==="Y"||p.guide==="N"){gA++; if(p.guide==="Y") gY++;}
-      cultD++; if(p.culture==="Y") cult++;
-      abs.forEach((a,j)=>{
-        rx++; if(a.aware==="Access")acc++; else if(a.aware==="Watch")wat++; else if(a.aware==="Reserve")res++; else nc++;
-        if(a.route==="P") par++;
-        A.push([sid,code,j+1,1,a.name||"",a.atc||"",a.aware||"",a.dose!=null?a.dose:"",a.dose!=null?"mg":"",a.freq!=null?a.freq:"",a.route==="P"||a.route==="O"?a.route:(a.route||""),WHO_YN(p.guide)]);
-      });
-    });
-    K.push([sid,date,pts.length,on,pc(on,pts.length),rx,on?+(rx/on).toFixed(2):"",pc(acc,rx),pc(wat,rx),pc(res,rx),pc(nc,rx),pc(par,rx),
-      pc(ind.CAI,on),pc(ind.HAI,on),pc(ind.SP,on),pc(sp3,ind.SP),pc(ind.MP,on),pc(reason,on),pc(gY,gA),pc(cult,cultD),pc(stop,on)]);
-  });
-  return {H,W,P,I,A,K};
-}
-/* Minimal ZIP writer (stored, no compression) so the six tables travel as one file. */
-const _crcT=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
-function _crc32(b){let c=0xFFFFFFFF;for(let i=0;i<b.length;i++)c=_crcT[(c^b[i])&255]^(c>>>8);return (c^0xFFFFFFFF)>>>0}
-function makeZip(files){
-  const enc=new TextEncoder(), parts=[], cent=[]; let off=0;
-  const d=new Date(), dt=((d.getHours()<<11)|(d.getMinutes()<<5)|(d.getSeconds()>>1))&0xFFFF, dd=(((d.getFullYear()-1980)<<9)|((d.getMonth()+1)<<5)|d.getDate())&0xFFFF;
-  files.forEach(f=>{
-    const name=enc.encode(f.name), data=typeof f.data==="string"?enc.encode(f.data):f.data, crc=_crc32(data);
-    const h=new DataView(new ArrayBuffer(30));
-    h.setUint32(0,0x04034b50,true);h.setUint16(4,20,true);h.setUint16(6,0x0800,true);h.setUint16(8,0,true);h.setUint16(10,dt,true);h.setUint16(12,dd,true);
-    h.setUint32(14,crc,true);h.setUint32(18,data.length,true);h.setUint32(22,data.length,true);h.setUint16(26,name.length,true);h.setUint16(28,0,true);
-    parts.push(new Uint8Array(h.buffer),name,data);
-    const c=new DataView(new ArrayBuffer(46));
-    c.setUint32(0,0x02014b50,true);c.setUint16(4,20,true);c.setUint16(6,20,true);c.setUint16(8,0x0800,true);c.setUint16(10,0,true);c.setUint16(12,dt,true);c.setUint16(14,dd,true);
-    c.setUint32(16,crc,true);c.setUint32(20,data.length,true);c.setUint32(24,data.length,true);c.setUint16(28,name.length,true);c.setUint32(42,off,true);
-    cent.push(new Uint8Array(c.buffer),name);
-    off+=30+name.length+data.length;
-  });
-  const csize=cent.reduce((s,x)=>s+x.length,0), e=new DataView(new ArrayBuffer(22));
-  e.setUint32(0,0x06054b50,true);e.setUint16(8,files.length,true);e.setUint16(10,files.length,true);e.setUint32(12,csize,true);e.setUint32(16,off,true);
-  return new Blob([...parts,...cent,new Uint8Array(e.buffer)],{type:"application/zip"});
-}
-function whoPPSReadme(){
-  return `WHO PPS FORMAT EXPORT - ${DB.meta.facility||""}
-Made by Odieman PPS Pro on ${today()}. ${DB.surveys.length} survey(s).
-
-Tables follow the forms and variable names of the WHO Methodology for Point
-Prevalence Survey on Antibiotic Use in Hospitals (WHO/EMP/IAU/2018.01, v1.1).
-Codes: Y/N/NA/UNK, dates YYYY-MM-DD. Patient codes are the survey codes only.
-
-  1_Hospital.csv    one row per survey (Hospital form)
-  2_Ward.csv        one row per ward per survey (Ward form)
-  3_Patient.csv     one row per patient surveyed (Patient form)
-  4_Indication.csv  one row per treated patient (Indication section)
-  5_Antibiotic.csv  one row per antimicrobial (Antibiotic section)
-  6_Indicators.csv  headline indicators per survey
-
-How PPS Pro's fields were mapped (check before submitting):
-  WardType   MED->AMW, SUR->ASW, OBG->ASW (WHO has no obstetric ward type),
-             PED->PMW, NEO->NMW, MIX->MXW, ICU->NICU/PICU/AICU by the ward's median age.
-  IndicationType  CAI, HAI, MP as recorded; SP1/SP2/SP3 -> SP with
-             SurgicalProphylaxisDuration; OTH -> O.
-  Diagnosis  PPS Pro's diagnosis codes (the same short codes WHO uses, e.g. PNEU, CSEP).
-  One indication per patient (IndicationCounter 1): PPS Pro records one.
-  GuidelinesCompliance is recorded per patient in PPS Pro and repeated for
-             each of that patient's antibiotics.
-  Columns starting "Odieman_" are not WHO variables: surgery in the last
-  30 days, any catheter/line, stop/review date documented. WHO's
-  SurgerySinceAdmission and Central/PeripheralVascularCatheter are not the
-  same questions, so they are left out rather than guessed.
-  Not collected by PPS Pro (blank): hospital beds/admissions, StartDate fields,
-  microbiology results, prescriber type, missed doses.
-`;
-}
-async function exportWhoPPS(){
-  if(!DB.surveys.length){toast("No surveys yet");return}
-  const t=whoPPSTables();
-  const blob=makeZip([{name:"README.txt",data:whoPPSReadme()},{name:"1_Hospital.csv",data:"﻿"+whoCsv(t.H)},{name:"2_Ward.csv",data:"﻿"+whoCsv(t.W)},
-    {name:"3_Patient.csv",data:"﻿"+whoCsv(t.P)},{name:"4_Indication.csv",data:"﻿"+whoCsv(t.I)},{name:"5_Antibiotic.csv",data:"﻿"+whoCsv(t.A)},{name:"6_Indicators.csv",data:"﻿"+whoCsv(t.K)}]);
-  await saveOut(`WHO_PPS_format_${today()}.zip`,blob,"application/zip");
-}
 
 if(DEMO){runDemo()}else (async()=>{try{const d=await IDB.get("db");if(d&&Array.isArray(d.surveys))DB=Object.assign(DB,d,{meta:Object.assign(DB.meta,d.meta||{})})}catch(e){}
  if(window.ODMREF){try{ODMREF.sync()}catch(e){console.error(e)}fillDrugList()}

@@ -51,10 +51,9 @@
   window.addEventListener("paste",function(e){var d=e.clipboardData;if(e.isTrusted&&d&&d.files&&d.files.length){e.preventDefault();e.stopImmediatePropagation();notice();}},true);
 })();
 </script>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Odieman AMS Pro v4.8 (demo)</title>
+<title>Odieman AMS Pro v4.9 (demo)</title>
 <style>
 :root{
   --bg:#0d1117; --panel:#161b22; --panel2:#1c2230; --line:#2b3340;
@@ -206,7 +205,7 @@ td input.wide{min-width:220px;white-space:normal}
 <body>
 <header>
   <div class="logo">Odieman <b>AMS&nbsp;Pro</b></div>
-  <div class="tag">Offline Antimicrobial Stewardship Suite &mdash; Data Entry, Bulk Ingestion &amp; Reporting&nbsp;&middot;&nbsp;v4.8</div>
+  <div class="tag">Offline Antimicrobial Stewardship Suite &mdash; Data Entry, Bulk Ingestion &amp; Reporting&nbsp;&middot;&nbsp;v4.9</div>
   <div class="spacer"></div>
   <button id="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle navigation" title="Toggle navigation">&#9776;</button>
   <div id="backup-badge" class="bbadge" onclick="backupBadgeClick()" title="Backup status — click to manage">&#9211; No backup yet</div>
@@ -23973,29 +23972,26 @@ const AWARE_REF={
   "avibactam + ceftazidime":"Reserve","ceftolozane + tazobactam":"Reserve","meropenem + vaborbactam":"Reserve",
   "sulfamethoxazole + trimethoprim":"Access"
 };
-/* Tanzania NEMLIT/STG 2021 adopts a handful of these WHO "Not recommended" FDCs as first-line
-   regimens (see Dose Reference notes for each). When the facility's AWaRe scheme is set to
-   "tanzania" (Setup tab), these three combos are classified by the real antibiotic exposure they
-   represent instead of WHO's blanket "unlisted FDC -> Not recommended" rule: Ampiclox and
-   Amoxicillin+Flucloxacillin are both pairings of two Access-class penicillins, so Access; the
-   ceftriaxone component of Ceftriaxone+Sulbactam is what actually drives its resistance profile
-   (sulbactam is a beta-lactamase inhibitor, not itself a WHO EML antibacterial), so Watch — same as
-   ceftriaxone alone. Every other WHO "Not recommended" combo is unaffected by this toggle. */
-/* Tanzania STG/NEMLIT 2021 (6th ed.) adopted the AWaRe grouping as a NATIONAL categorization and
-   differs from WHO for some agents. Only differences from WHO are listed here, each with its basis.
-   The list is editable in Setup (DB.facility.tzAware), because the pharmacist holding the current
-   NEMLIT copy is the authority — entries marked "check" should be confirmed against it. */
+/* Tanzania STG/NEMLIT 2021 (6th ed.) groups antibiotics nationally (NEMLIT 6.2.1 Access, 6.2.2 Watch,
+   6.2.3 Reserve, p.7-9). AMS Pro (like PPS Pro) follows the national group only where it is STRICTER
+   than WHO and the book's own level of care supports it (B, C or S). Where the book puts a
+   dispensary-level (A) antibiotic in Watch (gentamicin, cotrimoxazole) or puts an antibiotic in a
+   lower group than WHO (erythromycin; the WHO "Not recommended" combinations Ampiclox,
+   amoxicillin+flucloxacillin, ceftriaxone+sulbactam), WHO is used and the reason is shown
+   (odieTzNotFollowed). Antibiotics not in the NEMLIT lists (e.g. imipenem) keep their WHO group.
+   The list stays editable in Setup (DB.facility.tzAware). */
 const TANZANIA_AWARE_OVERRIDES={
-  "ampicillin + cloxacillin":"Access","amoxicillin + flucloxacillin":"Access","ceftriaxone + sulbactam":"Watch",
-  "meropenem":"Reserve","imipenem":"Reserve","cilastatin + imipenem":"Reserve"
+  "chloramphenicol":"Watch","ampicillin + sulbactam":"Watch",
+  "amikacin":"Reserve","cefepime":"Reserve","clindamycin":"Reserve","meropenem":"Reserve","vancomycin":"Reserve"
 };
 const TZ_AWARE_SOURCE={
-  "ampicillin + cloxacillin":"STG/NEMLIT 2021 first-line (Access in Tanzanian AWaRe use, e.g. Zimbwe et al., BMJ Open 2024)",
-  "amoxicillin + flucloxacillin":"STG/NEMLIT 2021 first-line (Access in Tanzanian AWaRe use, e.g. Zimbwe et al., BMJ Open 2024)",
-  "ceftriaxone + sulbactam":"Facility default: classed by its ceftriaxone component — check NEMLIT",
-  "meropenem":"Reserve under STG/NEMLIT 2021 (Zimbwe et al., BMJ Open 2024, Table 2)",
-  "imipenem":"Carbapenem — set to match meropenem; check NEMLIT",
-  "cilastatin + imipenem":"Carbapenem — set to match meropenem; check NEMLIT"
+  "chloramphenicol":"NEMLIT 2021 §6.2.2 Watch, p.8 (level B, reserved for meningitis). WHO: Access",
+  "ampicillin + sulbactam":"NEMLIT 2021 §6.2.2 Watch, p.8 (level C). WHO: Access",
+  "amikacin":"NEMLIT 2021 §6.2.3 Reserve, p.9 (level S). WHO: Access",
+  "cefepime":"NEMLIT 2021 §6.2.3 Reserve, p.9 (level S). WHO: Watch",
+  "clindamycin":"NEMLIT 2021 §6.2.3 Reserve, p.9 (level S). WHO: Access",
+  "meropenem":"NEMLIT 2021 §6.2.3 Reserve, p.9 (level S). WHO: Watch",
+  "vancomycin":"NEMLIT 2021 §6.2.3 Reserve, p.9 (level S). WHO: Watch"
 };
 /* v4.8: filled only by a reference-list update (Setup > Reference lists). AWARE_ROUTE holds WHO groups
    that differ by route (e.g. fosfomycin: oral Watch, injection Reserve); DDD_REFERS names the component
@@ -24101,7 +24097,7 @@ function xlDateH(v){ const s=(""+(v==null?"":v)).trim(); if(!s) return s;
   /* Math.floor, not Math.round: an Excel serial's fractional part is the TIME of day, not a
      rounding error — any timestamp after noon (fraction >= 0.5) was previously getting bumped to
      the next calendar day (e.g. a 13:17 discharge showing as the next day). Truncate it instead. */
-  if(/^\d+(\.\d+)?$/.test(s)){ const n=Number(s); const d=new Date(Date.UTC(1899,11,30)+Math.floor(n)*86400000); return d.toISOString().slice(0,10); }
+  if(/^\d+(\.\d+)?$/.test(s)){ const n=Number(s); if(!(n>=1&&n<=2958465)) return s; /* not an Excel day number (e.g. an insurance number in a shifted row) */ const d=new Date(Date.UTC(1899,11,30)+Math.floor(n)*86400000); return d.toISOString().slice(0,10); }
   return s; }
 
 /* ============================= NAV ============================= */
@@ -24243,17 +24239,18 @@ function renderSetup(){
   </div>
   <div class="panel" style="border-color:var(--accent)">
     <h2>AWaRe classification scheme</h2>
-    <div class="sub">WHO's AWaRe book classifies a handful of fixed-dose antibiotic combinations (Ampicillin+Cloxacillin/"Ampiclox", Amoxicillin+Flucloxacillin, Ceftriaxone+Sulbactam) as "Not recommended" — but Tanzania's NEMLIT/STG 2021 lists the first two as first-line regimens. Switch below to see your Access/Watch/Reserve mix under either lens. Every dispensing record is reclassified immediately on Apply, and whichever scheme produced a given report is always stated on it.</div>
+    <div class="sub">The Tanzania STG/NEMLIT 2021 groups some antibiotics differently from WHO. AMS Pro follows the national group where it is stricter than WHO and the book's own level of care supports it (meropenem, vancomycin, amikacin, cefepime and clindamycin as Reserve; chloramphenicol and ampicillin+sulbactam as Watch). Where the book contradicts itself (gentamicin and cotrimoxazole printed as Watch, yet stocked at every dispensary) or is less strict than WHO (erythromycin; Ampiclox and the other combinations WHO does not recommend), WHO is used and the reason is shown below. Every dispensing record is reclassified on Apply, and every report states which scheme produced it.</div>
     <div class="row" style="align-items:center;gap:10px;margin-top:10px">
       <select id="f_awarescheme">
         <option value="who" ${f.awareScheme!=='tanzania'?'selected':''}>WHO AWaRe (global) — for international comparison</option>
-        <option value="tanzania" ${f.awareScheme==='tanzania'?'selected':''}>Tanzania STG/NEMLIT 2021 — national AWaRe categorization (for MoH reporting)</option>
+        <option value="tanzania" ${f.awareScheme==='tanzania'?'selected':''}>Tanzania STG/NEMLIT 2021, checked against WHO — for MoH reporting</option>
       </select>
       <button class="btn sm" onclick="saveAwareScheme()">Apply &amp; reclassify</button>
     </div>
-    <div class="notice ${f.awareScheme==='tanzania'?'warn':''}" style="margin-top:14px">Currently: <b>${f.awareScheme==='tanzania'?'Tanzania STG/NEMLIT 2021 national AWaRe categorization':'WHO AWaRe (strict)'}</b>. ${f.awareScheme==='tanzania'?'Antibiotics are classed as in the national list below (differences from WHO only); everything else follows WHO. Reports also show the WHO figures alongside.':'Matches the published WHO AWaRe classification. Reports also show the Tanzania STG/NEMLIT figures alongside.'}</div>
+    <div class="notice ${f.awareScheme==='tanzania'?'warn':''}" style="margin-top:14px">Currently: <b>${f.awareScheme==='tanzania'?'Tanzania STG/NEMLIT 2021 national AWaRe categorization':'WHO AWaRe (strict)'}</b>. ${f.awareScheme==='tanzania'?'Antibiotics are classed as in the national list below (stricter national groups only); everything else follows WHO. Reports also show the WHO figures alongside.':'Matches the published WHO AWaRe classification. Reports also show the Tanzania STG/NEMLIT figures alongside.'}</div>
     ${tzAwareEditor()}
   </div>
+  ${odieNamesPanel()}
   <div class="panel" style="border-color:var(--teal)">
     <h2>Reference lists &mdash; AWaRe groups, ATC codes &amp; WHO DDDs</h2>
     <div class="sub">WHO revises the AWaRe classification every two years and the ATC/DDD Index every year. Check here for the latest list instead of waiting for a new copy of AMS Pro. You see exactly what would change before anything is applied.</div>
@@ -24316,14 +24313,19 @@ function clearBedDaysEstimate(){
 function awareCmpRows(m){ const b=m.awareBoth; if(!b) return null; const f=x=>(x*100).toFixed(1)+"%";
   return [["Access",f(b.who.Access),f(b.tz.Access)],["Watch",f(b.who.Watch),f(b.tz.Watch)],["Reserve",f(b.who.Reserve),f(b.tz.Reserve)],["Not recommended",f(b.who.NR),f(b.tz.NR)],["Unclassified",f(b.who.Unclassified),f(b.tz.Unclassified)]]; }
 function awareCmpHTML(m){ const r=awareCmpRows(m); if(!r) return ""; const b=m.awareBoth; const act=currentAwareScheme();
-  return `<div class="tablewrap" style="margin:10px 0"><table><thead><tr><th>Share of ${b.n} antibiotic dispensing lines</th><th${act==="who"?' style="text-decoration:underline"':''}>WHO AWaRe</th><th${act==="tanzania"?' style="text-decoration:underline"':''}>Tanzania STG/NEMLIT 2021</th></tr></thead><tbody>${r.map(x=>`<tr><td>${x[0]}</td><td>${x[1]}</td><td>${x[2]}</td></tr>`).join("")}</tbody></table></div>
-  ${b.diff.length?`<div class="hint">Classified differently: ${b.diff.map(d=>`${esc(d.drug)} (${d.lines} lines) — WHO ${esc(d.who)}, Tanzania ${esc(d.tz)}`).join("; ")}. Headline figures use the <b>${act==="tanzania"?"Tanzania":"WHO"}</b> scheme (switch in Setup).</div>`:""}`; }
+  return `<div class="tablewrap" style="margin:10px 0"><table><thead><tr><th>Share of ${b.n} antibiotic dispensing lines</th><th${act==="who"?' style="text-decoration:underline"':''}>WHO AWaRe</th><th${act==="tanzania"?' style="text-decoration:underline"':''}>Tanzania STG/NEMLIT 2021, checked</th></tr></thead><tbody>${r.map(x=>`<tr><td>${x[0]}</td><td>${x[1]}</td><td>${x[2]}</td></tr>`).join("")}</tbody></table></div>
+  ${b.diff.length?`<div class="hint">Classified differently: ${b.diff.map(d=>`${esc(d.drug)} (${d.lines} lines) — WHO ${esc(d.who)}, Tanzania ${esc(d.tz)}`).join("; ")}. Headline figures use the <b>${act==="tanzania"?"Tanzania":"WHO"}</b> scheme (switch in Setup).</div>`:""}
+  ${b.nf&&b.nf.length?`<div class="notice warn" style="margin-top:8px"><b>Where the NEMLIT 2021 list is not followed:</b> ${b.nf.map(d=>`${esc(d.drug)} (${d.lines} lines) — ${esc(d.why)}`).join(" ")} <span class="hint">Applied exactly as printed, Access would be ${(b.printedAccess*100).toFixed(1)}% (WHO ${(b.who.Access*100).toFixed(1)}%). Worth raising with the NEMLIT committee.</span></div>`:""}`; }
 function tzAwareEditor(){
   const map=tzAwareMap(); const keys=Object.keys(map).sort();
   return `<div class="subhead" style="margin-top:16px"><h3>Tanzania national list &mdash; differences from WHO</h3><div class="line"></div></div>
-  <div class="hint">Only antibiotics whose Tanzanian class differs from WHO are listed. Confirm each against your STG/NEMLIT copy; rows marked "check" were not confirmed from the printed list. Edit, remove or add a row (generic name as matched by the tool, e.g. <i>gentamicin</i> or <i>ampicillin + cloxacillin</i>), then Apply &amp; reclassify.</div>
+  <div class="hint">Only antibiotics whose Tanzanian class differs from WHO and is followed are listed, each with its NEMLIT section, page and level of care. Edit, remove or add a row (generic name as matched by the tool, e.g. <i>gentamicin</i> or <i>ampicillin + cloxacillin</i>), then Apply &amp; reclassify.</div>
   <div class="tablewrap"><table><thead><tr><th>Generic (as matched)</th><th>WHO</th><th>Tanzania</th><th style="white-space:normal">Basis</th><th></th></tr></thead><tbody>
   ${keys.map(k=>`<tr><td>${esc(k)}</td><td>${esc(classifyAware(k,"who")||"\u2014")}</td><td><select onchange="tzAwareSet('${esc(k)}',this.value)">${["Access","Watch","Reserve","Not recommended"].map(o=>`<option ${o===map[k]?"selected":""}>${o}</option>`).join("")}</select></td><td style="white-space:normal;font-size:12px">${esc(TZ_AWARE_SOURCE[k]||"Added by user")}</td><td><button class="btn sm danger" onclick="tzAwareDel('${esc(k)}')">Remove</button></td></tr>`).join("")}
+  </tbody></table></div>
+  <div class="subhead" style="margin-top:16px"><h3>Where the NEMLIT 2021 list is not followed</h3><div class="line"></div></div>
+  <div class="tablewrap"><table><thead><tr><th>Generic</th><th>NEMLIT prints</th><th>Used (WHO)</th><th style="white-space:normal">Why</th></tr></thead><tbody>
+  ${Object.entries(odieTzNotFollowed()).map(([k,v])=>`<tr><td>${esc(k)}</td><td>${esc(v.printed)} (p.${v.page})</td><td>${esc(classifyAware(k,"who")||"\u2014")}</td><td style="white-space:normal;font-size:12px">${esc(v.why)}</td></tr>`).join("")}
   </tbody></table></div>
   <div class="row" style="margin-top:8px"><input id="tz_new_k" placeholder="generic name, e.g. gentamicin" style="max-width:260px"><select id="tz_new_c">${["Access","Watch","Reserve","Not recommended"].map(o=>`<option>${o}</option>`).join("")}</select><button class="btn sm" onclick="tzAwareSet($('#tz_new_k').value,$('#tz_new_c').value)">+ Add</button><button class="btn sm ghost" onclick="tzAwareReset()">Restore defaults</button></div>`;
 }
@@ -24488,7 +24490,7 @@ function renderEntryPharm(){
   $("#entry_body").innerHTML=`
   <div class="grid">
     ${field("Patient ID (optional)","e_p_pid","text")}
-    ${field("Item / drug name","e_p_item","text",null,"","e.g. Ceftriaxone Injection :1gm")}
+    ${field("Item / drug name","e_p_item","text",null,"","e.g. Ceftriaxone Injection :1gm").replace('<input id="e_p_item"','<input id="e_p_item" oninput="odieHint(\'e_p_item\')"').replace('</div>','<span class="hint" id="e_p_item_hint"></span></div>')}
     ${field("Quantity dispensed","e_p_qty","num")}
     ${field("Ward / Department","e_p_ward","text")}
     ${field("Prescriber (optional)","e_p_presc","text",null,"","Enables the Cost & Impact prescriber breakdown")}
@@ -24579,10 +24581,11 @@ function renderEntryIsolate(){
   </div>
   <div class="subhead"><h3>Susceptibility results for this isolate</h3><div class="line"></div></div>
   <div class="row" style="gap:10px;align-items:center">
-    <input id="e_i_drug" placeholder="Antibiotic tested" style="width:220px">
+    <input id="e_i_drug" placeholder="Antibiotic tested" style="width:220px" oninput="odieHint('e_i_drug')" onkeydown="if(event.key==='Enter')isolateDraftAdd()">
     <select id="e_i_result"><option value="S">S — Susceptible</option><option value="I">I — Intermediate</option><option value="R">R — Resistant</option></select>
     <button class="btn ghost sm" onclick="isolateDraftAdd()">+ Add result</button>
   </div>
+  <div class="hint" id="e_i_drug_hint" style="margin-top:4px"></div>
   <div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>Antibiotic</th><th>Result</th><th></th></tr></thead><tbody>
     ${window._isolateDraft.map((r,i)=>`<tr><td>${esc(r.drug)}</td><td><span class="pill ${r.result==='S'?'good':r.result==='I'?'infer':'bad'}">${r.result}</span></td><td><button class="btn sm danger" onclick="isolateDraftRemove(${i})">Remove</button></td></tr>`).join("")||`<tr><td colspan="3" class="empty">No results added yet — add at least one before saving.</td></tr>`}
   </tbody></table></div>
@@ -24597,7 +24600,7 @@ function renderEntryIsolate(){
   `;
 }
 function isolateDraftAdd(){
-  const drug=$("#e_i_drug").value.trim(); const result=$("#e_i_result").value;
+  const drug=odieIsoName($("#e_i_drug").value.trim()); const result=$("#e_i_result").value;
   if(!drug){ alert("Enter an antibiotic name first."); return; }
   window._isolateDraft.push({drug,result});
   $("#e_i_drug").value="";
@@ -25088,7 +25091,7 @@ function advisorSignals(){
       how:"Monthly Access % by department from the dispensing export; review top Watch drugs and their departments.",
       actions:[["sort","Remove Watch agents from default order sets / pre-packed kits where an Access agent is first line"],["set","Put the STG first-line table for the 5 commonest infections on every consulting-room wall"],["shine","Monthly pharmacist audit of 20 Watch prescriptions against STG with feedback"],["standardize","Require a documented indication for Watch agents at dispensing"],["sustain","Track Access % on the run chart each month at the AMS meeting"]]});
     if(both&&both.who.NR>0.05) push({id:"nr",waste:"defects",metric:"WHO Not-recommended FDC share",value:both.who.NR,fmt:"pct",target:"as low as possible (WHO)",
-      what:`${(both.who.NR*100).toFixed(1)}% of antibiotic lines are fixed-dose combinations WHO lists as Not recommended (${both.diff.filter(d=>d.who==="Not recommended").map(d=>d.drug+" "+d.lines).join(", ")}). Tanzania STG/NEMLIT 2021 counts several of these as first-line.`,
+      what:`${(both.who.NR*100).toFixed(1)}% of antibiotic lines are fixed-dose combinations WHO lists as Not recommended (${Object.entries(both.nrDrugs||{}).sort((a,b)=>b[1]-a[1]).map(([d,n])=>d+" "+n).join(", ")}). Tanzania STG/NEMLIT 2021 lists some of these (Ampiclox, amoxicillin+flucloxacillin) as first-line; AMS Pro keeps WHO's grouping for them.`,
       where:topDepts(a=>awareBucket(classifyAware(a.g,"who"))==="NR"),who:"Prescribers, MTC/DTC, procurement",
       why:["Combinations listed in national STG and procured by default","Habit and patient expectation","Single agents (amoxicillin, flucloxacillin) not consistently stocked"],
       how:"WHO vs Tanzania comparison on the dashboard; procurement records.",
@@ -25693,7 +25696,10 @@ function compileConsumption(){
   const lines={}; tx.forEach(t=>{ const g=(t.drugMatched||"").toLowerCase(); lines[g]=(lines[g]||0)+1; });
   const diff=Object.keys(lines).filter(g=>both.who.byDrug[g]!==both.tanzania.byDrug[g]).map(g=>({drug:titleCase(g),who:both.who.byDrug[g],tz:both.tanzania.byDrug[g],lines:lines[g]})).sort((a,b)=>b.lines-a.lines);
   delete both.who.byDrug; delete both.tanzania.byDrug;
-  DB.metrics.awareBoth={who:both.who,tz:both.tanzania,diff,n:tx.length};
+  const NF=odieTzNotFollowed(); const nf=Object.keys(lines).filter(g=>NF[g]).map(g=>({drug:titleCase(g),lines:lines[g],printed:NF[g].printed,page:NF[g].page,why:NF[g].why})).sort((a,b)=>b.lines-a.lines);
+  let pAcc=0; tx.forEach(t=>{ const g=(t.drugMatched||"").toLowerCase(); const cl=NF[g]?NF[g].printed:(classifyAware(g,"tanzania",dddRoute(t))||"Unclassified"); if(cl==="Access") pAcc++; });
+  const nrDrugs={}; tx.forEach(t=>{ const g=(t.drugMatched||"").toLowerCase(); if(awareBucket(classifyAware(g,"who",dddRoute(t))||"Unclassified")==="NR") nrDrugs[titleCase(g)]=(nrDrugs[titleCase(g)]||0)+1; });
+  DB.metrics.awareBoth={who:both.who,tz:both.tanzania,diff,n:tx.length,nf,printedAccess:+(pAcc/n).toFixed(4),nrDrugs};
   const other=currentAwareScheme()==="tanzania"?"who":"tanzania";
   DB.metrics.awareAlt=Object.assign({scheme:other},other==="who"?both.who:both.tanzania);
   DB.metrics.awareSchemeUsed=currentAwareScheme();
@@ -28398,7 +28404,7 @@ function parseDispensingGrid(grid){
   if(colIndex.quantity===undefined){ // header alias search failed for quantity — try common relative position
     for(let c=hit.col;c<Math.min(hit.col+8,headerRow.length);c++){ if(normH(headerRow[c])==="quantity"){ colIndex.quantity=c; break; } }
   }
-  return {headerRowIdx:hit.row,itemCol:hit.col,colIndex,found,missing,inferred};
+  const L={headerRowIdx:hit.row,itemCol:hit.col,colIndex,found,missing,inferred}; odieFixDepartment(grid,L); return L;
 }
 /* single-pass scan across the WHOLE sheet (handles files with repeated embedded header/preamble
    blocks). ONE unified pharmacy-dispensing scan (pre-v3.8 this was two separate scans/stores — an
@@ -28408,8 +28414,9 @@ function parseDispensingGrid(grid){
    antibiotic or not) gets kind/isAntibiotic tagged for the WHO/INRUD full-basket proxies (P1 avg
    drugs/encounter, P3 % encounters with an antibiotic). Nothing is discarded at import time. */
 function scanDispensingRows(grid,layout){
+  grid=odieJoinSplitRows(grid,layout); const joined=grid._joined||0;
   const {colIndex}=layout; const qCol=colIndex.quantity, iCol=colIndex.itemName;
-  const tx=[]; let dataRows=0, unmatched=0, excludedTopical=0, drugCount=0, supplyCount=0, unclearCount=0, abxCount=0, minDate=null, maxDate=null;
+  const tx=[]; let badDates=0, dataRows=0, unmatched=0, excludedTopical=0, drugCount=0, supplyCount=0, unclearCount=0, abxCount=0, minDate=null, maxDate=null;
   for(let r=layout.headerRowIdx+1;r<grid.length;r++){
     const row=grid[r]; if(!row) continue;
     const itemRaw=row[iCol]; if(itemRaw==null||itemRaw==="") continue;
@@ -28418,6 +28425,7 @@ function scanDispensingRows(grid,layout){
     const qty=num(qtyRaw); if(qty==null) continue; // not a numeric quantity -> title/preamble row, skip
     dataRows++;
     let dateVal=colIndex.date!=null?xlDateH(row[colIndex.date]):"";
+    if(dateVal&&!odieIsDate(dateVal)){ dateVal=""; badDates++; }
     if(dateVal){ if(minDate===null||dateVal<minDate)minDate=dateVal; if(maxDate===null||dateVal>maxDate)maxDate=dateVal; }
     let generic=extractGeneric(itemRaw);
     const topical=!!(generic && isExcludedForm(itemRaw)); // topical/ophthalmic/otic — not systemic, excluded from AMS/AWaRe totals
@@ -28439,7 +28447,7 @@ function scanDispensingRows(grid,layout){
       paymentType: colIndex.paymentType!=null?(""+(row[colIndex.paymentType]||"")).trim():""
     });
   }
-  return {tx,dataRows,unmatched,excludedTopical,drugCount,supplyCount,unclearCount,abxCount,minDate,maxDate};
+  return {tx,dataRows,unmatched,excludedTopical,drugCount,supplyCount,unclearCount,abxCount,minDate,maxDate,joined,badDates,deptNote:layout.deptNote||""};
 }
 
 /* ---- raw lab test-order log parser (Product Name/Sample ID/Consultant/Date/Status) — a very
@@ -28718,7 +28726,7 @@ function renderPartDetail(part){
         ${layout.inferred.map(f=>`<span class="pill infer">~ ${esc(CAT_FIELDLABEL[f]||f)}</span>`).join("")}
         ${layout.missing.map(f=>`<span class="pill bad">&#10007; ${esc(CAT_FIELDLABEL[f]||f)}</span>`).join("")}
       </div>
-      <div class="hint">${scan.tx.length.toLocaleString()} item(s) kept, none discarded &middot; ${scan.abxCount.toLocaleString()} systemic antimicrobial &middot; ${scan.excludedTopical.toLocaleString()} topical/ophthalmic excluded from AMS totals &middot; ${scan.unmatched.toLocaleString()} other non-antibiotic &middot; whole basket: ${scan.drugCount.toLocaleString()} drug, ${scan.supplyCount.toLocaleString()} device/consumable, ${scan.unclearCount.toLocaleString()} unclear &middot; ${scan.minDate&&scan.maxDate?esc(scan.minDate)+" → "+esc(scan.maxDate):"no dates detected"}</div>`;
+      <div class="hint">${scan.tx.length.toLocaleString()} item(s) kept, none discarded &middot; ${scan.abxCount.toLocaleString()} systemic antimicrobial &middot; ${scan.excludedTopical.toLocaleString()} topical/ophthalmic excluded from AMS totals &middot; ${scan.unmatched.toLocaleString()} other non-antibiotic${odieImportNote(scan)} &middot; whole basket: ${scan.drugCount.toLocaleString()} drug, ${scan.supplyCount.toLocaleString()} device/consumable, ${scan.unclearCount.toLocaleString()} unclear &middot; ${scan.minDate&&scan.maxDate?esc(scan.minDate)+" → "+esc(scan.maxDate):"no dates detected"}</div>`;
   }
   if(part.mode==="labeled_log"){
     const {layout,scan}=part;
@@ -29320,6 +29328,175 @@ function renderGuide(){
   `;
 }
 
+/* ============================= v4.9: antibiotic names recognised however they are typed =============================
+   Order: a name the team taught the tool -> the existing exact matcher (INN, Afya spellings, brands) -> a close
+   spelling ("Ceftriaxon", "Metronidazol", "Amoxycilin"). A close spelling is only accepted on its own when it is
+   unmistakable (same first letter, one clear best match); otherwise Setup > Antibiotic names asks "Did you mean...?".
+   What the team decides is remembered (DB.facility.itemAlias) and used for every later import. */
+function odieTzNotFollowed(){ return {
+  "gentamicin":{printed:"Watch",page:9,why:"NEMLIT 2021 (p.9) lists it as Watch, but at level of care A (stocked at every dispensary), which contradicts the Watch definition. WHO: Access, used here."},
+  "sulfamethoxazole + trimethoprim":{printed:"Watch",page:9,why:"NEMLIT 2021 (p.9) lists it as Watch, but at level of care A (stocked at every dispensary), which contradicts the Watch definition. WHO: Access, used here."},
+  "erythromycin":{printed:"Access",page:8,why:"NEMLIT 2021 (p.8) lists it as Access; WHO groups it as Watch. An antibiotic is never counted in a lower group than WHO."},
+  "ampicillin + cloxacillin":{printed:"Access",page:7,why:"NEMLIT 2021 (p.7) lists it as Access; WHO does not recommend this fixed-dose combination. WHO used."},
+  "amoxicillin + flucloxacillin":{printed:"Access",page:8,why:"NEMLIT 2021 (p.8) lists it as Access; WHO does not recommend this fixed-dose combination. WHO used."},
+  "ceftriaxone + sulbactam":{printed:"Watch",page:8,why:"NEMLIT 2021 (p.8) lists it as Watch; WHO does not recommend this fixed-dose combination. WHO used."}
+}; }
+function odieLev(a,b,max){ if(a===b)return 0; const m=a.length,n=b.length; if(max==null)max=99; if(Math.abs(m-n)>max) return max+1; if(!m)return n; if(!n)return m; let p=Array.from({length:n+1},(_,j)=>j);
+  for(let i=1;i<=m;i++){ const c=[i]; let lo=c[0]; for(let j=1;j<=n;j++){ c[j]=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]===b[j-1]?0:1)); if(c[j]<lo)lo=c[j]; } if(lo>max) return max+1; p=c; } return p[n]; }
+function odieAlias(){ if(!DB.facility.itemAlias) DB.facility.itemAlias={}; return DB.facility.itemAlias; }
+/* common brand names written alone on dispensing slips; "Amoxiclav" is the combination, not amoxicillin alone */
+Object.assign(BRAND_COMBO_MAP,{"amoxiclav":"amoxicillin + clavulanic acid","amoxyclav":"amoxicillin + clavulanic acid","amox clav":"amoxicillin + clavulanic acid","amox-clav":"amoxicillin + clavulanic acid","amox + clav":"amoxicillin + clavulanic acid","augmentin":"amoxicillin + clavulanic acid"});
+Object.assign(INN_SPELLING_SYNONYMS,{"flagyl":"metronidazole"});
+const ODIE_STOP=/^(inj|injection|injections|tab|tabs|tablet|tablets|caps?|capsules?|syrup|susp|suspension|oral|vial|vials|sodium|powder|for|and|plus|with|daily|infusion|solution|dispersible|paediatric|pediatric|adult|bottle|ampoule|ampule|strip|pack|base|hydrochloride|trihydrate|sulphate|sulfate|potassium|dose|doses|forte|kids)$/;
+const ODIE_VOCAB=(()=>{ const v=[]; INN.forEach(t=>v.push([t.replace(/\s+/g,""),t]));
+  Object.entries(INN_SPELLING_SYNONYMS).forEach(([w,t])=>v.push([w,t])); Object.entries(BRAND_COMBO_MAP).forEach(([w,t])=>v.push([w.replace(/[^a-z]/g,""),t])); return v; })();
+/* closest antibiotic to one word (or word pair): {key,d,conf} or null */
+function odieNear(words){ let best=null, second=null;
+  for(let i=0;i<words.length;i++){ const w=words[i]; if(w.length<5||ODIE_STOP.test(w)) continue;
+    const tries=[w]; if(i+1<words.length&&!ODIE_STOP.test(words[i+1])) tries.push(w+words[i+1]);
+    tries.forEach(x=>ODIE_VOCAB.forEach(([v,key])=>{ if(Math.abs(v.length-x.length)>3) return; const d=odieLev(x,v,3);
+      const cand={key,d,w:x,v};
+      if(!best||d<best.d){ if(best&&best.key!==key) second=best; best=cand; } else if(key!==best.key&&(!second||d<second.d)) second=cand; })); }
+  if(!best||best.d===0) return null;
+  const L=best.w.length, okC=L>=12?2:L>=6?1:0, okS=L>=12?2:1;
+  const unique=!second||second.d>best.d;
+  if(best.d<=okC&&unique&&best.w[0]===best.v[0]) return {key:best.key,d:best.d,conf:true};
+  if(best.d<=okS&&(best.d===1||best.w[0]===best.v[0])) return {key:best.key,d:best.d,conf:false};
+  return null; }
+const ODIE_CACHE=new Map();
+/* full answer for one item name: {key, how: taught|exact|close|suggest|none|notabx} */
+function odieResolve(item){ const raw=""+(item||""); const k=normH(raw); if(!k) return {key:null,how:"none"};
+  const a=odieAlias()[k]; if(a==="-") return {key:null,how:"notabx"}; if(a) return {key:a,how:"taught"};
+  if(ODIE_CACHE.has(raw)) return ODIE_CACHE.get(raw);
+  let r; const base=odieExtractBase(raw);
+  const pre=preNormItem(raw.toLowerCase());
+  if(pre.indexOf("+")>=0){ const parts=pre.split("+"); const got=parts.map(p=>{ const m=matchOnePart(p); if(m) return {key:m,exact:true};
+      const n=odieNear(p.replace(/[^a-z\s]/g," ").split(/\s+/).filter(Boolean)); return n&&n.conf?{key:n.key}:null; });
+    if(got.every(Boolean)&&got.some(g=>!g.exact)) r={key:comboKey([...new Set(got.map(g=>g.key))]),how:"close"};
+    else if(base) r={key:base,how:"exact"};
+  } else if(base) r={key:base,how:"exact"};
+  if(!r){ const n=odieNear(pre.replace(/[^a-z\s]/g," ").split(/\s+/).filter(Boolean)); r=n?(n.conf?{key:n.key,how:"close"}:{key:null,how:"suggest",sug:n.key}):{key:null,how:"none"}; }
+  ODIE_CACHE.set(raw,r); return r; }
+/* the existing matcher, kept; extractGeneric now goes through odieResolve everywhere (imports, entry, reclassify) */
+const odieExtractBase=extractGeneric;
+extractGeneric=function(itemName){ return odieResolve(itemName).key; };
+function odieTeach(raw,key){ const k=normH(raw); if(!k) return; odieAlias()[k]=key; ODIE_CACHE.clear(); save(); reclassifyAll(); }
+function odieForget(k){ delete odieAlias()[k]; ODIE_CACHE.clear(); save(); reclassifyAll(); }
+function odieTeachFrom(i){ const r=window._odieRev&&window._odieRev[i]; const el=document.getElementById("odie_set_"+i); if(!r||!el) return;
+  const t=normH(el.value); if(!t){ toast("Type the antibiotic it should be recorded as."); return; }
+  const g=odieExtractBase(t)||(odieNear(t.split(" "))||{}).key; if(!g){ toast("That is not an antibiotic in the WHO list."); return; } odieTeach(r.raw,g); }
+/* every item name in the dispensing data that needs a human look */
+function odieReview(){ const by={}; (DB.pharmacyTx||[]).forEach(t=>{ const raw=t.itemRaw||t.drugRaw; if(!raw) return; (by[raw]=by[raw]||{raw,n:0}).n++; });
+  const close=[], sug=[]; Object.values(by).forEach(x=>{ if(isExcludedForm(x.raw)) return; const r=odieResolve(x.raw);
+    if(r.how==="close") close.push({...x,key:r.key}); else if(r.how==="suggest") sug.push({...x,key:r.sug}); });
+  const s=(a,b)=>b.n-a.n; return {close:close.sort(s),sug:sug.sort(s)}; }
+function odieNamesPanel(){ const rv=odieReview(), al=Object.entries(odieAlias()); const list=[]; window._odieRev=list;
+  const row=(x,mode)=>{ const i=list.push(x)-1; const nm=esc(titleCase(x.key));
+    return `<tr><td>${esc(x.raw)}</td><td>${x.n.toLocaleString()}</td><td>${mode==="close"?`<b>${nm}</b>`:`Did you mean <b>${nm}</b>?`}</td>
+    <td style="white-space:normal"><button class="btn sm" onclick="odieTeach(window._odieRev[${i}].raw,window._odieRev[${i}].key)">${mode==="close"?"Correct":"Use "+nm}</button>
+    <button class="btn sm ghost" onclick="odieTeach(window._odieRev[${i}].raw,'-')">Not an antibiotic</button>
+    <input id="odie_set_${i}" list="odie_inn" placeholder="or record as…" style="width:150px"><button class="btn sm ghost" onclick="odieTeachFrom(${i})">Save</button></td></tr>`; };
+  const tbl=(rows,mode)=>`<div class="tablewrap" style="max-height:320px"><table><thead><tr><th>Item name as dispensed</th><th>Lines</th><th>Recognised as</th><th></th></tr></thead><tbody>${rows.map(x=>row(x,mode)).join("")}</tbody></table></div>`;
+  return `<div class="panel" style="border-color:var(--accent)" id="odie-names">
+    <h2>Antibiotic names &mdash; recognised and taught</h2>
+    <div class="sub">Item names are recognised however the pharmacy system writes them: strengths and forms, Afya spellings, brands and small typing errors. When AMS Pro is not sure it asks here instead of guessing. What you decide is remembered for every later import, and you can undo it below.</div>
+    <datalist id="odie_inn">${INN.map(t=>`<option value="${esc(titleCase(t))}">`).join("")}</datalist>
+    ${rv.sug.length?`<div class="subhead" style="margin-top:14px"><h3>Did you mean&hellip;? (${rv.sug.length}) &mdash; not counted until you decide</h3><div class="line"></div></div>${tbl(rv.sug,"sug")}`:""}
+    ${rv.close.length?`<div class="subhead" style="margin-top:14px"><h3>Recognised from a close spelling (${rv.close.length}) &mdash; counted; please check</h3><div class="line"></div></div>${tbl(rv.close,"close")}`:""}
+    ${!rv.sug.length&&!rv.close.length?`<div class="notice good" style="margin-top:12px">Every antibiotic item name in the data was recognised exactly${(DB.pharmacyTx||[]).length?"":" (no dispensing data yet)"}.</div>`:""}
+    <div class="subhead" style="margin-top:14px"><h3>Names taught to AMS Pro (${al.length})</h3><div class="line"></div></div>
+    ${al.length?`<div class="tablewrap" style="max-height:260px"><table><thead><tr><th>Typed as</th><th>Recorded as</th><th></th></tr></thead><tbody>${al.sort().map(([k,v])=>`<tr><td>${esc(k)}</td><td>${v==="-"?"<i>not an antibiotic</i>":esc(titleCase(v))}</td><td><button class="btn sm danger" onclick="odieForget('${esc(k).replace(/'/g,"\\'")}')">Remove</button></td></tr>`).join("")}</tbody></table></div>`:`<div class="hint">None yet.</div>`}
+  </div>`; }
+function odieImportNote(scan){ const seen=new Set(); let c=0,s=0; (scan.tx||[]).forEach(t=>{ const raw=t.itemRaw; if(!raw||seen.has(raw)) return; seen.add(raw); if(isExcludedForm(raw)) return; const r=odieResolve(raw); if(r.how==="close")c++; else if(r.how==="suggest")s++; });
+  const dn=scan.deptNote?` &middot; ${esc(scan.deptNote)}`:"";
+  const j=scan.joined?` &middot; ${scan.joined.toLocaleString()} record(s) split over several rows by the export were joined back`:"", bd=scan.badDates?` &middot; ${scan.badDates.toLocaleString()} unreadable date(s) left blank`:"";
+  return dn+j+bd+(c||s?` &middot; <b>${c?c+" name(s) recognised from a close spelling":""}${c&&s?", ":""}${s?s+" to check":""}</b> (Setup &rsaquo; Antibiotic names)`:""); }
+/* live line under a drug box: what the tool will record */
+function odieHintHTML(text,inputId){ const t=(""+(text||"")).trim(); if(!t) return "";
+  const r=odieResolve(t);
+  if(r.key&&isExcludedForm(t)) return `<span style="color:#d08a1a">!</span> Eye, ear and skin preparations are recorded but not counted as systemic antibiotic use.`;
+  if(r.key){ const w=classifyAware(r.key,"who")||"Unclassified", tz=classifyAware(r.key,"tanzania")||w, nf=odieTzNotFollowed()[r.key];
+    return `<span style="color:#2e7d4f">&#10003;</span> <b>${esc(titleCase(r.key))}</b> &middot; WHO ${esc(w)}${tz!==w?` &middot; Tanzania ${esc(tz)}`:""}${nf?` <span class="muted" title="${esc(nf.why)}">(NEMLIT 2021 prints ${nf.printed}, p.${nf.page}; WHO used)</span>`:""}${r.how==="close"?` <span class="muted">recognised from &ldquo;${esc(t)}&rdquo;</span>`:""}`; }
+  if(r.how==="suggest") return `Did you mean <b>${esc(titleCase(r.sug))}</b>? <button type="button" class="btn sm ghost" onclick="odieUse('${inputId}','${esc(titleCase(r.sug))}')">Use ${esc(titleCase(r.sug))}</button>`;
+  if(r.how==="notabx") return `Recorded as not an antibiotic (taught in Setup).`;
+  const pk=normH(t).replace(/ /g,""); if(pk.length>=4){ const pre=[...new Set(ODIE_VOCAB.filter(([v])=>v.startsWith(pk)).map(([,k])=>k))]; if(pre.length===1) return `Did you mean <b>${esc(titleCase(pre[0]))}</b>? <button type="button" class="btn sm ghost" onclick="odieUse('${inputId}','${esc(titleCase(pre[0]))}')">Use ${esc(titleCase(pre[0]))}</button>`; }
+  return `<span style="color:#8b949e">Not recognised as an antibiotic name &mdash; it is saved exactly as typed and not counted as an antibiotic.</span>`; }
+function odieUse(inputId,name){ const el=document.getElementById(inputId); if(!el) return; const typed=el.value; el.value=name; if(normH(typed)!==normH(name)&&!normH(name).replace(/ /g,"").startsWith(normH(typed).replace(/ /g,""))){ odieAlias()[normH(typed)]=odieExtractBase(name)||normH(name); ODIE_CACHE.clear(); save(); } odieHint(inputId); }
+function odieHint(inputId){ const el=document.getElementById(inputId), box=document.getElementById(inputId+"_hint"); if(!el||!box) return; const h=odieHintHTML(el.value,inputId); if(box.dataset.h!==h){ box.innerHTML=h; box.dataset.h=h; } }
+/* antibiogram: record the antibiotic under the same name the antibiogram already uses */
+function odieIsoName(text){ const t=(""+(text||"")).trim(); const r=odieResolve(t); if(!r.key) return t;
+  for(const iso of (DB.isolates||[])) for(const d of Object.keys(iso.results||{})) if(odieResolve(d).key===r.key) return d;
+  return titleCase(r.key); }
+
+/* ============================= v4.9: dispensing records split over several rows =============================
+   Some hospital exports (seen in Afya eHMS) break one dispensing record over two or more rows when the
+   prescriber typed a line break or comma inside the dosage text: the first row has the drug but no quantity,
+   the next rows carry the rest of the text and then price, quantity ... date, shifted out of their columns.
+   Those records used to be skipped. They are joined back here by anchoring on the END of the record (the
+   date and quantity, which are always intact); the text in between becomes the dosage. A record is only
+   joined when its quantity is a number and its date is a date; otherwise it is left exactly as it was. */
+/* a cell that holds a date: text like 2026-01-20 or 20/01/2026, or an Excel day number between 1960 and 2100.
+   Never passes other numbers (quantities, insurance numbers) to the date converter. */
+function odieIsDate(v){ if(v==null) return false; if(v instanceof Date) return !isNaN(v);
+  const s=(""+v).trim(); if(!s) return false;
+  if(/^\d+(\.\d+)?$/.test(s)){ const n=Number(s); return n>=21916&&n<=73051; }
+  return /^\d{4}-\d{2}-\d{2}/.test(s)||/^\d{1,2}[\/.\-]\d{1,2}[\/.\-]\d{2,4}\b/.test(s); }
+/* a cell that is a plain number and nothing else ("6", "3000", 2.5) — "6 UNITS" or "12.5mg" are not */
+function odieNum(v){ if(typeof v==="number") return isFinite(v)?v:null; const t=(v==null?"":""+v).trim().replace(/,(?=\d{3}\b)/g,""); return /^-?\d+(\.\d+)?$/.test(t)?Number(t):null; }
+function odieJoinSplitRows(grid,layout){
+  const c=layout.colIndex, H=layout.headerRowIdx; const D=c.dosage, Q=c.quantity, T=c.date, I=c.itemName;
+  if(D==null||Q==null||T==null||I==null||!(I<D&&D<Q&&D<T)) return grid;
+  const W=Math.max(...grid.slice(H,H+1).map(r=>(r||[]).length), T+1);
+  const tail=Object.values(c).filter(x=>x!=null&&x>D); if(!tail.length) return grid;
+  const off=T-(D+1), qOff=Q-(D+1), TL=W-1-D;
+  /* does this file write dates as text (2026-01-20) or as Excel day numbers? decided from complete rows */
+  let tx_=0, nm_=0; for(let i=H+1;i<grid.length&&tx_+nm_<300;i++){ const v=(grid[i]||[])[T]; if(v==null||(""+v).trim()==="") continue; if(/^\d+(\.\d+)?$/.test((""+v).trim())) nm_++; else if(odieIsDate(v)) tx_++; }
+  const numDates=nm_>tx_;
+  const isD=v=>{ if(v==null) return false; const t=(""+v).trim(); return /^\d+(\.\d+)?$/.test(t)?(numDates&&odieIsDate(t)):odieIsDate(t); };
+  const empty=v=>v==null||(""+v).trim()==="";
+  const lastIdx=r=>{ let k=(r||[]).length-1; while(k>=0&&empty(r[k])) k--; return k; };
+  const cells=(r,from)=>{ const o=[]; for(let k=from;k<=lastIdx(r);k++){ const v=r[k]; if(typeof v==="string"&&(v.match(/,/g)||[]).length>=4) v.split(",").forEach(x=>o.push(x)); else o.push(v); } return o; };
+  const out=grid.slice(0,H+1); let joined=0;
+  for(let i=H+1;i<grid.length;i++){
+    const r=grid[i]||[];
+    if(!empty(r[I])&&odieNum(r[Q])==null){
+      let comb=cells(r,0), done=null;
+      for(let j=i+1;j<Math.min(i+6,grid.length)&&!done;j++){
+        const nx=grid[j]||[]; if(!empty(nx[I])&&odieNum(nx[Q])!=null&&isD(nx[T])) break;   // next row is a complete record of its own
+        comb=comb.concat(cells(nx,(nx[0]!=null&&nx[0]===r[0])?1:0));
+        for(let p=D+1+off;p<comb.length;p++){ if(isD(comb[p])&&odieNum(comb[p-off+qOff])!=null){
+          const ts=p-off; const rec=comb.slice(0,D).concat([comb.slice(D,ts).filter(x=>!empty(x)).join(" ")],comb.slice(ts,ts+TL));
+          while(rec.length<W) rec.push(""); done={j,rec}; break; } }
+      }
+      if(done){ out.push(done.rec); joined++; i=done.j; continue; }
+    }
+    out.push(r);
+  }
+  out._joined=joined; return joined?out:grid;
+}
+/* Department read from an unlabeled column when the labelled one is missing or empty (Afya exports carry the
+   ward/clinic in a column with no header, while their "Clinic" column is often blank). Same rule as PPS Pro:
+   a column of short upper-case labels repeated across rows, never a payment-type column. */
+function odieFixDepartment(grid,L){ const c=L.colIndex, I=c.itemName, Q=c.quantity; if(I==null) return;
+  const body=[]; for(let r=L.headerRowIdx+1;r<grid.length&&body.length<400;r++){ const row=grid[r]||[]; if(row[I]!=null&&(""+row[I]).trim()&&(Q==null||odieNum(row[Q])!=null)) body.push(row); }
+  const n=body.length; if(n<20) return;
+  const val=(row,k)=>(row[k]==null?"":(""+row[k]).trim());
+  const filled=k=>body.filter(r=>val(r,k)).length/n;
+  if(c.department!=null&&filled(c.department)>=0.05) return;      // the labelled column is in use
+  const was=c.department, used=new Set(Object.values(c).filter(x=>x!=null&&x!==was)); const W=Math.max(...body.map(r=>r.length));
+  const hdr=grid[L.headerRowIdx]||[];
+  const PAY=/^(CASH|NHIF|NSSF|CHF|ICHF|INSURANCE|EXEMPT\w*|JWTZ|STRATEGIES|AAR|JUBILEE|SANLAM|ASSEMBLE|CREDIT|COST SHARING)\b/i;
+  for(let k=0;k<W;k++){ if(used.has(k)||k===was) continue; if(hdr[k]!=null&&(""+hdr[k]).trim()&&!/\.csv$/i.test((""+hdr[k]).trim())) continue;
+    const v=body.map(r=>val(r,k)).filter(Boolean); if(v.length/n<0.8) continue;
+    if(v.filter(x=>PAY.test(x)).length/v.length>0.5) continue;
+    if(v.filter(x=>/^[A-Z][A-Z0-9 ()&\/.\-]{1,60}$/.test(x)).length/v.length<0.7) continue;
+    if(new Set(v).size>=80) continue;
+    c.department=k; if(L.missing&&L.missing.indexOf("department")>=0) L.missing.splice(L.missing.indexOf("department"),1);
+    if(L.found&&L.found.indexOf("department")>=0) L.found.splice(L.found.indexOf("department"),1);
+    if(L.inferred&&L.inferred.indexOf("department")<0) L.inferred.push("department");
+    L.deptNote=was!=null?`Department read from an unlabeled column — the “${(""+(hdr[was]||"")).trim()||"department"}” column is empty in this file.`:"Department read from an unlabeled column.";
+    return; } }
+
 /* ============================= init ============================= */
 /* Demo samples: fetch the gzip copy (about 12x smaller) and unpack it in the browser; plain CSV if that is not possible. */
 async function demoFetch(u){
@@ -29533,7 +29710,7 @@ window.ODMREF=(function(){
     let pack;
     try{
       const ctl=new AbortController(), tm=setTimeout(()=>ctl.abort(),20000);
-      try{ const r=await fetch(URL+"?t="+Date.now(),{cache:"no-store",signal:ctl.signal}); if(!r.ok) throw new Error("the website answered "+r.status); pack=await r.json(); }
+      try{ const r=await fetch(URL+"?t="+Date.now(),{cache:"no-store",signal:ctl.signal}); if(r.status===404){ pending=null; msg={kind:"info",html:'<b>No newer list has been published on the Odieman website yet.</b> This copy keeps using its built-in list.'}; paint(); return; } if(!r.ok) throw new Error("the website answered "+r.status); pack=await r.json(); }
       finally{ clearTimeout(tm); }
     }catch(e){
       msg={kind:"error",html:'<b>Could not reach the Odieman website.</b> Check the internet connection and try again'+(A.demo?'.':', or load the update file from a flash drive (<i>Load update file</i>).')+'<div style="font-size:12px;opacity:.8;margin-top:4px">'+esc(e&&e.name==="AbortError"?"No answer within 20 seconds.":(e&&e.message)||e)+'</div>'}; paint(); return;

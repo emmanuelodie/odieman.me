@@ -582,7 +582,7 @@
     <div class="card">
       <h2>Guideline advisory</h2>
       <div class="sub">A formatted advisory summarising conditions, concordance findings, control/risk and renal exposure, with cited recommendations and a prioritised action list — opens in Word.</div>
-      <label class="fld" style="margin-top:10px"><span>Facility / unit</span><input id="adv-facility" value="Tanga Regional Referral Hospital"></label>
+      <label class="fld" style="margin-top:10px"><span>Facility / unit</span><input id="adv-facility" value="Demo Regional Referral Hospital (simulated)"></label>
       <label class="fld"><span>Prepared by (optional)</span><input id="adv-author" placeholder="Your name & role"></label>
       <div class="row"><button class="btn primary" onclick="CARDIO.generateAdvisory()">Generate advisory (.rtf)</button>
         <button class="btn" onclick="CARDIO.exportAuditCSV()">Export flagged patients (.csv)</button></div>
@@ -664,7 +664,7 @@
     <div class="ref" id="pub-hint"></div>
     <label class="fld" style="margin-top:14px"><span>Working title</span><input id="pub-title" placeholder="(leave blank to have one suggested)"></label>
     <label class="fld"><span>Authors</span><input id="pub-authors" value="Odindo, E. T."></label>
-    <label class="fld"><span>Setting</span><input id="pub-setting" value="Tanga Regional Referral Hospital, Tanzania"></label>
+    <label class="fld"><span>Setting</span><input id="pub-setting" value="Demo Regional Referral Hospital (simulated), Tanzania"></label>
     <button class="btn primary" onclick="genManuscript()">Generate draft</button>
     <button class="btn" onclick="copyPub()">Copy</button><button class="btn" onclick="downloadPub()">Download</button>
   </div>
@@ -692,7 +692,7 @@
     <p>A denominator-aware safety bulletin built from this facility’s own data — signal rates per 1,000 patients (with 95% intervals), monitoring gaps, concordance, the aDSM cohort, and a prioritised action list. It closes the loop the national systems leave open: putting the facility’s own safety picture back in front of its own prescribers. Opens in Word.</p>
   </div>
   <div class="card">
-    <label class="fld"><span>Facility / unit</span><input id="rep-facility" value="Tanga Regional Referral Hospital"></label>
+    <label class="fld"><span>Facility / unit</span><input id="rep-facility" value="Demo Regional Referral Hospital (simulated)"></label>
     <label class="fld"><span>Prepared by (optional)</span><input id="rep-author" placeholder="Your name & role"></label>
     <div class="row" style="gap:8px;flex-wrap:wrap;margin-top:6px">
       <button class="btn primary" onclick="generateReport()">Generate report</button>
@@ -877,7 +877,7 @@
       <li><b>Known biases.</b> Dispensing is not administration; outpatients may not take or may buy medicines elsewhere; rescue drugs have other indications; incomplete exports (departments missing in some months) distort rates; "first dose" means first in the data, not first ever.</li>
     </ul>
     <p style="font-size:12.5px;color:var(--ink-faint)"><strong>© 2024–2026 Odindo Emmanuel Thomas. All rights reserved.</strong> “VigiWard” is an unregistered trademark (™) of the author.</p>
-    <div class="ref">Cite as: Odindo, E. T. (2026). VigiWard: Hospital Pharmacovigilance (Version 3.5) [Computer software]. Tanga, Tanzania.</div>
+    <div class="ref">Cite as: Odindo, E. T. (2026). VigiWard: Hospital Pharmacovigilance (Version 3.9) [Computer software]. Tanga, Tanzania.</div>
   </div>
 </section>
 
@@ -1227,14 +1227,105 @@ const HDR_ALIASES={pid:['patient id','patientid','patient_id','patient no','pati
 function headerMap(row){const m={};(row||[]).forEach((h,i)=>{const k=String(h||'').trim().toLowerCase();for(const f in HDR_ALIASES){if(m[f]==null&&HDR_ALIASES[f].includes(k))m[f]=i;}});return (m.pid!=null&&m.drug!=null&&m.date!=null)?m:null;}
 function rowByHeader(row,m){const g=k=>m[k]==null?'':String(row[m[k]]==null?'':row[m[k]]).trim();let sx=g('sex').toLowerCase();sx=sx.startsWith('f')?'Female':sx.startsWith('m')?'Male':'';
   const pid=g('pid').replace(/\.0$/,'');return {date:(g('date').match(RE_DATE)||[''])[0],drug:g('drug'),dosage:g('dosage'),sex:sx,age:g('age'),pid,name:g('name'),dept:g('dept')};}
+
+/* ============================= v4.9: dispensing records split over several rows =============================
+   Some hospital exports (seen in Afya eHMS) break one dispensing record over two or more rows when the
+   prescriber typed a line break or comma inside the dosage text: the first row has the drug but no quantity,
+   the next rows carry the rest of the text and then price, quantity ... date, shifted out of their columns.
+   Those records used to be skipped. They are joined back here by anchoring on the END of the record (the
+   date and quantity, which are always intact); the text in between becomes the dosage. A record is only
+   joined when its quantity is a number and its date is a date; otherwise it is left exactly as it was. */
+/* a cell that holds a date: text like 2026-01-20 or 20/01/2026, or an Excel day number between 1960 and 2100.
+   Never passes other numbers (quantities, insurance numbers) to the date converter. */
+function odieIsDate(v){ if(v==null) return false; if(v instanceof Date) return !isNaN(v);
+  const s=(""+v).trim(); if(!s) return false;
+  if(/^\d+(\.\d+)?$/.test(s)){ const n=Number(s); return n>=21916&&n<=73051; }
+  return /^\d{4}-\d{2}-\d{2}/.test(s)||/^\d{1,2}[\/.\-]\d{1,2}[\/.\-]\d{2,4}\b/.test(s); }
+/* a cell that is a plain number and nothing else ("6", "3000", 2.5) — "6 UNITS" or "12.5mg" are not */
+function odieNum(v){ if(typeof v==="number") return isFinite(v)?v:null; const t=(v==null?"":""+v).trim().replace(/,(?=\d{3}\b)/g,""); return /^-?\d+(\.\d+)?$/.test(t)?Number(t):null; }
+function odieJoinSplitRows(grid,layout){
+  const c=layout.colIndex, H=layout.headerRowIdx; const D=c.dosage, Q=c.quantity, T=c.date, I=c.itemName;
+  if(D==null||Q==null||T==null||I==null||!(I<D&&D<Q&&D<T)) return grid;
+  const W=Math.max(...grid.slice(H,H+1).map(r=>(r||[]).length), T+1);
+  const tail=Object.values(c).filter(x=>x!=null&&x>D); if(!tail.length) return grid;
+  const off=T-(D+1), qOff=Q-(D+1), TL=W-1-D;
+  /* does this file write dates as text (2026-01-20) or as Excel day numbers? decided from complete rows */
+  let tx_=0, nm_=0; for(let i=H+1;i<grid.length&&tx_+nm_<300;i++){ const v=(grid[i]||[])[T]; if(v==null||(""+v).trim()==="") continue; if(/^\d+(\.\d+)?$/.test((""+v).trim())) nm_++; else if(odieIsDate(v)) tx_++; }
+  const numDates=nm_>tx_;
+  const isD=v=>{ if(v==null) return false; const t=(""+v).trim(); return /^\d+(\.\d+)?$/.test(t)?(numDates&&odieIsDate(t)):odieIsDate(t); };
+  const empty=v=>v==null||(""+v).trim()==="";
+  const lastIdx=r=>{ let k=(r||[]).length-1; while(k>=0&&empty(r[k])) k--; return k; };
+  const cells=(r,from)=>{ const o=[]; for(let k=from;k<=lastIdx(r);k++){ const v=r[k]; if(typeof v==="string"&&(v.match(/,/g)||[]).length>=4) v.split(",").forEach(x=>o.push(x)); else o.push(v); } return o; };
+  const out=grid.slice(0,H+1); let joined=0;
+  for(let i=H+1;i<grid.length;i++){
+    const r=grid[i]||[];
+    if(!empty(r[I])&&odieNum(r[Q])==null){
+      let comb=cells(r,0), done=null;
+      for(let j=i+1;j<Math.min(i+6,grid.length)&&!done;j++){
+        const nx=grid[j]||[]; if(!empty(nx[I])&&odieNum(nx[Q])!=null&&isD(nx[T])) break;   // next row is a complete record of its own
+        comb=comb.concat(cells(nx,(nx[0]!=null&&nx[0]===r[0])?1:0));
+        for(let p=D+1+off;p<comb.length;p++){ if(isD(comb[p])&&odieNum(comb[p-off+qOff])!=null){
+          const ts=p-off; const rec=comb.slice(0,D).concat([comb.slice(D,ts).filter(x=>!empty(x)).join(" ")],comb.slice(ts,ts+TL));
+          while(rec.length<W) rec.push(""); done={j,rec}; break; } }
+      }
+      if(done){ out.push(done.rec); joined++; i=done.j; continue; }
+    }
+    out.push(r);
+  }
+  out._joined=joined; return joined?out:grid;
+}
+/* Department read from an unlabeled column when the labelled one is missing or empty (Afya exports carry the
+   ward/clinic in a column with no header, while their "Clinic" column is often blank). Same rule as PPS Pro:
+   a column of short upper-case labels repeated across rows, never a payment-type column. */
+function odieFixDepartment(grid,L){ const c=L.colIndex, I=c.itemName, Q=c.quantity; if(I==null) return;
+  const body=[]; for(let r=L.headerRowIdx+1;r<grid.length&&body.length<400;r++){ const row=grid[r]||[]; if(row[I]!=null&&(""+row[I]).trim()&&(Q==null||odieNum(row[Q])!=null)) body.push(row); }
+  const n=body.length; if(n<20) return;
+  const val=(row,k)=>(row[k]==null?"":(""+row[k]).trim());
+  const filled=k=>body.filter(r=>val(r,k)).length/n;
+  if(c.department!=null&&filled(c.department)>=0.05) return;      // the labelled column is in use
+  const was=c.department, used=new Set(Object.values(c).filter(x=>x!=null&&x!==was)); const W=Math.max(...body.map(r=>r.length));
+  const hdr=grid[L.headerRowIdx]||[];
+  const PAY=/^(CASH|NHIF|NSSF|CHF|ICHF|INSURANCE|EXEMPT\w*|JWTZ|STRATEGIES|AAR|JUBILEE|SANLAM|ASSEMBLE|CREDIT|COST SHARING)\b/i;
+  for(let k=0;k<W;k++){ if(used.has(k)||k===was) continue; if(hdr[k]!=null&&(""+hdr[k]).trim()&&!/\.csv$/i.test((""+hdr[k]).trim())) continue;
+    const v=body.map(r=>val(r,k)).filter(Boolean); if(v.length/n<0.8) continue;
+    if(v.filter(x=>PAY.test(x)).length/v.length>0.5) continue;
+    if(v.filter(x=>/^[A-Z][A-Z0-9 ()&\/.\-]{1,60}$/.test(x)).length/v.length<0.7) continue;
+    if(new Set(v).size>=80) continue;
+    c.department=k; if(L.missing&&L.missing.indexOf("department")>=0) L.missing.splice(L.missing.indexOf("department"),1);
+    if(L.found&&L.found.indexOf("department")>=0) L.found.splice(L.found.indexOf("department"),1);
+    if(L.inferred&&L.inferred.indexOf("department")<0) L.inferred.push("department");
+    L.deptNote=was!=null?`Department read from an unlabeled column — the “${(""+(hdr[was]||"")).trim()||"department"}” column is empty in this file.`:"Department read from an unlabeled column.";
+    return; } }
+
+/* ============================================================
+   v3.9: pharmacy exports with an "Item Name" column (e.g. Afya eHMS) — read by column
+   When the export has an item-name and a date column, the drug is taken ONLY from the item-name
+   column, never guessed from other text: free-text dosage notes ("FOR IV INJECTION", "16MG LOADING
+   DOSE") used to be read as drugs, and a price as a patient number, when a record was split over
+   several rows. Split records are joined back first (same rule as AMS Pro), and the ward is read
+   from an unlabeled column when the labelled one is empty.
+   ============================================================ */
+function odieVWLayout(rows){
+  const A={itemName:['item name','item','item_name','drug','drug name','medicine','medicine name','product','product name'],quantity:['quantity','qty','quantity dispensed','qty dispensed'],
+    date:HDR_ALIASES.date,dosage:HDR_ALIASES.dosage,department:HDR_ALIASES.dept};
+  for(let i=0;i<Math.min(40,rows.length);i++){ const c={}; (rows[i]||[]).forEach((h,k)=>{ const t=String(h==null?'':h).trim().toLowerCase(); for(const f in A){ if(c[f]==null&&A[f].includes(t)) c[f]=k; } });
+    if(c.itemName!=null&&c.date!=null){ const L={headerRowIdx:i,colIndex:c,found:[],missing:[],inferred:[]};
+      const g=odieJoinSplitRows(rows,L); L.joined=g._joined||0; odieFixDepartment(g,L); L.rows=g; return L; } }
+  return null; }
+function odieVWRow(row,L){ const c=L.colIndex, cell=k=>c[k]==null?'':String(row[c[k]]==null?'':row[c[k]]).trim();
+  const r=classifyRow(row); r.drug=cell('itemName'); const d=cell('date'); r.date=(d.match(RE_DATE)||[''])[0];
+  if(c.dosage!=null) r.dosage=cell('dosage'); r.dept=cell('department');
+  return r; }
+
 function processPharmacy(rows){
   const recs=[];let raw=rows.length;
   const idmap=Object.create(null);
   let hm=null,hdrAt=-1;for(let i=0;i<Math.min(5,rows.length);i++){hm=headerMap(rows[i]);if(hm){hdrAt=i;break;}}
+  const ox=hm?null:odieVWLayout(rows); if(ox){ rows=ox.rows; hdrAt=ox.headerRowIdx; }
   let devices=0,nodrug=0;
   for(let ri=0;ri<rows.length;ri++){const row=rows[ri];if(ri<=hdrAt)continue;
    try{
-    const r=hm?rowByHeader(row,hm):classifyRow(row);
+    const r=hm?rowByHeader(row,hm):(ox?odieVWRow(row,ox):classifyRow(row));
     if(r.date)r.date=(String(r.date).match(RE_DATE)||[''])[0];
     if(!r.drug||!r.pid){nodrug++;continue;}
     if(RE_DEVICE.test(r.drug)){devices++;continue;}
@@ -1253,7 +1344,7 @@ function processPharmacy(rows){
   DB.pharmacy=clean;
   computeQA(raw,recs.length,clean);
   save();
-  hubLog(`Parsed ${clean.length} clean medicine records from ${raw} rows (${recs.length-clean.length} duplicates removed; ${devices} device/supply lines set aside; columns ${hm?'read from headers':'detected from content'}; ${new Set(clean.map(x=>x.pid)).size.toLocaleString()} patients).`);
+  hubLog(`Parsed ${clean.length} clean medicine records from ${raw} rows (${recs.length-clean.length} duplicates removed; ${devices} device/supply lines set aside; columns ${hm?'read from headers':ox?'read from the item, date and dosage columns'+(ox.joined?'; '+ox.joined+' record(s) split over several rows joined back':'')+(ox.deptNote?'; '+ox.deptNote:''):'detected from content'}; ${new Set(clean.map(x=>x.pid)).size.toLocaleString()} patients).`);
   toast(clean.length+' records ingested');
   analyse();
 }
@@ -3024,7 +3115,7 @@ function genManuscript(){
     else if(type==='squire')title='Reducing under-reported adverse drug reactions through routine signal detection at '+setting;
     else title='Active detection of adverse drug reactions from routine dispensing data at '+setting+': a cross-sectional study';
   }
-  const head=title+'\n'+authors+'\n'+setting+'\nDraft generated '+date+' · VigiWard v3.8 · '+items.length+' finding(s) · format: '+cls.label+'\n'+'='.repeat(70)+'\n\nNOTE: square-bracketed text marks what you must add or verify (consent,\nclinical outcome, mechanism, literature). Nothing here is fabricated;\nfigures are drawn from your detected, criterion-qualified findings.\n\n';
+  const head=title+'\n'+authors+'\n'+setting+'\nDraft generated '+date+' · VigiWard v3.9 · '+items.length+' finding(s) · format: '+cls.label+'\n'+'='.repeat(70)+'\n\nNOTE: square-bracketed text marks what you must add or verify (consent,\nclinical outcome, mechanism, literature). Nothing here is fabricated;\nfigures are drawn from your detected, criterion-qualified findings.\n\n';
   let t;
   if(type==='care'){const x=top;
     t=head+'ABSTRACT\nBackground: [one line on '+x.drug+' and '+(x.pt||x.inferred)+'.] We report a case detected by active surveillance of routine dispensing data.\nCase summary: A de-identified patient ('+x.pid+') with a temporal drug–reaction pattern consistent with '+(x.pt||x.inferred)+'. Causality: '+causal(x)+'.\nConclusion: [lesson for prescribing/monitoring.]\nKeywords: pharmacovigilance; adverse drug reaction; '+x.drug+'; '+(x.pt||x.inferred)+'; routine data.\n\n1. INTRODUCTION\n[Background on '+x.drug+'; known association with '+(x.pt||x.inferred)+'; the under-reporting problem this detection method addresses.]\n\n2. PATIENT INFORMATION & TIMELINE (de-identified — '+x.pid+')\nDetection method: '+x.type+'. Suspected culprit: '+x.drug+'. Reaction: '+(x.pt||x.inferred)+' ('+x.soc+').\nChronology / evidence: '+x.ev+'.\nVerifiable basis: '+(x.verify||x.why)+'\n[Add demographics in ranges only, relevant history, and the de-identified timeline.]\n\n3. DIAGNOSTIC & CAUSALITY ASSESSMENT\nMechanistic class (Rawlins–Thompson): '+x.rawlins+'. Seriousness: '+(x.serious?'serious':'non-serious')+'.\nCausality: '+causal(x)+' (add WHO-UMC category). Verification basis: '+(x.type==='Lab-supported'?'objective laboratory confirmation':'temporal/clinical pattern — '+labNote)+'.\n[Add differential diagnoses and how alternative causes were excluded.]\n\n4. THERAPEUTIC INTERVENTION & OUTCOME\n[Dispensing data may not show outcome — state what is known: dechallenge/rechallenge if visible'+(x.rescue?', rescue medication ('+x.rescue+')':'')+'; otherwise mark as not ascertainable.]\n\n5. DISCUSSION\nStrengths: the case was surfaced from routine data that spontaneous reporting had missed. [Compare to literature.]\nLimitations: dispensing data cannot confirm administration, indication, or outcome; single case.\n[Mechanism and clinical implication.]\n\n6. PATIENT PERSPECTIVE & CONSENT\n[Confirm informed consent for publication, or institutional waiver for de-identified data.]\n\n7. CONCLUSION\n[Prescribing/monitoring lesson.]\n\nReporting guideline: CARE (Gagnier et al., 2013).';
@@ -3552,7 +3643,7 @@ window.ODMREF=(function(){
     let pack;
     try{
       const ctl=new AbortController(), tm=setTimeout(()=>ctl.abort(),20000);
-      try{ const r=await fetch(URL+"?t="+Date.now(),{cache:"no-store",signal:ctl.signal}); if(!r.ok) throw new Error("the website answered "+r.status); pack=await r.json(); }
+      try{ const r=await fetch(URL+"?t="+Date.now(),{cache:"no-store",signal:ctl.signal}); if(r.status===404){ pending=null; msg={kind:"info",html:'<b>No newer list has been published on the Odieman website yet.</b> This copy keeps using its built-in list.'}; paint(); return; } if(!r.ok) throw new Error("the website answered "+r.status); pack=await r.json(); }
       finally{ clearTimeout(tm); }
     }catch(e){
       msg={kind:"error",html:'<b>Could not reach the Odieman website.</b> Check the internet connection and try again'+(A.demo?'.':', or load the update file from a flash drive (<i>Load update file</i>).')+'<div style="font-size:12px;opacity:.8;margin-top:4px">'+esc(e&&e.name==="AbortError"?"No answer within 20 seconds.":(e&&e.message)||e)+'</div>'}; paint(); return;
@@ -4827,7 +4918,7 @@ function linesToHTMLw(L){
 }
 function generateReport(){
   if(!DB.pharmacy||!DB.pharmacy.length){toast('Import data first');return;}
-  const facility=(document.getElementById('rep-facility')||{}).value||'Tanga Regional Referral Hospital';
+  const facility=(document.getElementById('rep-facility')||{}).value||'Demo Regional Referral Hospital (simulated)';
   const author=(document.getElementById('rep-author')||{}).value||'';
   const m=reportModel();const L=reportLines(m,facility,author);
   const prev=document.getElementById('rep-preview'); if(prev){prev.classList.remove('empty');prev.innerHTML=linesToHTMLw(L);}
