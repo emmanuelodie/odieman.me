@@ -53,7 +53,7 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Odieman AMS Pro v4.14 (demo)</title>
+<title>Odieman AMS Pro v5.1 (demo)</title>
 <style>
 :root{
   --bg:#0d1117; --panel:#161b22; --panel2:#1c2230; --line:#2b3340;
@@ -218,6 +218,34 @@ td input.wide{min-width:220px;white-space:normal}
 #v-csp .kpi .l{font-size:12px}
 #v-csp .panel>p{line-height:1.55}
 @media(max-width:700px){#v-csp .row>label{width:100%}#v-csp select{max-width:100%}}
+/* v4.14 views: what each person sees */
+.viewbar{margin:2px 10px 8px;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--panel2);display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:12px;color:var(--ink)}
+.viewbar .vb-l{color:var(--muted);text-transform:uppercase;font-size:10.5px;letter-spacing:.5px;font-weight:700}
+.viewbar .vb-n{color:var(--muted);font-size:11px;white-space:nowrap}
+#sidebar .viewbar button{all:unset;cursor:pointer;color:var(--accent);font-weight:700;font-size:12px;padding:2px 4px}
+#vw-panel{position:fixed;inset:0;z-index:9000;background:rgba(1,4,9,.72);display:none;align-items:flex-start;justify-content:center;padding:28px 14px;overflow-y:auto}
+#vw-panel .vw-box{background:var(--panel);border:1px solid var(--line);border-radius:12px;max-width:860px;width:100%;padding:20px 22px;box-shadow:0 12px 40px rgba(0,0,0,.5)}
+#vw-panel h2{margin:0 0 6px;font-size:19px}#vw-panel h3{margin:0 0 8px;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+#vw-panel .vw-sub{color:var(--muted);font-size:13px;line-height:1.5;margin-bottom:14px}
+#vw-panel .vw-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+#vw-panel .vw-opt{display:flex;gap:8px;align-items:flex-start;padding:7px 9px;border:1px solid var(--line);border-radius:8px;margin-bottom:6px;cursor:pointer;font-size:13px}
+#vw-panel .vw-opt.on{border-color:var(--accent);background:rgba(47,129,247,.08)}
+#vw-panel .vw-opt input{width:auto;margin-top:3px}#vw-panel .vw-opt small{display:block;color:var(--muted);font-size:12px;line-height:1.4;margin-top:2px}
+#vw-panel select{background:var(--panel2);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:6px 9px;font-size:13px;width:100%}
+#vw-panel .vw-tag{font-size:10.5px;color:var(--amber);text-transform:none;letter-spacing:0;font-weight:600}
+#vw-panel .vw-note{color:var(--muted);font-size:12px;margin-top:8px;line-height:1.45}
+#vw-panel .vw-prev{margin:14px 0 8px;padding:9px 11px;background:var(--panel2);border-radius:8px;font-size:12.5px;line-height:1.6}
+#vw-panel details summary{cursor:pointer;color:var(--accent);font-size:13px;font-weight:600;margin:6px 0}
+#vw-panel .vw-mods{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:8px}
+#vw-panel .vw-g{font-size:11px;color:var(--muted);text-transform:uppercase;font-weight:700;margin-bottom:4px}
+#vw-panel .vw-m{display:flex;gap:6px;align-items:center;font-size:12.5px;padding:2px 0}#vw-panel .vw-m input{width:auto}
+#vw-panel .vw-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+@media(max-width:700px){#vw-panel .vw-grid{grid-template-columns:1fr}}
+/* v5.1 Did It Work? */
+#v-its label{font-size:12px;color:var(--muted);font-weight:600;display:flex;flex-direction:column;gap:4px}
+#v-its select,#v-its input:not([type=checkbox]):not([type=file]),#v-its textarea{background:var(--panel2);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:7px 9px;font-size:13px;font-family:inherit}
+#v-its textarea{line-height:1.5}
+@media(max-width:700px){#v-its .row>label{width:100%}#v-its select{max-width:100%;width:100%}}
 /* v4.14 AMS ward rounds */
 #v-wr .hint{font-size:11.5px;color:var(--muted);line-height:1.5}
 #v-wr select,#v-wr input:not([type=checkbox]):not([type=file]){background:var(--panel2);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:6px 9px;font-size:13px;font-family:inherit}
@@ -250,7 +278,7 @@ td input.wide{min-width:220px;white-space:normal}
 <body>
 <header>
   <div class="logo">Odieman <b>AMS&nbsp;Pro</b></div>
-  <div class="tag">Offline Antimicrobial Stewardship Suite &mdash; Data Entry, Bulk Ingestion &amp; Reporting&nbsp;&middot;&nbsp;v4.14</div>
+  <div class="tag">Offline Antimicrobial Stewardship Suite &mdash; Data Entry, Bulk Ingestion &amp; Reporting&nbsp;&middot;&nbsp;v5.1</div>
   <div class="spacer"></div>
   <button id="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle navigation" title="Toggle navigation">&#9776;</button>
   <div id="backup-badge" class="bbadge" onclick="backupBadgeClick()" title="Backup status — click to manage">&#9211; No backup yet</div>
@@ -279,6 +307,7 @@ td input.wide{min-width:220px;white-space:normal}
   <div id="v-timeout" class="view"></div>
   <div id="v-bugdrug" class="view"></div>
   <div id="v-spc" class="view"></div>
+  <div id="v-its" class="view"></div>
   <div id="v-impact" class="view"></div>
   <div id="v-csp" class="view"></div>
   <div id="v-wr" class="view"></div>
@@ -24150,7 +24179,7 @@ function xlDateH(v){ const s=(""+(v==null?"":v)).trim(); if(!s) return s;
   return s; }
 
 /* ============================= NAV ============================= */
-const VIEWS=[["guide","User Guide"],["setup","Setup"],["doseref","Dose Reference"],["entry","Data Entry"],["hub","Import Hub"],["patients","Patients"],["prescriptions","Prescriptions"],["antibiogram","Antibiogram"],["drvzones","Driver Zones"],["wrtrend","Resistance Trend"],["wins","What's Working"],["dash","Dashboard"],["timeout","Antibiotic Time-out"],["bugdrug","Bug–drug Check"],["impact","Intervention Impact"],["csp","C/S Prophylaxis Project"],["wr","AMS Ward Rounds"],["spc","Run Charts (SPC)"],["reports","Reports"],["indicators","Indicators"],["consumption","Consumption"],["economics","Cost & Impact"],["analytics","Analytics"],["discrep","Discrepancy"],["pdca","PDCA / 7 Wastes"],["inrud","WHO/INRUD Indicators"],["crf","CRF Forms"],["export","Export"]];
+const VIEWS=[["guide","User Guide"],["setup","Setup"],["doseref","Dose Reference"],["entry","Data Entry"],["hub","Import Hub"],["patients","Patients"],["prescriptions","Prescriptions"],["antibiogram","Antibiogram"],["drvzones","Driver Zones"],["wrtrend","Resistance Trend"],["wins","What's Working"],["dash","Dashboard"],["timeout","Antibiotic Time-out"],["bugdrug","Bug–drug Check"],["its","Did It Work?"],["impact","Intervention Impact"],["csp","C/S Prophylaxis Project"],["wr","AMS Ward Rounds"],["spc","Run Charts (SPC)"],["reports","Reports"],["indicators","Indicators"],["consumption","Consumption"],["economics","Cost & Impact"],["analytics","Analytics"],["discrep","Discrepancy"],["pdca","PDCA / 7 Wastes"],["inrud","WHO/INRUD Indicators"],["crf","CRF Forms"],["export","Export"]];
 /* ============================= SIDEBAR NAV GROUPS ============================= */
 /* Groups the flat VIEWS list into the left-sidebar sections, ordered roughly as a monthly AMS
    workflow: data in, then AMS operations/analysis, then reporting, then setup/reference at the
@@ -24159,7 +24188,7 @@ const VIEWS=[["guide","User Guide"],["setup","Setup"],["doseref","Dose Reference
 const NAV_GROUPS=[
   {id:"start",label:"Getting Started",items:["guide"]},
   {id:"records",label:"Clinical Records",items:["patients","prescriptions","antibiogram"]},
-  {id:"ams",label:"AMS Operations",items:["dash","csp","wr","timeout","bugdrug","consumption","economics","analytics","spc","impact","drvzones","wrtrend","wins","discrep","pdca"]},
+  {id:"ams",label:"AMS Operations",items:["dash","csp","wr","timeout","bugdrug","consumption","economics","analytics","spc","its","impact","drvzones","wrtrend","wins","discrep","pdca"]},
   {id:"reporting",label:"Reporting & Indicators",items:["reports","indicators","inrud","crf","export"]},
   {id:"setup",label:"Setup & Data",items:["setup","doseref","entry","hub"]}
 ];
@@ -24180,14 +24209,15 @@ function buildNav(){
   const activeEntry=VIEWS.find(([k])=>$("#v-"+k)&&$("#v-"+k).classList.contains("on"));
   const activeKey=activeEntry?activeEntry[0]:"setup";
   const activeGroup=(NAV_GROUPS.find(g=>g.items.includes(activeKey))||{}).id;
-  sb.innerHTML=NAV_GROUPS.map(g=>{
+  const vis=k=>viewHas(k)||k===activeKey;
+  sb.innerHTML=viewBar()+NAV_GROUPS.filter(g=>g.items.some(vis)).map(g=>{
     const isCollapsed = collapsed.includes(g.id) && g.id!==activeGroup;
     return `<div class="navgroup${isCollapsed?" collapsed":""}" data-group="${g.id}">
       <button type="button" class="navgroup-h" onclick="toggleNavGroup('${g.id}')">
         <span>${g.label}</span><span class="navgroup-arrow">${isCollapsed?"&#9656;":"&#9662;"}</span>
       </button>
       <div class="navgroup-items">
-        ${g.items.map(k=>`<button id="nav-${k}" class="${k===activeKey?"on":""}" onclick="go('${k}')">${labelOf[k]||k}${navBadge(k)}</button>`).join("")}
+        ${g.items.filter(vis).map(k=>`<button id="nav-${k}" class="${k===activeKey?"on":""}" onclick="go('${k}')">${labelOf[k]||k}${navBadge(k)}</button>`).join("")}
       </div>
     </div>`;
   }).join("");
@@ -24208,12 +24238,14 @@ let currentView="setup";
 function go(k){
   currentView=k;
   VIEWS.forEach(([kk])=>{ $("#v-"+kk).classList.toggle("on",kk===k); const nb=$("#nav-"+kk); if(nb)nb.classList.toggle("on",kk===k); });
+  if(!$("#nav-"+k)&&$("#sidebar")&&typeof viewHas==="function") buildNav();
   if(k==="guide")renderGuide();
   if(k==="setup")renderSetup();
   if(k==="timeout")renderTimeout();
   if(k==="bugdrug")renderBugDrug();
   if(k==="spc")renderSpc();
   if(k==="impact")renderImpact();
+  if(k==="its")renderIts();
   if(k==="csp")renderCsp();
   if(k==="wr")renderWr();
   if(k==="doseref")renderDoseRef();
@@ -27482,8 +27514,8 @@ function renderImpact(){
     ${S.source==="disp"?itsRenameHTML(S,depts):""}${S.source==="ward"?itsWardPanel(S):""}${itsWardPtsHTML(S,B)}
     ${S.source==="adm"?`<div class="hint" style="margin-top:8px">Use this when the dispensing export only names a parent department (all Post-C lines say “Obstetrics and Gynaecology”): the ward comes from the Admission Report, and each stay is linked to the same patient's dispensing from the admission day to the discharge day.</div>`:""}
     <details style="margin-top:8px"><summary class="hint" style="cursor:pointer">Advanced: standard errors</summary><div class="row" style="gap:8px;margin-top:6px"><select onchange="itsSet('se',this.value)">${[["auto","Automatic (recommended): test for autocorrelation, then choose"],["ols","Ordinary least squares"],["nw","Newey–West"]].map(([v,l])=>`<option value="${v}" ${S.se===v?"selected":""}>${l}</option>`).join("")}</select></div></details>`;
-  const head=`<div class="panel" style="border-color:var(--accent)"><h2>Intervention impact &mdash; did it work?</h2>
-    <div class="sub">Interrupted time series on monthly values: it separates the change that happened when the intervention started from the trend that was already there, and says plainly when the data cannot tell. A quarter-by-quarter comparison is shown as well. Choose who is studied, the outcome and the month the intervention started; AMS Pro does the rest and lists every decision it made. The ward scope on Setup does not apply to this page.</div>${ctl}</div>`;
+  const head=`<div class="panel" style="border-color:var(--accent)"><h2>Intervention impact &mdash; wards, admissions and quarters</h2>
+    <div class="sub">Interrupted time series on monthly values: it separates the change that happened when the intervention started from the trend that was already there, and says plainly when the data cannot tell. A quarter-by-quarter comparison is shown as well. Choose who is studied, the outcome and the month the intervention started; AMS Pro does the rest and lists every decision it made. The ward scope on Setup does not apply to this page. Use this page for patients admitted to a ward that the dispensing export does not name (such as Post-C), a ward consumption table, or quarters; for one ward and one indicator with a figure, methods and results ready for a paper, use <a href="#" style="color:var(--accent)" onclick="go('its');return false">Did It Work?</a></div>${ctl}</div>`;
   if(!B||!B.ok){ el.innerHTML=head+`<div class="panel"><div class="notice warn">${esc(B?B.reason:"")}</div></div>`; return; }
   const dp=A.dp, u=itsUnits(O,S); const share=O.kind==="share";
   let body="";
@@ -29677,6 +29709,7 @@ function renderHub(){
     </div>`;
   $("#v-hub").innerHTML=`
   <div class="notice">Upload raw department sheets and the tool auto-detects columns, aggregates them, and pushes the results into the same working ground as Data Entry &mdash; no re-typing. Any field it can't find in your sheet is flagged as a gap rather than guessed. Select or drop several files at once to merge them into one compiled report &mdash; useful when different team members each captured part of the same period. <b>You don't have to apply each bucket right away</b> &mdash; drop files into as many boxes below as you have ready, review each one's preview, then run one combined analysis when everything's staged.</div>
+  ${hubAutoPanel()}
   <div id="hub-staging-bar"></div>
   ${pharmRepeatNotice()}
   ${storageQuotaExceeded?`<div class="notice err">&#9888; The current dataset is too large for this browser to save persistently. It's still fully active for this session &mdash; <span class="linkfix" onclick="go('export')">download a JSON backup</span> before closing the tab, or use the ward-scope filter on Setup / a narrower date range to bring it under the storage limit.</div>`:""}
@@ -29705,7 +29738,7 @@ function renderHub(){
     dzEl.ondrop=e=>{e.preventDefault(); renderStagingBar(); if(e.dataTransfer.files.length) hubFiles(cat,e.dataTransfer.files); };
     if(pendingHub[cat]) renderHubPreviewMulti(cat);
   });
-  renderStagingBar();
+  renderStagingBar(); hubAutoWire();
 }
 
 /* ============================= EXPORT ============================= */
@@ -30062,6 +30095,7 @@ function renderGuide(){
   </div>
 
   ${sec("start","1. Getting started in 6 steps",`
+    <div class="notice" style="margin-bottom:10px"><b>Too many modules?</b> Click <b>View &middot; Change</b> at the top of the menu and pick who uses this computer (AMS team, clinician, IPC, laboratory or management), the facility level and the stage of the AMS programme. The menu then shows only those modules; the rest keep working and come back with <i>Show everything</i>. <a href="#" style="color:var(--accent)" onclick="viewPanel();return false">Choose a view</a></div>
     <ol style="line-height:1.7;margin:0;padding-left:20px">
       <li><b>Open a data folder.</b> Setup &rsaquo; <i>Data folder</i> &rsaquo; <i>Open data folder</i> and choose (or create) a folder such as <b>Documents &rsaquo; Odieman &rsaquo; AMS_Data</b>. From then on everything saves there by itself. Do this <u>before</u> importing more than a few months of data &mdash; the browser on its own holds only 5&ndash;10&nbsp;MB. ${open("setup","Setup")}</li>
       <li><b>Fill in the facility details</b> on Setup: facility name, reporting period, the person preparing the report, and the AWaRe scheme (WHO for international comparison, or Tanzania STG/NEMLIT 2021 for MoH reporting).</li>
@@ -30099,6 +30133,7 @@ function renderGuide(){
       ${mod("economics","Cost & Impact","Antibiotic spend from the Price column: sell revenue, implied buy cost and margin (markup set on the page), and spend by AWaRe tier.","Watch+Reserve spend is the money going to resistance-driving prescribing. Needs the Price column in the dispensing export.")}
       ${mod("analytics","Analytics","Pareto of consumption, monthly DDD trend with projection, DDD by ward, stewardship scenario outlook.","The Pareto shows where to focus; the monthly trend shows whether use is falling.")}
       ${mod("spc","Run Charts (SPC)","Laney p&prime; control charts per week or month for Access, Watch, Not-recommended, injectable share and time-out flags.","A red point is a real change (outside limits, 8 in a row on one side, or 6 rising/falling). Anything inside the limits is ordinary noise.")}
+      ${mod("its","Did It Work?","Evaluates an intervention: monthly before-vs-after comparison and an interrupted time series (segmented regression) for any ward and indicator, including course length and post-operative continuation.","The verdict compares the end of follow-up with what the earlier trend predicted. Download the 300-dpi figure, the monthly CSV and the ready-written methods and results for a paper.")}
       ${mod("impact","Intervention Impact","Did an intervention work? Interrupted time series on monthly values, plus a quarter-by-quarter comparison. Who is studied can be dispensing departments, patients admitted to a ward (admissions linked to dispensing — for sub-wards such as Post-C that dispensing does not name), or a ward consumption table.","Choose the ward, the outcome and the month the intervention started. Read the verdict and the &ldquo;Checks and decisions&rdquo; list; about 12 months before and 12 after give a firm answer.")}
       ${mod("drvzones","Driver Zones","Antibiotic use grouped by resistance-pressure zone: out-patient, surgical prophylaxis (incl. C-section) and respiratory.","Shows which zone carries most Watch use and whether cefazolin is used for clean surgery.")}
       ${mod("wrtrend","Resistance Trend","Monthly Watch+Reserve share with a fitted trend, 95% band and 12-month projection.","A falling line with high R&sup2; is a sustained improvement; a low R&sup2; means too noisy to call.")}
@@ -30136,6 +30171,7 @@ function renderGuide(){
   ${sec("stats","6. Reading the statistics correctly",`
     <ul style="line-height:1.7;padding-left:20px;margin:0">
       <li><b>Run charts (Laney p&prime;).</b> Points inside the dashed limits are ordinary variation &mdash; do not react to them. A real change is a point outside the limits, 8 or more in a row on one side of the centre line, or 6 rising or falling in a row. You need about 20 points before trusting the limits. If the number of lines or the ward mix changes at the same time as a signal, check that first.</li>
+      <li><b>Did it work? (interrupted time series).</b> A plain before/after comparison gives an intervention credit for any improvement that was already under way. The interrupted time series fits the trend before the start, carries it forward as the &ldquo;expected&rdquo; line, and measures the jump at the start (level change) and the change in slope after it. Read the <i>effect by the last month</i>, with its 95% confidence interval: if the interval does not include 0, the change is beyond the existing trend. You need at least 3 months on each side, better 8&ndash;12. Choose an indicator the intervention could change: if only one antibiotic was available, measure course length or post-operative continuation, not Access share.</li>
       <li><b>Trend lines.</b> The slope (e.g. &minus;21%/yr) says how fast; R&sup2; says how consistently. A projection is a continuation of the past, not a forecast.</li>
       <li><b>Antibiogram.</b> Only the first isolate per patient per organism is counted. Fewer than 30 isolates in a cell makes the percentage unstable &mdash; combine periods or specimens before acting on it.</li>
       <li><b>DDD and DOT.</b> DDD measures quantity (grams dispensed &divide; WHO standard daily dose); DOT counts days of therapy regardless of dose. Expressing both per 1,000 patient-days needs the bed-days from the admissions file.</li>
@@ -30389,7 +30425,7 @@ async function runAmsDemo(){
   go("hub"); toast("Loading 3 years of sample data&hellip;");
   try{
     demoProgress("Step 1 of 6 &middot; downloading the sample data&hellip;");
-    const base="../samples/ams/"; const list=await (await fetch(base+"manifest.json")).json();
+    const base="../samples/ams/"; let list=null; try{ const mr=await fetch(base+"manifest.json"); if(mr.ok) list=await mr.json(); }catch(x){} if(!Array.isArray(list)) throw new Error("demo-samples-missing");
     const files={}; for(const n of list){ const b=await demoFetch(base+n); files[n]=new File([b],n,{type:"text/csv"}); }
     const pick=p=>Object.keys(files).filter(n=>n.startsWith(p)).map(n=>files[n]);
     /* one step at a time, pausing briefly so the progress message can be redrawn */
@@ -30403,7 +30439,7 @@ async function runAmsDemo(){
     DB.facility.name="Demo Regional Referral Hospital"; compileReport(); try{ demoProjects(); }catch(e){ console.error(e); } buildNav();
     { const want=new URLSearchParams(location.search).get("view"); go(want&&VIEWS.some(([k])=>k===want)?want:"dash"); }
     demoProgress(null); toast("Sample data loaded &mdash; explore any page in the menu");
-  }catch(e){ console.error(e); demoProgress(null); go("guide"); toast("The sample data could not be loaded. The live demo works when opened from the website; offline, use the Sample_Data folder that comes with the download."); }
+  }catch(e){ if(e&&e.message==="demo-samples-missing") console.warn("Live demo: the sample data folder is not next to this file. The demo loads it when opened from the website."); else console.error(e); demoProgress(null); go("guide"); toast("The sample data could not be loaded. The live demo works when opened from the website; offline, use the Sample_Data folder that comes with the download."); }
 }
 /* ============================= Odieman reference-list updates (v1) =============================
    AWaRe groups, ATC codes and WHO DDDs can be updated without a new copy of the tool: "Check for
@@ -31559,7 +31595,7 @@ function cspDataTab(I){
   <div class="panel"><h2>Phases</h2><div class="sub">Each operation belongs to the last phase that started on or before its date. Operations after the end date are left out. Add a phase for any earlier ward activity (for example the May–July 2026 audits) so its effect can be checked on its own.</div>
     <table style="max-width:820px"><thead><tr><th>Phase</th><th>Starts</th><th></th><th></th></tr></thead><tbody>${phaseRows}</tbody></table>
     <div class="hint" style="margin-top:6px">A run-in is a short period when a change was only partly in place (for example the weeks between the first CME and the SOPs). Its weeks are left out of the time series, the earlier trend is carried through it, and it is never used as a change point. Single events, such as one AMS ward round, go in the logs on Ward audits &amp; logs, not here.</div>
-    <div class="row" style="margin-top:10px"><button class="btn sm ghost" onclick="cspPhaseAdd()">+ Add a phase</button><label class="hint">Study ends <input type="date" value="${esc(S.end||"")}" onchange="cspSet('end',this.value)"></label></div></div>
+    <div class="row" style="margin-top:10px"><button class="btn sm ghost" onclick="cspPhaseAdd()">+ Add a phase</button><label class="btn sm ghost" style="cursor:pointer">&#11014; Import a phase plan (CSV/Excel)<input type="file" accept=".csv,.xlsx,.xlsm,.txt" style="display:none" onchange="cspPhasesImportInput(this)"></label><label class="hint">Study ends <input type="date" value="${esc(S.end||"")}" onchange="cspSet('end',this.value)"></label></div></div>
   <div class="panel"><h2>Rules</h2><div class="sub">These follow the analysis plan. Change them only after the AMS Committee agrees, then note the change: every output prints the values in use.</div>
     <div class="subhead"><h3>Routine prophylaxis regimen</h3><div class="line"></div></div>
     <div class="hint" style="margin-bottom:6px">Drugs of the guideline regimen for C/S. A revised guideline gets its own row with the date it took effect.</div>
@@ -32374,8 +32410,9 @@ function renderWr(){ const el=$("#v-wr"); if(!el) return; wrS();
 function wrAfter(f){ (window._wrAfter=window._wrAfter||[]).push(f); }
 
 function wrPrintTab(){ const W=wrS(), st=W.set; const wards=wrWardList();
-  const ward=window._wrWard&&wards.includes(window._wrWard)?window._wrWard:(wards.find(w=>!/\bopd\b|out.?patient/i.test(w))||wards[0]||"");
-  const date=window._wrDate||wrToday(); window._wrWard=ward; window._wrDate=date;
+  const dm=W.demoForm&&!window._wrDate&&!window._wrWard?W.demoForm:null;   // a restored demonstration copy opens on its example ward-day
+  const ward=dm&&wards.includes(dm.ward)?dm.ward:window._wrWard&&wards.includes(window._wrWard)?window._wrWard:(wards.find(w=>!/\bopd\b|out.?patient/i.test(w))||wards[0]||"");
+  const date=window._wrDate||(dm?dm.date:wrToday()); window._wrWard=ward; window._wrDate=date;
   let prev=""; if(ward){ const P=wrPrefill(ward,date);
     if(P.err) prev=`<div class="notice warn">${esc(P.err)}</div>`;
     else { const fl={}; P.rows.forEach(r=>r.flags.forEach(c=>fl[c]=(fl[c]||0)+1));
@@ -32436,7 +32473,7 @@ function wrEnterTab(){ const d=wrD();
       <div class="row" style="gap:8px">${window._wrWarn&&window._wrWarn.length?`<button class="btn" onclick="wrSaveDraft(true)">Save anyway</button>`:`<button class="btn" onclick="wrSaveDraft(false)">✔ Save this round</button>`}<button class="btn ghost" onclick="wrCancel()">Cancel</button></div></div>`; }
 
 function wrRoundsTab(){ const R=wrS().rounds.filter(r=>r.status==="entered").sort((a,b)=>a.date<b.date?1:a.date>b.date?-1:a.id<b.id?1:-1);
-  return `<div class="panel"><h2>Rounds entered (${R.length})</h2>${R.length?`<div class="tablewrap"><table><thead><tr><th>Date</th><th>Ward</th><th>Form no.</th><th>Team</th><th>On antibiotics</th><th>Seen</th><th>With a finding</th><th>Advice</th><th>Agreed (Y/P/N)</th><th></th></tr></thead><tbody>${R.map(r=>{ const s=wrStats([r]);
+  return `<div class="panel"><h2>Rounds entered (${R.length})</h2><div class="row" style="gap:8px;margin:4px 0 10px;align-items:center"><label class="btn sm ghost" style="cursor:pointer">&#11014; Import completed forms (CSV/Excel)<input type="file" accept=".csv,.xlsx,.xlsm,.txt" style="display:none" onchange="wrImportInput(this)"></label><span class="hint">The CSV this page exports, or forms typed into a sheet with the same columns. Forms already here are left as they are.</span></div>${R.length?`<div class="tablewrap"><table><thead><tr><th>Date</th><th>Ward</th><th>Form no.</th><th>Team</th><th>On antibiotics</th><th>Seen</th><th>With a finding</th><th>Advice</th><th>Agreed (Y/P/N)</th><th></th></tr></thead><tbody>${R.map(r=>{ const s=wrStats([r]);
     return `<tr><td>${esc(cspFmtD(cspDay(r.date)))}</td><td>${esc(r.ward)}</td><td><b>${esc(r.id)}</b></td><td>${WR_TEAM.filter(t=>r.team&&r.team[t[0]]).map(t=>t[1].split(" ")[0]).join(", ")||"—"}${r.other?", "+esc(r.other):""}</td><td>${r.onAbx===""?"—":r.onAbx}</td><td>${s.seen}</td><td>${s.withF}</td><td>${s.advRows}</td><td>${s.agY}/${s.agP}/${s.agN}${s.agBlank?` <span class="hint">(+${s.agBlank} blank)</span>`:""}</td><td style="white-space:nowrap"><button class="btn sm ghost" onclick="wrOpen('${esc(r.id)}')">Open</button> <button class="btn sm ghost" onclick="wrDelete('${esc(r.id)}',this)">Delete</button></td></tr>`; }).join("")}</tbody></table></div>`:`<div class="hint">No rounds entered yet.</div>`}</div>`; }
 
 function wrResultsTab(){ const all=wrS().rounds.filter(r=>r.status==="entered"); const F=window._wrF||(window._wrF={ward:"",m1:"",m2:""});
@@ -32494,10 +32531,37 @@ async function wrBlocks(){ const F=window._wrF||{}; const rs=wrFilter(F); const 
   B.push({t:"bullets",items:["A patient counts as reviewed when OK or at least one finding was ticked on the form; rows left empty are patients not seen.","Findings per 10 patients = all findings ticked ÷ patients reviewed × 10. A patient can have more than one finding.","Agreement is counted per patient who received advice: in full, in part, or not agreed. Blank answers are left out of the percentage.","Done by the next round: agreed advice checked on the next form for the same ward within 14 days. Patients who left the ward and advice not yet checked are left out of the percentage.","The pre-filled list and flags come from the pharmacy dispensing and laboratory exports. A flag is a prompt for the bedside, not a judgement; it is confirmed when the matching finding is ticked.","No patient numbers appear in this report."]});
   return {B,per}; }
 async function wrReport(fmt){ try{ const {B,per}=await wrBlocks(); if(fmt==="print") cspToPrint("AMS ward rounds "+per,B); else await cspToDocx("AMS ward rounds: "+per,B,cspFile("AMS_ward_rounds",per)+".docx",(DB.facility.name||"")+" · AMS ward rounds"); }catch(e){ console.error(e); toast("The report could not be made: "+esc(e&&e.message||e)); } }
-function wrCSV(){ const rs=wrFilter(window._wrF||{}); const head=["Form no.","Ward","Date","Team present","Patient (study code)","Seen","OK"].concat(WR_FIND.map(f=>"F"+f[0])).concat(["Advice","Agreed","Done by next round","Flags on the form","Teaching point / note"]);
+function wrCSV(){ const rs=wrFilter(window._wrF||{}); const head=["Form no.","Ward","Date","Team present","Patients on antibiotics","Patient (study code)","Seen","OK"].concat(WR_FIND.map(f=>"F"+f[0])).concat(["Advice","Agreed","Done by next round","Flags on the form","Teaching point / note"]);
   const rows=[]; rs.forEach(r=>{ const team=WR_TEAM.filter(t=>r.team&&r.team[t[0]]).map(t=>t[1]).concat(r.other?[r.other]:[]).join("; ");
-    r.rows.forEach(x=>rows.push([r.id,r.ward,r.date,team,x.pid?wrCode(x.pid):"",wrSeen(x)?1:0,x.ok?1:0].concat(WR_FIND.map(f=>(x.f||[]).includes(f[0])?1:0)).concat([wrAdvList(x.adv).join(""),x.agreed||"",x.done||"",(x.flags||[]).join(" "),x.note||""]))); });
+    r.rows.forEach(x=>rows.push([r.id,r.ward,r.date,team,r.onAbx===""||r.onAbx==null?"":r.onAbx,x.pid?wrCode(x.pid):"",wrSeen(x)?1:0,x.ok?1:0].concat(WR_FIND.map(f=>(x.f||[]).includes(f[0])?1:0)).concat([wrAdvList(x.adv).join(""),x.agreed||"",x.done||"",(x.flags||[]).join(" "),x.note||""]))); });
   dl(cspFile("AMS_ward_rounds_rows","")+".csv",toCSV([head].concat(rows)),"text/csv"); }
+
+/* ---------- import of completed forms (the CSV this page exports, or forms typed into a sheet in the same layout) ---------- */
+const WR_COL={form:/^(form( no| number)?|round id)$/,ward:/^ward$/,date:/^(date|date of round|round date)$/,team:/^team( present)?$/,onAbx:/^(patients )?on antibiotics$/,
+  pid:/^(patient( no| number| id)?|patient study code|study code)$/,ok:/^ok$/,adv:/^advice( letters)?$/,agreed:/^agreed$/,done:/^done( by next round)?$/,flags:/^flags( on the form)?$/,note:/^(teaching point( note)?|note|teaching point \/ note)$/};
+async function wrImportFile(file){ const grid=await readFirstGrid(file); const W=wrS();
+  let hr=-1, ci={}, fc={}; for(let r=0;r<Math.min(grid.length,12);r++){ const row=(grid[r]||[]).map(h=>normH(h)); const c={};
+    Object.entries(WR_COL).forEach(([k,re])=>{ const i=row.findIndex(h=>re.test(h)); if(i>=0) c[k]=i; });
+    const f={}; row.forEach((h,i)=>{ const m=h.match(/^f ?(10|[1-9])$/); if(m) f[+m[1]]=i; });
+    if((c.form!=null||(c.ward!=null&&c.date!=null))&&(c.agreed!=null||c.adv!=null)){ hr=r; ci=c; fc=f; break; } }
+  if(hr<0) throw new Error("no form, advice or agreed columns");
+  const yes=v=>/^(1|y|yes|true|x|✓)$/i.test((""+(v==null?"":v)).trim()); const cell=(row,k)=>ci[k]==null?"":(""+(row[ci[k]]==null?"":row[ci[k]])).trim();
+  const dOrd=cspDateOrder(grid.slice(hr+1).map(r=>ci.date!=null?r[ci.date]:"")); const groups=new Map();
+  for(let r=hr+1;r<grid.length;r++){ const row=grid[r]||[]; const ward=cell(row,"ward"), d=cspDay(cell(row,"date"),dOrd); if(!ward||d==null) continue;
+    const key=cell(row,"form")||(ward+"|"+numDay(d)); if(!groups.has(key)) groups.set(key,{id:cell(row,"form"),ward,date:numDay(d),team:cell(row,"team"),onAbx:cell(row,"onAbx"),rows:[]});
+    const f=Object.entries(fc).filter(([,i])=>yes(row[i])).map(([k])=>+k).sort((a,b)=>a-b);
+    const ag=cell(row,"agreed").toUpperCase(), dn=cell(row,"done").toLowerCase();
+    groups.get(key).rows.push({pid:cell(row,"pid"),abx:"",flags:cell(row,"flags").split(/[\s,;]+/).filter(k=>WR_FLAG[k]),flagText:"",flagShort:"",ok:yes(cell(row,"ok")),f,adv:wrAdvList(cell(row,"adv")).join(""),
+      agreed:/^(Y|YES|FULL)/.test(ag)?"Y":/^P/.test(ag)?"P":/^(N|NO)$/.test(ag)?"N":"",done:/^not/.test(dn)?"Not done":/^done/.test(dn)?"Done":/^left|discharg|died/.test(dn)?"Left ward":"",doneAt:"",note:cell(row,"note")}); }
+  let added=0, skipped=0, seen=0; const today=wrToday();
+  for(const g of groups.values()){ const id=g.id||wrNewId(g.ward,g.date); if(W.rounds.some(x=>x.id===id&&x.status==="entered")){ skipped++; continue; }
+    const t=g.team.toLowerCase(); const team={ph:/pharmac/.test(t),cl:/clinic|doctor|prescrib/.test(t),ipc:/ipc|infection/.test(t),mic:/microb|lab/.test(t)};
+    const other=g.team.split(/[;,]/).map(x=>x.trim()).filter(x=>x&&!/pharmac|clinic|doctor|prescrib|ipc|infection|microb|lab/i.test(x)).join(", ");
+    W.rounds=W.rounds.filter(x=>!(x.id===id&&x.status==="printed"));
+    W.rounds.push({id,ward:g.ward,date:g.date,dataTo:"",printed:"",entered:today,imported:file.name,status:"entered",team,other,onAbx:g.onAbx===""||isNaN(+g.onAbx)?"":+g.onAbx,secretary:"",rows:g.rows,fu:[]});
+    added++; seen+=g.rows.filter(wrSeen).length; }
+  save(); return `${added} round(s), ${seen.toLocaleString()} patient(s) seen${skipped?`; ${skipped} already here, left as they were`:""}`; }
+async function wrImportInput(input){ const f=input.files&&input.files[0]; if(!f) return; try{ const note=await wrImportFile(f); toast("Ward rounds imported: "+note); renderWr(); }catch(e){ toast("Could not read the forms: "+(e&&e.message||e)); } input.value=""; }
 
 /* ---------- live demo only: example project settings and simulated ward rounds ----------
    Runs from runAmsDemo() on the website's sample hospital. Nothing here runs in a normal copy. */
@@ -32529,12 +32593,541 @@ function demoProjects(){
       W.rounds.filter(o=>o.ward===ward&&cspDay(o.date)>=d-14&&cspDay(o.date)<d).forEach(o=>o.rows.forEach((y,i)=>{
         if(wrSeen(y)&&y.adv&&(y.agreed==="Y"||y.agreed==="P")&&!y.done){ r.fu.push({rid:o.id,i,pid:y.pid,date:o.date,adv:y.adv}); const u=rnd(); if(u<.9){ y.done=u<.62?"Done":u<.78?"Not done":"Left ward"; y.doneAt=r.id; } } }));
       W.rounds.push(r); }); }
-  window._wrWard=wards[0]; window._wrDate=W.rounds.length?W.rounds[W.rounds.length-1].date:numDay(X.maxD); window._wrF={ward:"",m1:"",m2:""}; wrTab="results";
+  // the print tab opens on the busiest ward-day of the last two months, so the example form is not near-empty
+  let best=null; wards.forEach(w=>{ for(let x=last-60;x<=last;x++){ const n=wrPrefill(w,numDay(x)).rows.length; if(!best||n>best.n) best={w,d:numDay(x),n}; } });
+  W.demoForm=best?{ward:best.w,date:best.d}:null;
+  window._wrWard=best?best.w:wards[0]; window._wrDate=best?best.d:numDay(X.maxD); window._wrF={ward:"",m1:"",m2:""}; wrTab="results";
 }
+
+/* ===================== WHAT EACH PERSON SEES =====================
+   The menu shows the modules that matter for the person (role), the facility (level) and how far its AMS
+   programme has come (stage). Nothing is switched off: hidden modules keep working, links to them still open,
+   and "Show everything" is one click away. The role and personal ticks are kept on this computer only; the
+   facility level and AMS stage are saved with the facility's data, so everyone using it starts the same way. */
+const VW_CORE=["guide","setup","hub","dash","reports"];          // always in the menu
+const VW_STAGE={
+  starting:{label:"Starting",note:"Know how antibiotics are used: consumption, AWaRe, prescribing indicators, the first reports.",
+    mods:["entry","doseref","consumption","prescriptions","inrud","indicators","crf","export"]},
+  building:{label:"Building",note:"Act on patients and feed back: daily review lists, ward rounds, culture results, run charts, recognition.",
+    mods:["entry","doseref","consumption","prescriptions","inrud","indicators","crf","export","timeout","wr","antibiogram","bugdrug","patients","spc","wins","economics","discrep"]},
+  advanced:{label:"Advanced",note:"Run and evaluate projects: the C/S project, Did It Work?, intervention impact, time series, trends and improvement cycles.",
+    mods:null}};                                                  // null = every module
+const VW_ROLE={
+  ams:{label:"AMS team (pharmacist, AMS secretary)",mods:null},   // null = follows the AMS stage
+  clin:{label:"Clinician / prescriber",mods:["timeout","wr","antibiogram","bugdrug","patients","prescriptions","doseref","wins"]},
+  ipc:{label:"IPC focal person",mods:["wr","csp","antibiogram","indicators","crf","spc"]},
+  lab:{label:"Laboratory / microbiology",mods:["antibiogram","bugdrug","wrtrend","wr","export"]},
+  mgmt:{label:"Hospital management",mods:["economics","wins","indicators","its","impact"]}};
+const VW_LEVEL={hc:"Dispensary or health centre",dh:"District hospital",rrh:"Regional referral hospital",zh:"Zonal or national hospital"};
+const VW_NOLAB=["antibiogram","bugdrug"];                         // need culture results, rarely available below hospital level
+
+function vwState(){ let v=null; try{ v=JSON.parse(localStorage.getItem("odiemanpro_view")||"null"); }catch(e){} return v||window._vwMem||null; }
+function vwSave(v){ window._vwMem=v; try{ localStorage.setItem("odiemanpro_view",JSON.stringify(v)); }catch(e){} }
+function vwStage(){ return VW_STAGE[DB.facility.amsStage]?DB.facility.amsStage:"building"; }
+function vwDefault(role,stage,level){ const all=VIEWS.map(v=>v[0]);
+  const R=VW_ROLE[role]||VW_ROLE.ams; let m;
+  if(R.mods) m=R.mods; else { const S=VW_STAGE[stage]||VW_STAGE.building; m=S.mods||all; }
+  const out=new Set(VW_CORE.concat(m)); if(level==="hc") VW_NOLAB.forEach(k=>out.delete(k));
+  return new Set(all.filter(k=>out.has(k))); }
+function vwSet(v){ v=v||vwState(); if(!v||!v.chosen||v.all) return new Set(VIEWS.map(x=>x[0]));
+  const s=vwDefault(v.role,vwStage(),DB.facility.level||""); (v.add||[]).forEach(k=>s.add(k)); (v.rem||[]).forEach(k=>{ if(!VW_CORE.includes(k)) s.delete(k); }); return s; }
+function viewHas(k){ return vwSet().has(k); }
+function viewBar(){ const v=vwState(); const n=vwSet().size, N=VIEWS.length;
+  const lab=!v||!v.chosen||v.all?"Everything":(VW_ROLE[v.role]||VW_ROLE.ams).label.split(" (")[0]+((v.role||"ams")==="ams"?" · "+VW_STAGE[vwStage()].label:"");
+  return `<div class="viewbar"><div><span class="vb-l">View</span> <b>${esc(lab)}</b> <span class="vb-n">${n} of ${N}</span></div><button type="button" onclick="viewPanel()">Change</button></div>`; }
+
+/* the panel */
+function viewPanel(first){ const cur=vwState()||{}; window._vwDraft={role:cur.role||"ams",all:!!(cur.all||!cur.chosen),add:(cur.add||[]).slice(),rem:(cur.rem||[]).slice(),
+    level:DB.facility.level||"",stage:vwStage(),first:!!first,custom:false}; vwPaint(); }
+function vwPaint(){ const d=window._vwDraft; let o=document.getElementById("vw-panel");
+  if(!o){ o=document.createElement("div"); o.id="vw-panel"; o.setAttribute("role","dialog"); o.setAttribute("aria-modal","true"); document.body.appendChild(o);
+    o.addEventListener("click",e=>{ if(e.target===o) viewClose(); }); }
+  const base=vwDefault(d.role,d.stage,d.level); const eff=new Set(base); d.add.forEach(k=>eff.add(k)); d.rem.forEach(k=>{ if(!VW_CORE.includes(k)) eff.delete(k); });
+  const labelOf=Object.fromEntries(VIEWS); const N=VIEWS.length;
+  const radio=(name,val,cur,label,note)=>`<label class="vw-opt${val===cur?" on":""}"><input type="radio" name="${name}" ${val===cur?"checked":""} onchange="vwPick('${name}','${val}')"><span><b>${esc(label)}</b>${note?`<small>${esc(note)}</small>`:""}</span></label>`;
+  o.innerHTML=`<div class="vw-box">
+    <h2>${d.first?"Welcome. What should this computer show?":"What should the menu show?"}</h2>
+    <div class="vw-sub">AMS Pro has ${N} modules. Pick a view and the menu shows only what matters for it. Nothing is lost: hidden modules keep working, and you can come back here at any time from <b>View · Change</b> at the top of the menu.</div>
+    <div class="vw-grid">
+      <div><h3>Who uses this computer</h3>${Object.entries(VW_ROLE).map(([k,r])=>radio("role",k,d.role,r.label)).join("")}
+        <h3 style="margin-top:14px">Facility level <span class="vw-tag">for everyone using these data</span></h3>
+        <select onchange="vwPick('level',this.value)"><option value="">Not set</option>${Object.entries(VW_LEVEL).map(([k,l])=>`<option value="${k}" ${k===d.level?"selected":""}>${esc(l)}</option>`).join("")}</select>
+        ${d.level==="hc"?`<div class="vw-note">Antibiogram and Bug&ndash;drug Check are left out: they need culture results, which are rare below hospital level. Tick them under "Choose modules" if you have them.</div>`:""}</div>
+      <div><h3>Stage of the AMS programme <span class="vw-tag">for everyone using these data</span></h3>${Object.entries(VW_STAGE).map(([k,s])=>radio("stage",k,d.stage,s.label,s.note)).join("")}
+        ${d.role!=="ams"?`<div class="vw-note">The stage sets the menu for the AMS team. The ${esc(VW_ROLE[d.role].label.toLowerCase())} view has its own short list.</div>`:""}</div></div>
+    <div class="vw-prev"><b>${eff.size} of ${N} modules:</b> ${[...eff].map(k=>esc(labelOf[k]||k)).join(" · ")}</div>
+    <details ${d.custom?"open":""} ontoggle="window._vwDraft.custom=this.open"><summary>Choose modules one by one</summary><div class="vw-mods">${NAV_GROUPS.map(g=>`<div><div class="vw-g">${esc(g.label)}</div>${g.items.map(k=>`<label class="vw-m"><input type="checkbox" ${eff.has(k)?"checked":""} ${VW_CORE.includes(k)?"disabled":""} onchange="vwTick('${k}',this.checked)"> ${esc(labelOf[k]||k)}${!base.has(k)&&eff.has(k)?' <span class="vw-tag">added</span>':""}${base.has(k)&&!eff.has(k)?' <span class="vw-tag">removed</span>':""}</label>`).join("")}</div>`).join("")}</div>
+      <div class="vw-note">User Guide, Setup, Import Hub, Dashboard and Reports are always in the menu.</div></details>
+    <div class="vw-btns"><button class="btn" onclick="viewApply(false)">Use this view</button><button class="btn ghost" onclick="viewApply(true)">Show everything</button>${d.first?"":`<button class="btn ghost" onclick="viewClose()">Cancel</button>`}</div></div>`;
+  o.style.display="flex"; }
+function vwPick(k,v){ const d=window._vwDraft; d[k]=v; if(k==="role"||k==="stage"||k==="level"){ d.add=[]; d.rem=[]; } d.all=false; vwPaint(); }
+function vwTick(k,on){ const d=window._vwDraft; const base=vwDefault(d.role,d.stage,d.level);
+  d.add=d.add.filter(x=>x!==k); d.rem=d.rem.filter(x=>x!==k); if(on&&!base.has(k)) d.add.push(k); if(!on&&base.has(k)) d.rem.push(k); d.all=false; vwPaint(); }
+function viewApply(all){ const d=window._vwDraft; if(!d) return;
+  if(d.level!==(DB.facility.level||"")||d.stage!==vwStage()){ DB.facility.level=d.level; DB.facility.amsStage=d.stage; save(); }
+  vwSave({chosen:true,all:!!all,role:d.role,add:d.add,rem:d.rem}); viewClose(); buildNav();
+  toast(all?"The menu shows every module.":`The menu shows ${vwSet().size} of ${VIEWS.length} modules. Change it any time from View at the top of the menu.`); }
+function viewClose(){ const o=document.getElementById("vw-panel"); if(o) o.style.display="none"; const d=window._vwDraft; if(d&&d.first&&!(vwState()||{}).chosen) vwSave({chosen:false,seen:true}); window._vwDraft=null; }
+function viewFirstRun(){ const v=vwState(); if(v&&(v.chosen||v.seen)) return; viewPanel(true); }
+
+/* ===================== IMPORT HUB: DROP EVERYTHING AT ONCE =====================
+   Each file is read once and sent to the box whose reader recognises most of its columns (the file name
+   only breaks near-ties). Completed ward-round forms and a project's phase plan go straight to their pages.
+   Nothing is merged until "Analyze all staged buckets" is clicked, so a file in the wrong box can still be
+   cancelled there. */
+const HUB_AUTO_LABEL={pharm:"Pharmacy dispensing",admit:"Admissions / ward",lab:"Laboratory",procedures:"Procedures / services",surgery:"Surgery Patients Report",whonet:"Culture results",issue:"Store / ward issues",wr:"AMS Ward Rounds (completed forms)",cspPhases:"C/S Prophylaxis Project (phase plan)"};
+const HUB_NAME_HINT=[["pharm",/dispens|pharm|medicat/i],["admit",/admis|inpatient|ward.?reg/i],["lab",/\blab|test.?log|\btat\b/i],["procedures",/proced|service/i],["surgery",/surg|theat|operat/i],["issue",/issue|store|receipt/i]];
+const hubRow=r=>(r||[]).map(h=>normH(h));
+async function hubDetect(file){
+  const grid=await readFirstGrid(file); if(!grid||!grid.length) return {cat:null,why:"the file is empty"};
+  const top=grid.slice(0,12).map(hubRow); const has=(row,re)=>row.some(h=>re.test(h));
+  if(top.some(r=>has(r,/^form( no| number)?$/)&&(has(r,/^agreed$/)||has(r,/^advice$/)))) return {cat:"wr",why:"form number, advice and agreed columns"};
+  if(grid.length<=40&&top.some(r=>has(r,/^phase( name)?$/)&&has(r,/^(starts?|start date|from|begins)$/))) return {cat:"cspPhases",why:"phase and start-date columns"};
+  let W=null; try{ W=parseWhonetGrid(grid); }catch(e){}
+  if(W&&W.isolates&&W.isolates.length) return {cat:"whonet",why:`${W.isolates.length.toLocaleString()} isolate(s) with R/I/S results`};
+  const n=m=>{ try{ const h=findBestHeaderRow(grid,m); return h?h.found.length:0; }catch(e){ return 0; } };
+  const sc={}; let L=null; try{ L=parseDispensingGrid(grid); }catch(e){}
+  sc.pharm=L?L.found.length:0; sc.admit=n(ALIAS_ADMIT); sc.lab=Math.max(n(ALIAS_LABLOG),n(ALIAS_TAT),n(ALIAS_LAB)); sc.procedures=n(ALIAS_PROCEDURE); sc.issue=n(ALIAS_RECEIPT);
+  let S=null; try{ S=parseSurgeryGrid(grid); }catch(e){} sc.surgery=S?S.found.length:0;
+  const cols={...sc}; HUB_NAME_HINT.forEach(([c,re])=>{ if(re.test(file.name)) sc[c]+=3; });
+  const order=["pharm","admit","lab","procedures","surgery","issue"]; const best=order.reduce((a,c)=>sc[c]>sc[a]?c:a,order[0]);
+  if(cols[best]<3) return {cat:null,why:"its columns were not recognised"};
+  return {cat:best,why:`${cols[best]} column(s) recognised`};
+}
+async function hubAuto(fileList){
+  const files=Array.from(fileList||[]); if(!files.length) return; const el=$("#hub-auto-status");
+  if(el) el.innerHTML=`<div class="notice">Reading ${files.length} file(s)&hellip;</div>`;
+  const rows=[], groups={};
+  for(const f of files){ let d; try{ d=await hubDetect(f); }catch(e){ d={cat:null,why:""+(e&&e.message||e)}; } rows.push({f,d});
+    if(d.cat&&d.cat!=="wr"&&d.cat!=="cspPhases") (groups[d.cat]=groups[d.cat]||[]).push(f); }
+  for(const r of rows){ try{ if(r.d.cat==="wr") r.note=await wrImportFile(r.f); if(r.d.cat==="cspPhases") r.note=await cspPhasesImportFile(r.f); }catch(e){ r.note="not imported: "+(e&&e.message||e); } }
+  for(const cat of Object.keys(groups)) await hubFiles(cat,groups[cat]);
+  const ok=rows.filter(r=>r.d.cat).length;
+  const staged=Object.keys(groups).length;
+  window._hubAutoHtml=`<div class="notice ${ok===rows.length?"good":"warn"}" style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap"><span><b>${ok} of ${rows.length} file(s) sorted.</b> ${staged?"Each box below shows what it received.":""}</span>${staged?`<button class="btn green" style="white-space:nowrap" onclick="window._hubAutoHtml='';analyzeAllStaged()">&#9889; Analyze now</button>`:""}</div>
+    <div class="tablewrap" style="margin-top:8px;max-height:320px"><table><thead><tr><th>File</th><th>Went to</th><th>Why</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${esc(r.f.name)}</td><td>${r.d.cat?`<b>${esc(HUB_AUTO_LABEL[r.d.cat])}</b>`:`<span class="pill bad">not sorted</span>`}</td><td style="white-space:normal">${esc(r.note||r.d.why||"")}${r.d.cat?"":" — drop it in the matching box below"}</td></tr>`).join("")}</tbody></table></div>`;
+  if(el) el.innerHTML=window._hubAutoHtml; renderStagingBar();
+}
+function hubAutoPanel(){ return `<div class="panel" style="border-color:var(--accent)"><h2>Drop all your files at once</h2>
+  <div class="sub">Pharmacy, admissions, laboratory, procedures, the theatre list, culture results (WHONET or S/I/R sheets), store issues, completed ward-round forms and a project&rsquo;s phase plan: AMS Pro reads the columns of each file and puts it in the right place. Check the boxes below, then click <b>&#9889; Analyze</b>.</div>
+  <div id="dropzone-all" style="border:2px dashed var(--accent);border-radius:12px;padding:22px;text-align:center;cursor:pointer;margin-top:10px">
+    <div style="font-size:26px">&#11015;</div><div style="font-weight:700;margin:6px 0 2px">Drop every file here, or click to choose them all</div>
+    <div style="color:var(--muted);font-size:12px">.csv, .xlsx &middot; any number of files, any order</div></div>
+  <input type="file" id="hub-input-all" multiple accept=".csv,.xlsx,.xlsm,.txt" style="display:none"><div id="hub-auto-status">${window._hubAutoHtml||""}</div></div>`; }
+function hubAutoWire(){ const dz=$("#dropzone-all"), inp=$("#hub-input-all"); if(!dz||!inp) return;
+  dz.onclick=()=>inp.click(); inp.onchange=e=>{ if(e.target.files.length) hubAuto(e.target.files); e.target.value=""; };
+  dz.ondragover=e=>{ e.preventDefault(); dz.style.background="rgba(47,129,247,.08)"; }; dz.ondragleave=()=>{ dz.style.background="transparent"; };
+  dz.ondrop=e=>{ e.preventDefault(); dz.style.background="transparent"; if(e.dataTransfer.files.length) hubAuto(e.dataTransfer.files); }; }
+
+/* C/S Prophylaxis Project: a phase plan kept as a small sheet (Phase · Starts · Run-in), with an optional "End" row */
+async function cspPhasesImportFile(file){ const grid=await readFirstGrid(file); const S=cspS();
+  let hr=-1, ci={}; for(let r=0;r<Math.min(grid.length,12);r++){ const row=hubRow(grid[r]); const p=row.findIndex(h=>/^phase( name)?$/.test(h)), s=row.findIndex(h=>/^(starts?|start date|from|begins)$/.test(h));
+    if(p>=0&&s>=0){ hr=r; ci={p,s,t:row.findIndex(h=>/run.?in|transition/.test(h))}; break; } }
+  if(hr<0) throw new Error("no Phase and Starts columns");
+  const yes=v=>/^(y|yes|true|1|x|✓)$/i.test((""+(v==null?"":v)).trim()); const ph=[]; let end=null;
+  for(let r=hr+1;r<grid.length;r++){ const row=grid[r]||[]; const name=(""+(row[ci.p]||"")).trim(); const d=cspDay(row[ci.s]); if(!name||d==null) continue;
+    if(/^(end|ends|study end|end of study)$/i.test(name)){ end=numDay(d); continue; }
+    ph.push(Object.assign({name,start:numDay(d)},ci.t>=0&&yes(row[ci.t])?{transition:true}:{})); }
+  if(!ph.length) throw new Error("no phases with a readable start date");
+  ph.sort((a,b)=>a.start<b.start?-1:1); if(ph[0].transition) delete ph[0].transition;
+  S.phases=ph; if(end) S.end=end; S.itsPhases=null; window._cspCache=null; cspSave();
+  return `${ph.length} phase(s): ${ph.map(p=>p.name+" from "+cspFmtD(cspDay(p.start))+(p.transition?" (run-in)":"")).join("; ")}${end?"; study ends "+cspFmtD(cspDay(end)):""}`; }
+async function cspPhasesImportInput(input){ const f=input.files&&input.files[0]; if(!f) return; try{ const note=await cspPhasesImportFile(f); toast("Phases imported: "+note); renderCsp(); }catch(e){ toast("Could not read the phase plan: "+(e&&e.message||e)); } input.value=""; }
+
+/* ===================== DID IT WORK? (from v5.0) =====================
+   Kept as written in v5.0. Its names start with dw (dwSettings, DW_METRICS) and its settings are kept in DB.dw,
+   so it sits beside Intervention Impact (its*, DB.its) without either changing the other. */
+/* ---------- statistics engine: t distribution, OLS, Newey-West, Welch, Wilson ---------- */
+const ITSX=(function(){
+  function lgamma(x){ const c=[76.18009172947146,-86.50532032941677,24.01409824083091,-1.231739572450155,0.1208650973866179e-2,-0.5395239384953e-5];
+    let y=x, t=x+5.5; t-=(x+0.5)*Math.log(t); let s=1.000000000190015; for(let j=0;j<6;j++) s+=c[j]/++y; return -t+Math.log(2.5066282746310005*s/x); }
+  function betacf(a,b,x){ const MAXIT=300, EPS=3e-14, FPMIN=1e-300; let qab=a+b, qap=a+1, qam=a-1, c=1, d=1-qab*x/qap; if(Math.abs(d)<FPMIN) d=FPMIN; d=1/d; let h=d;
+    for(let m=1;m<=MAXIT;m++){ const m2=2*m; let aa=m*(b-m)*x/((qam+m2)*(a+m2)); d=1+aa*d; if(Math.abs(d)<FPMIN) d=FPMIN; c=1+aa/c; if(Math.abs(c)<FPMIN) c=FPMIN; d=1/d; h*=d*c;
+      aa=-(a+m)*(qab+m)*x/((a+m2)*(qap+m2)); d=1+aa*d; if(Math.abs(d)<FPMIN) d=FPMIN; c=1+aa/c; if(Math.abs(c)<FPMIN) c=FPMIN; d=1/d; const del=d*c; h*=del; if(Math.abs(del-1)<EPS) break; }
+    return h; }
+  /* regularized incomplete beta I_x(a,b) */
+  function ibeta(a,b,x){ if(x<=0) return 0; if(x>=1) return 1;
+    const bt=Math.exp(lgamma(a+b)-lgamma(a)-lgamma(b)+a*Math.log(x)+b*Math.log(1-x));
+    return x<(a+1)/(a+b+2) ? bt*betacf(a,b,x)/a : 1-bt*betacf(b,a,1-x)/b; }
+  /* two-sided p-value for t with df degrees of freedom */
+  function tp2(t,df){ if(!isFinite(t)) return 0; return ibeta(df/2,0.5,df/(df+t*t)); }
+  /* t quantile (upper tail prob q, e.g. 0.025) by bisection */
+  function tq(q,df){ let lo=0, hi=1000; for(let i=0;i<200;i++){ const mid=(lo+hi)/2; if(tp2(mid,df)/2>q) lo=mid; else hi=mid; } return (lo+hi)/2; }
+  function inv(M){ const n=M.length, A=M.map((r,i)=>r.concat(Array.from({length:n},(_,j)=>i===j?1:0)));
+    for(let c=0;c<n;c++){ let p=c; for(let r=c+1;r<n;r++) if(Math.abs(A[r][c])>Math.abs(A[p][c])) p=r; if(Math.abs(A[p][c])<1e-12) return null; [A[c],A[p]]=[A[p],A[c]];
+      const pv=A[c][c]; for(let j=0;j<2*n;j++) A[c][j]/=pv; for(let r=0;r<n;r++) if(r!==c){ const f=A[r][c]; if(f) for(let j=0;j<2*n;j++) A[r][j]-=f*A[c][j]; } }
+    return A.map(r=>r.slice(n)); }
+  /* OLS with Newey-West (Bartlett) standard errors, lag L, small-sample scale n/(n-k), t on n-k df (as Stata's newey). L=0 gives White SEs; ols:true gives classic SEs. */
+  function ols(X,y,L){ const n=y.length, k=X[0].length; const XtX=Array.from({length:k},()=>Array(k).fill(0)), Xty=Array(k).fill(0);
+    for(let t=0;t<n;t++) for(let i=0;i<k;i++){ Xty[i]+=X[t][i]*y[t]; for(let j=0;j<k;j++) XtX[i][j]+=X[t][i]*X[t][j]; }
+    const B=inv(XtX); if(!B) return null; const b=B.map(r=>r.reduce((s,v,j)=>s+v*Xty[j],0));
+    const fit=X.map(r=>r.reduce((s,v,j)=>s+v*b[j],0)), e=y.map((v,t)=>v-fit[t]);
+    const ssr=e.reduce((s,v)=>s+v*v,0), my=y.reduce((s,v)=>s+v,0)/n, sst=y.reduce((s,v)=>s+(v-my)*(v-my),0);
+    let dwn=0; for(let t=1;t<n;t++) dwn+=(e[t]-e[t-1])*(e[t]-e[t-1]); const dw=ssr>0?dwn/ssr:null;
+    let r1n=0; for(let t=1;t<n;t++) r1n+=e[t]*e[t-1]; const rho1=ssr>0?r1n/ssr:null;
+    const S=Array.from({length:k},()=>Array(k).fill(0));
+    for(let t=0;t<n;t++) for(let i=0;i<k;i++) for(let j=0;j<k;j++) S[i][j]+=e[t]*e[t]*X[t][i]*X[t][j];
+    for(let l=1;l<=L;l++){ const w=1-l/(L+1); for(let t=l;t<n;t++) for(let i=0;i<k;i++) for(let j=0;j<k;j++) S[i][j]+=w*e[t]*e[t-l]*(X[t][i]*X[t-l][j]+X[t-l][i]*X[t][j]); }
+    const scale=n/(n-k); const V=Array.from({length:k},(_,i)=>Array.from({length:k},(_,j)=>{ let s=0; for(let a=0;a<k;a++) for(let c=0;c<k;c++) s+=B[i][a]*S[a][c]*B[c][j]; return s*scale; }));
+    const s2=ssr/(n-k), Vols=B.map(r=>r.map(v=>v*s2));
+    return {b,V,Vols,fit,e,n,k,df:n-k,r2:sst>0?1-ssr/sst:0,dw,rho1}; }
+  function welch(a,b){ const n1=a.length,n2=b.length; if(n1<2||n2<2) return null; const m1=a.reduce((s,v)=>s+v,0)/n1, m2=b.reduce((s,v)=>s+v,0)/n2;
+    const v1=a.reduce((s,v)=>s+(v-m1)*(v-m1),0)/(n1-1), v2=b.reduce((s,v)=>s+(v-m2)*(v-m2),0)/(n2-1); const se=Math.sqrt(v1/n1+v2/n2);
+    const df=se>0?Math.pow(v1/n1+v2/n2,2)/(Math.pow(v1/n1,2)/(n1-1)+Math.pow(v2/n2,2)/(n2-1)):n1+n2-2; const d=m2-m1;
+    const t=se>0?d/se:0, crit=tq(0.025,df); return {m1,m2,sd1:Math.sqrt(v1),sd2:Math.sqrt(v2),n1,n2,d,lo:d-crit*se,hi:d+crit*se,t,df,p:se>0?tp2(t,df):1}; }
+  function wilson(x,n){ if(!n) return {p:null,lo:null,hi:null}; const z=1.959964, p=x/n, d=1+z*z/n, c=(p+z*z/(2*n))/d, h=z*Math.sqrt(p*(1-p)/n+z*z/(4*n*n))/d; return {p,lo:Math.max(0,c-h),hi:Math.min(1,c+h)}; }
+  return {lgamma,ibeta,tp2,tq,inv,ols,welch,wilson};
+})();
+
+/* =====================================================================================
+   DID IT WORK? — intervention evaluation (v5.0)
+   Answers "did this stewardship intervention change prescribing beyond the trend that was
+   already there?" with the two analyses a reviewer expects:
+   (1) BEFORE vs AFTER: monthly means compared with Welch's t-test (the month is the unit, so
+       thousands of dispensing lines do not produce falsely tiny p-values), plus pooled shares
+       with Wilson 95% confidence intervals as description;
+   (2) INTERRUPTED TIME SERIES: segmented linear regression (Wagner et al. 2002)
+         y = b0 + b1·time + b2·after + b3·time-since-start + e
+       with Newey–West standard errors (Bartlett kernel, lag set by the user, small-sample
+       scale n/(n−k), t on n−k df — the same as Stata's newey), so month-to-month
+       autocorrelation does not overstate certainty. The level change is estimated at the first
+       post-intervention month; the effect at the last month is compared with the counterfactual
+       (the pre-intervention trend carried forward).
+   The engine (ITSX) was checked against Python statsmodels (OLS, HAC with use_correction) and
+   scipy (t distribution, Welch) to 1e-9. Output: plain-language verdict, a journal-style figure
+   (PNG, 300 dpi), the monthly data (CSV) and a Statistical-methods and Results paragraph.
+   ===================================================================================== */
+const DW_METRICS={
+  access:{label:"Access share of antibiotic lines",short:"Access share",unit:"%",kind:"prop",better:"up"},
+  watch:{label:"Watch share of antibiotic lines",short:"Watch share",unit:"%",kind:"prop",better:"down"},
+  wr:{label:"Watch + Reserve share of antibiotic lines",short:"Watch + Reserve share",unit:"%",kind:"prop",better:"down"},
+  iv:{label:"Injectable share of antibiotic lines",short:"Injectable share",unit:"%",kind:"prop",better:"down"},
+  drug:{label:"Share of antibiotic lines for one antibiotic",short:"share",unit:"%",kind:"prop",better:"down"},
+  spLong:{label:"Operated patients with antibiotics continued 2–7 days after the operation",short:"Antibiotics continued after surgery",unit:"%",kind:"prop",better:"down"},
+  drugPerPt:{label:"DDDs of one antibiotic per patient treated (course length proxy)",short:"DDDs per patient treated",unit:"DDD per patient",kind:"perpt",better:"down"},
+  drugDddAdm:{label:"DDDs of one antibiotic per 100 admissions",short:"DDDs per 100 admissions",unit:"DDD per 100 admissions",kind:"rate",better:"down"},
+  dddAdm:{label:"DDDs per 100 admissions",short:"DDDs per 100 admissions",unit:"DDD per 100 admissions",kind:"rate",better:"down"},
+  dddPd:{label:"DDDs per 100 patient-days",short:"DDDs per 100 patient-days",unit:"DDD per 100 patient-days",kind:"rate",better:"down"},
+  lines:{label:"Antibiotic dispensing lines per month",short:"antibiotic lines per month",unit:"lines",kind:"count",better:"down"}
+};
+const DW_MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+function dwSettings(){ if(!DB.dw&&DB.its&&DB.its.metric!==undefined) DB.dw=JSON.parse(JSON.stringify(DB.its)); /* settings saved by v5.0 */
+  DB.dw=DB.dw||{}; const s=DB.dw;
+  if(!s.metric)s.metric="access"; if(s.ward===undefined)s.ward=""; if(s.drug===undefined)s.drug=""; if(s.start===undefined)s.start="";
+  if(s.trans===undefined)s.trans=1; if(s.lag===undefined)s.lag=1; if(s.from===undefined)s.from=""; if(s.to===undefined)s.to="";
+  if(s.name===undefined)s.name=""; if(!s.better)s.better=""; return s; }
+function dwSet(k,v){ const s=dwSettings(); s[k]=v; if(k==="metric")s.better=""; save(); renderIts(); }
+function dwMonthIdx(k){ const p=String(k).split("-"); return (+p[0])*12+(+p[1]-1); }
+function dwMonthKey(i){ return Math.floor(i/12)+"-"+String(i%12+1).padStart(2,"0"); }
+function dwMonthLabel(k){ const p=String(k).split("-"); return DW_MON[+p[1]-1]+" "+p[0]; }
+function dwVersion(){ return (document.title.match(/v(\d+(?:\.\d+)*)/)||[])[1]||""; }
+function dwWards(){ const c={}; scopedPharmacyTx().forEach(t=>{ if(t.drugMatched&&t.date){ const d=t.department||"(unspecified)"; c[d]=(c[d]||0)+1; } });
+  return Object.entries(c).sort((a,b)=>b[1]-a[1]); }
+function dwDrugs(ward){ const c={}; scopedPharmacyTx().forEach(t=>{ if(t.drugMatched&&t.date&&(!ward||(t.department||"(unspecified)")===ward)) c[t.drugMatched]=(c[t.drugMatched]||0)+1; });
+  return Object.entries(c).sort((a,b)=>b[1]-a[1]); }
+function dwBetter(S){ return S.better||(DW_METRICS[S.metric]||DW_METRICS.access).better; }
+/* monthly numerator/denominator for the chosen indicator and ward */
+function dwSeries(S){
+  const M=DW_METRICS[S.metric]||DW_METRICS.access, ward=S.ward;
+  const tx=scopedPharmacyTx().filter(t=>t.drugMatched&&/^\d{4}-\d{2}/.test(t.date||"")&&(!ward||(t.department||"(unspecified)")===ward));
+  const oneDrug=/^(drug|drugPerPt|drugDddAdm)$/.test(S.metric);
+  const by={}; let dddLines=0, drugLines=0, drugDdd=0, noPid=0;
+  tx.forEach(t=>{ const k=t.date.slice(0,7); const o=by[k]||(by[k]={lines:0,x:0,ddd:0,pids:new Set()}); o.lines++;
+    const isDrug=oneDrug&&S.drug&&t.drugMatched===S.drug;
+    if(S.metric==="access"&&awareBucket(t.awareCls)==="Access") o.x++;
+    else if(S.metric==="watch"&&awareBucket(t.awareCls)==="Watch") o.x++;
+    else if(S.metric==="wr"&&(awareBucket(t.awareCls)==="Watch"||awareBucket(t.awareCls)==="Reserve")) o.x++;
+    else if(S.metric==="iv"&&dddRoute(t)==="P") o.x++;
+    else if(S.metric==="drug"&&isDrug) o.x++;
+    if(oneDrug&&!isDrug) return;
+    if(isDrug){ drugLines++; const pid=(""+(t.patientId||"")).trim(); if(pid) o.pids.add(pid); else noPid++; }
+    if(t.dddContribution!=null){ o.ddd+=t.dddContribution; dddLines++; if(isDrug) drugDdd++; } });
+  /* operated patients: operation month; given antibiotics from 2 days before to 1 day after (denominator), still dispensed 2–7 days after (numerator) — the same window as the Time-out rule */
+  let surg=null;
+  if(S.metric==="spLong"){ surg={}; const I=stewIndex();
+    stewSurgeries().forEach(s=>{ const ls=I.byPid[s.pid]||[]; const peri=ls.filter(a=>a.d>=s.d-2&&a.d<=s.d+1), late=ls.filter(a=>a.d>=s.d+2&&a.d<=s.d+7);
+      if(!peri.length) return; if(ward&&s.dept!==ward&&!peri.concat(late).some(a=>(a.dept||"(unspecified)")===ward)) return;
+      const k=numDay(s.d).slice(0,7); const o=surg[k]||(surg[k]={n:0,x:0}); o.n++; if(late.length) o.x++; }); }
+  const keys=(surg?Object.keys(surg):Object.keys(by)).sort();
+  if(!keys.length) return {rows:[],note:S.metric==="spLong"?"No operations with antibiotics found. This indicator needs a Procedures export (or admissions with a caesarean/procedure field) with patient IDs and dates that match the dispensing data.":"No dated antibiotic dispensing lines for this selection."};
+  let adm=null, admSkipped=0, pdRows=0;
+  if(M.kind==="rate"){ adm={};
+    scopedAdmitTx().filter(a=>!ward||(a.ward||"(unspecified)")===ward).forEach(a=>{ const d=""+(a.dateAdmitted||a.date||a.dateDischarged||""); if(!/^\d{4}-\d{2}/.test(d)){ admSkipped++; return; }
+      const k=d.slice(0,7); const o=adm[k]||(adm[k]={n:0,pd:0}); o.n++; const bd=num(a.bedDays); if(a.bedDays!==""&&a.bedDays!=null&&bd>0){ o.pd+=bd; pdRows++; } }); }
+  let i0=dwMonthIdx(keys[0]), i1=dwMonthIdx(keys[keys.length-1]);
+  if(S.from&&/^\d{4}-\d{2}$/.test(S.from)) i0=Math.max(i0,dwMonthIdx(S.from));
+  if(S.to&&/^\d{4}-\d{2}$/.test(S.to)) i1=Math.min(i1,dwMonthIdx(S.to));
+  const rows=[];
+  for(let i=i0;i<=i1;i++){ const k=dwMonthKey(i), o=by[k]||{lines:0,x:0,ddd:0,pids:new Set()}; let x=null,n=null,v=null;
+    if(S.metric==="spLong"){ const s=surg[k]; x=s?s.x:0; n=s?s.n:0; v=n?100*x/n:null; }
+    else if(M.kind==="prop"){ x=o.x; n=o.lines; v=n?100*x/n:null; }
+    else if(M.kind==="count"){ x=o.lines; n=null; v=o.lines||null; }
+    else if(M.kind==="perpt"){ x=o.ddd; n=o.pids.size; v=n?o.ddd/n:null; }
+    else { const a=adm&&adm[k]; x=o.ddd; n=a?(S.metric==="dddPd"?a.pd:a.n):0; v=n>0?100*o.ddd/n:null; }
+    rows.push({k,T:i-i0+1,x,n,lines:o.lines,v}); }
+  const allLines=tx.length;
+  return {rows,dddCov:oneDrug?(drugLines?drugDdd/drugLines:0):(allLines?dddLines/allLines:0),admSkipped,pdRows,noPid,admMonths:adm?Object.keys(adm).length:0};
+}
+function dwAnalyse(S){
+  const Ser=dwSeries(S); const rows=Ser.rows; if(!rows.length) return {rows,Ser,msg:Ser.note};
+  const st=/^\d{4}-\d{2}$/.test(S.start||"")?dwMonthIdx(S.start):null; const trans=+S.trans||0;
+  rows.forEach(r=>{ const i=dwMonthIdx(r.k); r.phase=st==null?"pre":i<st?"pre":i<st+trans?"trans":"post";
+    r.small=(DW_METRICS[S.metric]||{}).kind==="prop"&&r.n!=null&&r.n>0&&r.n<20; r.use=r.v!=null&&r.phase!=="trans"; });
+  const R={rows,Ser,start:st,trans};
+  if(st==null){ R.msg="Choose the month the intervention started."; return R; }
+  const pre=rows.filter(r=>r.phase==="pre"&&r.use), post=rows.filter(r=>r.phase==="post"&&r.use);
+  R.pre=pre; R.post=post; R.gaps=rows.filter(r=>r.v==null).map(r=>r.k);
+  R.welch=ITSX.welch(pre.map(r=>r.v),post.map(r=>r.v));
+  if((DW_METRICS[S.metric]||{}).kind==="prop"){ const sx=a=>a.reduce((s,r)=>s+r.x,0), sn=a=>a.reduce((s,r)=>s+r.n,0);
+    R.pool={pre:Object.assign({x:sx(pre),n:sn(pre)},ITSX.wilson(sx(pre),sn(pre))),post:Object.assign({x:sx(post),n:sn(post)},ITSX.wilson(sx(post),sn(post)))}; }
+  if(pre.length<3||post.length<3){ R.msg=`Interrupted time series needs at least 3 months before and 3 after the intervention (Cochrane EPOC); this selection has ${pre.length} before and ${post.length} after.`; return R; }
+  const use=pre.concat(post), firstPost=post[0].T; R.firstPost=firstPost;
+  const X=use.map(r=>[1,r.T,r.phase==="post"?1:0,r.phase==="post"?r.T-firstPost:0]), y=use.map(r=>r.v);
+  const L=Math.min(+S.lag||0,use.length-5); const m=ITSX.ols(X,y,Math.max(0,L)); if(!m){ R.msg="The model could not be fitted (the months do not vary enough)."; return R; }
+  R.m=m; R.lag=Math.max(0,L); const crit=ITSX.tq(0.025,m.df);
+  const lin=(c)=>{ let est=0,v=0; for(let i=0;i<4;i++){ est+=c[i]*m.b[i]; for(let j=0;j<4;j++) v+=c[i]*c[j]*m.V[i][j]; } const se=Math.sqrt(Math.max(v,0)), t=se>0?est/se:0;
+    return {est,se,lo:est-crit*se,hi:est+crit*se,p:se>0?ITSX.tp2(t,m.df):1}; };
+  const lastT=post[post.length-1].T, kEnd=lastT-firstPost;
+  R.c={base:lin([1,firstPost-1,0,0]),preTrend:lin([0,1,0,0]),level:lin([0,0,1,0]),slope:lin([0,0,0,1]),postTrend:lin([0,1,0,1]),end:lin([0,0,1,kEnd])};
+  R.cfEnd=m.b[0]+m.b[1]*lastT; R.obsEnd=R.cfEnd+R.c.end.est; R.lastK=post[post.length-1].k; R.monthsAfter=kEnd+1;
+  rows.forEach(r=>{ r.cf=m.b[0]+m.b[1]*r.T; r.fit=r.phase==="post"?m.b[0]+m.b[1]*r.T+m.b[2]+m.b[3]*(r.T-firstPost):r.phase==="pre"?m.b[0]+m.b[1]*r.T:null; });
+  return R;
+}
+function dwFmt(v,d){ return v==null||!isFinite(v)?"—":(Math.abs(v)<5e-13?0:v).toFixed(d==null?1:d); }
+function dwPnum(p){ return p>=0.0495&&p<0.0505?p.toFixed(4):p.toFixed(3); }
+function dwP(p){ return p==null?"—":p<0.001?"p&lt;0.001":"p="+dwPnum(p); }
+function dwPtxt(p){ return p==null?"—":p<0.001?"p<0.001":"p="+dwPnum(p); }
+function dwUnitTxt(S){ const M=DW_METRICS[S.metric]; return M.kind==="prop"?"percentage points":M.unit; }
+function dwDp(S){ const k=DW_METRICS[S.metric].kind; return k==="prop"?1:k==="count"?0:2; }
+function dwIsDrug(S){ return /^(drug|drugPerPt|drugDddAdm)$/.test(S.metric); }
+function dwIndicator(S){ const M=DW_METRICS[S.metric], d=S.drug||"one antibiotic";
+  if(S.metric==="drug") return d+" share of antibiotic lines";
+  if(S.metric==="drugPerPt") return d+" DDDs per patient treated";
+  if(S.metric==="drugDddAdm") return d+" DDDs per 100 admissions";
+  return M.label; }
+function dwIndicatorText(S){ let s=dwIndicator(S); if(S.drug) s=s.split(S.drug).join(S.drug.toLowerCase()); return s.replace(/^(Access|Watch|Injectable|Operated|DDDs|Antibiotic|Share)/,m=>m.toLowerCase()); }
+function dwAxis(S){ const M=DW_METRICS[S.metric];
+  if(dwIsDrug(S)) return S.metric==="drug"?(S.drug||"Antibiotic")+" (% of antibiotic lines)":(S.drug||"Antibiotic")+" — "+M.unit;
+  return M.kind==="prop"?M.short+" (%)":M.unit; }
+/* plain-language verdict */
+function dwVerdict(S,R){
+  if(!R.c) return null; const better=dwBetter(S), E=R.c.end, u=dwUnitTxt(S);
+  const sig=E.p<0.05, good=better==="up"?E.est>0:E.est<0;
+  const pre=R.c.preTrend, preGood=pre.p<0.05&&(better==="up"?pre.est>0:pre.est<0);
+  let head, cls;
+  if(sig&&good){ head="Yes — a change beyond the existing trend, in the right direction."; cls="good"; }
+  else if(sig&&!good){ head="A change beyond the existing trend — but in the wrong direction."; cls="bad"; }
+  else { head="No clear change beyond the trend that was already there."; cls="warn"; }
+  const dv=Math.max(1,dwDp(S));
+  let body=`By ${dwMonthLabel(R.lastK)}, ${dwIndicatorText(S)} was ${dwFmt(Math.abs(E.est),dv)} ${u} ${E.est>=0?"higher":"lower"} than expected had the pre-intervention trend continued (95% CI ${dwFmt(E.lo,dv)} to ${dwFmt(E.hi,dv)}; ${dwPtxt(E.p)}).`;
+  const L=R.c.level, Sl=R.c.slope;
+  body+=` The immediate change at the start was ${dwFmt(L.est,dv)} ${u} (${dwPtxt(L.p)}); the trend changed by ${dwFmt(Sl.est,2)} ${u} per month (${dwPtxt(Sl.p)}).`;
+  if(!sig) body+=` A wide confidence interval usually means too few months after the intervention or months that vary a lot; adding more months of follow-up will sharpen it.`;
+  if(preGood) body+=` Note: the indicator was already improving before the intervention (${dwFmt(pre.est,2)} ${u} per month); the analysis credits the intervention only with change beyond that.`;
+  return {head,body,cls};
+}
+/* ---------- figure: journal style, drawn on a canvas so the export is exactly what is on screen ---------- */
+function dwDraw(cv,S,R,o){
+  o=o||{}; const W=o.w, H=o.h, sc=o.scale||1, mono=!!o.mono; cv.width=Math.round(W*sc); cv.height=Math.round(H*sc);
+  const g=cv.getContext("2d"); g.setTransform(sc,0,0,sc,0,0); g.fillStyle="#fff"; g.fillRect(0,0,W,H);
+  const F=o.font||"Arial, Helvetica, sans-serif", fs=o.fs||12, ink="#111", grid="#e6e6e6";
+  const cPt=mono?"#111":"#1f3864", cFit=mono?"#111":"#1f3864", cCf=mono?"#555":"#b35c00", cTr=mono?"#888":"#8b949e";
+  const rows=R.rows, vals=rows.map(r=>r.v).filter(v=>v!=null).concat(R.c?rows.map(r=>r.cf).concat(rows.map(r=>r.fit)).filter(v=>v!=null):[]);
+  if(!vals.length) return; let lo=Math.min(...vals), hi=Math.max(...vals); const isPct=DW_METRICS[S.metric].kind==="prop";
+  const pad=(hi-lo)*0.12||1; lo-=pad; hi+=pad; if(isPct){ lo=Math.max(0,lo); hi=Math.min(100,hi); } if(lo>0&&lo<(hi-lo)*0.6) lo=0;
+  const step=(()=>{ const r=(hi-lo)/5, p=Math.pow(10,Math.floor(Math.log10(r))), q=r/p; return (q<1.5?1:q<3.5?2:q<7.5?5:10)*p; })();
+  lo=Math.floor(lo/step)*step; hi=Math.ceil(hi/step)*step;
+  /* legend items measured first, so the legend can wrap onto a second row on narrow figures */
+  g.font=`${fs}px ${F}`; const legend=[["pt","Observed (monthly)"]]; if(R.c) legend.push(["fit","Segmented regression"],["cf","Expected without the intervention"]);
+  if(rows.some(r=>r.phase==="trans")) legend.push(["tr","Transition (excluded)"]);
+  const mL=58, mR=16, mT=o.title?34:14; const lrows=[[]]; let acc=0; legend.forEach(it=>{ const w=26+g.measureText(it[1]).width+22; if(acc+w>W-mL-mR&&lrows[lrows.length-1].length){ lrows.push([]); acc=0; } lrows[lrows.length-1].push(it); acc+=w; });
+  const mB=70+lrows.length*(fs+8); const pw=W-mL-mR, ph=H-mT-mB; const n=rows.length;
+  const xT=T=>mL+(n>1?(T-1)/(n-1):0.5)*pw, yV=v=>mT+ph-(v-lo)/(hi-lo)*ph;
+  g.font=`${fs}px ${F}`; g.textBaseline="middle"; g.lineWidth=1;
+  if(o.title){ g.fillStyle=ink; g.font=`bold ${fs+1}px ${F}`; g.textAlign="left"; g.fillText(o.title,mL,16); g.font=`${fs}px ${F}`; }
+  for(let v=lo;v<=hi+1e-9;v+=step){ const y=yV(v); g.strokeStyle=grid; g.beginPath(); g.moveTo(mL,y); g.lineTo(mL+pw,y); g.stroke(); g.fillStyle=ink; g.textAlign="right"; g.fillText(+v.toFixed(6)+"",mL-6,y); }
+  /* transition months shaded */
+  rows.forEach(r=>{ if(r.phase==="trans"){ const half=n>1?pw/(n-1)/2:pw/2; g.fillStyle=mono?"#efefef":"#f3f1ea"; g.fillRect(xT(r.T)-half,mT,half*2,ph); } });
+  g.strokeStyle=ink; g.beginPath(); g.moveTo(mL,mT); g.lineTo(mL,mT+ph); g.lineTo(mL+pw,mT+ph); g.stroke();
+  const every=n<=18?1:n<=36?3:6; g.textAlign="center"; g.fillStyle=ink;
+  rows.forEach((r,i)=>{ const x=xT(r.T); g.beginPath(); g.moveTo(x,mT+ph); g.lineTo(x,mT+ph+4); g.stroke();
+    if(i%every===0){ g.save(); g.translate(x,mT+ph+8); g.rotate(-Math.PI/4); g.textAlign="right"; g.fillText(dwMonthLabel(r.k),0,0); g.restore(); } });
+  g.save(); g.translate(14,mT+ph/2); g.rotate(-Math.PI/2); g.textAlign="center"; g.fillText(dwAxis(S),0,0); g.restore();
+  if(R.start!=null){ const sk=dwMonthKey(R.start), sr=rows.find(r=>r.k===sk);
+    if(sr){ const half=n>1?pw/(n-1)/2:0, x=xT(sr.T)-half; g.strokeStyle=ink; g.setLineDash([4,3]); g.beginPath(); g.moveTo(x,mT); g.lineTo(x,mT+ph); g.stroke(); g.setLineDash([]);
+      const lab=(S.name||"Intervention")+" ("+dwMonthLabel(sk)+")", lw=g.measureText(lab).width; g.fillStyle=ink;
+      if(x+6+lw<=mL+pw){ g.textAlign="left"; g.fillText(lab,x+6,mT+10); } else { g.textAlign="right"; g.fillText(lab,x-6,mT+10); } } }
+  if(R.c){ const pre=rows.filter(r=>r.phase==="pre"), post=rows.filter(r=>r.phase==="post");
+    const line=(pts,col,dash,w)=>{ if(pts.length<2) return; g.strokeStyle=col; g.lineWidth=w; g.setLineDash(dash||[]); g.beginPath(); pts.forEach((p,i)=>i?g.lineTo(xT(p[0]),yV(p[1])):g.moveTo(xT(p[0]),yV(p[1]))); g.stroke(); g.setLineDash([]); g.lineWidth=1; };
+    line([[pre[0].T,pre[0].fit],[pre[pre.length-1].T,pre[pre.length-1].fit]],cFit,null,2);
+    line([[post[0].T,post[0].fit],[post[post.length-1].T,post[post.length-1].fit]],cFit,null,2);
+    const cf0=pre[pre.length-1].T; line([[cf0,R.m.b[0]+R.m.b[1]*cf0],[post[post.length-1].T,R.m.b[0]+R.m.b[1]*post[post.length-1].T]],cCf,[6,4],1.6); }
+  rows.forEach(r=>{ if(r.v==null) return; const x=xT(r.T), y=yV(r.v); g.beginPath(); g.arc(x,y,3.4,0,2*Math.PI);
+    if(r.phase==="trans"){ g.fillStyle="#fff"; g.fill(); g.strokeStyle=cTr; g.stroke(); } else { g.fillStyle=cPt; g.fill(); } });
+  /* legend */
+  const mark={pt:(x,y)=>{ g.fillStyle=cPt; g.beginPath(); g.arc(x+10,y,3.4,0,2*Math.PI); g.fill(); },
+    fit:(x,y)=>{ g.strokeStyle=cFit; g.lineWidth=2; g.beginPath(); g.moveTo(x,y); g.lineTo(x+20,y); g.stroke(); g.lineWidth=1; },
+    cf:(x,y)=>{ g.strokeStyle=cCf; g.lineWidth=1.6; g.setLineDash([6,4]); g.beginPath(); g.moveTo(x,y); g.lineTo(x+20,y); g.stroke(); g.setLineDash([]); g.lineWidth=1; },
+    tr:(x,y)=>{ g.fillStyle="#fff"; g.strokeStyle=cTr; g.beginPath(); g.arc(x+10,y,3.4,0,2*Math.PI); g.fill(); g.stroke(); }};
+  g.textAlign="left"; lrows.forEach((row,ri)=>{ let lx=mL; const ly=H-10-(lrows.length-1-ri)*(fs+8)-4;
+    row.forEach(([k,label])=>{ mark[k](lx,ly); g.fillStyle=ink; g.fillText(label,lx+26,ly); lx+=26+g.measureText(label).width+22; }); });
+}
+/* add a pHYs chunk so Word and journals read the PNG as 300 dpi */
+function dwPngDpi(buf,dpi){ const u=new Uint8Array(buf); const ppm=Math.round(dpi/0.0254);
+  const crcT=(()=>{ const t=new Uint32Array(256); for(let n=0;n<256;n++){ let c=n; for(let k=0;k<8;k++) c=c&1?0xEDB88320^(c>>>1):c>>>1; t[n]=c>>>0; } return t; })();
+  const crc=b=>{ let c=0xFFFFFFFF; for(let i=0;i<b.length;i++) c=crcT[(c^b[i])&255]^(c>>>8); return (c^0xFFFFFFFF)>>>0; };
+  const chunk=new Uint8Array(21), dv=new DataView(chunk.buffer); dv.setUint32(0,9); chunk.set([112,72,89,115],4); dv.setUint32(8,ppm); dv.setUint32(12,ppm); chunk[16]=1; dv.setUint32(17,crc(chunk.subarray(4,17)));
+  const at=8+25; const out=new Uint8Array(u.length+21); out.set(u.subarray(0,at)); out.set(chunk,at); out.set(u.subarray(at),at+21); return out; }
+function dwExportPng(){ const S=dwSettings(), R=window._dwR; if(!R||!R.rows.length){ toast("Nothing to export yet"); return; }
+  const cv=document.createElement("canvas"); dwDraw(cv,S,R,{w:700,h:420,scale:3,mono:true,fs:12});
+  cv.toBlob(b=>b.arrayBuffer().then(a=>{ const png=dwPngDpi(a,300); dl(`ITS_${dwFileStem(S)}.png`,new Blob([png],{type:"image/png"}),"image/png"); }),"image/png"); }
+function dwFileStem(S){ return ((S.ward||"all-wards")+"_"+(S.metric==="drug"?(S.drug||"drug"):S.metric)+"_"+(S.start||"")).replace(/[^A-Za-z0-9_-]+/g,"-"); }
+function dwExportCsv(){ const S=dwSettings(), R=window._dwR; if(!R||!R.rows.length){ toast("Nothing to export yet"); return; }
+  const M=DW_METRICS[S.metric]; const q=v=>v==null?"":(typeof v==="number"?+v.toFixed(6):`"${String(v).replace(/"/g,'""')}"`);
+  const head=["month","time","phase","included_in_model",S.metric==="spLong"?"patients_continued":M.kind==="prop"?"numerator_lines":M.kind==="rate"||M.kind==="perpt"?"ddd":"lines",S.metric==="spLong"?"operated_patients_with_antibiotics":M.kind==="prop"?"denominator_lines":M.kind==="perpt"?"patients_treated":M.kind==="rate"?(S.metric==="dddPd"?"patient_days":"admissions"):"",
+    "value","fitted","expected_without_intervention","after","time_since_start"];
+  const lines=[head.join(",")].concat(R.rows.map(r=>[q(r.k),r.T,q(r.phase),r.use?1:0,q(r.x),q(r.n),q(r.v),q(r.fit),q(r.cf),r.phase==="post"?1:0,r.phase==="post"&&R.firstPost?r.T-R.firstPost:0].join(",")));
+  dl(`ITS_${dwFileStem(S)}.csv`,lines.join("\n"),"text/csv"); }
+/* ---------- text for the paper ---------- */
+function dwMethodsText(S,R){
+  const M=DW_METRICS[S.metric], ward=S.ward||"all wards in scope", v=dwVersion();
+  const scheme=currentAwareScheme()==="tanzania"?"the Tanzania STG/NEMLIT 2021 grouping as applied in AMS Pro":"the WHO AWaRe classification";
+  const cov=`${Math.round(R.Ser.dddCov*100)}% of the relevant dispensing lines had a computable DDD`, dname=(S.drug||"the antibiotic").toLowerCase();
+  const ind=S.metric==="spLong"?"the monthly proportion of operated patients given antibiotics around the operation (from 2 days before to 1 day after) whose antibiotics were still dispensed 2 to 7 days after the operation, a marker of surgical prophylaxis continued beyond 24 hours; operations were identified from procedure and admission records and linked to dispensing by patient identifier"
+    :S.metric==="drugPerPt"?`the monthly number of WHO Defined Daily Doses (DDD; WHO ATC/DDD Index) of ${dname} dispensed per patient treated, a proxy for course length (${cov})`
+    :S.metric==="drugDddAdm"?`monthly ${dname} consumption in WHO Defined Daily Doses per 100 admissions (${cov})`
+    :M.kind==="prop"?`the monthly ${S.metric==="drug"?dname+" share":M.short.toLowerCase()} of systemic antibiotic dispensing lines${/access|watch|wr/.test(S.metric)?` (AWaRe groups per ${scheme})`:S.metric==="iv"?" (parenteral route identified from the item name and route fields)":""}`
+    :M.kind==="rate"?`monthly antibiotic consumption in WHO Defined Daily Doses (ATC/DDD Index) per 100 ${S.metric==="dddPd"?"patient-days":"admissions"} (${cov})`:"the monthly number of antibiotic dispensing lines";
+  let t=`Pharmacy dispensing records for ${ward} from ${dwMonthLabel(R.rows[0].k)} to ${dwMonthLabel(R.rows[R.rows.length-1].k)} were aggregated by month. The outcome was ${ind}. `;
+  t+=`The effect of ${S.name?S.name.trim():"the intervention"}, introduced in ${dwMonthLabel(dwMonthKey(R.start))}, was assessed with an interrupted time series using segmented linear regression${R.trans?`, excluding ${R.trans} transition month${R.trans>1?"s":""}`:""} (${R.pre.length} pre-intervention and ${R.post.length} post-intervention monthly observations) [1,2]. `;
+  t+=`The model estimated the pre-intervention trend, the immediate change in level at the first post-intervention month and the change in trend after the intervention; the effect at the end of follow-up was estimated as the difference between the fitted value and the counterfactual projected from the pre-intervention trend. `;
+  t+=`Newey–West standard errors with ${R.lag} lag${R.lag===1?"":"s"} were used to allow for autocorrelation and heteroscedasticity [3]${R.m?` (Durbin–Watson statistic ${R.m.dw.toFixed(2)})`:""}. `;
+  t+=`Mean monthly values before and after the intervention were compared with Welch's t-test${M.kind==="prop"?", and pooled proportions are reported with Wilson 95% confidence intervals":""}. Analyses were performed in Odieman AMS Pro${v?" version "+v:""} [4]; two-sided p<0.05 was considered statistically significant.`;
+  const refs=["1. Wagner AK, Soumerai SB, Zhang F, Ross-Degnan D. Segmented regression analysis of interrupted time series studies in medication use research. J Clin Pharm Ther. 2002;27(4):299-309.",
+    "2. Bernal JL, Cummins S, Gasparrini A. Interrupted time series regression for the evaluation of public health interventions: a tutorial. Int J Epidemiol. 2017;46(1):348-355.",
+    "3. Newey WK, West KD. A simple, positive semi-definite, heteroskedasticity and autocorrelation consistent covariance matrix. Econometrica. 1987;55(3):703-708.",
+    `4. Odindo ET. Odieman AMS Pro${v?" (version "+v+")":""} [computer software]. Tanzania; 2026.`];
+  return {text:t,refs:refs.join("\n")};
+}
+function dwResultsText(S,R){
+  const u=dwUnitTxt(S), c=R.c, W=R.welch, isP=DW_METRICS[S.metric].kind==="prop", ind=dwIndicatorText(S);
+  const dp=Math.max(1,dwDp(S)), f=(v,d)=>dwFmt(v,d==null?dp:d), ci=o=>`95% CI ${f(o.lo)} to ${f(o.hi)}`;
+  let t="";
+  if(W&&S.metric==="spLong") t+=`The monthly proportion of operated patients whose antibiotics were still dispensed 2–7 days after the operation averaged ${f(W.m1)}% (SD ${f(W.sd1)}) before and ${f(W.m2)}% (SD ${f(W.sd2)}) after the intervention (difference ${f(W.d)} ${u}, ${ci(W)}; ${dwPtxt(W.p)}). `;
+  else if(W) t+=`The mean monthly ${ind} was ${f(W.m1)}${isP?"%":""} (SD ${f(W.sd1)}) before and ${f(W.m2)}${isP?"%":""} (SD ${f(W.sd2)}) after the intervention (difference ${f(W.d)} ${u}, ${ci(W)}; ${dwPtxt(W.p)}). `;
+  if(isP&&R.pool) t+=`Pooled, ${R.pool.pre.x.toLocaleString()} of ${R.pool.pre.n.toLocaleString()} ${S.metric==="spLong"?"operated patients":"lines"} (${f(R.pool.pre.p*100)}%, 95% CI ${f(R.pool.pre.lo*100)}–${f(R.pool.pre.hi*100)}%) before and ${R.pool.post.x.toLocaleString()} of ${R.pool.post.n.toLocaleString()} (${f(R.pool.post.p*100)}%, 95% CI ${f(R.pool.post.lo*100)}–${f(R.pool.post.hi*100)}%) after. `;
+  if(c){ t+=`In the segmented regression, the pre-intervention trend in ${S.metric==="spLong"?"this proportion":ind} was ${f(c.preTrend.est,2)} ${u} per month (95% CI ${f(c.preTrend.lo,2)} to ${f(c.preTrend.hi,2)}; ${dwPtxt(c.preTrend.p)}). `;
+    t+=`The intervention was followed by an immediate change in level of ${f(c.level.est)} ${u} (${ci(c.level)}; ${dwPtxt(c.level.p)}) and a change in trend of ${f(c.slope.est,2)} ${u} per month (95% CI ${f(c.slope.lo,2)} to ${f(c.slope.hi,2)}; ${dwPtxt(c.slope.p)}). `;
+    t+=`By ${dwMonthLabel(R.lastK)}, ${R.monthsAfter} month${R.monthsAfter>1?"s":""} after the start, the observed level was ${f(R.obsEnd)}${isP?"%":""} against ${f(R.cfEnd)}${isP?"%":""} expected from the pre-intervention trend, an absolute difference of ${f(c.end.est)} ${u} (${ci(c.end)}; ${dwPtxt(c.end.p)})${R.cfEnd?` and a relative difference of ${dwFmt(100*c.end.est/R.cfEnd,0)}%`:""}.`; }
+  return t;
+}
+function dwCopy(id){ const el=document.getElementById(id); if(!el) return; const txt=el.value;
+  const ok=()=>toast("Copied — paste it into your paper");
+  if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(ok,()=>{ el.select(); document.execCommand("copy"); ok(); });
+  else { el.select(); document.execCommand("copy"); ok(); } }
+/* ---------- page ---------- */
+function renderIts(){
+  const el=$("#v-its"); if(!el) return; const S=dwSettings(); const M=DW_METRICS[S.metric]||DW_METRICS.access;
+  const wards=dwWards(); if(S.ward&&!wards.some(([w])=>w===S.ward)) S.ward="";
+  const drugs=dwIsDrug(S)?dwDrugs(S.ward):[]; if(dwIsDrug(S)&&drugs.length&&!drugs.some(([d])=>d===S.drug)) S.drug=drugs[0][0];
+  const R=window._dwR=dwAnalyse(S); const V=dwVerdict(S,R); const better=dwBetter(S);
+  const opt=(v,l,cur)=>`<option value="${esc(v)}" ${v===cur?"selected":""}>${esc(l)}</option>`;
+  const rng=R.rows.length?`${dwMonthLabel(R.rows[0].k)} – ${dwMonthLabel(R.rows[R.rows.length-1].k)}`:"—";
+  const kind=M.kind, isP=kind==="prop", dp=dwDp(S), u=dwUnitTxt(S);
+  const rateWarn=kind==="rate"&&R.rows.length&&!R.rows.some(r=>r.v!=null)?`<div class="notice" style="margin-top:10px">${S.metric==="dddPd"?"No bed-days are recorded in the admissions data for":"No dated admissions are recorded for"} ${esc(S.ward||"the wards in scope")}${S.ward?" under exactly this ward name":""}. The ward names in the admissions file must match the Department names in the dispensing file. Choose another indicator, or import admissions with dates${S.metric==="dddPd"?" and bed-days":""}.</div>`:"";
+  const ciTxt=o=>`${dwFmt(o.lo,dp)} to ${dwFmt(o.hi,dp)}`;
+  const coefRow=(name,o,d,hint)=>`<tr><td><b>${name}</b><div class="hint">${hint}</div></td><td style="text-align:right">${dwFmt(o.est,d)}</td><td style="text-align:right">${dwFmt(o.lo,d)} to ${dwFmt(o.hi,d)}</td><td style="text-align:right">${dwP(o.p)}</td></tr>`;
+  const mt=R.c?dwMethodsText(S,R):null, rt=R.welch?dwResultsText(S,R):"";
+  el.innerHTML=`
+  <div class="panel" style="border-color:var(--accent)">
+    <h2>Did it work? &mdash; evaluate an intervention</h2>
+    <div class="sub">Pick the indicator, the ward and the month your intervention started (a new guideline, an antibiotic time-out, prescriber training, a restriction). AMS Pro compares the months before and after, and fits an <b>interrupted time series</b>: it carries the trend that was already there forward, and tells you whether the change after the start goes beyond it. This is the standard design for judging stewardship interventions, and it is what reviewers expect in a paper. For patients admitted to a ward the dispensing export does not name (such as Post-C), a ward consumption table, or a quarter-by-quarter comparison, use <a href="#" style="color:var(--accent)" onclick="go('impact');return false">Intervention Impact</a>.</div>
+    <div class="row" style="gap:10px;flex-wrap:wrap;margin-top:12px;align-items:flex-end">
+      <label>Indicator <select onchange="dwSet('metric',this.value)">${Object.entries(DW_METRICS).map(([k,o])=>opt(k,o.label,S.metric)).join("")}</select></label>
+      ${dwIsDrug(S)?`<label>Antibiotic <select onchange="dwSet('drug',this.value)">${drugs.map(([d,n])=>opt(d,`${d} (${n.toLocaleString()} lines)`,S.drug)).join("")}</select></label>`:""}
+      <label>Ward <select style="max-width:260px" onchange="dwSet('ward',this.value)">${opt("","All wards in scope",S.ward)}${wards.map(([w,n])=>opt(w,`${w} (${n.toLocaleString()} lines)`,S.ward)).join("")}</select></label>
+      <label>Intervention started <input type="month" value="${esc(S.start)}" onchange="dwSet('start',this.value)" style="width:170px"></label>
+      <label>Name it <input value="${esc(S.name)}" placeholder="e.g. Gyn ward AMS project" onchange="dwSet('name',this.value)" style="width:220px"></label>
+    </div>
+    <details style="margin-top:10px"><summary class="hint" style="cursor:pointer">More settings: period, transition months, desired direction, autocorrelation lag</summary>
+      <div class="row" style="gap:10px;flex-wrap:wrap;margin-top:10px;align-items:flex-end">
+        <label>From <input type="month" value="${esc(S.from)}" onchange="dwSet('from',this.value)" style="width:160px"></label>
+        <label>To <input type="month" value="${esc(S.to)}" onchange="dwSet('to',this.value)" style="width:160px"></label>
+        <label>Transition months left out <select onchange="dwSet('trans',+this.value)">${[0,1,2,3].map(v=>`<option ${+S.trans===v?"selected":""}>${v}</option>`).join("")}</select></label>
+        <label>Better when the indicator goes <select onchange="dwSet('better',this.value)">${opt("down","down",better)}${opt("up","up",better)}</select></label>
+        <label>Newey–West lag <select onchange="dwSet('lag',+this.value)">${[0,1,2,3].map(v=>`<option ${+S.lag===v?"selected":""}>${v}</option>`).join("")}</select></label>
+      </div>
+      <div class="hint" style="margin-top:8px">Leave <i>From</i> and <i>To</i> empty to use every month in the data. The intervention month is usually left out as a transition month, because the change was only partly in place. A lag of 1 suits monthly data; raise it if the Durbin–Watson statistic below is far from 2.</div>
+    </details>
+    <div class="hint" style="margin-top:10px"><b>Choosing the indicator:</b> measure what the intervention could actually change. If the antibiotic itself could not change (for example, ceftriaxone was the only option for surgical prophylaxis), the Access and Watch shares will hardly move; measure how long and how much instead &mdash; <i>Operated patients with antibiotics continued 2&ndash;7 days after the operation</i> (needs procedures or caesarean records) and <i>DDDs of one antibiotic per patient treated</i> (needs only dispensing with patient IDs).</div>
+    ${rateWarn}
+  </div>
+
+  ${R.rows.length?`<div class="panel">
+    <h2>Data check</h2>
+    <div class="kpis">
+      <div class="kpi"><div class="v">${R.rows.length}</div><div class="l">months (${rng})</div></div>
+      <div class="kpi"><div class="v" style="color:${R.pre&&R.pre.length>=8?"var(--access)":R.pre&&R.pre.length>=3?"var(--watch)":"var(--reserve)"}">${R.pre?R.pre.length:"—"}</div><div class="l">months before</div></div>
+      <div class="kpi"><div class="v" style="color:${R.post&&R.post.length>=8?"var(--access)":R.post&&R.post.length>=3?"var(--watch)":"var(--reserve)"}">${R.post?R.post.length:"—"}</div><div class="l">months after</div></div>
+      <div class="kpi"><div class="v">${R.rows.reduce((s,r)=>s+(r.lines||0),0).toLocaleString()}</div><div class="l">antibiotic lines</div></div>
+    </div>
+    <div class="hint" style="margin-top:8px">At least 3 months on each side are required (Cochrane EPOC); 8 or more on each side give steadier estimates, and 12 on each side allow for seasonal patterns.${R.gaps&&R.gaps.length?` <b>Months with no data:</b> ${esc(R.gaps.map(dwMonthLabel).join(", "))} — check the export is complete for those months.`:""}${R.rows.some(r=>r.small&&r.use)?` <b>Months with fewer than 20 lines:</b> ${esc(R.rows.filter(r=>r.small&&r.use).map(r=>dwMonthLabel(r.k)).join(", "))} — their percentages jump around more.`:""}${kind==="perpt"&&R.Ser.noPid?` ${R.Ser.noPid.toLocaleString()} line(s) of this antibiotic have no patient ID and are not counted per patient.`:""}${kind==="perpt"&&R.Ser.dddCov<0.9?` Only ${Math.round(R.Ser.dddCov*100)}% of this antibiotic's lines have a computable DDD (the strength must be in the item name, e.g. &ldquo;Ceftriaxone 1g&rdquo;); see Setup &rsaquo; Dose Reference.`:""}${kind==="rate"&&R.Ser.admSkipped?` ${R.Ser.admSkipped.toLocaleString()} admission row(s) without a readable date were left out.`:""}</div>
+  </div>`:`<div class="panel"><div class="notice">${esc(R.msg||"Import pharmacy dispensing data first.")}</div></div>`}
+
+  ${V?`<div class="panel" style="border-color:var(--${V.cls==="good"?"access":V.cls==="bad"?"reserve":"watch"})"><h2>${V.head}</h2><div style="line-height:1.6">${V.body}</div></div>`:R.msg&&R.rows.length?`<div class="panel"><div class="notice">${esc(R.msg)}</div></div>`:""}
+
+  ${R.rows.length?`<div class="panel">
+    <h2>The picture</h2>
+    <div class="hint">Each point is one month. The solid lines are the fitted trend before and after; the dashed line is what the trend before the intervention predicts would have happened without it. The gap between them at the end is the effect.</div>
+    <div id="its-figwrap" style="margin-top:10px;background:#fff;border-radius:8px;padding:6px"><canvas id="its-fig" style="width:100%;display:block"></canvas></div>
+    <div class="row" style="gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn sm" onclick="dwExportPng()">⬇ Figure for the paper (PNG, 300 dpi)</button><button class="btn sm ghost" onclick="dwExportCsv()">⬇ Monthly data (CSV)</button></div>
+    <div class="hint" style="margin-top:6px">The downloaded figure is black and grey, 7 × 4.2 inches at 300 dpi, as most journals ask. The CSV holds every monthly value and the model's columns, so a statistician can re-run the analysis in R, Stata or SPSS.</div>
+  </div>`:""}
+
+  ${R.welch?`<div class="panel">
+    <h2>Before vs after</h2>
+    <div class="kpis">
+      <div class="kpi"><div class="v">${dwFmt(R.welch.m1,dp)}${isP?"%":""}</div><div class="l">monthly mean before (SD ${dwFmt(R.welch.sd1,dp)})</div></div>
+      <div class="kpi"><div class="v">${dwFmt(R.welch.m2,dp)}${isP?"%":""}</div><div class="l">monthly mean after (SD ${dwFmt(R.welch.sd2,dp)})</div></div>
+      <div class="kpi"><div class="v">${R.welch.d>=0?"+":""}${dwFmt(R.welch.d,dp)}</div><div class="l">difference, ${u} (95% CI ${ciTxt(R.welch)})</div></div>
+      <div class="kpi"><div class="v">${dwP(R.welch.p).replace("p=","")}</div><div class="l">p-value (Welch's t-test on monthly values)</div></div>
+    </div>
+    ${R.pool?`<div class="hint" style="margin-top:8px">Pooled: ${R.pool.pre.x.toLocaleString()} of ${R.pool.pre.n.toLocaleString()} ${S.metric==="spLong"?"operated patients":"lines"} before (${dwFmt(R.pool.pre.p*100)}%, 95% CI ${dwFmt(R.pool.pre.lo*100)}–${dwFmt(R.pool.pre.hi*100)}%) and ${R.pool.post.x.toLocaleString()} of ${R.pool.post.n.toLocaleString()} after (${dwFmt(R.pool.post.p*100)}%, 95% CI ${dwFmt(R.pool.post.lo*100)}–${dwFmt(R.pool.post.hi*100)}%).</div>`:""}
+    <div class="hint" style="margin-top:6px">This simple comparison ignores any trend that was already under way, so treat it as description. The interrupted time series below is the main result.</div>
+  </div>`:""}
+
+  ${R.c?`<div class="panel">
+    <h2>Interrupted time series (segmented regression)</h2>
+    <div class="tablewrap"><table><thead><tr><th>Estimate</th><th style="text-align:right">Value</th><th style="text-align:right">95% CI</th><th style="text-align:right">p</th></tr></thead><tbody>
+      ${coefRow("Level just before the start",R.c.base,dp,`fitted value in ${dwMonthLabel(dwMonthKey(R.start-1))}, from the trend before`)}
+      ${coefRow("Trend before",R.c.preTrend,2,`${u} per month`)}
+      ${coefRow("Immediate change (level)",R.c.level,dp,`${u}, at the first month after the start`)}
+      ${coefRow("Change in trend",R.c.slope,2,`${u} per month, after vs before`)}
+      ${coefRow("Trend after",R.c.postTrend,2,`${u} per month`)}
+      ${coefRow(`Effect by ${dwMonthLabel(R.lastK)}`,R.c.end,dp,`${u}: observed ${dwFmt(R.obsEnd,dp)} vs expected ${dwFmt(R.cfEnd,dp)} without the intervention`)}
+    </tbody></table></div>
+    <div class="hint" style="margin-top:8px">${R.m.n} months in the model · R² ${R.m.r2.toFixed(2)} · Durbin–Watson ${R.m.dw.toFixed(2)} (2 = no autocorrelation; below 1.5 or above 2.5 suggests raising the lag) · Newey–West lag ${R.lag} · t on ${R.m.df} df.</div>
+  </div>
+  <div class="panel">
+    <h2>For your paper</h2>
+    <div class="hint">Written from the numbers above. Read it, adjust the wording to your study, and keep the references.</div>
+    <h3 style="margin:12px 0 6px">Statistical methods</h3>
+    <textarea id="its-methods" rows="9" style="width:100%">${esc(mt.text)}\n\nReferences\n${esc(mt.refs)}</textarea>
+    <div class="row" style="gap:8px;margin-top:6px"><button class="btn sm" onclick="dwCopy('its-methods')">Copy methods</button></div>
+    <h3 style="margin:14px 0 6px">Results</h3>
+    <textarea id="its-results" rows="7" style="width:100%">${esc(rt)}</textarea>
+    <div class="row" style="gap:8px;margin-top:6px"><button class="btn sm" onclick="dwCopy('its-results')">Copy results</button></div>
+    <div class="notice" style="margin-top:12px">Things a reviewer will ask: Was anything else changing at the same time (stock-outs, new staff, a new ward, a change in the export)? Did case-mix change? A control ward with no intervention, analysed the same way, makes the result much stronger. Dispensing data show what was supplied, not the indication.</div>
+  </div>`:""}`;
+  const cv=$("#its-fig"); if(cv&&R.rows.length){ const w=Math.max(320,Math.min(1100,(cv.parentElement.clientWidth||900)-12)); cv.style.height=Math.round(w*0.6)+"px"; dwDraw(cv,S,R,{w,h:Math.round(w*0.6),scale:window.devicePixelRatio||1,fs:w<600?10:12}); }
+}
+
+window.addEventListener("resize",()=>{ if(currentView==="its"){ clearTimeout(window._dwRz); window._dwRz=setTimeout(renderIts,250); } });
 
 if(DEMO){ DB=JSON.parse(JSON.stringify(DEFAULT_DB)); ensureDefaults(); buildNav(); updateBackupBadge(); runAmsDemo(); }
 else{
 load(); buildNav(); go(hadBrowserData?"setup":"guide"); updateBackupBadge();
+if(!hadBrowserData) setTimeout(()=>{ try{ viewFirstRun(); }catch(e){ console.error(e); } },400);
 try{ tryRestoreSaveFolderOnStartup(); }catch(e){ console.error("folder restore check failed:",e); }
 }
 try{ if(localStorage.getItem("odiemanpro_sidebar_collapsed")==="1") document.body.classList.add("sidebar-collapsed"); }catch(e){}
