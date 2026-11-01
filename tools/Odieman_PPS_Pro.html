@@ -161,7 +161,7 @@ h2{font-size:16px;margin:22px 0 10px}
 <body>
 <div class="app">
 <aside>
-  <div class="logo"><b>Odieman PPS Pro</b><span>Point Prevalence Survey · v3.3.2</span></div>
+  <div class="logo"><b>Odieman PPS Pro</b><span>Point Prevalence Survey · v3.4</span></div>
   <nav id="nav"></nav>
 </aside>
 <main>
@@ -552,12 +552,12 @@ const PAGES=[
  ["Start",[["guide","User guide"]]],
  ["Analyse",[["overview","Overview"],["dash","Survey dashboard"],["trends","Trends"],["wards","Ward analysis"],["drugs","Antimicrobial use"],["stats","Statistics"]]],
  ["Data",[["surveys","Surveys"],["entry","Data entry"],["quality","Data quality"],["qa","Training & agreement"]]],
- ["Output",[["report","Trend report"],["feedback","Ward feedback"],["who","WHO PPS export"],["folder","Data folder"],["settings","Settings"]]]];
+ ["Output",[["report","Trend report"],["feedback","Ward feedback"],["who","WHO PPS export"],["redcap","REDCap"],["folder","Data folder"],["settings","Settings"]]]];
 function navHTML(){return PAGES.map(([g,items])=>`<div class="navgrp">${g}</div>`+items.map(([k,l])=>`<a data-page="${k}" class="${UI.page===k?"on":""}">${l}</a>`).join("")).join("")}
 function go(p){UI.page=p;render();window.scrollTo(0,0)}
 function render(){$("#nav").innerHTML=navHTML();const t=PAGES.flatMap(g=>g[1]).find(x=>x[0]===UI.page);$("#ptitle").textContent=t?t[1]:"";
  if(UI.sid&&!getS(UI.sid))UI.sid=null;if(!UI.sid&&DB.surveys.length)UI.sid=sorted().at(-1).id;
- const fn={guide:vGuide,overview:vOverview,dash:vDash,trends:vTrends,wards:vWards,drugs:vDrugs,stats:vStats,surveys:vSurveys,entry:vEntry,quality:vQuality,report:vReport,feedback:vFeedback,qa:vQA,who:vWho,folder:vFolder,settings:vSettings}[UI.page];
+ const fn={guide:vGuide,overview:vOverview,dash:vDash,trends:vTrends,wards:vWards,drugs:vDrugs,stats:vStats,surveys:vSurveys,entry:vEntry,quality:vQuality,report:vReport,feedback:vFeedback,qa:vQA,who:vWho,redcap:vRedcap,folder:vFolder,settings:vSettings}[UI.page];
  $("#view").innerHTML=fn();bindView()}
 function noData(){return`<div class="empty"><h3>No survey data yet</h3><p>Open your data folder (any PPS CSV files inside are imported automatically) or click <b>Import CSV</b>.</p>
  <div class="row" style="justify-content:center"><button class="btn" data-act="folder">Open data folder</button><button class="btn ghost" data-act="import">Import CSV</button></div></div>`}
@@ -762,6 +762,75 @@ function reportHTML(){const S=sorted(),C=S.map(calc),labels=S.map(s=>monYr(s.dat
  <h2>10. Methods note</h2><p>Surveys followed the WHO point prevalence survey methodology: all inpatients present on the ward at 08:00 on the survey day were included. Antimicrobials were classified with the ${awView()==="TZ"?"Tanzania STG/NEMLIT 2021 national AWaRe grouping, checked against WHO (WHO where not listed, contradictory or less strict)":"WHO AWaRe list"} and the WHO ATC/DDD index. Trends were tested with the Cochran–Armitage test for trend using time in years; 95% confidence intervals use the Wilson method. Surgical prophylaxis duration uses the WHO PPS codes (single dose, one day, more than one day); WHO surgical site infection guidelines (2016, 2018) recommend not continuing prophylaxis after the operation. Age groups: neonates under 28 days, children 28 days to 17 years, adults 18 years and over. Results are aggregate; no patient identifiers are reported.</p></div>`}
 function vReport(){if(sorted().length<2)return DB.surveys.length?`<div class="warnbox">The trend report needs at least two surveys.</div>`:noData();
  return`<div class="row section noprint"><button class="btn" data-act="print">Print / Save as PDF</button><button class="btn ghost" data-act="savereport">Save report (HTML) to folder</button><button class="btn ghost" data-act="savesummary">Save indicator table (CSV)</button></div>`+reportHTML()}
+/* ============ v3.4: REDCap — the same variable names in both directions ============
+   Collect in REDCap and analyse here (its CSV raw-data export is read by Import), or move a survey from here into a
+   REDCap project (data import file). The data dictionary is written from the tool's own code lists, so it always matches. */
+const RC_HDR=["Variable / Field Name","Form Name","Section Header","Field Type","Field Label","Choices, Calculations, OR Slider Labels","Field Note","Text Validation Type OR Show Slider Number","Text Validation Min","Text Validation Max","Identifier?","Branching Logic (Show field only if...)","Required Field?","Custom Alignment","Question Number (surveys only)","Matrix Group Name","Matrix Ranking?","Field Annotation"];
+const RC_AWARE=[["Access","WHO Access group"],["Watch","WHO Watch group"],["Reserve","WHO Reserve group"],["NC","Not in the AWaRe list"]];
+const RC_ROUTE=[["P","Parenteral"],["O","Oral"],["R","Rectal"],["I","Inhaled"]];
+function rcCell(v){v=v==null?"":String(v);return/[",\r\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+const rcCode=k=>String(k).replace(/-/g,"_");   /* REDCap codes hold letters, digits and _ only */
+function rcFields(){const F="pps_patient",ON="[on_antimicrobial] = 'Y'",R=[],YN=[["Y","Yes"],["N","No"]];
+ const ch=pairs=>pairs.map(([k,l])=>`${rcCode(k)}, ${l}`).join(" | ");
+ const add=(v,t,l,o={})=>R.push({v,t,codes:o.c?o.c.map(([k])=>rcCode(k)):null,row:[v,F,o.sec||"",t,l,o.c?ch(o.c):"",o.note||"",o.val||"",o.min||"",o.max||"","",o.br||"",o.req||"","","","","",""]});
+ add("record_id","text","Record ID");
+ add("survey_id","text","Survey ID",{note:"e.g. PPS-2026-11. Same ID for every patient in one survey.",req:"y",sec:"Survey"});
+ add("survey_date","text","Survey date",{val:"date_ymd",req:"y"});
+ add("facility","text","Facility name");
+ add("ward","text","Ward",{req:"y",sec:"Patient"});
+ add("ward_code","text","Ward code");
+ add("ward_type","dropdown","Ward type",{c:Object.entries(WTN).filter(([k])=>k)});
+ add("patient_code","text","Patient code",{note:"Anonymous survey code. Never the hospital or registration number."});
+ add("age_years","text","Age (years)",{note:"Decimals allowed; neonates: days / 365",val:"number",min:"0",max:"120"});
+ add("sex","radio","Sex",{c:[["M","Male"],["F","Female"]]});
+ add("weight_kg","text","Weight (kg)",{note:"Children",val:"number",min:"0.2",max:"150",br:"[age_years] = '' or [age_years] < 18"});
+ add("admission_date","text","Admission date",{val:"date_ymd"});
+ add("surgery_last_30d","radio","Surgery in the last 30 days",{c:YN});
+ add("catheter_or_line","radio","Catheter or line in place",{c:YN});
+ add("on_antimicrobial","radio","On antimicrobial on survey day",{c:YN,req:"y",sec:"Antimicrobial treatment"});
+ add("diagnosis","dropdown","Diagnosis (site)",{c:Object.entries(DX),br:ON});
+ add("indication","dropdown","Indication",{c:Object.entries(INDN),br:ON});
+ add("reason_in_notes","radio","Reason in notes",{c:YN,br:ON});
+ add("guideline_compliant","radio","Guideline compliant",{c:[...YN,["NA","Not assessable"]],br:ON});
+ add("culture_taken","radio","Culture taken",{c:YN,br:ON});
+ add("stop_review_date","radio","Stop or review date documented",{c:YN,br:ON});
+ add("treatment_type","radio","Empiric or targeted",{c:Object.entries(TXN),br:ON});
+ add("biomarker","dropdown","Biomarker used",{c:Object.entries(BION),br:ON});
+ for(let n=1;n<=4;n++){const b2=`[ab${n}_name] <> ''`;
+  add(`ab${n}_name`,"text",`Antimicrobial ${n}: name`,{note:"Generic (INN) name, e.g. ceftriaxone",br:n===1?ON:`${ON} and [ab${n-1}_name] <> ''`,sec:`Antimicrobial ${n}`});
+  add(`ab${n}_route`,"radio",`Antimicrobial ${n}: route`,{c:RC_ROUTE,br:b2});
+  add(`ab${n}_dose_mg`,"text",`Antimicrobial ${n}: dose (mg)`,{val:"number",min:"0",br:b2});
+  add(`ab${n}_doses_per_day`,"text",`Antimicrobial ${n}: doses per day`,{val:"number",min:"0",max:"24",br:b2});
+  add(`ab${n}_atc`,"text",`Antimicrobial ${n}: ATC code`,{note:"Leave blank: PPS Pro fills it from its formulary",br:b2});
+  add(`ab${n}_aware`,"dropdown",`Antimicrobial ${n}: AWaRe group`,{c:RC_AWARE,note:"Leave blank: PPS Pro fills it from its formulary",br:b2})}
+ add("appropriateness","dropdown","Appropriateness",{c:Object.entries(APN),br:ON,sec:"Stewardship review"});
+ add("appropriateness_reasons","checkbox","Reasons (if suboptimal or inadequate)",{c:Object.entries(APW),br:`${ON} and ([appropriateness] = 'SUB' or [appropriateness] = 'INA')`});
+ return R}
+function rcDictionary(){return[RC_HDR,...rcFields().map(f=>f.row)].map(r=>r.map(rcCell).join(",")).join("\r\n")+"\r\n"}
+/* one record per inpatient; codes REDCap would refuse are left blank and counted, never altered */
+function rcImportFile(s){const F=rcFields(),cols=[],st={cut:0,blank:{}};
+ F.forEach(f=>{if(f.t==="checkbox")f.codes.forEach(c=>cols.push(`${f.v}___${c.toLowerCase()}`));else cols.push(f.v)});
+ const rows=s.patients.map((p,i)=>{if(p.abs.length>4)st.cut++;
+  const o={record_id:`${s.id}-${String(i+1).padStart(3,"0")}`,survey_id:s.id,survey_date:s.date,facility:s.facility||"",ward:p.ward,ward_code:p.wardCode,ward_type:p.wardType,
+   patient_code:p.code,age_years:p.age??"",sex:p.sex,weight_kg:p.weight??"",admission_date:p.adm,surgery_last_30d:p.surgery,catheter_or_line:p.line,on_antimicrobial:p.on,
+   diagnosis:p.dx,indication:p.ind,reason_in_notes:p.reason,guideline_compliant:p.guide,culture_taken:p.culture,stop_review_date:p.stop,treatment_type:p.tx,biomarker:p.bio,appropriateness:p.appr};
+  p.abs.slice(0,4).forEach((a,j)=>{const n=j+1;Object.assign(o,{[`ab${n}_name`]:a.name,[`ab${n}_route`]:a.route,[`ab${n}_dose_mg`]:a.dose??"",[`ab${n}_doses_per_day`]:a.freq??"",[`ab${n}_atc`]:a.atc,[`ab${n}_aware`]:a.aware==="Not classified"?"NC":a.aware})});
+  F.forEach(f=>{if(!f.codes||f.t==="checkbox")return;const v=o[f.v];if(v==null||v==="")return;const c=rcCode(v);if(f.codes.includes(c))o[f.v]=c;else{o[f.v]="";st.blank[f.v]=(st.blank[f.v]||0)+1}});
+  const why=String(p.apprWhy||"").split(";").filter(Boolean);Object.keys(APW).forEach(k=>o[`appropriateness_reasons___${rcCode(k).toLowerCase()}`]=why.includes(k)?"1":"0");
+  return cols.map(c=>rcCell(o[c]??"")).join(",")});
+ return{csv:[cols.join(","),...rows].join("\r\n")+"\r\n",n:rows.length,cut:st.cut,blank:st.blank}}
+function vRedcap(){const s=DB.surveys.length?getS(UI.sid):null,over=s?s.patients.filter(p=>p.abs.length>4).length:0;
+ return`<div class="note section"><b>REDCap</b> is the web platform many research groups use to collect study data. PPS Pro and REDCap use the same variable names, so a survey can be collected in REDCap and analysed here, or moved from here into a REDCap project. The files are made on this computer; nothing is sent anywhere.</div>
+ <div class="grid g2"><div class="card"><h3>Collect in REDCap, analyse here</h3><ol style="line-height:1.7;padding-left:20px;margin:6px 0 0">
+  <li>In REDCap, create a project and open <b>Project Setup › Data Dictionary</b>. Upload the PPS Pro data dictionary (button below). The project gets one form, <i>PPS patient</i>, with every PPS Pro field and its codes.</li>
+  <li>Surveyors enter one record per inpatient, on any computer or phone REDCap runs on.</li>
+  <li>In REDCap, <b>Data Exports</b>, choose <i>CSV (raw data)</i>. Bring the file here with <b>Import CSV / Excel</b>. Records are grouped into surveys by <span class="mono">survey_id</span>.</li></ol>
+  <div class="row" style="margin-top:12px"><button class="btn" data-act="rcdict">Download the REDCap data dictionary</button></div>
+  <p class="muted" style="margin-top:10px">Use the raw-data export, not labels. REDCap cannot keep “-” in a code, so SST-SSI, SST-O, BJ-SSI and BJ-O are written SST_SSI and so on there; PPS Pro reads them back. REDCap writes the appropriateness reasons as one column per reason, which PPS Pro also reads.</p></div>
+ <div class="card"><h3>Move a survey from here into REDCap</h3>${s?`<div class="row" style="margin-bottom:8px">Survey ${surveySelect()} <span class="muted">${s.patients.length} inpatients</span></div>
+  <p>Writes a REDCap <b>data import</b> file for this survey: one record per inpatient, record IDs <span class="mono">${esc(s.id)}-001</span> onwards. The REDCap project must be built from the data dictionary on the left. In REDCap, open the <b>Data Import Tool</b>, upload the file, check the preview, then import.</p>
+  ${over?`<p class="warn">${over} patient(s) in this survey have more than four antimicrobials. The REDCap form holds four, so only the first four are written.</p>`:""}
+  <div class="row" style="margin-top:12px"><button class="btn" data-act="rcexport">Download REDCap import file</button></div>`:`<p class="muted">Add or import a survey first.</p>`}</div></div>`}
 function vFolder(){const st=FS.state;let h=`<div class="card section"><h3>Data folder</h3>`;
  if(st==="unsupported")h+=`<div class="warnbox">This browser cannot save to a folder. Open this file in <b>Google Chrome</b> or <b>Microsoft Edge</b>. Until then data is kept inside this browser only – use “Download full backup” regularly.</div>`;
  else if(st==="connected")h+=`<p><span class="dot ok" style="display:inline-block"></span> Connected to <b>${esc(FS.handle.name)}</b>. Every change is saved automatically ${FS.lastSave?"(last save "+FS.lastSave.toLocaleTimeString()+")":""}.</p>`;
@@ -780,7 +849,7 @@ function vSettings(){return`<div class="grid g2"><div class="card"><h3>Settings<
  <div class="card"><h3>CSV format</h3><p>One file per survey, one row per inpatient. Required: <span class="mono">ward</span>, and either <span class="mono">on_antimicrobial</span> or antimicrobial names. Recommended columns:</p>
  <p class="mono" style="font-size:11.5px;word-break:break-all">${HEAD.join(", ")}</p>
  <p>Codes – <b>indication</b>: ${Object.keys(INDN).join(", ")} · <b>diagnosis</b>: ${Object.keys(DX).join(", ")} · <b>route</b>: P (parenteral), O (oral), R (rectal), I (inhaled) · Yes/No fields: Y, N (NA allowed for guideline).</p>
- <p>More than 4 antimicrobials for a patient: add <span class="mono">ab5_…</span>, <span class="mono">ab6_…</span> columns in the same pattern. A <b>REDCap</b> project built from the PPS Pro data dictionary can be exported as <i>CSV (raw data)</i> and imported here as it is.</p>
+ <p>More than 4 antimicrobials for a patient: add <span class="mono">ab5_…</span>, <span class="mono">ab6_…</span> columns in the same pattern. Working with <b>REDCap</b>? See the <b>REDCap</b> page in the menu: data dictionary, and files in both directions.</p>
  <p>ATC code and AWaRe group are filled in automatically from the reference list in use (see <b>Reference lists</b> below) when left blank. Common brand names (Augmentin, Septrin, Flagyl, X-pen…) are recognised.</p>
  <button class="btn ghost" data-act="template">Download blank template</button></div>
  ${learnedCard()}
@@ -796,6 +865,8 @@ function vGuide(){
  <div id="gd">
  <div class="card section"><h3>Odieman PPS Pro — User Guide</h3><p>PPS Pro records and analyses WHO point prevalence surveys (PPS) of antimicrobial use: on one day, every inpatient on a ward is checked for antimicrobials, and the results are compared ward by ward and survey by survey. Repeating the survey every 6–12 months shows whether stewardship is working. Everything runs offline on this computer.</p>
  <div class="row">${toc.map(([id,t])=>`<button class="btn small ghost" data-scroll="${id}">${t}</button>`).join("")}</div></div>
+ <div class="card section"><h3>What's new in v3.4 (November 2026)</h3><ul>
+  <li><b>REDCap page</b> (Output menu): download the REDCap data dictionary, written by PPS Pro from its own code lists; bring a REDCap raw-data export in with Import; or write any survey as a REDCap data import file.</li></ul></div>
  <div class="card section"><h3>What's new in v3.3.2 (November 2026)</h3><ul>
   <li><b>Reads REDCap exports:</b> a project built from the PPS Pro data dictionary exports as CSV (raw data) with PPS Pro column names, and imports here directly — including the four diagnosis codes REDCap writes with “_” (SST_SSI, SST_O, BJ_SSI, BJ_O) and the appropriateness reasons, which REDCap writes one column per reason.</li>
   <li><b>No antimicrobial is dropped:</b> a patient with more than four keeps them all. The CSV export and the survey files in the data folder add ab5_, ab6_… columns only when needed, and Data entry shows the extra rows for that patient.</li>
@@ -898,7 +969,7 @@ function vGuide(){
    Hospitals (WHO/EMP/IAU/2018.01): Hospital, Ward, Patient, Indication and Antibiotic levels with WHO variable
    names and codes. Values PPS Pro does not collect are left blank; every value that had to be converted or
    guessed is listed on the Check sheet. Written here, offline, as an Excel workbook or as one CSV per level. */
-const PPS_VER="3.3.2";
+const PPS_VER="3.4";
 const WHO_WT=[["AMW","Adult medical ward"],["ASW","Adult surgical ward"],["AHRW","Adult high-risk ward"],["AICU","Adult intensive care unit"],
  ["PMW","Paediatric medical ward"],["PSW","Paediatric surgical ward"],["PHRW","Paediatric high-risk ward"],["PICU","Paediatric intensive care unit"],
  ["NMW","Neonatal medical ward"],["NICU","Neonatal intensive care unit"],["MXW","Mixed ward"]];
@@ -1143,7 +1214,9 @@ async function act(a){switch(a){
  case"savesummary":return saveOut(`PPS_indicators_${today()}.csv`,summaryCSV(),"text/csv");
  case"backup":return saveOut(`odieman_pps_backup_${today()}.json`,JSON.stringify(DB),"application/json");
  case"restore":{const i=document.createElement("input");i.type="file";i.accept=".json";i.onchange=()=>importFiles(i.files);i.click();return}
- case"whoxlsx":return whoExport("xlsx");case"whocsv":return whoExport("csv");
+ case"rcdict":saveOut("PPS_Pro_REDCap_Data_Dictionary.csv",rcDictionary(),"text/csv");log("REDCap data dictionary written");return;
+case"rcexport":{const s=getS(UI.sid);if(!s)return;const r=rcImportFile(s),b=Object.entries(r.blank);saveOut(`REDCap_import_${String(s.id).replace(/[^\w.-]+/g,"_")}.csv`,r.csv,"text/csv");log(`REDCap import file for ${s.id}: ${r.n} records`+(r.cut?`, ${r.cut} with more than four antimicrobials (first four written)`:"")+(b.length?`, codes REDCap would refuse left blank: ${b.map(([k,n])=>k+" ×"+n).join(", ")}`:""));if(r.cut||b.length)toast("Written. Some values could not go into REDCap: see the log on the Data folder page.");return}
+case"whoxlsx":return whoExport("xlsx");case"whocsv":return whoExport("csv");
  case"savesettings":DB.meta.facility=$("#set_fac").value.trim();DB.meta.author=$("#set_author").value.trim();DB.meta.keepBackups=Math.max(3,+$("#set_keep").value||30);touch();toast("Settings saved");return}}
 
 
