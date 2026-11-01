@@ -317,6 +317,17 @@
     <div class="citebox"><b>Ready for, not validated by.</b> These files are laid out for the systems named, but they are not certified submissions. A WHONET import needs the one-time BacLink mapping. The E2B XML is a draft: reaction terms need licensed MedDRA coding, medicines need WHODrug coding, and a person must complete and review every field before anything goes to VigiFlow or TMDA.</div>
   </section>
 
+  <!-- ============================== DATA DICTIONARY ============================== -->
+  <section id="data-dictionary">
+    <h2>Data dictionary</h2>
+    <p class="section-note">Every variable PPS Pro reads and writes: its name, meaning, type and allowed codes, how imported values are read, and where it goes in the WHO PPS forms. Published so that files can be prepared, checked and compared without opening the tool.</p>
+    <div class="tscroll"><table class="bench">
+      <tr><th>File</th><th>What it holds</th><th>Use it to</th></tr>
+      <tr><td><a href="dictionary/PPS_Pro_3.3.2_Data_Dictionary.xlsx">PPS Pro 3.3.2 data dictionary</a> (Excel)</td><td>Fields, code lists, the column headings accepted in survey files and in pharmacy and admissions exports, and the mapping to the WHO PPS Hospital, Ward, Patient, Indication and Antibiotic forms</td><td>Prepare survey files for import, check exported data, compare PPS Pro with other survey tools</td></tr>
+      <tr><td><a href="dictionary/PPS_Pro_3.3.2_REDCap_Data_Dictionary.csv">REDCap data dictionary</a> (CSV)</td><td>The same variables in REDCap's data dictionary format, named exactly like PPS Pro's columns</td><td>Build a point prevalence survey project in REDCap (Project Setup, Data Dictionary). Its export as CSV (raw data) opens in PPS Pro 3.3.2 as it is.</td></tr>
+    </table></div>
+  </section>
+
   <!-- ============================== CONNECTIONS ============================== -->
   <section id="connections">
     <h2>What the tools connect to</h2>
@@ -382,7 +393,7 @@
   <!-- ============================== VERSIONS ============================== -->
   <section id="versions">
     <h2>Versions and updates</h2>
-    <p class="section-note">Current versions: AMS Pro 4.14, PPS Pro 3.3 and VigiWard 3.9. Each tool shows its version on screen.</p>
+    <p class="section-note">Current versions: AMS Pro 4.14, PPS Pro 3.3.2 and VigiWard 3.9. Each tool shows its version on screen.</p>
     <ul class="plain">
       <li><b>Reference lists</b> (AWaRe groups, ATC codes, DDDs) are updated through this website, without a new copy of the tool. See the <a href="updates/">reference list page</a>.</li>
       <li><b>Fixes and new versions</b> are sent to registered holders. Each licensed copy is registered to its facility, which is how news of updates reaches it. <a href="index.html#download">Request the tools</a>.</li>
