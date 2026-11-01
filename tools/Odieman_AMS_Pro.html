@@ -32566,6 +32566,9 @@ async function wrImportInput(input){ const f=input.files&&input.files[0]; if(!f)
 /* ---------- live demo only: example project settings and simulated ward rounds ----------
    Runs from runAmsDemo() on the website's sample hospital. Nothing here runs in a normal copy. */
 function demoProjects(){
+  // Did It Work?: open on a finished example. The simulated hospital's Watch + Reserve share was already falling before July 2025,
+  // so a before-after comparison calls the example training a success, while the time series shows the fall was already under way.
+  try{ const D=dwSettings(); if(!D.start) Object.assign(D,{metric:"wr",ward:"",drug:"",start:"2025-07",better:"",name:"Example: prescriber training"}); }catch(e){ console.error(e); }
   // C/S Prophylaxis Project: example phase dates that fit the 33 months of sample data
   const S=cspS();
   S.phases=[{name:"Baseline",start:"2024-01-01"},{name:"Training (run-in)",start:"2025-06-02",transition:true},{name:"SOPs and checklist",start:"2025-07-01"}];
