@@ -161,7 +161,7 @@ h2{font-size:16px;margin:22px 0 10px}
 <body>
 <div class="app">
 <aside>
-  <div class="logo"><b>Odieman PPS Pro</b><span>Point Prevalence Survey · v3.3</span></div>
+  <div class="logo"><b>Odieman PPS Pro</b><span>Point Prevalence Survey · v3.3.2</span></div>
   <nav id="nav"></nav>
 </aside>
 <main>
@@ -276,6 +276,9 @@ const PAL=["#13737a","#c9772b","#5b6ec7","#2e7d4f","#b23b3b","#8a5aa8","#d08a1a"
 const HEAD=["survey_id","survey_date","facility","ward","ward_code","ward_type","patient_code","age_years","sex","weight_kg","admission_date",
  "on_antimicrobial","diagnosis","indication","reason_in_notes","guideline_compliant","culture_taken","stop_review_date","surgery_last_30d","catheter_or_line","treatment_type","biomarker","appropriateness","appropriateness_reasons"];
 for(let i=1;i<=4;i++)HEAD.push(`ab${i}_name`,`ab${i}_atc`,`ab${i}_aware`,`ab${i}_route`,`ab${i}_dose_mg`,`ab${i}_doses_per_day`);
+/* v3.3.2: ab5_, ab6_… columns are added only for a survey that has a patient with more than 4 antimicrobials */
+function headFor(s){const n=Math.max(4,...s.patients.map(p=>(p.abs||[]).length)),h=HEAD.slice();
+ for(let i=5;i<=n;i++)h.push(`ab${i}_name`,`ab${i}_atc`,`ab${i}_aware`,`ab${i}_route`,`ab${i}_dose_mg`,`ab${i}_doses_per_day`);return h}
 
 const INDS=[
  {k:"prev",label:"Antimicrobial prevalence",desc:"Inpatients on ≥1 antimicrobial",pct:1,good:"down"},
@@ -397,21 +400,25 @@ function rowsToSurveys(rows,fname){
 function normDate(d){if(!d)return"";if(/^\d{4}-\d{2}-\d{2}/.test(d))return d.slice(0,10);const m=d.match(/^(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{4})$/);
  if(m)return`${m[3]}-${m[2].padStart(2,"0")}-${m[1].padStart(2,"0")}`;const x=new Date(d);return isNaN(x)?d:x.toISOString().slice(0,10)}
 function rowToPatient(o){const abs=[];
- for(let i=1;i<=6;i++){const n=drugName(o[`ab${i}_name`]);if(!n)continue;const f=FORMULARY[n]||{};
-  let rt=String(o[`ab${i}_route`]||f.route||"").trim().toUpperCase();rt=rt.startsWith("I")||rt==="P"?"P":rt.startsWith("O")||rt==="PO"?"O":rt;
+ const nAb=Math.max(6,...Object.keys(o).map(k=>+((k.match(/^ab(\d+)_name$/)||[])[1]||0)));
+ for(let i=1;i<=nAb;i++){const n=drugName(o[`ab${i}_name`]);if(!n)continue;const f=FORMULARY[n]||{};
+  let rt=String(o[`ab${i}_route`]||f.route||"").trim().toUpperCase();rt=rt==="I"||/^(INH|NEB)/.test(rt)?"I":rt.startsWith("I")||rt==="P"?"P":rt.startsWith("O")||rt==="PO"?"O":rt;   /* v3.3.2: I = inhaled (WHO code), IV/IM = parenteral */
   abs.push({name:n,atc:o[`ab${i}_atc`]||fAtc(f,rt)||"",aware:normAware(o[`ab${i}_aware`])||fCls(f,rt)||"Not classified",route:rt,dose:parseFloat(o[`ab${i}_dose_mg`])||null,freq:parseFloat(o[`ab${i}_doses_per_day`])||null})}
  let on=YN(o.on_antimicrobial);if(!on)on=abs.length?"Y":"N";
  return{code:o.patient_code||"",ward:o.ward||"",wardCode:o.ward_code||"",wardType:(o.ward_type||"").toUpperCase(),age:o.age_years===""?null:parseFloat(o.age_years),
   sex:(o.sex||"").toUpperCase().slice(0,1),weight:o.weight_kg===""||o.weight_kg==null?null:parseFloat(o.weight_kg),adm:normDate(o.admission_date||""),on,
-  dx:(o.diagnosis||"").toUpperCase(),ind:(o.indication||"").toUpperCase(),reason:YN(o.reason_in_notes),guide:YN(o.guideline_compliant),culture:YN(o.culture_taken),
-  stop:YN(o.stop_review_date),tx:normTx(o.treatment_type),bio:normBio(o.biomarker),appr:normAppr(o.appropriateness),apprWhy:normWhy(o.appropriateness_reasons),surgery:YN(o.surgery_last_30d),line:YN(o.catheter_or_line),abs}}
+  dx:dxCode(o.diagnosis),ind:(o.indication||"").toUpperCase(),reason:YN(o.reason_in_notes),guide:YN(o.guideline_compliant),culture:YN(o.culture_taken),
+  stop:YN(o.stop_review_date),tx:normTx(o.treatment_type),bio:normBio(o.biomarker),appr:normAppr(o.appropriateness),apprWhy:normWhy(o.appropriateness_reasons||rcChecked(o,"appropriateness_reasons")),surgery:YN(o.surgery_last_30d),line:YN(o.catheter_or_line),abs}}
+/* v3.3.2: REDCap codes cannot hold "-", so SST_SSI is read as SST-SSI; a REDCap checkbox exports one column per choice (field___code = 1) */
+function dxCode(v){v=String(v||"").trim().toUpperCase();const h=v.replace(/_/g,"-");return!DX[v]&&DX[h]?h:v}
+function rcChecked(o,f){const p=f+"___";return Object.keys(o).filter(k=>k.startsWith(p)&&/^(1|checked|y|yes)$/i.test(String(o[k]).trim())).map(k=>k.slice(p.length)).join(";")}
 function normAware(v){v=String(v||"").trim().toLowerCase();if(!v)return"";if(v.startsWith("acc"))return"Access";if(v.startsWith("wat"))return"Watch";if(v.startsWith("res"))return"Reserve";return"Not classified"}
 function csvCell(v){v=v==null?"":String(v);return/[",\n;]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
-function surveyToCSV(s){const lines=[HEAD.join(",")];s.patients.forEach(p=>{const o={survey_id:s.id,survey_date:s.date,facility:s.facility,ward:p.ward,ward_code:p.wardCode,ward_type:p.wardType,
+function surveyToCSV(s){const H=headFor(s),lines=[H.join(",")];s.patients.forEach(p=>{const o={survey_id:s.id,survey_date:s.date,facility:s.facility,ward:p.ward,ward_code:p.wardCode,ward_type:p.wardType,
  patient_code:p.code,age_years:p.age??"",sex:p.sex,weight_kg:p.weight??"",admission_date:p.adm,on_antimicrobial:p.on,diagnosis:p.dx,indication:p.ind,reason_in_notes:p.reason,
  guideline_compliant:p.guide,culture_taken:p.culture,stop_review_date:p.stop,surgery_last_30d:p.surgery,catheter_or_line:p.line,treatment_type:p.tx||"",biomarker:p.bio||"",appropriateness:p.appr||"",appropriateness_reasons:p.apprWhy||""};
- p.abs.slice(0,4).forEach((a,i)=>{const j=i+1;Object.assign(o,{[`ab${j}_name`]:a.name,[`ab${j}_atc`]:a.atc,[`ab${j}_aware`]:a.aware,[`ab${j}_route`]:a.route,[`ab${j}_dose_mg`]:a.dose??"",[`ab${j}_doses_per_day`]:a.freq??""})});
- lines.push(HEAD.map(k=>csvCell(o[k])).join(","))});return lines.join("\r\n")}
+ p.abs.forEach((a,i)=>{const j=i+1;Object.assign(o,{[`ab${j}_name`]:a.name,[`ab${j}_atc`]:a.atc,[`ab${j}_aware`]:a.aware,[`ab${j}_route`]:a.route,[`ab${j}_dose_mg`]:a.dose??"",[`ab${j}_doses_per_day`]:a.freq??""})});
+ lines.push(H.map(k=>csvCell(o[k])).join(","))});return lines.join("\r\n")}
 
 /* ============ IndexedDB ============ */
 const IDB={db:null,
@@ -511,7 +518,7 @@ function lineChart(o){const W=o.w||560,H=o.h||230,m={l:46,r:18,t:18,b:o.legend?4
  if(o.target!=null){const yy=y(o.target);s+=`<line x1="${m.l}" x2="${W-m.r}" y1="${yy}" y2="${yy}" stroke="#b23b3b" stroke-dasharray="5 4" stroke-width="1.3"/><text x="${W-m.r}" y="${yy-5}" font-size="10.5" fill="#b23b3b" text-anchor="end">${esc(o.tlabel||"Target")}</text>`}
  o.series.forEach((se,si)=>{const c=se.color||PAL[si%PAL.length];const pts=se.values.map((v,i)=>v==null?null:[x(i),y(v)]);
   const d=pts.reduce((a,p,i)=>p?a+(a&&pts[i-1]?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1):a,"");
-  if(o.series.length===1&&o.area){const f=pts.filter(Boolean);s+=`<path d="M${f[0][0]} ${y(yMin)} L${f.map(p=>p.join(" ")).join(" L")} L${f.at(-1)[0]} ${y(yMin)}Z" fill="${c}" opacity=".08"/>`}
+  if(o.series.length===1&&o.area&&pts.some(Boolean)){const f=pts.filter(Boolean);   /* v3.3.2: skip the shaded area when the indicator has no data in any survey */s+=`<path d="M${f[0][0]} ${y(yMin)} L${f.map(p=>p.join(" ")).join(" L")} L${f.at(-1)[0]} ${y(yMin)}Z" fill="${c}" opacity=".08"/>`}
   s+=`<path d="${d}" fill="none" stroke="${c}" stroke-width="2.4" stroke-linejoin="round"/>`;
   pts.forEach((p,i)=>{if(!p)return;const v=se.values[i];const lab=o.pct?(v*100).toFixed(1)+"%":(+v).toFixed(o.dp??1);
    s+=`<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="#fff" stroke="${c}" stroke-width="2.2"><title>${esc(se.name||"")} ${esc(o.labels[i])}: ${lab}</title></circle>`;
@@ -686,7 +693,7 @@ function vEntry(){if(!DB.surveys.length)return`<div class="row section"><button 
  <label class="f">Catheter / line${yn("e_line",p?.line)}</label></div>
  <div class="row" style="margin-top:8px;flex-wrap:wrap;gap:4px 14px;font-size:13px"><span class="muted">If suboptimal or inadequate, why:</span>${Object.entries(APW).map(([k,l])=>`<label><input type="checkbox" class="e_why" value="${k}" ${String(p?.apprWhy||"").split(";").includes(k)?"checked":""}> ${l}</label>`).join("")}</div>
  <h3 style="margin-top:14px">Antimicrobials</h3>
- ${[0,1,2,3].map(i=>{const a=p?.abs[i]||{};return`<div class="abgrid"><label class="f">Antimicrobial ${i+1}<input id="a${i}_name" list="drugList" value="${esc(a.name||"")}" data-ab="${i}"></label>
+ ${[...Array(Math.max(4,p?.abs?.length||0)).keys()].map(i=>{const a=p?.abs[i]||{};return`<div class="abgrid"><label class="f">Antimicrobial ${i+1}<input id="a${i}_name" list="drugList" value="${esc(a.name||"")}" data-ab="${i}"></label>
   <label class="f">Route<select id="a${i}_route">${opt([["",""],["P","Parenteral"],["O","Oral"],["R","Rectal"],["I","Inhaled"]],a.route)}</select></label>
   <label class="f">Dose (mg)<input id="a${i}_dose" type="number" value="${esc(a.dose??"")}"></label><label class="f">Doses/day<input id="a${i}_freq" type="number" value="${esc(a.freq??"")}"></label>
   <div class="f" id="a${i}_info" style="grid-column:span 2;align-self:end;font-size:12.5px;line-height:1.5;padding-bottom:4px"></div></div>`}).join("")}
@@ -732,7 +739,8 @@ function narrative(){const S=sorted();if(S.length<2)return[];const C=S.map(calc)
  const say=k=>{const m=IND[k],a=C[0][k].v,b=C.at(-1)[k].v,t=trendTest(k);if(a==null||b==null)return;const ch=b>a?"rose":"fell";
   out.push(`<b>${m.label}</b> ${Math.abs(b-a)<.0005?"was unchanged":ch} from ${pct(a)} (${monYr(f.date)}) to ${pct(b)} (${monYr(l.date)})${t?`; trend ${t.p<.05?"statistically significant":"not statistically significant"} (p ${t.p<.001?"< 0.001":"= "+t.p.toFixed(3)})`:""}.`)};
  ["prev","access","spLong","cult","guide","stop"].forEach(say);
- const L=C.at(-1);out.push(L.access.v>=.6?`The latest Access share (${pct(L.access.v)}) meets the UN 2030 target of at least 70% of antibiotic use from the Access group.`:`The latest Access share (${pct(L.access.v)}) is below the UN 2030 target of 70% (the earlier WHO target was 60%).`);
+ const L=C.at(-1);const accR=L.access.v==null?null:+(L.access.v*100).toFixed(1); /* v3.3.1: judged on the share as printed, against 70% */
+ if(accR!=null)out.push(accR>=70?`The latest Access share (${pct(L.access.v)}) meets the UN 2030 target of at least 70% of antibiotic use from the Access group.`:accR>=60?`The latest Access share (${pct(L.access.v)}) meets the earlier WHO target of 60% but is still below the UN 2030 target of 70%.`:`The latest Access share (${pct(L.access.v)}) is below the UN 2030 target of 70% (the earlier WHO target was 60%).`);
  const top=Object.entries(L.drugs).sort((a,b)=>b[1]-a[1])[0];if(top)out.push(`The most prescribed agent in the latest survey was <b>${esc(top[0])}</b> (${pct(top[1]/L.rx)} of prescriptions).`);
  const hw=Object.entries(L.wards).filter(([,w])=>w.N>=5).sort((a,b)=>b[1].t/b[1].N-a[1].t/a[1].N)[0];if(hw)out.push(`Highest ward prevalence in the latest survey: ${esc(hw[0])} (${pct(hw[1].t/hw[1].N)}).`);
  return out}
@@ -771,7 +779,8 @@ function vSettings(){return`<div class="grid g2"><div class="card"><h3>Settings<
  <div class="row" style="margin-top:10px"><button class="btn" data-act="savesettings">Save settings</button></div></div>
  <div class="card"><h3>CSV format</h3><p>One file per survey, one row per inpatient. Required: <span class="mono">ward</span>, and either <span class="mono">on_antimicrobial</span> or antimicrobial names. Recommended columns:</p>
  <p class="mono" style="font-size:11.5px;word-break:break-all">${HEAD.join(", ")}</p>
- <p>Codes – <b>indication</b>: ${Object.keys(INDN).join(", ")} · <b>diagnosis</b>: ${Object.keys(DX).join(", ")} · <b>route</b>: P (parenteral) or O (oral) · Yes/No fields: Y, N (NA allowed for guideline).</p>
+ <p>Codes – <b>indication</b>: ${Object.keys(INDN).join(", ")} · <b>diagnosis</b>: ${Object.keys(DX).join(", ")} · <b>route</b>: P (parenteral), O (oral), R (rectal), I (inhaled) · Yes/No fields: Y, N (NA allowed for guideline).</p>
+ <p>More than 4 antimicrobials for a patient: add <span class="mono">ab5_…</span>, <span class="mono">ab6_…</span> columns in the same pattern. A <b>REDCap</b> project built from the PPS Pro data dictionary can be exported as <i>CSV (raw data)</i> and imported here as it is.</p>
  <p>ATC code and AWaRe group are filled in automatically from the reference list in use (see <b>Reference lists</b> below) when left blank. Common brand names (Augmentin, Septrin, Flagyl, X-pen…) are recognised.</p>
  <button class="btn ghost" data-act="template">Download blank template</button></div>
  ${learnedCard()}
@@ -787,6 +796,11 @@ function vGuide(){
  <div id="gd">
  <div class="card section"><h3>Odieman PPS Pro — User Guide</h3><p>PPS Pro records and analyses WHO point prevalence surveys (PPS) of antimicrobial use: on one day, every inpatient on a ward is checked for antimicrobials, and the results are compared ward by ward and survey by survey. Repeating the survey every 6–12 months shows whether stewardship is working. Everything runs offline on this computer.</p>
  <div class="row">${toc.map(([id,t])=>`<button class="btn small ghost" data-scroll="${id}">${t}</button>`).join("")}</div></div>
+ <div class="card section"><h3>What's new in v3.3.2 (November 2026)</h3><ul>
+  <li><b>Reads REDCap exports:</b> a project built from the PPS Pro data dictionary exports as CSV (raw data) with PPS Pro column names, and imports here directly — including the four diagnosis codes REDCap writes with “_” (SST_SSI, SST_O, BJ_SSI, BJ_O) and the appropriateness reasons, which REDCap writes one column per reason.</li>
+  <li><b>No antimicrobial is dropped:</b> a patient with more than four keeps them all. The CSV export and the survey files in the data folder add ab5_, ab6_… columns only when needed, and Data entry shows the extra rows for that patient.</li>
+  <li><b>Inhaled route kept:</b> route I in an imported file is read as inhaled (it was read as parenteral). IV and IM are still read as parenteral.</li>
+  <li><b>Charts fixed:</b> Overview, Trends and the Trend report no longer stop with an error when an indicator (for example surgical prophylaxis at a facility without surgery) has no data in any survey.</li></ul></div>
  <div class="card section"><h3>What's new in v3.3 (October 2026)</h3><ul>
   <li><b>Reads real hospital files:</b> Excel (.xlsx, .xls) as well as CSV; WHO PPS data-entry tables (Patient, Indication, Antibiotic — separate files or one workbook, several surveys split automatically); Afya eHMS pharmacy and admission reports, even with unlabeled columns. Every correction made while reading is listed on Data quality.</li>
   <li><b>Optional pre-fill</b> on Data entry: from the pharmacy and/or admissions export, the inpatients present on survey day are added with their antimicrobials; a readiness check says what the files can and cannot give; patients not on antimicrobials are kept only as a count; a bedside worklist is printed for what only the chart shows. Entering patients by hand works as before.</li>
@@ -884,7 +898,7 @@ function vGuide(){
    Hospitals (WHO/EMP/IAU/2018.01): Hospital, Ward, Patient, Indication and Antibiotic levels with WHO variable
    names and codes. Values PPS Pro does not collect are left blank; every value that had to be converted or
    guessed is listed on the Check sheet. Written here, offline, as an Excel workbook or as one CSV per level. */
-const PPS_VER="3.2";
+const PPS_VER="3.3.2";
 const WHO_WT=[["AMW","Adult medical ward"],["ASW","Adult surgical ward"],["AHRW","Adult high-risk ward"],["AICU","Adult intensive care unit"],
  ["PMW","Paediatric medical ward"],["PSW","Paediatric surgical ward"],["PHRW","Paediatric high-risk ward"],["PICU","Paediatric intensive care unit"],
  ["NMW","Neonatal medical ward"],["NICU","Neonatal intensive care unit"],["MXW","Mixed ward"]];
@@ -1061,7 +1075,7 @@ function newSurvey(){const d=prompt("Survey date (YYYY-MM-DD)",today());if(!d)re
  if(getS(id))return toast("A survey with that ID already exists");DB.surveys.push({id,date:nd,facility:DB.meta.facility||sorted().at(-1)?.facility||"",source:"",imported:new Date().toISOString(),updated:Date.now(),patients:[]});
  UI.sid=id;UI.page="entry";touch(id);render()}
 function readPatient(){const g=id=>document.getElementById(id).value.trim();const s=getS(UI.sid);
- const abs=[0,1,2,3].map(i=>{const n=drugName(g(`a${i}_name`));if(!n)return null;const f=FORMULARY[n]||{};const rt=g(`a${i}_route`)||f.route||"";return{name:n,atc:fAtc(f,rt),aware:fCls(f,rt)||"Not classified",route:rt,dose:parseFloat(g(`a${i}_dose`))||null,freq:parseFloat(g(`a${i}_freq`))||null}}).filter(Boolean);
+ const abs=[...Array(document.querySelectorAll("input[data-ab]").length).keys()].map(i=>{const n=drugName(g(`a${i}_name`));if(!n)return null;const f=FORMULARY[n]||{};const rt=g(`a${i}_route`)||f.route||"";return{name:n,atc:fAtc(f,rt),aware:fCls(f,rt)||"Not classified",route:rt,dose:parseFloat(g(`a${i}_dose`))||null,freq:parseFloat(g(`a${i}_freq`))||null}}).filter(Boolean);
  let on=g("e_on")||"N";if(abs.length)on="Y";
  const ward=g("e_ward");if(!ward){toast("Ward is required");return null}
  const code=g("e_code")||`${s.id.replace(/\D/g,"")}-${(ward.match(/\b\w/g)||[]).join("").toUpperCase().slice(0,3)}-${String(s.patients.length+1).padStart(3,"0")}`;
@@ -1495,7 +1509,7 @@ function stgBoxHTML(c){if(!c)return"";const col={yes:"#2e7d4f",no:"#b23b3b",none
  <b>Guideline check — ${c.org==="WHO"?`WHO (the Tanzania STG has no regimen for this)`:esc(stgActive().edition)}</b> · suggestion only, you decide.<br>${c.msg}${c.lines&&c.lines.length?`<div class="muted" style="margin-top:4px">${c.lines.join("<br>")}</div>`:""}${c.note?`<div style="margin-top:4px">${esc(c.note)}</div>`:""}
  ${c.sug?`<div style="margin-top:6px"><button type="button" class="btn small ghost" data-stguse="${c.sug}">Set “Guideline compliant” to ${c.sug==="Y"?"Yes":c.sug==="N"?"No":"Not assessable"}</button></div>`:""}</div>`}
 function stgFromForm(){const g=id=>(document.getElementById(id)||{}).value||"";
- const abs=[0,1,2,3].map(i=>drugName(g(`a${i}_name`))).filter(Boolean).map(n=>({name:n}));
+ const abs=[...Array(document.querySelectorAll("input[data-ab]").length).keys()].map(i=>drugName(g(`a${i}_name`))).filter(Boolean).map(n=>({name:n}));
  const age=g("e_age");return{on:abs.length?"Y":g("e_on"),dx:g("e_dx"),ind:g("e_ind"),age:age===""?null:+age,wardType:g("e_wardType"),abs}}
 function stgRefresh(){const b=document.getElementById("stgBox");if(!b)return;const html=stgBoxHTML(stgCheck(stgFromForm()));
  if(b.dataset.h!==html){b.innerHTML=html;b.dataset.h=html}   /* redraw only when the result changes, so a click is never lost */
