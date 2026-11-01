@@ -344,6 +344,14 @@
     </div>
   </div>
 
+  <div class="card" id="vw-all-card" style="border:1.5px solid var(--accent,#1f6feb)">
+    <h2>Drop all your files at once</h2>
+    <div class="sub">Pharmacy dispensing, lab results, the deaths register and NCD readings (blood pressure, HbA1c): VigiWard reads the columns of each file, puts it in the right place and runs detection once. Several pharmacy files (for example one per year) are joined into one.</div>
+    <div class="drop" id="drop-all" onclick="document.getElementById('file-all').click()"><strong>Drop every file here, or click to choose them all</strong><br><span style="font-size:12.5px">.xlsx · .xls · .csv · any order</span></div>
+    <input type="file" id="file-all" accept=".xlsx,.xls,.csv" multiple style="display:none" onchange="vwHubAll(this.files);this.value=''">
+    <div id="vw-all-status"></div>
+  </div>
+
   <div class="grid g2">
     <div>
       <div class="card">
@@ -582,7 +590,7 @@
     <div class="card">
       <h2>Guideline advisory</h2>
       <div class="sub">A formatted advisory summarising conditions, concordance findings, control/risk and renal exposure, with cited recommendations and a prioritised action list — opens in Word.</div>
-      <label class="fld" style="margin-top:10px"><span>Facility / unit</span><input id="adv-facility" value="Demo Regional Referral Hospital (simulated)"></label>
+      <label class="fld" style="margin-top:10px"><span>Facility / unit</span><input id="adv-facility" value="" placeholder="Your facility name" onchange="vwFacilitySet(this.value)"></label>
       <label class="fld"><span>Prepared by (optional)</span><input id="adv-author" placeholder="Your name & role"></label>
       <div class="row"><button class="btn primary" onclick="CARDIO.generateAdvisory()">Generate advisory (.rtf)</button>
         <button class="btn" onclick="CARDIO.exportAuditCSV()">Export flagged patients (.csv)</button></div>
@@ -664,7 +672,7 @@
     <div class="ref" id="pub-hint"></div>
     <label class="fld" style="margin-top:14px"><span>Working title</span><input id="pub-title" placeholder="(leave blank to have one suggested)"></label>
     <label class="fld"><span>Authors</span><input id="pub-authors" value="Odindo, E. T."></label>
-    <label class="fld"><span>Setting</span><input id="pub-setting" value="Demo Regional Referral Hospital (simulated), Tanzania"></label>
+    <label class="fld"><span>Setting</span><input id="pub-setting" value="" placeholder="Facility, country"></label>
     <button class="btn primary" onclick="genManuscript()">Generate draft</button>
     <button class="btn" onclick="copyPub()">Copy</button><button class="btn" onclick="downloadPub()">Download</button>
   </div>
@@ -692,7 +700,7 @@
     <p>A denominator-aware safety bulletin built from this facility’s own data — signal rates per 1,000 patients (with 95% intervals), monitoring gaps, concordance, the aDSM cohort, and a prioritised action list. It closes the loop the national systems leave open: putting the facility’s own safety picture back in front of its own prescribers. Opens in Word.</p>
   </div>
   <div class="card">
-    <label class="fld"><span>Facility / unit</span><input id="rep-facility" value="Demo Regional Referral Hospital (simulated)"></label>
+    <label class="fld"><span>Facility / unit</span><input id="rep-facility" value="" placeholder="Your facility name" onchange="vwFacilitySet(this.value)"></label>
     <label class="fld"><span>Prepared by (optional)</span><input id="rep-author" placeholder="Your name & role"></label>
     <div class="row" style="gap:8px;flex-wrap:wrap;margin-top:6px">
       <button class="btn primary" onclick="generateReport()">Generate report</button>
@@ -877,7 +885,7 @@
       <li><b>Known biases.</b> Dispensing is not administration; outpatients may not take or may buy medicines elsewhere; rescue drugs have other indications; incomplete exports (departments missing in some months) distort rates; "first dose" means first in the data, not first ever.</li>
     </ul>
     <p style="font-size:12.5px;color:var(--ink-faint)"><strong>© 2024–2026 Odindo Emmanuel Thomas. All rights reserved.</strong> “VigiWard” is an unregistered trademark (™) of the author.</p>
-    <div class="ref">Cite as: Odindo, E. T. (2026). VigiWard: Hospital Pharmacovigilance (Version 3.9) [Computer software]. Tanga, Tanzania.</div>
+    <div class="ref">Cite as: Odindo, E. T. (2026). VigiWard: Hospital Pharmacovigilance (Version 3.9.1) [Computer software]. Tanga, Tanzania.</div>
   </div>
 </section>
 
@@ -1159,7 +1167,7 @@ function esc(s){return (s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;'
 function idTag(pid){const m=DB._idmap&&DB._idmap[pid];if(!m||(!m.id&&!m.initials))return esc(pid);return [m.id?'ID '+esc(m.id):'',m.initials?esc(m.initials):''].filter(Boolean).join(' · ')}
 function navToggle(b){const g=b.parentNode,o=g.classList.contains('open');document.querySelectorAll('.navgrp.open').forEach(x=>x.classList.remove('open'));if(!o)g.classList.add('open');}
 document.addEventListener('click',e=>{if(!e.target.closest('.navgrp'))document.querySelectorAll('.navgrp.open').forEach(x=>x.classList.remove('open'));});
-function go(arm){document.querySelectorAll('.arm').forEach(a=>a.classList.remove('active'));document.getElementById('arm-'+arm).classList.add('active');document.querySelectorAll('.arm-btn').forEach(b=>b.classList.toggle('active',b.dataset.arm===arm));window.scrollTo(0,0);if(arm==='pv')renderPV();if(arm==='watch')renderWatch();if(arm==='huddle')renderHuddle();if(arm==='spike')renderSpikes();if(arm==='indic')renderIndicators();document.querySelectorAll('.navgrp').forEach(g=>{g.classList.remove('open');g.classList.toggle('has-active',!!g.querySelector('.arm-btn.active'))});if(arm==='overview')renderOverview();if(arm==='hub')renderSettings();if(arm==='findings')renderFindings();if(arm==='rxint')renderInteractions();if(arm==='auth')renderAuthSelection();if(arm==='cardio'&&window.CARDIO)CARDIO.render();if(arm==='rxint'&&typeof renderMonitoring==='function')renderMonitoring();if(arm==='adsm'&&typeof renderADSM==='function')renderADSM();if(arm==='report'&&typeof renderReport==='function')renderReport()}
+function go(arm){vwFacilityFill();document.querySelectorAll('.arm').forEach(a=>a.classList.remove('active'));document.getElementById('arm-'+arm).classList.add('active');document.querySelectorAll('.arm-btn').forEach(b=>b.classList.toggle('active',b.dataset.arm===arm));window.scrollTo(0,0);if(arm==='pv')renderPV();if(arm==='watch')renderWatch();if(arm==='huddle')renderHuddle();if(arm==='spike')renderSpikes();if(arm==='indic')renderIndicators();document.querySelectorAll('.navgrp').forEach(g=>{g.classList.remove('open');g.classList.toggle('has-active',!!g.querySelector('.arm-btn.active'))});if(arm==='overview')renderOverview();if(arm==='hub')renderSettings();if(arm==='findings')renderFindings();if(arm==='rxint')renderInteractions();if(arm==='auth')renderAuthSelection();if(arm==='cardio'&&window.CARDIO)CARDIO.render();if(arm==='rxint'&&typeof renderMonitoring==='function')renderMonitoring();if(arm==='adsm'&&typeof renderADSM==='function')renderADSM();if(arm==='report'&&typeof renderReport==='function')renderReport()}
 function hubLog(m){const l=document.getElementById('hub-log');l.insertAdjacentHTML('afterbegin',`<div><span class="t">${new Date().toLocaleTimeString()}</span>${esc(m)}</div>`)}
 
 /* ---- deterministic anonymisation ---- */
@@ -3115,7 +3123,7 @@ function genManuscript(){
     else if(type==='squire')title='Reducing under-reported adverse drug reactions through routine signal detection at '+setting;
     else title='Active detection of adverse drug reactions from routine dispensing data at '+setting+': a cross-sectional study';
   }
-  const head=title+'\n'+authors+'\n'+setting+'\nDraft generated '+date+' · VigiWard v3.9 · '+items.length+' finding(s) · format: '+cls.label+'\n'+'='.repeat(70)+'\n\nNOTE: square-bracketed text marks what you must add or verify (consent,\nclinical outcome, mechanism, literature). Nothing here is fabricated;\nfigures are drawn from your detected, criterion-qualified findings.\n\n';
+  const head=title+'\n'+authors+'\n'+setting+'\nDraft generated '+date+' · VigiWard v3.9.1 · '+items.length+' finding(s) · format: '+cls.label+'\n'+'='.repeat(70)+'\n\nNOTE: square-bracketed text marks what you must add or verify (consent,\nclinical outcome, mechanism, literature). Nothing here is fabricated;\nfigures are drawn from your detected, criterion-qualified findings.\n\n';
   let t;
   if(type==='care'){const x=top;
     t=head+'ABSTRACT\nBackground: [one line on '+x.drug+' and '+(x.pt||x.inferred)+'.] We report a case detected by active surveillance of routine dispensing data.\nCase summary: A de-identified patient ('+x.pid+') with a temporal drug–reaction pattern consistent with '+(x.pt||x.inferred)+'. Causality: '+causal(x)+'.\nConclusion: [lesson for prescribing/monitoring.]\nKeywords: pharmacovigilance; adverse drug reaction; '+x.drug+'; '+(x.pt||x.inferred)+'; routine data.\n\n1. INTRODUCTION\n[Background on '+x.drug+'; known association with '+(x.pt||x.inferred)+'; the under-reporting problem this detection method addresses.]\n\n2. PATIENT INFORMATION & TIMELINE (de-identified — '+x.pid+')\nDetection method: '+x.type+'. Suspected culprit: '+x.drug+'. Reaction: '+(x.pt||x.inferred)+' ('+x.soc+').\nChronology / evidence: '+x.ev+'.\nVerifiable basis: '+(x.verify||x.why)+'\n[Add demographics in ranges only, relevant history, and the de-identified timeline.]\n\n3. DIAGNOSTIC & CAUSALITY ASSESSMENT\nMechanistic class (Rawlins–Thompson): '+x.rawlins+'. Seriousness: '+(x.serious?'serious':'non-serious')+'.\nCausality: '+causal(x)+' (add WHO-UMC category). Verification basis: '+(x.type==='Lab-supported'?'objective laboratory confirmation':'temporal/clinical pattern — '+labNote)+'.\n[Add differential diagnoses and how alternative causes were excluded.]\n\n4. THERAPEUTIC INTERVENTION & OUTCOME\n[Dispensing data may not show outcome — state what is known: dechallenge/rechallenge if visible'+(x.rescue?', rescue medication ('+x.rescue+')':'')+'; otherwise mark as not ascertainable.]\n\n5. DISCUSSION\nStrengths: the case was surfaced from routine data that spontaneous reporting had missed. [Compare to literature.]\nLimitations: dispensing data cannot confirm administration, indication, or outcome; single case.\n[Mechanism and clinical implication.]\n\n6. PATIENT PERSPECTIVE & CONSENT\n[Confirm informed consent for publication, or institutional waiver for de-identified data.]\n\n7. CONCLUSION\n[Prescribing/monitoring lesson.]\n\nReporting guideline: CARE (Gagnier et al., 2013).';
@@ -3264,6 +3272,11 @@ function sqrtCase(s,reveal){
     umcBasis:tr.whoUmc?'reviewer (WHO-UMC)':(tr.naranjo?`derived from Naranjo ${tr.naranjo.cat} (score ${tr.naranjo.score})`:'')
   };
 }
+/* Facility name: the demo names the simulated hospital; a full copy remembers the holder's own
+   facility (the same name as the TMDA reporter details), so no facility is ever filled in by default. */
+function vwFacilityName(){return DEMO?'Demo Regional Referral Hospital (simulated)':(sqrtReporter().facility||'');}
+function vwFacilityFill(){const n=vwFacilityName();if(!n)return;[['adv-facility',n],['rep-facility',n],['pub-setting',DEMO?n+', Tanzania':n]].forEach(([id,v])=>{const el=document.getElementById(id);if(el&&!el.value.trim())el.value=v;});}
+function vwFacilitySet(v){v=(v||'').trim();if(DEMO||!v)return;DB.settings=DB.settings||{...DEFAULTS};DB.settings.reporter=Object.assign(sqrtReporter(),{facility:v});save();}
 function sqrtReporter(){return Object.assign({salutation:'',name:'',email:'',phone:'',facility:'',address:'',level:'',profession:'',region:'',street:''},(DB.settings&&DB.settings.reporter)||{});}
 function buildTmdaText(reveal){
   const c=sqrtCase(TMDA_SIG,reveal), s=c.s, R=sqrtReporter();
@@ -3730,7 +3743,7 @@ window.ODMREF=(function(){
   ODMREF.paint();
 })();
 
-if(!DEMO)load();else DB.settings={...DEFAULTS};renderQA();renderAuthSelection();renderPV();renderSettings();
+if(!DEMO)load();else DB.settings={...DEFAULTS};vwFacilityFill();renderQA();renderAuthSelection();renderPV();renderSettings();
 /* first time on this computer: open the built-in guide */
 if(!DEMO&&!VWF.hadBrowserData)go('guide');
 /* drag & drop */
@@ -4918,7 +4931,7 @@ function linesToHTMLw(L){
 }
 function generateReport(){
   if(!DB.pharmacy||!DB.pharmacy.length){toast('Import data first');return;}
-  const facility=(document.getElementById('rep-facility')||{}).value||'Demo Regional Referral Hospital (simulated)';
+  const facility=(document.getElementById('rep-facility')||{}).value||vwFacilityName()||'Facility';
   const author=(document.getElementById('rep-author')||{}).value||'';
   const m=reportModel();const L=reportLines(m,facility,author);
   const prev=document.getElementById('rep-preview'); if(prev){prev.classList.remove('empty');prev.innerHTML=linesToHTMLw(L);}
@@ -5068,6 +5081,53 @@ function setFindTab(name,btn){
       const inp=document.getElementById('file-rd');const dt=new DataTransfer();dt.items.add(f);inp.files=dt.files;inp.dispatchEvent(new Event('change'));});
   }
 })();
+
+/* ============================================================
+   v3.9.1: one drop for every file. Each file is read once and recognised by its columns
+   (readings, deaths, lab, pharmacy; the file name only when the columns say nothing);
+   detection runs once after pharmacy, lab and deaths, as the sample loader does.
+   ============================================================ */
+function vwKind(rows,name){
+  const top=rows.slice(0,6).map(r=>(r||[]).map(c=>String(c==null?'':c).trim().toLowerCase()));
+  const has=re=>top.some(r=>r.some(c=>re.test(c)));
+  if(has(/^(systolic|diastolic|sbp|dbp|hba1c|fbs|fasting (blood )?(sugar|glucose))/)) return ['readings','blood pressure / glucose columns'];
+  if(has(/date of death|cause of death|^death date$|^dod$/)) return ['deaths','date of death column'];
+  if(has(/^(test|test name|investigation|lab test)$/)&&has(/^(result|value|results)$/)) return ['lab','test and result columns'];
+  for(const r of rows.slice(0,5)) if(headerMap(r)) return ['pharmacy','patient, item and date columns'];
+  try{ if(odieVWLayout(rows)) return ['pharmacy','item, date and dosage found by content']; }catch(e){}
+  const n=name.toLowerCase();
+  if(/death|mortal/.test(n)) return ['deaths','file name'];
+  if(/reading|bp|glucose|ncd/.test(n)) return ['readings','file name'];
+  if(/\blab|result/.test(n)) return ['lab','file name'];
+  if(/pharm|dispens|consum/.test(n)) return ['pharmacy','file name'];
+  return [null,'columns not recognised'];
+}
+const VW_KIND_LABEL={pharmacy:'Pharmacy dispensing',lab:'Lab results',deaths:'Deaths register',readings:'NCD readings (Cardiometabolic)'};
+async function vwHubAll(fileList){
+  const files=[...(fileList||[])]; if(!files.length) return; const st=document.getElementById('vw-all-status');
+  const say=h=>{ if(st) st.innerHTML=h; };
+  say('<div class="sub" style="margin-top:10px">Reading '+files.length+' file(s)…</div>'); await new Promise(r=>setTimeout(r,30));
+  const got={pharmacy:[],lab:[],deaths:[],readings:[]}, list=[];
+  for(const f of files){ let rows=null;
+    try{ const buf=await f.arrayBuffer(); rowsFromFile(buf,f.name,r=>{rows=r;}); }catch(e){ list.push([f.name,null,'could not be read: '+e.message]); continue; }
+    const [k,why]=vwKind(rows||[],f.name); list.push([f.name,k,why]); if(k) got[k].push({f,rows}); }
+  let ph=null; if(got.pharmacy.length){ ph=got.pharmacy[0].rows.slice();
+    for(const x of got.pharmacy.slice(1)){ let at=-1; for(let i=0;i<Math.min(5,x.rows.length);i++){ if(headerMap(x.rows[i])){at=i;break;} } ph=ph.concat(x.rows.slice(at+1)); } }
+  hubLog('Drop-all: '+list.filter(x=>x[1]).length+' of '+files.length+' file(s) recognised.');
+  const realAnalyse=analyse; analyse=function(){};
+  try{ if(ph) processPharmacy(ph); if(got.lab.length) processLab([].concat(...got.lab.map(x=>x.rows))); if(got.deaths.length) processDeaths([].concat(...got.deaths.map(x=>x.rows))); }
+  finally{ analyse=realAnalyse; }
+  if(ph||got.lab.length||got.deaths.length) analyse();
+  if(got.readings.length&&window.CARDIO) CARDIO.ingestReadings({target:{files:[got.readings[0].f],value:''}});
+  const rowsHtml=list.map(([n,k,why])=>'<tr><td>'+esc(n)+'</td><td>'+(k?'<b>'+VW_KIND_LABEL[k]+'</b>':'<span style="color:#b42318">not recognised</span>')+'</td><td>'+esc(why)+(k?'':' (use the matching box below)')+'</td></tr>').join('');
+  const table='<table style="margin-top:10px;width:100%"><tr><th style="text-align:left">File</th><th style="text-align:left">Went to</th><th style="text-align:left">Why</th></tr>'+rowsHtml+'</table>';
+  say('<div class="sub" style="margin-top:10px">Detecting suspected reactions…</div>'+table);
+  const t0=Date.now(); while(ph&&!DB.signals.length&&Date.now()-t0<90000) await new Promise(r=>setTimeout(r,300));
+  say('<div style="margin-top:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap"><b>'+list.filter(x=>x[1]).length+' of '+files.length+' file(s) recognised.</b>'+(DB.signals.length?' '+DB.signals.filter(x=>x.type!=='Premedication').length.toLocaleString()+' suspected reactions found'+(DB.signals.some(x=>x.type==='Premedication')?' (and '+DB.signals.filter(x=>x.type==='Premedication').length.toLocaleString()+' premedication patterns, which are not reactions).':'.'):'')+' <button class="btn sm" onclick="go(\'overview\')">Open the Overview →</button></div>'+table);
+}
+(function(){ const d=document.getElementById('drop-all'); if(!d) return;
+  d.addEventListener('dragover',e=>{e.preventDefault();d.classList.add('over')}); d.addEventListener('dragleave',()=>d.classList.remove('over'));
+  d.addEventListener('drop',e=>{e.preventDefault();d.classList.remove('over'); if(e.dataTransfer.files.length) vwHubAll(e.dataTransfer.files);}); })();
 /* data folder: reconnect / reload once every module above is ready */
 /* Demo samples: fetch the gzip copy (about 12x smaller) and unpack it in the browser; plain CSV if that is not possible. */
 async function demoFetch(u){
