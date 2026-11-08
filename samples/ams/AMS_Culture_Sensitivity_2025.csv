@@ -2,14 +2,24 @@ Patient ID,Sample date,Specimen,Organism,Ampicillin,Amoxicillin + Clavulanic Aci
 302913,2025-01-04,Pus swab,Staphylococcus aureus,,,S,S,,S,S,,,,S,S,S,S,I
 303142,2025-01-04,Urine,Escherichia coli,R,S,,S,R,S,S,S,S,S,R,,,,S
 303146,2025-01-06,Pus swab,Acinetobacter baumannii,,,,,S,R,R,R,S,,,,,,
+303104,2025-01-06,Pus swab,Staphylococcus aureus,,,S,S,,S,S,,,,S,S,S,S,I
+303108,2025-01-08,Pus swab,Acinetobacter baumannii,,,,,S,R,R,R,S,,,,,,
+303168,2025-01-09,Blood,Staphylococcus aureus,,,S,S,,R,S,,,,R,S,S,S,S
+303090,2025-01-10,Sputum,Streptococcus pneumoniae,S,,,S,,,,,,,R,S,,S,S
 303017,2025-01-11,Sputum,Acinetobacter baumannii,,,,,S,R,R,R,R,,,,,,
+303203,2025-01-13,CSF,Streptococcus pneumoniae,S,,,S,,,,,,,S,S,,R,S
+302997,2025-01-16,Sputum,Staphylococcus aureus,,,S,R,,S,S,,,,S,S,S,R,S
 303057,2025-01-22,Sputum,Streptococcus pneumoniae,S,,,S,,,,,,,S,S,,S,S
 303040,2025-01-24,Sputum,Haemophilus influenzae,S,,,S,,,,,,,S,S,,R,R
 303117,2025-01-27,Blood,Klebsiella pneumoniae,R,S,,S,S,R,R,S,I,,R,,,,S
+303055,2025-01-30,Pus swab,Escherichia coli,R,R,,R,R,R,S,S,S,,R,,,,S
+303189,2025-01-30,Pus swab,Klebsiella pneumoniae,R,S,,R,S,S,R,S,S,,R,,,,S
 303071,2025-02-01,Pus swab,Staphylococcus aureus,,,S,S,,S,R,,,,S,S,S,R,S
 303014,2025-02-02,Pus swab,Klebsiella pneumoniae,R,R,,R,S,R,S,S,S,,R,,,,S
 303145,2025-02-02,Stool,Salmonella spp,R,R,,S,S,R,S,S,S,,R,,,,S
+303466,2025-02-03,Urine,Escherichia coli,R,S,,R,S,R,S,S,S,S,R,,,,S
 303417,2025-02-04,Blood,Klebsiella pneumoniae,R,R,,S,I,R,R,S,R,,R,,,,I
+303268,2025-02-04,Sputum,Klebsiella pneumoniae,R,S,,R,R,R,S,S,S,,R,,,,S
 303277,2025-02-07,Sputum,Acinetobacter baumannii,,,,,S,R,R,R,S,,,,,,
 303391,2025-02-07,Pus swab,Escherichia coli,R,R,,R,S,R,S,S,S,,R,,,,S
 303436,2025-02-07,Pus swab,Staphylococcus aureus,,,S,S,,S,S,,,,S,S,S,I,I
@@ -18,14 +28,18 @@ Patient ID,Sample date,Specimen,Organism,Ampicillin,Amoxicillin + Clavulanic Aci
 303342,2025-02-10,Pus swab,Proteus mirabilis,R,S,,S,R,R,R,S,S,,R,,,,R
 303345,2025-02-10,Urine,Escherichia coli,R,R,,R,R,S,R,S,S,S,S,,,,I
 303397,2025-02-16,Pus swab,Pseudomonas aeruginosa,,,,,S,R,S,S,R,,,,,,
+303300,2025-02-16,Pus swab,Acinetobacter baumannii,,,,,R,S,S,S,S,,,,,,
 303297,2025-02-17,Pus swab,Pseudomonas aeruginosa,,,,,R,S,S,S,S,,,,,,
 303234,2025-02-18,Pus swab,Staphylococcus aureus,,,R,S,,S,I,,,,S,S,S,S,I
 303419,2025-02-19,Pus swab,Klebsiella pneumoniae,R,R,,S,R,S,S,S,S,,R,,,,S
 303426,2025-02-21,Pus swab,Pseudomonas aeruginosa,,,,,R,R,R,I,S,,,,,,
 303400,2025-02-22,Blood,Staphylococcus aureus,,,S,I,,S,S,,,,S,S,S,S,R
 303334,2025-02-26,Pus swab,Staphylococcus aureus,,,I,R,,S,I,,,,R,S,S,R,S
+303382,2025-02-26,Pus swab,Klebsiella pneumoniae,R,R,,S,R,S,S,S,S,,R,,,,S
+303460,2025-02-26,Sputum,Acinetobacter baumannii,,,,,S,R,R,S,R,,,,,,
 303376,2025-02-28,Pus swab,Klebsiella pneumoniae,R,R,,R,S,S,S,S,S,,R,,,,S
 303715,2025-03-05,Urine,Escherichia coli,R,S,,S,R,R,S,S,S,S,R,,,,I
+303502,2025-03-08,Blood,Escherichia coli,R,S,,R,S,R,R,S,S,,R,,,,S
 303499,2025-03-10,Blood,Klebsiella pneumoniae,R,R,,S,S,R,S,S,S,,R,,,,S
 303518,2025-03-12,Pus swab,Staphylococcus aureus,,,S,R,,S,S,,,,R,S,I,S,R
 303515,2025-03-13,Urine,Escherichia coli,R,S,,S,S,S,R,S,S,R,R,,,,R
@@ -38,13 +52,20 @@ Patient ID,Sample date,Specimen,Organism,Ampicillin,Amoxicillin + Clavulanic Aci
 303530,2025-03-23,Blood,Pseudomonas aeruginosa,,,,,S,I,R,S,S,,,,,,
 303561,2025-03-27,Urine,Klebsiella pneumoniae,R,R,,R,R,R,S,S,S,R,R,,,,R
 303657,2025-03-27,Blood,Enterococcus faecalis,S,,,,,,R,,,,,S,,,
+303726,2025-03-31,Sputum,Klebsiella pneumoniae,R,R,,R,S,R,R,S,S,,S,,,,S
 303650,2025-04-01,Blood,Staphylococcus aureus,,,S,S,,S,R,,,,R,S,S,R,S
 303524,2025-04-03,Urine,Escherichia coli,S,S,,R,S,S,S,S,S,S,R,,,,S
 303731,2025-04-03,Pus swab,Klebsiella pneumoniae,R,R,,I,R,S,S,S,I,,S,,,,R
+303830,2025-04-03,Urine,Escherichia coli,R,R,,R,R,S,R,S,S,S,R,,,,S
 303670,2025-04-05,Pus swab,Escherichia coli,R,R,,R,R,R,R,S,S,,S,,,,R
 303978,2025-04-06,Urine,Klebsiella pneumoniae,R,S,,R,R,R,R,R,S,S,R,,,,R
+303858,2025-04-08,Blood,Klebsiella pneumoniae,R,R,,S,S,R,S,S,S,,R,,,,S
 303786,2025-04-12,Stool,Shigella spp,R,R,,S,R,S,R,S,S,,S,,,,R
+303930,2025-04-12,Blood,Acinetobacter baumannii,,,,,R,R,S,R,S,,,,,,
+303765,2025-04-14,Pus swab,Klebsiella pneumoniae,R,R,,R,I,S,S,S,I,,R,,,,S
+303948,2025-04-16,Blood,Escherichia coli,R,S,,R,R,S,S,S,S,,R,,,,S
 303987,2025-04-18,Pus swab,Staphylococcus aureus,,,S,S,,S,S,,,,R,S,S,R,I
+303919,2025-04-19,Pus swab,Staphylococcus aureus,,,S,S,,R,S,,,,S,S,S,R,S
 303777,2025-04-21,Blood,Escherichia coli,R,S,,R,S,R,S,S,S,,R,,,,S
 303808,2025-04-21,Pus swab,Staphylococcus aureus,,,S,S,,R,S,,,,S,S,S,R,S
 303900,2025-04-21,Urine,Enterococcus faecalis,S,,,,,,R,,,R,,S,,,
@@ -52,6 +73,7 @@ Patient ID,Sample date,Specimen,Organism,Ampicillin,Amoxicillin + Clavulanic Aci
 303965,2025-04-22,Pus swab,Staphylococcus aureus,,,S,S,,S,S,,,,R,S,S,S,S
 303927,2025-04-23,Pus swab,Staphylococcus aureus,,,I,S,,S,R,,,,R,S,S,S,S
 304012,2025-04-23,Pus swab,Pseudomonas aeruginosa,,,,,R,S,R,R,I,,,,,,
+303904,2025-04-23,Sputum,Streptococcus pneumoniae,S,,,S,,,,,,,R,S,,S,S
 303894,2025-04-25,Pus swab,Staphylococcus aureus,,,S,R,,R,R,,,,S,I,S,S,S
 303903,2025-04-25,Pus swab,Escherichia coli,R,R,,R,R,R,S,S,S,,R,,,,S
 304009,2025-04-25,Pus swab,Acinetobacter baumannii,,,,,S,R,R,S,S,,,,,,
@@ -59,6 +81,7 @@ Patient ID,Sample date,Specimen,Organism,Ampicillin,Amoxicillin + Clavulanic Aci
 303875,2025-04-29,Stool,Salmonella spp,R,R,,S,S,R,S,S,S,,R,,,,S
 303946,2025-05-01,High vaginal swab,Klebsiella pneumoniae,R,S,,R,R,R,R,S,R,,S,,,,R
 303838,2025-05-03,Pus swab,Acinetobacter baumannii,,,,,R,S,S,S,R,,,,,,
+304281,2025-05-03,Urine,Escherichia coli,R,R,,R,R,R,S,S,S,S,R,,,,R
 303845,2025-05-04,Pus swab,Pseudomonas aeruginosa,,,,,I,S,R,S,S,,,,,,
 304068,2025-05-07,Urine,Escherichia coli,R,S,,R,S,R,R,S,S,S,R,,,,S
 304209,2025-05-10,Urine,Escherichia coli,R,R,,R,R,R,S,S,S,S,R,,,,R
@@ -66,13 +89,19 @@ Patient ID,Sample date,Specimen,Organism,Ampicillin,Amoxicillin + Clavulanic Aci
 304138,2025-05-13,Pus swab,Staphylococcus aureus,,,S,S,,R,S,,,,R,S,R,R,S
 304174,2025-05-13,Pus swab,Klebsiella pneumoniae,R,R,,R,S,R,S,S,S,,R,,,,I
 304180,2025-05-15,Sputum,Klebsiella pneumoniae,R,S,,R,R,R,S,S,S,,R,,,,S
+304026,2025-05-15,Pus swab,Acinetobacter baumannii,,,,,R,S,S,S,S,,,,,,
 304139,2025-05-16,Blood,Pseudomonas aeruginosa,,,,,S,R,S,S,S,,,,,,
+304142,2025-05-17,Urine,Enterococcus faecalis,S,,,,,,S,,,S,,I,,,
 304189,2025-05-19,Pus swab,Proteus mirabilis,R,I,,R,S,R,R,S,S,,R,,,,S
 304274,2025-05-20,Sputum,Staphylococcus aureus,,,S,R,,S,S,,,,S,S,S,R,S
+304025,2025-05-23,Urine,Escherichia coli,R,S,,R,S,R,R,S,S,S,R,,,,S
 304023,2025-05-24,Pus swab,Staphylococcus aureus,,,S,R,,R,S,,,,R,S,S,R,S
+304284,2025-05-26,Sputum,Acinetobacter baumannii,,,,,S,R,R,S,R,,,,,,
 304175,2025-05-28,High vaginal swab,Klebsiella pneumoniae,R,S,,R,R,S,S,S,S,,R,,,,S
 304216,2025-05-30,Blood,Klebsiella pneumoniae,R,S,,S,R,S,R,S,S,,R,,,,S
+304172,2025-05-30,Urine,Staphylococcus aureus,,,R,R,,R,S,,,,R,S,R,R,S
 304058,2025-05-31,Urine,Escherichia coli,R,S,,S,S,R,R,S,S,S,R,,,,S
+304430,2025-06-01,Pus swab,Proteus mirabilis,R,R,,S,R,R,R,S,S,,S,,,,S
 304055,2025-06-02,Pus swab,Acinetobacter baumannii,,,,,R,R,R,R,R,,,,,,
 304501,2025-06-03,Blood,Acinetobacter baumannii,,,,,R,R,S,R,S,,,,,,
 304082,2025-06-04,Stool,Shigella spp,R,R,,S,S,R,S,S,R,,R,,,,S
@@ -81,6 +110,7 @@ Patient ID,Sample date,Specimen,Organism,Ampicillin,Amoxicillin + Clavulanic Aci
 304499,2025-06-09,Sputum,Klebsiella pneumoniae,R,R,,S,R,S,S,S,R,,R,,,,S
 304335,2025-06-11,Urine,Staphylococcus aureus,,,R,R,,R,S,,,,R,S,R,R,S
 304451,2025-06-11,Sputum,Staphylococcus aureus,,,S,S,,S,I,,,,R,S,S,R,S
+304317,2025-06-12,Sputum,Staphylococcus aureus,,,S,R,,S,S,,,,S,S,S,R,S
 304460,2025-06-16,Pus swab,Escherichia coli,R,S,,R,R,R,R,S,S,,S,,,,S
 304405,2025-06-20,Blood,Staphylococcus aureus,,,S,S,,R,S,,,,R,S,I,R,S
 304318,2025-06-22,Sputum,Staphylococcus aureus,,,S,S,,S,S,,,,R,S,S,R,S
@@ -91,12 +121,21 @@ Patient ID,Sample date,Specimen,Organism,Ampicillin,Amoxicillin + Clavulanic Aci
 304297,2025-06-26,Blood,Klebsiella pneumoniae,R,R,,R,R,S,S,S,R,,R,,,,S
 304433,2025-06-26,Pus swab,Staphylococcus aureus,,,S,R,,S,S,,,,S,S,S,S,S
 304475,2025-06-26,Blood,Pseudomonas aeruginosa,,,,,S,R,S,R,S,,,,,,
+304590,2025-07-01,Pus swab,Escherichia coli,R,R,,R,S,R,S,S,S,,R,,,,S
+304638,2025-07-02,Sputum,Streptococcus pneumoniae,S,,,S,,,,,,,S,S,,S,R
 304319,2025-07-04,Pus swab,Pseudomonas aeruginosa,,,,,S,S,S,S,S,,,,,,
+304555,2025-07-04,Urine,Proteus mirabilis,R,S,,R,S,S,S,S,R,S,S,,,,S
+304728,2025-07-06,Urine,Escherichia coli,R,R,,R,R,S,R,S,S,S,S,,,,I
 304448,2025-07-07,Pus swab,Staphylococcus aureus,,,R,S,,S,R,,,,S,S,R,I,R
+304652,2025-07-07,Urine,Enterococcus faecalis,S,,,,,,S,,,S,,I,,,
 304655,2025-07-08,Stool,Shigella spp,R,R,,R,S,S,S,S,S,,R,,,,S
 304708,2025-07-11,High vaginal swab,Staphylococcus aureus,,,S,I,,S,S,,,,S,S,R,R,S
+304679,2025-07-11,Urine,Klebsiella pneumoniae,R,R,,R,R,R,S,S,S,R,R,,,,R
 304598,2025-07-14,Blood,Staphylococcus aureus,,,S,R,,S,S,,,,S,S,S,S,R
+304791,2025-07-15,Blood,Klebsiella pneumoniae,R,R,,S,S,R,S,S,S,,R,,,,S
+304660,2025-07-15,Pus swab,Staphylococcus aureus,,,R,S,,S,R,,,,S,S,R,I,R
 304775,2025-07-20,Sputum,Staphylococcus aureus,,,S,R,,R,R,,,,R,S,S,S,R
+304768,2025-07-20,Sputum,Staphylococcus aureus,,,S,S,,S,R,,,,S,S,S,S,S
 304680,2025-07-21,Pus swab,Pseudomonas aeruginosa,,,,,S,R,S,R,S,,,,,,
 304563,2025-07-26,Blood,Staphylococcus aureus,,,R,S,,S,S,,,,R,S,S,R,R
 304593,2025-07-31,Sputum,Haemophilus influenzae,S,,,S,,,,,,,S,S,,S,S
@@ -106,41 +145,63 @@ Patient ID,Sample date,Specimen,Organism,Ampicillin,Amoxicillin + Clavulanic Aci
 304848,2025-08-09,Blood,Klebsiella pneumoniae,R,R,,S,R,S,S,S,S,,R,,,,S
 305035,2025-08-09,Blood,Escherichia coli,R,S,,R,S,R,R,S,S,,R,,,,S
 304958,2025-08-11,Urine,Proteus mirabilis,R,S,,R,S,S,S,S,R,S,S,,,,S
+304816,2025-08-11,Pus swab,Klebsiella pneumoniae,R,R,,R,I,S,S,S,I,,R,,,,S
+304880,2025-08-16,CSF,Streptococcus pneumoniae,S,,,S,,,,,,,S,S,,R,S
 305048,2025-08-18,CSF,Streptococcus pneumoniae,S,,,S,,,,,,,S,S,,R,S
 304975,2025-08-20,Urine,Enterococcus faecalis,S,,,,,,S,,,S,,I,,,
 304994,2025-08-21,Blood,Acinetobacter baumannii,,,,,R,S,S,S,S,,,,,,
 305030,2025-08-21,Pus swab,Klebsiella pneumoniae,R,R,,R,S,S,S,S,S,,R,,,,S
+304824,2025-08-21,Blood,Enterococcus faecalis,S,,,,,,R,,,,,S,,,
 304923,2025-08-23,Blood,Escherichia coli,S,S,,S,S,R,S,S,S,,R,,,,S
 304988,2025-08-23,High vaginal swab,Escherichia coli,R,R,,R,R,S,S,S,S,,S,,,,S
+304878,2025-08-25,Urine,Escherichia coli,R,S,,S,R,R,S,S,S,S,R,,,,R
 304882,2025-08-26,Sputum,Staphylococcus aureus,,,R,R,,S,S,,,,R,S,S,R,S
+305031,2025-08-26,Blood,Escherichia coli,R,S,,R,S,R,R,S,S,,R,,,,S
+304823,2025-08-29,Stool,Escherichia coli,R,R,,R,S,R,R,S,S,,S,,,,S
 304821,2025-08-30,Urine,Escherichia coli,R,R,,R,S,S,S,S,S,S,R,,,,S
 304973,2025-08-31,Pus swab,Staphylococcus aureus,,,R,S,,R,S,,,,R,S,S,S,S
 305152,2025-09-04,Pus swab,Klebsiella pneumoniae,R,R,,R,S,R,R,S,I,,R,,,,I
 304819,2025-09-05,Pus swab,Pseudomonas aeruginosa,,,,,S,R,S,S,S,,,,,,
+305283,2025-09-05,Pus swab,Proteus mirabilis,R,S,,S,R,R,R,S,S,,R,,,,R
 305292,2025-09-08,Urine,Escherichia coli,R,R,,R,S,R,S,S,S,S,R,,,,S
 305167,2025-09-16,Pus swab,Staphylococcus aureus,,,S,R,,S,S,,,,S,S,S,S,R
 305068,2025-09-18,Sputum,Klebsiella pneumoniae,R,S,,S,R,S,S,R,S,,R,,,,S
 305105,2025-09-18,Pus swab,Pseudomonas aeruginosa,,,,,S,R,S,S,S,,,,,,
 305100,2025-09-19,Pus swab,Staphylococcus aureus,,,S,S,,R,R,,,,S,S,S,S,S
+305289,2025-09-20,Urine,Klebsiella pneumoniae,R,I,,R,R,S,S,S,S,R,R,,,,R
 305185,2025-09-21,Pus swab,Klebsiella pneumoniae,R,R,,R,S,S,S,S,S,,S,,,,S
+305250,2025-09-21,Sputum,Klebsiella pneumoniae,R,R,,R,S,R,R,S,S,,S,,,,S
 305278,2025-09-23,Pus swab,Staphylococcus aureus,,,S,R,,R,I,,,,S,S,S,S,S
+305311,2025-09-25,Urine,Klebsiella pneumoniae,R,I,,R,R,S,S,S,S,R,R,,,,R
+305225,2025-09-30,Sputum,Streptococcus pneumoniae,S,,,S,,,,,,,S,S,,S,S
 305258,2025-10-02,Sputum,Streptococcus pneumoniae,S,,,S,,,,,,,R,S,,S,S
 305493,2025-10-06,Pus swab,Acinetobacter baumannii,,,,,S,R,R,R,S,,,,,,
 305372,2025-10-07,Pus swab,Acinetobacter baumannii,,,,,R,S,S,S,S,,,,,,
+305530,2025-10-12,Blood,Staphylococcus aureus,,,S,S,,S,R,,,,R,S,S,R,S
 305447,2025-10-13,Sputum,Pseudomonas aeruginosa,,,,,I,S,I,S,I,,,,,,
 305339,2025-10-14,Stool,Salmonella spp,R,S,,R,R,S,S,S,S,,R,,,,S
 305428,2025-10-15,Blood,Enterococcus faecalis,S,,,,,,S,,,,,S,,,
 305441,2025-10-19,Stool,Shigella spp,R,R,,S,R,S,S,S,S,,R,,,,S
 305529,2025-10-21,Pus swab,Klebsiella pneumoniae,R,S,,S,R,S,S,S,S,,R,,,,S
+305445,2025-10-23,Urine,Escherichia coli,R,S,,S,S,S,R,S,S,R,R,,,,R
+305361,2025-10-23,Blood,Enterococcus faecalis,S,,,,,,R,,,,,S,,,
 305436,2025-10-24,Stool,Escherichia coli,R,R,,R,S,R,R,S,S,,S,,,,S
+305547,2025-10-27,Blood,Enterococcus faecalis,S,,,,,,R,,,,,S,,,
 305375,2025-10-28,Pus swab,Klebsiella pneumoniae,R,R,,R,R,R,S,S,S,,R,,,,S
 305357,2025-10-30,Urine,Escherichia coli,R,R,,R,R,S,R,S,S,S,R,,,,S
 305385,2025-10-31,Blood,Staphylococcus aureus,,,R,S,,R,S,,,,R,I,R,R,S
 305409,2025-11-01,Pus swab,Staphylococcus aureus,,,S,S,,R,R,,,,R,S,S,R,S
 305434,2025-11-01,Sputum,Streptococcus pneumoniae,S,,,S,,,,,,,S,S,,S,R
+305766,2025-11-03,Pus swab,Staphylococcus aureus,,,I,S,,S,R,,,,R,S,S,S,S
+305601,2025-11-04,Pus swab,Acinetobacter baumannii,,,,,R,S,S,S,S,,,,,,
 305577,2025-11-05,Blood,Klebsiella pneumoniae,R,R,,S,S,R,S,S,S,,R,,,,S
+305740,2025-11-05,Pus swab,Staphylococcus aureus,,,S,R,,R,I,,,,S,S,S,S,S
 305680,2025-11-09,Urine,Klebsiella pneumoniae,R,I,,R,R,S,S,S,S,R,R,,,,R
+305731,2025-11-11,Sputum,Staphylococcus aureus,,,S,S,,S,S,,,,R,S,S,R,S
 305698,2025-11-12,Blood,Klebsiella pneumoniae,R,R,,R,R,S,S,S,S,,S,,,,R
+305607,2025-11-12,Urine,Enterococcus faecalis,S,,,,,,S,,,S,,I,,,
+305606,2025-11-15,Blood,Klebsiella pneumoniae,R,R,,S,S,R,S,S,S,,R,,,,S
+305648,2025-11-16,Pus swab,Proteus mirabilis,R,S,,S,R,R,R,S,S,,R,,,,R
 305676,2025-11-20,Stool,Escherichia coli,S,R,,S,S,S,S,S,S,,R,,,,S
 305794,2025-11-21,High vaginal swab,Escherichia coli,R,R,,R,R,S,I,S,S,,R,,,,S
 305580,2025-11-22,Blood,Klebsiella pneumoniae,R,R,,S,R,S,S,S,S,,R,,,,S
@@ -149,8 +210,11 @@ Patient ID,Sample date,Specimen,Organism,Ampicillin,Amoxicillin + Clavulanic Aci
 305595,2025-11-25,Blood,Escherichia coli,S,R,,S,S,R,S,S,S,,R,,,,S
 305681,2025-11-25,Pus swab,Acinetobacter baumannii,,,,,R,S,S,R,R,,,,,,
 305625,2025-12-02,Pus swab,Klebsiella pneumoniae,R,S,,S,R,S,R,I,S,,S,,,,S
+305923,2025-12-02,Pus swab,Acinetobacter baumannii,,,,,S,R,R,R,S,,,,,,
+305822,2025-12-03,Pus swab,Proteus mirabilis,R,R,,S,R,R,R,S,S,,S,,,,S
 305916,2025-12-05,Blood,Staphylococcus aureus,,,S,S,,S,R,,,,S,S,S,S,S
 305677,2025-12-07,Pus swab,Staphylococcus aureus,,,S,R,,S,S,,,,R,S,S,R,S
+306029,2025-12-07,Urine,Escherichia coli,R,R,,R,R,R,S,S,S,S,R,,,,R
 305892,2025-12-08,Pus swab,Staphylococcus aureus,,,S,S,,S,S,,,,R,S,S,S,S
 305797,2025-12-09,Pus swab,Pseudomonas aeruginosa,,,,,S,R,S,S,S,,,,,,
 305834,2025-12-10,Pus swab,Pseudomonas aeruginosa,,,,,R,R,S,S,S,,,,,,
@@ -159,6 +223,8 @@ Patient ID,Sample date,Specimen,Organism,Ampicillin,Amoxicillin + Clavulanic Aci
 305926,2025-12-12,Pus swab,Escherichia coli,R,R,,S,S,R,S,S,R,,R,,,,R
 305962,2025-12-16,Pus swab,Escherichia coli,R,R,,R,S,S,S,S,S,,R,,,,S
 305815,2025-12-21,Pus swab,Staphylococcus aureus,,,I,S,,R,R,,,,R,S,R,S,S
+305988,2025-12-24,Blood,Klebsiella pneumoniae,R,R,,S,R,S,S,S,S,,R,,,,S
+305878,2025-12-25,Pus swab,Proteus mirabilis,R,S,,S,R,R,R,S,S,,R,,,,R
 305947,2025-12-26,Sputum,Staphylococcus aureus,,,S,S,,S,R,,,,S,S,S,S,S
 306004,2025-12-26,Pus swab,Escherichia coli,R,R,,R,R,S,S,S,S,,R,,,,R
 305999,2025-12-28,Sputum,Streptococcus pneumoniae,S,,,S,,,,,,,R,S,,S,S
