@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minimum data — Odieman Health Tools</title>
+<meta name="description" content="What AMS Pro, PPS Pro and VigiWard need for each analysis: the files, the columns and the smallest numbers they report on. If a hospital's data has this, the analysis stands.">
+<meta name="author" content="Odindo Emmanuel Thomas">
+<link rel="stylesheet" href="style.css">
+<style>
+  .tscroll{overflow-x:auto;margin:14px 0;}
+  .tscroll table.bench{margin:0;min-width:640px;}
+  h3.sub{font-family:"Segoe UI",sans-serif;font-size:17px;color:var(--navy-deep);margin:30px 0 4px;}
+  ul.plain{font-family:"Segoe UI",sans-serif;font-size:14.5px;color:var(--ink-soft);padding-left:20px;line-height:1.65;max-width:72ch;}
+  ul.plain li{margin-bottom:6px;}
+  ul.plain b{color:var(--ink);}
+  .status{display:inline-block;font-family:"Segoe UI",sans-serif;font-size:12.5px;font-weight:700;padding:1px 8px;border-radius:10px;border:1px solid var(--paper-line);}
+  section[id]{scroll-margin-top:140px;}
+  @media (max-width:760px){section[id]{scroll-margin-top:0;}}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">Odieman Health Tools
+      <small>Field-built instruments for antimicrobial stewardship, PPS &amp; pharmacovigilance</small>
+    </a>
+    <nav class="links sans">
+      <a href="index.html#tools">Tools</a>
+      <a href="methodology.html">Methodology</a>
+      <a href="technical.html">Technical</a>
+      <a href="index.html#demo">Live demos</a>
+      <a href="story.html">The story</a>
+      <a href="index.html#download">Get the tools</a>
+      <a href="index.html#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <p class="crumb"><a href="index.html">Home</a> / Minimum data</p>
+
+  <section class="page-hero">
+    <span class="tag sans">AMS Pro 5.6 &middot; PPS Pro 3.9 &middot; VigiWard 3.14 &middot; November 2026</span>
+    <h1>If your data has this, the analysis stands</h1>
+    <p class="lede">Before a figure reaches a committee, it should be clear that the data could support it. For each tool, this page lists the files it reads, what each analysis needs, and the smallest numbers it will report on. Each tool carries the same list on its own <i>Minimum data</i> page, with <b>Check my data</b>, which reads the data loaded and marks every analysis as ready, limited or not possible, with the reason and what to add.</p>
+    <p class="sans" style="font-size:14px;color:var(--ink-soft);">Jump to: <a href="#check">How the check decides</a> &middot; <a href="#ams">AMS Pro</a> &middot; <a href="#pps">PPS Pro</a> &middot; <a href="#vw">VigiWard</a> &middot; <a href="#rules">Rules for every file</a></p>
+  </section>
+
+  <section id="check">
+    <h2>How Check my data decides</h2>
+    <div class="tscroll"><table class="bench">
+      <tr><th>Verdict</th><th>Meaning</th><th>Example from the sample hospital</th></tr>
+      <tr><td><span class="status">Ready</span></td><td>The data loaded has what the analysis needs, at the size the method asks for.</td><td>AMS Pro, antibiogram: 579 first isolates; 56 of 98 organism&ndash;antibiotic cells reach 30 isolates (the cells that do not are flagged, not hidden).</td></tr>
+      <tr><td><span class="status">Limited</span></td><td>The analysis runs, but part of the data is missing or small, and the result must be read with that in mind.</td><td>PPS Pro, ward feedback: one ward has fewer than 10 patients, so its percentages change a lot with one patient.</td></tr>
+      <tr><td><span class="status">Not possible</span></td><td>A file or a column the analysis cannot do without is missing. The tool says which, instead of showing a weak figure.</td><td>Any analysis whose essential file has not been loaded.</td></tr>
+      <tr><td><span class="status">Optional</span></td><td>An extra that adds an analysis but is not needed for the others.</td><td>AMS Pro, C/S Prophylaxis Project: needs the Surgery Patients Report.</td></tr>
+    </table></div>
+    <p class="section-note">The check reads the data on screen, every time. The same check is printed in each tool's reports (<i>Data used and its limits</i>), so a reader of the report sees what the figures rest on.</p>
+  </section>
+
+  <!-- ============================== AMS PRO ============================== -->
+  <section id="ams">
+    <h2>AMS Pro</h2>
+    <p class="section-note">Afya eHMS exports work as they are: CSV or Excel, title rows above the header skipped, several files dropped together. The one rule that matters most: <b>ward names in the admissions file must be written exactly as the department names in the dispensing file.</b></p>
+    <h3 class="sub">The files</h3>
+    <div class="tscroll"><table class="bench">
+      <tr><th>File</th><th>One row is</th><th>Essential</th><th>Recommended</th></tr>
+      <tr><td><b>Pharmacy dispensing</b> (the essential file)</td><td>One item dispensed</td><td>Item name, quantity, date</td><td>Patient number, department or ward, dosage text (route; frequency; duration), price, prescriber, age, gender</td></tr>
+      <tr><td>Admissions / ward log</td><td>One admission</td><td>Ward, and date admitted or bed-days</td><td>Patient number, date discharged, diagnosis, procedure, caesarean section, SSI confirmed, receiving antibiotic</td></tr>
+      <tr><td>Laboratory turnaround log</td><td>One test or sample</td><td>Test name, sample collected time, result submission time</td><td>Patient number, expected turnaround time</td></tr>
+      <tr><td>Culture results (WHONET listing or S/I/R sheet)</td><td>One isolate</td><td>Patient or laboratory number, organism, antibiotic columns with R, I or S</td><td>Specimen date and type, ward</td></tr>
+      <tr><td>Procedures / services report</td><td>One billed procedure</td><td>Product name or procedure</td><td>Patient number, sub-department, ordered date, price</td></tr>
+      <tr><td>Surgery Patients Report</td><td>One operation</td><td>Patient number, surgery, surgery date</td><td>Start time, emergency or elective, status</td></tr>
+      <tr><td>Store / ward issue report (optional)</td><td>One issue to a ward</td><td>Item name, quantity issued</td><td>Issued to, date issued, unit cost</td></tr>
+      <tr><td>Diagnosis log (optional)</td><td>One patient's diagnosis</td><td>Patient number, diagnosis</td><td>&ndash;</td></tr>
+    </table></div>
+    <h3 class="sub">Each analysis</h3>
+    <div class="tscroll"><table class="bench">
+      <tr><th>Analysis</th><th>Needs</th><th>Smallest it reports on</th><th>Standard</th></tr>
+      <tr><td>Dashboard, AWaRe shares, consumption</td><td>Dispensing: item, quantity, date</td><td>&ndash;</td><td>WHO AWaRe; Tanzania STG/NEMLIT; UN target of 70% Access</td></tr>
+      <tr><td>DDD per 1,000 patient-days</td><td>Strength in the item name and quantity, for a drug with a WHO DDD; bed-days from admissions (or an estimate on Setup)</td><td>Lines without a DDD add nothing, so the rate is stated as a minimum</td><td>WHO ATC/DDD index</td></tr>
+      <tr><td>DOT per 1,000 patient-days</td><td>A duration in the dosage text (&ldquo;Duration: 5 /7&rdquo;); bed-days</td><td>&ndash;</td><td>&ndash;</td></tr>
+      <tr><td><i>Did It Work?</i></td><td>Dated dispensing on both sides of the intervention</td><td>3 months before and 3 after; 8 or more on each side for steadier estimates; 12 on each side to allow for season</td><td>Cochrane EPOC</td></tr>
+      <tr><td>Intervention Impact</td><td>Dated dispensing</td><td>3 months on each side; 6 for a verdict; 24 usable months for season adjustment</td><td>Cochrane EPOC</td></tr>
+      <tr><td>Run charts</td><td>Dated dispensing</td><td>20 points before the limits are trusted</td><td>Laney p&prime; chart</td></tr>
+      <tr><td>Antibiogram</td><td>Culture results with R, I or S</td><td>30 isolates per organism&ndash;antibiotic cell; first isolate per patient per organism</td><td>CLSI M39</td></tr>
+      <tr><td>Antibiotic Time-out, patients, prescriptions</td><td>Dispensing with patient numbers and dates; dosage text for IV days and duration</td><td>&ndash;</td><td>&ndash;</td></tr>
+      <tr><td>C/S Prophylaxis Project</td><td>Surgery Patients Report and dispensing from 7 days before the first operation</td><td>30 days of follow-up for infection signals; 12 usable weeks, 4 on each side of a phase start</td><td>&ndash;</td></tr>
+      <tr><td>WHO/INRUD indicators</td><td>The whole dispensing basket with patient numbers</td><td>&ndash;</td><td>WHO/DAP/93.1</td></tr>
+      <tr><td>Cost &amp; Impact; ward stock discrepancy</td><td>Price on dispensing lines; the store issue report for the same months</td><td>&ndash;</td><td>&ndash;</td></tr>
+      <tr><td>Laboratory indicators</td><td>Turnaround-time log</td><td>&ndash;</td><td>Tanzania MOH GHS-CQI</td></tr>
+    </table></div>
+  </section>
+
+  <!-- ============================== PPS PRO ============================== -->
+  <section id="pps">
+    <h2>PPS Pro</h2>
+    <p class="section-note">One row is one inpatient present at 08:00 on the survey day, treated or not. CSV or Excel; REDCap raw-data exports and Stata files with these names are read too, and the WHO PPS data-entry tables are recognised by their own column names. A <a href="dictionary/PPS_Pro_3.4_REDCap_Data_Dictionary.csv">REDCap data dictionary</a> builds a matching project.</p>
+    <h3 class="sub">The columns</h3>
+    <div class="tscroll"><table class="bench">
+      <tr><th>Need</th><th>Columns</th></tr>
+      <tr><td><b>Essential</b></td><td><code>survey_id</code>, <code>survey_date</code>, <code>ward</code>, <code>on_antimicrobial</code> (Y or N for every inpatient: the denominator), and <code>ab1_name</code>, <code>ab2_name</code>&hellip; for each antimicrobial of a treated patient</td></tr>
+      <tr><td>Recommended</td><td><code>ward_type</code>, <code>patient_code</code> (anonymous, never the hospital number), <code>age_years</code>, <code>sex</code>, <code>admission_date</code>, <code>diagnosis</code>, <code>indication</code>, <code>reason_in_notes</code>, <code>guideline_compliant</code>, <code>culture_taken</code>, <code>stop_review_date</code>, and for each antimicrobial its route, dose in mg and doses per day</td></tr>
+      <tr><td>Optional</td><td>Facility, ward code, weight, WHO risk factors, treatment type, biomarker, appropriateness and its reasons, ATC code and AWaRe group (filled from the reference list when blank)</td></tr>
+    </table></div>
+    <h3 class="sub">Each analysis</h3>
+    <div class="tscroll"><table class="bench">
+      <tr><th>Analysis</th><th>Needs</th><th>Smallest it reports on</th><th>Standard</th></tr>
+      <tr><td>Prevalence, survey dashboard</td><td>One survey: ward and <code>on_antimicrobial</code> for every inpatient; antimicrobial names for the treated</td><td>A denominator under 20 is marked unstable</td><td>WHO PPS methodology</td></tr>
+      <tr><td>AWaRe shares, antimicrobial use</td><td>Antimicrobial names; route, dose and doses per day add the parenteral share and DDD per 100 inpatients</td><td>&ndash;</td><td>WHO AWaRe; Tanzania STG/NEMLIT 2021; WHO ATC/DDD</td></tr>
+      <tr><td>Reason, culture, stop/review date</td><td>Y or N for every treated patient</td><td>A blank counts as No</td><td>WHO PPS</td></tr>
+      <tr><td>Guideline compliance</td><td><code>guideline_compliant</code> Y, N or NA</td><td>Only Y and N are counted</td><td>Tanzania STG/NEMLIT 2021 rules</td></tr>
+      <tr><td>Surgical prophylaxis duration</td><td>Indication SP1, SP2 or SP3</td><td>Fewer than 20 patients is marked unstable</td><td>WHO PPS; WHO SSI guidelines</td></tr>
+      <tr><td>Ward analysis, ward feedback</td><td>Ward for every patient</td><td>A ward with fewer than 10 patients is flagged</td><td>&ndash;</td></tr>
+      <tr><td>Trends and the trend report</td><td>At least two surveys done the same way</td><td>2 surveys</td><td>Cochran&ndash;Armitage test; Wilson 95% CI</td></tr>
+      <tr><td>Surveyor agreement</td><td>A second surveyor's file for about 1 patient in 10, same patient codes</td><td>Fewer than 10 matched patients is unstable</td><td>Cohen's kappa</td></tr>
+      <tr><td>WHO PPS export</td><td>A survey, plus hospital code, type and ownership</td><td>&ndash;</td><td>WHO PPS protocol</td></tr>
+    </table></div>
+  </section>
+
+  <!-- ============================== VIGIWARD ============================== -->
+  <section id="vw">
+    <h2>VigiWard</h2>
+    <p class="section-note">Patient names are removed on import. The same patient ID must run through every file, over the same months.</p>
+    <h3 class="sub">The files</h3>
+    <div class="tscroll"><table class="bench">
+      <tr><th>File</th><th>One row is</th><th>Essential</th><th>Recommended</th></tr>
+      <tr><td><b>Pharmacy dispensing</b> (the essential file)</td><td>One medicine dispensed</td><td>Patient ID, item name, date</td><td>Dosage text (route, frequency, duration), department, age, gender</td></tr>
+      <tr><td>Laboratory results</td><td>One result</td><td>Patient ID, date, test name, value</td><td>Creatinine, ALT/AST, potassium, glucose, neutrophils, INR</td></tr>
+      <tr><td>Deaths register (optional)</td><td>One death</td><td>Patient ID, date of death</td><td>Cause of death</td></tr>
+      <tr><td>BP / glucose readings (optional)</td><td>One patient's latest readings</td><td>Patient ID and the latest blood pressure or glucose readings</td><td>Used by the cardiometabolic audit</td></tr>
+    </table></div>
+    <h3 class="sub">Each analysis</h3>
+    <div class="tscroll"><table class="bench">
+      <tr><th>Analysis</th><th>Needs</th><th>Smallest it reports on</th></tr>
+      <tr><td>Signals, overview, watch-list</td><td>Dispensing with patient ID, item and date; dosage text and department add timing and ward views</td><td>&ndash;</td></tr>
+      <tr><td>Lab-supported signals, monitoring gaps</td><td>Lab results with the same patient IDs</td><td>&ndash;</td></tr>
+      <tr><td>Outcome layer</td><td>Deaths register</td><td>A death after a flag is a link in time only, never a cause</td></tr>
+      <tr><td>Spike alerts</td><td>Dated dispensing over several months; department for spikes by ward</td><td>5 flagged and 30 exposed patients per medicine&ndash;reaction pair; 3 flagged patients in a period; an alert needs a rate ratio of 2 or more and p &lt; 0.01</td></tr>
+      <tr><td>Cardiometabolic audit</td><td>Dispensing; BP and glucose readings for control and risk</td><td>&ndash;</td></tr>
+      <tr><td>aDSM (TB and HIV)</td><td>Dispensing that includes TB or HIV medicines; lab results for monitoring</td><td>&ndash;</td></tr>
+      <tr><td>PV indicators, findings, report</td><td>Signals and review decisions (confirmed or dismissed)</td><td>A data-quality score of 70 or more, or the report asks for better data</td></tr>
+      <tr><td>Rule accuracy (REDCap case review)</td><td>Completed case reviews brought back from REDCap</td><td>Reported with a 95% interval</td></tr>
+    </table></div>
+  </section>
+
+  <section id="rules">
+    <h2>Rules for every file</h2>
+    <ul class="plain">
+      <li><b>No names.</b> Use patient numbers or anonymous study codes. A survey file never carries the hospital or registration number.</li>
+      <li><b>Dates</b> as YYYY-MM-DD, day/month/year (05/02/2026 is 5 February), or Excel dates.</li>
+      <li><b>The same months in every file,</b> and the same ward names and patient IDs across files.</li>
+      <li><b>One export per period, as the system produced it,</b> not edited or sorted by hand.</li>
+    </ul>
+    <p class="section-note">Try it on the sample hospital: open a <a href="index.html#demo">live demo</a> and go to <i>Minimum data</i>. The full list of columns and accepted headings, with blank templates, is inside each tool.</p>
+  </section>
+
+  <a href="index.html" class="back-link">&larr; Back to home</a>
+</main>
+
+<footer class="wrap">
+  <div class="fline">
+    <span>&copy; 2026 Odieman Health Tools.</span>
+    <span>No patient data is collected by this website; visits are counted anonymously, without cookies (GoatCounter).</span>
+  </div>
+</footer>
+
+<script>
+/* Visit counting: GoatCounter, no cookies, no personal data. Events record only which demo or tool was opened. */
+window.odmEvent=function(path,title){try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:path,title:title||path,event:true});}catch(e){}};
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href');
+  var m=h.match(/(Odieman_AMS_Pro|Odieman_PPS_Pro|VigiWard)\.html\?demo=1/);if(m){odmEvent('demo-'+m[1].replace('Odieman_',''),'Live demo opened');return;}
+  if(/^https:\/\/wa\.me\//.test(h))odmEvent('contact-whatsapp','WhatsApp link');else if(/^mailto:/.test(h))odmEvent('contact-email','Email link');else if(/\.vcf$/.test(h))odmEvent('contact-vcard','Contact saved');else if(/\.pdf$/.test(h))odmEvent('abstract-pdf','Abstract downloaded');});
+</script>
+<script data-goatcounter="https://emmanuelodie94.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>
