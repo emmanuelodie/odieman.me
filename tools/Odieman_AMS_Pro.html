@@ -51,9 +51,66 @@
   window.addEventListener("paste",function(e){var d=e.clipboardData;if(e.isTrusted&&d&&d.files&&d.files.length){e.preventDefault();e.stopImmediatePropagation();notice();}},true);
 })();
 </script>
+<script>
+/* Odieman sample hospital loader (offline and online).
+   The live demo asks for files under ../samples/<tool>/. On a website those come from the server. Opened from the
+   computer (file://) the browser refuses that request, so the same files are served from memory instead: from
+   Odieman_Sample_Hospital.js kept beside the tool, or (PPS Pro) from the copy built into this file. Only requests for
+   the sample folder are touched; every other request goes through unchanged. The sample hospital is simulated data and
+   is held in memory only — nothing is saved, and the user's own data is not opened while it is shown. */
+(function(){
+  var TOOL="ams", SITE="https://emmanuelodie.github.io/odieman.me/samples/";
+  var RX=/(?:^|\/)samples\/(pps|ams|vigiward)\/([^?#\/]+)(?:[?#].*)?$/;
+  var origFetch=window.fetch?window.fetch.bind(window):null;
+  var http=/^https?:$/.test(location.protocol);
+  window.__odmSample={tool:TOOL,used:false,source:"",missing:false};
+  var ready=null;
+  function haveLocal(){return window.ODM_SAMPLE_DATA&&window.ODM_SAMPLE_DATA[TOOL];}
+  function loadLocal(){
+    if(ready)return ready;
+    ready=new Promise(function(res){
+      if(haveLocal())return res(true);
+      try{var s=document.createElement("script");s.src="Odieman_Sample_Hospital.js";
+        s.onload=function(){res(!!haveLocal());};s.onerror=function(){res(false);};
+        (document.head||document.documentElement).appendChild(s);}catch(e){res(false);}
+    });
+    return ready;
+  }
+  function b64(s){var bin=atob(s),u=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return u;}
+  async function fromLocal(name){
+    if(!(await loadLocal()))return null;
+    var files=haveLocal().files||{};
+    if(name==="manifest.json")return new Response(JSON.stringify(haveLocal().manifest||[]),{status:200,headers:{"Content-Type":"application/json"}});
+    var gz=/\.gz$/i.test(name), base=gz?name.replace(/\.gz$/i,""):name, f=files[base];
+    if(!f)return new Response("",{status:404});
+    var bytes=b64(f);
+    if(gz)return new Response(bytes,{status:200});
+    var txt=await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"))).blob();
+    return new Response(txt,{status:200});
+  }
+  function note(msg){try{var d=document.getElementById("odm-sample-msg");if(!d){d=document.createElement("div");d.id="odm-sample-msg";
+    d.style.cssText="position:fixed;left:12px;right:12px;bottom:12px;z-index:2147483000;background:#fff6e5;color:#4a3800;border:1px solid #e3c27a;border-radius:10px;padding:12px 14px;font:14px/1.45 'Segoe UI',Arial,sans-serif;box-shadow:0 6px 24px rgba(0,0,0,.25)";
+    (document.body||document.documentElement).appendChild(d);}d.innerHTML=msg+' <button type="button" style="margin-left:8px" onclick="this.parentNode.remove()">Close</button>';}catch(e){}}
+  if(!origFetch)return;
+  window.fetch=async function(input,init){
+    var url=typeof input==="string"?input:(input&&input.url)||"";
+    var m=RX.exec(url);
+    if(!m||m[1]!==TOOL)return origFetch(input,init);
+    var name=m[2];
+    if(http){try{var r=await origFetch(input,init);if(r.ok){window.__odmSample.used=true;window.__odmSample.source=window.__odmSample.source||"website";return r;}}catch(e){}}
+    var L=await fromLocal(name);
+    if(L&&L.ok){window.__odmSample.used=true;window.__odmSample.source=window.__odmSample.source||"file";return L;}
+    if(!http&&!/\.gz$/i.test(name)){try{var w=await origFetch(SITE+TOOL+"/"+name,init);if(w.ok){window.__odmSample.used=true;window.__odmSample.source=window.__odmSample.source||"website";return w;}}catch(e){}}
+    if(!/\.gz$/i.test(name)&&name!=="extras.json"&&!/_SecondSurveyor|_Ward_Stock|_Reviews/i.test(name)){window.__odmSample.missing=true;
+      note("<b>The sample hospital could not be loaded.</b> To show it without internet, keep the file <b>Odieman_Sample_Hospital.js</b> in the same folder as this tool. With internet, it loads from the Odieman website.");}
+    return L||new Response("",{status:404});
+  };
+})();
+
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Odieman AMS Pro v5.1 (demo)</title>
+<title>Odieman AMS Pro v5.6 (demo)</title>
 <style>
 :root{
   --bg:#0d1117; --panel:#161b22; --panel2:#1c2230; --line:#2b3340;
@@ -274,11 +331,61 @@ td input.wide{min-width:220px;white-space:normal}
   body main #v-guide .tablewrap{overflow-x:auto!important}
 }
 </style>
+<style>
+/* Odieman presenter mode and sample hospital — shared look. Everything here only applies while presenting
+   (html.odm-present) or to the few elements this block adds; the tool's own look is unchanged otherwise. */
+.odm-bar{display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap}
+.odm-btn{font:600 12.5px/1.2 "Segoe UI",Arial,sans-serif;padding:6px 11px;border-radius:8px;border:1px solid #9aa7b0;background:#fff;color:#1b2a33;cursor:pointer;white-space:nowrap}
+.odm-btn:hover{border-color:#1f6feb}
+.odm-btn.odm-primary{background:#1f6feb;border-color:#1f6feb;color:#fff}
+#odm-stamp{position:fixed;left:10px;bottom:10px;z-index:2147482000;background:#b42318;color:#fff;font:700 11px/1 "Segoe UI",Arial,sans-serif;letter-spacing:.08em;padding:6px 9px;border-radius:6px;opacity:.88;pointer-events:none}
+#odm-tour{display:none;position:fixed;inset:0;z-index:2147482500;pointer-events:none;font-family:"Segoe UI",Arial,sans-serif}
+#odm-spot{position:fixed;border:3px solid #f5b400;border-radius:10px;box-shadow:0 0 0 9999px rgba(15,23,32,.42);transition:all .25s ease;pointer-events:none}
+#odm-card{position:fixed;left:50%;transform:translateX(-50%);bottom:12px;width:min(920px,calc(100vw - 24px));background:#fff;color:#14212b;border-radius:12px;box-shadow:0 10px 36px rgba(0,0,0,.35);padding:14px 18px 12px;pointer-events:auto;border-top:5px solid #1f6feb}
+.odm-sim{color:#b42318}
+#odm-step{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5b6b75;font-weight:700}
+#odm-title{font-size:calc(19px * var(--odm-zoom,1));font-weight:800;margin:2px 0 4px}
+#odm-cap{font-size:calc(17px * var(--odm-zoom,1));line-height:1.4}
+#odm-so{font-size:calc(15.5px * var(--odm-zoom,1));font-weight:700;color:#0b5394;margin-top:5px}
+#odm-nav{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}
+#odm-nav button{font:600 13px "Segoe UI",Arial,sans-serif;padding:6px 12px;border-radius:8px;border:1px solid #9aa7b0;background:#fff;color:#14212b;cursor:pointer}
+#odm-next{background:#1f6feb!important;border-color:#1f6feb!important;color:#fff!important}
+#odm-nav button:disabled{opacity:.45;cursor:default}
+#odm-sz{display:inline-flex;gap:4px;margin-left:auto}
+#odm-clock{font:600 13px ui-monospace,Consolas,monospace;color:#5b6b75;min-width:44px;text-align:right}
+@media print{#odm-tour,#odm-stamp,.odm-bar{display:none!important}}
+.odm-bar.odm-float{position:fixed;right:12px;bottom:12px;z-index:2147481000;background:rgba(255,255,255,.94);padding:6px;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,.18)}
+html.odm-present .odm-bar.odm-float{display:none}
+html.odm-present #odm-stamp{display:none}
+/* AMS Pro while presenting: a light theme for projectors, no menu, larger text, no banners */
+html.odm-present{--bg:#f6f8fa;--panel:#ffffff;--panel2:#f0f3f6;--line:#d0d7de;--ink:#1f2328;--muted:#57606a;--accent:#0969da;--accent2:#0550ae;
+ --green:#1a7f37;--amber:#9a6700;--red:#cf222e;--teal:#0e7f88;--purple:#8250df;--access:#1a7f37;--watch:#bf8700;--reserve:#cf222e;--unc:#6e7781;--shadow:0 4px 14px rgba(0,0,0,.08)}
+html.odm-present body{background:var(--bg);color:var(--ink)}
+html.odm-present header{background:#fff}
+html.odm-present #sidebar,html.odm-present #sidebar-toggle,html.odm-present #backup-badge{display:none}
+html.odm-present main{padding-left:20px;zoom:var(--odm-zoom,1)}
+html.odm-present main .view{padding-bottom:300px}
+html.odm-present main>.notice.warn:first-child,html.odm-present #toast{display:none!important}
+html.odm-present canvas.odm-inv{filter:invert(1) hue-rotate(180deg)}
+html.odm-present .kpi .v.g,html.odm-present .pill.access,html.odm-present .pill.good,html.odm-present .bbadge.on{color:#1a7f37}
+html.odm-present .kpi .v.a,html.odm-present .pill.watch,html.odm-present .pill.infer,html.odm-present .bbadge.warn{color:#9a6700}
+html.odm-present .kpi .v.r,html.odm-present .pill.reserve,html.odm-present .pill.bad{color:#cf222e}
+html.odm-present .pill.nr{color:#8250df}
+html.odm-present .pill.unc{color:#57606a}
+/* the dashboard's tidied parts (shown in every mode) */
+#odm-dashline .linkfix{white-space:nowrap}
+.odm-muted{opacity:.55}
+.odm-nr{display:block;font-size:10.5px;opacity:.75}
+details.odm-edit>summary{cursor:pointer;list-style:revert}
+details.odm-edit .chartbox{border:0;padding:12px 0 0}
+/* largest text: the Import Hub log scrolls sideways inside its panel instead of pushing the page wider than the screen */
+html.odm-present #v-hub .panel table{display:block;overflow-x:auto;max-width:100%}
+</style>
 </head>
 <body>
 <header>
   <div class="logo">Odieman <b>AMS&nbsp;Pro</b></div>
-  <div class="tag">Offline Antimicrobial Stewardship Suite &mdash; Data Entry, Bulk Ingestion &amp; Reporting&nbsp;&middot;&nbsp;v5.1</div>
+  <div class="tag">Offline Antimicrobial Stewardship Suite &mdash; Data Entry, Bulk Ingestion &amp; Reporting&nbsp;&middot;&nbsp;v5.5</div>
   <div class="spacer"></div>
   <button id="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle navigation" title="Toggle navigation">&#9776;</button>
   <div id="backup-badge" class="bbadge" onclick="backupBadgeClick()" title="Backup status — click to manage">&#9211; No backup yet</div>
@@ -286,9 +393,12 @@ td input.wide{min-width:220px;white-space:normal}
 <aside id="sidebar"></aside>
 <main>
   <div id="v-guide" class="view"></div>
+  <div id="v-mindata" class="view"></div>
+  <div id="v-brief" class="view"></div>
   <div id="v-setup" class="view on"></div>
   <div id="v-doseref" class="view"></div>
   <div id="v-entry" class="view"></div>
+  <div id="v-mentry" class="view"></div>
   <div id="v-hub" class="view"></div>
   <div id="v-patients" class="view"></div>
   <div id="v-prescriptions" class="view"></div>
@@ -24179,18 +24289,18 @@ function xlDateH(v){ const s=(""+(v==null?"":v)).trim(); if(!s) return s;
   return s; }
 
 /* ============================= NAV ============================= */
-const VIEWS=[["guide","User Guide"],["setup","Setup"],["doseref","Dose Reference"],["entry","Data Entry"],["hub","Import Hub"],["patients","Patients"],["prescriptions","Prescriptions"],["antibiogram","Antibiogram"],["drvzones","Driver Zones"],["wrtrend","Resistance Trend"],["wins","What's Working"],["dash","Dashboard"],["timeout","Antibiotic Time-out"],["bugdrug","Bug–drug Check"],["its","Did It Work?"],["impact","Intervention Impact"],["csp","C/S Prophylaxis Project"],["wr","AMS Ward Rounds"],["spc","Run Charts (SPC)"],["reports","Reports"],["indicators","Indicators"],["consumption","Consumption"],["economics","Cost & Impact"],["analytics","Analytics"],["discrep","Discrepancy"],["pdca","PDCA / 7 Wastes"],["inrud","WHO/INRUD Indicators"],["crf","CRF Forms"],["export","Export"]];
+const VIEWS=[["guide","User Guide"],["mindata","Minimum Data"],["brief","Decision brief"],["setup","Setup"],["doseref","Dose Reference"],["entry","Data Entry"],["mentry","Manual entry (any form)"],["hub","Import Hub"],["patients","Patients"],["prescriptions","Prescriptions"],["antibiogram","Antibiogram"],["drvzones","Driver Zones"],["wrtrend","Resistance Trend"],["wins","What's Working"],["dash","Dashboard"],["timeout","Antibiotic Time-out"],["bugdrug","Bug–drug Check"],["its","Did It Work?"],["impact","Intervention Impact"],["csp","C/S Prophylaxis Project"],["wr","AMS Ward Rounds"],["spc","Run Charts (SPC)"],["reports","Reports"],["indicators","Indicators"],["consumption","Consumption"],["economics","Cost & Impact"],["analytics","Analytics"],["discrep","Discrepancy"],["pdca","PDCA / 7 Wastes"],["inrud","WHO/INRUD Indicators"],["crf","CRF Forms"],["export","Export"]];
 /* ============================= SIDEBAR NAV GROUPS ============================= */
 /* Groups the flat VIEWS list into the left-sidebar sections, ordered roughly as a monthly AMS
    workflow: data in, then AMS operations/analysis, then reporting, then setup/reference at the
    bottom. Purely a presentation grouping — go(k) and VIEWS above remain the single source of
    truth for which views exist and what they're labelled. */
 const NAV_GROUPS=[
-  {id:"start",label:"Getting Started",items:["guide"]},
+  {id:"start",label:"Getting Started",items:["guide","mindata"]},
   {id:"records",label:"Clinical Records",items:["patients","prescriptions","antibiogram"]},
   {id:"ams",label:"AMS Operations",items:["dash","csp","wr","timeout","bugdrug","consumption","economics","analytics","spc","its","impact","drvzones","wrtrend","wins","discrep","pdca"]},
   {id:"reporting",label:"Reporting & Indicators",items:["reports","indicators","inrud","crf","export"]},
-  {id:"setup",label:"Setup & Data",items:["setup","doseref","entry","hub"]}
+  {id:"setup",label:"Setup & Data",items:["setup","doseref","entry","mentry","hub"]}
 ];
 function navBadge(k){
   if(k==="entry"){ const n=DB.pharmacyTx.length+DB.labTx.length+DB.admitTx.length; if(n)return `<span class="badge">${n}</span>`; }
@@ -24240,6 +24350,8 @@ function go(k){
   VIEWS.forEach(([kk])=>{ $("#v-"+kk).classList.toggle("on",kk===k); const nb=$("#nav-"+kk); if(nb)nb.classList.toggle("on",kk===k); });
   if(!$("#nav-"+k)&&$("#sidebar")&&typeof viewHas==="function") buildNav();
   if(k==="guide")renderGuide();
+  if(k==="mindata")renderMinData();
+  if(k==="brief")renderBrief();
   if(k==="setup")renderSetup();
   if(k==="timeout")renderTimeout();
   if(k==="bugdrug")renderBugDrug();
@@ -24250,6 +24362,7 @@ function go(k){
   if(k==="wr")renderWr();
   if(k==="doseref")renderDoseRef();
   if(k==="entry")renderEntry();
+  if(k==="mentry")renderMentry();
   if(k==="hub")renderHub();
   if(k==="patients")renderPatients();
   if(k==="prescriptions")renderPrescriptions();
@@ -26362,10 +26475,15 @@ async function generateDeepReportDocx(btnId){
       children.push(P(`Apparent loss ${fmtTZS(disc.apparentLossCost)}, apparent surplus ${fmtTZS(disc.apparentSurplusCost)} across matched drug-months — a received-vs-dispensed proxy, not a certified stock count.`));
     }
 
-    if(gaps.length){
+    { /* v5.3: the section is always written; Data used and its limits comes from the Minimum Data check */
       children.push(H1("Challenges & Data Gaps"));
+      if(gaps.length){
       children.push(P("Everything computable from the data imported so far is reported above. The items below are the ones it could not compute, and what's needed to unlock them — a gap in the data on hand, not a defect in the tool.",{spacing:{after:120}}));
       gaps.forEach(g=>children.push(new Paragraph({text:g,bullet:{level:0},spacing:{after:60}})));
+      }
+      const MDU=mdaReportLines(); children.push(H2("Data used and its limits")); MDU.sources.forEach(s=>children.push(P(s,{spacing:{after:80}})));
+      if(MDU.limits.length){ children.push(P("Limits found by AMS Pro's data check (Minimum Data):",{spacing:{after:60}})); MDU.limits.forEach(g=>children.push(new Paragraph({text:g,bullet:{level:0},spacing:{after:60}}))); }
+      else children.push(P("AMS Pro's data check found no limits."));
     }
 
     children.push(H1("Methods & Citations"));
@@ -26599,6 +26717,13 @@ async function generateDeepReportPptx(btnId){
       chal.addText(gaps.slice(0,12).map(g=>({text:"• "+g+"\n",options:{fontSize:13,color:"333333",breakLine:true}})),{x:0.6,y:1.6,w:12,h:5.4,valign:"top",lineSpacingMultiple:1.3});
       if(gaps.length>12) chal.addText(`+ ${gaps.length-12} more — see Import Hub`,{x:0.6,y:7.0,w:12,h:0.4,fontSize:11,italic:true,color:"888888"});
     }
+    { /* v5.3: Data used and its limits, from the Minimum Data check */
+      const MDU=mdaReportLines(), du=pres.addSlide();
+      du.addText("Data used and its limits",{x:0.5,y:0.3,w:12,h:0.6,fontSize:26,bold:true,color:BRAND});
+      du.addText(MDU.sources.map(s=>({text:s+"\n",options:{fontSize:12,color:"333333",breakLine:true}})),{x:0.6,y:1.0,w:12,h:2.4,valign:"top",lineSpacingMultiple:1.2});
+      du.addText((MDU.limits.length?MDU.limits.slice(0,8):["AMS Pro's data check found no limits."]).map(g=>({text:"• "+g+"\n",options:{fontSize:12,color:"333333",breakLine:true}})),{x:0.6,y:3.5,w:12,h:3.6,valign:"top",lineSpacingMultiple:1.2});
+      if(MDU.limits.length>8) du.addText(`+ ${MDU.limits.length-8} more — see Minimum Data`,{x:0.6,y:7.0,w:12,h:0.4,fontSize:11,italic:true,color:"888888"});
+    }
 
     const closing=pres.addSlide();
     closing.background={color:BRAND};
@@ -26658,6 +26783,7 @@ function renderDeepReportPrintSection(){
     ${pdcaCases.length?`<h3>PDCA / 7 Wastes</h3><p class="tor-prose">${pdcaCases.length} case(s) &mdash; ${pdcaCases.filter(c=>c.status==="standardised").length} standardised, ${pdcaCases.filter(c=>c.status==="improving").length} improving, ${pdcaCases.filter(c=>c.status==="open").length} open.</p>`:""}
     ${disc.hasReceiptData?`<h3>Ward Stock Discrepancy</h3><p class="tor-prose">Apparent loss ${fmtTZS(disc.apparentLossCost)}, apparent surplus ${fmtTZS(disc.apparentSurplusCost)}.</p>`:""}
     ${(()=>{const g=gapsReport(); return g.length?`<h3>Challenges &amp; Data Gaps</h3><p class="tor-prose">Everything computable from the data imported so far is reported above. The items below are the ones it could not compute, and what's needed to unlock them &mdash; a gap in the data on hand, not a defect in the tool.</p><ul style="margin:8px 0 0;padding-left:18px">${g.map(x=>`<li style="margin-bottom:4px">${x}</li>`).join("")}</ul>`:"";})()}
+    ${mdaReportHTML()}
     <div class="hint">${esc(awareEdLabel(true))} · WHO ATC/DDD Index · WHO/DAP/93.1 WHO/INRUD indicators · UN 2024 AMR Declaration (≥70% Access by 2030) · Tanzania STG/NEMLIT 4th Ed. · Tanzania MOH GHS-CQI · Tanzania NIPCG · WHO/AFRO IPC core components · WHO IPCAF. Generated from this facility's own working data.</div>
   </div>`;
 }
@@ -26969,7 +27095,7 @@ function renderDriverZones(){
    this tool used elsewhere (Analytics/Cost & Impact projections), because a real fitted trend with
    a confidence interval is a meaningfully stronger claim than "last few months' average change",
    and this view exists specifically to make that claim. The t-value is a practical approximation
-   by sample size (1.96 for n>30, 2.16 for 10\u226430, 2.45 below) rather than a full t-distribution
+   by sample size (1.959963984540054 for n>30, 2.16 for 10\u226430, 2.45 below) rather than a full t-distribution
    table — adequate for a directional stewardship signal, not a substitute for formal biostatistics. */
 function linFit(ys){
   const n=ys.length; if(n<3) return null;
@@ -27009,7 +27135,7 @@ function wrtFit(metric,ward){
   if(s.noPd) return {ok:false,reason:"Set facility bed-days on Setup to compute patient-days."};
   if(s.values.length<3) return {ok:false,reason:`Need at least 3 months of dated data (${s.values.length} found).`};
   const fit=linFit(s.values); if(!fit) return {ok:false,reason:"Could not fit a trend."};
-  const denom=Math.abs(fit.mean)||1, t=fit.n>30?1.96:(fit.n>=10?2.16:2.45);
+  const denom=Math.abs(fit.mean)||1, t=fit.n>30?1.959963984540054:(fit.n>=10?2.16:2.45);
   const pctPerYr=fit.slope*12/denom*100, ciHalf=t*fit.se*12/denom*100;
   return {ok:true,n:fit.n,months:s.months,values:s.values,slope:fit.slope,intercept:fit.intercept,r2:fit.r2,mean:fit.mean,pctPerYr,pctLo:pctPerYr-ciHalf,pctHi:pctPerYr+ciHalf,se:fit.se,t};
 }
@@ -30117,10 +30243,12 @@ function renderGuide(){
       <tr><td><b>Store / ward issue report</b></td><td>Item Name, Quantity Issued, Issued To</td><td>Date Issued</td><td>Stock-outs and the ward-stock completeness check in the project</td></tr>
       <tr><td><b>Procedures / services</b></td><td>Product Name / Procedure</td><td>Patient ID, Sub Department Name, Ordered Date, Price</td><td>Surgical prophylaxis continued beyond 24&nbsp;h (Time-out), Patient Master</td></tr>
     </tbody></table></div>
-    <div class="notice" style="margin-top:12px"><b>Most important rule:</b> the ward names in the admissions file must be written exactly as the <i>Department</i> names in the dispensing file. That is how AMS Pro links bed-days to dispensing and decides which wards are in scope.</div>`)}
+    <div class="notice" style="margin-top:12px"><b>Most important rule:</b> the ward names in the admissions file must be written exactly as the <i>Department</i> names in the dispensing file. That is how AMS Pro links bed-days to dispensing and decides which wards are in scope.</div>
+    <div class="notice good" style="margin-top:10px">New in 5.3: <b>Minimum Data</b> (Getting Started) lists every heading the importer recognises, gives blank templates, and checks the data loaded now. <button class="btn sm ghost" onclick="go('mindata')">Open &rarr;</button></div>`)}
 
   ${sec("modules","3. What each module shows",`
     <div class="tablewrap"><table><thead><tr><th>Module</th><th>What it shows</th><th>How to read / use it</th><th></th></tr></thead><tbody>
+      ${mod("mindata","Minimum Data","What each file and analysis needs, every heading the importer recognises, blank templates, and Check my data: a live check of the data loaded now.","Run Check my data before a report: each analysis is Ready, Limited (with the reason) or Not possible (with what to add). The reports print the same check under Challenges &amp; Data Gaps.")}
       ${mod("dash","Dashboard","Headline figures: patients on antibiotics, AWaRe Access/Watch/Reserve, DDD and DOT per 1,000 patient-days, WHO vs Tanzania classification side by side, lab activity.","Start here every time. Access below 60&ndash;70% and DDD/DOT trends are the key stewardship signals.")}
       ${mod("patients","Patients","One line per patient joined across pharmacy, lab, admissions and procedures.","Look up a patient's full antibiotic exposure, cultures and stay in one place.")}
       ${mod("prescriptions","Prescriptions","Every dispensing line with matched generic, AWaRe class, route, days and DDD.","Check how an item name was matched; spot unrecognised or unusual lines.")}
@@ -30133,14 +30261,14 @@ function renderGuide(){
       ${mod("economics","Cost & Impact","Antibiotic spend from the Price column: sell revenue, implied buy cost and margin (markup set on the page), and spend by AWaRe tier.","Watch+Reserve spend is the money going to resistance-driving prescribing. Needs the Price column in the dispensing export.")}
       ${mod("analytics","Analytics","Pareto of consumption, monthly DDD trend with projection, DDD by ward, stewardship scenario outlook.","The Pareto shows where to focus; the monthly trend shows whether use is falling.")}
       ${mod("spc","Run Charts (SPC)","Laney p&prime; control charts per week or month for Access, Watch, Not-recommended, injectable share and time-out flags.","A red point is a real change (outside limits, 8 in a row on one side, or 6 rising/falling). Anything inside the limits is ordinary noise.")}
-      ${mod("its","Did It Work?","Evaluates an intervention: monthly before-vs-after comparison and an interrupted time series (segmented regression) for any ward and indicator, including course length and post-operative continuation.","The verdict compares the end of follow-up with what the earlier trend predicted. Download the 300-dpi figure, the monthly CSV and the ready-written methods and results for a paper.")}
+      ${mod("its","Did It Work?","Evaluates an intervention: monthly before-vs-after comparison and an interrupted time series (segmented regression) for any ward and indicator, including course length and post-operative continuation.","The verdict compares the end of follow-up with what the earlier trend predicted. Download the 300-dpi figure, the monthly CSV, the Stata files (labelled data, and commands that re-run this model and check it against AMS Pro) and the ready-written methods and results for a paper.")}
       ${mod("impact","Intervention Impact","Did an intervention work? Interrupted time series on monthly values, plus a quarter-by-quarter comparison. Who is studied can be dispensing departments, patients admitted to a ward (admissions linked to dispensing — for sub-wards such as Post-C that dispensing does not name), or a ward consumption table.","Choose the ward, the outcome and the month the intervention started. Read the verdict and the &ldquo;Checks and decisions&rdquo; list; about 12 months before and 12 after give a firm answer.")}
       ${mod("drvzones","Driver Zones","Antibiotic use grouped by resistance-pressure zone: out-patient, surgical prophylaxis (incl. C-section) and respiratory.","Shows which zone carries most Watch use and whether cefazolin is used for clean surgery.")}
       ${mod("wrtrend","Resistance Trend","Monthly Watch+Reserve share with a fitted trend, 95% band and 12-month projection.","A falling line with high R&sup2; is a sustained improvement; a low R&sup2; means too noisy to call.")}
       ${mod("wins","What's Working","Recognition by ward and by prescriber: Access and Watch+Reserve shares, using a fair minimum volume.","Use it for recognition at CQI meetings &mdash; it is not adjusted for case-mix, so it is not a league table.")}
       ${mod("discrep","Discrepancy","Ward stock receipts compared with what was dispensed (CRF01 reconciliation).","Needs a ward stock-receipt export (imported on CRF Forms).")}
       ${mod("pdca","PDCA / 7 Wastes","Plan&ndash;Do&ndash;Check&ndash;Act cycles and the seven wastes, for documenting improvement projects.","Record each change you test and what the data showed afterwards.")}
-      ${mod("reports","Reports","The Deep Report as an editable Word document and a PowerPoint deck, built from everything loaded.","Saved into the data folder &rsaquo; reports. Review and add local commentary before sharing.")}
+      ${mod("reports","Reports","The Deep Report as an editable Word document and a PowerPoint deck, built from everything loaded, and an 8-slide talk deck cut from the same deck (v5.4).","Saved into the data folder &rsaquo; reports. Review and add local commentary before sharing.")}
       ${mod("indicators","Indicators","AMS and IPC indicators (Tanzania GHS-CQI) with numerators, denominators and targets.","Indicators fill automatically where the data allow; the rest can be typed in.")}
       ${mod("inrud","WHO/INRUD Indicators","WHO/INRUD prescribing and facility indicators (drugs per encounter, % with an antibiotic, EDL availability, tracer drugs).","Prescribing indicators come from the whole dispensing basket; facility indicators are entered by hand.")}
       ${mod("crf","CRF Forms","CRF01 dispensing, CRF02 SSI after C-section, CRF03 patient audit log, ward stock receipts.","Filled from the imported data; correct or complete by hand where needed.")}
@@ -30826,7 +30954,7 @@ function cspMannWhitney(a,b){
   const cap=2000; const thin=(arr)=>{ if(arr.length<=cap) return arr; thinned=true; const out=[]; for(let k=0;k<cap;k++) out.push(arr[Math.floor(k*arr.length/cap)]); return out; };
   A=thin(A); B=thin(B); const diffs=new Float64Array(A.length*B.length); let q=0; for(const y of B) for(const x of A) diffs[q++]=y-x; diffs.sort();
   const m=diffs.length, hl=m%2?diffs[(m-1)/2]:(diffs[m/2-1]+diffs[m/2])/2;
-  const na=A.length, nb=B.length, Ka=Math.floor(na*nb/2-1.959964*Math.sqrt(na*nb*(na+nb+1)/12));
+  const na=A.length, nb=B.length, Ka=Math.floor(na*nb/2-1.959963984540054*Math.sqrt(na*nb*(na+nb+1)/12));
   const lo=Ka>=1?diffs[Ka-1]:diffs[0], hi=Ka>=1?diffs[m-Ka]:diffs[m-1];
   return {U:U1,z,p,medA:cspMedian(a),medB:cspMedian(b),hl,lo,hi,thinned,n1,n2}; }
 /* Cohen's kappa for two raters over the same cases (categories as strings), with the large-sample
@@ -30843,7 +30971,7 @@ function cspKappa(pairs){
   let B=0; for(let i=0;i<k;i++) for(let j=0;j<k;j++) if(i!==j) B+=P[i][j]*Math.pow(row[i]+col[j],2);
   B*=Math.pow(1-kap,2); const C=Math.pow(kap-pe*(1-kap),2);
   const se=Math.sqrt(Math.max(0,A+B-C))/((1-pe)*Math.sqrt(n));
-  return {n,po,pe,kappa:kap,se,lo:kap-1.959964*se,hi:kap+1.959964*se,cats,M}; }
+  return {n,po,pe,kappa:kap,se,lo:kap-1.959963984540054*se,hi:kap+1.959963984540054*se,cats,M}; }
 /* Run-chart rules (IHI): a shift is 6 or more consecutive points on one side of the median (points on
    the median neither break nor add to a run); a trend is 5 or more consecutive points all going up or
    all going down (a repeated value neither breaks nor adds); an astronomical point is one outside the
@@ -32607,7 +32735,7 @@ function demoProjects(){
    programme has come (stage). Nothing is switched off: hidden modules keep working, links to them still open,
    and "Show everything" is one click away. The role and personal ticks are kept on this computer only; the
    facility level and AMS stage are saved with the facility's data, so everyone using it starts the same way. */
-const VW_CORE=["guide","setup","hub","dash","reports"];          // always in the menu
+const VW_CORE=["guide","mindata","setup","hub","dash","reports"];          // always in the menu
 const VW_STAGE={
   starting:{label:"Starting",note:"Know how antibiotics are used: consumption, AWaRe, prescribing indicators, the first reports.",
     mods:["entry","doseref","consumption","prescriptions","inrud","indicators","crf","export"]},
@@ -32778,7 +32906,7 @@ const ITSX=(function(){
     const v1=a.reduce((s,v)=>s+(v-m1)*(v-m1),0)/(n1-1), v2=b.reduce((s,v)=>s+(v-m2)*(v-m2),0)/(n2-1); const se=Math.sqrt(v1/n1+v2/n2);
     const df=se>0?Math.pow(v1/n1+v2/n2,2)/(Math.pow(v1/n1,2)/(n1-1)+Math.pow(v2/n2,2)/(n2-1)):n1+n2-2; const d=m2-m1;
     const t=se>0?d/se:0, crit=tq(0.025,df); return {m1,m2,sd1:Math.sqrt(v1),sd2:Math.sqrt(v2),n1,n2,d,lo:d-crit*se,hi:d+crit*se,t,df,p:se>0?tp2(t,df):1}; }
-  function wilson(x,n){ if(!n) return {p:null,lo:null,hi:null}; const z=1.959964, p=x/n, d=1+z*z/n, c=(p+z*z/(2*n))/d, h=z*Math.sqrt(p*(1-p)/n+z*z/(4*n*n))/d; return {p,lo:Math.max(0,c-h),hi:Math.min(1,c+h)}; }
+  function wilson(x,n){ if(!n) return {p:null,lo:null,hi:null}; const z=1.959963984540054, p=x/n, d=1+z*z/n, c=(p+z*z/(2*n))/d, h=z*Math.sqrt(p*(1-p)/n+z*z/(4*n*n))/d; return {p,lo:Math.max(0,c-h),hi:Math.min(1,c+h)}; }
   return {lgamma,ibeta,tp2,tq,inv,ols,welch,wilson};
 })();
 
@@ -32991,6 +33119,280 @@ function dwExportCsv(){ const S=dwSettings(), R=window._dwR; if(!R||!R.rows.leng
     "value","fitted","expected_without_intervention","after","time_since_start"];
   const lines=[head.join(",")].concat(R.rows.map(r=>[q(r.k),r.T,q(r.phase),r.use?1:0,q(r.x),q(r.n),q(r.v),q(r.fit),q(r.cf),r.phase==="post"?1:0,r.phase==="post"&&R.firstPost?r.T-R.firstPost:0].join(",")));
   dl(`ITS_${dwFileStem(S)}.csv`,lines.join("\n"),"text/csv"); }
+/* ---------- v5.2: Did It Work? in Stata ----------
+   The monthly series as a labelled Stata data file (.dta, Stata 14 or later), and a do-file that re-runs exactly this
+   model with Stata's newey and checks every estimate and standard error against the figures AMS Pro shows. */
+function dwLab80(s){ s=String(s||""); return s.length>80?s.slice(0,79)+"…":s; }
+function dwStataParts(S){ const M=DW_METRICS[S.metric], d=S.drug||"the antibiotic";
+  if(S.metric==="spLong") return ["Operated patients with antibiotics 2–7 days after the operation","Operated patients given antibiotics around the operation"];
+  if(M.kind==="prop") return [{access:"Access-group antibiotic lines",watch:"Watch-group antibiotic lines",wr:"Watch and Reserve antibiotic lines",iv:"Injectable antibiotic lines",drug:`Lines for ${d}`}[S.metric]||"Lines counted","All antibiotic lines"];
+  if(M.kind==="perpt") return [`DDDs of ${d}`,`Patients treated with ${d}`];
+  if(M.kind==="rate") return [S.metric==="drugDddAdm"?`DDDs of ${d}`:"DDDs",S.metric==="dddPd"?"Patient-days":"Admissions"];
+  return ["Antibiotic dispensing lines",null]; }
+function dwStataData(S,R){ const M=DW_METRICS[S.metric], [numL,denL]=dwStataParts(S), rows=R.rows, fp=R.firstPost;
+  const col=(name,label,t,vals,o={})=>Object.assign({name,label:dwLab80(label),t,vals},o);
+  const cols=[
+    col("month","Month","double",rows.map(r=>dwMonthIdx(r.k)-1960*12),{fmt:"%tmMon_CCYY"}),
+    col("time","Month number in the series (1 = first month)","double",rows.map(r=>r.T)),
+    col("phase","Phase","byte",rows.map(r=>r.phase==="pre"?1:r.phase==="trans"?2:3),{vlab:"phase"}),
+    col("post","After the intervention (1 = yes)","byte",rows.map(r=>r.phase==="post"?1:0),{vlab:"noyes"}),
+    col("time_after","Months since the first month after (0 before)","double",rows.map(r=>r.phase==="post"&&fp?r.T-fp:0)),
+    col("value",`${dwIndicator(S)} (${M.unit})`,"double",rows.map(r=>r.v==null||!isFinite(r.v)?null:r.v)),
+    col("numerator",numL,"double",rows.map(r=>r.x==null||!isFinite(r.x)?null:r.x))];
+  if(denL) cols.push(col("denominator",denL,"double",rows.map(r=>r.n==null||!isFinite(r.n)?null:r.n)));
+  cols.push(col("lines","All antibiotic dispensing lines in the month","double",rows.map(r=>r.lines==null?null:r.lines)),
+    col("in_model","Used in the model (1 = yes)","byte",rows.map(r=>r.use?1:0),{vlab:"noyes"}),
+    col("fitted","Fitted by the model","double",rows.map(r=>r.fit==null||!isFinite(r.fit)?null:r.fit)),
+    col("expected","Expected without the intervention (earlier trend carried on)","double",rows.map(r=>R.m&&r.cf!=null&&isFinite(r.cf)?r.cf:null)));
+  const vl=[{name:"phase",entries:[[1,"Before"],[2,"Transition (left out)"],[3,"After"]]},{name:"noyes",entries:[[0,"No"],[1,"Yes"]]}];
+  const ver=dwVersion(), scheme=currentAwareScheme()==="tanzania"?"Tanzania STG/NEMLIT 2021 grouping":"WHO AWaRe classification";
+  const notes=[`Indicator: ${dwIndicator(S)} (${M.unit})`,`Ward: ${S.ward||"all wards in scope"}`,
+    `Intervention started ${S.start?dwMonthLabel(S.start):"(not set)"}; transition months left out: ${R.trans||0}`,
+    R.m?`Model: segmented regression of value on time, post and time_after, months with in_model = 1 taken as consecutive, Newey-West standard errors with lag ${R.lag}`:"No model: fewer than 3 months before or after the intervention",
+    `AWaRe grouping: ${scheme}`,`Written by Odieman AMS Pro ${ver} on ${stStamp()}`];
+  const chars=[["_dta","note0",String(notes.length)],...notes.map((t,i)=>["_dta","note"+(i+1),t])];
+  return dtaWrite(cols,vl,dwLab80(`AMS Pro ${ver} Did It Work?: ${dwIndicator(S)}`),chars); }
+function dwStataDo(S,R){ const M=DW_METRICS[S.metric], ver=dwVersion(), dp=dwDp(S), stem="ITS_"+dwFileStem(S), hasDen=!!dwStataParts(S)[1];
+  const g=v=>{ if(!isFinite(v)) return "."; if(Math.abs(v)<1e-300) return "0"; return String(+v.toPrecision(15)); };
+  const ci=o=>`${dwFmt(o.est,dp)}, 95% CI ${dwFmt(o.lo,dp)} to ${dwFmt(o.hi,dp)}, ${dwPtxt(o.p)}`;
+  const kEnd=R.monthsAfter-1, C=R.c;
+  const est=[["Level just before the intervention",`_cons + ${R.firstPost-1}*time`,C.base],["Trend before (per month)","time",C.preTrend],
+    ["Immediate change in level","post",C.level],["Change in trend (per month)","time_after",C.slope],["Trend after (per month)","time + time_after",C.postTrend],
+    [`Difference from the expected value at ${dwMonthLabel(R.lastK)}`,`post + ${kEnd}*time_after`,C.end]];
+  const first=R.rows[0].k, last=R.rows[R.rows.length-1].k;
+  return [
+`* Did It Work? in Stata`,
+`* ${dwIndicator(S)} (${M.unit}), ${S.ward||"all wards in scope"}`,
+`* Intervention started ${dwMonthLabel(S.start)}; ${R.trans||0} transition month(s) left out; months ${dwMonthLabel(first)} to ${dwMonthLabel(last)}`,
+`* Written by Odieman AMS Pro ${ver} on ${stStamp()}. For Stata 14 or later.`,
+`*`,
+`* This file opens the monthly data, re-runs the interrupted time series AMS Pro shows (segmented regression,`,
+`* Newey-West standard errors with lag ${R.lag}) and checks each estimate and standard error against AMS Pro.`,
+`* If any of them differs, Stata stops with "assertion is false".`,
+`*`,
+`* To run: put this file and ${stem}.dta in one folder, make it Stata's working directory, then type`,
+`*     do "${stem}.do"`,
+``,
+`version 14`,
+`clear all`,
+`use "${stem}.dta", clear`,
+`notes`,
+`list month phase value numerator${hasDen?" denominator":""} in_model, noobs sepby(phase)`,
+``,
+`* AMS Pro uses the months with in_model == 1 (transition months and months without data are left out),`,
+`* taken in order as consecutive months.`,
+`keep if in_model == 1`,
+`generate seq = _n`,
+`tsset seq`,
+``,
+`* Segmented regression: value = b0 + b1*time + b2*post + b3*time_after`,
+`newey value time post time_after, lag(${R.lag})`,
+``,
+...est.flatMap(([name,expr,o])=>[`* ${name}. AMS Pro: ${ci(o)}`,`lincom ${expr}`,`assert reldif(r(estimate), ${g(o.est)}) < 1e-6 & reldif(r(se), ${g(o.se)}) < 1e-6`,``]),
+`display as result "All six estimates match AMS Pro ${ver}."`,``].join("\r\n"); }
+function dwExportDta(){ const S=dwSettings(), R=window._dwR; if(!R||!R.rows.length){ toast("Nothing to export yet"); return; }
+  dl(`ITS_${dwFileStem(S)}.dta`,new Blob([dwStataData(S,R)],{type:"application/x-stata-dta"}),"application/x-stata-dta"); }
+function dwExportDo(){ const S=dwSettings(), R=window._dwR; if(!R||!R.rows.length){ toast("Nothing to export yet"); return; }
+  if(!R.c){ toast("The Stata commands need a fitted model: at least 3 months before and 3 after the intervention."); return; }
+  dl(`ITS_${dwFileStem(S)}.do`,dwStataDo(S,R),"text/plain"); }
+/* Stata data file writer (the same as PPS Pro 3.5) */
+function stStamp(){const d=new Date(),M=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],z=n=>String(n).padStart(2,"0");
+ return`${z(d.getDate())} ${M[d.getMonth()]} ${d.getFullYear()} ${z(d.getHours())}:${z(d.getMinutes())}`}
+/* Stata 118 (.dta, little-endian). Missing: byte 101 = . and 102 = .a; double 0x7FE0… = . and 0x7FE001… = .a */
+function dtaWrite(cols,vlabs,label,chars){const enc=new TextEncoder(),parts=[];let len=0;
+ const put=x=>{parts.push(x);len+=x.length},tag=s=>put(enc.encode(s)),num=(n,b,f)=>{const x=new Uint8Array(b);f(new DataView(x.buffer),n);put(x)};
+ const u8=n=>num(n,1,(d,x)=>d.setUint8(0,x)),u16=n=>num(n,2,(d,x)=>d.setUint16(0,x,true)),u32=n=>num(n,4,(d,x)=>d.setUint32(0,x,true)),
+  u64=n=>num(n,8,(d,x)=>{d.setUint32(0,x%4294967296,true);d.setUint32(4,Math.floor(x/4294967296),true)});
+ const cut=(e,m)=>{if(e.length<=m)return e.length;let k=m;while(k>0&&(e[k]&0xC0)===0x80)k--;return k};
+ const fix=(s,n)=>{const x=new Uint8Array(n),e=enc.encode(s||"");x.set(e.subarray(0,cut(e,n-1)));put(x)};
+ const K=cols.length,N=K?cols[0].vals.length:0,off=new Array(14).fill(0),mark=i=>off[i]=len;
+ mark(0);tag("<stata_dta><header><release>118</release><byteorder>LSF</byteorder><K>");u16(K);tag("</K><N>");u64(N);tag("</N><label>");
+ const lb=enc.encode(label);const lbc=lb.subarray(0,cut(lb,320));u16(lbc.length);put(lbc);tag("</label><timestamp>");const ts=stStamp();u8(ts.length);tag(ts);tag("</timestamp></header>");
+ mark(1);tag("<map>");const mapB=new Uint8Array(112);put(mapB);tag("</map>");
+ mark(2);tag("<variable_types>");cols.forEach(c=>u16(c.t==="str"?c.w:c.t==="byte"?65530:65526));tag("</variable_types>");
+ mark(3);tag("<varnames>");cols.forEach(c=>fix(c.name,129));tag("</varnames>");
+ mark(4);tag("<sortlist>");for(let i=0;i<=K;i++)u16(0);tag("</sortlist>");
+ mark(5);tag("<formats>");cols.forEach(c=>fix(c.fmt||(c.t==="str"?`%-${c.w}s`:"%10.0g"),57));tag("</formats>");
+ mark(6);tag("<value_label_names>");cols.forEach(c=>fix(c.vlab||"",129));tag("</value_label_names>");
+ mark(7);tag("<variable_labels>");cols.forEach(c=>fix(c.label||"",321));tag("</variable_labels>");
+ mark(8);tag("<characteristics>");(chars||[]).forEach(([v,n,t])=>{const e=enc.encode(t);tag("<ch>");u32(258+e.length+1);fix(v,129);fix(n,129);put(e);u8(0);tag("</ch>")});tag("</characteristics>");
+ mark(9);tag("<data>");
+ const rl=cols.reduce((a,c)=>a+(c.t==="str"?c.w:c.t==="byte"?1:8),0),buf=new Uint8Array(rl*N),dv=new DataView(buf.buffer);let p=0;
+ for(let r=0;r<N;r++)for(const c of cols){const x=c.vals[r];
+  if(c.t==="str"){buf.set(enc.encode(x),p);p+=c.w}
+  else if(c.t==="byte"){dv.setInt8(p,x==null?101:x===".a"?102:x);p+=1}
+  else{if(x==null||x===".a"){dv.setUint32(p,0,true);dv.setUint32(p+4,x==null?0x7FE00000:0x7FE00100,true)}else dv.setFloat64(p,x,true);p+=8}}
+ put(buf);tag("</data>");
+ mark(10);tag("<strls></strls>");
+ mark(11);tag("<value_labels>");
+ vlabs.forEach(({name,entries})=>{const E=entries.map(([v,l])=>[v===".a"?2147483622:v,enc.encode(l)]).sort((a,b)=>a[0]-b[0]),tl=E.reduce((a,[,e])=>a+e.length+1,0);
+  tag("<lbl>");u32(8+8*E.length+tl);fix(name,129);put(new Uint8Array(3));u32(E.length);u32(tl);
+  let o=0;E.forEach(([,e])=>{u32(o);o+=e.length+1});E.forEach(([v])=>num(v,4,(d,x)=>d.setInt32(0,x,true)));E.forEach(([,e])=>{put(e);u8(0)});tag("</lbl>")});
+ tag("</value_labels>");mark(12);tag("</stata_dta>");off[13]=len;
+ const md=new DataView(mapB.buffer);off.forEach((o,i)=>{md.setUint32(8*i,o%4294967296,true);md.setUint32(8*i+4,Math.floor(o/4294967296),true)});
+ const out=new Uint8Array(len);let q=0;parts.forEach(x=>{out.set(x,q);q+=x.length});return out}
+/* ============================= MINIMUM DATA (v5.3) =============================
+   What AMS Pro needs for each analysis, and a live check of the data loaded now. One source for the page,
+   the check and the reports: accepted headings are read from the importer's own alias lists, and every
+   threshold is one an analysis already applies (Cochrane EPOC 3 months each side, 8 for steadier estimates,
+   6 each side for an Intervention Impact verdict, 24 months for season adjustment, 20 points for run-chart
+   limits, CLSI M39 30 isolates). Nothing here changes a figure. */
+const MDA_FILES=[
+ {cat:"pharm",name:"Pharmacy dispensing log",tag:"the essential file",row:"one item dispensed (one line of the export)",
+  when:"A header row with an <i>Item Name</i> column (line-item export), or a drug/units summary sheet with drug and units columns.",
+  need:"Item name, quantity, date",rec:"Patient number, department/ward, dosage text (Route; Frequency; Duration), price, prescriber, age, gender",
+  maps:[["Line-item export",()=>ALIAS_DISPENSE],["Drug/units summary sheet",()=>ALIAS_PHARM_AGG]],
+  tpl:[["Patient ID","Item Name","Quantity","Dosage","Department","Date","Price","Prescriber"],["100234","Ceftriaxone Sodium Powder for Injection 1g Vial","1","Dosage: Injection 1g; Route: IV; Frequency: OD; Duration: 5 /7","Medical Ward","2026-11-05","2500","Dr A"]]},
+ {cat:"admit",name:"Admissions / ward log",tag:"for rates per 1,000 patient-days",row:"one admission (one stay)",
+  when:"A Patient ID/Number column or a Ward column. Only a file with a Ward column and Date Admitted or Bed Days defines the wards and bed-days.",
+  need:"Ward, and Date Admitted or Bed Days",rec:"Patient number, Date Discharged, Diagnosis, Procedure, Cesarean Section, SSI Confirmed, Receiving Antibiotic, age, gender",
+  maps:[["Admissions",()=>ALIAS_ADMIT]],
+  tpl:[["Patient ID","Ward","Date Admitted","Date Discharged","Bed Days","Diagnosis","Procedure","Age","Gender"],["100234","Medical Ward","2026-11-01","2026-11-06","5","Pneumonia","","45","Female"]]},
+ {cat:"diagnosis",name:"Diagnosis log",tag:"optional",row:"one patient's diagnosis",
+  when:"A Patient ID/Registration column and a Diagnosis column.",need:"Patient number, diagnosis",rec:"–",
+  maps:[["Diagnosis log (the Patient ID and Diagnosis entries of the admissions list)",()=>({patientId:ALIAS_ADMIT.patientId,diagnosis:ALIAS_ADMIT.diagnosis})]],
+  tpl:[["Patient ID","Diagnosis"],["100234","Pneumonia"]]},
+ {cat:"lab",name:"Laboratory / surveillance log",tag:"optional",row:"one test or sample",
+  when:"One of three shapes: a structured surveillance sheet (sample type plus TAT, AST, AMR flag columns); a turnaround-time log (sample collected time and result submission time); or a raw test-order log (product or test name).",
+  need:"Turnaround-time log: test name, sample collected time, submission time",rec:"Patient number, TAT Expected (e.g. 72Hrs)",
+  maps:[["Turnaround-time log",()=>ALIAS_TAT],["Structured surveillance sheet",()=>ALIAS_LAB],["Test-order log",()=>ALIAS_LABLOG]],
+  tpl:[["Patient Number","Test Name","Sample Collected Time","To DR Submission Time","TAT Expected"],["100234","Blood culture","2026-11-01 08:00:00","2026-11-04 10:00:00","72Hrs"]]},
+ {cat:"procedures",name:"Procedures / services report",tag:"optional",row:"one billed procedure or service",
+  when:"A Product Name or Procedure column; patient columns to its left are recognised from their content.",need:"Product name / procedure",rec:"Patient number, Sub Department Name, Ordered Date, price",
+  maps:[["Procedures",()=>ALIAS_PROCEDURE]],
+  tpl:[["Patient ID","Product Name","Sub Department Name","Ordered Date","Quantity","Price"],["100234","Caesarean section","Theatre","2026-11-02","1","150000"]]},
+ {cat:"surgery",name:"Surgery Patients Report",tag:"for the C/S Prophylaxis Project",row:"one operation",
+  when:"An operation (Surgery / Procedure) column and a date column, plus the patient number.",need:"Patient number, surgery / procedure, surgery date",rec:"Start time, surgery type (emergency/elective), status",
+  maps:[["Surgery list",()=>ALIAS_SURGERY]],
+  tpl:[["Patient Number","Surgery","Surgery Date","Start Time","Surgery Type","Status"],["100234","Caesarean section","2026-11-02","10:30","Emergency","Done"]]},
+ {cat:"whonet",name:"WHONET isolate listing",tag:"for the antibiogram",row:"one isolate",
+  when:"A patient or laboratory number column, an organism column, and antibiotic columns holding R, I or S (WHONET codes such as CRO or CRO_ND30, or antibiotic names).",
+  need:"Patient or laboratory number, organism, antibiotic columns with R/I/S",rec:"Specimen date and type, ward",
+  maps:[["WHONET listing",()=>WHONET_ALIAS]],
+  tpl:[["PATIENT_ID","SPEC_NUM","SPEC_DATE","SPEC_TYPE","ORGANISM","CRO","AMP","GEN","CIP"],["100234","L-55","2026-11-01","ur","eco","R","R","S","S"]]},
+ {cat:"issue",name:"Store / ward issue report",tag:"optional",row:"one issue of an item to a ward",
+  when:"An item name column and a quantity column.",need:"Item name, quantity issued",rec:"Issued to (ward), date issued, unit cost",
+  maps:[["Store / ward issues",()=>ALIAS_RECEIPT]],
+  tpl:[["Item Name","Quantity Issued","Issued To","Date Issued"],["Ceftriaxone 1g vial","50","Medical Ward","2026-11-01"]]}];
+function mdaFieldLabel(f){ return CAT_FIELDLABEL[f]||CSP_FIELD[f]||({labNo:"Laboratory number",specimen:"Specimen type",organism:"Organism",subDept:"Sub department",productName:"Product / procedure",orderedBy:"Ordered by",orderedDate:"Ordered date",subTotal:"Sub total",servedBy:"Served by",servedDate:"Served date",operation:"Operation"})[f]||f; }
+function mdaTemplate(cat){ const f=MDA_FILES.find(x=>x.cat===cat); if(!f) return; const q=v=>/[",]/.test(v)?`"${v.replace(/"/g,'""')}"`:v;
+  dl(`AMS_template_${cat}.csv`,f.tpl[0].map(q).join(",")+"\r\n","text/csv"); }
+function mdaMonths(tx){ const s=new Set(); tx.forEach(t=>{ if(/^\d{4}-\d{2}/.test(t.date||"")) s.add(t.date.slice(0,7)); }); return [...s].sort(); }
+/* the check */
+function mdaCheck(){ const out=[], add=(id,name,page,st,detail,todo)=>out.push({id,name,page,st,detail,todo:todo||""});
+  const tx=scopedPharmacyTx(), ab=tx.filter(t=>t.drugMatched), n=ab.length, has=f=>ab.filter(f).length, pc=x=>n?Math.round(100*x/n)+"%":"–";
+  const M=mdaMonths(ab), m=DB.metrics||{}, pid=has(t=>(""+(t.patientId||"")).trim()), dur=has(t=>t.days!==""&&t.days!=null&&+t.days>0), ddd=has(t=>t.dddContribution!=null), price=has(t=>t.price!=null&&t.price>0), dept=has(t=>(t.department||"").trim());
+  const span=M.length?`${dwMonthLabel(M[0])} to ${dwMonthLabel(M[M.length-1])}`:"";
+  if(!tx.length) add("pharm","Pharmacy dispensing (the essential file)","hub","no","No dispensing lines are loaded.","Import the pharmacy dispensing export on the Import Hub: Item Name, Quantity and Date at least.");
+  else if(!n) add("pharm","Pharmacy dispensing (the essential file)","hub","no",`${tx.length.toLocaleString()} lines, but none matched a systemic antibiotic.`,"Check that the export is the pharmacy dispensing report with item names.");
+  else add("pharm","Pharmacy dispensing (the essential file)","hub","ready",`${tx.length.toLocaleString()} lines, ${n.toLocaleString()} systemic antibiotic lines over ${M.length} month${M.length===1?"":"s"} (${span}). Patient number on ${pc(pid)}, department on ${pc(dept)}, a duration in the dosage text on ${pc(dur)}, a computable DDD on ${pc(ddd)}, a price on ${pc(price)}.`,"");
+  if(!n){ add("aware","AWaRe shares and consumption","dash","no","No antibiotic lines.","Import the pharmacy dispensing export."); }
+  else { const un=(DB.consumption||[]).filter(c=>c.cls==="Unclassified"||!c.cls);
+    add("aware","AWaRe shares and consumption","dash",un.length?"limited":"ready",`${n.toLocaleString()} antibiotic lines.`+(un.length?` ${un.length} drug${un.length>1?"s have":" has"} no AWaRe group (${un.slice(0,4).map(c=>esc(c.drug)).join(", ")}${un.length>4?"…":""}).`:""),un.length?"Check those drugs on the Dose Reference tab.":""); }
+  const bd=m.bedDaysSource?` Bed-days: ${esc(m.bedDaysSource)}.`:"";
+  if(!n) add("ddd","DDD per 1,000 patient-days","dash","no","No antibiotic lines.","");
+  else if(!m.dddTotal) add("ddd","DDD per 1,000 patient-days","dash","no","No dispensed antibiotic has a computable DDD.","Item names need the strength (e.g. 1g) and the drug a WHO DDD on the Dose Reference tab.");
+  else if(!m.dddPer1000) add("ddd","DDD per 1,000 patient-days","dash","limited",`DDD worked out for ${pc(ddd)} of antibiotic lines, but there is no bed-days denominator, so only the DDD total is shown.`,"Import admissions with Ward and Date Admitted or Bed Days, or set an estimate on Setup (beds × occupancy % × days).");
+  else add("ddd","DDD per 1,000 patient-days","dash",ddd<n?"limited":"ready",`DDD worked out for ${pc(ddd)} of antibiotic lines${ddd<n?"; lines without one add nothing, so the rate is a minimum":""}.`+bd,ddd<n?"Lines without a DDD are listed on Prescriptions; most lack a strength in the item name.":"");
+  if(!n) add("dot","DOT per 1,000 patient-days","dash","no","No antibiotic lines.","");
+  else if(!m.dotTotal) add("dot","DOT per 1,000 patient-days","dash","no","No dispensing line has a duration in its dosage text.","Export the dosage text with the dispensing report (e.g. “Duration: 5 /7”).");
+  else if(!m.dotPer1000) add("dot","DOT per 1,000 patient-days","dash","limited",`A duration is read for ${pc(dur)} of antibiotic lines, but there is no bed-days denominator.`,"Import admissions with bed-days, or set an estimate on Setup.");
+  else add("dot","DOT per 1,000 patient-days","dash",dur<n?"limited":"ready",`A duration is read for ${pc(dur)} of antibiotic lines${dur<n?"; the others add no days, so the rate is a minimum":""}.`+bd,"");
+  { const S=dwSettings(), R=dwAnalyse(S), st=/^\d{4}-\d{2}$/.test(S.start||"");
+    if(!R.rows.length) add("its","Did It Work? (interrupted time series)","its","no",esc(R.msg||"No dated antibiotic dispensing lines."),"Import dated pharmacy dispensing.");
+    else if(st&&!R.c) add("its","Did It Work? (interrupted time series)","its","no",esc(R.msg||""),"Widen the analysis window, or choose another intervention month.");
+    else if(st) add("its","Did It Work? (interrupted time series)","its",R.pre.length<8||R.post.length<8?"limited":"ready",`${R.pre.length} months before and ${R.post.length} after ${dwMonthLabel(S.start)}.`+(R.pre.length<8||R.post.length<8?" With fewer than 8 on a side the estimates are less steady.":""),"");
+    else { const k=R.rows.filter(r=>r.v!=null).length; add("its","Did It Work? (interrupted time series)","its",k<6?"no":"ready",`${k} month${k===1?"":"s"} with data.`+(k<6?" An interrupted time series needs at least 3 months before and 3 after the intervention (Cochrane EPOC).":" Choose the intervention month on the Did It Work? page."),k<6?"Load more months of dispensing.":""); } }
+  { const k=M.length; add("impact","Intervention Impact","impact",k<6?"no":k<24?"limited":"ready",`${k} month${k===1?"":"s"} of dated antibiotic dispensing.`+(k<6?" At least 3 months before and 3 after are needed.":k<12?" A verdict needs at least 6 months on each side.":k<24?" Season adjustment needs at least 24 usable months.":""),k<24?"More months of dispensing.":""); }
+  { const gran=(stewSettings().spcGran)||"week", s=spcSeries("access",gran), k=s.pts.length;
+    add("spc","Run charts (SPC)","spc",!k?"no":k<20?"limited":"ready",k?`${k} ${gran==="week"?"weekly":"monthly"} points.`+(k<20?" Fewer than 20: control limits are provisional.":""):"No dated antibiotic lines.",k<20&&k?"More weeks of dispensing.":""); }
+  { const iso=DB.isolates||[];
+    if(!iso.length) add("abg","Antibiogram","antibiogram","no","No culture results are loaded.","Import the WHONET isolate listing (R/I/S per antibiotic), or enter results on Bug–drug Check.");
+    else { const keep=DB.antibiogram; compileAntibiogram(); const A=DB.antibiogram; let cells=0,ok=0; Object.values(A.matrix||{}).forEach(r=>Object.values(r).forEach(c=>{ if(c){ cells++; if(!c.lowN) ok++; } })); DB.antibiogram=keep;
+      add("abg","Antibiogram","antibiogram",ok?"ready":"limited",`${A.isolateCount} first isolates (one per patient per organism) of ${iso.length}; ${ok} of ${cells} organism–antibiotic cells reach 30 isolates.`+(ok?"":" No cell reaches the CLSI M39 minimum of 30 isolates, so every percentage is unstable."),ok?"":"Combine more months or specimens."); } }
+  { const iso=DB.isolates||[], ids=new Set(ab.map(t=>(""+(t.patientId||"")).trim()).filter(Boolean)), lk=iso.filter(i=>ids.has((""+(i.patientId||"")).trim())).length;
+    add("bugdrug","Bug–drug Check","bugdrug",!iso.length?"no":lk?"ready":"limited",!iso.length?"No culture results.":`${lk} of ${iso.length} isolates have a patient number that also appears in the dispensing data.`,!iso.length?"Import culture results.":lk?"":"Use the same patient numbers in the culture results and the dispensing export."); }
+  add("timeout","Antibiotic Time-out, Patients, Prescriptions","timeout",!pid?"no":dur<n?"limited":"ready",n?`Patient number on ${pc(pid)} of antibiotic lines; a duration on ${pc(dur)}.`:"No antibiotic lines.",!pid?"The dispensing export needs a patient number column for patient-level review.":"");
+  { const lab=DB.labTx||[], tat=lab.filter(r=>r.tatMet==="Y"||r.tatMet==="N").length;
+    add("lab","Laboratory indicators (turnaround time, AMR-2)","indicators",!lab.length?"optional":tat?"ready":"limited",!lab.length?"No laboratory file loaded.":`${lab.length.toLocaleString()} laboratory records; ${tat.toLocaleString()} with a turnaround-time result.`,!lab.length?"Optional: the turnaround-time log (sample collected and result submission times).":tat?"":"A test-order log has no TAT flags; import the turnaround-time log."); }
+  { const su=DB.surgeryTx||[], cs=su.filter(r=>cspRe(cspS().csRe).test(r.operation||"")).length;
+    add("csp","C/S Prophylaxis Project","csp",!su.length?"optional":cs&&pid?"ready":"limited",!su.length?"No Surgery Patients Report loaded.":`${su.length.toLocaleString()} operations, ${cs.toLocaleString()} caesarean sections.`+(pid?"":" The dispensing export has no patient numbers, so prophylaxis cannot be linked."),!su.length?"Optional: the Surgery Patients Report, with dispensing from at least 7 days before the first operation.":""); }
+  { const W=(DB.wr&&DB.wr.rounds)||[]; add("wr","AMS Ward Rounds","wr",W.length?"ready":"optional",W.length?`${W.length} ward round${W.length>1?"s":""} entered.`:"No ward rounds entered.",W.length?"":"Optional: print the ward-round form, then enter or import the completed forms."); }
+  add("inrud","WHO/INRUD indicators","inrud",!tx.length?"no":tx.filter(t=>(""+(t.patientId||"")).trim()).length?"ready":"no",tx.length?`Whole basket: ${tx.length.toLocaleString()} lines (drugs and supplies).`:"No dispensing lines.",tx.length&&!tx.filter(t=>(""+(t.patientId||"")).trim()).length?"Encounters need a patient number on each line.":"");
+  add("cost","Cost & Impact","economics",!n||!price?"no":price<n?"limited":"ready",n?`Price on ${pc(price)} of antibiotic lines.`:"No antibiotic lines.",!price?"Export the price column with the dispensing report.":"");
+  { const rc=DB.wardReceipts||[]; add("discrep","Ward stock discrepancy","discrep",rc.length?"ready":"optional",rc.length?`${rc.length.toLocaleString()} store/ward issue or receipt lines.`:"No store/ward issue report loaded.",rc.length?"":"Optional: the store/ward issue report for the same months."); }
+  { const dx=(DB.admitTx||[]).filter(a=>(a.diagnosis||"").trim()).length; add("dx","Diagnosis profile (Reports)","reports",dx?"ready":"optional",dx?`${dx.toLocaleString()} records with a diagnosis.`:"No diagnosis text loaded.",dx?"":"Optional: a diagnosis log or admissions with a Diagnosis column."); }
+  { const g=gapsReport(); add("reports","Reports (Word, PowerPoint, GHS-CQI, WHO standards)","reports",g.length?"limited":"ready",g.length?`${g.length} gap${g.length>1?"s":""} listed under Challenges & Data Gaps in the reports.`:"No gaps against the core report requirements.",g.length?"See the Import Hub › Synthesis & gaps.":""); }
+  return out; }
+const MDA_ST={ready:["Ready","good"],limited:["Limited","infer"],no:["Not possible","bad"],optional:["Optional","unc"]};
+function renderBrief(){const el=$("#v-brief");if(!el)return;
+  if(!DB.metrics.lastCompiled)compileReport();
+  const m=DB.metrics,f=DB.facility||{};
+  const I=mdaCheck(),ready=I.filter(x=>x.st==="ready").length,limited=I.filter(x=>x.st==="limited").length,no=I.filter(x=>x.st==="no").length;
+  const pct1=v=>v==null?"–":(v*100).toFixed(1)+"%";
+  const accPct=m.awareAccess!=null?m.awareAccess*100:null,accOk=accPct!=null&&accPct>=WHO_ACCESS_TARGET_PCT;
+  const lines=[];
+  if(m.cumulativeRx)lines.push(`${m.cumulativeRx.toLocaleString()} antibiotic dispensing line(s) recorded${f.period?` over ${esc(f.period)}`:""}.`);
+  if(accPct!=null)lines.push(`Access-group use is ${pct1(m.awareAccess)}${accOk?`, meeting the UN 2030 ≥70% Access target.`:`, below the UN 2030 ≥70% Access target.`}`);
+  if(m.awareReserve)lines.push(`${pct1(m.awareReserve)} of lines are Reserve-group antibiotics — the first place stewardship review should look.`);
+  if(no+limited>0)lines.push(`${no+limited} of ${I.length} analyses on Minimum Data are limited or not yet possible from the data loaded — see Minimum Data for what to add.`);
+  const q=accOk?"Does the committee want to check this result holds across all wards in scope, not just the busiest ones?":"Access-group use is below the UN 2030 ≥70% target — does the committee want to set a Watch/Reserve review as the next audit-and-feedback cycle’s focus?";
+  el.innerHTML=`<div class="panel noprint"><button class="btn" onclick="window.print()">Print / Save as PDF</button></div>
+   <div class="panel" id="briefBody" style="max-width:190mm;margin:0 auto">
+    <h2 style="margin-bottom:2px">Decision brief &mdash; Antimicrobial Stewardship</h2>
+    <div class="sub" style="margin-top:0">${esc(f.name||"Facility")} · ${esc(f.period||"period not set")} · Prepared by Odindo Emmanuel Thomas · ${new Date().toLocaleDateString()}</div>
+    <div class="row" style="gap:10px;margin:10px 0;flex-wrap:wrap">${[["Dispensing lines",m.cumulativeRx?m.cumulativeRx.toLocaleString():"–"],["Access share",pct1(m.awareAccess)],["Watch share",pct1(m.awareWatch)],["Reserve share",pct1(m.awareReserve)]].map(([l,v])=>`<div class="panel" style="flex:1;min-width:110px;text-align:center;padding:8px"><div style="font-size:20px;font-weight:700">${v}</div><div class="sub" style="font-size:11px">${l}</div></div>`).join("")}</div>
+    <h3 style="margin-bottom:4px">What this means</h3>
+    ${lines.map(x=>`<p style="margin:4px 0">• ${x}</p>`).join("")}
+    <h3 style="margin-bottom:4px">Data readiness</h3>
+    <p style="margin:4px 0">${ready} of ${I.length} analyses are ready to show the committee as they stand; ${limited} are limited; ${no} are not yet possible.</p>
+    <div class="notice good" style="margin-top:10px"><b>For the committee:</b> ${q}</div>
+    <p class="sub" style="margin-top:14px;font-size:11px">Based on the data loaded now. See Minimum Data for what this brief does not cover.</p>
+   </div>`;
+}
+function renderMinData(){ const el=$("#v-mindata"); if(!el) return; const I=mdaCheck(), c=k=>I.filter(x=>x.st===k).length;
+  const mapTable=f=>f.maps.map(([lab,fn])=>{ const A=fn(); return `<div class="hint" style="margin:8px 0 4px"><b>${lab}</b></div><div class="tablewrap"><table><thead><tr><th>Field</th><th>Headings recognised</th></tr></thead><tbody>${Object.entries(A).map(([k,v])=>`<tr data-cat="${f.cat}" data-field="${k}"><td>${esc(mdaFieldLabel(k))}</td><td style="font-family:monospace;font-size:11.5px;white-space:normal">${v.map(esc).join(", ")}</td></tr>`).join("")}</tbody></table></div>`; }).join("");
+  el.innerHTML=`<div class="panel" style="border-color:var(--accent)"><h2>Minimum Data</h2>
+    <div class="sub">What AMS Pro needs for each analysis, so you know before you start whether the results will stand. <b>Check my data</b> reads the data loaded now and says, analysis by analysis, what is ready, what is limited and what is missing. The same check is printed in the reports under <i>Challenges &amp; Data Gaps</i>.</div></div>
+  <div class="panel"><h2>Check my data</h2><div class="sub">${c("ready")} ready · ${c("limited")} limited · ${c("no")} not possible · ${c("optional")} optional${(DB.facility.wardScope||[]).length?" · within the ward scope set on Setup":""}</div>
+    <div class="tablewrap"><table><thead><tr><th>Analysis</th><th>Status</th><th>What the data give</th><th>What to add</th><th></th></tr></thead><tbody>
+    ${I.map(x=>`<tr data-md="${x.id}" data-st="${x.st}"><td style="white-space:normal"><b>${x.name}</b></td><td><span class="pill ${MDA_ST[x.st][1]}">${MDA_ST[x.st][0]}</span></td><td style="white-space:normal">${x.detail}</td><td style="white-space:normal">${x.todo}</td><td><button class="btn sm ghost" onclick="go('${x.page}')">Open &rarr;</button></td></tr>`).join("")}</tbody></table></div></div>
+  <div class="panel"><h2>1. The files AMS Pro reads</h2><div class="sub">Afya eHMS exports work as they are: CSV or Excel, title rows above the header are skipped, and several files can be dropped together. A heading is recognised when it contains one of the words below, in that order, without regard to capitals or punctuation (so <i>Patient ID Number</i> is read as <i>patient id</i>). The <b>most important rule</b>: ward names in the admissions file must be written exactly as the <i>Department</i> names in the dispensing file.</div>
+    ${MDA_FILES.map(f=>`<div class="ind-card" style="margin-top:12px" data-file="${f.cat}"><b>${f.name}</b> <span class="hint">${f.tag}</span>
+      <div style="margin-top:6px;line-height:1.6"><b>One row is</b> ${f.row}. <b>Recognised when</b>: ${f.when}<br><b>Essential</b>: ${f.need}. <b>Recommended</b>: ${f.rec}.</div>
+      <div class="row" style="margin-top:6px"><button class="btn sm ghost" onclick="mdaTemplate('${f.cat}')">&#11015; Blank template (CSV)</button><button class="btn sm ghost" onclick="go('hub')">Import Hub &rarr;</button></div>
+      <details style="margin-top:6px"><summary style="cursor:pointer">Headings recognised</summary>${mapTable(f)}</details></div>`).join("")}</div>
+  <div class="panel"><h2>2. What each analysis needs</h2><div class="tablewrap"><table><thead><tr><th>Analysis</th><th>Essential</th><th>Recommended, and what it adds</th><th>Minimum</th><th>Source</th></tr></thead><tbody>
+    <tr><td><b>Dashboard, AWaRe shares, Consumption</b></td><td>Pharmacy dispensing: item name, quantity, date</td><td>Department (ward tables), patient number (patients on antibiotics)</td><td>–</td><td>WHO AWaRe; Tanzania STG/NEMLIT; UN 2024 target ≥${WHO_ACCESS_TARGET_PCT}% Access</td></tr>
+    <tr><td><b>DDD per 1,000 patient-days</b></td><td>Strength in the item name and quantity, for a drug with a WHO DDD</td><td>Bed-days: admissions with Ward and Date Admitted or Bed Days, or an estimate on Setup</td><td>–</td><td>WHO ATC/DDD index</td></tr>
+    <tr><td><b>DOT per 1,000 patient-days</b></td><td>Duration in the dosage text (“Duration: 5 /7”)</td><td>Bed-days, as above</td><td>–</td><td>–</td></tr>
+    <tr><td><b>Did It Work?</b></td><td>Dated dispensing on both sides of the intervention</td><td>Admissions for rates per 100 admissions or patient-days; the Surgery Patients Report for prophylaxis after surgery</td><td>3 months before and 3 after; 8 or more on each side for steadier estimates; 12 on each side to allow for season</td><td>Cochrane EPOC</td></tr>
+    <tr><td><b>Intervention Impact</b></td><td>Dated dispensing; admissions for patients of a ward the export does not name</td><td>–</td><td>3 months on each side; 6 on each side for a verdict; 24 usable months for season adjustment</td><td>Cochrane EPOC</td></tr>
+    <tr><td><b>Run charts (SPC)</b></td><td>Dated dispensing</td><td>–</td><td>20 points before trusting the limits</td><td>Laney p′ chart</td></tr>
+    <tr><td><b>Antibiogram</b></td><td>Culture results with R/I/S per antibiotic (WHONET listing)</td><td>Specimen date and type</td><td>30 isolates per organism–antibiotic cell; first isolate per patient per organism</td><td>CLSI M39</td></tr>
+    <tr><td><b>Bug–drug Check</b></td><td>Culture results and dispensing with the same patient numbers</td><td>–</td><td>–</td><td>–</td></tr>
+    <tr><td><b>Time-out, Patients, Prescriptions</b></td><td>Dispensing with patient numbers and dates</td><td>Dosage text (IV days, duration); procedures or surgery list for prophylaxis</td><td>–</td><td>–</td></tr>
+    <tr><td><b>C/S Prophylaxis Project</b></td><td>Surgery Patients Report and dispensing with patient numbers, from 7 days before the first operation</td><td>Admissions, laboratory, WHONET, store issues for the same months</td><td>30 days of follow-up for infection signals; 12 usable weeks and 4 on each side of a phase start for the time series</td><td>–</td></tr>
+    <tr><td><b>AMS Ward Rounds</b></td><td>Completed ward-round forms</td><td>–</td><td>–</td><td>–</td></tr>
+    <tr><td><b>WHO/INRUD indicators</b></td><td>The whole dispensing basket with patient numbers</td><td>–</td><td>–</td><td>WHO/DAP/93.1</td></tr>
+    <tr><td><b>Cost &amp; Impact</b></td><td>Price on the dispensing lines</td><td>–</td><td>–</td><td>–</td></tr>
+    <tr><td><b>Ward stock discrepancy</b></td><td>Store/ward issue or receipt report and dispensing for the same months</td><td>Unit cost</td><td>–</td><td>–</td></tr>
+    <tr><td><b>Laboratory indicators</b></td><td>Turnaround-time log, or a structured sheet with the TAT, AST and AMR flags</td><td>–</td><td>–</td><td>Tanzania MOH GHS-CQI</td></tr>
+    <tr><td><b>Reports</b></td><td>Everything above that applies</td><td>–</td><td>–</td><td>–</td></tr></tbody></table></div></div>
+  <div class="panel"><h2>3. Rules for every file</h2><ul style="line-height:1.7;padding-left:20px;margin:6px 0 0">
+    <li><b>No names.</b> Use patient numbers or study codes. AMS Pro never needs a name; when an export has no patient number column it falls back to the name only to tell patients apart, so leave names out where you can.</li>
+    <li><b>Dates</b> as YYYY-MM-DD, day/month/year, or Excel dates; one export per period, not edited or sorted by hand.</li>
+    <li><b>The same months</b> in every file, and ward names spelled the same in every file.</li></ul></div>`; }
+/* reports: data used and its limits, from the same check */
+function mdaReportLines(){ const tx=scopedPharmacyTx(), ab=tx.filter(t=>t.drugMatched), M=mdaMonths(ab), m=DB.metrics||{}, n=ab.length, pc=x=>n?Math.round(100*x/n)+"%":"–", has=f=>ab.filter(f).length;
+  const S=[];
+  S.push(tx.length?`Pharmacy dispensing: ${tx.length.toLocaleString()} lines, ${n.toLocaleString()} systemic antibiotic lines, ${M.length?dwMonthLabel(M[0])+" to "+dwMonthLabel(M[M.length-1])+" ("+M.length+" months)":"no dated lines"}. Patient number on ${pc(has(t=>(""+(t.patientId||"")).trim()))}, a duration on ${pc(has(t=>t.days!==""&&t.days!=null&&+t.days>0))}, a computable DDD on ${pc(has(t=>t.dddContribution!=null))}, a price on ${pc(has(t=>t.price!=null&&t.price>0))} of antibiotic lines.`:"Pharmacy dispensing: not loaded.");
+  S.push(`Admissions: ${(DB.admitTx||[]).length.toLocaleString()} records. Bed-days: ${m.bedDaysSource||"none"}.`);
+  S.push(`Laboratory: ${(DB.labTx||[]).length.toLocaleString()} records. Culture results: ${(DB.isolates||[]).length.toLocaleString()} isolates. Surgery list: ${(DB.surgeryTx||[]).length.toLocaleString()} operations. Procedures: ${(DB.procedureTx||[]).length.toLocaleString()}. Store/ward issues: ${(DB.wardReceipts||[]).length.toLocaleString()}.`);
+  const L=mdaCheck().filter(x=>x.st==="limited"||x.st==="no").map(x=>`${x.name}: ${x.detail.replace(/<[^>]+>/g,"").replace(/&amp;/g,"&")}`);
+  return {sources:S,limits:L}; }
+function mdaReportHTML(){ const U=mdaReportLines();
+  return `<h3 id="mdaReport">Data used and its limits</h3><p class="tor-prose">${U.sources.map(esc).join("<br>")}</p>${U.limits.length?`<p class="tor-prose">Limits found by AMS Pro's data check (Minimum Data):</p><ul style="margin:8px 0 0;padding-left:18px">${U.limits.map(x=>`<li style="margin-bottom:4px">${esc(x)}</li>`).join("")}</ul>`:`<p class="tor-prose">AMS Pro's data check found no limits.</p>`}`; }
 /* ---------- text for the paper ---------- */
 function dwMethodsText(S,R){
   const M=DW_METRICS[S.metric], ward=S.ward||"all wards in scope", v=dwVersion();
@@ -33083,8 +33485,8 @@ function renderIts(){
     <h2>The picture</h2>
     <div class="hint">Each point is one month. The solid lines are the fitted trend before and after; the dashed line is what the trend before the intervention predicts would have happened without it. The gap between them at the end is the effect.</div>
     <div id="its-figwrap" style="margin-top:10px;background:#fff;border-radius:8px;padding:6px"><canvas id="its-fig" style="width:100%;display:block"></canvas></div>
-    <div class="row" style="gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn sm" onclick="dwExportPng()">⬇ Figure for the paper (PNG, 300 dpi)</button><button class="btn sm ghost" onclick="dwExportCsv()">⬇ Monthly data (CSV)</button></div>
-    <div class="hint" style="margin-top:6px">The downloaded figure is black and grey, 7 × 4.2 inches at 300 dpi, as most journals ask. The CSV holds every monthly value and the model's columns, so a statistician can re-run the analysis in R, Stata or SPSS.</div>
+    <div class="row" style="gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn sm" onclick="dwExportPng()">⬇ Figure for the paper (PNG, 300 dpi)</button><button class="btn sm ghost" onclick="dwExportCsv()">⬇ Monthly data (CSV)</button><button class="btn sm ghost" onclick="dwExportDta()">⬇ Stata data (.dta)</button><button class="btn sm ghost" onclick="dwExportDo()">⬇ Stata commands (.do)</button></div>
+    <div class="hint" style="margin-top:6px">The downloaded figure is black and grey, 7 × 4.2 inches at 300 dpi, as most journals ask. The CSV holds every monthly value and the model's columns, so a statistician can re-run the analysis in R, Stata or SPSS. The Stata files go further: the data file has every month and column labelled, and the commands file re-runs exactly this model in Stata and checks that each estimate matches this page.</div>
   </div>`:""}
 
   ${R.welch?`<div class="panel">
@@ -33134,6 +33536,619 @@ if(!hadBrowserData) setTimeout(()=>{ try{ viewFirstRun(); }catch(e){ console.err
 try{ tryRestoreSaveFolderOnStartup(); }catch(e){ console.error("folder restore check failed:",e); }
 }
 try{ if(localStorage.getItem("odiemanpro_sidebar_collapsed")==="1") document.body.classList.add("sidebar-collapsed"); }catch(e){}
+</script>
+<script>
+/* ============ Odieman presenter mode and sample hospital (shared by PPS Pro, AMS Pro and VigiWard) ============
+   - "Sample hospital" opens this same file on the simulated hospital, in memory only (nothing is saved, the user's own
+     data is not touched; "Leave sample hospital" goes back to it).
+   - "Present" runs a short guided tour: each stop opens a screen, lights up one part of it and says one sentence whose
+     figures are read from that screen, so the words can never disagree with what the audience sees.
+   - While presenting: light theme, larger text, no menu, no banners. Keys: → Space PageDown next · ← PageUp back ·
+     1-9 jump · B hide caption · + / − text size · Esc stop. Presentation clickers send PageDown / PageUp. */
+(function(){
+  if(window.ODM_PRESENT) return;
+  var P=window.ODM_PRESENT={cfg:null,on:false,i:0,size:1,timer:null,startedAt:0,state:{}};
+  var BASE=location.href.split(/[?#]/)[0];
+  function q(s,r){return (r||document).querySelector(s);}
+  function el(tag,attrs,html){var e=document.createElement(tag);if(attrs)for(var k in attrs)e.setAttribute(k,attrs[k]);if(html!=null)e.innerHTML=html;return e;}
+  function wait(ms){return new Promise(function(r){setTimeout(r,ms);});}
+  async function until(fn,ms){var t=Date.now();while(Date.now()-t<(ms||60000)){try{if(fn())return true;}catch(e){}await wait(150);}return false;}
+  P.demoBuild=function(){return typeof window.__odmDemoNotice==="function";};
+  P.sampleMode=function(){try{return !!P.cfg.inDemo();}catch(e){return false;}};
+  P.param=function(k){return new URLSearchParams(location.search).has(k);};
+  P.esc=function(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});};
+  P.text=function(e){return e?(e.innerText||e.textContent||"").replace(/\s+/g," ").trim():"";};
+
+  /* ---------- header buttons ---------- */
+  function buttons(){
+    var host=P.cfg.headerEl&&P.cfg.headerEl(); if(!host||q("#odm-bar")) return;
+    var bar=el("span",{id:"odm-bar",class:"odm-bar noprint"});
+    function b(id,label,title,fn,primary){var x=el("button",{type:"button",id:id,class:"odm-btn"+(primary?" odm-primary":""),title:title},label);x.addEventListener("click",fn);bar.appendChild(x);}
+    if(!P.sampleMode()){
+      b("odm-sample","Sample hospital","Open this tool on a simulated hospital, in memory only. Your own data is not touched.",function(){location.href=BASE+"?demo=1";});
+      b("odm-present","▶ Present","A short guided tour for a talk or a first look. Uses the data loaded now, or the sample hospital if there is none.",function(){if(P.cfg.hasData())P.start();else location.href=BASE+"?demo=1&present=1";},true);
+    }else{
+      b("odm-present","▶ Present","A short guided tour of the sample hospital (keys: → next, ← back, Esc stop).",function(){P.start();},true);
+      if(!P.demoBuild()) b("odm-leave","Leave sample hospital","Go back to your own data.",function(){location.href=BASE;});
+    }
+    if(P.cfg.placeBar) P.cfg.placeBar(host,bar); else host.appendChild(bar);
+  }
+  /* in a full copy opened on the sample hospital, the demo banner's download link becomes the way back */
+  function fixBar(){
+    if(!P.sampleMode()||P.demoBuild()) return;
+    var a=[].slice.call(document.querySelectorAll("a[download]")).find(function(x){return /^Download (PPS Pro|AMS Pro|VigiWard)$/.test(P.text(x));});
+    if(!a) return; var bar=a.parentNode, back=el("a",{href:BASE,id:"odm-leave-link"},"Leave the sample hospital");
+    if(a.getAttribute("style")) back.setAttribute("style",a.getAttribute("style"));
+    a.replaceWith(back); var n=back.nextSibling;
+    if(n&&n.nodeType===3) n.nodeValue=n.nodeValue.replace(/to use (it|[A-Za-z ]+) with your own data/,"to go back to your own data");
+    var b0=bar.querySelector("b"); if(b0&&/^Live demo\.?$/.test(P.text(b0))) b0.textContent="Sample hospital.";
+  }
+  function stamp(){
+    if(!P.sampleMode()||q("#odm-stamp")) return;
+    var s=el("div",{id:"odm-stamp",class:"noprint",title:"Every figure on screen comes from a simulated hospital, not a real one."},"SIMULATED DATA");
+    document.body.appendChild(s);
+  }
+
+  /* ---------- the tour ---------- */
+  function ui(){
+    if(q("#odm-tour")) return;
+    var o=el("div",{id:"odm-tour",class:"noprint"});
+    o.innerHTML='<div id="odm-spot"></div><div id="odm-card" role="dialog" aria-live="polite"><div id="odm-step"></div><div id="odm-title"></div><div id="odm-cap"></div><div id="odm-so"></div>'+
+      '<div id="odm-nav"><button type="button" id="odm-back">← Back</button><button type="button" id="odm-next">Next →</button>'+
+      '<span id="odm-sz"><button type="button" id="odm-smaller" title="Smaller text">A−</button><button type="button" id="odm-bigger" title="Larger text">A+</button></span>'+
+      '<span id="odm-clock"></span><button type="button" id="odm-stop">Stop (Esc)</button></div></div>';
+    document.body.appendChild(o);
+    q("#odm-back").onclick=function(){P.go(P.i-1);}; q("#odm-next").onclick=function(){P.go(P.i+1);};
+    q("#odm-stop").onclick=function(){P.stop();}; q("#odm-bigger").onclick=function(){P.zoom(1);}; q("#odm-smaller").onclick=function(){P.zoom(-1);};
+  }
+  var SIZES=[1,1.12,1.25];
+  P.zoom=function(d){var k=SIZES.indexOf(P.size);k=Math.max(0,Math.min(SIZES.length-1,(k<0?1:k)+d));P.size=SIZES[k];
+    document.documentElement.style.setProperty("--odm-zoom",String(P.size));document.documentElement.classList.toggle("odm-large",P.size>1);try{localStorage.setItem("odm_present_size",String(P.size));}catch(e){}place();};
+  function place(){
+    if(!P.on) return; var st=P.cfg.stops[P.i]; var spot=q("#odm-spot"); if(!st||!spot) return;
+    var t=null; try{t=st.target();}catch(e){}
+    if(!t){spot.style.display="none";return;}
+    var r=t.getBoundingClientRect(), card=q("#odm-card").getBoundingClientRect(), pad=6;
+    var top=Math.max(4,r.top-pad), left=Math.max(4,r.left-pad), w=Math.min(innerWidth-8-left,r.width+2*pad), h=Math.min(card.top-8-top,r.height+2*pad);
+    spot.style.display=h>20?"block":"none"; spot.style.top=top+"px"; spot.style.left=left+"px"; spot.style.width=Math.max(0,w)+"px"; spot.style.height=Math.max(0,h)+"px";
+  }
+  P.caption=function(){var st=P.cfg.stops[P.i];var c={text:"",values:[]};try{c=st.caption()||c;}catch(e){c={text:"",values:[],error:e.message};}return c;};
+  P.check=function(){ /* for checks: every figure in the caption must be on the lit part of the screen */
+    var st=P.cfg.stops[P.i], c=P.caption(), t=null; try{t=st.target();}catch(e){}
+    var hay=P.text(t)+" "+(st.alsoIn?P.text(st.alsoIn()):"");
+    return {stop:P.i+1,title:st.title,caption:c.text,values:c.values||[],missing:(c.values||[]).filter(function(v){return hay.indexOf(String(v))<0;}),target:!!t,error:c.error||""};
+  };
+  P.go=async function(i){
+    if(!P.on) return; var n=P.cfg.stops.length; if(i<0) i=0; if(i>=n){P.stop();return;}
+    P.i=i; var st=P.cfg.stops[i]; P.busy=true;
+    q("#odm-step").innerHTML=P.esc((P.cfg.name||"")+" · stop "+(i+1)+" of "+n)+(P.sampleMode()?' · <span class="odm-sim">SIMULATED DATA</span>':"");
+    q("#odm-title").textContent=st.title; q("#odm-cap").textContent="…"; q("#odm-so").textContent="";
+    try{await st.go();}catch(e){console.error(e);}
+    await wait(st.settle||450);
+    var t=null; try{t=st.target();}catch(e){}
+    if(t&&t.scrollIntoView){t.scrollIntoView({block:st.block||"start"}); window.scrollBy(0,-(P.cfg.topOffset||70));}
+    await wait(120);
+    var c=P.caption(); q("#odm-cap").textContent=c.text||""; var so=""; try{so=typeof st.sowhat==="function"?st.sowhat():st.sowhat;}catch(e){} q("#odm-so").textContent=so||"";
+    q("#odm-back").disabled=i===0; q("#odm-next").textContent=i===n-1?"Finish":"Next →";
+    place(); P.busy=false; P.state=P.check();
+  };
+  function key(e){
+    if(!P.on) return; var k=e.key;
+    if(e.target&&/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)&&k!=="Escape") return;
+    if(k==="ArrowRight"||k===" "||k==="PageDown"||k==="Enter"){e.preventDefault();e.stopPropagation();if(!P.busy)P.go(P.i+1);}
+    else if(k==="ArrowLeft"||k==="PageUp"||k==="Backspace"){e.preventDefault();e.stopPropagation();if(!P.busy)P.go(P.i-1);}
+    else if(k==="Escape"){e.preventDefault();P.stop();}
+    else if(/^[1-9]$/.test(k)){e.preventDefault();P.go(+k-1);}
+    else if(k==="b"||k==="B"){e.preventDefault();var c=q("#odm-card");c.style.visibility=c.style.visibility==="hidden"?"":"hidden";}
+    else if(k==="+"||k==="="){e.preventDefault();P.zoom(1);} else if(k==="-"||k==="_"){e.preventDefault();P.zoom(-1);}
+  }
+  function clock(){var s=Math.round((Date.now()-P.startedAt)/1000);var c=q("#odm-clock");if(c)c.textContent=Math.floor(s/60)+":"+String(s%60).padStart(2,"0");}
+  P.start=async function(){
+    if(P.on) return; ui(); P.on=true; P.startedAt=Date.now();
+    var root=document.documentElement; root.classList.add("odm-present");
+    var saved=1.12; try{saved=parseFloat(localStorage.getItem("odm_present_size"))||1.12;}catch(e){}
+    P.size=SIZES.indexOf(saved)>=0?saved:1.12; root.style.setProperty("--odm-zoom",String(P.size)); root.classList.toggle("odm-large",P.size>1);
+    try{P.cfg.onStart&&P.cfg.onStart();}catch(e){console.error(e);}
+    q("#odm-tour").style.display="block"; document.addEventListener("keydown",key,true);
+    window.addEventListener("resize",place); window.addEventListener("scroll",place,true);
+    P.timer=setInterval(function(){clock();place();},500);
+    await P.go(0);
+  };
+  P.stop=function(){
+    if(!P.on) return; P.on=false; clearInterval(P.timer);
+    document.removeEventListener("keydown",key,true); window.removeEventListener("resize",place); window.removeEventListener("scroll",place,true);
+    var o=q("#odm-tour"); if(o) o.style.display="none";
+    var root=document.documentElement; root.classList.remove("odm-present","odm-large"); root.style.removeProperty("--odm-zoom");
+    try{P.cfg.onStop&&P.cfg.onStop();}catch(e){console.error(e);}
+  };
+
+  /* ---------- simulated additions to the sample hospital (extras.json beside the sample files) ---------- */
+  P.extras=async function(){
+    try{var r=await fetch("../samples/"+P.cfg.sampleTool+"/extras.json");if(!r.ok)return null;return await r.json();}catch(e){return null;}
+  };
+  P.sampleFile=async function(name){
+    try{var r=await fetch("../samples/"+P.cfg.sampleTool+"/"+name);if(!r.ok)return null;return await r.text();}catch(e){return null;}
+  };
+
+  P.init=function(cfg){
+    P.cfg=cfg;
+    function boot(){
+      try{buttons();}catch(e){console.error(e);}
+      if(!P.sampleMode()) return;
+      stamp(); try{fixBar();}catch(e){console.error(e);}
+      (async function(){
+        var ok=await until(function(){return cfg.sampleLoaded();},180000);
+        if(ok&&cfg.afterSample&&!P.sampleExtrasDone){P.sampleExtrasDone=true;try{await cfg.afterSample();}catch(e){console.error("sample extras",e);}}
+        P.sampleReady=ok;
+        if(ok&&P.param("present")) P.start();
+      })();
+    }
+    if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",boot); else setTimeout(boot,0);
+  };
+})();
+
+/* ============ v5.4: sample hospital, presenter mode, a tidier dashboard and an 8-slide talk deck (AMS Pro) ============ */
+(function(){
+  var P=window.ODM_PRESENT; if(!P) return;
+  function V(k){return document.getElementById("v-"+k);}
+  function txt(e){return P.text(e);}
+  function panel(k,rx){return [...V(k).querySelectorAll(".panel,.chartbox")].find(function(p){var h=p.querySelector("h2,h3");return h&&rx.test(txt(h));});}
+
+  /* ---------- the dashboard: one short status line, one headline Access figure, no form on the results page ---------- */
+  function odmDash(){
+    var v=V("dash"); if(!v||v.querySelector("#odm-dashline")) return;
+    var notes=[...v.children].filter(function(e){return e.classList&&e.classList.contains("notice");});
+    var f=DB.facility, m=DB.metrics, gaps=(typeof gapsReport==="function"?gapsReport():[]);
+    var info=notes.filter(function(n){var t=txt(n);return !n.classList.contains("err")&&(/working-ground record|gap\(s\) still need|Report scoped to/.test(t)||n===notes.find(function(x){return !x.classList.contains("err")&&!x.classList.contains("warn")&&!x.classList.contains("good");}));});
+    if(!info.length) return;
+    var recs=DB.pharmacyTx.length+DB.labTx.length+DB.admitTx.length, when="";
+    if(m.lastCompiled){var d=new Date(m.lastCompiled);when=isNaN(d)?m.lastCompiled:d.getDate()+" "+["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][d.getMonth()]+" "+d.getFullYear()+" "+String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");}
+    var parts=[P.esc(f.name||"Facility")+" · "+P.esc(f.period||"period not set"),recs.toLocaleString()+" records used"+(when?" · updated "+when:"")];
+    if(gaps.length) parts.push('<span class="linkfix" onclick="go(\'hub\')">'+gaps.length+" gap"+(gaps.length>1?"s":"")+" to complete</span>");
+    if(f.wardScope&&f.wardScope.length) parts.push('<span class="linkfix" onclick="go(\'setup\')">'+f.wardScope.length+" ward"+(f.wardScope.length>1?"s":"")+" in scope</span>");
+    var line=document.createElement("div"); line.id="odm-dashline"; line.className="notice";
+    line.innerHTML=parts.join(" &middot; ")+' &middot; <span class="linkfix" id="odm-dash-more">details</span> &middot; <span class="linkfix" onclick="compileReport();save();renderDash();toast(\'Figures updated\')">Update figures</span>';
+    info[0].parentNode.insertBefore(line,info[0]);
+    info.forEach(function(n){n.style.display="none";n.classList.add("odm-folded");
+      n.innerHTML=n.innerHTML.replace(/working-ground record\(s\)/g,"record(s) used").replace(/>Recompile now</g,">Update figures<");});
+    line.querySelector("#odm-dash-more").onclick=function(){var on=this.textContent==="details";info.forEach(function(n){n.style.display=on?"":"none";});this.textContent=on?"hide details":"details";};
+    /* headline Access: the scheme chosen in Setup, the other measures in the comparison panel and on hover */
+    var kp=v.querySelector(".kpis"); if(kp){
+      var cards=[...kp.querySelectorAll(".kpi")];
+      var acc=cards.find(function(c){return /AWaRe Access/.test(txt(c));});
+      if(acc){var l=acc.querySelector(".l"),sub=l&&l.querySelector("span");var scheme=currentAwareScheme()==="tanzania"?"Tanzania STG/NEMLIT scheme":"WHO scheme";
+        if(sub){acc.title=txt(sub);sub.remove();}
+        if(l) l.innerHTML="Access share of antibiotic lines ("+scheme+") &middot; UN 2030 target \u2265 "+WHO_ACCESS_TARGET_PCT+"%";}
+      cards.forEach(function(c){var vv=c.querySelector(".v"),l=c.querySelector(".l");if(!vv||!l)return;
+        if(/^0\.0%$/.test(txt(vv))&&vv.classList.contains("r")) vv.classList.remove("r");});
+      var W=(DB.wr&&Array.isArray(DB.wr.rounds))?DB.wr.rounds.filter(function(r){return r.status==="entered";}):[];
+      var found=W.reduce(function(a,r){return a+(r.rows||[]).filter(function(x){return x.f&&x.f.length;}).length;},0);
+      [["Active clinical findings raised",m.findings,found,"Findings raised on AMS ward rounds"],["CQI meetings executed",m.cqiMeetings,0,""],["Dedicated ward rounds completed",m.wardRounds,W.length,"Ward rounds entered on AMS Ward Rounds"]].forEach(function(z){
+        var c=cards.find(function(k){var l=k.querySelector(".l");return l&&txt(l)===z[0];}); if(!c) return;
+        var vv=c.querySelector(".v"),l=c.querySelector(".l");
+        if(+z[1]>0) return;
+        if(z[2]>0){vv.textContent=z[2].toLocaleString();l.textContent=z[3];}
+        else{vv.textContent="\u2014";vv.classList.add("odm-muted");l.innerHTML=P.esc(z[0])+' <span class="odm-nr">not recorded yet</span>';}
+      });
+    }
+    /* the manual figures form: folded below the results, under a plain name */
+    var boxes=[...v.querySelectorAll(".chartbox")], edit=boxes.find(function(b){return /Edit core metrics/.test(txt(b.querySelector("h3")));});
+    if(edit){var ch=edit.parentNode;var det=document.createElement("details");det.className="panel odm-edit";det.innerHTML="<summary><b>Correct a figure by hand</b> <span class=\"hint\">(lasts until the next import or Data Entry save, which works the figures out again from the records)</span></summary>";
+      ch.parentNode.insertBefore(det,ch.nextSibling); det.appendChild(edit); edit.querySelector("h3").remove();
+      var hint=edit.querySelector(".hint"); if(hint) hint.remove();
+      ch.style.gridTemplateColumns="1fr";}
+  }
+  var _rd=window.renderDash; if(typeof _rd==="function") window.renderDash=function(){var r=_rd.apply(this,arguments);try{odmDash();}catch(e){console.error(e);}return r;};
+
+  /* ---------- plain names in the menu for two pages (the reports keep their section names, given in the tooltip) ---------- */
+  var NAVPLAIN={pdca:["Lean waste review (PDCA)","PDCA / 7 Wastes"],drvzones:["Where resistance pressure comes from","Driver Zones"]};
+  function plainNav(){Object.keys(NAVPLAIN).forEach(function(k){var b=document.getElementById("nav-"+k),n=b&&b.firstChild;
+    if(n&&n.nodeType===3&&n.nodeValue===NAVPLAIN[k][1]){n.nodeValue=NAVPLAIN[k][0];b.title="Called \u201c"+NAVPLAIN[k][1]+"\u201d in the reports";}});}
+  var _bn=window.buildNav; if(typeof _bn==="function") window.buildNav=function(){var r=_bn.apply(this,arguments);try{plainNav();}catch(e){console.error(e);}return r;};
+  try{plainNav();}catch(e){}
+
+  /* ---------- an 8-slide talk deck cut from the full Deep Report deck (same slides, same figures) ---------- */
+  var KEEP=["Antimicrobial Stewardship","Executive Summary","AWaRe Distribution","Monthly AWaRe Composition","Analytics — Consumption Concentration","Ward Summary Scorecard","Data used and its limits","Methods & Citations"];
+  function dec(s){return s.replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&quot;/g,'"').replace(/&apos;/g,"'").replace(/&amp;/g,"&");}
+  function slideTitle(xml){var b=/<p:txBody>([\s\S]*?)<\/p:txBody>/.exec(xml);if(!b)return "";var p=/<a:p>([\s\S]*?)<\/a:p>/.exec(b[1])||/<a:p\b[\s\S]*?<\/a:p>/.exec(b[1]);var s="";(p?p[0]:b[1]).replace(/<a:t>([\s\S]*?)<\/a:t>/g,function(_,t){s+=t;});return dec(s).trim();}
+  async function shortDeck(ab){
+    var z=await JSZip.loadAsync(ab), pres=await z.file("ppt/presentation.xml").async("string"), rels=await z.file("ppt/_rels/presentation.xml.rels").async("string"), ct=await z.file("[Content_Types].xml").async("string");
+    var R={}; rels.replace(/<Relationship\b[^>]*>/g,function(r){var id=/Id="([^"]+)"/.exec(r)[1],t=/Target="([^"]+)"/.exec(r)[1];R[id]=t;});
+    var ids=[]; pres.replace(/<p:sldId\b[^>]*\/>/g,function(s){ids.push({tag:s,rid:/r:id="([^"]+)"/.exec(s)[1]});});
+    var seen={}, keep=[], drop=[];
+    for(var i=0;i<ids.length;i++){var path="ppt/"+R[ids[i].rid].replace(/^\.?\//,""), xml=await z.file(path).async("string"), t=slideTitle(xml);
+      if(KEEP.indexOf(t)>=0&&!seen[t]){seen[t]=1;keep.push(ids[i]);}else drop.push({id:ids[i],path:path});}
+    for(var j=0;j<drop.length;j++){var d=drop[j], relp=d.path.replace(/slides\/(slide\d+\.xml)$/,"slides/_rels/$1.rels");
+      if(z.file(relp))z.remove(relp); z.remove(d.path); pres=pres.replace(d.id.tag,""); rels=rels.replace(new RegExp('<Relationship\\b[^>]*Id="'+d.id.rid+'"[^>]*/>'),"");
+      ct=ct.replace(new RegExp('<Override PartName="/'+d.path.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+'"[^>]*/>'),"");}
+    z.file("ppt/presentation.xml",pres); z.file("ppt/_rels/presentation.xml.rels",rels);
+    /* then every part no longer reachable from the package's relationships (charts, their workbooks, notes, pictures of the slides taken out) */
+    var norm=function(p){var s=[];p.split("/").forEach(function(x){if(x==="..")s.pop();else if(x!=="."&&x!=="")s.push(x);});return s.join("/");};
+    var relsOf=async function(part){var k=part.lastIndexOf("/"),dd=k<0?"":part.slice(0,k),bb=part.slice(k+1),f=z.file((dd?dd+"/":"")+"_rels/"+bb+".rels");if(!f)return [];var x=await f.async("string"),out=[];
+      x.replace(/<Relationship\b[^>]*>/g,function(m){if(/TargetMode="External"/.test(m))return;var tg=/Target="([^"]+)"/.exec(m)[1];out.push(tg.charAt(0)==="/"?tg.slice(1):norm((dd?dd+"/":"")+tg));});return out;};
+    var reach={},stack=await relsOf("");
+    while(stack.length){var q=stack.pop();if(reach[q])continue;reach[q]=1;if(z.file(q))stack=stack.concat(await relsOf(q));}
+    Object.keys(z.files).forEach(function(n){if(!z.files[n]||z.files[n].dir||/\.rels$/.test(n)||n==="[Content_Types].xml"||reach[n])return;z.remove(n);
+      var k=n.lastIndexOf("/"),rr=n.slice(0,k)+"/_rels/"+n.slice(k+1)+".rels";if(z.file(rr))z.remove(rr);
+      ct=ct.replace(new RegExp('<Override PartName="/'+n.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+'"[^>]*/>'),"");});
+    z.file("[Content_Types].xml",ct);
+    var app=z.file("docProps/app.xml"); if(app){var a=await app.async("string");z.file("docProps/app.xml",a.replace(/<Slides>\d+<\/Slides>/,"<Slides>"+keep.length+"</Slides>"));}
+    return {blob:await z.generateAsync({type:"blob",mimeType:"application/vnd.openxmlformats-officedocument.presentationml.presentation"}),n:keep.length};
+  }
+  window.odmTalkDeck=async function(btn){
+    var proto=PptxGenJS.prototype, ow=proto.writeFile, owr=proto.write, odl=window.dl, done=null;
+    proto.writeFile=async function(o){var ab=await owr.call(this,{outputType:"arraybuffer"});var r=await shortDeck(ab);done=r;
+      odl(String((o&&o.fileName)||"DeepReport.pptx").replace(/\.pptx$/i,"")+"_TalkDeck.pptx",r.blob,"application/vnd.openxmlformats-officedocument.presentationml.presentation");};
+    proto.write=async function(o){var ab=await owr.call(this,{outputType:"arraybuffer"});var r=await shortDeck(ab);done=r;return r.blob;};
+    window.dl=function(n,b,t){return odl(/\.pptx$/i.test(n)?n.replace(/\.pptx$/i,"_TalkDeck.pptx"):n,b,t);};
+    var _t=window.toast; window.toast=function(m){if(/Deep Report \(PowerPoint\) downloaded/.test(m))m="Talk deck ("+(done?done.n:8)+" slides) downloaded";return _t(m);};
+    try{await generateDeepReportPptx(btn);}finally{proto.writeFile=ow;proto.write=owr;window.dl=odl;window.toast=_t;}
+  };
+  var _rr=window.renderReports; if(typeof _rr==="function") window.renderReports=function(){var r=_rr.apply(this,arguments);try{
+      var b=document.getElementById("dr-pptx-btn"); if(b&&!document.getElementById("odm-talk-btn")){var x=document.createElement("button");x.className="btn ghost";x.id="odm-talk-btn";
+        x.title="The same slides and figures as the full deck: title, summary, AWaRe, monthly composition, consumption concentration, ward scorecard, data used and its limits, methods.";
+        x.innerHTML="&#127908; Talk deck (8 slides, .pptx)";x.onclick=function(){odmTalkDeck("odm-talk-btn");};b.parentNode.insertBefore(x,b.nextSibling);}
+    }catch(e){console.error(e);}return r;};
+
+  /* ---------- light theme for projectors: canvas charts drawn for the dark theme are turned light ---------- */
+  function lightCanvases(){document.querySelectorAll("main canvas").forEach(function(c){if(!c.width||!c.height)return;
+    try{var ctx=c.getContext("2d"),px=ctx.getImageData(1,1,1,1).data,dark=px[3]<20||(px[0]+px[1]+px[2])/3<90;c.classList.toggle("odm-inv",dark);}catch(e){}});}
+  var lightTimer=null;
+
+  /* ---------- tour ---------- */
+  function kv(k,rx){var c=[...V(k).querySelectorAll(".kpi")].find(function(x){return rx.test(txt(x.querySelector(".l")||x));});return c?txt(c.querySelector(".v")):"";}
+  var stops=[
+    {title:"Three years of routine dispensing data",go:function(){go("dash");},
+     target:function(){return V("dash").querySelector(".kpis");},
+     caption:function(){var pts=txt(document.getElementById("k_patients")),lab=txt(V("dash").querySelector(".kpi .l")),lines=(/\(([\d,]+) antibiotic dispensing lines\)/.exec(lab)||[])[1]||"",acc=kv("dash",/^Access share/);
+       return {text:pts+" patients on antibiotics and "+lines+" antibiotic dispensing lines from the pharmacy export the hospital already has. Access share: "+acc+", against the UN 2030 target of 70%.",values:[pts,lines,acc]};},
+     sowhat:"No new data collection: the hospital's own export, analysed."},
+    {title:"Honest classification",go:function(){go("dash");},
+     target:function(){return V("dash").querySelector(".charts .chartbox");},
+     caption:function(){var t=txt(V("dash").querySelector(".charts .chartbox")),m=/Classified differently: ([^;]+?—[^;]+?)(;|\.)/.exec(t);
+       return m?{text:"Where WHO and the Tanzania list disagree, the tool shows both: "+m[1].trim()+".",values:[m[1].trim()]}:{text:"WHO and Tanzania AWaRe groups side by side.",values:[]};},
+     sowhat:"It says openly which list it uses and where the national list departs from WHO."},
+    {title:"Did it work?",go:async function(){var D=dwSettings();if(!D.start)Object.assign(D,{metric:"wr",ward:"",drug:"",start:"2025-07",better:"",name:"Example: prescriber training"});go("its");},settle:900,
+     target:function(){return [...V("its").querySelectorAll(".panel")].find(function(p){var h=p.querySelector("h2");return h&&!/^(Did it work|Data check|The picture|Before vs after|Methods|Results)/i.test(txt(h));});},
+     alsoIn:function(){return panel("its",/^Before vs after/);},
+     caption:function(){var p=stops[2].target();if(!p)return {text:"",values:[]};var h=txt(p.querySelector("h2")),s=(txt(p).slice(h.length).trim().split(/(?<=\.)\s/)[0]||"");
+       var bb=panel("its",/^Before vs after/),m=bb&&/(p\s*[<=]\s*0?\.\d+)\s*p-value/i.exec(txt(bb));
+       return {text:h+" "+s+(m?" A plain before–after comparison of the monthly values gives "+m[1]+".":""),values:[h,s].concat(m?[m[1]]:[])};},
+     sowhat:function(){var bb=panel("its",/^Before vs after/),m=bb&&/p\s*([<=])\s*(0?\.\d+)\s*p-value/i.exec(txt(bb)),sig=m&&parseFloat(m[2])<0.05,its=/No clear change/i.test(txt(stops[2].target()));
+       return sig&&its?"Before–after alone would call this a success; the time series shows the change was already under way, and credits only what goes beyond it.":"The time series credits the intervention only with change beyond the trend that was already there.";}},
+    {title:"A local antibiogram to CLSI M39",go:function(){go("antibiogram");},
+     target:function(){return panel("antibiogram",/Local antibiogram/);},
+     caption:function(){var t=txt(panel("antibiogram",/Local antibiogram/)),m=/\((\d[\d,]* of \d[\d,]* isolate\(s\)) in scope/.exec(t);
+       return {text:"First isolate per patient per organism"+(m?" ("+m[1]+")":"")+"; cells built from fewer than 30 isolates are flagged, not hidden.",values:m?[m[1]]:[]};},
+     sowhat:"Empirical treatment chosen from the hospital's own bacteria."},
+    {title:"The caesarean prophylaxis project",go:function(){go("csp");},settle:900,
+     target:function(){return V("csp").querySelector(".kpis");},
+     caption:function(){var k=[...V("csp").querySelectorAll(".kpi")].filter(function(x){return /→/.test(txt(x.querySelector(".v")));}).slice(0,2);
+       return {text:k.map(function(x){return txt(x.querySelector(".l"))+": "+txt(x.querySelector(".v"));}).join("; ")+(k[0]?" ("+txt(k[0].querySelector(".hint"))+").":""),values:k.map(function(x){return txt(x.querySelector(".v"));})};},
+     sowhat:"The project's indicators come from records, not hand counts."},
+    {title:"One-click reports",go:function(){go("reports");},
+     target:function(){var b=document.getElementById("dr-pptx-btn");return b?b.parentNode:V("reports");},
+     caption:function(){return {text:"The committee report in Word, the full PowerPoint deck, or an 8-slide talk deck with the same figures, each in one click.",values:[]};},
+     sowhat:"Hours of secretariat work become minutes."},
+    {title:"Minimum data: will the results stand?",go:function(){go("mindata");},
+     target:function(){return panel("mindata",/^Check my data/);},
+     caption:function(){var t=txt(panel("mindata",/^Check my data/)),m=/(\d+) ready · (\d+) limited · (\d+) not possible/.exec(t);
+       return m?{text:"Check my data: "+m[1]+" analyses ready, "+m[2]+" limited and "+m[3]+" not possible with the data loaded, each with the reason.",values:[m[0]]}:{text:"",values:[]};},
+     sowhat:"Users know before they start whether each analysis will stand."}
+  ];
+
+  /* ---------- simulated additions after the sample hospital is loaded ---------- */
+  async function afterSample(){
+    var X=await P.extras(); if(!X) return;
+    var view=currentView;
+    if(X.issues&&X.issues.file){var csv=await P.sampleFile(X.issues.file);
+      if(csv){await hubFiles("issue",[new File([csv],X.issues.file,{type:"text/csv"})]);if(pendingCats().indexOf("issue")>=0){var _t=window.toast;window.toast=function(){};try{analyzeAllStaged();}finally{window.toast=_t;}}}}
+    if(X.cqiMeetings&&!(+DB.metrics.cqiMeetings>0)) DB.metrics.cqiMeetings=X.cqiMeetings;
+    if(X.indicators) Object.keys(X.indicators).forEach(function(id){var r=DB.indicators.find(function(x){return x.id===id;}),v=X.indicators[id];
+      if(r&&!(+r.den>0)){r.num=v.num;r.den=v.den;r.perf=(v.num/v.den*100).toFixed(1)+"%";}});
+    if(X.didItWork){var D=dwSettings();if(!D.start)Object.assign(D,X.didItWork);}
+    go(view);
+  }
+
+  P.init({tool:"ams",sampleTool:"ams",name:"AMS Pro",
+    inDemo:function(){return DEMO;},
+    hasData:function(){return scopedPharmacyTx().length>0;},
+    sampleLoaded:function(){return DEMO&&scopedPharmacyTx().length>1000&&currentView!=="hub"&&!document.getElementById("demo-progress");},
+    afterSample:afterSample,
+    headerEl:function(){return document.querySelector("header");},
+    placeBar:function(host,bar){var b=document.getElementById("backup-badge");host.insertBefore(bar,b||null);},
+    topOffset:92,
+    stops:stops,
+    onStart:function(){lightCanvases();lightTimer=setInterval(lightCanvases,700);},
+    onStop:function(){clearInterval(lightTimer);document.querySelectorAll("canvas.odm-inv").forEach(function(c){c.classList.remove("odm-inv");});if(typeof go==="function")go(currentView);}
+  });
+})();
+
+</script>
+<style>
+#v-mentry .ee-field{margin:0 0 10px}
+#v-mentry .ee-field label{display:block;font-size:12.5px;color:#9aa3b2;margin-bottom:3px}
+#v-mentry .ee-field input[type=text],#v-mentry .ee-field input[type=date],#v-mentry .ee-field input[type=number],#v-mentry .ee-field select,#v-mentry .ee-field textarea{width:100%;max-width:420px;padding:6px 9px;border-radius:7px;font-size:13.5px}
+#v-mentry .ee-chk{display:inline-block;margin:2px 12px 2px 0;font-size:13px}
+#v-mentry .ee-note{font-size:11.5px;color:#8891a0;margin-top:2px}
+#v-mentry .ee-req{color:#e66}
+</style>
+<script>
+/* ===== Manual entry & export (added on top of AMS Pro 5.4) ===== */
+/* ---------- Manual entry & export: shared engine (v1) ----------
+   A single engine, used the same way by PPS Pro, AMS Pro and VigiWard, for manually entering records
+   against either (a) the tool's own form, shipped as a REDCap data dictionary, or (b) any REDCap data
+   dictionary CSV the user loads — then sending the entries to one or more destinations: a REDCap import
+   CSV, a plain CSV, a labelled Stata .dta file, or (when the loaded form is the tool's own) straight into
+   the tool's live data. Needs no network access and stores no REDCap token: loading a dictionary is just
+   reading a CSV file the user picked, the same way every other import in these tools works. */
+const EE=(function(){
+ function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+ function parseCsvRows(text){const rows=[];let row=[],field="",inQ=false;
+  for(let i=0;i<text.length;i++){const c=text[i];
+   if(inQ){if(c==='"'){if(text[i+1]==='"'){field+='"';i++}else inQ=false}else field+=c}
+   else{if(c==='"')inQ=true;else if(c===","){row.push(field);field=""}
+    else if(c==="\r"){}else if(c==="\n"){row.push(field);rows.push(row);row=[];field=""}else field+=c}}
+  if(field.length||row.length){row.push(field);rows.push(row)}
+  return rows.filter(r=>r.length>1||r[0]!=="")}
+ function csvCell(v){v=v==null?"":String(v);return /[",\r\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+ function toCsv(rows){return rows.map(r=>r.map(csvCell).join(",")).join("\r\n")}
+
+ const DICT_COLS=["Variable / Field Name","Form Name","Section Header","Field Type","Field Label",
+  "Choices, Calculations, OR Slider Labels","Field Note","Text Validation Type OR Show Slider Number",
+  "Text Validation Min","Text Validation Max","Identifier?","Branching Logic (Show field only if...)",
+  "Required Field?","Custom Alignment","Question Number (surveys only)","Matrix Group Name","Matrix Ranking?","Field Annotation"];
+
+ /* Parses a REDCap data dictionary CSV (the 18 standard columns) into a flat field list. Any dictionary
+    exported by REDCap's own "Download metadata" works; so does any of this project's own shipped ones. */
+ function parseDict(text){
+  const rows=parseCsvRows(text);if(!rows.length)return{fields:[],error:"Empty file."};
+  const hdr=rows[0].map(h=>h.trim());const idx=n=>hdr.indexOf(n);
+  const iVar=idx("Variable / Field Name"),iForm=idx("Form Name"),iType=idx("Field Type"),iLabel=idx("Field Label"),
+   iCh=idx("Choices, Calculations, OR Slider Labels"),iNote=idx("Field Note"),iValid=idx("Text Validation Type OR Show Slider Number"),
+   iMin=idx("Text Validation Min"),iMax=idx("Text Validation Max"),iBranch=idx("Branching Logic (Show field only if...)"),
+   iReq=idx("Required Field?"),iAnnot=idx("Field Annotation");
+  if(iVar<0||iType<0||iLabel<0)return{fields:[],error:"This doesn't look like a REDCap data dictionary (the field-name, field-type or field-label column is missing)."};
+  const fields=[];
+  for(let r=1;r<rows.length;r++){const row=rows[r];const varName=(row[iVar]||"").trim();if(!varName)continue;
+   const type=(row[iType]||"text").trim().toLowerCase();const choicesRaw=(row[iCh]||"").trim();let choices=null;
+   if(type==="radio"||type==="dropdown"||type==="checkbox"){
+    choices=choicesRaw.split("|").map(s=>s.trim()).filter(Boolean).map(pair=>{
+     const m=pair.match(/^([^,]+),\s*(.*)$/);return m?[m[1].trim(),m[2].trim()]:[pair,pair]})}
+   fields.push({var:varName,form:(row[iForm]||"").trim(),type,label:(row[iLabel]||varName).trim(),choices,
+    branch:(row[iBranch]||"").trim(),required:/^y/i.test(row[iReq]||""),note:(row[iNote]||"").trim(),
+    validation:(row[iValid]||"").trim().toLowerCase(),min:row[iMin]||"",max:row[iMax]||"",
+    readonly:/@READONLY/i.test(row[iAnnot]||"")})}
+  return{fields,error:null}}
+
+ /* Writes a field list back out as a REDCap data dictionary CSV (used when the tool's own form is shown
+    as a dictionary the user can take away and use to build a matching project in REDCap). */
+ function writeDict(fields){
+  const row=f=>{const out=new Array(18).fill("");out[0]=f.var;out[1]=f.form||"form_1";out[3]=f.type;out[4]=f.label;
+   if(f.choices)out[5]=f.choices.map(([c,l])=>c+", "+l).join(" | ");out[6]=f.note||"";
+   if(f.validation)out[7]=f.validation;out[8]=f.min||"";out[9]=f.max||"";out[11]=f.branch||"";out[12]=f.required?"y":"";
+   out[17]=f.readonly?"@READONLY":"";return out};
+  return toCsv([DICT_COLS,...fields.map(row)])}
+
+ /* [field]='x', [field]<>'x', [field(code)]='1' joined with and/or. Unparsed atoms fail OPEN (field stays
+    visible) rather than silently hiding data the user entered. */
+ function evalBranch(logic,values){
+  if(!logic)return true;
+  try{
+   return logic.split(/\band\b/i).every(part=>
+    part.split(/\bor\b/i).some(atomRaw=>{
+     const atom=atomRaw.trim().replace(/^\(+|\)+$/g,"");
+     const m=atom.match(/\[(\w+)(?:\((\w+)\))?\]\s*(<>|=)\s*'([^']*)'/);
+     if(!m)return true;
+     const[,fname,code,op,val]=m;let cur;
+     if(code!=null)cur=(values[fname+"___"+code]==="1")?code:"";
+     else cur=values[fname];
+     cur=cur==null?"":String(cur);
+     return op==="="?cur===val:cur!==val}))
+  }catch(e){return true}}
+
+ function visibleFields(fields,values){return fields.filter(f=>evalBranch(f.branch,values))}
+
+ /* Renders the fields that are currently visible into `container`, and — this is the fix for the branching
+    bug found during feasibility testing — clears the stored value of any field that just became hidden,
+    so a value typed before the parent answer changed is never left behind, in the screen or in an export. */
+ function renderForm(container,fields,values,onChange){
+  const vis=new Set(visibleFields(fields,values).map(f=>f.var));
+  fields.forEach(f=>{if(!vis.has(f.var)){
+   if(f.type==="checkbox")Object.keys(values).forEach(k=>{if(k.indexOf(f.var+"___")===0)delete values[k]});
+   else if(values[f.var]!=null)delete values[f.var]}});
+  let html="";
+  fields.forEach(f=>{if(!vis.has(f.var))return;const id="ee_f_"+f.var,dis=f.readonly?"disabled":"";
+   html+=`<div class="ee-field"><label for="${id}">${esc(f.label)}${f.required?' <span class="ee-req">*</span>':""}</label>`;
+   if(f.type==="radio"||f.type==="dropdown"){
+    html+=`<select id="${id}" ${dis}><option value="">—</option>`+
+     (f.choices||[]).map(([c,l])=>`<option value="${esc(c)}" ${values[f.var]===c?"selected":""}>${esc(l)}</option>`).join("")+"</select>"
+   }else if(f.type==="checkbox"){
+    html+=(f.choices||[]).map(([c,l])=>{const key=f.var+"___"+c,ck=values[key]==="1";
+     return`<label class="ee-chk"><input type="checkbox" data-var="${esc(key)}" ${ck?"checked":""} ${dis}> ${esc(l)}</label>`}).join(" ")
+   }else if(f.type==="notes"){
+    html+=`<textarea id="${id}" ${dis}>${esc(values[f.var]||"")}</textarea>`
+   }else{
+    const it=f.validation==="date_ymd"?"date":(f.validation==="number"||f.validation==="integer")?"number":"text";
+    html+=`<input id="${id}" type="${it}" value="${esc(values[f.var]||"")}" ${dis} ${f.min?`min="${esc(f.min)}"`:""} ${f.max?`max="${esc(f.max)}"`:""}>`}
+   if(f.note)html+=`<div class="ee-note">${esc(f.note)}</div>`;
+   html+="</div>"});
+  container.innerHTML=html||'<p class="ee-note">Nothing to show for this form yet.</p>';
+  container.querySelectorAll('[id^="ee_f_"]').forEach(el=>{
+   const varName=el.id.slice(5),fire=()=>{values[varName]=el.value;onChange&&onChange(varName)};
+   el.addEventListener("input",fire);el.addEventListener("change",fire)});
+  container.querySelectorAll("input[type=checkbox][data-var]").forEach(el=>{
+   el.addEventListener("change",()=>{values[el.dataset.var]=el.checked?"1":"0";onChange&&onChange(el.dataset.var)})})}
+
+ /* Pure-string version of renderForm, for pages built by returning an HTML string (as PPS Pro, AMS Pro and
+    VigiWard already do for every other page) rather than writing straight into the DOM. `setFn` is the name
+    of a page-global function called as setFn(varName,value) on every change; the caller re-renders the whole
+    page afterwards (as it already does for its own pages), which re-evaluates branching and, by rebuilding
+    this HTML from `values`, drops anything that just became hidden — the same clear-on-hide fix as renderForm. */
+ function fieldsHtml(fields,values,setFn){
+  const vis=new Set(visibleFields(fields,values).map(f=>f.var));
+  fields.forEach(f=>{if(!vis.has(f.var)){
+   if(f.type==="checkbox")Object.keys(values).forEach(k=>{if(k.indexOf(f.var+"___")===0)delete values[k]});
+   else if(values[f.var]!=null)delete values[f.var]}});
+  /* Fields the dictionary marks @READONLY (filled by the tool itself from other data, e.g. a flag
+     VigiWard already raised) aren't something to type into from a blank form, so they're left out of
+     manual entry entirely rather than shown disabled-and-empty; their column stays in every export. */
+  let html="";
+  fields.forEach(f=>{if(!vis.has(f.var)||f.readonly)return;const id="ee_f_"+f.var,dis="";
+   html+=`<div class="ee-field"><label for="${id}">${esc(f.label)}${f.required?' <span class="ee-req">*</span>':""}</label>`;
+   if(f.type==="radio"||f.type==="dropdown"){
+    html+=`<select id="${id}" ${dis} onchange="${setFn}('${f.var}',this.value)"><option value="">—</option>`+
+     (f.choices||[]).map(([c,l])=>`<option value="${esc(c)}" ${values[f.var]===c?"selected":""}>${esc(l)}</option>`).join("")+"</select>"
+   }else if(f.type==="checkbox"){
+    html+=(f.choices||[]).map(([c,l])=>{const key=f.var+"___"+c,ck=values[key]==="1";
+     return`<label class="ee-chk"><input type="checkbox" ${ck?"checked":""} ${dis} onchange="${setFn}('${esc(key)}',this.checked?'1':'0')"> ${esc(l)}</label>`}).join(" ")
+   }else if(f.type==="notes"){
+    html+=`<textarea id="${id}" ${dis} onchange="${setFn}('${f.var}',this.value)">${esc(values[f.var]||"")}</textarea>`
+   }else{
+    const it=f.validation==="date_ymd"?"date":(f.validation==="number"||f.validation==="integer")?"number":"text";
+    html+=`<input id="${id}" type="${it}" value="${esc(values[f.var]||"")}" ${dis} ${f.min?`min="${esc(f.min)}"`:""} ${f.max?`max="${esc(f.max)}"`:""} onchange="${setFn}('${f.var}',this.value)">`}
+   if(f.note)html+=`<div class="ee-note">${esc(f.note)}</div>`;
+   html+="</div>"});
+  return html||'<p class="ee-note">Nothing to show for this form yet.</p>'}
+
+ function redcapHeader(fields){const cols=[];
+  fields.forEach(f=>{if(f.type==="checkbox")(f.choices||[]).forEach(([c])=>cols.push(f.var+"___"+c));else cols.push(f.var)});
+  return cols}
+
+ function collectRow(fields,values){const row={};
+  fields.forEach(f=>{if(f.type==="checkbox")(f.choices||[]).forEach(([c])=>{row[f.var+"___"+c]=values[f.var+"___"+c]==="1"?"1":"0"});
+   else row[f.var]=values[f.var]!=null?values[f.var]:""});
+  return row}
+
+ function exportCsv(fields,rows,labelled){
+  const cols=redcapHeader(fields);
+  const header=labelled?fields.flatMap(f=>f.type==="checkbox"?(f.choices||[]).map(([c,l])=>f.label+": "+l):[f.label]):cols;
+  return toCsv([header,...rows.map(r=>cols.map(c=>r[c]!=null?r[c]:""))])}
+
+ /* Builds the column list dtaWrite() expects (string columns need a byte width `w`; anything not "str" or
+    "byte" is written as a double by dtaWrite, so a plain numeric field just omits `t`). */
+ function stataCols(fields,rows){
+  const enc=new TextEncoder(),cols=[];
+  fields.forEach(f=>{
+   if(f.type==="checkbox"){
+    (f.choices||[]).forEach(([c,l])=>{const key=f.var+"___"+c;
+     cols.push({name:key.slice(0,32),label:(f.label+": "+l).slice(0,80),t:"byte",vlab:"ee_noyes",
+      vals:rows.map(r=>r[key]==="1"?1:0)})})
+   }else if(f.type==="radio"||f.type==="dropdown"){
+    /* Use the dictionary's own numeric codes as the Stata codes when every choice code is already a
+       plain integer (REDCap's usual convention) so the .dta matches the REDCap export exactly; only
+       fall back to a made-up 1,2,3… code (noted in the value-label name) when a choice code isn't numeric. */
+    const allNumeric=(f.choices||[]).every(([c])=>/^-?\d+$/.test(c));
+    const codeMap={};(f.choices||[]).forEach(([c],i)=>{codeMap[c]=allNumeric?parseInt(c,10):i+1});
+    cols.push({name:f.var.slice(0,32),label:f.label.slice(0,80),t:"byte",vlab:"ee_"+f.var.slice(0,25),
+     vals:rows.map(r=>(r[f.var]&&codeMap[r[f.var]]!=null)?codeMap[r[f.var]]:null)})
+   }else if(f.validation==="number"||f.validation==="integer"){
+    cols.push({name:f.var.slice(0,32),label:f.label.slice(0,80),
+     vals:rows.map(r=>{const n=parseFloat(r[f.var]);return isFinite(n)?n:null})})
+   }else{
+    const vals=rows.map(r=>r[f.var]||"");
+    let w=1;vals.forEach(v=>{w=Math.max(w,enc.encode(v).length+1)});w=Math.min(w,244);
+    cols.push({name:f.var.slice(0,32),label:f.label.slice(0,80),t:"str",w,vals})}});
+  return cols}
+ function stataValueLabels(fields){
+  const vl=[{name:"ee_noyes",entries:[[0,"No"],[1,"Yes"]]}];
+  fields.forEach(f=>{if((f.type==="radio"||f.type==="dropdown")&&f.choices){
+   const allNumeric=f.choices.every(([c])=>/^-?\d+$/.test(c));
+   vl.push({name:"ee_"+f.var.slice(0,25),entries:f.choices.map(([c,l],i)=>[allNumeric?parseInt(c,10):i+1,l])})}});
+  return vl}
+
+ /* WHONET-style export: only offered when the field list includes the handful of isolate columns WHONET
+    needs (specimen date, ward, organism, antibiotic, result). Returns null — the destination is simply
+    not offered — when the loaded form doesn't shape isolate data, rather than guessing at a mapping. */
+ const WHONET_NEED=["specimen_date","ward","organism","antibiotic","result"];
+ function whonetShape(fields){const have=new Set(fields.map(f=>f.var));return WHONET_NEED.every(n=>have.has(n))}
+ function exportWhonet(rows){
+  const header=["Specimen Date","Department","Organism","Antibiotic","RIS"];
+  return toCsv([header,...rows.map(r=>[r.specimen_date||"",r.ward||"",r.organism||"",r.antibiotic||"",r.result||""])])}
+
+ return{esc,parseCsvRows,toCsv,csvCell,parseDict,writeDict,evalBranch,visibleFields,renderForm,fieldsHtml,redcapHeader,
+  collectRow,exportCsv,stataCols,stataValueLabels,whonetShape,exportWhonet,DICT_COLS}
+})();
+
+const AE_OWN_DICT = 'Variable / Field Name,Form Name,Section Header,Field Type,Field Label,"Choices, Calculations, OR Slider Labels",Field Note,Text Validation Type OR Show Slider Number,Text Validation Min,Text Validation Max,Identifier?,Branching Logic (Show field only if...),Required Field?,Custom Alignment,Question Number (surveys only),Matrix Group Name,Matrix Ranking?,Field Annotation\nrecord_id,ams_dispensing,,text,Record ID,,,,,,,,,,,,,\npatient_id,ams_dispensing,,text,Patient ID (optional),,,,,,,,,,,,,\ndrug_item,ams_dispensing,Dispensing,text,Item / drug name,,"e.g. Ceftriaxone Injection :1gm",,,,,,y,,,,,\nqty,ams_dispensing,,text,Quantity dispensed,,,number,0,,,,y,,,,,\nward,ams_dispensing,,text,Ward / Department,,,,,,,,,,,,,\nprescriber,ams_dispensing,,text,Prescriber (optional),,Enables the Cost & Impact prescriber breakdown,,,,,,,,,,,\nfrequency,ams_dispensing,,text,"Frequency (optional, e.g. OD/BD/TDS/QDS)",,Needed for the STG dose check and DOT,,,,,,,,,,,\nduration_days,ams_dispensing,,text,Duration in days (optional),,Needed for the STG dose check and DOT,number,0,,,,,,,,,\nroute,ams_dispensing,,text,Route (optional),,"e.g. IV, PO, IM",,,,,,,,,,,\nentry_date,ams_dispensing,,text,Date,,,date_ymd,,,,,y,,,,,\n';
+let AE={source:"own",fields:[],values:{},rows:[],err:null};
+function aeInit(){ if(AE.source==="own" && !AE.fields.length) AE.fields=EE.parseDict(AE_OWN_DICT).fields; }
+function aeSetSource(src){
+ const had=AE.rows.length;
+ AE.source=src; AE.values={}; AE.err=null; AE.rows=[];
+ AE.fields = src==="own" ? EE.parseDict(AE_OWN_DICT).fields : [];
+ renderMentry();
+ if(had) toast("Switched form \u2014 "+had+" record(s) from the other form were cleared (export them first next time)"); }
+function aeLoadDict(file){ if(!file) return;
+ const had=AE.rows.length; const rd=new FileReader();
+ rd.onload=()=>{ const {fields,error}=EE.parseDict(String(rd.result));
+  if(error){ AE.err=error; AE.fields=[]; } else { AE.err=null; AE.fields=fields; AE.values={}; }
+  AE.rows=[]; renderMentry();
+  if(had) toast("Loaded a new dictionary \u2014 "+had+" record(s) were cleared"); };
+ rd.readAsText(file); }
+function aeSetVal(k,v){ AE.values[k]=v; renderMentry(); }
+function aeAddRow(){ if(!AE.fields.length) return; const row=EE.collectRow(AE.fields,AE.values); AE.rows.push(row); AE.values={}; renderMentry(); toast("Record added ("+AE.rows.length+" so far)"); }
+function aeDeleteRow(i){ AE.rows.splice(i,1); renderMentry(); }
+function aeDl(name,content,mime){ const blob=content instanceof Uint8Array?new Blob([content],{type:mime}):new Blob([content],{type:mime});
+ const url=URL.createObjectURL(blob); const a=document.createElement("a"); a.href=url; a.download=name; document.body.appendChild(a); a.click();
+ setTimeout(()=>{ document.body.removeChild(a); URL.revokeObjectURL(url); },1000); }
+function aeExport(){
+ if(!AE.rows.length) return;
+ const stamp=(new Date()).toISOString().slice(0,10);
+ if($("#aeDestCsv")&&$("#aeDestCsv").checked) aeDl("AMS_manual_entry_"+stamp+".csv", EE.exportCsv(AE.fields,AE.rows,false), "text/csv");
+ if($("#aeDestRc")&&$("#aeDestRc").checked) aeDl("AMS_manual_entry_REDCap_"+stamp+".csv", EE.exportCsv(AE.fields,AE.rows,false), "text/csv");
+ if($("#aeDestDta")&&$("#aeDestDta").checked){ const cols=EE.stataCols(AE.fields,AE.rows), vl=EE.stataValueLabels(AE.fields);
+  const bytes=dtaWrite(cols,vl,"AMS Pro manual entry",[["_dta","note0","1"],["_dta","note1","Written by Odieman AMS Pro on "+stStamp()]]);
+  aeDl("AMS_manual_entry_"+stamp+".dta", bytes, "application/x-stata-dta"); }
+ const wn=$("#aeDestWn"); if(wn&&wn.checked) aeDl("AMS_manual_entry_WHONET_"+stamp+".csv", EE.exportWhonet(AE.rows), "text/csv");
+ toast("Exported "+AE.rows.length+" record(s)");
+}
+/* Own-form "send to analysis": AMS Pro's pharmacy-dispensing form already matches this layout 1:1
+   (patient_id/drug_item/qty/ward/prescriber/frequency/duration_days/route/entry_date), so this calls
+   the tool's existing, already-verified addPharmEntry() once per row instead of duplicating its logic. */
+function aeSendToAnalysis(){
+ if(AE.source!=="own"||!AE.rows.length) return;
+ if(typeof addPharmEntry!=="function"||!$("#e_p_item")){ toast("Open Data Entry once first, then come back here."); return; }
+ let n=0;
+ AE.rows.forEach(r=>{
+  $("#e_p_pid").value=r.patient_id||""; $("#e_p_item").value=r.drug_item||""; $("#e_p_qty").value=r.qty||"";
+  $("#e_p_ward").value=r.ward||""; $("#e_p_presc").value=r.prescriber||""; $("#e_p_freq").value=r.frequency||"";
+  $("#e_p_days").value=r.duration_days||""; $("#e_p_route").value=r.route||""; $("#e_p_date").value=r.entry_date||"";
+  if(r.drug_item&&r.qty!==""){ addPharmEntry(); n++; }
+ });
+ AE.rows=[]; renderMentry();
+ toast(n+" record(s) added to Data Entry / Dashboard");
+}
+function renderMentry(){
+ aeInit();
+ const f=AE.fields, v=AE.values, hdr=EE.redcapHeader(f);
+ const formHtml = f.length ? EE.fieldsHtml(f,v,"aeSetVal") : (AE.source==="custom"?"<p class=\"muted\">Load a REDCap data dictionary CSV above to see its form.</p>":"");
+ const canWhonet = EE.whonetShape(f);
+ const shownCols = hdr.slice(0,6);
+ const rowsHtml = AE.rows.length? ("<table class=\"tbl\"><thead><tr>"+shownCols.map(c=>"<th>"+EE.esc(c)+"</th>").join("")+(hdr.length>6?"<th>\u2026</th>":"")+"<th></th></tr></thead><tbody>"+
+  AE.rows.map((r,i)=>"<tr>"+shownCols.map(c=>"<td>"+EE.esc(r[c]||"")+"</td>").join("")+(hdr.length>6?"<td>\u2026</td>":"")+"<td><button class=\"btn small ghost\" onclick=\"aeDeleteRow("+i+")\">Remove</button></td></tr>").join("")+"</tbody></table>") : "<p class=\"muted\">No entries yet.</p>";
+ $("#v-mentry").innerHTML =
+ "<div class=\"panel\"><h2>Manual entry, your choice of form and destination</h2>"+
+ "<div class=\"sub\">Fill in either AMS Pro's own pharmacy-dispensing form or any REDCap project's own data dictionary you load below. Add as many records as you like, then send them to a plain CSV, REDCap, Stata and/or &mdash; when using AMS Pro's own form &mdash; straight into Data Entry. Nothing here is sent anywhere; every file is made on this computer.</div>"+
+ "<div class=\"grid\">"+
+ "<div><h3>1. Choose the form</h3>"+
+ "<label><input type=\"radio\" name=\"aeSrc\" "+(AE.source==="own"?"checked":"")+" onchange=\"aeSetSource('own')\"> AMS Pro's own form (pharmacy dispensing)</label><br>"+
+ "<label><input type=\"radio\" name=\"aeSrc\" "+(AE.source==="custom"?"checked":"")+" onchange=\"aeSetSource('custom')\"> A REDCap data dictionary I load</label>"+
+ (AE.source==="custom"?("<div style=\"margin-top:8px\"><input type=\"file\" accept=\".csv\" onchange=\"aeLoadDict(this.files[0])\"></div>"+(AE.err?("<div class=\"ee-note\" style=\"color:#e66\">"+EE.esc(AE.err)+"</div>"):"")+(f.length?("<div class=\"muted\" style=\"margin-top:4px\">"+f.length+" field(s) loaded.</div>"):"")) : "")+
+ "</div>"+
+ "<div><h3>2. Fill in a record</h3><div id=\"aeForm\">"+formHtml+"</div>"+
+ "<div class=\"row\" style=\"margin-top:10px\"><button class=\"btn\" onclick=\"aeAddRow()\" "+(f.length?"":"disabled")+">Add this record</button></div></div>"+
+ "</div>"+
+ "<div class=\"subhead\"><h3>Entries so far ("+AE.rows.length+")</h3><div class=\"line\"></div></div>"+rowsHtml+
+ "<div class=\"subhead\"><h3>3. Send to</h3><div class=\"line\"></div></div>"+
+ "<label><input type=\"checkbox\" id=\"aeDestCsv\" checked> Plain CSV</label>"+
+ "<label style=\"margin-left:14px\"><input type=\"checkbox\" id=\"aeDestRc\"> REDCap import CSV</label>"+
+ "<label style=\"margin-left:14px\"><input type=\"checkbox\" id=\"aeDestDta\"> Stata (.dta)</label>"+
+ (canWhonet?("<label style=\"margin-left:14px\"><input type=\"checkbox\" id=\"aeDestWn\"> WHONET</label>"):"")+
+ "<div class=\"row\" style=\"margin-top:10px\"><button class=\"btn\" onclick=\"aeExport()\" "+(AE.rows.length?"":"disabled")+">Export selected</button>"+
+ (AE.source==="own"?("<button class=\"btn ghost\" onclick=\"aeSendToAnalysis()\" "+(AE.rows.length?"":"disabled")+" style=\"margin-left:8px\">Add these "+AE.rows.length+" record(s) straight into Data Entry</button>"):"")+
+ "</div></div>";
+}
 </script>
 </body>
 </html>
