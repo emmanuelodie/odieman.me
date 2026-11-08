@@ -1002,7 +1002,7 @@ html.odm-present .suite-nav .arm-btn,html.odm-present .suite-nav .navgrp,html.od
       <li><b>Known biases.</b> Dispensing is not administration; outpatients may not take or may buy medicines elsewhere; rescue drugs have other indications; incomplete exports (departments missing in some months) distort rates; "first dose" means first in the data, not first ever.</li>
     </ul>
     <p style="font-size:12.5px;color:var(--ink-faint)"><strong>© 2024–2026 Odindo Emmanuel Thomas. All rights reserved.</strong> “VigiWard” is an unregistered trademark (™) of the author.</p>
-    <div class="ref">Cite as: Odindo, E. T. (2026). VigiWard: Hospital Pharmacovigilance (Version 3.11) [Computer software]. Tanga, Tanzania.</div>
+    <div class="ref">Cite as: Odindo, E. T. (2026). VigiWard: Hospital Pharmacovigilance (Version 3.14) [Computer software]. Tanga, Tanzania.</div>
   </div>
 </section>
 
@@ -5333,7 +5333,7 @@ function vmdReportLines(){const ph=DB.pharmacy||[],M=vmdMonths(ph),q=DB.qa||{},L
  if(lim.length){L.push({p:"Limits found by VigiWard's data check (Minimum data):"});lim.forEach(x=>L.push({b:`${x.name}: ${String(x.detail).replace(/<[^>]+>/g,'')}`}));}
  else L.push({p:"VigiWard's data check (Minimum data) found no limits."});
  return L}
-const VW_VER='3.12', VRC_FORM='adr_case_review';
+const VW_VER='3.14', VRC_FORM='adr_case_review';
 const VRC_METHOD=[['LAB','Lab-supported'],['DDI','Drug interaction'],['CLUSTER','Cluster'],['CASCADE','Cascade'],['STOPSWITCH','Stop/switch']];
 const VRC_STRENGTH=[['WEAK','Possible'],['MODERATE','Probable'],['STRONG','Certain']].map(([c,k])=>[c,SIG_STRENGTH[k],k]);
 const VRC_SEV=[['MILD','Mild','mild'],['MODERATE','Moderate','moderate'],['SEVERE','Severe','severe']];
