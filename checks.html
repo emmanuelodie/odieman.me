@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How every release is checked — Odieman Health Tools</title>
+<meta name="description" content="How each new version of AMS Pro, PPS Pro and VigiWard is checked before release: against the version before it, figure by figure, with new calculations worked out a second time. What has been tested, and what has not yet.">
+<meta name="author" content="Odindo Emmanuel Thomas">
+<link rel="stylesheet" href="style.css">
+<style>
+  .tscroll{overflow-x:auto;margin:14px 0;}
+  .tscroll table.bench{margin:0;min-width:600px;}
+  ul.plain{font-family:"Segoe UI",sans-serif;font-size:14.5px;color:var(--ink-soft);padding-left:20px;line-height:1.65;max-width:72ch;}
+  ul.plain li{margin-bottom:6px;}
+  ul.plain b{color:var(--ink);}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">Odieman Health Tools
+      <small>Field-built instruments for antimicrobial stewardship, PPS &amp; pharmacovigilance</small>
+    </a>
+    <nav class="links sans">
+      <a href="index.html#tools">Tools</a>
+      <a href="methodology.html">Methodology</a>
+      <a href="technical.html">Technical</a>
+      <a href="index.html#demo">Live demos</a>
+      <a href="story.html">The story</a>
+      <a href="index.html#download">Get the tools</a>
+      <a href="index.html#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <p class="crumb"><a href="index.html">Home</a> / How every release is checked</p>
+
+  <section class="page-hero">
+    <span class="tag sans">AMS Pro 5.6 &middot; PPS Pro 3.9 &middot; VigiWard 3.14 &middot; November 2026</span>
+    <h1>How every release is checked</h1>
+    <p class="lede">A tool that a committee acts on has to give the same answer tomorrow that it gave today, and a new feature must not quietly change an old figure. So no version is released on the strength of its own output. Each one is compared with the version before it, and every new calculation is worked out a second time, separately. What has not been tested yet is said plainly.</p>
+  </section>
+
+  <section>
+    <h2>Four checks on every release</h2>
+    <div class="module-row">
+      <h4>1. Against the version before</h4>
+      <p>The same data is loaded into the new version and the old one, and every page, figure and export is compared. Only the intended changes may differ, and each of those is shown before and after. Everything else must be identical, down to the look of each unchanged page.</p>
+    </div>
+    <div class="module-row">
+      <h4>2. A second, independent calculation</h4>
+      <p>Where a feature produces a number, the number is worked out again outside the tool, from the written method rather than from the tool's code: in Python, with statsmodels for the time-series models, and with two separate readers (pandas and ReadStat, the reader R uses) for every Stata file. REDCap files are checked against REDCap's own import rules. The tool's arithmetic is never used to check itself.</p>
+    </div>
+    <div class="module-row">
+      <h4>3. The real screens, end to end</h4>
+      <p>An automated browser opens the actual tool file and does what a user would: imports files, fills in forms, presses the buttons, downloads the reports and opens them again. Errors on the page fail the check.</p>
+    </div>
+    <div class="module-row">
+      <h4>4. The website demos</h4>
+      <p>Each live demo is made from the full version by one script, which rebuilds the demos already online byte for byte before it is trusted with a new one. The demo lock (no files of your own can be opened in a demo) is tested on every build, and the guided tour is run from the website itself.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>This round, November 2026</h2>
+    <p class="section-note">Each check pack is kept with its release and can be run again.</p>
+    <div class="tscroll"><table class="bench">
+      <tr><th>Release</th><th>What changed</th><th>Checks passed</th></tr>
+      <tr><td>PPS Pro 3.7 &middot; AMS Pro 5.4 &middot; VigiWard 3.12</td><td>Sample hospital, the Present tour, website demo builds, AMS Pro's talk deck</td><td>46 of 46 &middot; 58 of 58 &middot; 57 of 57</td></tr>
+      <tr><td>PPS Pro 3.8 &middot; AMS Pro 5.5 &middot; VigiWard 3.13</td><td>Manual entry on any form, to CSV, REDCap, Stata or WHONET</td><td>11 of 11 &middot; 8 of 8 &middot; 9 of 9</td></tr>
+      <tr><td>PPS Pro 3.9 &middot; AMS Pro 5.6 &middot; VigiWard 3.14</td><td>Decision brief; the exact 95% value in every confidence interval</td><td>5 of 5 &middot; 5 of 5 &middot; 5 of 5</td></tr>
+      <tr><td>This website update</td><td>New demos and sample files; the story page's figures</td><td>All three tours run from the website with no page errors; the demo lock holds in all three; the <a href="story.html">story</a>'s figures were taken again from the new demos, after the same method had reproduced every figure the page showed, exactly, from the demos it replaces</td></tr>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>Found and fixed by checking</h2>
+    <ul class="plain">
+      <li><b>AMS Pro:</b> an operation recorded in both the procedures report and the admissions register was counted twice, so every prophylaxis prompt appeared twice. Found while building the story page; fixed in October 2026.</li>
+      <li><b>PPS Pro 3.4:</b> seven labels in the published data dictionary had lost an &ldquo;&amp;&rdquo; or a dash. The codes were right; the corrected files are on the <a href="technical.html#data-dictionary">technical page</a>.</li>
+      <li><b>Manual entry:</b> a value typed into a field later hidden by the form's branching logic could still reach an export. Hiding a field now clears it everywhere.</li>
+      <li><b>VigiWard sample hospital:</b> some simulated pharmacist reviews did not agree with their own causality scores, and they dismissed the planted bad batch of ceftriaxone. They were rewritten so every review is consistent with its WHO-UMC category and Naranjo score, before this update went online.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Not tested yet</h2>
+    <p class="section-note">Said here so that nobody has to find it out.</p>
+    <ul class="plain">
+      <li><b>REDCap:</b> PPS Pro's and VigiWard's REDCap files have been tested with simulated files against REDCap's import rules, not yet in a live REDCap project.</li>
+      <li><b>Stata:</b> every Stata file was read back correctly by two independent readers, and AMS Pro's model was re-run from its files outside Stata; the files and command files have not yet been run in Stata itself.</li>
+      <li><b>WHONET:</b> the WHONET-ready files follow the BacLink guides on whonet.org; the import has not yet been tried in BacLink.</li>
+      <li><b>The new features on real hospital data:</b> everything above was checked on the simulated sample hospital. The tools themselves have been used with real data at a regional referral hospital; the November 2026 additions have not yet.</li>
+    </ul>
+  </section>
+
+  <a href="index.html" class="back-link">&larr; Back to home</a>
+</main>
+
+<footer class="wrap">
+  <div class="fline">
+    <span>&copy; 2026 Odieman Health Tools.</span>
+    <span>No patient data is collected by this website; visits are counted anonymously, without cookies (GoatCounter).</span>
+  </div>
+</footer>
+
+<script>
+/* Visit counting: GoatCounter, no cookies, no personal data. Events record only which demo or tool was opened. */
+window.odmEvent=function(path,title){try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:path,title:title||path,event:true});}catch(e){}};
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href');
+  var m=h.match(/(Odieman_AMS_Pro|Odieman_PPS_Pro|VigiWard)\.html\?demo=1/);if(m){odmEvent('demo-'+m[1].replace('Odieman_',''),'Live demo opened');return;}
+  if(/^https:\/\/wa\.me\//.test(h))odmEvent('contact-whatsapp','WhatsApp link');else if(/^mailto:/.test(h))odmEvent('contact-email','Email link');else if(/\.vcf$/.test(h))odmEvent('contact-vcard','Contact saved');else if(/\.pdf$/.test(h))odmEvent('abstract-pdf','Abstract downloaded');});
+</script>
+<script data-goatcounter="https://emmanuelodie94.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>
