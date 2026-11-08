@@ -1,0 +1,7 @@
+{
+ "note": "SIMULATED DATA for the Odieman PPS Pro sample hospital. Not real patients.",
+ "secondSurveyor": {
+  "survey": "PPS-2026-07",
+  "file": "PPS-2026-07_SecondSurveyor.csv"
+ }
+}
