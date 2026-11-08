@@ -30,7 +30,7 @@
   <p class="crumb"><a href="index.html">Home</a> / Tools / PPS Pro</p>
 
   <section class="page-hero">
-    <span class="tag sans">v3.4 &middot; ~1 MB &middot; single file &middot; offline</span>
+    <span class="tag sans">v3.9 &middot; ~1.3 MB &middot; single file &middot; offline</span>
     <h1>PPS Pro</h1>
     <p class="lede">A WHO-methodology point prevalence survey tool that works with the data Tanzanian hospitals really have: type patients in at the bedside, or start from the pharmacy and admission exports and the WHO PPS tables — then check every prescription against the Tanzania STG, give each ward its own feedback, and follow every indicator across survey rounds with formal trend tests.</p>
     <div class="cta-row">
@@ -40,6 +40,35 @@
   </section>
 
   <section id="new">
+    <h2>New in versions 3.5 to 3.9</h2>
+    <p class="section-note">November 2026. Each version was checked against the one before it: every figure, export and page the change was not meant to touch stays the same (<a href="checks.html">how</a>). All of it is in the live demo.</p>
+    <div class="module-row">
+      <h4>Minimum data and Check my data <span class="kv">(3.6)</span></h4>
+      <p>A page in the Start menu that says what PPS Pro needs for each analysis: every column, the headings it also accepts, the smallest numbers it will report on, and blank templates. <i>Check my data</i> reads the survey on screen and marks each analysis ready, limited or not possible, with the reason. The trend report ends with the same check, under <i>Data used and its limits</i>. No figure changed. <a href="minimum-data.html#pps">The minimum data for PPS Pro</a>.</p>
+    </div>
+    <div class="module-row">
+      <h4>Stata, both ways <span class="kv">(3.5)</span></h4>
+      <p>The Stata page (Output menu) writes one survey or all surveys as Stata data files (.dta, Stata 14 or later): a patients file and an antimicrobials file, every variable and code labelled from PPS Pro's own code lists, with as many antimicrobial columns as the busiest patient needs. Import reads Stata files back (Stata 13 or later). The files were read back correctly by two independent readers, pandas and ReadStat (the reader R's haven uses); a test in Stata itself is still to come.</p>
+    </div>
+    <div class="module-row">
+      <h4>Manual entry on any form <span class="kv">(3.8)</span></h4>
+      <p>Fill in PPS Pro's own form, or load any REDCap project's data dictionary and fill in that project's form instead, with its branching logic. Send the entries to a plain CSV, a REDCap import file or a labelled Stata file, or straight into a survey here.</p>
+    </div>
+    <div class="module-row">
+      <h4>Decision brief <span class="kv">(3.9)</span></h4>
+      <p>One printable page for a committee that will not read the full report: what was measured, the headline figures exactly as the tool shows them, whether the data meet the minimum, what it means in plain words, and a question for the committee to decide.</p>
+    </div>
+    <div class="module-row">
+      <h4>Sample hospital and Present <span class="kv">(3.7)</span></h4>
+      <p>One click opens five simulated surveys in memory, without internet and without touching your own data. <i>Present</i> runs a seven-stop guided tour with large text for a projector; every figure a caption says is read from the screen it shows.</p>
+    </div>
+    <div class="module-row">
+      <h4>The exact 95% value</h4>
+      <p>Every confidence interval now uses z = 1.959963984540054 rather than a rounded 1.96. No figure on screen changes at the precision shown, and Stata's own commands now match PPS Pro exactly.</p>
+    </div>
+  </section>
+
+  <section id="new-3-4">
     <h2>New in version 3.4</h2>
     <p class="section-note">November 2026. A REDCap page in the Output menu. Nothing else changed: on three simulated surveys, every export, indicator, WHO table and analysis page is the same as in 3.3.2.</p>
     <div class="module-row">
@@ -133,7 +162,7 @@
       <tr><th>Metric</th><th>Value</th></tr>
       <tr><td>Inpatients surveyed</td><td>247 (9 wards)</td></tr>
       <tr><td>Antimicrobial prevalence</td><td>44.9% <span style="color:var(--ink-soft);font-weight:400;">(95% CI 38.9&ndash;51.2%)</span></td></tr>
-      <tr><td>AWaRe mix (162 prescriptions)</td><td><span class="badge access">Access 69.8%</span><span class="badge watch">Watch 27.2%</span><span class="badge reserve">Reserve 0%</span></td></tr>
+      <tr><td>AWaRe mix (162 prescriptions)</td><td><span class="badge access">Access 69.8%</span><span class="badge watch">Watch 25.9%</span><span class="badge reserve">Reserve 1.2%</span></td></tr>
       <tr><td>Guideline compliance</td><td><span class="warn">58% (58/100)</span></td></tr>
       <tr><td>Surgical prophylaxis &gt; 1 day</td><td><span class="warn">30% (6/20)</span> — above WHO single-dose best practice</td></tr>
     </table>
