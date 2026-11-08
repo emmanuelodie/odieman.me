@@ -30,7 +30,7 @@
   <p class="crumb"><a href="index.html">Home</a> / Tools / AMS Pro</p>
 
   <section class="page-hero">
-    <span class="tag sans">v5.1 &middot; ~2.5 MB &middot; single file &middot; offline</span>
+    <span class="tag sans">v5.6 &middot; ~2.7 MB &middot; single file &middot; offline</span>
     <h1>AMS Pro</h1>
     <p class="lede">Turn the exports your hospital system already produces — pharmacy dispensing, admissions, laboratory and culture results — into a working antimicrobial stewardship programme: AWaRe and consumption analysis, an antibiogram, statistically sound trend charts, patient-level review lists, CRFs, and reports ready for the AMS committee.</p>
     <div class="cta-row">
@@ -55,7 +55,7 @@
 
   <section>
     <h2>The modules</h2>
-    <p class="section-note">29 modules in four groups, each explained inside the tool's built-in user guide.</p>
+    <p class="section-note">32 pages in four groups, each explained inside the tool's built-in user guide.</p>
     <div class="module-row">
       <h4>Clinical records</h4>
       <p><strong>Patients &middot; Prescriptions &middot; Antibiogram</strong> — one line per patient joined across pharmacy, lab, admissions and procedures; every dispensing line with its matched generic, AWaRe class, route, days and DDD; and a cumulative antibiogram counting the first isolate per patient per organism (CLSI M39), with cells under 30 isolates flagged.</p>
@@ -70,7 +70,7 @@
     </div>
     <div class="module-row">
       <h4>Setup &amp; data</h4>
-      <p><strong>User Guide &middot; Setup &middot; Dose Reference &middot; Data Entry &middot; Import Hub</strong> — facility details, the AWaRe scheme, an editable WHO ATC/DDD dose reference, manual entry, and an import hub that recognises messy real-world exports (title rows, repeated headers, missing columns) and can undo any single import.</p>
+      <p><strong>User Guide &middot; Minimum Data &middot; Decision brief &middot; Setup &middot; Dose Reference &middot; Data Entry &middot; Manual entry (any form) &middot; Import Hub</strong> — what each analysis needs and a check of the data loaded, a one-page brief for the committee, facility details, the AWaRe scheme, an editable WHO ATC/DDD dose reference, manual entry on any form, and an import hub that recognises messy real-world exports (title rows, repeated headers, missing columns) and can undo any single import.</p>
     </div>
     <div class="module-row">
       <h4>Saving</h4>
@@ -79,6 +79,35 @@
   </section>
 
   <section id="new">
+    <h2>New in 5.2 to 5.6</h2>
+    <p class="section-note">November 2026. Each version was checked against the one before it: every figure, export and page the change was not meant to touch stays the same (<a href="checks.html">how</a>). All of it is in the live demo.</p>
+    <div class="module-row">
+      <h4>Minimum Data and Check my data <span class="kv">(5.3)</span></h4>
+      <p>What AMS Pro needs for each analysis, file by file: the essential and recommended columns, the headings it recognises, and blank templates. <i>Check my data</i> reads the data loaded now and marks each analysis ready, limited, optional or not yet possible, with the reason and what to add. The reports carry the same check. <a href="minimum-data.html#ams">The minimum data for AMS Pro</a>.</p>
+    </div>
+    <div class="module-row">
+      <h4>Did It Work? in Stata <span class="kv">(5.2)</span></h4>
+      <p>Beside the figure and the monthly CSV: the months as a labelled Stata data file, and a Stata command file that re-runs exactly the model on the page (segmented regression with Newey&ndash;West standard errors, same lag) and stops if any estimate differs from AMS Pro's. Re-run outside Stata from the same files, the model matches AMS Pro to about 1 part in 10<sup>13</sup>; running the command file in Stata itself is still to come.</p>
+    </div>
+    <div class="module-row">
+      <h4>Manual entry on any form <span class="kv">(5.5)</span></h4>
+      <p>Fill in AMS Pro's own form, or load any REDCap project's data dictionary and fill in that form, with its branching logic. Send the entries to a plain CSV, a REDCap import file, a labelled Stata file, a WHONET-ready file where the form has culture results, or straight into AMS Pro's analysis.</p>
+    </div>
+    <div class="module-row">
+      <h4>Decision brief <span class="kv">(5.6)</span></h4>
+      <p>One printable page for the AMS committee: the headline figures exactly as the tool shows them (dispensing lines, Access, Watch and Reserve shares), whether the data meet the minimum, what it means in plain words, and a question for the committee to decide, never an instruction.</p>
+    </div>
+    <div class="module-row">
+      <h4>Sample hospital, Present and a talk deck <span class="kv">(5.4)</span></h4>
+      <p>One click opens the simulated hospital in memory, with its improvement projects, ward rounds, stock issues and a larger antibiogram. <i>Present</i> runs a seven-stop guided tour in a light, large-text theme for a projector. Reports adds an 8-slide talk deck with the same figures as the full deck. The dashboard now shows one headline Access figure and &ldquo;not recorded yet&rdquo; instead of a red zero.</p>
+    </div>
+    <div class="module-row">
+      <h4>The exact 95% value</h4>
+      <p>Every confidence interval now uses z = 1.959963984540054, where two slightly different values were used before. No figure on screen changes at the precision shown.</p>
+    </div>
+  </section>
+
+  <section id="new-5-1">
     <h2>New in 5.1</h2>
     <p class="section-note">October 2026. Version 5.1 joins the two lines of AMS Pro: the new evaluation page from 5.0, and the 4.14 line with its views and one-drop upload. All of it is in the live demo, on the sample hospital&rsquo;s data.</p>
     <div class="module-row">
