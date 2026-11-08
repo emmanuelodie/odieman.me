@@ -48,13 +48,14 @@
   <p class="crumb"><a href="index.html">Home</a> / Technical documentation</p>
 
   <section class="page-hero">
-    <span class="tag">Technical reference &middot; AMS Pro 5.1, PPS Pro 3.4 and VigiWard 3.9.1 &middot; November 2026</span>
+    <span class="tag">Technical reference &middot; AMS Pro 5.6, PPS Pro 3.9 and VigiWard 3.14 &middot; November 2026</span>
     <h1>What the tools read, keep and produce</h1>
     <p class="lede">For the hospital ICT officer, the hospital-system team, the reviewer and the partner organisation: what each tool needs from your hospital system, where it keeps its data, what it hands back, and the one connection it can make. Written from the tools' own code. The statistics behind the figures are on the <a href="methodology.html">methodology page</a>.</p>
     <p class="sans" style="font-size:14px;color:var(--ink-soft);">Jump to:
       <a href="#glance">At a glance</a> &middot;
       <a href="#run">How a tool runs</a> &middot;
       <a href="#data">Data the tools read</a> &middot;
+      <a href="minimum-data.html">Minimum data</a> &middot;
       <a href="#source">One source, three tools</a> &middot;
       <a href="#kept">Where data is kept</a> &middot;
       <a href="#outputs">Outputs &amp; standard formats</a> &middot;
@@ -72,13 +73,13 @@
     <div class="tscroll"><table class="bench">
       <tr><th></th><th>AMS Pro</th><th>PPS Pro</th><th>VigiWard</th></tr>
       <tr><td>File</td><td><code>Odieman_AMS_Pro.html</code></td><td><code>Odieman_PPS_Pro.html</code></td><td><code>VigiWard.html</code></td></tr>
-      <tr><td>Version</td><td>5.1</td><td>3.4</td><td>3.9.1</td></tr>
-      <tr><td>Size</td><td>~2.5 MB</td><td>~0.1 MB</td><td>~1.3 MB</td></tr>
-      <tr><td>Reads</td><td>Excel (.xlsx, .xlsm) or CSV exports</td><td>One CSV per survey, or entry on screen</td><td>Excel (.xlsx, .xls) or CSV exports</td></tr>
+      <tr><td>Version</td><td>5.6</td><td>3.9</td><td>3.14</td></tr>
+      <tr><td>Size</td><td>~2.7 MB</td><td>~1.3 MB</td><td>~1.5 MB</td></tr>
+      <tr><td>Reads</td><td>Excel (.xlsx, .xlsm) or CSV exports; a REDCap data dictionary for manual entry</td><td>Survey files in CSV or Excel, the WHO PPS tables, REDCap exports and Stata files (.dta), or entry on screen</td><td>Excel (.xlsx, .xls) or CSV exports; case reviews exported from REDCap; a REDCap data dictionary for manual entry</td></tr>
       <tr><td>Saves to</td><td colspan="3">A data folder you choose on your own computer (Chrome or Edge), with the browser's own storage alongside</td></tr>
       <tr><td>Database file</td><td><code>odieman_ams_pro_data.json</code></td><td><code>odieman_pps_data.json</code></td><td><code>vigiward_data.json</code></td></tr>
-      <tr><td>Produces</td><td>Word, PowerPoint, CSV, JSON</td><td>ZIP (WHO PPS format), CSV, HTML, PNG, JSON</td><td>XML, RTF, CSV, Excel, text</td></tr>
-      <tr><td>Internet</td><td colspan="3">Not needed. Used only if someone presses <i>Check for updates</i> on the Reference lists page</td></tr>
+      <tr><td>Produces</td><td>Word, PowerPoint, CSV, Stata (.dta, .do), JSON</td><td>ZIP (WHO PPS format), CSV, REDCap import files, Stata (.dta), HTML, PNG, JSON</td><td>XML, RTF, CSV, REDCap import files, Stata (.dta), Excel, text</td></tr>
+      <tr><td>Internet</td><td colspan="3">Not needed. Used only if someone presses <i>Check for updates</i> on the Reference lists page, or opens the <i>Sample hospital</i> without its file beside the tool (see <a href="#connections">connections</a>)</td></tr>
       <tr><td>Install, server, account</td><td colspan="3">None</td></tr>
     </table></div>
   </section>
@@ -289,6 +290,9 @@
       <tr><td>Resistance summary, GLASS-style</td><td>CSV: first isolate per patient per organism, grouped by GLASS specimen (blood, urine, stool, urogenital), with % resistant and % non-susceptible per organism&ndash;antibiotic pair; GLASS priority pathogens marked; cells under 30 isolates flagged</td><td>National AMR surveillance and committee review</td></tr>
       <tr><td>Tanzania GHS-CQI indicators</td><td>CSV with numerator, denominator, value, source and status</td><td>Facility GHS-CQI submission</td></tr>
       <tr><td>Working tables</td><td>CSV: indicators, consumption, pharmacy transactions, CRF01 dispensing, CRF03 audit log, patient master</td><td>Onward analysis</td></tr>
+      <tr><td>Did It Work? for Stata</td><td>Stata data (.dta, Stata 14+), every month and column labelled, settings as Stata notes; and a Stata command file (.do) that re-runs the model and stops if an estimate differs</td><td>Stata users and reviewers re-running the analysis</td></tr>
+      <tr><td>Manual entry</td><td>CSV, REDCap data import file, Stata (.dta) with value labels, WHONET-ready CSV where the form has culture results</td><td>REDCap, Stata, WHONET (BacLink)</td></tr>
+      <tr><td>Decision brief and talk deck</td><td>One printable page (browser print to PDF); an 8-slide PowerPoint cut from the full deck</td><td>The AMS committee; a short talk</td></tr>
       <tr><td>Full backup</td><td>JSON</td><td>Restore, or moving to another computer</td></tr>
     </table></div>
 
@@ -298,7 +302,10 @@
       <tr><td>WHO PPS format</td><td>ZIP of six CSV files &mdash; <code>1_Hospital</code>, <code>2_Ward</code>, <code>3_Patient</code>, <code>4_Indication</code>, <code>5_Antibiotic</code>, <code>6_Indicators</code> &mdash; using the forms and variable names of the WHO PPS methodology (WHO/EMP/IAU/2018.01)</td><td>WHO-format survey reporting and pooled analysis</td></tr>
       <tr><td>Survey files</td><td>CSV, one per survey, in the input format above</td><td>Re-import, sharing between surveyors</td></tr>
       <tr><td>Indicators</td><td>CSV</td><td>Onward analysis</td></tr>
-      <tr><td>Trend report</td><td>HTML, printable to PDF</td><td>The AMS committee</td></tr>
+      <tr><td>Trend report</td><td>HTML, printable to PDF, ending with the data used and its limits</td><td>The AMS committee</td></tr>
+      <tr><td>REDCap</td><td>The REDCap data dictionary (CSV) and any survey as a REDCap data import file, one record per inpatient</td><td>REDCap projects (Data Dictionary, Data Import Tool)</td></tr>
+      <tr><td>Stata</td><td>One survey or all surveys as two Stata data files (.dta, Stata 14+): patients and antimicrobials, every variable and code labelled</td><td>Stata, R (haven), Python (pandas)</td></tr>
+      <tr><td>Manual entry, decision brief</td><td>CSV, REDCap import file or Stata from any form; one printable page for the committee</td><td>REDCap, Stata; the AMS committee</td></tr>
       <tr><td>Charts</td><td>PNG</td><td>Slides, posters, reports</td></tr>
       <tr><td>Full backup</td><td>JSON</td><td>Restore, or moving to another computer</td></tr>
     </table></div>
@@ -312,19 +319,23 @@
       <tr><td>Facility pharmacovigilance report</td><td>RTF (opens in Word)</td><td>The DTC and AMS committee</td></tr>
       <tr><td>Working lists</td><td>CSV: watch-list, spike alerts, PV indicators, monitoring gaps, aDSM gaps, ward huddle, sequence symmetry, validation log; signal line list in Excel</td><td>Review meetings and follow-up</td></tr>
       <tr><td>Abstract and manuscript drafts</td><td>Plain text (.txt), from a group of verified findings</td><td>Publication, after the author checks every statement</td></tr>
+      <tr><td>REDCap case review</td><td>The case-review data dictionary (CSV) and the chosen flags as a REDCap data import file; reviews come back as REDCap's CSV export</td><td>REDCap; rule accuracy (positive predictive value) per method</td></tr>
+      <tr><td>Stata</td><td>The flags with their reviews (.dta, Stata 14+), every variable and code labelled</td><td>Stata, R (haven), Python (pandas)</td></tr>
+      <tr><td>Manual entry, decision brief</td><td>CSV, REDCap import file or Stata from any form; one printable page for the committee</td><td>REDCap, Stata; the DTC</td></tr>
     </table></div>
 
-    <div class="citebox"><b>Ready for, not validated by.</b> These files are laid out for the systems named, but they are not certified submissions. A WHONET import needs the one-time BacLink mapping. The E2B XML is a draft: reaction terms need licensed MedDRA coding, medicines need WHODrug coding, and a person must complete and review every field before anything goes to VigiFlow or TMDA.</div>
+    <div class="citebox"><b>Ready for, not validated by.</b> These files are laid out for the systems named, but they are not certified submissions. REDCap and Stata files have been checked against REDCap's import rules and read back by two independent Stata readers (pandas and ReadStat); tests in a live REDCap project and in Stata itself are still to come. A WHONET import needs the one-time BacLink mapping. The E2B XML is a draft: reaction terms need licensed MedDRA coding, medicines need WHODrug coding, and a person must complete and review every field before anything goes to VigiFlow or TMDA.</div>
   </section>
 
   <!-- ============================== DATA DICTIONARY ============================== -->
   <section id="data-dictionary">
     <h2>Data dictionary</h2>
-    <p class="section-note">Every variable PPS Pro reads and writes: its name, meaning, type and allowed codes, how imported values are read, and where it goes in the WHO PPS forms. Published so that files can be prepared, checked and compared without opening the tool.</p>
+    <p class="section-note">Every variable PPS Pro reads and writes: its name, meaning, type and allowed codes, how imported values are read, and where it goes in the WHO PPS forms; and VigiWard's case-review form. Published so that files can be prepared, checked and compared without opening the tool.</p>
     <div class="tscroll"><table class="bench">
       <tr><th>File</th><th>What it holds</th><th>Use it to</th></tr>
       <tr><td><a href="dictionary/PPS_Pro_3.4_Data_Dictionary.xlsx">PPS Pro 3.4 data dictionary</a> (Excel)</td><td>Fields, code lists, the column headings accepted in survey files and in pharmacy and admissions exports, and the mapping to the WHO PPS Hospital, Ward, Patient, Indication and Antibiotic forms</td><td>Prepare survey files for import, check exported data, compare PPS Pro with other survey tools</td></tr>
-      <tr><td><a href="dictionary/PPS_Pro_3.4_REDCap_Data_Dictionary.csv">REDCap data dictionary</a> (CSV)</td><td>The same variables in REDCap's data dictionary format, named exactly like PPS Pro's columns</td><td>Build a point prevalence survey project in REDCap (Project Setup, Data Dictionary). Its export as CSV (raw data) opens in PPS Pro as it is. PPS Pro 3.4 writes the same file on its REDCap page, and can write any survey as a REDCap data import file.</td></tr>
+      <tr><td><a href="dictionary/PPS_Pro_3.4_REDCap_Data_Dictionary.csv">REDCap data dictionary</a> (CSV)</td><td>The same variables in REDCap's data dictionary format, named exactly like PPS Pro's columns</td><td>Build a point prevalence survey project in REDCap (Project Setup, Data Dictionary). Its export as CSV (raw data) opens in PPS Pro as it is. PPS Pro 3.4 to 3.9 write this same file on their REDCap page, and can write any survey as a REDCap data import file.</td></tr>
+      <tr><td><a href="dictionary/VigiWard_3.14_REDCap_Case_Review_Dictionary.csv">VigiWard 3.14 case-review dictionary</a> (CSV)</td><td>The ADR case-review form: the flag's details (read-only), the review, WHO-UMC causality, the ten Naranjo questions, seriousness, outcome and the TMDA report, with REDCap branching logic; patient code and dates marked as identifiers</td><td>Build the case-review project in REDCap. VigiWard writes the same file on its REDCap &amp; Stata page and reads the project's CSV export back.</td></tr>
     </table></div>
   </section>
 
@@ -335,6 +346,7 @@
     <div class="tscroll"><table class="bench">
       <tr><th>Connection</th><th>When</th><th>What goes out</th></tr>
       <tr><td>Reference list check</td><td>Only when someone presses <i>Check for updates</i> on the Reference lists page. Gives up after 20 seconds.</td><td>Nothing. It downloads one file, <code>updates/aware-ddd.json</code>, from this website. Nothing changes until <i>Apply update</i> is pressed.</td></tr>
+      <tr><td>Sample hospital</td><td>Only when someone presses <i>Sample hospital</i> and the file <code>Odieman_Sample_Hospital.js</code> is not beside the tool (PPS Pro carries its own sample inside the file).</td><td>Nothing. It downloads the simulated sample files from this website's <code>samples/</code> folder and holds them in memory; the user's own data is not opened while it is shown.</td></tr>
       <tr><td>Links in the tools</td><td>Only when clicked: TMDA's online form (VigiWard), WhatsApp contact</td><td>They open in the browser like any link. &ldquo;Email to TMDA&rdquo; opens the computer's own email program with the report filled in, for the user to send or not.</td></tr>
       <tr><td>Anything else</td><td>Never</td><td>No analytics, no automatic update checks, no fonts or scripts loaded from the internet. Every component is inside the file.</td></tr>
     </table></div>
@@ -386,14 +398,14 @@
       <li><b>Internet:</b> not needed to use the tools. The live demos on this website need it, and are best on a laptop.</li>
       <li><b>Data volume:</b> three years of AMS Pro data is about 14 MB, more than browser storage alone holds, so open a data folder before importing more than a few months.</li>
       <li><b>Large exports:</b> CSV reads much faster than Excel for very large files.</li>
-      <li><b>Files per type:</b> AMS Pro merges several files per type (for example one per year); VigiWard reads one file per type, so export the whole period at once; PPS Pro takes one CSV per survey.</li>
+      <li><b>Files per type:</b> AMS Pro merges several files per type (for example one per year); VigiWard joins several pharmacy files, and reads the other types one file each; PPS Pro takes one file per survey.</li>
     </ul>
   </section>
 
   <!-- ============================== VERSIONS ============================== -->
   <section id="versions">
     <h2>Versions and updates</h2>
-    <p class="section-note">Current versions: AMS Pro 5.1, PPS Pro 3.4 and VigiWard 3.9.1. Each tool shows its version on screen.</p>
+    <p class="section-note">Current versions: AMS Pro 5.6, PPS Pro 3.9 and VigiWard 3.14. Each tool shows its version on screen. <a href="checks.html">How every release is checked</a>.</p>
     <ul class="plain">
       <li><b>Reference lists</b> (AWaRe groups, ATC codes, DDDs) are updated through this website, without a new copy of the tool. See the <a href="updates/">reference list page</a>.</li>
       <li><b>Fixes and new versions</b> are sent to registered holders. Each licensed copy is registered to its facility, which is how news of updates reaches it. <a href="index.html#download">Request the tools</a>.</li>
@@ -403,14 +415,14 @@
   <!-- ============================== COMPONENTS ============================== -->
   <section id="components">
     <h2>Built-in components</h2>
-    <p class="section-note">Open-source components carried inside the tool files, with their licences. None is loaded from the internet. PPS Pro uses none: it draws its own charts and writes its own ZIP files.</p>
+    <p class="section-note">Open-source components carried inside the tool files, with their licences. None is loaded from the internet. PPS Pro draws its own charts and writes its own ZIP and Stata files; the three tools write Stata and REDCap files with their own code.</p>
     <div class="tscroll"><table class="bench">
       <tr><th>Component</th><th>Version</th><th>Used for</th><th>Licence</th><th>In</th></tr>
       <tr><td>Chart.js</td><td>4.5.1</td><td>Charts</td><td>MIT</td><td>AMS Pro</td></tr>
       <tr><td>docx</td><td>9.6.1</td><td>Word reports</td><td>MIT</td><td>AMS Pro</td></tr>
       <tr><td>PptxGenJS</td><td>4.0.1</td><td>PowerPoint reports</td><td>MIT</td><td>AMS Pro</td></tr>
       <tr><td>JSZip</td><td>3.10.1</td><td>Packing PowerPoint files (used by PptxGenJS)</td><td>MIT or GPLv3</td><td>AMS Pro</td></tr>
-      <tr><td>SheetJS Community Edition</td><td>0.18.5</td><td>Reading Excel workbooks, writing Excel exports</td><td>Apache 2.0</td><td>VigiWard</td></tr>
+      <tr><td>SheetJS Community Edition</td><td>0.18.5</td><td>Reading Excel workbooks, writing Excel exports</td><td>Apache 2.0</td><td>PPS Pro, VigiWard</td></tr>
     </table></div>
     <div class="license" style="margin-top:22px">The tools themselves are not open source. Free of charge for government (public) health facilities and government institutions in Tanzania; all other use by written licence agreement. Modification or redistribution requires the author's written consent. &copy; 2024&ndash;2026 Odindo Emmanuel Thomas. <a href="index.html#download">Licence and requests</a>.</div>
   </section>
