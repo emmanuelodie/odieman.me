@@ -72,6 +72,63 @@
 })();
 </script>
 
+<script>
+/* Odieman sample hospital loader (offline and online).
+   The live demo asks for files under ../samples/<tool>/. On a website those come from the server. Opened from the
+   computer (file://) the browser refuses that request, so the same files are served from memory instead: from
+   Odieman_Sample_Hospital.js kept beside the tool, or (PPS Pro) from the copy built into this file. Only requests for
+   the sample folder are touched; every other request goes through unchanged. The sample hospital is simulated data and
+   is held in memory only — nothing is saved, and the user's own data is not opened while it is shown. */
+(function(){
+  var TOOL="vigiward", SITE="https://emmanuelodie.github.io/odieman.me/samples/";
+  var RX=/(?:^|\/)samples\/(pps|ams|vigiward)\/([^?#\/]+)(?:[?#].*)?$/;
+  var origFetch=window.fetch?window.fetch.bind(window):null;
+  var http=/^https?:$/.test(location.protocol);
+  window.__odmSample={tool:TOOL,used:false,source:"",missing:false};
+  var ready=null;
+  function haveLocal(){return window.ODM_SAMPLE_DATA&&window.ODM_SAMPLE_DATA[TOOL];}
+  function loadLocal(){
+    if(ready)return ready;
+    ready=new Promise(function(res){
+      if(haveLocal())return res(true);
+      try{var s=document.createElement("script");s.src="Odieman_Sample_Hospital.js";
+        s.onload=function(){res(!!haveLocal());};s.onerror=function(){res(false);};
+        (document.head||document.documentElement).appendChild(s);}catch(e){res(false);}
+    });
+    return ready;
+  }
+  function b64(s){var bin=atob(s),u=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return u;}
+  async function fromLocal(name){
+    if(!(await loadLocal()))return null;
+    var files=haveLocal().files||{};
+    if(name==="manifest.json")return new Response(JSON.stringify(haveLocal().manifest||[]),{status:200,headers:{"Content-Type":"application/json"}});
+    var gz=/\.gz$/i.test(name), base=gz?name.replace(/\.gz$/i,""):name, f=files[base];
+    if(!f)return new Response("",{status:404});
+    var bytes=b64(f);
+    if(gz)return new Response(bytes,{status:200});
+    var txt=await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"))).blob();
+    return new Response(txt,{status:200});
+  }
+  function note(msg){try{var d=document.getElementById("odm-sample-msg");if(!d){d=document.createElement("div");d.id="odm-sample-msg";
+    d.style.cssText="position:fixed;left:12px;right:12px;bottom:12px;z-index:2147483000;background:#fff6e5;color:#4a3800;border:1px solid #e3c27a;border-radius:10px;padding:12px 14px;font:14px/1.45 'Segoe UI',Arial,sans-serif;box-shadow:0 6px 24px rgba(0,0,0,.25)";
+    (document.body||document.documentElement).appendChild(d);}d.innerHTML=msg+' <button type="button" style="margin-left:8px" onclick="this.parentNode.remove()">Close</button>';}catch(e){}}
+  if(!origFetch)return;
+  window.fetch=async function(input,init){
+    var url=typeof input==="string"?input:(input&&input.url)||"";
+    var m=RX.exec(url);
+    if(!m||m[1]!==TOOL)return origFetch(input,init);
+    var name=m[2];
+    if(http){try{var r=await origFetch(input,init);if(r.ok){window.__odmSample.used=true;window.__odmSample.source=window.__odmSample.source||"website";return r;}}catch(e){}}
+    var L=await fromLocal(name);
+    if(L&&L.ok){window.__odmSample.used=true;window.__odmSample.source=window.__odmSample.source||"file";return L;}
+    if(!http&&!/\.gz$/i.test(name)){try{var w=await origFetch(SITE+TOOL+"/"+name,init);if(w.ok){window.__odmSample.used=true;window.__odmSample.source=window.__odmSample.source||"website";return w;}}catch(e){}}
+    if(!/\.gz$/i.test(name)&&name!=="extras.json"&&!/_SecondSurveyor|_Ward_Stock|_Reviews/i.test(name)){window.__odmSample.missing=true;
+      note("<b>The sample hospital could not be loaded.</b> To show it without internet, keep the file <b>Odieman_Sample_Hospital.js</b> in the same folder as this tool. With internet, it loads from the Odieman website.");}
+    return L||new Response("",{status:404});
+  };
+})();
+
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VigiWard · Hospital Pharmacovigilance &amp; Cardiometabolic Audit (demo)</title>
@@ -304,6 +361,37 @@
   #arm-guide .gtbl{display:block;overflow-x:auto}
 }
 </style>
+<style>
+/* Odieman presenter mode and sample hospital — shared look. Everything here only applies while presenting
+   (html.odm-present) or to the few elements this block adds; the tool's own look is unchanged otherwise. */
+.odm-bar{display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap}
+.odm-btn{font:600 12.5px/1.2 "Segoe UI",Arial,sans-serif;padding:6px 11px;border-radius:8px;border:1px solid #9aa7b0;background:#fff;color:#1b2a33;cursor:pointer;white-space:nowrap}
+.odm-btn:hover{border-color:#1f6feb}
+.odm-btn.odm-primary{background:#1f6feb;border-color:#1f6feb;color:#fff}
+#odm-stamp{position:fixed;left:10px;bottom:10px;z-index:2147482000;background:#b42318;color:#fff;font:700 11px/1 "Segoe UI",Arial,sans-serif;letter-spacing:.08em;padding:6px 9px;border-radius:6px;opacity:.88;pointer-events:none}
+#odm-tour{display:none;position:fixed;inset:0;z-index:2147482500;pointer-events:none;font-family:"Segoe UI",Arial,sans-serif}
+#odm-spot{position:fixed;border:3px solid #f5b400;border-radius:10px;box-shadow:0 0 0 9999px rgba(15,23,32,.42);transition:all .25s ease;pointer-events:none}
+#odm-card{position:fixed;left:50%;transform:translateX(-50%);bottom:12px;width:min(920px,calc(100vw - 24px));background:#fff;color:#14212b;border-radius:12px;box-shadow:0 10px 36px rgba(0,0,0,.35);padding:14px 18px 12px;pointer-events:auto;border-top:5px solid #1f6feb}
+.odm-sim{color:#b42318}
+#odm-step{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5b6b75;font-weight:700}
+#odm-title{font-size:calc(19px * var(--odm-zoom,1));font-weight:800;margin:2px 0 4px}
+#odm-cap{font-size:calc(17px * var(--odm-zoom,1));line-height:1.4}
+#odm-so{font-size:calc(15.5px * var(--odm-zoom,1));font-weight:700;color:#0b5394;margin-top:5px}
+#odm-nav{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}
+#odm-nav button{font:600 13px "Segoe UI",Arial,sans-serif;padding:6px 12px;border-radius:8px;border:1px solid #9aa7b0;background:#fff;color:#14212b;cursor:pointer}
+#odm-next{background:#1f6feb!important;border-color:#1f6feb!important;color:#fff!important}
+#odm-nav button:disabled{opacity:.45;cursor:default}
+#odm-sz{display:inline-flex;gap:4px;margin-left:auto}
+#odm-clock{font:600 13px ui-monospace,Consolas,monospace;color:#5b6b75;min-width:44px;text-align:right}
+@media print{#odm-tour,#odm-stamp,.odm-bar{display:none!important}}
+.odm-bar.odm-float{position:fixed;right:12px;bottom:12px;z-index:2147481000;background:rgba(255,255,255,.94);padding:6px;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,.18)}
+html.odm-present .odm-bar.odm-float{display:none}
+html.odm-present #odm-stamp{display:none}
+/* VigiWard while presenting: larger text, room above the caption card, no banners */
+html.odm-present .arm{zoom:var(--odm-zoom,1);padding-bottom:300px}
+html.odm-present .suite-nav+div[style*="fff6e5"],html.odm-present #toast{display:none!important}
+html.odm-present .suite-nav .arm-btn,html.odm-present .suite-nav .navgrp,html.odm-present .suite-nav .suite-sep{display:none}
+</style>
 </head>
 <body>
 
@@ -325,8 +413,11 @@
     <button class="arm-btn" data-arm="indic" onclick="go('indic')"><span class="ic">📊</span><span>PV indicators<span class="d">Reporting funnel & WHO-style indicators</span></span></button>
     <button class="arm-btn" data-arm="findings" onclick="go('findings')"><span class="ic">✔</span><span>Findings<span class="d">Verified cases for publication</span></span></button>
     <button class="arm-btn" data-arm="report" onclick="go('report')"><span class="ic">▤</span><span>Report<span class="d">Committee report</span></span></button>
-    <button class="arm-btn" data-arm="auth" onclick="go('auth')"><span class="ic">✎</span><span>Authorship<span class="d">Abstract / manuscript draft</span></span></button></div></div>
-  <button class="arm-btn" data-arm="guide" onclick="go('guide')" style="margin-left:auto"><span class="ic">📘</span>Guide</button>
+    <button class="arm-btn" data-arm="auth" onclick="go('auth')"><span class="ic">✎</span><span>Authorship<span class="d">Abstract / manuscript draft</span></span></button>
+    <button class="arm-btn" data-arm="redcap" onclick="go('redcap')"><span class="ic">⇄</span><span>REDCap &amp; Stata<span class="d">Case review of the flags · Stata files</span></span></button><button class="arm-btn" data-arm="mentry" onclick="go('mentry')"><span class="ic">✎</span><span>Manual entry<span class="d">Any form, any destination</span></span></button></div></div>
+  <button class="arm-btn" data-arm="brief" onclick="go('brief')"><span class="ic">📄</span>Decision brief</button>
+  <button class="arm-btn" data-arm="mindata" onclick="go('mindata')" style="margin-left:auto"><span class="ic">✓</span>Minimum data</button>
+  <button class="arm-btn" data-arm="guide" onclick="go('guide')"><span class="ic">📘</span>Guide</button>
   <button class="arm-btn" data-arm="about" onclick="go('about')">About</button>
   <div class="suite-status" id="vwf-pill" onclick="vwfPillClick()" style="cursor:pointer"><span class="status-dot"></span><span class="vwf-t">Offline · all data local</span></div>
 </nav>
@@ -718,6 +809,19 @@
   </div>
 </section>
 
+<section id="arm-redcap" class="arm">
+  <div class="page-head">
+    <div class="eyebrow">Case review · REDCap and Stata</div>
+    <h1>Confirm the flags, measure the rules</h1>
+    <p>A flag is a reason to read a chart, not a diagnosis. This page sends a set of flags to <b>REDCap</b> as an ADR case-review form, where pharmacists record on any computer or phone whether each one was a real reaction, its WHO-UMC causality, the Naranjo questions, seriousness, outcome and the TMDA report. The completed reviews come back here and show, for each detection method, how many flags were real ADRs: the positive predictive value that VigiWard cannot measure on its own. Flags and reviews can also be written as a labelled <b>Stata</b> file. The files are made on this computer; only VigiWard's study codes go into them, never names or hospital numbers.</p>
+  </div>
+  <div id="vrc-body"></div>
+</section>
+
+<!-- ===================== MINIMUM DATA ===================== -->
+<section id="arm-mentry" class="arm"></section>
+<section id="arm-brief" class="arm"></section>
+<section id="arm-mindata" class="arm"></section>
 <!-- ===================== USER GUIDE ===================== -->
 <section id="arm-guide" class="arm">
   <style>
@@ -749,6 +853,17 @@
     </div>
   </div>
 
+  <div class="card" id="g-new312"><h2>What's new in v3.12 (November 2026)</h2><ul>
+    <li><b>Sample hospital</b> (bottom-right corner): opens VigiWard on 33 months of a simulated hospital, in memory only, with or without internet, including simulated pharmacist reviews and a REDCap case review. Your own data is not touched; <b>Leave sample hospital</b> goes back to it.</li>
+    <li><b>Present</b>: an eight-stop guided tour with large text; every figure it says is read from the screen it shows. Keys: → next, ← back, Esc stop.</li>
+    <li>Signals shows the top 50 with <i>show 50 more</i>; its first figure now counts suspected reactions only, with premedication patterns named beside it. After <i>Drop every file here</i>, VigiWard opens the Overview.</li></ul></div>
+  <div class="card" id="g-new311"><h2>What's new in v3.11 (November 2026)</h2><ul>
+    <li><b>Minimum data</b> (beside Guide): what VigiWard needs for each analysis, every heading the importer recognises, blank templates, and <b>Check my data</b>, which reads the data loaded now and says what is ready, limited or missing.</li>
+    <li><b>Committee report</b>: <i>Method &amp; limitations</i> now ends with the data used and the limits found by the same check. No signal or figure has changed.</li>
+    <li><b>REDCap dictionary</b>: the patient code and the three dates are marked as identifiers, so REDCap can leave them out of de-identified exports.</li></ul></div>
+  <div class="card" id="g-new"><h2>What's new in v3.10 (November 2026)</h2><ul>
+    <li><b>REDCap &amp; Stata page</b> (Report menu): send a chosen set of flags, for example a random sample of each detection method, to REDCap as an ADR case-review form. Pharmacists record whether each flag was a real reaction, the WHO-UMC causality, the ten Naranjo questions, seriousness, outcome and the TMDA report. Bring the reviews back to see how often each rule is right: the positive predictive value per method, with a 95% interval.</li>
+    <li><b>Stata file</b> (.dta, Stata 14 or later) of the flags with their reviews, with every variable and every code labelled.</li></ul></div>
   <div class="card" id="g-start"><h2>1. Getting started in 6 steps</h2>
     <ol>
       <li><b>Open a data folder.</b> Hub › <i>Data folder — automatic saving</i> › <i>Open data folder</i>, and choose a folder such as <b>Documents › Odieman › VigiWard_Data</b>. Your signals, review decisions, settings and imported datasets are then saved there automatically and reload next time. <button class="btn sm ghost" onclick="go('hub')">Hub →</button></li>
@@ -769,6 +884,7 @@
       <tr><td>BP / glucose readings</td><td>Patient ID + any of: Systolic, Diastolic, HbA1c, FBS, Cholesterol</td><td>Age, Sex, Smoker</td><td>Control &amp; risk in the Cardiometabolic audit</td></tr>
     </tbody></table>
     <div class="gnote">The same patient ID must be used in every file — VigiWard converts it to the same code (<code>P_XXXX</code>) everywhere, which is how lab results and deaths are linked to dispensing.</div>
+    <div class="gnote">New in 3.11: <b>Minimum data</b> lists every heading VigiWard recognises, gives blank templates, and checks the data loaded now. <button class="btn sm ghost" onclick="go('mindata')">Minimum data →</button></div>
   </div>
 
   <div class="card" id="g-modules"><h2>3. What each module shows</h2>
@@ -786,6 +902,7 @@
       <tr><td>Findings</td><td>Verified cases that pass a causality bar, grouped by drug, reaction, organ class or method.</td><td>Send a group to Authorship.</td><td><button class="btn sm ghost" onclick="go('findings')">Open →</button></td></tr>
       <tr><td>Report</td><td>The facility pharmacovigilance bulletin for the DTC/AMS committee — rates with 95% intervals, monitoring gaps, concordance, aDSM, action list.</td><td>Generate, then download as an editable document.</td><td><button class="btn sm ghost" onclick="go('report')">Open →</button></td></tr>
       <tr><td>Authorship</td><td>Drafts an abstract or manuscript from a group of findings in the matching reporting standard.</td><td>Square-bracketed text is for you to complete; check every statement.</td><td><button class="btn sm ghost" onclick="go('auth')">Open →</button></td></tr>
+      <tr><td>REDCap &amp; Stata</td><td>Sends chosen flags to REDCap as an ADR case-review form, brings the completed reviews back and shows how often each detection method is right; writes a labelled Stata file of the flags and reviews.</td><td>Review a random sample of each method to measure VigiWard's accuracy at your facility before quoting it.</td><td><button class="btn sm ghost" onclick="go('redcap')">Open →</button></td></tr>
     </tbody></table>
   </div>
 
@@ -881,11 +998,11 @@
       <li><b>What a signal is.</b> A pattern in dispensing (and optional lab/death) data that is <em>compatible with</em> an adverse drug reaction. It is a reason to review a chart, not a diagnosis. The automatic grade (weak / moderate / strong) describes the data pattern; it is <b>not</b> a WHO-UMC or Naranjo causality category — those are assigned only by a reviewer in the grading step.</li>
       <li><b>What has been checked.</b> Data handling: patient codes are unique; CSV/Excel parsing, encoding, devices and topical items are handled; a random sample of signals was traced back to the source rows to confirm each pattern exists for one real patient. The monographs give textbook mechanisms (Rang &amp; Dale, Goodman &amp; Gilman, Stockley's, BNF).</li>
       <li><b>What has NOT been established.</b> The <b>positive predictive value</b> — how many signals are true ADRs on chart review — is not yet known for any rule at this facility. The Watch-list weights, huddle rules and priority levels are clinical judgement, not validated scores. Spike alerts are hypotheses; batch and supplier data are not in the dispensing file.</li>
-      <li><b>How to establish it.</b> Review a defined sample of signals (for example 50–100, stratified by detection method) against patient files, record Confirmed / Dismissed and a Naranjo score for each; the Overview's validation log then reports the confirmed proportion with a 95% confidence interval per method. Only those figures should be quoted as accuracy.</li>
+      <li><b>How to establish it.</b> Review a defined sample of signals (for example 50–100, stratified by detection method) against patient files, record Confirmed / Dismissed and a Naranjo score for each; the Overview's validation log then reports the confirmed proportion with a 95% confidence interval per method. The <b>REDCap &amp; Stata</b> page (Report menu) sets this up in REDCap: it sends a random sample of each method for chart review and reports the confirmed proportion per method with its 95% interval. Only those figures should be quoted as accuracy.</li>
       <li><b>Known biases.</b> Dispensing is not administration; outpatients may not take or may buy medicines elsewhere; rescue drugs have other indications; incomplete exports (departments missing in some months) distort rates; "first dose" means first in the data, not first ever.</li>
     </ul>
     <p style="font-size:12.5px;color:var(--ink-faint)"><strong>© 2024–2026 Odindo Emmanuel Thomas. All rights reserved.</strong> “VigiWard” is an unregistered trademark (™) of the author.</p>
-    <div class="ref">Cite as: Odindo, E. T. (2026). VigiWard: Hospital Pharmacovigilance (Version 3.9.1) [Computer software]. Tanga, Tanzania.</div>
+    <div class="ref">Cite as: Odindo, E. T. (2026). VigiWard: Hospital Pharmacovigilance (Version 3.11) [Computer software]. Tanga, Tanzania.</div>
   </div>
 </section>
 
@@ -938,10 +1055,10 @@ const DEMO=true;window.__vwDemo=DEMO;
 const LS='vigiward_pv';
 let DB={pharmacy:[],lab:[],deaths:[],signals:[],qa:null,_idmap:{},triage:{},settings:null};
 const DEFAULTS={nsaidWin:14,opioidWin:3,opLaxWin:7,antipsychWin:21,loopWin:14,aceiWin:30,cortWin:30,switchWin:3,hsrWin:14,premedWin:1,deathWin:30,rxIntWin:14,kHi:5.5,gluLo:3.0,newRescue:true,crea:120,alt:120,gluHi:11,kLow:3.5};
-function load(){try{const r=localStorage.getItem(LS);if(r){const o=JSON.parse(r);DB.signals=o.signals||[];DB.qa=o.qa||null;DB.triage=o.triage||{};DB.settings=o.settings||null;DB.refPack=o.refPack||null;DB.__savedAt=o.__savedAt||0;VWF.hadBrowserData=true;if(o.folderPrefs)VWF.prefs=Object.assign({keepDatasets:true},o.folderPrefs)}}catch(e){}if(!DB.settings)DB.settings={...DEFAULTS};if(window.ODMREF)try{ODMREF.sync()}catch(e){console.error(e)}}
+function load(){try{const r=localStorage.getItem(LS);if(r){const o=JSON.parse(r);DB.signals=o.signals||[];DB.qa=o.qa||null;DB.triage=o.triage||{};DB.settings=o.settings||null;DB.refPack=o.refPack||null;DB.rcReviews=o.rcReviews||null;DB.__savedAt=o.__savedAt||0;VWF.hadBrowserData=true;if(o.folderPrefs)VWF.prefs=Object.assign({keepDatasets:true},o.folderPrefs)}}catch(e){}if(!DB.settings)DB.settings={...DEFAULTS};if(window.ODMREF)try{ODMREF.sync()}catch(e){console.error(e)}}
 /* persist only the small results + review decisions, never the raw dataset (which can be 100k+ rows) */
 function _sigRank(x){return (CONF_W[x.confidence]||1)*(SEV_W[x.sev]||1)*({'Lab-supported':1.5,'Drug interaction':1.5,'Cluster':1.4,'Cascade':1,'Stop/switch':0.5,'Premedication':0.25}[x.type]||1);}
-function vwfSaveLocal(){if(DEMO)return;try{localStorage.setItem(LS,JSON.stringify({signals:(DB.signals.length>2000?DB.signals.slice().sort((a,b)=>_sigRank(b)-_sigRank(a)):DB.signals).slice(0,2000),qa:DB.qa,triage:DB.triage,settings:DB.settings,refPack:DB.refPack||null,__savedAt:DB.__savedAt,folderPrefs:VWF.prefs}))}catch(e){}}
+function vwfSaveLocal(){if(DEMO)return;try{localStorage.setItem(LS,JSON.stringify(Object.assign({signals:(DB.signals.length>2000?DB.signals.slice().sort((a,b)=>_sigRank(b)-_sigRank(a)):DB.signals).slice(0,2000),qa:DB.qa,triage:DB.triage,settings:DB.settings,refPack:DB.refPack||null,__savedAt:DB.__savedAt,folderPrefs:VWF.prefs},DB.rcReviews?{rcReviews:DB.rcReviews}:{})))}catch(e){}}
 /* browser storage keeps the top 2,000 signals; a connected data folder keeps all of them */
 function save(){DB.__savedAt=Date.now();VWF.hadBrowserData=true;vwfSaveLocal();vwfQueue()}
 /* ============================================================
@@ -989,17 +1106,17 @@ async function vwfList(path){const out=[];try{const dir=await vwfDir(path,false)
 async function vwfRemove(path){try{const parts=path.split('/'),name=parts.pop(),dir=await vwfDir(parts.join('/'),false);await dir.removeEntry(name)}catch(e){}}
 
 /* --- what is saved (never the identity map) --- */
-function vwfState(){return {app:'VigiWard',format:1,__savedAt:DB.__savedAt||0,signals:DB.signals||[],qa:DB.qa||null,triage:DB.triage||{},settings:DB.settings||{...DEFAULTS},refPack:DB.refPack||null,folderPrefs:VWF.prefs,
-  cardio:(window.CARDIO&&CARDIO.getPersist)?CARDIO.getPersist():null}}
+function vwfState(){return Object.assign({app:'VigiWard',format:1,__savedAt:DB.__savedAt||0,signals:DB.signals||[],qa:DB.qa||null,triage:DB.triage||{},settings:DB.settings||{...DEFAULTS},refPack:DB.refPack||null,folderPrefs:VWF.prefs,
+  cardio:(window.CARDIO&&CARDIO.getPersist)?CARDIO.getPersist():null},DB.rcReviews?{rcReviews:DB.rcReviews}:{})}
 function vwfIsState(o){return !!(o&&typeof o==='object'&&(o.app==='VigiWard'||('triage' in o&&'signals' in o)))}
 function vwfSame(a,b){try{const s=o=>{const c=Object.assign({},o);delete c.__savedAt;return JSON.stringify(c)};return s(a)===s(b)}catch(e){return false}}
 function vwfDescribe(o){const t=o.triage||{};const reviewed=Object.values(t).filter(x=>x&&x.status&&x.status!=='new').length;
   return `${(o.signals||[]).length.toLocaleString()} signals · ${reviewed} reviewed/triaged\n   last saved: ${o.__savedAt?new Date(o.__savedAt).toLocaleString():'unknown'}`}
-function vwfApplyState(o){DB.signals=o.signals||[];DB.qa=o.qa||null;DB.triage=o.triage||{};DB.settings=o.settings||{...DEFAULTS};DB.refPack=o.refPack||null;if(window.ODMREF)try{ODMREF.sync()}catch(e){console.error(e)}DB.__savedAt=o.__savedAt||Date.now();
+function vwfApplyState(o){DB.signals=o.signals||[];DB.qa=o.qa||null;DB.triage=o.triage||{};DB.rcReviews=o.rcReviews||null;DB.settings=o.settings||{...DEFAULTS};DB.refPack=o.refPack||null;if(window.ODMREF)try{ODMREF.sync()}catch(e){console.error(e)}DB.__savedAt=o.__savedAt||Date.now();
   if(o.folderPrefs)VWF.prefs=Object.assign({keepDatasets:true},o.folderPrefs);
   if(o.cardio&&window.CARDIO&&CARDIO.setPersist){try{CARDIO.setPersist(o.cardio)}catch(e){}}
   vwfSaveLocal()}
-function vwfRerender(){try{renderQA();renderAuthSelection();renderPV();renderSettings();if(typeof renderInteractions==='function')renderInteractions()}catch(e){console.error(e)}}
+function vwfRerender(){try{if(typeof vrcRender==='function')vrcRender();renderQA();renderAuthSelection();renderPV();renderSettings();if(typeof renderInteractions==='function')renderInteractions()}catch(e){console.error(e)}}
 function vwfReadme(){return `VIGIWARD — DATA FOLDER
 ======================
 This folder is managed by VigiWard. Everything is saved here automatically while the tool is
@@ -1167,7 +1284,7 @@ function esc(s){return (s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;'
 function idTag(pid){const m=DB._idmap&&DB._idmap[pid];if(!m||(!m.id&&!m.initials))return esc(pid);return [m.id?'ID '+esc(m.id):'',m.initials?esc(m.initials):''].filter(Boolean).join(' · ')}
 function navToggle(b){const g=b.parentNode,o=g.classList.contains('open');document.querySelectorAll('.navgrp.open').forEach(x=>x.classList.remove('open'));if(!o)g.classList.add('open');}
 document.addEventListener('click',e=>{if(!e.target.closest('.navgrp'))document.querySelectorAll('.navgrp.open').forEach(x=>x.classList.remove('open'));});
-function go(arm){vwFacilityFill();document.querySelectorAll('.arm').forEach(a=>a.classList.remove('active'));document.getElementById('arm-'+arm).classList.add('active');document.querySelectorAll('.arm-btn').forEach(b=>b.classList.toggle('active',b.dataset.arm===arm));window.scrollTo(0,0);if(arm==='pv')renderPV();if(arm==='watch')renderWatch();if(arm==='huddle')renderHuddle();if(arm==='spike')renderSpikes();if(arm==='indic')renderIndicators();document.querySelectorAll('.navgrp').forEach(g=>{g.classList.remove('open');g.classList.toggle('has-active',!!g.querySelector('.arm-btn.active'))});if(arm==='overview')renderOverview();if(arm==='hub')renderSettings();if(arm==='findings')renderFindings();if(arm==='rxint')renderInteractions();if(arm==='auth')renderAuthSelection();if(arm==='cardio'&&window.CARDIO)CARDIO.render();if(arm==='rxint'&&typeof renderMonitoring==='function')renderMonitoring();if(arm==='adsm'&&typeof renderADSM==='function')renderADSM();if(arm==='report'&&typeof renderReport==='function')renderReport()}
+function go(arm){vwFacilityFill();document.querySelectorAll('.arm').forEach(a=>a.classList.remove('active'));document.getElementById('arm-'+arm).classList.add('active');document.querySelectorAll('.arm-btn').forEach(b=>b.classList.toggle('active',b.dataset.arm===arm));window.scrollTo(0,0);if(arm==='pv')renderPV();if(arm==='watch')renderWatch();if(arm==='huddle')renderHuddle();if(arm==='spike')renderSpikes();if(arm==='indic')renderIndicators();document.querySelectorAll('.navgrp').forEach(g=>{g.classList.remove('open');g.classList.toggle('has-active',!!g.querySelector('.arm-btn.active'))});if(arm==='overview')renderOverview();if(arm==='hub')renderSettings();if(arm==='findings')renderFindings();if(arm==='rxint')renderInteractions();if(arm==='auth')renderAuthSelection();if(arm==='cardio'&&window.CARDIO)CARDIO.render();if(arm==='mentry')renderMentry();if(arm==='rxint'&&typeof renderMonitoring==='function')renderMonitoring();if(arm==='adsm'&&typeof renderADSM==='function')renderADSM();if(arm==='report'&&typeof renderReport==='function')renderReport();if(arm==='redcap'&&typeof vrcRender==='function')vrcRender();if(arm==='mindata'&&typeof vmdRender==='function')vmdRender();if(arm==='brief'&&typeof vbRender==='function')vbRender()}
 function hubLog(m){const l=document.getElementById('hub-log');l.insertAdjacentHTML('afterbegin',`<div><span class="t">${new Date().toLocaleTimeString()}</span>${esc(m)}</div>`)}
 
 /* ---- deterministic anonymisation ---- */
@@ -2561,7 +2678,7 @@ function renderOverview(){
    signal. This is the CRUDE ratio — the adjusted (trend-corrected)
    version is not implemented and would temper the values.
    ============================================================ */
-function wilson(k,n){if(!n)return null;const z=1.96,p=k/n,d=1+z*z/n;const c=(p+z*z/(2*n))/d;const h=z*Math.sqrt(p*(1-p)/n+z*z/(4*n*n))/d;return{p,lo:Math.max(0,c-h),hi:Math.min(1,c+h)}}
+function wilson(k,n){if(!n)return null;const z=1.959963984540054,p=k/n,d=1+z*z/n;const c=(p+z*z/(2*n))/d;const h=z*Math.sqrt(p*(1-p)/n+z*z/(4*n*n))/d;return{p,lo:Math.max(0,c-h),hi:Math.min(1,c+h)}}
 function ratioCI(ci){if(!ci)return[null,null];return[ci.lo>=1?Infinity:ci.lo/(1-ci.lo),ci.hi>=1?Infinity:ci.hi/(1-ci.hi)]}
 /* ---- trend-adjusted sequence ratio (Hallas 1996 method) ----
    The crude sequence ratio can be driven purely by each drug's own prescribing trend over the study
@@ -2898,7 +3015,7 @@ function renderPV(){
   const serious=s.filter(x=>x.serious).length;
   const socs=new Set(s.map(x=>x.soc)).size;
   document.getElementById('pv-kpis').innerHTML=[
-    {v:s.length,l:'Signals (filtered)'},{v:confirmed,l:'Moderate / strong signals'},
+    {v:s.filter(x=>x.type!=='Premedication').length,l:'Suspected reactions in this list'+(s.some(x=>x.type==='Premedication')?' (+'+s.filter(x=>x.type==='Premedication').length+' premedication patterns)':'')},{v:confirmed,l:'Moderate / strong signals'},
     {v:serious,l:'Serious (ICH)'},{v:socs,l:'Organ classes'}
   ].map(k=>`<div class="kpi"><div class="v num">${k.v}</div><div class="l">${k.l}</div></div>`).join('');
 
@@ -2936,9 +3053,9 @@ function renderPV(){
   if(PV_SORT==='date')sorted.sort((a,b)=>lastDate(b.ev).localeCompare(lastDate(a.ev)));
   else if(PV_SORT==='drug')sorted.sort((a,b)=>a.drug.localeCompare(b.drug));
   else sorted.sort((a,b)=>(CONF_W[b.confidence]*SEV_W[b.sev])-(CONF_W[a.confidence]*SEV_W[a.sev]));
-  const CAP=200,shown=sorted.slice(0,CAP);
+  const CAP=window.PV_CAP||50,shown=sorted.slice(0,CAP);
   let html=shown.map(sigCardHTML).join('');
-  if(sorted.length>CAP)html+=`<div class="note" style="text-align:center;padding:12px">Showing the top ${CAP} of ${sorted.length.toLocaleString()} matching signals. Use the filters / search above to narrow.</div>`;
+  if(sorted.length>CAP)html+=`<div class="note" style="text-align:center;padding:12px">Showing the top ${CAP} of ${sorted.length.toLocaleString()} matching signals. Use the filters / search above to narrow, or <button class="btn sm ghost" id="odm-pv-more">show 50 more</button>.</div>`;
   el.innerHTML=html;
 }
 
@@ -3123,7 +3240,7 @@ function genManuscript(){
     else if(type==='squire')title='Reducing under-reported adverse drug reactions through routine signal detection at '+setting;
     else title='Active detection of adverse drug reactions from routine dispensing data at '+setting+': a cross-sectional study';
   }
-  const head=title+'\n'+authors+'\n'+setting+'\nDraft generated '+date+' · VigiWard v3.9.1 · '+items.length+' finding(s) · format: '+cls.label+'\n'+'='.repeat(70)+'\n\nNOTE: square-bracketed text marks what you must add or verify (consent,\nclinical outcome, mechanism, literature). Nothing here is fabricated;\nfigures are drawn from your detected, criterion-qualified findings.\n\n';
+  const head=title+'\n'+authors+'\n'+setting+'\nDraft generated '+date+' · VigiWard v'+VW_VER+' · '+items.length+' finding(s) · format: '+cls.label+'\n'+'='.repeat(70)+'\n\nNOTE: square-bracketed text marks what you must add or verify (consent,\nclinical outcome, mechanism, literature). Nothing here is fabricated;\nfigures are drawn from your detected, criterion-qualified findings.\n\n';
   let t;
   if(type==='care'){const x=top;
     t=head+'ABSTRACT\nBackground: [one line on '+x.drug+' and '+(x.pt||x.inferred)+'.] We report a case detected by active surveillance of routine dispensing data.\nCase summary: A de-identified patient ('+x.pid+') with a temporal drug–reaction pattern consistent with '+(x.pt||x.inferred)+'. Causality: '+causal(x)+'.\nConclusion: [lesson for prescribing/monitoring.]\nKeywords: pharmacovigilance; adverse drug reaction; '+x.drug+'; '+(x.pt||x.inferred)+'; routine data.\n\n1. INTRODUCTION\n[Background on '+x.drug+'; known association with '+(x.pt||x.inferred)+'; the under-reporting problem this detection method addresses.]\n\n2. PATIENT INFORMATION & TIMELINE (de-identified — '+x.pid+')\nDetection method: '+x.type+'. Suspected culprit: '+x.drug+'. Reaction: '+(x.pt||x.inferred)+' ('+x.soc+').\nChronology / evidence: '+x.ev+'.\nVerifiable basis: '+(x.verify||x.why)+'\n[Add demographics in ranges only, relevant history, and the de-identified timeline.]\n\n3. DIAGNOSTIC & CAUSALITY ASSESSMENT\nMechanistic class (Rawlins–Thompson): '+x.rawlins+'. Seriousness: '+(x.serious?'serious':'non-serious')+'.\nCausality: '+causal(x)+' (add WHO-UMC category). Verification basis: '+(x.type==='Lab-supported'?'objective laboratory confirmation':'temporal/clinical pattern — '+labNote)+'.\n[Add differential diagnoses and how alternative causes were excluded.]\n\n4. THERAPEUTIC INTERVENTION & OUTCOME\n[Dispensing data may not show outcome — state what is known: dechallenge/rechallenge if visible'+(x.rescue?', rescue medication ('+x.rescue+')':'')+'; otherwise mark as not ascertainable.]\n\n5. DISCUSSION\nStrengths: the case was surfaced from routine data that spontaneous reporting had missed. [Compare to literature.]\nLimitations: dispensing data cannot confirm administration, indication, or outcome; single case.\n[Mechanism and clinical implication.]\n\n6. PATIENT PERSPECTIVE & CONSENT\n[Confirm informed consent for publication, or institutional waiver for de-identified data.]\n\n7. CONCLUSION\n[Prescribing/monitoring lesson.]\n\nReporting guideline: CARE (Gagnier et al., 2013).';
@@ -4608,7 +4725,7 @@ try{const r0=localStorage.getItem(LS);if(r0){const o0=JSON.parse(r0);if(o0&&o0.c
 
 return { buildFrom, render, tab:go, setAuditSev, exportAuditCSV, generateAdvisory, setCountry, ingestReadings,
          loadDemo, patients, auditFlags, conditionCounts, renderFindingsTab, setFindSev, natLabel,
-         getPersist, setPersist, getReadings, setReadings };
+         getPersist, setPersist, getReadings, setReadings, aliases:()=>({id:ID_ALIASES.slice(),fields:JSON.parse(JSON.stringify(RD_FIELD_ALIASES))}) };
 })(window.__wardPcode);
 
 window.CARDIO=CARDIO;
@@ -4907,6 +5024,7 @@ function reportLines(m,facility,author){
 
   L.push({h2:'Method & limitations'});
   L.push({p:'Signals are hypothesis-generating, detected from dispensing patterns, prescribing cascades, lab confirmation and curated interactions — not proof of causation. Co-dispensing indicates possible concurrent exposure, not confirmed co-administration. Disproportionality statistics are unreliable at single-facility scale and are not used; rates carry 95% Wilson intervals. Clinical correlation and TMDA/VigiFlow reporting remain the standard of record.'});
+  vmdReportLines().forEach(x=>L.push(x));   /* v3.11: data used and its limits */
   return L;
 }
 function _rtfEsc(s){return String(s).replace(/[\\{}]/g,c=>'\\'+c).replace(/[\u0080-\uFFFF]/g,c=>'\\u'+c.charCodeAt(0)+'?').replace(/–/g,'-').replace(/—/g,'-');}
@@ -5065,6 +5183,413 @@ function vigiflowWorksheet(){
 
 
 /* ===== merged boot: findings tabs + cardio readings uploader ===== */
+function stDays(d){const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(d||"");if(!m)return null;const t=Date.UTC(+m[1],+m[2]-1,+m[3]),x=new Date(t);
+ return x.getUTCMonth()===+m[2]-1&&x.getUTCDate()===+m[3]?Math.round((t-Date.UTC(1960,0,1))/864e5):null}
+function stStamp(){const d=new Date(),M=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],z=n=>String(n).padStart(2,"0");
+ return`${z(d.getDate())} ${M[d.getMonth()]} ${d.getFullYear()} ${z(d.getHours())}:${z(d.getMinutes())}`}
+/* Stata 118 (.dta, little-endian). Missing: byte 101 = . and 102 = .a; double 0x7FE0… = . and 0x7FE001… = .a */
+function dtaWrite(cols,vlabs,label,chars){const enc=new TextEncoder(),parts=[];let len=0;
+ const put=x=>{parts.push(x);len+=x.length},tag=s=>put(enc.encode(s)),num=(n,b,f)=>{const x=new Uint8Array(b);f(new DataView(x.buffer),n);put(x)};
+ const u8=n=>num(n,1,(d,x)=>d.setUint8(0,x)),u16=n=>num(n,2,(d,x)=>d.setUint16(0,x,true)),u32=n=>num(n,4,(d,x)=>d.setUint32(0,x,true)),
+  u64=n=>num(n,8,(d,x)=>{d.setUint32(0,x%4294967296,true);d.setUint32(4,Math.floor(x/4294967296),true)});
+ const cut=(e,m)=>{if(e.length<=m)return e.length;let k=m;while(k>0&&(e[k]&0xC0)===0x80)k--;return k};
+ const fix=(s,n)=>{const x=new Uint8Array(n),e=enc.encode(s||"");x.set(e.subarray(0,cut(e,n-1)));put(x)};
+ const K=cols.length,N=K?cols[0].vals.length:0,off=new Array(14).fill(0),mark=i=>off[i]=len;
+ mark(0);tag("<stata_dta><header><release>118</release><byteorder>LSF</byteorder><K>");u16(K);tag("</K><N>");u64(N);tag("</N><label>");
+ const lb=enc.encode(label);const lbc=lb.subarray(0,cut(lb,320));u16(lbc.length);put(lbc);tag("</label><timestamp>");const ts=stStamp();u8(ts.length);tag(ts);tag("</timestamp></header>");
+ mark(1);tag("<map>");const mapB=new Uint8Array(112);put(mapB);tag("</map>");
+ mark(2);tag("<variable_types>");cols.forEach(c=>u16(c.t==="str"?c.w:c.t==="byte"?65530:65526));tag("</variable_types>");
+ mark(3);tag("<varnames>");cols.forEach(c=>fix(c.name,129));tag("</varnames>");
+ mark(4);tag("<sortlist>");for(let i=0;i<=K;i++)u16(0);tag("</sortlist>");
+ mark(5);tag("<formats>");cols.forEach(c=>fix(c.fmt||(c.t==="str"?`%-${c.w}s`:"%10.0g"),57));tag("</formats>");
+ mark(6);tag("<value_label_names>");cols.forEach(c=>fix(c.vlab||"",129));tag("</value_label_names>");
+ mark(7);tag("<variable_labels>");cols.forEach(c=>fix(c.label||"",321));tag("</variable_labels>");
+ mark(8);tag("<characteristics>");(chars||[]).forEach(([v,n,t])=>{const e=enc.encode(t);tag("<ch>");u32(258+e.length+1);fix(v,129);fix(n,129);put(e);u8(0);tag("</ch>")});tag("</characteristics>");
+ mark(9);tag("<data>");
+ const rl=cols.reduce((a,c)=>a+(c.t==="str"?c.w:c.t==="byte"?1:8),0),buf=new Uint8Array(rl*N),dv=new DataView(buf.buffer);let p=0;
+ for(let r=0;r<N;r++)for(const c of cols){const x=c.vals[r];
+  if(c.t==="str"){buf.set(enc.encode(x),p);p+=c.w}
+  else if(c.t==="byte"){dv.setInt8(p,x==null?101:x===".a"?102:x);p+=1}
+  else{if(x==null||x===".a"){dv.setUint32(p,0,true);dv.setUint32(p+4,x==null?0x7FE00000:0x7FE00100,true)}else dv.setFloat64(p,x,true);p+=8}}
+ put(buf);tag("</data>");
+ mark(10);tag("<strls></strls>");
+ mark(11);tag("<value_labels>");
+ vlabs.forEach(({name,entries})=>{const E=entries.map(([v,l])=>[v===".a"?2147483622:v,enc.encode(l)]).sort((a,b)=>a[0]-b[0]),tl=E.reduce((a,[,e])=>a+e.length+1,0);
+  tag("<lbl>");u32(8+8*E.length+tl);fix(name,129);put(new Uint8Array(3));u32(E.length);u32(tl);
+  let o=0;E.forEach(([,e])=>{u32(o);o+=e.length+1});E.forEach(([v])=>num(v,4,(d,x)=>d.setInt32(0,x,true)));E.forEach(([,e])=>{put(e);u8(0)});tag("</lbl>")});
+ tag("</value_labels>");mark(12);tag("</stata_dta>");off[13]=len;
+ const md=new DataView(mapB.buffer);off.forEach((o,i)=>{md.setUint32(8*i,o%4294967296,true);md.setUint32(8*i+4,Math.floor(o/4294967296),true)});
+ const out=new Uint8Array(len);let q=0;parts.forEach(x=>{out.set(x,q);q+=x.length});return out}
+/* ============================================================
+   v3.10: REDCap ADR case review, and Stata files.
+   VigiWard writes a REDCap data dictionary for one form (adr_case_review) from its own code lists, so it always
+   matches; writes the chosen flags as a REDCap data import file (VigiWard's study code only, never a name or a
+   hospital number); reads the completed reviews back from a REDCap raw-data export and shows, per detection
+   method, how many flags were real ADRs (positive predictive value with a Wilson 95% interval), the WHO-UMC
+   causality, the Naranjo score it adds up itself, and TMDA reporting. Flags and reviews can be written as a
+   labelled Stata file (.dta, Stata 14 or later). A value that is not one of the codes is never changed: in the
+   REDCap file it is left blank and counted; in the Stata file that field is written as text and logged.
+   ============================================================ */
+/* ============================= v3.11: Minimum data =============================
+   What VigiWard needs for each analysis, and a live check of the data loaded now. One source for the page,
+   the check and the committee report: accepted headings are read from the importer's own lists (HDR_ALIASES,
+   and ID_ALIASES and RD_FIELD_ALIASES through CARDIO.aliases()), and every threshold is one VigiWard already applies (a spike test needs at
+   least 5 flagged and 30 exposed patients for a medicine–reaction pair, and SP.minObs in a period; the report
+   asks for better data below a quality score of 70). Nothing here changes a signal or a figure. */
+const VMD_LABTESTS=[['Creatinine','creatinine, crea'],['ALT','alt, sgpt, alanine'],['AST','ast, sgot, aspartate'],['Neutrophils','neutrophil, anc'],['Potassium','potassium, serum k, k+'],['Glucose','glucose, blood sugar, rbg, fbg, rbs, fbs'],['INR','inr, prothrombin']];
+const VMD_TPL={pharmacy:[['Patient ID','Item Name','Date','Dosage','Department','Age','Gender'],['100234','Diclofenac 50mg Tablet','2026-11-01','Dosage: 50mg; Route: PO; Frequency: TDS; Duration: 5 /7','Medical Ward','45','Female']],
+ lab:[['Patient ID','Date','Test','Result'],['100234','2026-11-03','Creatinine','180']],
+ deaths:[['Patient ID','Date of Death','Cause of Death'],['100234','2026-11-10','Acute kidney injury']],
+ readings:[['patient_id','age','sex','systolic','diastolic','hba1c','fbs','total_cholesterol','smoker'],['100234','45','F','150','95','7.5','8.2','5.6','No']]};
+function vmdTemplate(k){const t=VMD_TPL[k];if(!t)return;const q=v=>/[",]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;dlFile('VigiWard_template_'+k+'.csv',t[0].map(q).join(',')+'\r\n','text/csv')}
+function vmdReadings(){try{return window.CARDIO&&CARDIO.getReadings?CARDIO.getReadings()||{}:{}}catch(e){return {}}}
+function vmdMonths(rows){const s=new Set();(rows||[]).forEach(r=>{const d=String(r.date||'').match(/\d{4}-\d{2}/);if(d)s.add(d[0])});return [...s].sort()}
+/* the check */
+function vmdCheck(){const out=[],add=(id,name,arm,st,detail,todo)=>out.push({id,name,arm,st,detail,todo:todo||''});
+ const ph=DB.pharmacy||[],n=ph.length,pc=x=>n?Math.round(100*x/n)+'%':'–',M=vmdMonths(ph),q=DB.qa||{},pids=new Set(ph.map(r=>r.pid));
+ const sigs=(DB.signals||[]).filter(s=>s.type!=='Premedication'),byT={};sigs.forEach(s=>byT[s.type]=(byT[s.type]||0)+1);
+ if(!n){add('pharm','Pharmacy dispensing (the essential file)','hub','no','No dispensing records are loaded.','Import the pharmacy dispensing export on the Hub: patient ID, item name and date at least.');}
+ else{const dos=ph.filter(r=>(r.dosage||'').trim()).length,dep=ph.filter(r=>(r.dept||'').trim()).length;
+  add('pharm','Pharmacy dispensing (the essential file)','hub',q.score!=null&&q.score<70?'limited':'ready',`${n.toLocaleString()} medicine records, ${pids.size.toLocaleString()} patients, ${M.length} month${M.length===1?'':'s'}${M.length?` (${M[0]} to ${M[M.length-1]})`:''}. Data-quality score ${q.score!=null?q.score+'/100':'–'}; dosage text on ${pc(dos)}, department on ${pc(dep)}.`+(q.score!=null&&q.score<70?' Below 70, the committee report asks for better data.':''),q.score!=null&&q.score<70?'Export dates, sex, age and patient IDs completely (see the data-quality panel on the Hub).':'');}
+ add('signals','ADR signals (cascades, stop/switch, interactions, clusters)','pv',!n?'no':'ready',!n?'No dispensing records.':`${sigs.length.toLocaleString()} suspected reactions: ${Object.entries(byT).map(([k,v])=>k+' '+v.toLocaleString()).join(', ')||'none'}.`,!n?'Import the pharmacy dispensing export.':'');
+ {const L=DB.lab||[],lk=L.filter(r=>pids.has(r.pid)).length,ls=byT['Lab-supported']||0;
+  add('lab','Lab-supported signals and monitoring gaps','pv',!L.length?'no':!lk?'limited':'ready',!L.length?'No lab results are loaded.':`${L.length.toLocaleString()} lab results; ${lk.toLocaleString()} for patients in the dispensing data; ${ls.toLocaleString()} lab-supported signals.`,!L.length?'Import lab results (creatinine, ALT/AST, potassium, glucose, neutrophils, INR) with the same patient IDs.':!lk?'Use the same patient IDs in the lab file and the dispensing file.':'');}
+ {const D=DB.deaths||[],dk=D.filter(r=>pids.has(r.pid)).length;
+  add('deaths','Outcome layer (deaths)','overview',!D.length?'no':!dk?'limited':'ready',!D.length?'No deaths register is loaded.':`${D.length.toLocaleString()} deaths; ${dk.toLocaleString()} of them for patients in the dispensing data. A death after a flag is a link in time only.`,!D.length?'Optional but valuable: the deaths register (patient ID, date of death).':!dk?'Use the same patient IDs in the deaths register.':'');}
+ {const A=n?spikeAnalysis():null,per=vmdMonths(ph).length;
+  add('spike','Spike alerts','spike',!A?'no':!A.series.length?'limited':'ready',!A?'No dispensing records.':!A.series.length?`No medicine–reaction pair has at least 5 flagged and 30 exposed patients, the minimum VigiWard tests (${per} month${per===1?'':'s'} of data).`:`${A.series.length} medicine–reaction series tested over ${per} month${per===1?'':'s'}; ${A.alerts.length} alert${A.alerts.length===1?'':'s'} (rate ratio ≥ ${SP.minRR}, p < ${SP.alpha}).`,A&&!A.series.length?'More months of dispensing.':'');}
+ add('watch','Watch-list and ward huddle','watch',!sigs.length?'no':ph.some(r=>(r.dept||'').trim())?'ready':'limited',!sigs.length?'No signals yet.':`${new Set(sigs.map(s=>s.pid)).size.toLocaleString()} patients with a signal.`+(ph.some(r=>(r.dept||'').trim())?'':' No department in the dispensing data, so the huddle cannot be split by ward.'),!sigs.length?'Import dispensing.':ph.some(r=>(r.dept||'').trim())?'':'Export the department column with the dispensing report.');
+ {const R=vmdReadings(),k=Object.keys(R).length;
+  add('cardio','Cardiometabolic audit','cardio',!n?'no':k?'ready':'limited',!n?'No dispensing records.':k?`${k.toLocaleString()} patients with BP/glucose readings.`:'Prescribing audit from dispensing only; control and risk need BP/glucose readings.',k?'':'Optional: BP and glucose readings (patient ID plus systolic, diastolic, HbA1c or FBS).');}
+ {let A=null;try{A=adsmAnalyse()}catch(e){}const c=A&&A.cohort?A.cohort.length:0;
+  add('adsm','aDSM (TB/HIV active drug-safety monitoring)','adsm',!n?'no':c?((DB.lab||[]).length?'ready':'limited'):'optional',!n?'No dispensing records.':c?`${c.toLocaleString()} patients on TB or HIV medicines.`+((DB.lab||[]).length?'':' No lab results, so monitoring adherence cannot be checked.'):'No patient on TB or HIV medicines in the data.',c&&!(DB.lab||[]).length?'Import lab results for the monitoring checks.':'');}
+ {const T=DB.triage||{},rv=Object.values(T).filter(t=>t&&(t.status==='confirmed'||t.status==='dismissed')).length;
+  add('review','PV indicators, Findings, Report','indic',!sigs.length?'no':rv?'ready':'limited',!sigs.length?'No signals yet.':rv?`${rv.toLocaleString()} flags reviewed (confirmed or dismissed).`:'No flag has been reviewed yet: the reporting funnel and Findings need review decisions.',sigs.length&&!rv?'Review flags on Signals or the Watch-list (confirm or dismiss).':'');}
+ {const R=DB.rcReviews,m=R&&R.rows?Object.keys(R.rows).length:0;
+  add('redcap','Case reviews from REDCap (rule accuracy per method)','redcap',m?'ready':'optional',m?`${m.toLocaleString()} reviews brought back.`:'No reviews brought back.',m?'':'Optional: send a sample of flags to REDCap for chart review on the REDCap & Stata page.');}
+ return out}
+const VMD_ST={ready:['Ready','mild'],limited:['Limited','moderate'],no:['Not possible','severe'],optional:['Optional','neutral']};
+function vbRender(){const el=document.getElementById('arm-brief');if(!el)return;
+ const s=DB.signals||[];
+ const susp=s.filter(x=>x.type!=='Premedication');
+ const serious=susp.filter(x=>x.serious).length;
+ const reviewed=susp.filter(x=>statusOf(x)!=='new').length;
+ const confirmed=susp.filter(x=>statusOf(x)==='confirmed').length;
+ const I=vmdCheck(),ready=I.filter(x=>x.st==='ready').length,limited=I.filter(x=>x.st==='limited').length,no=I.filter(x=>x.st==='no').length;
+ const pct=(n,d)=>d?Math.round((n/d)*100)+'%':'–';
+ const lines=[`${susp.length} suspected ADR signal(s) found${susp.length?`, ${serious} of them serious (ICH criteria).`:'.'}`];
+ if(susp.length)lines.push(`${reviewed} of ${susp.length} (${pct(reviewed,susp.length)}) have been reviewed; ${confirmed} confirmed as ADRs.`);
+ if(susp.length&&reviewed<susp.length)lines.push(`${susp.length-reviewed} signal(s) are not yet reviewed — case review closes the evidence gap the REDCap case review was built for.`);
+ if(no+limited>0)lines.push(`${no+limited} of ${I.length} analyses on Minimum data are limited or not yet possible from the data loaded — see Minimum data for what to add.`);
+ const q=(susp.length-reviewed)>0?`Does the committee want to prioritize reviewing the ${susp.length-reviewed} unreviewed signal(s), starting with the ${serious} serious one(s), before the next meeting?`:'All suspected signals are reviewed — does the committee want to look at the premedication patterns next?';
+ el.innerHTML=`<div class="card noprint"><button class="btn" onclick="window.print()">Print / Save as PDF</button></div>
+ <div class="card" id="briefBody" style="max-width:190mm;margin:0 auto">
+ <div class="page-head"><div class="eyebrow">Decision brief</div><h1>Pharmacovigilance</h1></div>
+ <p class="sub" style="margin-top:0">Prepared by Odindo Emmanuel Thomas · ${new Date().toLocaleDateString()}</p>
+ <div class="row" style="gap:10px;margin:10px 0;flex-wrap:wrap">${[["Suspected ADR signals",susp.length],["Serious (ICH)",serious],["Reviewed",`${reviewed} / ${susp.length}`],["Confirmed ADRs",confirmed]].map(([l,v])=>`<div class="card" style="flex:1;min-width:110px;text-align:center;padding:8px"><div style="font-size:20px;font-weight:700">${v}</div><div class="sub" style="font-size:11px">${l}</div></div>`).join("")}</div>
+ <h2 style="margin-bottom:4px">What this means</h2>
+ ${lines.map(x=>`<p style="margin:4px 0">• ${x}</p>`).join("")}
+ <h2 style="margin-bottom:4px">Data readiness</h2>
+ <p style="margin:4px 0">${ready} of ${I.length} analyses are ready to show the committee as they stand; ${limited} are limited; ${no} are not yet possible.</p>
+ <div class="card" style="margin-top:10px;border-left:3px solid var(--accent,#13737a)"><b>For the committee:</b> ${q}</div>
+ <p class="sub" style="margin-top:14px;font-size:11px">Based on the data loaded now. See Minimum data for what this brief does not cover.</p>
+ </div>`;
+}
+function vmdRender(){const el=document.getElementById('arm-mindata');if(!el)return;const I=vmdCheck(),c=k=>I.filter(x=>x.st===k).length;
+ const al=(list)=>list.map(esc).join(', ');
+ el.innerHTML=`<div class="page-head"><div class="eyebrow">Minimum data</div><h1>What VigiWard needs</h1></div>
+ <div class="card"><p class="sub">What VigiWard needs for each analysis, so you know before you start whether the results will stand. <b>Check my data</b> reads the data loaded now and says, analysis by analysis, what is ready, what is limited and what is missing. The same check is printed in the committee report under <i>Method &amp; limitations</i>.</p></div>
+ <div class="card"><h2>Check my data</h2><div class="sub">${c('ready')} ready · ${c('limited')} limited · ${c('no')} not possible · ${c('optional')} optional</div>
+  <table class="gtbl" style="width:100%"><thead><tr><th>Analysis</th><th>Status</th><th>What the data give</th><th>What to add</th><th></th></tr></thead><tbody>
+  ${I.map(x=>`<tr data-md="${x.id}" data-st="${x.st}"><td><b>${x.name}</b></td><td><span class="chip ${VMD_ST[x.st][1]}">${VMD_ST[x.st][0]}</span></td><td>${x.detail}</td><td>${x.todo}</td><td><button class="btn sm ghost" style="white-space:nowrap" onclick="go('${x.arm}')">Open →</button></td></tr>`).join('')}</tbody></table></div>
+ <div class="card"><h2>1. The files VigiWard reads</h2><p class="sub">One file per type, the whole period in one export (for example three years). Excel or CSV; title rows above the header are skipped. The <b>same patient ID</b> must be used in every file: VigiWard turns it into the same code (P_XXXX) everywhere, which is how lab results and deaths are linked to dispensing. Patient names are never saved.</p>
+  <div data-file="pharmacy" style="margin-top:10px"><b>Pharmacy dispensing</b> <span class="sub">essential</span><p>One row is one medicine dispensed. <b>Essential</b>: patient ID, item name, date. <b>Recommended</b>: dosage text (route, frequency, duration), department, age, gender. A header row is recognised when it has a patient, an item and a date column; written exactly as one of the headings below (capitals and outer spaces do not matter). Afya eHMS exports with unlabelled patient columns are also read by their content.</p>
+   <table class="gtbl" style="width:100%"><thead><tr><th>Field</th><th>Headings recognised</th></tr></thead><tbody>${Object.entries(HDR_ALIASES).map(([k,v])=>`<tr data-tbl="pharmacy" data-field="${k}"><td>${({pid:'Patient ID',drug:'Item name',date:'Date dispensed',sex:'Sex',age:'Age',dept:'Department / ward',name:'Patient name (used only in memory for TMDA initials, never saved)',dosage:'Dosage text'})[k]||k}</td><td style="font-family:monospace;font-size:12px">${al(v)}</td></tr>`).join('')}</tbody></table>
+   <button class="btn sm ghost" style="margin-top:6px" onclick="vmdTemplate('pharmacy')">Blank template (CSV)</button></div>
+  <div data-file="lab" style="margin-top:14px"><b>Lab results</b> <span class="sub">recommended</span><p>One row is one result. Read by content: a patient ID of 3 to 7 digits, a date, the test name and a number. In <i>Drop all your files at once</i> the file is recognised by a <i>Test</i> and a <i>Result</i> column. The tests used:</p>
+   <table class="gtbl" style="width:100%"><thead><tr><th>Test</th><th>Words recognised in the test name</th></tr></thead><tbody>${VMD_LABTESTS.map(([t,w])=>`<tr data-tbl="lab"><td>${t}</td><td style="font-family:monospace;font-size:12px">${w}</td></tr>`).join('')}</tbody></table>
+   <button class="btn sm ghost" style="margin-top:6px" onclick="vmdTemplate('lab')">Blank template (CSV)</button></div>
+  <div data-file="deaths" style="margin-top:14px"><b>Deaths register</b> <span class="sub">optional</span><p>One row is one death. Read by content: a patient ID of 3 to 7 digits and the date of death; the longest text is kept as the cause. In <i>Drop all your files at once</i> it is recognised by a <i>Date of death</i> or <i>Cause of death</i> column.</p>
+   <button class="btn sm ghost" onclick="vmdTemplate('deaths')">Blank template (CSV)</button></div>
+  <div data-file="readings" style="margin-top:14px"><b>BP / glucose readings</b> <span class="sub">optional, for the Cardiometabolic audit</span><p>One row is one patient's latest readings. Headings are matched without regard to capitals; spaces and punctuation count as “_”.</p>
+   <table class="gtbl" style="width:100%"><thead><tr><th>Field</th><th>Headings recognised</th></tr></thead><tbody><tr data-tbl="readings" data-field="id"><td>Patient ID</td><td style="font-family:monospace;font-size:12px">${al(CARDIO.aliases().id)}</td></tr>${Object.entries(CARDIO.aliases().fields).map(([k,v])=>`<tr data-tbl="readings" data-field="${k}"><td>${k}</td><td style="font-family:monospace;font-size:12px">${al(v)}</td></tr>`).join('')}</tbody></table>
+   <button class="btn sm ghost" style="margin-top:6px" onclick="vmdTemplate('readings')">Blank template (CSV)</button></div></div>
+ <div class="card"><h2>2. What each analysis needs</h2><table class="gtbl" style="width:100%"><thead><tr><th>Analysis</th><th>Essential</th><th>Recommended, and what it adds</th><th>Minimum</th></tr></thead><tbody>
+  <tr><td><b>Signals, Overview, Watch-list</b></td><td>Pharmacy dispensing with patient ID, item and date</td><td>Dosage text (stop/switch timing, routes); department (ward views); age and sex (the data-quality score)</td><td>–</td></tr>
+  <tr><td><b>Lab-supported signals, monitoring gaps</b></td><td>Lab results with the same patient IDs</td><td>Creatinine, ALT/AST, potassium, glucose, neutrophils, INR</td><td>–</td></tr>
+  <tr><td><b>Outcome layer</b></td><td>Deaths register (patient ID, date of death)</td><td>Cause of death</td><td>A link in time only, never a cause</td></tr>
+  <tr><td><b>Spike alerts</b></td><td>Dated dispensing over several months</td><td>Department (spikes by ward)</td><td>5 flagged and 30 exposed patients per medicine–reaction pair; ${SP.minObs} flagged patients in a period; alert at rate ratio ≥ ${SP.minRR} and p &lt; ${SP.alpha}</td></tr>
+  <tr><td><b>Interactions</b></td><td>Dispensing</td><td>Lab results show whether the monitoring was done</td><td>–</td></tr>
+  <tr><td><b>Ward huddle</b></td><td>Dispensing with department</td><td>–</td><td>–</td></tr>
+  <tr><td><b>Cardiometabolic audit</b></td><td>Dispensing (prescribing audit)</td><td>BP / glucose readings (control and risk)</td><td>–</td></tr>
+  <tr><td><b>aDSM</b></td><td>Dispensing that includes TB or HIV medicines</td><td>Lab results (monitoring adherence)</td><td>–</td></tr>
+  <tr><td><b>PV indicators, Findings, Report, Authorship</b></td><td>Signals, and review decisions (confirmed or dismissed)</td><td>Naranjo scores; TMDA report dates</td><td>Data-quality score of 70 or more, or the report asks for better data</td></tr>
+  <tr><td><b>REDCap &amp; Stata</b></td><td>Signals</td><td>Completed case reviews from REDCap (rule accuracy per method)</td><td>–</td></tr></tbody></table></div>
+ <div class="card"><h2>3. Rules for every file</h2><ul><li><b>No names needed.</b> Patient names are removed on import; use patient IDs or study codes.</li><li><b>Dates</b> as YYYY-MM-DD or day/month/year, or Excel dates.</li><li><b>The same patient ID</b> in every file, and the same months.</li><li><b>One export per type</b>, not edited or sorted by hand.</li></ul></div>`}
+/* committee report: data used and its limits, from the same check */
+function vmdReportLines(){const ph=DB.pharmacy||[],M=vmdMonths(ph),q=DB.qa||{},L=[];
+ L.push({p:`Data used: pharmacy dispensing, ${ph.length.toLocaleString()} medicine records for ${(q.patients||new Set(ph.map(r=>r.pid)).size).toLocaleString()} patients${M.length?`, ${M[0]} to ${M[M.length-1]} (${M.length} months)`:''}, data-quality score ${q.score!=null?q.score+'/100':'–'}; lab results ${(DB.lab||[]).length.toLocaleString()}; deaths ${(DB.deaths||[]).length.toLocaleString()}; BP/glucose readings for ${Object.keys(vmdReadings()).length.toLocaleString()} patients.`});
+ const lim=vmdCheck().filter(x=>x.st==='limited'||x.st==='no');
+ if(lim.length){L.push({p:"Limits found by VigiWard's data check (Minimum data):"});lim.forEach(x=>L.push({b:`${x.name}: ${String(x.detail).replace(/<[^>]+>/g,'')}`}));}
+ else L.push({p:"VigiWard's data check (Minimum data) found no limits."});
+ return L}
+const VW_VER='3.12', VRC_FORM='adr_case_review';
+const VRC_METHOD=[['LAB','Lab-supported'],['DDI','Drug interaction'],['CLUSTER','Cluster'],['CASCADE','Cascade'],['STOPSWITCH','Stop/switch']];
+const VRC_STRENGTH=[['WEAK','Possible'],['MODERATE','Probable'],['STRONG','Certain']].map(([c,k])=>[c,SIG_STRENGTH[k],k]);
+const VRC_SEV=[['MILD','Mild','mild'],['MODERATE','Moderate','moderate'],['SEVERE','Severe','severe']];
+const VRC_RAWLINS=Object.entries(RAWLINS);
+const VRC_LAB=[['CREA','Creatinine (µmol/L)','creatinine'],['ALT','ALT (U/L)','alt'],['AST','AST (U/L)','ast'],['K','Potassium (mmol/L)','potassium'],['GLU','Glucose (mmol/L)','glucose']];
+const VRC_YN=[['Y','Yes'],['N','No']];
+const VRC_CONF=[['Y','Yes'],['N','No'],['U','Unsure']];
+const VRC_UMC=[['CERTAIN','Certain'],['PROBABLE','Probable/Likely'],['POSSIBLE','Possible'],['UNLIKELY','Unlikely'],['CONDITIONAL','Conditional/Unclassified'],['UNASSESSABLE','Unassessable/Unclassifiable']];
+const VRC_NAR=[['Y','Yes'],['N','No'],['DK',"Don't know"]];
+const VRC_NARCAT=['Doubtful','Possible','Probable','Definite'];
+/* the six TMDA seriousness criteria, outcomes and actions (SQRT lists, same order), plus "Not serious" */
+const VRC_SERIOUS=[['DEATH','Results in death'],['LIFE','Life-threatening'],['HOSP','Hospitalisation, initial or prolonged'],['DISAB','Persistent or significant disability or incapacity'],['CONGEN','Congenital anomaly or birth defect'],['OTHER','Other medically important condition'],['NOT_SERIOUS','Not serious']];
+const VRC_OUTCOME=[['RECOVERED','Recovered/resolved'],['SEQUELAE','Recovered with sequelae'],['NOT_RECOVERED','Not recovered'],['DIED','Died'],['UNKNOWN','Unknown']];
+const VRC_ACTION=[['DISCONTINUED','Medicine stopped (regimen discontinued)'],['DOSE_ADJUSTED','Dose adjusted'],['CHANGED','Regimen changed'],['UNKNOWN','Unknown'],['CONTINUED','Continued unchanged'],['OTHER','Other']];
+const VRC_HDR=["Variable / Field Name","Form Name","Section Header","Field Type","Field Label","Choices, Calculations, OR Slider Labels","Field Note","Text Validation Type OR Show Slider Number","Text Validation Min","Text Validation Max","Identifier?","Branching Logic (Show field only if...)","Required Field?","Custom Alignment","Question Number (surveys only)","Matrix Group Name","Matrix Ranking?","Field Annotation"];
+const VRC={ward:'',method:'',from:'',to:'',per:'',st:''};
+function vrcCell(v){v=v==null?'':String(v);return /[",\r\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+function vrcMethodCode(t){const m=VRC_METHOD.find(x=>x[1]===t);return m?m[0]:null}
+function vrcAllFlags(){return (DB.signals||[]).filter(x=>x.type!=='Premedication')}
+/* record ID = the signal's own stable key (a repeated key, which detection does not normally make, gets _2, _3 …) */
+function vrcIds(){const m=new Map(),seen={};vrcAllFlags().forEach(x=>{const k=x.key||sigKey(x);seen[k]=(seen[k]||0)+1;m.set(x,seen[k]>1?k+'_'+seen[k]:k)});return m}
+function vrcHash(s){let h=0x811c9dc5;for(let i=0;i<s.length;i++)h=Math.imul(h^s.charCodeAt(i),16777619)>>>0;return h}
+function vrcDateOk(d){const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(d||'');if(!m)return false;const x=new Date(Date.UTC(+m[1],+m[2]-1,+m[3]));return x.getUTCMonth()===+m[2]-1&&x.getUTCDate()===+m[3]}
+/* the flags chosen on the page; "flags per method" takes a random but repeatable sample of each method */
+function vrcSelection(){const ids=vrcIds(),d=x=>lastDate(x.ev||'');
+ let L=vrcAllFlags().filter(x=>(!VRC.ward||(x.dept||'')===VRC.ward)&&(!VRC.method||vrcMethodCode(x.type)===VRC.method)&&(!VRC.from||d(x)>=VRC.from)&&(!VRC.to||(d(x)&&d(x)<=VRC.to)));
+ const per=parseInt(VRC.per,10);
+ if(per>0){const by={};L.forEach(x=>(by[x.type]=by[x.type]||[]).push(x));L=[];
+  VRC_METHOD.forEach(([,t])=>{const a=(by[t]||[]).slice().sort((p,q)=>vrcHash(ids.get(p)+'|sample')-vrcHash(ids.get(q)+'|sample')||(ids.get(p)<ids.get(q)?-1:1));L.push(...a.slice(0,per))})}
+ return L.map(x=>({x,rid:ids.get(x)}))}
+/* a deaths register was used if one is loaded, or if any flag carries a fatal outcome (the register itself is not kept after a reload without a data folder) */
+function vrcDeathsUsed(){return !!((DB.deaths&&DB.deaths.length)||(DB.signals||[]).some(s=>s.fatal))}
+/* what VigiWard holds for one flag, in the form's own codes */
+function vrcFlag(x){const ds=String(x.ev||'').match(/\d{4}-\d{2}-\d{2}/g)||[],isLab=x.type==='Lab-supported';
+ const lab=isLab?String(x.ev||'').match(/→\s*(creatinine|alt|ast|potassium|glucose)\s+(-?\d+(?:\.\d+)?)\s+on\s+(\d{4}-\d{2}-\d{2})/i):null,lt=lab?VRC_LAB.find(l=>l[2]===lab[1].toLowerCase()):null;
+ const sx=String(x.sex||'').trim().toLowerCase(),noDeaths=!vrcDeathsUsed()&&!x.fatal;
+ return{patient_code:x.pid,ward:x.dept||'',age_years:ageYrs(x.age),age_recorded:x.age==null?'':String(x.age),sex:sx.startsWith('m')?'M':sx.startsWith('f')?'F':(x.sex?String(x.sex):''),n_drugs:x.nDrugs==null?null:x.nDrugs,
+  detection_method:vrcMethodCode(x.type)||String(x.type||''),signal_strength:(VRC_STRENGTH.find(r=>r[2]===x.confidence)||[x.confidence||''])[0],vw_severity:(VRC_SEV.find(r=>r[2]===x.sev)||[x.sev||''])[0],
+  vw_serious:x.serious===true?'Y':x.serious===false?'N':'',rawlins:x.rawlins||'',suspected_reaction:x.pt||'',soc:x.soc||'',suspect_drug:x.drug||'',ingredient:x.culprit||'',other_drug:x.rescue==null?'':String(x.rescue),
+  drug_date:ds[0]||'',event_date:ds[ds.length-1]||'',is_lab:isLab,lab_test:lt?lt[0]:'',lab_value:lab?+lab[2]:null,
+  died_within_window:noDeaths?'':x.fatal?'Y':'N',death_date:x.fatal?(x.deathDate||''):'',evidence:x.ev||''}}
+/* ---------- the REDCap form ---------- */
+function vrcFields(){const R=[],F=VRC_FORM,ON="[adr_confirmed] = 'Y' or [adr_confirmed] = 'U'",RV="[adr_confirmed] <> ''";
+ const add=(v,t,l,o={})=>R.push({v,t,flag:!!o.flag,choices:o.c||null,codes:o.c?o.c.map(([k])=>k):null,val:o.val||'',
+  row:[v,F,o.sec||'',t,l,o.c?o.c.map(([k,lb])=>`${k}, ${lb}`).join(' | '):'',o.note||'',o.val||'',o.min==null?'':o.min,o.max==null?'':o.max,o.id?'y':'',o.br||'','','','','','',o.flag&&v!=='record_id'?'@READONLY':'']});
+ add('record_id','text','Flag ID (VigiWard)',{flag:1,sec:'Flag from VigiWard',note:'Filled by VigiWard. The flag fields are read-only.'});
+ add('patient_code','text','Patient code (VigiWard study code)',{flag:1,id:1,note:'No name or hospital number is stored here. To find the chart, look the code up in VigiWard on the computer that holds the data.'});
+ add('ward','text','Ward or department',{flag:1});
+ add('age_years','text','Age (years)',{flag:1,val:'number',min:'0',max:'130'});
+ add('sex','radio','Sex',{flag:1,c:[['M','Male'],['F','Female']]});
+ add('n_drugs','text','Number of different medicines dispensed',{flag:1,val:'integer',min:'0'});
+ add('detection_method','dropdown','Detection method',{flag:1,c:VRC_METHOD});
+ add('signal_strength','dropdown','Signal strength (the data pattern, not causality)',{flag:1,c:VRC_STRENGTH.map(r=>[r[0],r[1]])});
+ add('vw_severity','dropdown','Expected severity of the reaction',{flag:1,c:VRC_SEV.map(r=>[r[0],r[1]])});
+ add('vw_serious','radio','Serious reaction category (ICH E2A)',{flag:1,c:VRC_YN});
+ add('rawlins','dropdown','Rawlins–Thompson reaction type',{flag:1,c:VRC_RAWLINS});
+ add('suspected_reaction','text','Suspected reaction',{flag:1});
+ add('soc','text','MedDRA System Organ Class (descriptor)',{flag:1});
+ add('suspect_drug','text','Suspect medicine',{flag:1});
+ add('ingredient','text','Suspect medicine (generic)',{flag:1});
+ add('other_drug','text','Second medicine in the pattern',{flag:1,note:'The rescue, marker or switch medicine that raised the flag'});
+ add('drug_date','text','Suspect medicine dispensed',{flag:1,id:1,val:'date_ymd'});
+ add('event_date','text','Date of the suspected reaction',{flag:1,id:1,val:'date_ymd',note:'The last date in the evidence'});
+ add('lab_test','dropdown','Laboratory test',{flag:1,c:VRC_LAB.map(r=>[r[0],r[1]]),br:"[detection_method] = 'LAB'"});
+ add('lab_value','text','Laboratory value',{flag:1,val:'number',br:"[detection_method] = 'LAB'"});
+ add('died_within_window','radio','Patient died within the outcome window',{flag:1,c:VRC_YN,note:'A link in time only, never evidence of cause'});
+ add('death_date','text','Date of death',{flag:1,id:1,val:'date_ymd',br:"[died_within_window] = 'Y'"});
+ add('evidence','notes','VigiWard evidence',{flag:1});
+ add('review_date','text','Review date',{sec:'Case review',val:'date_ymd'});
+ add('reviewer','text','Reviewer initials',{note:'Initials only'});
+ add('adr_confirmed','radio','Is this an adverse drug reaction, on chart review?',{c:VRC_CONF});
+ add('who_umc','radio','WHO-UMC causality',{c:VRC_UMC,br:RV});
+ NARANJO.forEach((q,i)=>add(`naranjo_q${i+1}`,'radio',`${i+1}. ${q.q}`,{c:VRC_NAR,br:RV,sec:i?'':'Naranjo algorithm',note:i?'':'VigiWard adds up the score when the reviews come back'}));
+ add('seriousness','checkbox','Seriousness',{sec:'Seriousness and outcome',c:VRC_SERIOUS,br:ON});
+ add('outcome','radio','Outcome',{c:VRC_OUTCOME,br:ON});
+ add('action_taken','radio','Action taken with the suspect medicine',{c:VRC_ACTION,br:ON});
+ add('reported_tmda','radio','Reported to TMDA',{sec:'Reporting',c:VRC_YN,br:"[adr_confirmed] = 'Y'"});
+ add('tmda_report_no','text','TMDA report number',{br:"[reported_tmda] = 'Y'"});
+ add('review_notes','notes','Notes',{note:'No names or hospital numbers'});
+ return R}
+function vrcDictionary(){return[VRC_HDR,...vrcFields().map(f=>f.row)].map(r=>r.map(vrcCell).join(',')).join('\r\n')+'\r\n'}
+/* one record per flag; flag fields only, so a second import never blanks a review already entered */
+function vrcImportFile(sel){const F=vrcFields().filter(f=>f.flag),blank={};
+ const rows=sel.map(({x,rid})=>{const o=Object.assign({record_id:rid},vrcFlag(x));
+  F.forEach(f=>{let v=o[f.v];if(v==null||v===''){o[f.v]='';return}v=String(v);
+   const bad=(f.codes&&!f.codes.includes(v))||(f.val==='date_ymd'&&!vrcDateOk(v))||((f.val==='number'||f.val==='integer')&&!isFinite(+v));
+   if(bad){o[f.v]='';blank[f.v]=(blank[f.v]||0)+1}else o[f.v]=v});
+  return F.map(f=>vrcCell(o[f.v])).join(',')});
+ return{csv:[F.map(f=>f.v).join(','),...rows].join('\r\n')+'\r\n',n:rows.length,blank}}
+/* ---------- reviews back from REDCap (CSV raw data; a labels export is also understood) ---------- */
+function vrcReadReviews(rows,fname){
+ if(!rows||rows.length<2)throw new Error('the file has no records');
+ const h=(rows[0]||[]).map(c=>String(c==null?'':c).trim().toLowerCase()),at=k=>h.indexOf(k);
+ if(at('record_id')<0||at('adr_confirmed')<0)throw new Error('this is not a VigiWard case-review export from REDCap (it has no record_id and adr_confirmed columns)');
+ const known=new Set([...vrcIds().values()]),RF=vrcFields().filter(f=>!f.flag),rev={},notes={},unmatched=[];let n=0;
+ rows.slice(1).forEach(r=>{const g=k=>{const i=at(k);return i<0?'':String(r[i]==null?'':r[i]).trim()};const rid=g('record_id');if(!rid)return;n++;
+  if(!known.has(rid)){unmatched.push(rid);return}
+  const o={};
+  RF.forEach(f=>{
+   if(f.t==='checkbox'){const on=f.choices.filter(([c])=>/^(1|checked|yes|y)$/i.test(g(`${f.v}___${c.toLowerCase()}`))).map(([c])=>c);if(on.length)o[f.v]=on;return}
+   let v=g(f.v);if(v==='')return;
+   if(f.choices){const c=f.choices.find(([k,l])=>k.toLowerCase()===v.toLowerCase()||l.toLowerCase()===v.toLowerCase());if(c)v=c[0];else{(notes[f.v]=notes[f.v]||[]).includes(v)||notes[f.v].push(v)}}
+   o[f.v]=v});
+  rev[rid]=o});
+ return{file:fname||'',at:new Date().toISOString(),n,matched:Object.keys(rev).length,unmatched:unmatched.length,unmatchedIds:unmatched.slice(0,20),notes,rows:rev}}
+function vrcNaranjo(o){if(!o)return null;let s=0,a=0;NARANJO.forEach((q,i)=>{const v=o[`naranjo_q${i+1}`];if(v==='Y'){s+=q.y;a++}else if(v==='N'){s+=q.n;a++}else if(v==='DK')a++});return a?{score:s,cat:nCat(s)[0],answered:a}:null}
+function vrcReviewOf(x,ids){const R=DB.rcReviews;return R&&R.rows?R.rows[(ids||vrcIds()).get(x)]||null:null}
+function vrcIsReviewed(o){return !!o&&['Y','N','U'].includes(o.adr_confirmed)}
+/* results per detection method (and per suspected reaction) */
+function vrcResults(){const ids=vrcIds(),all=vrcAllFlags(),groups=[];
+ const tally=(name,list)=>{const t={name,flags:list.length,inRedcap:0,reviewed:0,yes:0,no:0,unsure:0,umc:{},nar:{},narN:0,reported:0,confirmedForTmda:0};
+  list.forEach(x=>{const o=vrcReviewOf(x,ids);if(!o)return;t.inRedcap++;if(!vrcIsReviewed(o))return;t.reviewed++;
+   if(o.adr_confirmed==='Y')t.yes++;else if(o.adr_confirmed==='N')t.no++;else t.unsure++;
+   if(VRC_UMC.some(([c])=>c===o.who_umc))t.umc[o.who_umc]=(t.umc[o.who_umc]||0)+1;   /* a value that is not a code is listed, not counted */const nr=vrcNaranjo(o);if(nr){t.narN++;t.nar[nr.cat]=(t.nar[nr.cat]||0)+1}
+   if(o.adr_confirmed==='Y'){t.confirmedForTmda++;if(o.reported_tmda==='Y')t.reported++}});
+  t.ppv=t.reviewed?wilson(t.yes,t.reviewed):null;return t};
+ VRC_METHOD.forEach(([,ty])=>groups.push(tally(ty,all.filter(x=>x.type===ty))));
+ const total=tally('All methods',all);
+ const byPt={};all.forEach(x=>{(byPt[x.pt||'(no reaction term)']=byPt[x.pt||'(no reaction term)']||[]).push(x)});
+ const reactions=Object.entries(byPt).map(([pt,l])=>Object.assign(tally(pt,l),{methods:[...new Set(l.map(x=>x.type))].join(', ')})).filter(t=>t.reviewed).sort((a,b)=>b.reviewed-a.reviewed||a.name.localeCompare(b.name));
+ return{groups,total,reactions}}
+/* ---------- the page ---------- */
+function vrcSet(k,v){VRC[k]=v;vrcRender()}
+function vrcPct(ci){return ci?`${(ci.p*100).toFixed(0)}% <span style="color:var(--ink-faint)">(${(ci.lo*100).toFixed(0)}–${(ci.hi*100).toFixed(0)})</span>`:'—'}
+function vrcRender(){const el=document.getElementById('vrc-body');if(!el)return;
+ const all=vrcAllFlags();
+ if(!all.length){el.innerHTML='<div class="card"><div class="empty">No flags yet — import pharmacy dispensing data in the Hub.</div></div>';return}
+ const sel=vrcSelection(),R=DB.rcReviews,depts=[...new Set(all.map(x=>x.dept).filter(Boolean))].sort();
+ const opt=(k,opts)=>`<select onchange="vrcSet('${k}',this.value)">${opts.map(([v,l])=>`<option value="${esc(v)}"${String(VRC[k])===String(v)?' selected':''}>${esc(l)}</option>`).join('')}</select>`;
+ const cnt={};sel.forEach(({x})=>cnt[x.type]=(cnt[x.type]||0)+1);
+ const res=R?vrcResults():null,num=n=>`<td class="num">${n}</td>`;
+ const stScope=VRC.st||(R?'redcap':'selection');
+ let h=`<div class="card"><h2>1. Choose the flags to review</h2>
+  <div class="sub">Premedication patterns are left out: they are practice patterns, not suspected reactions. To measure how often each rule is right, review a sample of every method (for example 30–50 each): the sample is random but repeatable, so the same data and choices always give the same flags.</div>
+  <div class="toolbar" style="margin-top:10px">Ward ${opt('ward',[['','All wards'],...depts.map(d=>[d,d])])} Method ${opt('method',[['','All methods'],...VRC_METHOD.map(([c,l])=>[c,l])])}
+   Reaction from <input type="date" value="${esc(VRC.from)}" onchange="vrcSet('from',this.value)"> to <input type="date" value="${esc(VRC.to)}" onchange="vrcSet('to',this.value)">
+   Flags per method <input type="number" min="1" style="width:90px" placeholder="all" value="${esc(VRC.per)}" onchange="vrcSet('per',this.value)"></div>
+  <div><b>${sel.length.toLocaleString()} flag(s) chosen</b> <span style="color:var(--ink-faint)">· ${VRC_METHOD.filter(([,t])=>cnt[t]).map(([,t])=>`${esc(t)} ${cnt[t]}`).join(' · ')||'none'}</span></div></div>
+ <div class="card"><h2>2. Send them to REDCap</h2>
+  <ol style="line-height:1.7;padding-left:20px;margin:6px 0 0;font-size:13.5px">
+   <li>In REDCap, create a project and open <b>Project Setup › Data Dictionary</b>. Upload VigiWard's data dictionary. The project gets one form, <i>ADR case review</i>: the flag fields, which are read-only, and the review fields.</li>
+   <li>Open the <b>Data Import Tool</b> and upload the flags file. Each flag becomes one record, numbered with VigiWard's own flag ID.</li>
+   <li>Pharmacists open each record, read the patient's chart and fill in the review: ADR yes/no/unsure, WHO-UMC causality, the ten Naranjo questions, seriousness, outcome, action taken and the TMDA report. To find a chart, look the patient code up on VigiWard's Signals page on this computer.</li></ol>
+  <div class="row" style="gap:8px;margin-top:12px"><button class="btn" onclick="vrcDownloadDictionary()">⬇ REDCap data dictionary (.csv)</button><button class="btn primary" onclick="vrcDownloadImport()"${sel.length?'':' disabled'}>⬇ REDCap import file — ${sel.length.toLocaleString()} flag(s)</button></div>
+  <div class="sub" style="margin-top:10px">The file holds VigiWard's study code, ward, age, sex, the medicines, dates and evidence — never a name or a hospital number. Use the REDCap of an institution where the review has ethics approval. A second import adds new flags and never blanks a review already entered.</div></div>
+ <div class="card"><h2>3. Bring the reviews back</h2>
+  <div class="sub">In REDCap, <b>Data Exports</b> › <i>CSV (raw data)</i>. Choose that file here; each review is matched to its flag by the flag ID. A new file replaces the reviews brought in before.</div>
+  <div class="row" style="gap:8px;margin-top:10px"><button class="btn primary" onclick="document.getElementById('vrc-file').click()">Choose the REDCap export (.csv)</button>${R?'<button class="btn sm ghost" onclick="vrcClear()">Remove the reviews</button>':''}</div>
+  <input type="file" id="vrc-file" accept=".csv,.xlsx,.xls" style="display:none" onchange="vrcImportReviews(this.files[0]);this.value=''">
+  ${R?`<div class="ref" style="margin-top:10px" id="vrc-status"><b>${esc(R.file)}</b> · ${esc(String(R.at).slice(0,10))} · ${R.n} record(s): ${R.matched} matched to flags in the data${R.unmatched?`, <b>${R.unmatched} not matched</b> (flags no longer in the current data)`:''}.${Object.keys(R.notes||{}).length?` Values not recognised, kept as they are and left out of the counts: ${Object.entries(R.notes).map(([k,v])=>`${esc(k)} (${v.map(esc).join(', ')})`).join('; ')}.`:''}</div>`:'<div class="ref" style="margin-top:10px" id="vrc-status">No reviews brought back yet.</div>'}</div>`;
+ if(res){const G=[...res.groups.filter(t=>t.flags),res.total];
+  h+=`<div class="card"><h2>How often each rule is right</h2>
+   <div class="sub">Positive predictive value (PPV) = flags confirmed as an ADR ÷ flags reviewed; “Unsure” counts as not confirmed. 95% interval by the Wilson method. Only quote these figures as VigiWard's accuracy when the flags reviewed were a fair sample of each method.</div>
+   <table class="adsm-tbl"><tr><th>Detection method</th><th class="num">Flags</th><th class="num">In REDCap</th><th class="num">Reviewed</th><th class="num">Confirmed</th><th class="num">Not ADR</th><th class="num">Unsure</th><th class="num">PPV (95% CI)</th></tr>
+   ${G.map((t,i)=>`<tr${i===G.length-1?' style="font-weight:700"':''}><td>${esc(t.name)}</td>${num(t.flags)}${num(t.inRedcap)}${num(t.reviewed)}${num(t.yes)}${num(t.no)}${num(t.unsure)}<td class="num">${vrcPct(t.ppv)}</td></tr>`).join('')}</table></div>
+  <div class="card"><h2>Causality, Naranjo and reporting</h2>
+   <div class="sub">Among the flags reviewed; hover a causality heading for its full WHO-UMC name. Naranjo: VigiWard adds up the ten answers (“Don't know” and blank score 0); Definite ≥9, Probable 5–8, Possible 1–4, Doubtful ≤0. Reported to TMDA is counted among the confirmed ADRs.</div>
+   <div style="overflow-x:auto"><table class="adsm-tbl"><tr><th></th><th colspan="${VRC_UMC.length}" style="text-align:center">WHO-UMC causality</th><th colspan="4" style="text-align:center">Naranjo</th><th></th></tr>
+   <tr><th>Detection method</th>${VRC_UMC.map(([,l])=>`<th class="num" title="${esc(l)}">${esc(l.split('/')[0])}</th>`).join('')}${VRC_NARCAT.slice().reverse().map(c=>`<th class="num">${c}</th>`).join('')}<th class="num">Reported to TMDA</th></tr>
+   ${G.map((t,i)=>`<tr${i===G.length-1?' style="font-weight:700"':''}><td>${esc(t.name)}</td>${VRC_UMC.map(([c])=>num(t.umc[c]||0)).join('')}${VRC_NARCAT.slice().reverse().map(c=>num(t.nar[c]||0)).join('')}<td class="num">${t.confirmedForTmda?`${t.reported} of ${t.confirmedForTmda}`:'—'}</td></tr>`).join('')}</table></div>
+   <div class="row" style="margin-top:10px"><button class="btn sm" onclick="vrcDownloadResults()">⬇ Results (.csv)</button></div></div>
+  <div class="card"><h2>By suspected reaction</h2><div class="sub">Reactions with at least one flag reviewed.</div>
+   ${res.reactions.length?`<table class="adsm-tbl"><tr><th>Suspected reaction</th><th>Method</th><th class="num">Reviewed</th><th class="num">Confirmed</th><th class="num">PPV (95% CI)</th></tr>${res.reactions.map(t=>`<tr><td>${esc(t.name)}</td><td>${esc(t.methods)}</td>${num(t.reviewed)}${num(t.yes)}<td class="num">${vrcPct(t.ppv)}</td></tr>`).join('')}</table>`:'<div class="ref">No flag has been reviewed yet.</div>'}</div>`}
+ h+=`<div class="card"><h2>Stata</h2>
+  <div class="sub">A Stata data file (.dta, Stata 14 or later): one row per flag, with what VigiWard found and the review brought back from REDCap. Every variable and every code is labelled; Yes/No are 1/0; dates are Stata dates; <span style="font-family:monospace">adr_yes</span> is 1 for a confirmed ADR and 0 for No or Unsure, so its mean is the PPV. Laboratory fields of flags that are not lab-supported hold Stata's missing value .a. Free-text review notes stay in REDCap.</div>
+  <div class="toolbar" style="margin-top:10px">Flags ${`<select onchange="vrcSet('st',this.value)">${[['redcap','Flags brought back from REDCap'],['selection','The flags chosen above'],['all','All flags']].map(([v,l])=>`<option value="${v}"${stScope===v?' selected':''}>${l}</option>`).join('')}</select>`}
+   <button class="btn" onclick="vrcDownloadStata()">⬇ Stata file (.dta)</button></div></div>`;
+ el.innerHTML=h}
+function vrcDownloadDictionary(){dlFile(`VigiWard_${VW_VER}_REDCap_Data_Dictionary.csv`,vrcDictionary(),'text/csv')}
+function vrcDownloadImport(){const sel=vrcSelection();if(!sel.length){toast('No flags chosen');return}const r=vrcImportFile(sel),b=Object.entries(r.blank);
+ dlFile(`VigiWard_REDCap_import_${dateStamp()}.csv`,r.csv,'text/csv');
+ hubLog(`REDCap import file: ${r.n} flag(s)`+(b.length?`; values REDCap would refuse were left blank: ${b.map(([k,n])=>k+' ×'+n).join(', ')}`:''));
+ if(b.length)toast('Written. Some values were left blank: see the processing log in the Hub.')}
+function vrcImportReviews(f){if(!f)return;const rd=new FileReader();
+ rd.onload=()=>{try{rowsFromFile(rd.result,f.name,rows=>{const R=vrcReadReviews(rows,f.name);DB.rcReviews=R;save();vrcRender();
+   hubLog(`REDCap reviews: ${R.n} record(s) from ${f.name}, ${R.matched} matched`+(R.unmatched?`, ${R.unmatched} not matched`:''));
+   toast(`${R.matched} review record(s) brought back`+(R.unmatched?` · ${R.unmatched} not matched`:''))})}
+  catch(e){toast('Could not read the reviews: '+e.message);hubLog('ERROR (REDCap reviews): '+e.message)}};
+ rd.readAsArrayBuffer(f)}
+function vrcClear(){if(!confirm('Remove the reviews brought back from REDCap? They stay in REDCap and can be brought back again.'))return;DB.rcReviews=null;save();vrcRender()}
+function vrcDownloadResults(){const r=vrcResults(),rows=[];
+ const row=(level,t)=>rows.push(Object.assign({level,group:t.name,flags:t.flags,in_redcap:t.inRedcap,reviewed:t.reviewed,confirmed:t.yes,not_adr:t.no,unsure:t.unsure,
+  ppv:t.ppv?t.ppv.p.toFixed(4):'',ppv_lo95:t.ppv?t.ppv.lo.toFixed(4):'',ppv_hi95:t.ppv?t.ppv.hi.toFixed(4):''},Object.fromEntries(VRC_UMC.map(([c])=>['umc_'+c.toLowerCase(),t.umc[c]||0])),
+  Object.fromEntries(VRC_NARCAT.map(c=>['naranjo_'+c.toLowerCase(),t.nar[c]||0])),{reported_tmda:t.reported,confirmed_for_tmda:t.confirmedForTmda}));
+ r.groups.forEach(t=>row('method',t));row('all',r.total);r.reactions.forEach(t=>row('reaction',t));
+ dlFile(`VigiWard_case_review_results_${dateStamp()}.csv`,csvFrom(rows),'text/csv')}
+/* ---------- Stata ---------- */
+function vrcStVars(){const v=[],add=(name,label,k,get,list,vlab)=>v.push({name,label,k,get,list,vlab}),YN=[[1,'Y','Yes'],[0,'N','No']],L=(arr)=>arr.map(([c,l],i)=>[i+1,c,l]);
+ const LS={yesno:YN,sex:[[1,'M','Male'],[2,'F','Female']],method:L(VRC_METHOD),strength:L(VRC_STRENGTH),severity:L(VRC_SEV),rawlins:L(VRC_RAWLINS),
+  lab_test:[...L(VRC_LAB),['.a','NOTLAB','Not a lab-supported flag']],notlab:[['.a','NOTLAB','Not a lab-supported flag']],status:L(Object.entries(STATUS_LABEL)),
+  confirmed:[[1,'Y','Yes'],[0,'N','No'],[2,'U','Unsure']],who_umc:L(VRC_UMC),naranjo:[[1,'Y','Yes'],[0,'N','No'],[2,'DK',"Don't know"]],
+  naranjo_cat:VRC_NARCAT.map((c,i)=>[i+1,c,c]),outcome:L(VRC_OUTCOME),action:L(VRC_ACTION)};
+ const f=(x)=>x.f,o=(x)=>x.o,rv=x=>vrcIsReviewed(x.o);
+ add('record_id','Flag ID (VigiWard)','str',x=>x.rid);
+ add('patient_code','Patient code (VigiWard study code)','str',x=>f(x).patient_code);
+ add('ward','Ward or department','str',x=>f(x).ward);
+ add('age_years','Age (years)','num',x=>f(x).age_years);
+ add('age_recorded','Age as recorded','str',x=>f(x).age_recorded);
+ add('sex','Sex','cat',x=>f(x).sex,'sex');
+ add('n_drugs','Number of different medicines dispensed','num',x=>f(x).n_drugs);
+ add('detection_method','Detection method','cat',x=>f(x).detection_method,'method');
+ add('signal_strength','Signal strength (data pattern, not causality)','cat',x=>f(x).signal_strength,'strength');
+ add('vw_severity','Expected severity of the reaction','cat',x=>f(x).vw_severity,'severity');
+ add('vw_serious','Serious reaction category (ICH E2A)','cat',x=>f(x).vw_serious,'yesno');
+ add('rawlins','Rawlins-Thompson reaction type','cat',x=>f(x).rawlins,'rawlins');
+ add('suspected_reaction','Suspected reaction','str',x=>f(x).suspected_reaction);
+ add('soc','MedDRA System Organ Class (descriptor)','str',x=>f(x).soc);
+ add('suspect_drug','Suspect medicine','str',x=>f(x).suspect_drug);
+ add('ingredient','Suspect medicine (generic)','str',x=>f(x).ingredient);
+ add('other_drug','Second medicine in the pattern','str',x=>f(x).other_drug);
+ add('drug_date','Suspect medicine dispensed','date',x=>f(x).drug_date);
+ add('event_date','Date of the suspected reaction','date',x=>f(x).event_date);
+ add('lab_test','Laboratory test','cat',x=>f(x).is_lab?f(x).lab_test:'NOTLAB','lab_test');
+ add('lab_value','Laboratory value','num',x=>f(x).is_lab?f(x).lab_value:'.a',null,'notlab');
+ add('died_within_window','Patient died within the outcome window','cat',x=>f(x).died_within_window,'yesno');
+ add('death_date','Date of death','date',x=>f(x).death_date);
+ add('evidence','VigiWard evidence','str',x=>f(x).evidence);
+ add('vigiward_status','Review status in VigiWard','cat',x=>statusOf(x.x),'status');
+ add('in_redcap','Record in the REDCap export','cat',x=>DB.rcReviews?(o(x)?'Y':'N'):'','yesno');
+ add('reviewed','Reviewed in REDCap','cat',x=>DB.rcReviews?(rv(x)?'Y':'N'):'','yesno');
+ add('adr_confirmed','ADR on chart review','cat',x=>o(x)&&o(x).adr_confirmed||'','confirmed');
+ add('adr_yes','Confirmed ADR (1 = Yes; 0 = No or Unsure)','num',x=>rv(x)?(o(x).adr_confirmed==='Y'?1:0):null);
+ add('review_date','Review date','date',x=>o(x)&&o(x).review_date||'');
+ add('reviewer','Reviewer initials','str',x=>o(x)&&o(x).reviewer||'');
+ add('who_umc','WHO-UMC causality','cat',x=>o(x)&&o(x).who_umc||'','who_umc');
+ NARANJO.forEach((q,i)=>add(`naranjo_q${i+1}`,`Naranjo ${i+1}: ${q.q}`.slice(0,80),'cat',x=>o(x)&&o(x)[`naranjo_q${i+1}`]||'','naranjo'));
+ add('naranjo_score','Naranjo score (added up by VigiWard)','num',x=>{const n=vrcNaranjo(o(x));return n?n.score:null});
+ add('naranjo_category','Naranjo category','cat',x=>{const n=vrcNaranjo(o(x));return n?n.cat:''},'naranjo_cat');
+ VRC_SERIOUS.forEach(([c,l])=>add(`serious_${c.toLowerCase()}`,`Seriousness: ${l}`.slice(0,80),'cat',x=>{const r=o(x);return r&&(r.adr_confirmed==='Y'||r.adr_confirmed==='U')?((r.seriousness||[]).includes(c)?'Y':'N'):''},'yesno'));
+ add('outcome','Outcome','cat',x=>o(x)&&o(x).outcome||'','outcome');
+ add('action_taken','Action taken with the suspect medicine','cat',x=>o(x)&&o(x).action_taken||'','action');
+ add('reported_tmda','Reported to TMDA','cat',x=>o(x)&&o(x).reported_tmda||'','yesno');
+ add('tmda_report_no','TMDA report number','str',x=>o(x)&&o(x).tmda_report_no||'');
+ return{V:v,LS}}
+function vrcStataFile(scope){const ids=vrcIds(),R=DB.rcReviews,enc=new TextEncoder(),notes=[];
+ let list=scope==='selection'?vrcSelection():vrcAllFlags().map(x=>({x,rid:ids.get(x)}));
+ if(scope==='redcap')list=list.filter(({rid})=>R&&R.rows&&R.rows[rid]);
+ const rows=list.map(({x,rid})=>({x,rid,f:vrcFlag(x),o:R&&R.rows?R.rows[rid]||null:null})),{V,LS}=vrcStVars();
+ const cols=V.map(v=>{const raw=rows.map(r=>v.get(r));
+  const asText=why=>{if(why)notes.push(`${v.name} kept as text (${why})`);const vals=raw.map(x=>x==null||(typeof x==='number'&&isNaN(x))?'':String(x));
+   const w=Math.max(1,...vals.map(x=>enc.encode(x).length));if(w>2045)throw new Error(`${v.name}: a value is longer than Stata allows (2045 bytes)`);return{name:v.name,label:v.label,t:'str',w,vals}};
+  if(v.k==='str')return asText();
+  if(v.k==='num')return{name:v.name,label:v.label,t:'double',vlab:v.vlab||undefined,vals:raw.map(x=>x==='.a'?'.a':x==null||x===''||!isFinite(x)?null:+x)};
+  if(v.k==='date'){const vals=raw.map(x=>x?stDays(x):null);if(raw.some((x,i)=>x&&vals[i]==null))return asText('dates not written as YYYY-MM-DD');return{name:v.name,label:v.label,t:'double',fmt:'%tdCCYY-NN-DD',vals}}
+  const map=new Map(LS[v.list].map(([n,c])=>[c,n])),bad=[...new Set(raw.filter(x=>x!=null&&x!==''&&!map.has(x)))];
+  if(bad.length)return asText(`not VigiWard codes: ${bad.slice(0,3).join(', ')}`);
+  return{name:v.name,label:v.label,t:'byte',vlab:v.list,vals:raw.map(x=>x==null||x===''?null:map.get(x))}});
+ const vl=[...new Set(cols.map(c=>c.vlab).filter(Boolean))].map(n=>({name:n,entries:LS[n].map(([v,,l])=>[v,l])}));
+ const chars=[['_dta','vigiward_file','flags and case reviews'],['_dta','vigiward_version',VW_VER],['_dta','vigiward_scope',scope]];
+ return{bytes:dtaWrite(cols,vl,`VigiWard ${VW_VER}: ADR flags and case reviews`,chars),n:rows.length,k:cols.length,notes}}
+function vrcDownloadStata(){const scope=VRC.st||(DB.rcReviews?'redcap':'selection');let r;
+ try{r=vrcStataFile(scope)}catch(e){toast('Could not write the Stata file: '+e.message);return}
+ if(!r.n){toast(scope==='redcap'?'No reviews brought back from REDCap yet':'No flags to write');return}
+ dlFile(`VigiWard_flags_${scope}_${dateStamp()}.dta`,new Blob([r.bytes],{type:'application/x-stata-dta'}));
+ hubLog(`Stata file: ${r.n} flag(s), ${r.k} variables`+(r.notes.length?`; ${r.notes.join('; ')}`:''));
+ if(r.notes.length)toast('Written. Some fields were kept as text: see the processing log in the Hub.')}
 function setFindTab(name,btn){
   document.querySelectorAll('#arm-findings .ftab-pane').forEach(p=>p.classList.remove('active'));
   const pane=document.getElementById('find-'+name); if(pane)pane.classList.add('active');
@@ -5156,11 +5681,539 @@ async function runVwDemo(){
     analyse();
     const rd=await get('Readings');CARDIO.ingestReadings({target:{files:[new File([rd.buf],rd.n,{type:'text/csv'})]}});
     const t0=Date.now();while(!DB.signals.length&&Date.now()-t0<90000)await new Promise(r=>setTimeout(r,400));
-    {const want=new URLSearchParams(location.search).get('view');go(want&&document.getElementById('arm-'+want)?want:'overview');}toast(DB.signals.length.toLocaleString()+' suspected reactions found in the sample data');
+    {const want=new URLSearchParams(location.search).get('view');go(want&&document.getElementById('arm-'+want)?want:'overview');}toast(DB.signals.filter(x=>x.type!=='Premedication').length.toLocaleString()+' suspected reactions found in the sample data'+(DB.signals.some(x=>x.type==='Premedication')?' (and '+DB.signals.filter(x=>x.type==='Premedication').length+' premedication patterns)':''));
   }catch(e){console.error(e);go('guide');toast('The sample data could not be loaded. The live demo works when opened from the website; offline, use the Sample_Data folder from the download.')}
 }
 if(DEMO)runVwDemo();else vwfStartup();
 
+</script>
+<script>
+/* ============ Odieman presenter mode and sample hospital (shared by PPS Pro, AMS Pro and VigiWard) ============
+   - "Sample hospital" opens this same file on the simulated hospital, in memory only (nothing is saved, the user's own
+     data is not touched; "Leave sample hospital" goes back to it).
+   - "Present" runs a short guided tour: each stop opens a screen, lights up one part of it and says one sentence whose
+     figures are read from that screen, so the words can never disagree with what the audience sees.
+   - While presenting: light theme, larger text, no menu, no banners. Keys: → Space PageDown next · ← PageUp back ·
+     1-9 jump · B hide caption · + / − text size · Esc stop. Presentation clickers send PageDown / PageUp. */
+(function(){
+  if(window.ODM_PRESENT) return;
+  var P=window.ODM_PRESENT={cfg:null,on:false,i:0,size:1,timer:null,startedAt:0,state:{}};
+  var BASE=location.href.split(/[?#]/)[0];
+  function q(s,r){return (r||document).querySelector(s);}
+  function el(tag,attrs,html){var e=document.createElement(tag);if(attrs)for(var k in attrs)e.setAttribute(k,attrs[k]);if(html!=null)e.innerHTML=html;return e;}
+  function wait(ms){return new Promise(function(r){setTimeout(r,ms);});}
+  async function until(fn,ms){var t=Date.now();while(Date.now()-t<(ms||60000)){try{if(fn())return true;}catch(e){}await wait(150);}return false;}
+  P.demoBuild=function(){return typeof window.__odmDemoNotice==="function";};
+  P.sampleMode=function(){try{return !!P.cfg.inDemo();}catch(e){return false;}};
+  P.param=function(k){return new URLSearchParams(location.search).has(k);};
+  P.esc=function(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});};
+  P.text=function(e){return e?(e.innerText||e.textContent||"").replace(/\s+/g," ").trim():"";};
+
+  /* ---------- header buttons ---------- */
+  function buttons(){
+    var host=P.cfg.headerEl&&P.cfg.headerEl(); if(!host||q("#odm-bar")) return;
+    var bar=el("span",{id:"odm-bar",class:"odm-bar noprint"});
+    function b(id,label,title,fn,primary){var x=el("button",{type:"button",id:id,class:"odm-btn"+(primary?" odm-primary":""),title:title},label);x.addEventListener("click",fn);bar.appendChild(x);}
+    if(!P.sampleMode()){
+      b("odm-sample","Sample hospital","Open this tool on a simulated hospital, in memory only. Your own data is not touched.",function(){location.href=BASE+"?demo=1";});
+      b("odm-present","▶ Present","A short guided tour for a talk or a first look. Uses the data loaded now, or the sample hospital if there is none.",function(){if(P.cfg.hasData())P.start();else location.href=BASE+"?demo=1&present=1";},true);
+    }else{
+      b("odm-present","▶ Present","A short guided tour of the sample hospital (keys: → next, ← back, Esc stop).",function(){P.start();},true);
+      if(!P.demoBuild()) b("odm-leave","Leave sample hospital","Go back to your own data.",function(){location.href=BASE;});
+    }
+    if(P.cfg.placeBar) P.cfg.placeBar(host,bar); else host.appendChild(bar);
+  }
+  /* in a full copy opened on the sample hospital, the demo banner's download link becomes the way back */
+  function fixBar(){
+    if(!P.sampleMode()||P.demoBuild()) return;
+    var a=[].slice.call(document.querySelectorAll("a[download]")).find(function(x){return /^Download (PPS Pro|AMS Pro|VigiWard)$/.test(P.text(x));});
+    if(!a) return; var bar=a.parentNode, back=el("a",{href:BASE,id:"odm-leave-link"},"Leave the sample hospital");
+    if(a.getAttribute("style")) back.setAttribute("style",a.getAttribute("style"));
+    a.replaceWith(back); var n=back.nextSibling;
+    if(n&&n.nodeType===3) n.nodeValue=n.nodeValue.replace(/to use (it|[A-Za-z ]+) with your own data/,"to go back to your own data");
+    var b0=bar.querySelector("b"); if(b0&&/^Live demo\.?$/.test(P.text(b0))) b0.textContent="Sample hospital.";
+  }
+  function stamp(){
+    if(!P.sampleMode()||q("#odm-stamp")) return;
+    var s=el("div",{id:"odm-stamp",class:"noprint",title:"Every figure on screen comes from a simulated hospital, not a real one."},"SIMULATED DATA");
+    document.body.appendChild(s);
+  }
+
+  /* ---------- the tour ---------- */
+  function ui(){
+    if(q("#odm-tour")) return;
+    var o=el("div",{id:"odm-tour",class:"noprint"});
+    o.innerHTML='<div id="odm-spot"></div><div id="odm-card" role="dialog" aria-live="polite"><div id="odm-step"></div><div id="odm-title"></div><div id="odm-cap"></div><div id="odm-so"></div>'+
+      '<div id="odm-nav"><button type="button" id="odm-back">← Back</button><button type="button" id="odm-next">Next →</button>'+
+      '<span id="odm-sz"><button type="button" id="odm-smaller" title="Smaller text">A−</button><button type="button" id="odm-bigger" title="Larger text">A+</button></span>'+
+      '<span id="odm-clock"></span><button type="button" id="odm-stop">Stop (Esc)</button></div></div>';
+    document.body.appendChild(o);
+    q("#odm-back").onclick=function(){P.go(P.i-1);}; q("#odm-next").onclick=function(){P.go(P.i+1);};
+    q("#odm-stop").onclick=function(){P.stop();}; q("#odm-bigger").onclick=function(){P.zoom(1);}; q("#odm-smaller").onclick=function(){P.zoom(-1);};
+  }
+  var SIZES=[1,1.12,1.25];
+  P.zoom=function(d){var k=SIZES.indexOf(P.size);k=Math.max(0,Math.min(SIZES.length-1,(k<0?1:k)+d));P.size=SIZES[k];
+    document.documentElement.style.setProperty("--odm-zoom",String(P.size));document.documentElement.classList.toggle("odm-large",P.size>1);try{localStorage.setItem("odm_present_size",String(P.size));}catch(e){}place();};
+  function place(){
+    if(!P.on) return; var st=P.cfg.stops[P.i]; var spot=q("#odm-spot"); if(!st||!spot) return;
+    var t=null; try{t=st.target();}catch(e){}
+    if(!t){spot.style.display="none";return;}
+    var r=t.getBoundingClientRect(), card=q("#odm-card").getBoundingClientRect(), pad=6;
+    var top=Math.max(4,r.top-pad), left=Math.max(4,r.left-pad), w=Math.min(innerWidth-8-left,r.width+2*pad), h=Math.min(card.top-8-top,r.height+2*pad);
+    spot.style.display=h>20?"block":"none"; spot.style.top=top+"px"; spot.style.left=left+"px"; spot.style.width=Math.max(0,w)+"px"; spot.style.height=Math.max(0,h)+"px";
+  }
+  P.caption=function(){var st=P.cfg.stops[P.i];var c={text:"",values:[]};try{c=st.caption()||c;}catch(e){c={text:"",values:[],error:e.message};}return c;};
+  P.check=function(){ /* for checks: every figure in the caption must be on the lit part of the screen */
+    var st=P.cfg.stops[P.i], c=P.caption(), t=null; try{t=st.target();}catch(e){}
+    var hay=P.text(t)+" "+(st.alsoIn?P.text(st.alsoIn()):"");
+    return {stop:P.i+1,title:st.title,caption:c.text,values:c.values||[],missing:(c.values||[]).filter(function(v){return hay.indexOf(String(v))<0;}),target:!!t,error:c.error||""};
+  };
+  P.go=async function(i){
+    if(!P.on) return; var n=P.cfg.stops.length; if(i<0) i=0; if(i>=n){P.stop();return;}
+    P.i=i; var st=P.cfg.stops[i]; P.busy=true;
+    q("#odm-step").innerHTML=P.esc((P.cfg.name||"")+" · stop "+(i+1)+" of "+n)+(P.sampleMode()?' · <span class="odm-sim">SIMULATED DATA</span>':"");
+    q("#odm-title").textContent=st.title; q("#odm-cap").textContent="…"; q("#odm-so").textContent="";
+    try{await st.go();}catch(e){console.error(e);}
+    await wait(st.settle||450);
+    var t=null; try{t=st.target();}catch(e){}
+    if(t&&t.scrollIntoView){t.scrollIntoView({block:st.block||"start"}); window.scrollBy(0,-(P.cfg.topOffset||70));}
+    await wait(120);
+    var c=P.caption(); q("#odm-cap").textContent=c.text||""; var so=""; try{so=typeof st.sowhat==="function"?st.sowhat():st.sowhat;}catch(e){} q("#odm-so").textContent=so||"";
+    q("#odm-back").disabled=i===0; q("#odm-next").textContent=i===n-1?"Finish":"Next →";
+    place(); P.busy=false; P.state=P.check();
+  };
+  function key(e){
+    if(!P.on) return; var k=e.key;
+    if(e.target&&/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)&&k!=="Escape") return;
+    if(k==="ArrowRight"||k===" "||k==="PageDown"||k==="Enter"){e.preventDefault();e.stopPropagation();if(!P.busy)P.go(P.i+1);}
+    else if(k==="ArrowLeft"||k==="PageUp"||k==="Backspace"){e.preventDefault();e.stopPropagation();if(!P.busy)P.go(P.i-1);}
+    else if(k==="Escape"){e.preventDefault();P.stop();}
+    else if(/^[1-9]$/.test(k)){e.preventDefault();P.go(+k-1);}
+    else if(k==="b"||k==="B"){e.preventDefault();var c=q("#odm-card");c.style.visibility=c.style.visibility==="hidden"?"":"hidden";}
+    else if(k==="+"||k==="="){e.preventDefault();P.zoom(1);} else if(k==="-"||k==="_"){e.preventDefault();P.zoom(-1);}
+  }
+  function clock(){var s=Math.round((Date.now()-P.startedAt)/1000);var c=q("#odm-clock");if(c)c.textContent=Math.floor(s/60)+":"+String(s%60).padStart(2,"0");}
+  P.start=async function(){
+    if(P.on) return; ui(); P.on=true; P.startedAt=Date.now();
+    var root=document.documentElement; root.classList.add("odm-present");
+    var saved=1.12; try{saved=parseFloat(localStorage.getItem("odm_present_size"))||1.12;}catch(e){}
+    P.size=SIZES.indexOf(saved)>=0?saved:1.12; root.style.setProperty("--odm-zoom",String(P.size)); root.classList.toggle("odm-large",P.size>1);
+    try{P.cfg.onStart&&P.cfg.onStart();}catch(e){console.error(e);}
+    q("#odm-tour").style.display="block"; document.addEventListener("keydown",key,true);
+    window.addEventListener("resize",place); window.addEventListener("scroll",place,true);
+    P.timer=setInterval(function(){clock();place();},500);
+    await P.go(0);
+  };
+  P.stop=function(){
+    if(!P.on) return; P.on=false; clearInterval(P.timer);
+    document.removeEventListener("keydown",key,true); window.removeEventListener("resize",place); window.removeEventListener("scroll",place,true);
+    var o=q("#odm-tour"); if(o) o.style.display="none";
+    var root=document.documentElement; root.classList.remove("odm-present","odm-large"); root.style.removeProperty("--odm-zoom");
+    try{P.cfg.onStop&&P.cfg.onStop();}catch(e){console.error(e);}
+  };
+
+  /* ---------- simulated additions to the sample hospital (extras.json beside the sample files) ---------- */
+  P.extras=async function(){
+    try{var r=await fetch("../samples/"+P.cfg.sampleTool+"/extras.json");if(!r.ok)return null;return await r.json();}catch(e){return null;}
+  };
+  P.sampleFile=async function(name){
+    try{var r=await fetch("../samples/"+P.cfg.sampleTool+"/"+name);if(!r.ok)return null;return await r.text();}catch(e){return null;}
+  };
+
+  P.init=function(cfg){
+    P.cfg=cfg;
+    function boot(){
+      try{buttons();}catch(e){console.error(e);}
+      if(!P.sampleMode()) return;
+      stamp(); try{fixBar();}catch(e){console.error(e);}
+      (async function(){
+        var ok=await until(function(){return cfg.sampleLoaded();},180000);
+        if(ok&&cfg.afterSample&&!P.sampleExtrasDone){P.sampleExtrasDone=true;try{await cfg.afterSample();}catch(e){console.error("sample extras",e);}}
+        P.sampleReady=ok;
+        if(ok&&P.param("present")) P.start();
+      })();
+    }
+    if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",boot); else setTimeout(boot,0);
+  };
+})();
+
+/* ============ v3.12: sample hospital, presenter mode and small fixes (VigiWard) ============ */
+(function(){
+  var P=window.ODM_PRESENT; if(!P) return;
+  function A(k){return document.getElementById("arm-"+k);}
+  function txt(e){return P.text(e);}
+  function card(k,rx){return [...A(k).querySelectorAll(".card")].find(function(c){var h=c.querySelector("h2,h3");return h&&rx.test(txt(h));});}
+  function kpi(root,rx){var k=[...root.querySelectorAll(".kpi")].find(function(x){return rx.test(txt(x.querySelector(".l")||x));});return k?txt(k.querySelector(".v")):"";}
+
+  /* ---------- plain words first on the busiest screens (display only; codes and exports keep their names) ---------- */
+  var PLAIN={"Cascade":"Prescribing cascade","Stop/switch":"Stopped or switched","Cluster":"Reaction cluster"};
+  function plain(root){if(!root)return;var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null),n,L=[];while((n=w.nextNode()))L.push(n);
+    L.forEach(function(t){var s=t.nodeValue.trim();if(PLAIN[s]&&!(t.parentNode&&/^(OPTION|SELECT|TEXTAREA|SCRIPT|STYLE)$/.test(t.parentNode.tagName)))t.nodeValue=t.nodeValue.replace(s,PLAIN[s]);});}
+  var _pv=window.renderPV;
+  if(typeof _pv==="function") window.renderPV=function(){var r=_pv.apply(this,arguments);try{plain(A("pv"));var more=document.getElementById("odm-pv-more");if(more)more.onclick=function(){window.PV_CAP=(window.PV_CAP||50)+50;window.renderPV();};}catch(e){console.error(e);}return r;};
+
+  /* ---------- after "Drop every file here": straight to the Overview once detection has run ---------- */
+  var _hub=window.vwHubAll;
+  if(typeof _hub==="function") window.vwHubAll=async function(fl){var n=fl&&fl.length;var r=await _hub.apply(this,arguments);
+    try{if(DB.signals&&DB.signals.length&&document.getElementById("arm-hub").classList.contains("active")){go("overview");
+      var re=DB.signals.filter(function(x){return x.type!=="Premedication";}).length;toast(re.toLocaleString()+" suspected reactions found · the Hub lists where each of the "+n+" files went");}}catch(e){console.error(e);}return r;};
+
+  /* ---------- tour ---------- */
+  var stops=[
+    {title:"Pharmacovigilance from routine data",go:function(){go("overview");},
+     target:function(){return document.getElementById("ov-kpis");},
+     caption:function(){var k=document.getElementById("ov-kpis"),n=kpi(k,/^Suspected ADR signals/),s=kpi(k,/^Serious/),r=kpi(k,/^Reviewed/);
+       return {text:n+" suspected reactions found in the hospital's own dispensing, laboratory and deaths exports; "+s+" of them serious by ICH criteria. Reviewed so far: "+r+".",values:[n,s,r]};},
+     sowhat:"Ward pharmacovigilance without waiting for spontaneous reports."},
+    {title:"Which medicines, which organs",go:function(){go("overview");},
+     target:function(){return A("overview").querySelector(".grid.g2");},
+     caption:function(){var d=document.getElementById("ov-drugs"),o=document.getElementById("ov-soc");
+       var top=function(el){var t=txt(el.firstElementChild||el),m=/^(.*?)\s+([\d,]+)$/.exec(t);return m?[m[1],m[2]]:[t,""];};var a=top(d),b=top(o);
+       return {text:a[0]+" is implicated most often ("+a[1]+" signals); "+b[0].toLowerCase()+" are the commonest organ class ("+b[1]+").",values:[a[0],a[1],b[0],b[1]]};},
+     sowhat:"The facility's own safety picture, for its own prescribers."},
+    {title:"Who to review first",go:function(){go("watch");},
+     target:function(){return document.querySelector("#watch-body .card");},
+     caption:function(){var c=document.querySelector("#watch-body .card"),a=kpi(c,/Patients with at least one signal/),b=kpi(c,/On this watch-list/);
+       return {text:a+" patients have at least one signal; the watch-list starts with the "+b+" most likely to have a reaction, ranked by the evidence.",values:[a,b]};},
+     sowhat:"A busy pharmacist starts with a short list, not thousands of dispensings."},
+    {title:"Preventable harm: missed safety checks",go:function(){go("rxint");},
+     target:function(){return document.querySelector("#rxint-monitor .card");},
+     caption:function(){var c=document.querySelector("#rxint-monitor .card"),a=kpi(c,/Co-exposures needing a lab check/),b=kpi(c,/Recommended check performed/),best=null;
+       c.querySelectorAll(".bar-row").forEach(function(r){var l=r.querySelector(".lbl"),v=r.querySelector(".val"),m=/^([\d,]+) gaps/.exec(txt(v));if(l&&m&&(!best||+m[1].replace(/,/g,"")>best.n))best={l:txt(l),n:+m[1].replace(/,/g,""),v:txt(v),w:(l.firstChild&&l.firstChild.nodeValue||txt(l)).trim()};});
+       return {text:a+" risky combinations needed a laboratory check; the check was done for "+b+"."+(best?" Largest gap: "+best.w+", "+best.n+" missed checks.":""),values:[a,b].concat(best?[best.l+" "+best.v]:[])};},
+     sowhat:"Gaps the medicines committee can close."},
+    {title:"TB and HIV medicines: is monitoring happening?",go:function(){go("adsm");},
+     target:function(){return document.querySelector("#adsm-body .kpis");},
+     caption:function(){var k=document.querySelector("#adsm-body .kpis"),a=kpi(k,/aDSM cohort/),b=kpi(k,/On TB therapy/),c=kpi(k,/On antiretrovirals/);
+       return {text:a+" patients on TB or HIV medicines ("+b+" on TB treatment, "+c+" on antiretrovirals) are checked for their scheduled safety tests.",values:[a,b,c]};},
+     sowhat:"The active drug-safety monitoring (aDSM) WHO assumes is being done, checked."},
+    {title:"From flag to TMDA report",go:function(){go("indic");},
+     target:function(){return card("indic",/^Reporting funnel/);},
+     caption:function(){var c=card("indic",/^Reporting funnel/),R={};c.querySelectorAll(".bar-row").forEach(function(r){var l=r.querySelector(".lbl"),v=r.querySelector(".val");if(l&&v)R[txt(l)]={v:(txt(v).split(" ")[0]),full:txt(l)+" "+txt(v)};});
+       var pick=function(rx){var k=Object.keys(R).find(function(x){return rx.test(x);});return k?R[k]:null;};
+       var rv=pick(/^Reviewed/),cf=pick(/^Confirmed ADR$/),rp=pick(/TMDA/i);
+       return {text:"Of "+(pick(/^Signals/)||{v:"?"}).v+" suspected reactions, "+(rv?rv.v:"0")+" have been reviewed, "+(cf?cf.v:"0")+" confirmed and "+(rp?rp.v:"0")+" reported to TMDA. The funnel shows where reactions get lost.",
+         values:[pick(/^Signals/),rv,cf,rp].filter(Boolean).map(function(x){return x.full;})};},
+     sowhat:"Detection is half the job; the funnel shows the rest."},
+    {title:"How often each rule is right",go:function(){go("redcap");},settle:700,
+     target:function(){var t=[...A("redcap").querySelectorAll("table")].find(function(x){return /PPV|positive predictive/i.test(txt(x));});return t?(t.closest(".card")||t):null;},
+     caption:function(){var t=[...A("redcap").querySelectorAll("table")].find(function(x){return /PPV|positive predictive/i.test(txt(x));});if(!t)return {text:"Flags go to a REDCap case review; the confirmed share for each detection rule comes back here.",values:[]};
+       var rows=[...t.querySelectorAll("tr")].map(function(r){return [...r.children].map(function(c){return txt(c);});}),h=rows[0],tot=rows.find(function(r){return /^(All|Total)/i.test(r[0]);})||rows.at(-1);
+       var ip=h.findIndex(function(x){return /PPV|positive predictive/i.test(x);}),ir=h.findIndex(function(x){return /^Reviewed/i.test(x);}),ic=h.findIndex(function(x){return /^Confirmed/i.test(x);});
+       var ppv=ip>=0?tot[ip]:"",rev=ir>=0?tot[ir]:"",con=ic>=0?tot[ic]:"";
+       return {text:"Pharmacists reviewed "+rev+" flags in REDCap; "+con+" were real reactions: positive predictive value "+ppv+".",values:[rev,con,ppv].filter(Boolean)};},
+     sowhat:"Measured accuracy, not claimed accuracy."},
+    {title:"Minimum data: will the results stand?",go:function(){go("mindata");},
+     target:function(){return card("mindata",/^Check my data/);},
+     caption:function(){var t=txt(card("mindata",/^Check my data/)),m=/(\d+) ready · (\d+) limited · (\d+) not possible/.exec(t);
+       return m?{text:"Check my data: "+m[1]+" analyses ready, "+m[2]+" limited and "+m[3]+" not possible with the data loaded, each with the reason.",values:[m[0]]}:{text:"",values:[]};},
+     sowhat:"Users know before they start whether each analysis will stand."}
+  ];
+
+  /* ---------- simulated additions: pharmacists' decisions and a REDCap case review ---------- */
+  async function afterSample(){
+    var X=await P.extras(); if(!X) return;
+    var cur=(document.querySelector(".arm.active")||{}).id||"arm-overview";
+    if(X.triage){var n=0;Object.keys(X.triage).forEach(function(k){if(!DB.triage[k]){DB.triage[k]=X.triage[k];n++;}});}
+    if(X.reviews&&X.reviews.file){var csv=await P.sampleFile(X.reviews.file);
+      if(csv){var _t=window.toast;window.toast=function(){};try{vrcImportReviews(new File([csv],X.reviews.file,{type:"text/csv"}));await new Promise(function(r){setTimeout(r,800);});}finally{window.toast=_t;}}}
+    try{go(cur.replace(/^arm-/,""));}catch(e){}
+  }
+
+  P.init({tool:"vw",sampleTool:"vigiward",name:"VigiWard",
+    inDemo:function(){return DEMO;},
+    hasData:function(){return !!(DB.signals&&DB.signals.length);},
+    sampleLoaded:function(){return DEMO&&DB.signals&&DB.signals.length>0&&document.getElementById("arm-overview").classList.contains("active");},
+    afterSample:afterSample,
+    headerEl:function(){return document.querySelector(".suite-nav");},
+    placeBar:function(host,bar){bar.classList.add("odm-float");document.body.appendChild(bar);},
+    topOffset:70,
+    stops:stops,
+    onStart:function(){},onStop:function(){}
+  });
+})();
+
+</script>
+<style>
+#arm-mentry .ee-field{margin:0 0 10px}
+#arm-mentry .ee-field label{display:block;font-size:12.5px;color:var(--ink-faint);margin-bottom:3px}
+#arm-mentry .ee-field input[type=text],#arm-mentry .ee-field input[type=date],#arm-mentry .ee-field input[type=number],#arm-mentry .ee-field select,#arm-mentry .ee-field textarea{width:100%;max-width:420px;padding:6px 9px;border:1px solid var(--line);border-radius:7px;font-size:13.5px}
+#arm-mentry .ee-chk{display:inline-block;margin:2px 12px 2px 0;font-size:13px}
+#arm-mentry .ee-note{font-size:11.5px;color:var(--ink-faint);margin-top:2px}
+#arm-mentry .ee-req{color:#c23}
+</style>
+<script>
+/* ===== Manual entry & export (added on top of VigiWard 3.14) ===== */
+/* ---------- Manual entry & export: shared engine (v1) ----------
+   A single engine, used the same way by PPS Pro, AMS Pro and VigiWard, for manually entering records
+   against either (a) the tool's own form, shipped as a REDCap data dictionary, or (b) any REDCap data
+   dictionary CSV the user loads — then sending the entries to one or more destinations: a REDCap import
+   CSV, a plain CSV, a labelled Stata .dta file, or (when the loaded form is the tool's own) straight into
+   the tool's live data. Needs no network access and stores no REDCap token: loading a dictionary is just
+   reading a CSV file the user picked, the same way every other import in these tools works. */
+const EE=(function(){
+ function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+ function parseCsvRows(text){const rows=[];let row=[],field="",inQ=false;
+  for(let i=0;i<text.length;i++){const c=text[i];
+   if(inQ){if(c==='"'){if(text[i+1]==='"'){field+='"';i++}else inQ=false}else field+=c}
+   else{if(c==='"')inQ=true;else if(c===","){row.push(field);field=""}
+    else if(c==="\r"){}else if(c==="\n"){row.push(field);rows.push(row);row=[];field=""}else field+=c}}
+  if(field.length||row.length){row.push(field);rows.push(row)}
+  return rows.filter(r=>r.length>1||r[0]!=="")}
+ function csvCell(v){v=v==null?"":String(v);return /[",\r\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+ function toCsv(rows){return rows.map(r=>r.map(csvCell).join(",")).join("\r\n")}
+
+ const DICT_COLS=["Variable / Field Name","Form Name","Section Header","Field Type","Field Label",
+  "Choices, Calculations, OR Slider Labels","Field Note","Text Validation Type OR Show Slider Number",
+  "Text Validation Min","Text Validation Max","Identifier?","Branching Logic (Show field only if...)",
+  "Required Field?","Custom Alignment","Question Number (surveys only)","Matrix Group Name","Matrix Ranking?","Field Annotation"];
+
+ /* Parses a REDCap data dictionary CSV (the 18 standard columns) into a flat field list. Any dictionary
+    exported by REDCap's own "Download metadata" works; so does any of this project's own shipped ones. */
+ function parseDict(text){
+  const rows=parseCsvRows(text);if(!rows.length)return{fields:[],error:"Empty file."};
+  const hdr=rows[0].map(h=>h.trim());const idx=n=>hdr.indexOf(n);
+  const iVar=idx("Variable / Field Name"),iForm=idx("Form Name"),iType=idx("Field Type"),iLabel=idx("Field Label"),
+   iCh=idx("Choices, Calculations, OR Slider Labels"),iNote=idx("Field Note"),iValid=idx("Text Validation Type OR Show Slider Number"),
+   iMin=idx("Text Validation Min"),iMax=idx("Text Validation Max"),iBranch=idx("Branching Logic (Show field only if...)"),
+   iReq=idx("Required Field?"),iAnnot=idx("Field Annotation");
+  if(iVar<0||iType<0||iLabel<0)return{fields:[],error:"This doesn't look like a REDCap data dictionary (the field-name, field-type or field-label column is missing)."};
+  const fields=[];
+  for(let r=1;r<rows.length;r++){const row=rows[r];const varName=(row[iVar]||"").trim();if(!varName)continue;
+   const type=(row[iType]||"text").trim().toLowerCase();const choicesRaw=(row[iCh]||"").trim();let choices=null;
+   if(type==="radio"||type==="dropdown"||type==="checkbox"){
+    choices=choicesRaw.split("|").map(s=>s.trim()).filter(Boolean).map(pair=>{
+     const m=pair.match(/^([^,]+),\s*(.*)$/);return m?[m[1].trim(),m[2].trim()]:[pair,pair]})}
+   fields.push({var:varName,form:(row[iForm]||"").trim(),type,label:(row[iLabel]||varName).trim(),choices,
+    branch:(row[iBranch]||"").trim(),required:/^y/i.test(row[iReq]||""),note:(row[iNote]||"").trim(),
+    validation:(row[iValid]||"").trim().toLowerCase(),min:row[iMin]||"",max:row[iMax]||"",
+    readonly:/@READONLY/i.test(row[iAnnot]||"")})}
+  return{fields,error:null}}
+
+ /* Writes a field list back out as a REDCap data dictionary CSV (used when the tool's own form is shown
+    as a dictionary the user can take away and use to build a matching project in REDCap). */
+ function writeDict(fields){
+  const row=f=>{const out=new Array(18).fill("");out[0]=f.var;out[1]=f.form||"form_1";out[3]=f.type;out[4]=f.label;
+   if(f.choices)out[5]=f.choices.map(([c,l])=>c+", "+l).join(" | ");out[6]=f.note||"";
+   if(f.validation)out[7]=f.validation;out[8]=f.min||"";out[9]=f.max||"";out[11]=f.branch||"";out[12]=f.required?"y":"";
+   out[17]=f.readonly?"@READONLY":"";return out};
+  return toCsv([DICT_COLS,...fields.map(row)])}
+
+ /* [field]='x', [field]<>'x', [field(code)]='1' joined with and/or. Unparsed atoms fail OPEN (field stays
+    visible) rather than silently hiding data the user entered. */
+ function evalBranch(logic,values){
+  if(!logic)return true;
+  try{
+   return logic.split(/\band\b/i).every(part=>
+    part.split(/\bor\b/i).some(atomRaw=>{
+     const atom=atomRaw.trim().replace(/^\(+|\)+$/g,"");
+     const m=atom.match(/\[(\w+)(?:\((\w+)\))?\]\s*(<>|=)\s*'([^']*)'/);
+     if(!m)return true;
+     const[,fname,code,op,val]=m;let cur;
+     if(code!=null)cur=(values[fname+"___"+code]==="1")?code:"";
+     else cur=values[fname];
+     cur=cur==null?"":String(cur);
+     return op==="="?cur===val:cur!==val}))
+  }catch(e){return true}}
+
+ function visibleFields(fields,values){return fields.filter(f=>evalBranch(f.branch,values))}
+
+ /* Renders the fields that are currently visible into `container`, and — this is the fix for the branching
+    bug found during feasibility testing — clears the stored value of any field that just became hidden,
+    so a value typed before the parent answer changed is never left behind, in the screen or in an export. */
+ function renderForm(container,fields,values,onChange){
+  const vis=new Set(visibleFields(fields,values).map(f=>f.var));
+  fields.forEach(f=>{if(!vis.has(f.var)){
+   if(f.type==="checkbox")Object.keys(values).forEach(k=>{if(k.indexOf(f.var+"___")===0)delete values[k]});
+   else if(values[f.var]!=null)delete values[f.var]}});
+  let html="";
+  fields.forEach(f=>{if(!vis.has(f.var))return;const id="ee_f_"+f.var,dis=f.readonly?"disabled":"";
+   html+=`<div class="ee-field"><label for="${id}">${esc(f.label)}${f.required?' <span class="ee-req">*</span>':""}</label>`;
+   if(f.type==="radio"||f.type==="dropdown"){
+    html+=`<select id="${id}" ${dis}><option value="">—</option>`+
+     (f.choices||[]).map(([c,l])=>`<option value="${esc(c)}" ${values[f.var]===c?"selected":""}>${esc(l)}</option>`).join("")+"</select>"
+   }else if(f.type==="checkbox"){
+    html+=(f.choices||[]).map(([c,l])=>{const key=f.var+"___"+c,ck=values[key]==="1";
+     return`<label class="ee-chk"><input type="checkbox" data-var="${esc(key)}" ${ck?"checked":""} ${dis}> ${esc(l)}</label>`}).join(" ")
+   }else if(f.type==="notes"){
+    html+=`<textarea id="${id}" ${dis}>${esc(values[f.var]||"")}</textarea>`
+   }else{
+    const it=f.validation==="date_ymd"?"date":(f.validation==="number"||f.validation==="integer")?"number":"text";
+    html+=`<input id="${id}" type="${it}" value="${esc(values[f.var]||"")}" ${dis} ${f.min?`min="${esc(f.min)}"`:""} ${f.max?`max="${esc(f.max)}"`:""}>`}
+   if(f.note)html+=`<div class="ee-note">${esc(f.note)}</div>`;
+   html+="</div>"});
+  container.innerHTML=html||'<p class="ee-note">Nothing to show for this form yet.</p>';
+  container.querySelectorAll('[id^="ee_f_"]').forEach(el=>{
+   const varName=el.id.slice(5),fire=()=>{values[varName]=el.value;onChange&&onChange(varName)};
+   el.addEventListener("input",fire);el.addEventListener("change",fire)});
+  container.querySelectorAll("input[type=checkbox][data-var]").forEach(el=>{
+   el.addEventListener("change",()=>{values[el.dataset.var]=el.checked?"1":"0";onChange&&onChange(el.dataset.var)})})}
+
+ /* Pure-string version of renderForm, for pages built by returning an HTML string (as PPS Pro, AMS Pro and
+    VigiWard already do for every other page) rather than writing straight into the DOM. `setFn` is the name
+    of a page-global function called as setFn(varName,value) on every change; the caller re-renders the whole
+    page afterwards (as it already does for its own pages), which re-evaluates branching and, by rebuilding
+    this HTML from `values`, drops anything that just became hidden — the same clear-on-hide fix as renderForm. */
+ function fieldsHtml(fields,values,setFn){
+  const vis=new Set(visibleFields(fields,values).map(f=>f.var));
+  fields.forEach(f=>{if(!vis.has(f.var)){
+   if(f.type==="checkbox")Object.keys(values).forEach(k=>{if(k.indexOf(f.var+"___")===0)delete values[k]});
+   else if(values[f.var]!=null)delete values[f.var]}});
+  /* Fields the dictionary marks @READONLY (filled by the tool itself from other data, e.g. a flag
+     VigiWard already raised) aren't something to type into from a blank form, so they're left out of
+     manual entry entirely rather than shown disabled-and-empty; their column stays in every export. */
+  let html="";
+  fields.forEach(f=>{if(!vis.has(f.var)||f.readonly)return;const id="ee_f_"+f.var,dis="";
+   html+=`<div class="ee-field"><label for="${id}">${esc(f.label)}${f.required?' <span class="ee-req">*</span>':""}</label>`;
+   if(f.type==="radio"||f.type==="dropdown"){
+    html+=`<select id="${id}" ${dis} onchange="${setFn}('${f.var}',this.value)"><option value="">—</option>`+
+     (f.choices||[]).map(([c,l])=>`<option value="${esc(c)}" ${values[f.var]===c?"selected":""}>${esc(l)}</option>`).join("")+"</select>"
+   }else if(f.type==="checkbox"){
+    html+=(f.choices||[]).map(([c,l])=>{const key=f.var+"___"+c,ck=values[key]==="1";
+     return`<label class="ee-chk"><input type="checkbox" ${ck?"checked":""} ${dis} onchange="${setFn}('${esc(key)}',this.checked?'1':'0')"> ${esc(l)}</label>`}).join(" ")
+   }else if(f.type==="notes"){
+    html+=`<textarea id="${id}" ${dis} onchange="${setFn}('${f.var}',this.value)">${esc(values[f.var]||"")}</textarea>`
+   }else{
+    const it=f.validation==="date_ymd"?"date":(f.validation==="number"||f.validation==="integer")?"number":"text";
+    html+=`<input id="${id}" type="${it}" value="${esc(values[f.var]||"")}" ${dis} ${f.min?`min="${esc(f.min)}"`:""} ${f.max?`max="${esc(f.max)}"`:""} onchange="${setFn}('${f.var}',this.value)">`}
+   if(f.note)html+=`<div class="ee-note">${esc(f.note)}</div>`;
+   html+="</div>"});
+  return html||'<p class="ee-note">Nothing to show for this form yet.</p>'}
+
+ function redcapHeader(fields){const cols=[];
+  fields.forEach(f=>{if(f.type==="checkbox")(f.choices||[]).forEach(([c])=>cols.push(f.var+"___"+c));else cols.push(f.var)});
+  return cols}
+
+ function collectRow(fields,values){const row={};
+  fields.forEach(f=>{if(f.type==="checkbox")(f.choices||[]).forEach(([c])=>{row[f.var+"___"+c]=values[f.var+"___"+c]==="1"?"1":"0"});
+   else row[f.var]=values[f.var]!=null?values[f.var]:""});
+  return row}
+
+ function exportCsv(fields,rows,labelled){
+  const cols=redcapHeader(fields);
+  const header=labelled?fields.flatMap(f=>f.type==="checkbox"?(f.choices||[]).map(([c,l])=>f.label+": "+l):[f.label]):cols;
+  return toCsv([header,...rows.map(r=>cols.map(c=>r[c]!=null?r[c]:""))])}
+
+ /* Builds the column list dtaWrite() expects (string columns need a byte width `w`; anything not "str" or
+    "byte" is written as a double by dtaWrite, so a plain numeric field just omits `t`). */
+ function stataCols(fields,rows){
+  const enc=new TextEncoder(),cols=[];
+  fields.forEach(f=>{
+   if(f.type==="checkbox"){
+    (f.choices||[]).forEach(([c,l])=>{const key=f.var+"___"+c;
+     cols.push({name:key.slice(0,32),label:(f.label+": "+l).slice(0,80),t:"byte",vlab:"ee_noyes",
+      vals:rows.map(r=>r[key]==="1"?1:0)})})
+   }else if(f.type==="radio"||f.type==="dropdown"){
+    /* Use the dictionary's own numeric codes as the Stata codes when every choice code is already a
+       plain integer (REDCap's usual convention) so the .dta matches the REDCap export exactly; only
+       fall back to a made-up 1,2,3… code (noted in the value-label name) when a choice code isn't numeric. */
+    const allNumeric=(f.choices||[]).every(([c])=>/^-?\d+$/.test(c));
+    const codeMap={};(f.choices||[]).forEach(([c],i)=>{codeMap[c]=allNumeric?parseInt(c,10):i+1});
+    cols.push({name:f.var.slice(0,32),label:f.label.slice(0,80),t:"byte",vlab:"ee_"+f.var.slice(0,25),
+     vals:rows.map(r=>(r[f.var]&&codeMap[r[f.var]]!=null)?codeMap[r[f.var]]:null)})
+   }else if(f.validation==="number"||f.validation==="integer"){
+    cols.push({name:f.var.slice(0,32),label:f.label.slice(0,80),
+     vals:rows.map(r=>{const n=parseFloat(r[f.var]);return isFinite(n)?n:null})})
+   }else{
+    const vals=rows.map(r=>r[f.var]||"");
+    let w=1;vals.forEach(v=>{w=Math.max(w,enc.encode(v).length+1)});w=Math.min(w,244);
+    cols.push({name:f.var.slice(0,32),label:f.label.slice(0,80),t:"str",w,vals})}});
+  return cols}
+ function stataValueLabels(fields){
+  const vl=[{name:"ee_noyes",entries:[[0,"No"],[1,"Yes"]]}];
+  fields.forEach(f=>{if((f.type==="radio"||f.type==="dropdown")&&f.choices){
+   const allNumeric=f.choices.every(([c])=>/^-?\d+$/.test(c));
+   vl.push({name:"ee_"+f.var.slice(0,25),entries:f.choices.map(([c,l],i)=>[allNumeric?parseInt(c,10):i+1,l])})}});
+  return vl}
+
+ /* WHONET-style export: only offered when the field list includes the handful of isolate columns WHONET
+    needs (specimen date, ward, organism, antibiotic, result). Returns null — the destination is simply
+    not offered — when the loaded form doesn't shape isolate data, rather than guessing at a mapping. */
+ const WHONET_NEED=["specimen_date","ward","organism","antibiotic","result"];
+ function whonetShape(fields){const have=new Set(fields.map(f=>f.var));return WHONET_NEED.every(n=>have.has(n))}
+ function exportWhonet(rows){
+  const header=["Specimen Date","Department","Organism","Antibiotic","RIS"];
+  return toCsv([header,...rows.map(r=>[r.specimen_date||"",r.ward||"",r.organism||"",r.antibiotic||"",r.result||""])])}
+
+ return{esc,parseCsvRows,toCsv,csvCell,parseDict,writeDict,evalBranch,visibleFields,renderForm,fieldsHtml,redcapHeader,
+  collectRow,exportCsv,stataCols,stataValueLabels,whonetShape,exportWhonet,DICT_COLS}
+})();
+
+const VE_OWN_DICT = 'Variable / Field Name,Form Name,Section Header,Field Type,Field Label,"Choices, Calculations, OR Slider Labels",Field Note,Text Validation Type OR Show Slider Number,Text Validation Min,Text Validation Max,Identifier?,Branching Logic (Show field only if...),Required Field?,Custom Alignment,Question Number (surveys only),Matrix Group Name,Matrix Ranking?,Field Annotation\nrecord_id,adr_case_review,Flag from VigiWard,text,Flag ID (VigiWard),,Filled by VigiWard. The flag fields are read-only.,,,,,,,,,,,\npatient_code,adr_case_review,,text,Patient code (VigiWard study code),,"No name or hospital number is stored here. To find the chart, look the code up in VigiWard on the computer that holds the data.",,,,y,,,,,,,@READONLY\nward,adr_case_review,,text,Ward or department,,,,,,,,,,,,,@READONLY\nage_years,adr_case_review,,text,Age (years),,,number,0,130,,,,,,,,@READONLY\nsex,adr_case_review,,radio,Sex,"M, Male | F, Female",,,,,,,,,,,,@READONLY\nn_drugs,adr_case_review,,text,Number of different medicines dispensed,,,integer,0,,,,,,,,,@READONLY\ndetection_method,adr_case_review,,dropdown,Detection method,"LAB, Lab-supported | DDI, Drug interaction | CLUSTER, Cluster | CASCADE, Cascade | STOPSWITCH, Stop/switch",,,,,,,,,,,,@READONLY\nsignal_strength,adr_case_review,,dropdown,"Signal strength (the data pattern, not causality)","WEAK, Weak signal | MODERATE, Moderate signal | STRONG, Strong signal",,,,,,,,,,,,@READONLY\nvw_severity,adr_case_review,,dropdown,Expected severity of the reaction,"MILD, Mild | MODERATE, Moderate | SEVERE, Severe",,,,,,,,,,,,@READONLY\nvw_serious,adr_case_review,,radio,Serious reaction category (ICH E2A),"Y, Yes | N, No",,,,,,,,,,,,@READONLY\nrawlins,adr_case_review,,dropdown,Rawlins–Thompson reaction type,"A, Type A — Augmented (dose-related, predictable, pharmacological) | B, Type B — Bizarre (idiosyncratic / immunological, not dose-related) | C, Type C — Chronic (dose- and time-related, cumulative) | D, Type D — Delayed (appears long after exposure) | E, Type E — End-of-use (withdrawal / rebound) | F, Type F — Failure of expected therapeutic effect",,,,,,,,,,,,@READONLY\nsuspected_reaction,adr_case_review,,text,Suspected reaction,,,,,,,,,,,,,@READONLY\nsoc,adr_case_review,,text,MedDRA System Organ Class (descriptor),,,,,,,,,,,,,@READONLY\nsuspect_drug,adr_case_review,,text,Suspect medicine,,,,,,,,,,,,,@READONLY\ningredient,adr_case_review,,text,Suspect medicine (generic),,,,,,,,,,,,,@READONLY\nother_drug,adr_case_review,,text,Second medicine in the pattern,,"The rescue, marker or switch medicine that raised the flag",,,,,,,,,,,@READONLY\ndrug_date,adr_case_review,,text,Suspect medicine dispensed,,,date_ymd,,,y,,,,,,,@READONLY\nevent_date,adr_case_review,,text,Date of the suspected reaction,,The last date in the evidence,date_ymd,,,y,,,,,,,@READONLY\nlab_test,adr_case_review,,dropdown,Laboratory test,"CREA, Creatinine (µmol/L) | ALT, ALT (U/L) | AST, AST (U/L) | K, Potassium (mmol/L) | GLU, Glucose (mmol/L)",,,,,,[detection_method] = \'LAB\',,,,,,@READONLY\nlab_value,adr_case_review,,text,Laboratory value,,,number,,,,[detection_method] = \'LAB\',,,,,,@READONLY\ndied_within_window,adr_case_review,,radio,Patient died within the outcome window,"Y, Yes | N, No","A link in time only, never evidence of cause",,,,,,,,,,,@READONLY\ndeath_date,adr_case_review,,text,Date of death,,,date_ymd,,,y,[died_within_window] = \'Y\',,,,,,@READONLY\nevidence,adr_case_review,,notes,VigiWard evidence,,,,,,,,,,,,,@READONLY\nreview_date,adr_case_review,Case review,text,Review date,,,date_ymd,,,,,,,,,,\nreviewer,adr_case_review,,text,Reviewer initials,,Initials only,,,,,,,,,,,\nadr_confirmed,adr_case_review,,radio,"Is this an adverse drug reaction, on chart review?","Y, Yes | N, No | U, Unsure",,,,,,,,,,,,\nwho_umc,adr_case_review,,radio,WHO-UMC causality,"CERTAIN, Certain | PROBABLE, Probable/Likely | POSSIBLE, Possible | UNLIKELY, Unlikely | CONDITIONAL, Conditional/Unclassified | UNASSESSABLE, Unassessable/Unclassifiable",,,,,,[adr_confirmed] <> \'\',,,,,,\nnaranjo_q1,adr_case_review,Naranjo algorithm,radio,1. Previous conclusive reports on this reaction?,"Y, Yes | N, No | DK, Don\'t know",VigiWard adds up the score when the reviews come back,,,,,[adr_confirmed] <> \'\',,,,,,\nnaranjo_q2,adr_case_review,,radio,2. Did the reaction appear after the suspected drug?,"Y, Yes | N, No | DK, Don\'t know",,,,,,[adr_confirmed] <> \'\',,,,,,\nnaranjo_q3,adr_case_review,,radio,3. Improve when drug stopped / antagonist given?,"Y, Yes | N, No | DK, Don\'t know",,,,,,[adr_confirmed] <> \'\',,,,,,\nnaranjo_q4,adr_case_review,,radio,4. Reappear when re-administered?,"Y, Yes | N, No | DK, Don\'t know",,,,,,[adr_confirmed] <> \'\',,,,,,\nnaranjo_q5,adr_case_review,,radio,5. Alternative causes that could explain it?,"Y, Yes | N, No | DK, Don\'t know",,,,,,[adr_confirmed] <> \'\',,,,,,\nnaranjo_q6,adr_case_review,,radio,6. Reappear with placebo?,"Y, Yes | N, No | DK, Don\'t know",,,,,,[adr_confirmed] <> \'\',,,,,,\nnaranjo_q7,adr_case_review,,radio,7. Drug detected in blood at toxic level?,"Y, Yes | N, No | DK, Don\'t know",,,,,,[adr_confirmed] <> \'\',,,,,,\nnaranjo_q8,adr_case_review,,radio,8. More severe with higher dose / less with lower?,"Y, Yes | N, No | DK, Don\'t know",,,,,,[adr_confirmed] <> \'\',,,,,,\nnaranjo_q9,adr_case_review,,radio,9. Similar reaction to same/similar drug before?,"Y, Yes | N, No | DK, Don\'t know",,,,,,[adr_confirmed] <> \'\',,,,,,\nnaranjo_q10,adr_case_review,,radio,10. Confirmed by any objective evidence?,"Y, Yes | N, No | DK, Don\'t know",,,,,,[adr_confirmed] <> \'\',,,,,,\nseriousness,adr_case_review,Seriousness and outcome,checkbox,Seriousness,"DEATH, Results in death | LIFE, Life-threatening | HOSP, Hospitalisation, initial or prolonged | DISAB, Persistent or significant disability or incapacity | CONGEN, Congenital anomaly or birth defect | OTHER, Other medically important condition | NOT_SERIOUS, Not serious",,,,,,[adr_confirmed] = \'Y\' or [adr_confirmed] = \'U\',,,,,,\noutcome,adr_case_review,,radio,Outcome,"RECOVERED, Recovered/resolved | SEQUELAE, Recovered with sequelae | NOT_RECOVERED, Not recovered | DIED, Died | UNKNOWN, Unknown",,,,,,[adr_confirmed] = \'Y\' or [adr_confirmed] = \'U\',,,,,,\naction_taken,adr_case_review,,radio,Action taken with the suspect medicine,"DISCONTINUED, Medicine stopped (regimen discontinued) | DOSE_ADJUSTED, Dose adjusted | CHANGED, Regimen changed | UNKNOWN, Unknown | CONTINUED, Continued unchanged | OTHER, Other",,,,,,[adr_confirmed] = \'Y\' or [adr_confirmed] = \'U\',,,,,,\nreported_tmda,adr_case_review,Reporting,radio,Reported to TMDA,"Y, Yes | N, No",,,,,,[adr_confirmed] = \'Y\',,,,,,\ntmda_report_no,adr_case_review,,text,TMDA report number,,,,,,,[reported_tmda] = \'Y\',,,,,,\nreview_notes,adr_case_review,,notes,Notes,,No names or hospital numbers,,,,,,,,,,,\n';
+let VE={source:"own",fields:[],values:{},rows:[],err:null};
+function veInit(){ if(VE.source==="own" && !VE.fields.length) VE.fields=EE.parseDict(VE_OWN_DICT).fields; }
+function veSetSource(src){
+ const had=VE.rows.length;
+ VE.source=src; VE.values={}; VE.err=null; VE.rows=[];
+ VE.fields = src==="own" ? EE.parseDict(VE_OWN_DICT).fields : [];
+ renderMentry();
+ if(had) toast("Switched form \u2014 "+had+" record(s) from the other form were cleared (export them first next time)"); }
+function veLoadDict(file){ if(!file) return;
+ const had=VE.rows.length; const rd=new FileReader();
+ rd.onload=()=>{ const {fields,error}=EE.parseDict(String(rd.result));
+  if(error){ VE.err=error; VE.fields=[]; } else { VE.err=null; VE.fields=fields; VE.values={}; }
+  VE.rows=[]; renderMentry();
+  if(had) toast("Loaded a new dictionary \u2014 "+had+" record(s) were cleared"); };
+ rd.readAsText(file); }
+function veSetVal(k,v){ VE.values[k]=v; renderMentry(); }
+function veAddRow(){ if(!VE.fields.length) return; const row=EE.collectRow(VE.fields,VE.values); VE.rows.push(row); VE.values={}; renderMentry(); toast("Record added ("+VE.rows.length+" so far)"); }
+function veDeleteRow(i){ VE.rows.splice(i,1); renderMentry(); }
+function veDl(name,content,mime){ const blob=content instanceof Uint8Array?new Blob([content],{type:mime}):new Blob([content],{type:mime});
+ const url=URL.createObjectURL(blob); const a=document.createElement("a"); a.href=url; a.download=name; document.body.appendChild(a); a.click();
+ setTimeout(()=>{ document.body.removeChild(a); URL.revokeObjectURL(url); },1000); }
+function veExport(){
+ if(!VE.rows.length) return;
+ const stamp=(new Date()).toISOString().slice(0,10);
+ if(document.getElementById("veDestCsv")&&document.getElementById("veDestCsv").checked) veDl("VigiWard_manual_entry_"+stamp+".csv", EE.exportCsv(VE.fields,VE.rows,false), "text/csv");
+ if(document.getElementById("veDestRc")&&document.getElementById("veDestRc").checked) veDl("VigiWard_manual_entry_REDCap_"+stamp+".csv", EE.exportCsv(VE.fields,VE.rows,false), "text/csv");
+ if(document.getElementById("veDestDta")&&document.getElementById("veDestDta").checked){ const cols=EE.stataCols(VE.fields,VE.rows), vl=EE.stataValueLabels(VE.fields);
+  const bytes=dtaWrite(cols,vl,"VigiWard manual entry",[["_dta","note0","1"],["_dta","note1","Written by VigiWard on "+stStamp()]]);
+  veDl("VigiWard_manual_entry_"+stamp+".dta", bytes, "application/x-stata-dta"); }
+ const wn=document.getElementById("veDestWn"); if(wn&&wn.checked) veDl("VigiWard_manual_entry_WHONET_"+stamp+".csv", EE.exportWhonet(VE.rows), "text/csv");
+ toast("Exported "+VE.rows.length+" record(s)");
+}
+/* Own-form "send to analysis": the REDCap import CSV built here is byte-for-byte the shape
+   vrcImportReviews() already reads back from a real REDCap export, so handing it the same shape
+   in-memory brings the manually-entered reviews into VigiWard's case-review list the same way a
+   REDCap export brought back from the field already does — no separate code path to trust. */
+function veSendToAnalysis(){
+ if(VE.source!=="own"||!VE.rows.length) return;
+ if(typeof vrcImportReviews!=="function"){ toast("Open REDCap & Stata once first, then come back here."); return; }
+ const csv=EE.exportCsv(VE.fields,VE.rows,false);
+ const file=new File([csv],"VigiWard_manual_reviews.csv",{type:"text/csv"});
+ const n=VE.rows.length;
+ VE.rows=[]; renderMentry();
+ vrcImportReviews(file);
+ toast(n+" record(s) sent to case review");
+}
+function renderMentry(){
+ veInit();
+ const f=VE.fields, v=VE.values, hdr=EE.redcapHeader(f);
+ const formHtml = f.length ? EE.fieldsHtml(f,v,"veSetVal") : (VE.source==="custom"?"<p class=\"muted\">Load a REDCap data dictionary CSV above to see its form.</p>":"");
+ const canWhonet = EE.whonetShape(f);
+ const shownCols = hdr.slice(0,6);
+ const rowsHtml = VE.rows.length? ("<table class=\"tbl\"><thead><tr>"+shownCols.map(c=>"<th>"+EE.esc(c)+"</th>").join("")+(hdr.length>6?"<th>\u2026</th>":"")+"<th></th></tr></thead><tbody>"+
+  VE.rows.map((r,i)=>"<tr>"+shownCols.map(c=>"<td>"+EE.esc(r[c]||"")+"</td>").join("")+(hdr.length>6?"<td>\u2026</td>":"")+"<td><button class=\"arm-btn\" onclick=\"veDeleteRow("+i+")\">Remove</button></td></tr>").join("")+"</tbody></table>") : "<p class=\"muted\">No entries yet.</p>";
+ document.getElementById("arm-mentry").innerHTML =
+ "<div class=\"page-head\"><div class=\"eyebrow\">Manual entry &amp; export</div><h1>Your choice of form, your choice of destination</h1>"+
+ "<p>Fill in either VigiWard's own case-review form (the same fields its REDCap case review already uses) or any REDCap project's own data dictionary you load below. Add as many records as you like, then send them to a plain CSV, REDCap, Stata and/or &mdash; when using VigiWard's own form &mdash; straight into case review. Nothing here is sent anywhere; every file is made on this computer.</p></div>"+
+ "<div class=\"card\"><h3>1. Choose the form</h3>"+
+ "<label><input type=\"radio\" name=\"veSrc\" "+(VE.source==="own"?"checked":"")+" onchange=\"veSetSource('own')\"> VigiWard's own form (case review)</label><br>"+
+ "<label><input type=\"radio\" name=\"veSrc\" "+(VE.source==="custom"?"checked":"")+" onchange=\"veSetSource('custom')\"> A REDCap data dictionary I load</label>"+
+ (VE.source==="custom"?("<div style=\"margin-top:8px\"><input type=\"file\" accept=\".csv\" onchange=\"veLoadDict(this.files[0])\"></div>"+(VE.err?("<div class=\"ee-note\" style=\"color:#c23\">"+EE.esc(VE.err)+"</div>"):"")+(f.length?("<div class=\"muted\" style=\"margin-top:4px\">"+f.length+" field(s) loaded.</div>"):"")) : "")+
+ "</div>"+
+ "<div class=\"card\"><h3>2. Fill in a record</h3><div id=\"veForm\">"+formHtml+"</div>"+
+ "<div class=\"row\" style=\"margin-top:10px\"><button class=\"arm-btn active\" onclick=\"veAddRow()\" "+(f.length?"":"disabled")+">Add this record</button></div></div>"+
+ "<div class=\"card\"><h3>Entries so far ("+VE.rows.length+")</h3>"+rowsHtml+"</div>"+
+ "<div class=\"card\"><h3>3. Send to</h3>"+
+ "<label><input type=\"checkbox\" id=\"veDestCsv\" checked> Plain CSV</label>"+
+ "<label style=\"margin-left:14px\"><input type=\"checkbox\" id=\"veDestRc\"> REDCap import CSV</label>"+
+ "<label style=\"margin-left:14px\"><input type=\"checkbox\" id=\"veDestDta\"> Stata (.dta)</label>"+
+ (canWhonet?("<label style=\"margin-left:14px\"><input type=\"checkbox\" id=\"veDestWn\"> WHONET</label>"):"")+
+ "<div class=\"row\" style=\"margin-top:10px\"><button class=\"arm-btn active\" onclick=\"veExport()\" "+(VE.rows.length?"":"disabled")+">Export selected</button>"+
+ (VE.source==="own"?("<button class=\"arm-btn\" onclick=\"veSendToAnalysis()\" "+(VE.rows.length?"":"disabled")+" style=\"margin-left:8px\">Send these "+VE.rows.length+" record(s) to case review</button>"):"")+
+ "</div></div>";
+}
 </script>
 </body>
 </html>
