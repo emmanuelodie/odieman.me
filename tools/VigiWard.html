@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   ============================================================================
-  VigiWard — Hospital Pharmacovigilance · v3.1 (Active PV / Signal Detection)
+  VigiWard — Hospital Pharmacovigilance · v3.14 (Active PV / Signal Detection)
   © 2024–2026 Odindo Emmanuel Thomas. All rights reserved.
   Sole author & developer: Odindo Emmanuel Thomas · Tanga RRH, Tanzania
   emmanuelodie94@gmail.com · "VigiWard" is an unregistered trademark (™) of the author.
@@ -853,6 +853,10 @@ html.odm-present .suite-nav .arm-btn,html.odm-present .suite-nav .navgrp,html.od
     </div>
   </div>
 
+  <div class="card" id="g-new314"><h2>What's new in v3.13 and v3.14 (November 2026)</h2><ul>
+    <li><b>Manual entry</b> (Report menu, beside REDCap &amp; Stata; v3.13): fill in VigiWard's own case-review form, or load any REDCap project's data dictionary and fill in that form, with its branching logic. Send the entries to a plain CSV, a REDCap import CSV, a labelled Stata file (.dta), WHONET format (only where the form has isolate columns) and/or, with VigiWard's own form, straight into case review. Every file is made on this computer.</li>
+    <li><b>Decision brief</b> (beside Minimum data; v3.14): one printable page for the committee: suspected reactions, serious ones (ICH criteria), how many are reviewed and confirmed, exactly as VigiWard counts them, whether the data meet the bar on <b>Minimum data</b>, a few plain-language lines on what it means, and a question for the committee to decide, never an instruction. <b>Print / Save as PDF</b> uses the browser's own print dialog.</li>
+    <li><b>The exact 95% value</b>: 95% intervals now use z = 1.959963984540054 instead of a rounded 1.96. No figure on screen changes at the precision shown, and Stata's own commands now match VigiWard exactly.</li></ul></div>
   <div class="card" id="g-new312"><h2>What's new in v3.12 (November 2026)</h2><ul>
     <li><b>Sample hospital</b> (bottom-right corner): opens VigiWard on 33 months of a simulated hospital, in memory only, with or without internet, including simulated pharmacist reviews and a REDCap case review. Your own data is not touched; <b>Leave sample hospital</b> goes back to it.</li>
     <li><b>Present</b>: an eight-stop guided tour with large text; every figure it says is read from the screen it shows. Keys: → next, ← back, Esc stop.</li>
@@ -903,6 +907,9 @@ html.odm-present .suite-nav .arm-btn,html.odm-present .suite-nav .navgrp,html.od
       <tr><td>Report</td><td>The facility pharmacovigilance bulletin for the DTC/AMS committee — rates with 95% intervals, monitoring gaps, concordance, aDSM, action list.</td><td>Generate, then download as an editable document.</td><td><button class="btn sm ghost" onclick="go('report')">Open →</button></td></tr>
       <tr><td>Authorship</td><td>Drafts an abstract or manuscript from a group of findings in the matching reporting standard.</td><td>Square-bracketed text is for you to complete; check every statement.</td><td><button class="btn sm ghost" onclick="go('auth')">Open →</button></td></tr>
       <tr><td>REDCap &amp; Stata</td><td>Sends chosen flags to REDCap as an ADR case-review form, brings the completed reviews back and shows how often each detection method is right; writes a labelled Stata file of the flags and reviews.</td><td>Review a random sample of each method to measure VigiWard's accuracy at your facility before quoting it.</td><td><button class="btn sm ghost" onclick="go('redcap')">Open →</button></td></tr>
+      <tr><td>Manual entry</td><td>VigiWard's own case-review form, or any REDCap project's form loaded from its data dictionary, with its branching logic.</td><td>Send the entries to a plain CSV, a REDCap import CSV, a labelled Stata file (.dta) or, with VigiWard's own form, straight into case review. Nothing is sent anywhere.</td><td><button class="btn sm ghost" onclick="go('mentry')">Open →</button></td></tr>
+      <tr><td>Decision brief</td><td>One printable page: suspected reactions, serious ones, how many are reviewed and confirmed, whether the data meet the minimum, what it means in plain words, and a question for the committee to decide.</td><td>Print / Save as PDF for the committee meeting. It is based on the data loaded now.</td><td><button class="btn sm ghost" onclick="go('brief')">Open →</button></td></tr>
+      <tr><td>Minimum data</td><td>What VigiWard needs for each analysis, every heading the importer recognises, blank templates, and <b>Check my data</b>.</td><td>Check my data marks each analysis ready, limited or not possible with the data loaded; the committee report's <i>Method &amp; limitations</i> ends with the same check.</td><td><button class="btn sm ghost" onclick="go('mindata')">Open →</button></td></tr>
     </tbody></table>
   </div>
 
@@ -918,7 +925,7 @@ html.odm-present .suite-nav .arm-btn,html.odm-present .suite-nav .navgrp,html.od
   </div>
 
   <div class="card" id="g-sample"><h2>5. Practise with the sample data</h2>
-    <p class="sub">The <b>Sample_Data › VigiWard</b> folder holds 33 months (January 2024 – September 2026) of simulated data for the fictional “Demo Regional Referral Hospital” — the same hospital as the AMS Pro and PPS Pro samples, and the same ward patients as the AMS Pro files. It is <b>not real patient data</b>.</p>
+    <p class="sub">This live demo already runs on the sample hospital, in memory only: nothing you do here is saved. The <b>Sample_Data › VigiWard</b> folder holds 33 months (January 2024 – September 2026) of simulated data for the fictional “Demo Regional Referral Hospital” — the same hospital as the AMS Pro and PPS Pro samples, and the same ward patients as the AMS Pro files. It is <b>not real patient data</b>.</p>
     <ol>
       <li>Hub › open a data folder.</li>
       <li>Import <code>VigiWard_Pharmacy_Dispensing_2024-2026.csv</code> (about 41,000 lines from the wards, the NCD clinic and the CTC/TB clinic), then <code>VigiWard_Lab_Results_2024-2026.csv</code> and <code>VigiWard_Deaths_Register_2024-2026.csv</code>.</li>
@@ -5285,7 +5292,7 @@ function vbRender(){const el=document.getElementById('arm-brief');if(!el)return;
  el.innerHTML=`<div class="card noprint"><button class="btn" onclick="window.print()">Print / Save as PDF</button></div>
  <div class="card" id="briefBody" style="max-width:190mm;margin:0 auto">
  <div class="page-head"><div class="eyebrow">Decision brief</div><h1>Pharmacovigilance</h1></div>
- <p class="sub" style="margin-top:0">Prepared by Odindo Emmanuel Thomas · ${new Date().toLocaleDateString()}</p>
+ <p class="sub" style="margin-top:0">${(()=>{const a=((document.getElementById('rep-author')||{}).value||'').trim();return a?'Prepared by '+esc(a)+' · ':''})()}${new Date().toLocaleDateString()}</p>
  <div class="row" style="gap:10px;margin:10px 0;flex-wrap:wrap">${[["Suspected ADR signals",susp.length],["Serious (ICH)",serious],["Reviewed",`${reviewed} / ${susp.length}`],["Confirmed ADRs",confirmed]].map(([l,v])=>`<div class="card" style="flex:1;min-width:110px;text-align:center;padding:8px"><div style="font-size:20px;font-weight:700">${v}</div><div class="sub" style="font-size:11px">${l}</div></div>`).join("")}</div>
  <h2 style="margin-bottom:4px">What this means</h2>
  ${lines.map(x=>`<p style="margin:4px 0">• ${x}</p>`).join("")}
@@ -5682,7 +5689,7 @@ async function runVwDemo(){
     const rd=await get('Readings');CARDIO.ingestReadings({target:{files:[new File([rd.buf],rd.n,{type:'text/csv'})]}});
     const t0=Date.now();while(!DB.signals.length&&Date.now()-t0<90000)await new Promise(r=>setTimeout(r,400));
     {const want=new URLSearchParams(location.search).get('view');go(want&&document.getElementById('arm-'+want)?want:'overview');}toast(DB.signals.filter(x=>x.type!=='Premedication').length.toLocaleString()+' suspected reactions found in the sample data'+(DB.signals.some(x=>x.type==='Premedication')?' (and '+DB.signals.filter(x=>x.type==='Premedication').length+' premedication patterns)':''));
-  }catch(e){console.error(e);go('guide');toast('The sample data could not be loaded. The live demo works when opened from the website; offline, use the Sample_Data folder from the download.')}
+  }catch(e){console.error(e);go('guide');toast('The sample data could not be loaded. The live demo works when opened from the website; check the internet connection and reload the page.')}
 }
 if(DEMO)runVwDemo();else vwfStartup();
 
@@ -5943,7 +5950,7 @@ if(DEMO)runVwDemo();else vwfStartup();
 #arm-mentry .ee-req{color:#c23}
 </style>
 <script>
-/* ===== Manual entry & export (added on top of VigiWard 3.14) ===== */
+/* ===== Manual entry & export (added on top of VigiWard 3.12) ===== */
 /* ---------- Manual entry & export: shared engine (v1) ----------
    A single engine, used the same way by PPS Pro, AMS Pro and VigiWard, for manually entering records
    against either (a) the tool's own form, shipped as a REDCap data dictionary, or (b) any REDCap data

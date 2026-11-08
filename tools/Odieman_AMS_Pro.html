@@ -30249,6 +30249,8 @@ function renderGuide(){
   ${sec("modules","3. What each module shows",`
     <div class="tablewrap"><table><thead><tr><th>Module</th><th>What it shows</th><th>How to read / use it</th><th></th></tr></thead><tbody>
       ${mod("mindata","Minimum Data","What each file and analysis needs, every heading the importer recognises, blank templates, and Check my data: a live check of the data loaded now.","Run Check my data before a report: each analysis is Ready, Limited (with the reason) or Not possible (with what to add). The reports print the same check under Challenges &amp; Data Gaps.")}
+      ${mod("brief","Decision brief","One printable page for the AMS committee: the headline figures exactly as the tool shows them (dispensing lines, Access, Watch and Reserve shares), whether the data meet the minimum, what it means in plain words, and a question for the committee to decide, never an instruction.","Print / Save as PDF from the browser&rsquo;s own print dialog. It is based on the data loaded now; see Minimum Data for what it does not cover.")}
+      ${mod("mentry","Manual entry (any form)","Fill in AMS Pro&rsquo;s own pharmacy-dispensing form, or load any REDCap project&rsquo;s data dictionary and fill in that form, with its branching logic.","Send the entries to a plain CSV, a REDCap import CSV, a labelled Stata file, a WHONET-ready file where the form has culture results, and/or (with AMS Pro&rsquo;s own form) straight into Data Entry. Nothing is sent anywhere.")}
       ${mod("dash","Dashboard","Headline figures: patients on antibiotics, AWaRe Access/Watch/Reserve, DDD and DOT per 1,000 patient-days, WHO vs Tanzania classification side by side, lab activity.","Start here every time. Access below 60&ndash;70% and DDD/DOT trends are the key stewardship signals.")}
       ${mod("patients","Patients","One line per patient joined across pharmacy, lab, admissions and procedures.","Look up a patient's full antibiotic exposure, cultures and stay in one place.")}
       ${mod("prescriptions","Prescriptions","Every dispensing line with matched generic, AWaRe class, route, days and DDD.","Check how an item name was matched; spot unrecognised or unusual lines.")}
@@ -30276,7 +30278,7 @@ function renderGuide(){
     </tbody></table></div>`)}
 
   ${sec("sample","4. Practise with the sample data",`
-    <div class="sub">The <b>Sample_Data &rsaquo; AMS_Pro</b> folder holds 33 months (January 2024 &ndash; September 2026) of simulated data for a fictional hospital, &ldquo;Demo Regional Referral Hospital&rdquo; &mdash; about 5,200 admissions, 18,400 dispensing lines, 5,500 lab results and 420 culture results. The same patients appear in every AMS Pro file (and in the VigiWard sample); the same hospital and wards appear in the PPS Pro sample. It is <b>not real patient data</b>.</div>
+    <div class="sub">This live demo already runs on the sample hospital, in memory only: nothing you do here is saved. The <b>Sample_Data &rsaquo; AMS_Pro</b> folder holds 33 months (January 2024 &ndash; September 2026) of simulated data for a fictional hospital, &ldquo;Demo Regional Referral Hospital&rdquo; &mdash; about 5,200 admissions, 18,400 dispensing lines, 5,500 lab results and 420 culture results. The same patients appear in every AMS Pro file (and in the VigiWard sample); the same hospital and wards appear in the PPS Pro sample. It is <b>not real patient data</b>.</div>
     <ol style="line-height:1.7;padding-left:20px">
       <li>Open a data folder first (Setup &rsaquo; Data folder) &mdash; three years of data is about 14&nbsp;MB.</li>
       <li>Export &rsaquo; <i>Erase all data</i> to start clean (a safety copy is kept in the folder).</li>
@@ -30567,7 +30569,7 @@ async function runAmsDemo(){
     DB.facility.name="Demo Regional Referral Hospital"; compileReport(); try{ demoProjects(); }catch(e){ console.error(e); } buildNav();
     { const want=new URLSearchParams(location.search).get("view"); go(want&&VIEWS.some(([k])=>k===want)?want:"dash"); }
     demoProgress(null); toast("Sample data loaded &mdash; explore any page in the menu");
-  }catch(e){ if(e&&e.message==="demo-samples-missing") console.warn("Live demo: the sample data folder is not next to this file. The demo loads it when opened from the website."); else console.error(e); demoProgress(null); go("guide"); toast("The sample data could not be loaded. The live demo works when opened from the website; offline, use the Sample_Data folder that comes with the download."); }
+  }catch(e){ if(e&&e.message==="demo-samples-missing") console.warn("Live demo: the sample data folder is not next to this file. The demo loads it when opened from the website."); else console.error(e); demoProgress(null); go("guide"); toast("The sample data could not be loaded. The live demo works when opened from the website; check the internet connection and reload the page."); }
 }
 /* ============================= Odieman reference-list updates (v1) =============================
    AWaRe groups, ATC codes and WHO DDDs can be updated without a new copy of the tool: "Check for
@@ -33340,7 +33342,7 @@ function renderBrief(){const el=$("#v-brief");if(!el)return;
   el.innerHTML=`<div class="panel noprint"><button class="btn" onclick="window.print()">Print / Save as PDF</button></div>
    <div class="panel" id="briefBody" style="max-width:190mm;margin:0 auto">
     <h2 style="margin-bottom:2px">Decision brief &mdash; Antimicrobial Stewardship</h2>
-    <div class="sub" style="margin-top:0">${esc(f.name||"Facility")} · ${esc(f.period||"period not set")} · Prepared by Odindo Emmanuel Thomas · ${new Date().toLocaleDateString()}</div>
+    <div class="sub" style="margin-top:0">${esc(f.name||"Facility")} · ${esc(f.period||"period not set")} · ${f.preparedBy?"Prepared by "+esc(f.preparedBy)+" · ":""}${new Date().toLocaleDateString()}</div>
     <div class="row" style="gap:10px;margin:10px 0;flex-wrap:wrap">${[["Dispensing lines",m.cumulativeRx?m.cumulativeRx.toLocaleString():"–"],["Access share",pct1(m.awareAccess)],["Watch share",pct1(m.awareWatch)],["Reserve share",pct1(m.awareReserve)]].map(([l,v])=>`<div class="panel" style="flex:1;min-width:110px;text-align:center;padding:8px"><div style="font-size:20px;font-weight:700">${v}</div><div class="sub" style="font-size:11px">${l}</div></div>`).join("")}</div>
     <h3 style="margin-bottom:4px">What this means</h3>
     ${lines.map(x=>`<p style="margin:4px 0">• ${x}</p>`).join("")}

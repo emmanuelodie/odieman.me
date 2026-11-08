@@ -1301,6 +1301,10 @@ function vGuide(){
  <div id="gd">
  <div class="card section"><h3>Odieman PPS Pro — User Guide</h3><p>PPS Pro records and analyses WHO point prevalence surveys (PPS) of antimicrobial use: on one day, every inpatient on a ward is checked for antimicrobials, and the results are compared ward by ward and survey by survey. Repeating the survey every 6–12 months shows whether stewardship is working. Everything runs offline on this computer.</p>
  <div class="row">${toc.map(([id,t])=>`<button class="btn small ghost" data-scroll="${id}">${t}</button>`).join("")}</div></div>
+ <div class="card section"><h3>What's new in v3.8 and v3.9 (November 2026)</h3><ul>
+  <li><b>Manual entry (any form)</b> (Output menu, v3.8): fill in PPS Pro's own form, or load any REDCap project's data dictionary and fill in that project's form instead, with its branching logic. Send the entries to a plain CSV, a REDCap import CSV, a labelled Stata file (.dta), WHONET format (only where the form has isolate columns) and/or, with PPS Pro's own form, straight into PPS Pro's surveys. Every file is made on this computer.</li>
+  <li><b>Decision brief</b> (Start menu, v3.9): one printable page for a committee that will not read the full report: what was measured, the latest survey's headline figures exactly as PPS Pro shows them (nothing recomputed), whether the data meet the bar on <b>Minimum data</b>, a few plain-language lines on what it means, and a question for the committee to decide, never an instruction. <b>Print / Save as PDF</b> uses the browser's own print dialog.</li>
+  <li><b>The exact 95% value</b>: every confidence interval now uses z = 1.959963984540054 instead of a rounded 1.96. No figure on screen changes at the precision shown, and Stata's own commands now match PPS Pro exactly.</li></ul></div>
  <div class="card section"><h3>What's new in v3.7 (November 2026)</h3><ul>
   <li><b>Sample hospital</b> (top bar): opens PPS Pro on five simulated surveys, in memory only, with or without internet. Your own data is not touched; <b>Leave sample hospital</b> goes back to it.</li>
   <li><b>Present</b>: a seven-stop guided tour for a talk or a first look, with large text. Every figure it says is read from the screen it shows. Keys: → next, ← back, Esc stop.</li>
@@ -1360,6 +1364,8 @@ function vGuide(){
   <tr><td>ward_type</td><td>MED, SUR, OBG, PED, NEO, ICU, MIX</td></tr></table></div></div>
 
  <div class="card section" id="g4"><h3>4. What each page shows</h3><div class="tablewrap"><table><tr><th>Page</th><th>What it shows</th><th>How to use it</th><th></th></tr>
+  ${page("mindata","Minimum data","What PPS Pro needs for each analysis: every column and the headings it also accepts, and blank templates. <b>Check my data</b> reads the survey loaded now.","Each analysis is marked ready, limited or not possible, with the reason. The trend report ends with the same check, under <i>Data used and its limits</i>.")}
+  ${page("brief","Decision brief","One printable page for a committee that will not read the full report: the latest survey&rsquo;s headline figures exactly as PPS Pro shows them, whether the data meet the minimum, what it means in plain words, and a question for the committee to decide.","Print / Save as PDF from the browser&rsquo;s own print dialog. It is based on the data loaded now.")}
   ${page("overview","Overview","Headline indicators for the latest survey with the change since the previous one, four trend charts and key messages written from the data.","The one-screen summary for a meeting.")}
   ${page("dash","Survey dashboard","One survey in detail: 15 indicators with 95% confidence intervals, AWaRe mix, top antimicrobials, prevalence by ward, indications, diagnoses, route.","Pick the survey at the top; save any chart as PNG.")}
   ${page("trends","Trends","Every indicator across all surveys with a test for trend, the AWaRe mix over time and an indicator table.","Green badge = significant improvement, red = significant worsening.")}
@@ -1369,14 +1375,19 @@ function vGuide(){
   ${page("surveys","Surveys","All surveys with patients, prevalence and source file; open, edit, export or delete each one.","Deleting keeps a copy in today's backup.")}
   ${page("entry","Data entry","Add or edit patients one by one, with the antimicrobial list, ATC and AWaRe filled in for you.","Saved automatically to the data folder.")}
   ${page("quality","Data quality","Errors and warnings: missing ward or age, duplicate codes, admission after survey date, HAI within 48 h, prophylaxis without surgery, missing doses or routes.","Fix errors before reporting.")}
+  ${page("qa","Training & agreement","Practice cases for surveyors (indication codes, surgical prophylaxis duration, empiric vs targeted, the guideline check) and the agreement between two surveyors (percent agreement and Cohen&rsquo;s kappa).","Every surveyor passes the practice cases (80%) before a survey; on survey day a second surveyor re-surveys about 1 in 10 patients.")}
   ${page("report","Trend report","A complete report: summary, surveys included, indicator table with trend p-values, charts and a methods note.","Print / Save as PDF, or save the HTML into the data folder.")}
+  ${page("feedback","Ward feedback","A one-page sheet per ward: its results against the hospital and its previous survey, what stands out, what is going well, and space for agreed actions.","Give each ward in-charge their own sheet at the ward meeting.")}
   ${page("who","WHO PPS export","One survey in the WHO PPS structure: Hospital, Ward, Patient, Indication and Antibiotic sheets with WHO variable names and codes, as an Excel workbook or CSV files. An About sheet explains every conversion; a Check sheet lists values to confirm.","Fill in the hospital form and ward types once; read the Check list before sending the file to a survey coordinator.")}
+  ${page("redcap","REDCap","The REDCap data dictionary, written by PPS Pro from its own code lists; how to bring a REDCap raw-data export in with Import; and any survey as a REDCap data import file.","Use the raw-data export, not labels. The REDCap form holds four antimicrobials per patient; the page warns when a survey has patients with more.")}
+  ${page("stata","Stata","One survey, or all surveys together, as Stata data files (.dta, Stata 14 or later): a patients file and an antimicrobials file, with every variable and every code labelled.","Import reads .dta files back (Stata 13 or later); labelled values come back as PPS Pro codes.")}
+  ${page("mentry","Manual entry (any form)","PPS Pro&rsquo;s own form, or any REDCap project&rsquo;s form loaded from its data dictionary, with its branching logic.","Send the entries to a plain CSV, a REDCap import CSV, a labelled Stata file, WHONET format (where the form has isolate columns) or, with PPS Pro&rsquo;s own form, straight into PPS Pro&rsquo;s surveys.")}
   ${page("folder","Data folder","Connection status, what is kept in the folder, backup and restore, activity log.","Reconnect here after restarting the browser.")}
   ${page("settings","Settings","Facility name, who prepared the report, number of daily backups, CSV format and blank template.","Set once.")}
   </table></div></div>
 
  <div class="card section" id="g5"><h3>5. Practise with the sample data</h3>
-  <p>The <b>PPS_Data</b> folder that comes with the tool holds five simulated surveys of the fictional “Demo Regional Referral Hospital” (March 2024, October 2024, May 2025, December 2025 and July 2026; about 250 inpatients each, nine wards). It is <b>not real patient data</b>. The same hospital and wards appear in the AMS Pro and VigiWard samples.</p>
+  <p>This live demo already runs on the sample hospital, in memory only: nothing you do here is saved. The <b>PPS_Data</b> sample folder holds five simulated surveys of the fictional “Demo Regional Referral Hospital” (March 2024, October 2024, May 2025, December 2025 and July 2026; about 250 inpatients each, nine wards). It is <b>not real patient data</b>. The same hospital and wards appear in the AMS Pro and VigiWard samples.</p>
   <div class="note">Built to show a stewardship programme taking effect: prevalence falling (68% → 45%), Access share rising (42% → 70%, past the earlier WHO 60% target and almost at the UN 2030 goal of 70%), more cultures, more stop/review dates and reasons documented, surgical prophylaxis beyond one day falling (82% → 30%) — while parenteral use barely changes, a realistic “next target”. Trends and Statistics show which changes are statistically significant.</div></div>
 
  <div class="card section" id="g6"><h3>6. Saving and moving computers</h3><ul>
@@ -2568,7 +2579,7 @@ async function runDemo(){
  try{const base="../samples/pps/";const list=await (await fetch(base+"manifest.json")).json();
   for(const n of list){const t=await (await fetch(base+n)).text();csvToSurveys(t,n).forEach(x=>{x.source=n;DB.surveys.push(x)})}
   DB.meta.facility="Demo Regional Referral Hospital";{const want=new URLSearchParams(location.search).get("view");UI.page=want&&PAGES.some(([,it])=>it.some(([k])=>k===want))?want:"overview"}UI.sid=sorted().at(-1).id;render();toast(DB.surveys.length+" sample surveys loaded")}
- catch(e){$("#view").innerHTML=`<div class="warnbox">The sample data could not be loaded (${esc(e.message)}). The live demo works when opened from the website; offline, open the PPS_Data folder that comes with the download instead.</div>`}}
+ catch(e){$("#view").innerHTML=`<div class="warnbox">The sample data could not be loaded (${esc(e.message)}). The live demo works when opened from the website; check the internet connection and reload the page.</div>`}}
 /* ============================= Odieman reference-list updates (v1) =============================
    AWaRe groups, ATC codes and WHO DDDs can be updated without a new copy of the tool: "Check for
    updates" downloads one small file (updates/aware-ddd.json) from the Odieman website, shows what
