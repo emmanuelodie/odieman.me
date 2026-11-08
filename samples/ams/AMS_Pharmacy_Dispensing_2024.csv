@@ -1013,7 +1013,7 @@ Patient ID,Age,Gender,Item Name,Dosage,Quantity,Price,Department,Prescriber,Paym
 300404,35 Years,Male,Cefazolin Sodium Injection 1g Vial,Dosage: Injection :2000mg; Route: IV; Frequency: OD; Duration: 1 /7; Comments: post-op cover,2,2500,Orthopaedic Ward,Clinician F,NHIF,2024-02-05 18:43:38
 300282,31 Years,Female,Diclofenac Sodium Tablets 50mg,Dosage: Tablet :mg; Route: PO; Frequency: OD; Duration: 3 /7; Comments: as charted,9,20,Obstetrics & Gynaecology,Clinician H,iCHF,2024-02-05 18:51:00
 300333,12 Years,Male,Sodium Chloride 0.9% Infusion 500ml,Dosage: Injection :mg; Route: IV; Frequency: OD; Duration: 1 /7; Comments: as charted,3,1200,Paediatric Ward,Clinician J,Cash,2024-02-05 19:17:51
-300309,48 Years,Female,Meropenem Powder for Injection 1g Vial,Dosage: Injection :1000mg; Route: IV; Frequency: TDS; Duration: 1 /7; Comments: as charted,3,25000,Intensive Care Unit,Clinician M,Cash,2024-02-05 19:26:30
+300309,48 Years,Female,Linezolid Infusion 600mg/300ml,Dosage: Injection :600mg; Route: IV; Frequency: BD; Duration: 1 /7; Comments: as charted,2,45000,Intensive Care Unit,Clinician M,Cash,2024-02-05 19:26:30
 300366,1 Years,Male,Ceftriaxone Sodium Powder for Injection 1g Vial,Dosage: Injection :350mg; Route: IV; Frequency: BD; Duration: 1 /7; Comments: as charted,2,1500,Paediatric Ward,Clinician J,iCHF,2024-02-05 19:29:28
 300430,45 Years,Male,Ceftriaxone Sodium Powder for Injection 1g Vial,Dosage: Injection :1000mg; Route: IV; Frequency: BD; Duration: 1 /7; Comments: as charted,2,1500,Surgical Ward Male,Clinician F,NHIF,2024-02-05 20:04:45
 300333,12 Years,Male,Cannula G20,,1,600,Paediatric Ward,Clinician J,Cash,2024-02-05 20:24:00
@@ -4537,7 +4537,7 @@ Patient ID,Age,Gender,Item Name,Dosage,Quantity,Price,Department,Prescriber,Paym
 301188,14 Years,Male,Cefuroxime Axetil Tablets 500mg,Dosage: Tablet :500mg; Route: PO; Frequency: BD; Duration: 6 /7; Comments: discharge: oral to complete course,12,900,Medical Ward Male,Clinician B,NHIF,2024-05-14 12:05:09
 301040,90 Years,Male,Haloperidol Injection 5mg/ml,Dosage: Injection :mg; Route: IV; Frequency: OD; Duration: 1 /7; Comments: as charted,3,900,Medical Ward Male,Clinician B,Exempted,2024-05-14 12:10:39
 301116,53 Years,Male,Metronidazole Infusion 500mg/100ml,Dosage: Injection :500mg; Route: IV; Frequency: TDS; Duration: 1 /7; Comments: continued,3,1200,Surgical Ward Male,Clinician D,Exempted,2024-05-14 12:32:04
-301216,64 Years,Female,Meropenem Powder for Injection 1g Vial,Dosage: Injection :1000mg; Route: IV; Frequency: TDS; Duration: 1 /7; Comments: as charted,3,25000,Intensive Care Unit,Clinician M,Cash,2024-05-14 13:01:07
+301216,64 Years,Female,Linezolid Infusion 600mg/300ml,Dosage: Injection :600mg; Route: IV; Frequency: BD; Duration: 1 /7; Comments: as charted,2,45000,Intensive Care Unit,Clinician M,Cash,2024-05-14 13:01:07
 301211,40 Years,Female,Ampicillin Sodium Powder for Injection 500mg Vial,Dosage: Injection :1000mg; Route: IV; Frequency: QID; Duration: 1 /7; Comments: as charted,8,700,Medical Ward Female,Clinician C,Exempted,2024-05-14 13:10:38
 300996,76 Years,Male,Ceftriaxone Sodium Powder for Injection 1g Vial,Dosage: Injection :1000mg; Route: IV; Frequency: BD; Duration: 1 /7; Comments: as charted,2,1500,Medical Ward Male,Clinician C,NHIF,2024-05-14 13:56:25
 301040,90 Years,Male,Losartan Potassium Tablets 50mg,Dosage: Tablet :mg; Route: PO; Frequency: OD; Duration: 1 /7; Comments: as charted,30,80,Medical Ward Male,Clinician B,Exempted,2024-05-14 14:31:43
@@ -4562,7 +4562,7 @@ Patient ID,Age,Gender,Item Name,Dosage,Quantity,Price,Department,Prescriber,Paym
 301200,48 Years,Female,Ceftriaxone Sodium Powder for Injection 1g Vial,Dosage: Injection :1000mg; Route: IV; Frequency: BD; Duration: 1 /7; Comments: as charted,2,1500,Surgical Ward Female,Clinician E,iCHF,2024-05-14 20:53:22
 301140,60 Years,Male,Enalapril Maleate Tablets 10mg,Dosage: Tablet :mg; Route: PO; Frequency: OD; Duration: 1 /7; Comments: as charted,30,40,Medical Ward Male,Clinician B,Exempted,2024-05-15 07:25:01
 301176,39 Years,Female,Cefuroxime Axetil Tablets 500mg,Dosage: Tablet :500mg; Route: PO; Frequency: BD; Duration: 3 /7; Comments: IV to oral switch,6,900,Obstetrics & Gynaecology,Clinician G,NHIF,2024-05-15 07:26:30
-301216,64 Years,Female,Meropenem Powder for Injection 1g Vial,Dosage: Injection :1000mg; Route: IV; Frequency: TDS; Duration: 1 /7; Comments: as charted,3,25000,Intensive Care Unit,Clinician M,Cash,2024-05-15 07:59:29
+301216,64 Years,Female,Linezolid Infusion 600mg/300ml,Dosage: Injection :600mg; Route: IV; Frequency: BD; Duration: 1 /7; Comments: as charted,2,45000,Intensive Care Unit,Clinician M,Cash,2024-05-15 07:59:29
 301236,4 Years,Male,Ceftriaxone Sodium Powder for Injection 1g Vial,Dosage: Injection :350mg; Route: IV; Frequency: BD; Duration: 1 /7; Comments: as charted,2,1500,Paediatric Ward,Clinician J,iCHF,2024-05-15 10:04:37
 301149,21 Years,Female,Metronidazole Infusion 500mg/100ml,Dosage: Injection :500mg; Route: IV; Frequency: TDS; Duration: 1 /7; Comments: as charted,3,1200,Obstetrics & Gynaecology,Clinician G,NHIF,2024-05-15 10:28:21
 300996,76 Years,Male,Ceftriaxone Sodium Powder for Injection 1g Vial,Dosage: Injection :1000mg; Route: IV; Frequency: BD; Duration: 1 /7; Comments: as charted,2,1500,Medical Ward Male,Clinician C,NHIF,2024-05-15 10:36:16
@@ -6637,7 +6637,7 @@ Patient ID,Age,Gender,Item Name,Dosage,Quantity,Price,Department,Prescriber,Paym
 301711,63 Years,Male,Metronidazole Infusion 500mg/100ml,Dosage: Injection :500mg; Route: IV; Frequency: OD; Duration: 1 /7; Comments: pre-incision prophylaxis,1,1200,Surgical Ward Male,Clinician F,Cash,2024-07-19 19:52:50
 301523,22 Years,Female,Hydrocortisone Sodium Succinate Injection 100mg Vial,Dosage: Injection :mg; Route: IV; Frequency: OD; Duration: 1 /7; Comments: as charted,3,2000,Medical Ward Female,Clinician B,Exempted,2024-07-19 20:17:16
 301669,72 Years,Male,Cannula G20,,1,600,Surgical Ward Male,Clinician D,Exempted,2024-07-19 20:22:08
-301550,53 Years,Male,Meropenem Powder for Injection 1g Vial,Dosage: Injection :1000mg; Route: IV; Frequency: TDS; Duration: 1 /7; Comments: as charted,3,25000,Intensive Care Unit,Clinician M,Cash,2024-07-20 07:10:04
+301550,53 Years,Male,Linezolid Infusion 600mg/300ml,Dosage: Injection :600mg; Route: IV; Frequency: BD; Duration: 1 /7; Comments: as charted,2,45000,Intensive Care Unit,Clinician M,Cash,2024-07-20 07:10:04
 301550,53 Years,Male,Heparin Sodium Injection 5000IU/ml,Dosage: Injection :mg; Route: IV; Frequency: OD; Duration: 1 /7; Comments: as charted,4,3500,Intensive Care Unit,Clinician M,Cash,2024-07-20 08:35:42
 301540,40 Years,Female,Ferrous Sulphate + Folic Acid Tablets 200mg,Dosage: Tablet :mg; Route: PO; Frequency: OD; Duration: 1 /7; Comments: as charted,30,10,Obstetrics & Gynaecology,Clinician H,NHIF,2024-07-20 09:11:59
 301685,27 Years,Female,Doxycycline Capsules 100mg,Dosage: Tablet :100mg; Route: PO; Frequency: BD; Duration: 5 /7; Comments: as charted,10,50,Obstetrics & Gynaecology,Clinician H,Exempted,2024-07-20 09:37:28
@@ -6670,7 +6670,7 @@ Patient ID,Age,Gender,Item Name,Dosage,Quantity,Price,Department,Prescriber,Paym
 301626,59 Years,Male,Artesunate Powder for Injection 60mg Vial,Dosage: Injection :mg; Route: IV; Frequency: OD; Duration: 1 /7; Comments: as charted,9,4500,Medical Ward Male,Clinician C,NHIF,2024-07-21 14:43:49
 301709,32 Years,Female,Morphine Sulphate Injection 10mg/ml,Dosage: Injection :mg; Route: IV; Frequency: OD; Duration: 2 /7; Comments: as charted,6,1500,Obstetrics & Gynaecology,Clinician H,Exempted,2024-07-21 15:54:57
 301709,32 Years,Female,Ceftriaxone Sodium Powder for Injection 1g Vial,Dosage: Injection :1000mg; Route: IV; Frequency: OD; Duration: 1 /7; Comments: pre-incision prophylaxis,1,1500,Obstetrics & Gynaecology,Clinician H,Exempted,2024-07-21 15:56:21
-301550,53 Years,Male,Meropenem Powder for Injection 1g Vial,Dosage: Injection :1000mg; Route: IV; Frequency: TDS; Duration: 1 /7; Comments: as charted,3,25000,Intensive Care Unit,Clinician M,Cash,2024-07-21 16:22:35
+301550,53 Years,Male,Linezolid Infusion 600mg/300ml,Dosage: Injection :600mg; Route: IV; Frequency: BD; Duration: 1 /7; Comments: as charted,2,45000,Intensive Care Unit,Clinician M,Cash,2024-07-21 16:22:35
 301669,72 Years,Male,Lactulose Oral Solution 3.35g/5ml 100ml,Dosage: Tablet :mg; Route: PO; Frequency: OD; Duration: 3 /7; Comments: as charted,6,3500,Surgical Ward Male,Clinician D,Exempted,2024-07-21 16:54:28
 301501,90 Years,Female,Paracetamol Tablets 500mg,Dosage: Tablet :mg; Route: PO; Frequency: OD; Duration: 1 /7; Comments: as charted,12,20,Medical Ward Female,Clinician C,Exempted,2024-07-21 16:56:49
 301504,55 Years,Female,Sodium Chloride 0.9% Infusion 500ml,Dosage: Injection :mg; Route: IV; Frequency: OD; Duration: 1 /7; Comments: as charted,2,1200,Medical Ward Female,Clinician B,Exempted,2024-07-21 17:24:38
@@ -6692,7 +6692,7 @@ Patient ID,Age,Gender,Item Name,Dosage,Quantity,Price,Department,Prescriber,Paym
 301643,54 Years,Female,Ceftriaxone Sodium Powder for Injection 1g Vial,Dosage: Injection :1000mg; Route: IV; Frequency: OD; Duration: 1 /7; Comments: pre-incision prophylaxis,1,1500,Orthopaedic Ward,Clinician E,NHIF,2024-07-22 17:54:12
 301501,90 Years,Female,Ceftriaxone Sodium Powder for Injection 1g Vial,Dosage: Injection :1000mg; Route: IV; Frequency: BD; Duration: 1 /7; Comments: as charted,2,1500,Medical Ward Female,Clinician C,Exempted,2024-07-22 19:05:42
 301605,34 Years,Female,Ceftriaxone Sodium Powder for Injection 1g Vial,Dosage: Injection :1000mg; Route: IV; Frequency: BD; Duration: 1 /7; Comments: continued,2,1500,Obstetrics & Gynaecology,Clinician G,NHIF,2024-07-22 19:37:42
-301550,53 Years,Male,Meropenem Powder for Injection 1g Vial,Dosage: Injection :1000mg; Route: IV; Frequency: TDS; Duration: 1 /7; Comments: as charted,3,25000,Intensive Care Unit,Clinician M,Cash,2024-07-22 20:11:49
+301550,53 Years,Male,Linezolid Infusion 600mg/300ml,Dosage: Injection :600mg; Route: IV; Frequency: BD; Duration: 1 /7; Comments: as charted,2,45000,Intensive Care Unit,Clinician M,Cash,2024-07-22 20:11:49
 301626,59 Years,Male,Artemether + Lumefantrine Tablets 20mg/120mg,Dosage: Tablet :mg; Route: PO; Frequency: OD; Duration: 1 /7; Comments: as charted,24,150,Medical Ward Male,Clinician C,NHIF,2024-07-23 07:15:43
 301709,32 Years,Female,Lactulose Oral Solution 3.35g/5ml 100ml,Dosage: Tablet :mg; Route: PO; Frequency: OD; Duration: 3 /7; Comments: as charted,1,3500,Obstetrics & Gynaecology,Clinician H,Exempted,2024-07-23 07:16:26
 301639,35 Years,Female,IV Giving Set,,1,800,Obstetrics & Gynaecology,Clinician G,Exempted,2024-07-23 10:23:27
@@ -6708,7 +6708,7 @@ Patient ID,Age,Gender,Item Name,Dosage,Quantity,Price,Department,Prescriber,Paym
 301639,35 Years,Female,Ferrous Sulphate + Folic Acid Tablets 200mg,Dosage: Tablet :mg; Route: PO; Frequency: OD; Duration: 1 /7; Comments: as charted,30,10,Obstetrics & Gynaecology,Clinician G,Exempted,2024-07-23 17:04:38
 301501,90 Years,Female,Ceftriaxone Sodium Powder for Injection 1g Vial,Dosage: Injection :1000mg; Route: IV; Frequency: BD; Duration: 1 /7; Comments: as charted,2,1500,Medical Ward Female,Clinician C,Exempted,2024-07-23 17:57:34
 301615,58 Years,Male,Ceftriaxone Sodium Powder for Injection 1g Vial,Dosage: Injection :1000mg; Route: IV; Frequency: OD; Duration: 1 /7; Comments: pre-incision prophylaxis,1,1500,Orthopaedic Ward,Clinician D,iCHF,2024-07-23 18:26:07
-301550,53 Years,Male,Meropenem Powder for Injection 1g Vial,Dosage: Injection :1000mg; Route: IV; Frequency: TDS; Duration: 1 /7; Comments: as charted,3,25000,Intensive Care Unit,Clinician M,Cash,2024-07-23 18:44:53
+301550,53 Years,Male,Linezolid Infusion 600mg/300ml,Dosage: Injection :600mg; Route: IV; Frequency: BD; Duration: 1 /7; Comments: as charted,2,45000,Intensive Care Unit,Clinician M,Cash,2024-07-23 18:44:53
 301516,24 Years,Female,Meropenem Powder for Injection 1g Vial,Dosage: Injection :1000mg; Route: IV; Frequency: TDS; Duration: 1 /7; Comments: as charted,3,25000,Intensive Care Unit,Clinician M,Cash,2024-07-23 19:25:34
 301507,90 Years,Male,IV Giving Set,,1,800,Surgical Ward Male,Clinician F,NHIF,2024-07-23 19:29:30
 301694,8 Years,Male,Gentamicin Sulphate Injection 80mg/2ml,Dosage: Injection :84mg; Route: IV; Frequency: OD; Duration: 1 /7; Comments: as charted,2,300,Paediatric Ward,Clinician I,NHIF,2024-07-23 19:42:07
@@ -7864,7 +7864,7 @@ Patient ID,Age,Gender,Item Name,Dosage,Quantity,Price,Department,Prescriber,Paym
 301776,36 Years,Female,Ceftriaxone Sodium Powder for Injection 1g Vial,Dosage: Injection :1000mg; Route: IV; Frequency: BD; Duration: 1 /7; Comments: continued,2,1500,Surgical Ward Female,Clinician D,Cash,2024-09-01 09:18:17
 301927,42 Years,Male,Ceftriaxone Sodium Powder for Injection 1g Vial,Dosage: Injection :1000mg; Route: IV; Frequency: BD; Duration: 1 /7; Comments: continued,2,1500,Orthopaedic Ward,Clinician E,NHIF,2024-09-01 10:04:53
 301861,50 Years,Female,Cloxacillin Sodium Injection 500mg Vial,Dosage: Injection :1000mg; Route: IV; Frequency: QID; Duration: 1 /7; Comments: as charted,8,800,Surgical Ward Female,Clinician F,Cash,2024-09-01 12:30:45
-302109,17 Years,Female,Meropenem Powder for Injection 1g Vial,Dosage: Injection :1000mg; Route: IV; Frequency: TDS; Duration: 1 /7; Comments: as charted,3,25000,Intensive Care Unit,Clinician M,NHIF,2024-09-01 13:31:09
+302109,17 Years,Female,Linezolid Infusion 600mg/300ml,Dosage: Injection :600mg; Route: IV; Frequency: BD; Duration: 1 /7; Comments: as charted,2,45000,Intensive Care Unit,Clinician M,NHIF,2024-09-01 13:31:09
 301943,22 Years,Female,Omeprazole Capsules 20mg,Dosage: Tablet :mg; Route: PO; Frequency: OD; Duration: 7 /7; Comments: as charted,7,50,Obstetrics & Gynaecology,Clinician H,Cash,2024-09-01 14:26:17
 301804,37 Years,Male,Gentamicin Sulphate Injection 80mg/2ml,Dosage: Injection :240mg; Route: IV; Frequency: OD; Duration: 1 /7; Comments: as charted,3,300,Medical Ward Male,Clinician A,Exempted,2024-09-01 14:32:15
 301744,34 Years,Male,Amoxicillin + Clavulanic Acid Injection 1.2g Vial,Dosage: Injection :1200mg; Route: IV; Frequency: TDS; Duration: 1 /7; Comments: as charted,3,6000,Medical Ward Male,Clinician B,Exempted,2024-09-01 15:04:58
@@ -7888,7 +7888,7 @@ Patient ID,Age,Gender,Item Name,Dosage,Quantity,Price,Department,Prescriber,Paym
 302202,45 Years,Male,Ampicillin Sodium Powder for Injection 500mg Vial,Dosage: Injection :1000mg; Route: IV; Frequency: OD; Duration: 1 /7; Comments: pre-incision prophylaxis,2,700,Surgical Ward Male,Clinician E,NHIF,2024-09-02 13:45:39
 301776,36 Years,Female,Cefuroxime Axetil Tablets 500mg,Dosage: Tablet :500mg; Route: PO; Frequency: BD; Duration: 4 /7; Comments: discharge: oral to complete course,8,900,Surgical Ward Female,Clinician D,Cash,2024-09-02 14:10:14
 302129,67 Years,Female,Ampicillin Sodium Powder for Injection 500mg Vial,Dosage: Injection :1000mg; Route: IV; Frequency: OD; Duration: 1 /7; Comments: pre-incision prophylaxis,2,700,Surgical Ward Female,Clinician D,Cash,2024-09-02 14:44:34
-302109,17 Years,Female,Meropenem Powder for Injection 1g Vial,Dosage: Injection :1000mg; Route: IV; Frequency: TDS; Duration: 1 /7; Comments: as charted,3,25000,Intensive Care Unit,Clinician M,NHIF,2024-09-02 14:59:26
+302109,17 Years,Female,Linezolid Infusion 600mg/300ml,Dosage: Injection :600mg; Route: IV; Frequency: BD; Duration: 1 /7; Comments: as charted,2,45000,Intensive Care Unit,Clinician M,NHIF,2024-09-02 14:59:26
 302126,56 Years,Male,Tramadol Hydrochloride Injection 100mg/2ml,Dosage: Injection :mg; Route: IV; Frequency: OD; Duration: 2 /7; Comments: as charted,2,800,Surgical Ward Male,Clinician E,NHIF,2024-09-02 15:08:17
 301861,50 Years,Female,Cloxacillin Capsules 500mg,Dosage: Tablet :500mg; Route: PO; Frequency: QID; Duration: 6 /7; Comments: discharge: oral to complete course,24,120,Surgical Ward Female,Clinician F,Cash,2024-09-02 15:18:16
 301861,50 Years,Female,Gentamicin Sulphate Injection 80mg/2ml,Dosage: Injection :240mg; Route: IV; Frequency: OD; Duration: 1 /7; Comments: as charted,3,300,Surgical Ward Female,Clinician F,Cash,2024-09-02 16:27:10
@@ -7919,7 +7919,7 @@ Patient ID,Age,Gender,Item Name,Dosage,Quantity,Price,Department,Prescriber,Paym
 302076,32 Years,Male,Diclofenac Sodium Injection 75mg/3ml,Dosage: Injection :mg; Route: IV; Frequency: OD; Duration: 3 /7; Comments: as charted,6,300,Surgical Ward Male,Clinician E,Cash,2024-09-03 19:13:47
 302121,65 Years,Male,Morphine Sulphate Injection 10mg/ml,Dosage: Injection :mg; Route: IV; Frequency: OD; Duration: 2 /7; Comments: as charted,4,1500,Surgical Ward Male,Clinician E,Exempted,2024-09-03 19:21:56
 302121,65 Years,Male,Metronidazole Infusion 500mg/100ml,Dosage: Injection :500mg; Route: IV; Frequency: TDS; Duration: 1 /7; Comments: post-op cover,3,1200,Surgical Ward Male,Clinician E,Exempted,2024-09-03 19:41:46
-302109,17 Years,Female,Meropenem Powder for Injection 1g Vial,Dosage: Injection :1000mg; Route: IV; Frequency: TDS; Duration: 1 /7; Comments: as charted,3,25000,Intensive Care Unit,Clinician M,NHIF,2024-09-03 20:22:35
+302109,17 Years,Female,Linezolid Infusion 600mg/300ml,Dosage: Injection :600mg; Route: IV; Frequency: BD; Duration: 1 /7; Comments: as charted,2,45000,Intensive Care Unit,Clinician M,NHIF,2024-09-03 20:22:35
 302121,65 Years,Male,Dextrose 5% Infusion 500ml,Dosage: Injection :mg; Route: IV; Frequency: OD; Duration: 1 /7; Comments: as charted,3,1200,Surgical Ward Male,Clinician E,Exempted,2024-09-03 20:41:41
 302114,85 Years,Male,Artesunate Powder for Injection 60mg Vial,Dosage: Injection :mg; Route: IV; Frequency: OD; Duration: 1 /7; Comments: as charted,9,4500,Medical Ward Male,Clinician A,Exempted,2024-09-04 07:02:14
 302023,27 Years,Female,IV Giving Set,,1,800,Medical Ward Female,Clinician B,Cash,2024-09-04 07:40:09
@@ -7942,7 +7942,7 @@ Patient ID,Age,Gender,Item Name,Dosage,Quantity,Price,Department,Prescriber,Paym
 302044,37 Years,Female,IV Giving Set,,1,800,Orthopaedic Ward,Clinician F,NHIF,2024-09-04 16:01:08
 302126,56 Years,Male,Lactulose Oral Solution 3.35g/5ml 100ml,Dosage: Tablet :mg; Route: PO; Frequency: OD; Duration: 3 /7; Comments: as charted,1,3500,Surgical Ward Male,Clinician E,NHIF,2024-09-04 16:50:07
 302050,54 Years,Female,Metronidazole Infusion 500mg/100ml,Dosage: Injection :500mg; Route: IV; Frequency: TDS; Duration: 1 /7; Comments: as charted,3,1200,Orthopaedic Ward,Clinician D,NHIF,2024-09-04 17:02:28
-302109,17 Years,Female,Meropenem Powder for Injection 1g Vial,Dosage: Injection :1000mg; Route: IV; Frequency: TDS; Duration: 1 /7; Comments: as charted,3,25000,Intensive Care Unit,Clinician M,NHIF,2024-09-04 17:38:41
+302109,17 Years,Female,Linezolid Infusion 600mg/300ml,Dosage: Injection :600mg; Route: IV; Frequency: BD; Duration: 1 /7; Comments: as charted,2,45000,Intensive Care Unit,Clinician M,NHIF,2024-09-04 17:38:41
 302114,85 Years,Male,Paracetamol Infusion 1g/100ml,Dosage: Injection :mg; Route: IV; Frequency: OD; Duration: 1 /7; Comments: as charted,18,3000,Medical Ward Male,Clinician A,Exempted,2024-09-04 17:53:51
 302044,37 Years,Female,Sodium Chloride 0.9% Infusion 500ml,Dosage: Injection :mg; Route: IV; Frequency: OD; Duration: 1 /7; Comments: as charted,2,1200,Orthopaedic Ward,Clinician F,NHIF,2024-09-04 18:31:16
 302121,65 Years,Male,Ceftriaxone Sodium Powder for Injection 1g Vial,Dosage: Injection :1000mg; Route: IV; Frequency: BD; Duration: 1 /7; Comments: continued,2,1500,Surgical Ward Male,Clinician E,Exempted,2024-09-04 18:55:59
