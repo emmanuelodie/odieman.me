@@ -1,0 +1,33 @@
+{
+ "note": "SIMULATED DATA for the Odieman AMS Pro sample hospital. Not real patients or real facility figures.",
+ "issues": {
+  "file": "AMS_Ward_Stock_Issues_2026.csv"
+ },
+ "cqiMeetings": 11,
+ "indicators": {
+  "IPC-HH": {
+   "num": 412,
+   "den": 560
+  },
+  "IPC-8": {
+   "num": 188,
+   "den": 220
+  },
+  "LAB-6": {
+   "num": 30,
+   "den": 33
+  },
+  "IPC-9a": {
+   "num": 1,
+   "den": 1
+  }
+ },
+ "didItWork": {
+  "metric": "wr",
+  "ward": "",
+  "drug": "",
+  "start": "2025-07",
+  "better": "",
+  "name": "Example: prescriber training"
+ }
+}
