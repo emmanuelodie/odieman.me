@@ -1,0 +1,44 @@
+Variable / Field Name,Form Name,Section Header,Field Type,Field Label,"Choices, Calculations, OR Slider Labels",Field Note,Text Validation Type OR Show Slider Number,Text Validation Min,Text Validation Max,Identifier?,Branching Logic (Show field only if...),Required Field?,Custom Alignment,Question Number (surveys only),Matrix Group Name,Matrix Ranking?,Field Annotation
+record_id,adr_case_review,Flag from VigiWard,text,Flag ID (VigiWard),,Filled by VigiWard. The flag fields are read-only.,,,,,,,,,,,
+patient_code,adr_case_review,,text,Patient code (VigiWard study code),,"No name or hospital number is stored here. To find the chart, look the code up in VigiWard on the computer that holds the data.",,,,y,,,,,,,@READONLY
+ward,adr_case_review,,text,Ward or department,,,,,,,,,,,,,@READONLY
+age_years,adr_case_review,,text,Age (years),,,number,0,130,,,,,,,,@READONLY
+sex,adr_case_review,,radio,Sex,"M, Male | F, Female",,,,,,,,,,,,@READONLY
+n_drugs,adr_case_review,,text,Number of different medicines dispensed,,,integer,0,,,,,,,,,@READONLY
+detection_method,adr_case_review,,dropdown,Detection method,"LAB, Lab-supported | DDI, Drug interaction | CLUSTER, Cluster | CASCADE, Cascade | STOPSWITCH, Stop/switch",,,,,,,,,,,,@READONLY
+signal_strength,adr_case_review,,dropdown,"Signal strength (the data pattern, not causality)","WEAK, Weak signal | MODERATE, Moderate signal | STRONG, Strong signal",,,,,,,,,,,,@READONLY
+vw_severity,adr_case_review,,dropdown,Expected severity of the reaction,"MILD, Mild | MODERATE, Moderate | SEVERE, Severe",,,,,,,,,,,,@READONLY
+vw_serious,adr_case_review,,radio,Serious reaction category (ICH E2A),"Y, Yes | N, No",,,,,,,,,,,,@READONLY
+rawlins,adr_case_review,,dropdown,Rawlins–Thompson reaction type,"A, Type A — Augmented (dose-related, predictable, pharmacological) | B, Type B — Bizarre (idiosyncratic / immunological, not dose-related) | C, Type C — Chronic (dose- and time-related, cumulative) | D, Type D — Delayed (appears long after exposure) | E, Type E — End-of-use (withdrawal / rebound) | F, Type F — Failure of expected therapeutic effect",,,,,,,,,,,,@READONLY
+suspected_reaction,adr_case_review,,text,Suspected reaction,,,,,,,,,,,,,@READONLY
+soc,adr_case_review,,text,MedDRA System Organ Class (descriptor),,,,,,,,,,,,,@READONLY
+suspect_drug,adr_case_review,,text,Suspect medicine,,,,,,,,,,,,,@READONLY
+ingredient,adr_case_review,,text,Suspect medicine (generic),,,,,,,,,,,,,@READONLY
+other_drug,adr_case_review,,text,Second medicine in the pattern,,"The rescue, marker or switch medicine that raised the flag",,,,,,,,,,,@READONLY
+drug_date,adr_case_review,,text,Suspect medicine dispensed,,,date_ymd,,,y,,,,,,,@READONLY
+event_date,adr_case_review,,text,Date of the suspected reaction,,The last date in the evidence,date_ymd,,,y,,,,,,,@READONLY
+lab_test,adr_case_review,,dropdown,Laboratory test,"CREA, Creatinine (µmol/L) | ALT, ALT (U/L) | AST, AST (U/L) | K, Potassium (mmol/L) | GLU, Glucose (mmol/L)",,,,,,[detection_method] = 'LAB',,,,,,@READONLY
+lab_value,adr_case_review,,text,Laboratory value,,,number,,,,[detection_method] = 'LAB',,,,,,@READONLY
+died_within_window,adr_case_review,,radio,Patient died within the outcome window,"Y, Yes | N, No","A link in time only, never evidence of cause",,,,,,,,,,,@READONLY
+death_date,adr_case_review,,text,Date of death,,,date_ymd,,,y,[died_within_window] = 'Y',,,,,,@READONLY
+evidence,adr_case_review,,notes,VigiWard evidence,,,,,,,,,,,,,@READONLY
+review_date,adr_case_review,Case review,text,Review date,,,date_ymd,,,,,,,,,,
+reviewer,adr_case_review,,text,Reviewer initials,,Initials only,,,,,,,,,,,
+adr_confirmed,adr_case_review,,radio,"Is this an adverse drug reaction, on chart review?","Y, Yes | N, No | U, Unsure",,,,,,,,,,,,
+who_umc,adr_case_review,,radio,WHO-UMC causality,"CERTAIN, Certain | PROBABLE, Probable/Likely | POSSIBLE, Possible | UNLIKELY, Unlikely | CONDITIONAL, Conditional/Unclassified | UNASSESSABLE, Unassessable/Unclassifiable",,,,,,[adr_confirmed] <> '',,,,,,
+naranjo_q1,adr_case_review,Naranjo algorithm,radio,1. Previous conclusive reports on this reaction?,"Y, Yes | N, No | DK, Don't know",VigiWard adds up the score when the reviews come back,,,,,[adr_confirmed] <> '',,,,,,
+naranjo_q2,adr_case_review,,radio,2. Did the reaction appear after the suspected drug?,"Y, Yes | N, No | DK, Don't know",,,,,,[adr_confirmed] <> '',,,,,,
+naranjo_q3,adr_case_review,,radio,3. Improve when drug stopped / antagonist given?,"Y, Yes | N, No | DK, Don't know",,,,,,[adr_confirmed] <> '',,,,,,
+naranjo_q4,adr_case_review,,radio,4. Reappear when re-administered?,"Y, Yes | N, No | DK, Don't know",,,,,,[adr_confirmed] <> '',,,,,,
+naranjo_q5,adr_case_review,,radio,5. Alternative causes that could explain it?,"Y, Yes | N, No | DK, Don't know",,,,,,[adr_confirmed] <> '',,,,,,
+naranjo_q6,adr_case_review,,radio,6. Reappear with placebo?,"Y, Yes | N, No | DK, Don't know",,,,,,[adr_confirmed] <> '',,,,,,
+naranjo_q7,adr_case_review,,radio,7. Drug detected in blood at toxic level?,"Y, Yes | N, No | DK, Don't know",,,,,,[adr_confirmed] <> '',,,,,,
+naranjo_q8,adr_case_review,,radio,8. More severe with higher dose / less with lower?,"Y, Yes | N, No | DK, Don't know",,,,,,[adr_confirmed] <> '',,,,,,
+naranjo_q9,adr_case_review,,radio,9. Similar reaction to same/similar drug before?,"Y, Yes | N, No | DK, Don't know",,,,,,[adr_confirmed] <> '',,,,,,
+naranjo_q10,adr_case_review,,radio,10. Confirmed by any objective evidence?,"Y, Yes | N, No | DK, Don't know",,,,,,[adr_confirmed] <> '',,,,,,
+seriousness,adr_case_review,Seriousness and outcome,checkbox,Seriousness,"DEATH, Results in death | LIFE, Life-threatening | HOSP, Hospitalisation, initial or prolonged | DISAB, Persistent or significant disability or incapacity | CONGEN, Congenital anomaly or birth defect | OTHER, Other medically important condition | NOT_SERIOUS, Not serious",,,,,,[adr_confirmed] = 'Y' or [adr_confirmed] = 'U',,,,,,
+outcome,adr_case_review,,radio,Outcome,"RECOVERED, Recovered/resolved | SEQUELAE, Recovered with sequelae | NOT_RECOVERED, Not recovered | DIED, Died | UNKNOWN, Unknown",,,,,,[adr_confirmed] = 'Y' or [adr_confirmed] = 'U',,,,,,
+action_taken,adr_case_review,,radio,Action taken with the suspect medicine,"DISCONTINUED, Medicine stopped (regimen discontinued) | DOSE_ADJUSTED, Dose adjusted | CHANGED, Regimen changed | UNKNOWN, Unknown | CONTINUED, Continued unchanged | OTHER, Other",,,,,,[adr_confirmed] = 'Y' or [adr_confirmed] = 'U',,,,,,
+reported_tmda,adr_case_review,Reporting,radio,Reported to TMDA,"Y, Yes | N, No",,,,,,[adr_confirmed] = 'Y',,,,,,
+tmda_report_no,adr_case_review,,text,TMDA report number,,,,,,,[reported_tmda] = 'Y',,,,,,
+review_notes,adr_case_review,,notes,Notes,,No names or hospital numbers,,,,,,,,,,,
