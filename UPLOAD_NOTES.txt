@@ -1,0 +1,35 @@
+odieman.me website update - PPS Pro 3.10, AMS Pro 5.7, VigiWard 3.15 (November 2026)
+=====================================================================================
+
+Every file in this folder goes to the same relative path in the site repo
+(GitHub Pages). Nothing else on the site changes; story.html, methodology.html,
+about.html, get/, pst/, updates/, samples/ and dictionary/ stay as they are.
+
+Upload order
+------------
+1. The demo tools first (the pages link to them and name their versions):
+     tools/Odieman_PPS_Pro.html
+     tools/Odieman_AMS_Pro.html
+     tools/VigiWard.html
+2. Then the pages:
+     index.html
+     pps-pro.html
+     ams-pro.html
+     vigiward.html
+     checks.html
+     technical.html
+     minimum-data.html
+
+Uploading the tools first means that, for the minute or two in between, the
+old pages point at new demos (which still work); the other way round would
+leave new pages describing a Showcase button that the old demos do not have.
+
+After upload
+------------
+- Open each live demo with ?demo=1 and press the star Showcase button once.
+- Check that index.html shows v5.7 / v3.10 / v3.15 in the tool cards and the
+  download table, and that the three "what's new" anchors (#new) open.
+
+One-line commit message
+-----------------------
+Site: PPS Pro 3.10, AMS Pro 5.7, VigiWard 3.15 - Showcase in all three demos, AMS Pro printable antibiogram, VigiWard pharmacology check
