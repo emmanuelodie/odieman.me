@@ -110,7 +110,7 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Odieman AMS Pro v5.6 (demo)</title>
+<title>Odieman AMS Pro v5.7 (demo)</title>
 <style>
 :root{
   --bg:#0d1117; --panel:#161b22; --panel2:#1c2230; --line:#2b3340;
@@ -385,7 +385,7 @@ html.odm-present #v-hub .panel table{display:block;overflow-x:auto;max-width:100
 <body>
 <header>
   <div class="logo">Odieman <b>AMS&nbsp;Pro</b></div>
-  <div class="tag">Offline Antimicrobial Stewardship Suite &mdash; Data Entry, Bulk Ingestion &amp; Reporting&nbsp;&middot;&nbsp;v5.6</div>
+  <div class="tag">Offline Antimicrobial Stewardship Suite &mdash; Data Entry, Bulk Ingestion &amp; Reporting&nbsp;&middot;&nbsp;v5.7</div>
   <div class="spacer"></div>
   <button id="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle navigation" title="Toggle navigation">&#9776;</button>
   <div id="backup-badge" class="bbadge" onclick="backupBadgeClick()" title="Backup status — click to manage">&#9211; No backup yet</div>
@@ -26975,6 +26975,7 @@ function renderAntibiogram(){
     <h2>Local antibiogram</h2>
     <div class="sub">% Susceptible (S) by organism &times; antibiotic &mdash; per CLSI M39 (5th Edition). First isolate per patient per organism only (${ab.isolateCount} of ${ab.totalIsolates} isolate(s) in scope, after dedup); cells built from fewer than 30 isolates are flagged, not hidden.</div>
     <div class="row" style="gap:10px;margin-top:10px">
+      <button class="btn" onclick="abgPrintA4()" title="One A4 page for the wards and a pocket card: CLSI M39 first-isolate rule, 30-isolate minimum, intrinsic resistance and unreportable pairs suppressed">&#128424; Print antibiogram (A4)</button>
       <select onchange="abgSetPeriod(this.value)">
         <option value="all" ${!window._abgPeriod||window._abgPeriod==='all'?'selected':''}>All time</option>
         <option value="365" ${window._abgPeriod==='365'?'selected':''}>Last 365 d</option>
@@ -30244,7 +30245,7 @@ function renderGuide(){
       <tr><td><b>Procedures / services</b></td><td>Product Name / Procedure</td><td>Patient ID, Sub Department Name, Ordered Date, Price</td><td>Surgical prophylaxis continued beyond 24&nbsp;h (Time-out), Patient Master</td></tr>
     </tbody></table></div>
     <div class="notice" style="margin-top:12px"><b>Most important rule:</b> the ward names in the admissions file must be written exactly as the <i>Department</i> names in the dispensing file. That is how AMS Pro links bed-days to dispensing and decides which wards are in scope.</div>
-    <div class="notice good" style="margin-top:10px">New in 5.3: <b>Minimum Data</b> (Getting Started) lists every heading the importer recognises, gives blank templates, and checks the data loaded now. <button class="btn sm ghost" onclick="go('mindata')">Open &rarr;</button></div>`)}
+    <div class="notice good" style="margin-top:10px">New in 5.7: <b>Showcase</b> (&#9733; in the top bar) and <b>Print antibiogram (A4)</b> on the Antibiogram page. New in 5.3: <b>Minimum Data</b> (Getting Started) lists every heading the importer recognises, gives blank templates, and checks the data loaded now. <button class="btn sm ghost" onclick="go('mindata')">Open &rarr;</button></div>`)}
 
   ${sec("modules","3. What each module shows",`
     <div class="tablewrap"><table><thead><tr><th>Module</th><th>What it shows</th><th>How to read / use it</th><th></th></tr></thead><tbody>
@@ -32247,7 +32248,7 @@ async function cspManuBlocks(C){
   if(fig) blocks.push({t:"img",url:fig,w:620,h:270,caption:"Points: share of women with prophylaxis stopped within 24 hours (SP1 or SP2). Solid line: segmented regression; dashed: earlier trend carried forward; shaded: weeks without ceftriaxone in the hospital."});
   blocks.push(...its.blocks,{t:"h1",text:"Table 3. Balancing measures"},{t:"table",head:["Measure",P[a].name,P[b].name,"Difference (95% CI)","p"],rows:BA.rows.filter(r=>/^B/.test(r[0]))},
     {t:"h1",text:"Validation"},cspValBlock(C),{t:"h1",text:"Supplementary table. Ceftriaxone and alternatives: resistance in Enterobacterales"},...cspResBlocks(),
-    {t:"h1",text:"Methods text (draft)"},{t:"p",text:`All caesarean sections in the Surgery Patients Report were linked by patient number to the admission covering the operation date and to every dispensing record from ${C.cfg.lookback} days before to 30 days after surgery. Women dispensed any systemic antibacterial from Day −${C.cfg.lookback} to Day −1 (apart from a routine prophylaxis drug dispensed only on Day −1), or with an infection recorded as the admission diagnosis, were excluded. For the remaining women the prophylaxis course comprised the routine regimen (${(S.regimens||[]).map(r=>(r.drugs||[]).join(" + ")).join("; ")}), any other antibacterial started on the day of surgery, and routine oral discharge drugs (${C.disDrugs.join(", ")||"none"}), counted up to the day before the first sign of a possible infection. Days covered by each dispensing line were the prescribed duration, limited to what the dispensed quantity could cover at the prescribed frequency. Prophylaxis was classed as SP1 (one dose on the day of surgery), SP2 (stopped by the end of the day after surgery) or SP3 (longer). A possible post-operative infection was recorded when, from Day 1 to Day 30, a non-routine antibacterial was started, antibiotics restarted after two or more days without any, a routine drug was first started on Day 2 or later, a culture was requested, a post-operative infection was diagnosed, or the woman was readmitted and given antibiotics. The labels were checked against file review in a random sample (Cohen's kappa). Weekly proportions were analysed by segmented regression with a level and trend change at each phase start, with Newey–West standard errors when the Breusch–Godfrey test (10% level) showed autocorrelation. Analyses were run in Odieman AMS Pro v5.6 (rules v${CSP_RULES_VERSION}).`},{t:"small",text:cspStamp(C)});
+    {t:"h1",text:"Methods text (draft)"},{t:"p",text:`All caesarean sections in the Surgery Patients Report were linked by patient number to the admission covering the operation date and to every dispensing record from ${C.cfg.lookback} days before to 30 days after surgery. Women dispensed any systemic antibacterial from Day −${C.cfg.lookback} to Day −1 (apart from a routine prophylaxis drug dispensed only on Day −1), or with an infection recorded as the admission diagnosis, were excluded. For the remaining women the prophylaxis course comprised the routine regimen (${(S.regimens||[]).map(r=>(r.drugs||[]).join(" + ")).join("; ")}), any other antibacterial started on the day of surgery, and routine oral discharge drugs (${C.disDrugs.join(", ")||"none"}), counted up to the day before the first sign of a possible infection. Days covered by each dispensing line were the prescribed duration, limited to what the dispensed quantity could cover at the prescribed frequency. Prophylaxis was classed as SP1 (one dose on the day of surgery), SP2 (stopped by the end of the day after surgery) or SP3 (longer). A possible post-operative infection was recorded when, from Day 1 to Day 30, a non-routine antibacterial was started, antibiotics restarted after two or more days without any, a routine drug was first started on Day 2 or later, a culture was requested, a post-operative infection was diagnosed, or the woman was readmitted and given antibiotics. The labels were checked against file review in a random sample (Cohen's kappa). Weekly proportions were analysed by segmented regression with a level and trend change at each phase start, with Newey–West standard errors when the Breusch–Godfrey test (10% level) showed autocorrelation. Analyses were run in Odieman AMS Pro v5.7 (rules v${CSP_RULES_VERSION}).`},{t:"small",text:cspStamp(C)});
   return {title:"Manuscript tables and figures — C/S prophylaxis",blocks,file:cspFile("CS_prophylaxis_manuscript_set")}; }
 function cspWeeklyCSV(){ const C=cspCohort(); const keys=Object.keys(CSP_SERIES).filter(k=>!CSP_SERIES[k].custom); const ser=keys.map(k=>cspSeries(k,C.women,"week")); const P=C.phases; const so=new Set((cspStockouts().byDrug.ceftriaxone||{weeks:[]}).weeks);
   const cmp=new Map(cspCompSeries().map(r=>[r.k,r]));
@@ -33531,7 +33532,7 @@ function renderIts(){
 
 window.addEventListener("resize",()=>{ if(currentView==="its"){ clearTimeout(window._dwRz); window._dwRz=setTimeout(renderIts,250); } });
 
-if(DEMO){ DB=JSON.parse(JSON.stringify(DEFAULT_DB)); ensureDefaults(); buildNav(); updateBackupBadge(); runAmsDemo(); }
+if(DEMO){ DB=JSON.parse(JSON.stringify(DEFAULT_DB)); ensureDefaults(); buildNav(); updateBackupBadge(); if(!new URLSearchParams(location.search).has("show")) runAmsDemo(); }
 else{
 load(); buildNav(); go(hadBrowserData?"setup":"guide"); updateBackupBadge();
 if(!hadBrowserData) setTimeout(()=>{ try{ viewFirstRun(); }catch(e){ console.error(e); } },400);
@@ -34151,6 +34152,602 @@ function renderMentry(){
  (AE.source==="own"?("<button class=\"btn ghost\" onclick=\"aeSendToAnalysis()\" "+(AE.rows.length?"":"disabled")+" style=\"margin-left:8px\">Add these "+AE.rows.length+" record(s) straight into Data Entry</button>"):"")+
  "</div></div>";
 }
+</script>
+
+<script>
+/* ============ Odieman Showcase (shared by PPS Pro, AMS Pro and VigiWard) ============
+   A stage for a talk: the tool opens empty, the hospital's exports go in one by one, the tool's own engine
+   reads, cleans, classifies and links them while the counts rise, each headline figure turns from red
+   (with the missing file named) to green, and the show ends on a decision board and on one-click outputs
+   that write real files. Every number on the stage is read from the tool after it has done the work;
+   the stage only paces it. Opened with ?demo=1&show=1 on the sample hospital (memory only, nothing saved).
+   Keys: → Space PageDown next · ← PageUp back · 1-9 outputs · F full screen · Esc open the tool · S stage. */
+(function(){
+  if(window.ODM_SHOW) return;
+  var S=window.ODM_SHOW={cfg:null,scene:0,on:false,loaded:{},loading:null,order:[],finished:false,dl:[],capture:false,own:false};
+  var SCENES=[["empty","Empty"],["data","Data in"],["out","Reports"],["decide","Decisions"]];
+  var BASE=location.href.split(/[?#]/)[0];
+  function q(s,r){return (r||document).querySelector(s);}
+  function qa(s,r){return [].slice.call((r||document).querySelectorAll(s));}
+  function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+  function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+  function wait(ms){return new Promise(function(r){setTimeout(r,ms);});}
+  function fmtN(n,d){if(n==null||isNaN(n))return "—";return Number(n).toLocaleString("en-US",{minimumFractionDigits:d||0,maximumFractionDigits:d||0});}
+  S.fmt=fmtN; S.esc=esc;
+  function param(k){return new URLSearchParams(location.search).has(k);}
+  function inDemo(){try{return !!(window.ODM_PRESENT&&window.ODM_PRESENT.cfg&&window.ODM_PRESENT.cfg.inDemo());}catch(e){return false;}}
+  function bytes(n){return n>=1048576?(n/1048576).toFixed(1)+" MB":n>=1024?Math.round(n/1024)+" KB":n+" B";}
+
+  /* ---------- style ---------- */
+  var CSS=[
+  "#odms{position:fixed;inset:0;z-index:2147482000;background:#070b16;color:#e8edf6;font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased}",
+  "#odms.off{display:none}",
+  "#odms .cv{position:absolute;left:50%;top:50%;width:1600px;height:900px;transform-origin:0 0;background:radial-gradient(1200px 700px at 78% -10%,var(--soft) 0%,rgba(7,11,22,0) 60%),linear-gradient(180deg,#0b1222,#070b16);overflow:hidden}",
+  "#odms *{box-sizing:border-box}",
+  "#odms .num{font-variant-numeric:tabular-nums;font-feature-settings:'tnum'}",
+  "#odms .top{position:absolute;left:0;right:0;top:0;height:72px;display:flex;align-items:center;padding:0 44px;gap:18px;border-bottom:1px solid rgba(255,255,255,.07)}",
+  "#odms .mark{width:40px;height:40px;border-radius:10px;background:var(--acc);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;letter-spacing:.5px;color:#fff;box-shadow:0 6px 20px var(--soft)}",
+  "#odms .brand{font-size:21px;font-weight:600;letter-spacing:.2px}#odms .brand small{font-size:13px;color:#9aa6bd;font-weight:600;margin-left:8px;padding:3px 8px;border:1px solid rgba(255,255,255,.14);border-radius:999px}",
+  "#odms .steps{flex:1;display:flex;justify-content:center;gap:26px}",
+  "#odms .step{display:flex;align-items:center;gap:9px;font-size:15px;color:rgba(232,237,246,.32);font-weight:600}#odms .step i{width:9px;height:9px;border-radius:50%;background:currentColor;display:block}",
+  "#odms .step.done{color:rgba(232,237,246,.62)}#odms .step.on{color:#fff}#odms .step.on i{background:var(--acc);box-shadow:0 0 0 5px var(--soft)}",
+  "#odms .chip{font-size:12px;font-weight:700;letter-spacing:1px;padding:6px 11px;border-radius:999px;white-space:nowrap}",
+  "#odms .chip.sim{background:rgba(212,160,23,.15);color:#f2c94c;border:1px solid rgba(242,201,76,.35)}",
+  "#odms .chip.own{background:rgba(47,129,247,.16);color:#79b8ff;border:1px solid rgba(121,184,255,.4)}",
+  "#odms .chip.off{background:rgba(46,160,67,.14);color:#56d364;border:1px solid rgba(86,211,100,.35)}",
+  "#odms .foot{position:absolute;left:0;right:0;bottom:0;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 44px;font-size:13px;color:#7d8aa3;border-top:1px solid rgba(255,255,255,.06)}",
+  "#odms .foot b{color:#aeb9cc;font-weight:600}#odms kbd{font:12px/1 inherit;border:1px solid rgba(255,255,255,.2);border-bottom-width:2px;border-radius:5px;padding:2px 6px;color:#c9d2e3;margin:0 2px}",
+  "#odms .scene{position:absolute;left:0;right:0;top:72px;bottom:44px;padding:30px 44px;opacity:0;transform:translateY(14px);transition:opacity .45s ease,transform .45s ease;pointer-events:none}",
+  "#odms .scene.on{opacity:1;transform:none;pointer-events:auto}",
+  /* empty */
+  "#odms .hero{text-align:center;padding-top:34px}",
+  "#odms .kick{font-size:15px;letter-spacing:4px;font-weight:700;color:var(--acc2);text-transform:uppercase}",
+  "#odms .h1{font-size:104px;font-weight:800;letter-spacing:-2px;line-height:1.04;margin:12px 0 10px;background:linear-gradient(180deg,#fff,#c8d3e6);-webkit-background-clip:text;background-clip:text;color:transparent}",
+  "#odms .tag{font-size:27px;color:#aab6cc;max-width:1100px;margin:0 auto;line-height:1.35}",
+  "#odms .zrow{margin:26px auto 0;display:flex;justify-content:center;gap:48px;color:#6f7c95;font-size:17px}",
+  "#odms .zrow b{display:block;font-size:54px;font-weight:700;color:#3b4660;line-height:1.1}",
+  "#odms .hint{position:absolute;left:0;right:0;bottom:26px;text-align:center;font-size:17px;color:#8793aa}#odms .hint b{color:#fff}",
+  "#odms .ghosts{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1160px;margin:30px auto 0}",
+  /* tiles */
+  "#odms .tile{position:relative;border-radius:14px;padding:16px 18px 14px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);min-height:146px;overflow:hidden;transition:border-color .5s,background .5s,box-shadow .5s}",
+  "#odms .tile .l{font-size:14px;font-weight:600;color:#9eabc2;line-height:1.25;min-height:36px;padding-right:22px}",
+  "#odms .tile .v{font-size:46px;font-weight:750;line-height:1.08;margin-top:6px;color:#3b4660;letter-spacing:-.5px}",
+  "#odms .tile .v small{font-size:22px;font-weight:650;margin-left:3px;color:inherit;opacity:.8}",
+  "#odms .tile .s{font-size:13px;color:#8692a9;margin-top:4px;line-height:1.3}",
+  "#odms .tile .dot{position:absolute;right:16px;top:17px;width:11px;height:11px;border-radius:50%;background:#2a3348}",
+  "#odms .tile.red{background:rgba(248,81,73,.08);border-color:rgba(248,81,73,.45)}#odms .tile.red .dot{background:#f85149;box-shadow:0 0 0 5px rgba(248,81,73,.18)}",
+  "#odms .tile.red .v{color:#f85149;font-size:20px;font-weight:700;margin-top:12px;line-height:1.25;letter-spacing:0}#odms .tile.red .s{color:#ffb4ae}",
+  "#odms .tile.ok{background:rgba(46,160,67,.07);border-color:rgba(86,211,100,.4)}#odms .tile.ok .v{color:#fff}#odms .tile.ok .dot{background:#3fb950;box-shadow:0 0 0 5px rgba(63,185,80,.18)}",
+  "#odms .tile.amb{background:rgba(210,153,34,.08);border-color:rgba(242,201,76,.42)}#odms .tile.amb .v{color:#fff}#odms .tile.amb .dot{background:#d29922;box-shadow:0 0 0 5px rgba(210,153,34,.2)}",
+  "#odms .tile.flash{box-shadow:0 0 0 3px rgba(86,211,100,.55),0 0 40px rgba(63,185,80,.35)}",
+  /* data scene */
+  "#odms .tray{position:absolute;left:44px;top:30px;bottom:30px;width:438px;display:flex;flex-direction:column;gap:12px}",
+  "#odms .cap{font-size:13px;font-weight:700;letter-spacing:2px;color:#7d8aa3;text-transform:uppercase;margin-bottom:2px}",
+  "#odms .grp{position:relative;border-radius:14px;padding:13px 16px 13px 62px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);cursor:pointer;transition:all .35s;min-height:78px}",
+  "#odms .grp .ic{position:absolute;left:15px;top:14px;width:34px;height:42px;border-radius:5px;background:#1a2235;border:1px solid rgba(255,255,255,.12);font-size:9px;font-weight:800;color:#8a97ae;display:flex;align-items:flex-end;justify-content:center;padding-bottom:5px;letter-spacing:.5px}",
+  "#odms .grp .ic:before{content:'';position:absolute;right:-1px;top:-1px;border-style:solid;border-width:0 10px 10px 0;border-color:transparent #070b16 rgba(255,255,255,.2) transparent}",
+  "#odms .grp .t{font-size:18px;font-weight:650;color:#dbe3f0;padding-right:96px;line-height:1.2}",
+  "#odms .grp .src{font-size:12.5px;color:#7f8ba2;margin-top:3px;line-height:1.3;padding-right:110px}",
+  "#odms .grp .f{font-size:12px;color:#6b778f;margin-top:4px}",
+  "#odms .grp .st{position:absolute;right:15px;top:13px;text-align:right;font-size:12px;color:#7f8ba2;max-width:120px}",
+  "#odms .grp .st b{display:block;font-size:22px;color:#fff;font-weight:700}",
+  "#odms .grp.wait{opacity:.5}#odms .grp.next{opacity:1;border-color:var(--acc);box-shadow:0 0 0 1px var(--acc),0 8px 30px var(--soft)}",
+  "#odms .grp.next .st{color:var(--acc2);font-weight:700;font-size:13px}",
+  "#odms .grp.busy{opacity:1;border-color:var(--acc)}#odms .grp.busy .ic{animation:odmsPulse 1s infinite}",
+  "#odms .grp.done{opacity:1;background:rgba(255,255,255,.05);border-color:rgba(86,211,100,.3)}#odms .grp.done .ic{background:var(--acc);color:#fff;border-color:transparent}",
+  "#odms .grp.opt .t:after{content:' optional';font-size:12px;color:#7f8ba2;font-weight:600}",
+  "@keyframes odmsPulse{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}",
+  "#odms .work{position:absolute;left:516px;right:44px;top:30px;bottom:30px}",
+  "#odms .line{display:flex;align-items:stretch;gap:0}",
+  "#odms .stn{flex:1;position:relative;border-radius:14px;padding:14px 16px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);margin-right:26px;min-height:128px;transition:border-color .4s,background .4s}",
+  "#odms .stn:last-child{margin-right:0}",
+  "#odms .stn:after{content:'';position:absolute;right:-20px;top:50%;margin-top:-7px;border-style:solid;border-width:7px 0 7px 10px;border-color:transparent transparent transparent rgba(255,255,255,.25)}",
+  "#odms .stn:last-child:after{display:none}",
+  "#odms .stn .k{font-size:12px;font-weight:700;letter-spacing:2px;color:#7d8aa3;text-transform:uppercase}",
+  "#odms .stn .n{font-size:38px;font-weight:750;line-height:1.1;margin-top:8px;color:#fff;letter-spacing:-.5px}",
+  "#odms .stn .d{font-size:13px;color:#8d99b0;margin-top:5px;line-height:1.3}",
+  "#odms .stn.live{border-color:var(--acc);background:var(--soft2)}",
+  "#odms .stn.zero .n{color:#2f394e}",
+  "#odms .ledger{margin:16px 0 18px;padding:11px 16px;border-radius:10px;background:rgba(255,255,255,.03);border:1px dashed rgba(255,255,255,.14);font-size:16px;color:#b5c0d3;min-height:46px;display:flex;align-items:center;gap:10px}",
+  "#odms .ledger b{color:#fff}#odms .ledger .okk{margin-left:auto;color:#56d364;font-weight:700;font-size:14px;white-space:nowrap}#odms .ledger .bad{margin-left:auto;color:#f85149;font-weight:700;font-size:14px}",
+  "#odms .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}",
+  "#odms .drop{position:absolute;inset:0;background:rgba(7,11,22,.86);border:3px dashed var(--acc);border-radius:18px;display:none;align-items:center;justify-content:center;font-size:34px;font-weight:700;color:#fff;z-index:5}",
+  "#odms.dragging .drop{display:flex}",
+  "#odms .say{position:absolute;left:516px;right:44px;bottom:-2px;font-size:14px;color:#9aa6bd;height:22px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}",
+  /* decisions */
+  "#odms .h2{font-size:38px;font-weight:750;letter-spacing:-.5px;margin:0 0 4px}",
+  "#odms .h2s{font-size:18px;color:#93a0b8;margin-bottom:22px}",
+  "#odms .cols{display:grid;grid-template-columns:1fr 1fr;gap:28px}",
+  "#odms .colh{display:inline-block;font-size:14px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:7px 13px;border-radius:999px;margin-bottom:12px}",
+  "#odms .colh.a{background:var(--soft);color:var(--acc2)}#odms .colh.b{background:rgba(163,113,247,.16);color:#c9a8ff}",
+  "#odms .dc{border-radius:14px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);padding:15px 20px 14px 20px;margin-bottom:12px;display:grid;grid-template-columns:200px 1fr;gap:4px 20px;align-items:start;opacity:0;transform:translateY(10px);transition:opacity .5s,transform .5s}",
+  "#odms .dc.in{opacity:1;transform:none}",
+  "#odms .dc .fig{grid-row:span 3;font-size:44px;font-weight:800;line-height:1.05;color:#fff;letter-spacing:-1px}#odms .dc .fig small{display:block;font-size:13px;font-weight:600;color:#8d99b0;letter-spacing:0;margin-top:6px;line-height:1.3}",
+  "#odms .dc .lab{font-size:17px;font-weight:700;color:#e8edf6;line-height:1.3}",
+  "#odms .dc .txt{font-size:15px;color:#a7b3c8;line-height:1.4}",
+  "#odms .dc .act{font-size:15.5px;font-weight:700;color:var(--acc2);line-height:1.35}#odms .dc .act:before{content:'\\2192  ';}",
+  "#odms .colb .dc .act{color:#c9a8ff}",
+  /* outputs */
+  "#odms .outs{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}",
+  "#odms .oc{position:relative;border-radius:14px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.09);padding:18px 18px 14px;min-height:178px;cursor:pointer;transition:border-color .3s,background .3s,transform .15s}",
+  "#odms .oc:hover{border-color:rgba(255,255,255,.25)}#odms .oc:active{transform:scale(.99)}",
+  "#odms .oc .fmt{display:inline-block;font-size:12px;font-weight:800;letter-spacing:1px;padding:5px 9px;border-radius:6px;color:#fff}",
+  "#odms .oc .key{position:absolute;right:16px;top:16px;font-size:13px;color:#7d8aa3}",
+  "#odms .oc .t{font-size:19px;font-weight:700;margin-top:12px;line-height:1.25;color:#fff}",
+  "#odms .oc .std{font-size:13.5px;color:#8d99b0;margin-top:5px;line-height:1.35}",
+  "#odms .oc .res{position:absolute;left:18px;right:18px;bottom:13px;font-size:13px;color:#7d8aa3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}",
+  "#odms .oc.busy{border-color:var(--acc)}#odms .oc.busy .res{color:var(--acc2)}",
+  "#odms .oc.done{border-color:rgba(86,211,100,.45);background:rgba(46,160,67,.07)}#odms .oc.done .res{color:#56d364;font-weight:600}",
+  "#odms .oc.err{border-color:rgba(248,81,73,.5)}#odms .oc.err .res{color:#ff9b94}",
+  "#odms .close{margin-top:18px;display:flex;align-items:center;justify-content:space-between;font-size:17px;color:#a7b3c8}",
+  "#odms .btn{font:inherit;font-size:16px;font-weight:700;padding:11px 20px;border-radius:10px;border:0;background:var(--acc);color:#fff;cursor:pointer}",
+  "#odms .gbtn{font:inherit;font-size:14px;font-weight:600;padding:7px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.18);background:transparent;color:#c9d2e3;cursor:pointer}",
+  "#odms-open{position:fixed;right:16px;bottom:16px;z-index:2147481000;font:600 14px 'Segoe UI',system-ui,sans-serif;padding:10px 16px;border-radius:999px;border:0;background:#0b1222;color:#fff;box-shadow:0 6px 24px rgba(0,0,0,.35);cursor:pointer}",
+  "#odms-open:before{content:'\\2605  ';color:#f2c94c}",
+  ".odm-btn.odm-show{border-color:#d4a017!important}",
+  "@media print{#odms,#odms-open{display:none!important}}"
+  ].join("\n");
+
+  /* ---------- download capture: lets an output card name the file it just wrote ---------- */
+  var blobSize=new Map();
+  (function(){
+    var oc=URL.createObjectURL; URL.createObjectURL=function(o){var u=oc.apply(URL,arguments);try{if(o&&o.size!=null)blobSize.set(u,o.size);}catch(e){}return u;};
+    var ck=HTMLAnchorElement.prototype.click; HTMLAnchorElement.prototype.click=function(){try{if(S.capture&&this.download)S.dl.push({name:this.download,size:blobSize.get(this.href)||(/^data:/.test(this.href)?Math.round(this.href.length*.74):null)});}catch(e){}return ck.apply(this,arguments);};
+    var de=EventTarget.prototype.dispatchEvent; EventTarget.prototype.dispatchEvent=function(ev){try{if(S.capture&&this instanceof HTMLAnchorElement&&this.download&&ev&&ev.type==="click")S.dl.push({name:this.download,size:blobSize.get(this.href)||null});}catch(e){}return de.apply(this,arguments);};
+    if(window.showSaveFilePicker){var sp=window.showSaveFilePicker;window.showSaveFilePicker=function(o){try{if(S.capture&&o&&o.suggestedName)S.dl.push({name:o.suggestedName,size:null});}catch(e){}return sp.apply(window,arguments);};}
+    var wo=window.open; window.open=function(){var w=wo.apply(window,arguments);try{if(S.capture)S.dl.push({name:"",size:null,win:true});}catch(e){}return w;};
+  })();
+
+  /* ---------- counters ---------- */
+  function countTo(node,to,d,ms,suffix){
+    if(!node) return; var from=+node.getAttribute("data-v")||0; d=d||0; ms=ms||1100;
+    node.setAttribute("data-v",to);
+    if(to==null||isNaN(to)){node.innerHTML="—";return;}
+    var t0=null;
+    requestAnimationFrame(function f(t){ if(t0==null) t0=t; var k=Math.max(0,Math.min(1,(t-t0)/ms)), e=1-Math.pow(1-k,3), v=from+(to-from)*e;
+      node.innerHTML=fmtN(k<1?v:to,d)+(suffix||""); if(k<1) requestAnimationFrame(f); });
+  }
+
+  /* ---------- building the stage ---------- */
+  var root, cv;
+  function build(){
+    var c=S.cfg;
+    var st=document.createElement("style"); st.id="odms-css"; st.textContent=CSS; document.head.appendChild(st);
+    root=el("div",""); root.id="odms"; root.setAttribute("role","dialog"); root.setAttribute("aria-label",c.name+" showcase");
+    root.style.setProperty("--acc",c.accent); root.style.setProperty("--acc2",c.accent2||c.accent);
+    root.style.setProperty("--soft",c.soft||"rgba(47,129,247,.18)"); root.style.setProperty("--soft2",c.soft2||"rgba(47,129,247,.07)");
+    cv=el("div","cv"); root.appendChild(cv);
+    cv.appendChild(el("div","top",
+      '<div class="mark">'+esc(c.mark||c.name.slice(0,3).toUpperCase())+'</div><div class="brand">Odieman '+esc(c.name)+'<small>'+esc(c.version)+'</small></div>'+
+      '<div class="steps">'+SCENES.map(function(s,i){return '<div class="step" data-i="'+i+'"><i></i>'+s[1]+'</div>';}).join("")+'</div>'+
+      (S.own?'<span class="chip own">YOUR DATA</span>':'<span class="chip sim">SIMULATED DATA</span>')+'<span class="chip off">&#9679; OFFLINE</span>'));
+    var hosp=S.own?((c.hospitalName&&c.hospitalName())||"This facility"):(c.hospital||"Demo Regional Referral Hospital");
+    cv.appendChild(el("div","foot",'<span><b>'+esc(hosp)+'</b> &middot; '+(S.own?'the data loaded in '+esc(c.name)+' now':'simulated &middot; '+esc(c.layout||"Afya eHMS export layout"))+' &middot; nothing leaves this computer</span>'+
+      '<span><kbd>&rarr;</kbd> next &nbsp; <kbd>&larr;</kbd> back &nbsp; <kbd>F</kbd> full screen &nbsp; <kbd>Esc</kbd> open the tool</span>'));
+    /* scene 0: empty */
+    var s0=el("div","scene"); s0.setAttribute("data-s","0");
+    s0.innerHTML='<div class="hero"><div class="kick">'+esc(c.kicker||"")+'</div><div class="h1">'+esc(c.name)+'</div><div class="tag">'+esc(c.tagline||"")+'</div>'+
+      '<div class="ghosts">'+c.tiles.slice(0,4).map(function(t){return '<div class="tile"><span class="dot"></span><div class="l">'+esc(t.label)+'</div><div class="v">&mdash;</div><div class="s">no data yet</div></div>';}).join("")+'</div>'+
+      '<div class="zrow"><span><b class="num">0</b>files</span><span><b class="num">0</b>records</span><span><b class="num">0</b>analyses ready</span></div></div>'+
+      '<div class="hint">The tool is empty. Press <b>&rarr;</b> to bring in the hospital&rsquo;s exports.</div>';
+    cv.appendChild(s0);
+    /* scene 1: data in */
+    var s1=el("div","scene"); s1.setAttribute("data-s","1");
+    s1.innerHTML='<div class="tray"><div class="cap">'+(S.own?'What is loaded':'Hospital exports')+'</div>'+c.groups.map(function(g,i){
+        return '<div class="grp wait'+(g.optional?' opt':'')+'" data-g="'+i+'"><div class="ic">'+esc(g.ext||"CSV")+'</div><div class="t">'+esc(g.title)+'</div><div class="src">'+esc(g.source)+'</div><div class="f">'+esc(g.filesLabel||(g.files||[]).join(", "))+'</div><div class="st"></div></div>';}).join("")+
+      '</div><div class="work"><div class="cap">What '+esc(c.name)+' does with them</div><div class="line">'+c.stations.map(function(t,i){
+        return '<div class="stn zero" data-t="'+i+'"><div class="k">'+esc(t.label)+'</div><div class="n num" data-v="0">0</div><div class="d">'+esc(t.idle||"")+'</div></div>';}).join("")+'</div>'+
+      '<div class="ledger"><span class="lt">Every row is accounted for: rows in = rows used + rows set aside, with the reason.</span></div>'+
+      '<div class="tiles">'+c.tiles.map(function(t,i){return '<div class="tile" data-k="'+i+'"><span class="dot"></span><div class="l">'+esc(t.label)+'</div><div class="v num">&mdash;</div><div class="s">no data yet</div></div>';}).join("")+'</div>'+
+      '<div class="drop">Drop the export files here</div></div><div class="say"></div>';
+    cv.appendChild(s1);
+    /* scene 2: decisions */
+    var s2=el("div","scene"); s2.setAttribute("data-s","3");
+    s2.innerHTML='<div class="h2">'+esc(c.decideTitle||"What the data says, and what to decide")+'</div><div class="h2s">'+esc((typeof c.decideSub==="function"?c.decideSub():c.decideSub)||"Every figure below was worked out a moment ago from the files on the left.")+'</div>'+
+      '<div class="cols"><div class="cola"><span class="colh a">'+esc(c.decisions.a.title)+'</span><div class="dca"></div></div><div class="colb"><span class="colh b">'+esc(c.decisions.b.title)+'</span><div class="dcb"></div></div></div>'+
+      '<div class="close"><span>'+esc(c.closing||("Every number you saw came from the files, on this laptop, offline."))+'</span><button class="btn" type="button">Open '+esc(c.name)+' &rarr;</button></div>';
+    cv.appendChild(s2);
+    /* scene 3: outputs */
+    var s3=el("div","scene"); s3.setAttribute("data-s","2");
+    s3.innerHTML='<div class="h2">Reports, one click</div><div class="h2s">'+esc(c.outSub||"Real files, written now from the data just loaded, in the formats the wider world reads.")+'</div>'+
+      '<div class="outs">'+c.outputs.map(function(o,i){return '<div class="oc" data-o="'+i+'"><span class="fmt" style="background:'+(o.color||"#30363d")+'">'+esc(o.fmt)+'</span><span class="key">'+(i<9?'<kbd>'+(i+1)+'</kbd>':'')+'</span><div class="t">'+esc(o.title)+'</div><div class="std">'+esc(o.std||"")+'</div><div class="res">Press '+(i+1)+' or click</div></div>';}).join("")+'</div>'+
+      '<div class="close"><span>Press &rarr; for the decisions.</span><button class="btn" type="button">Decisions &rarr;</button></div>';
+    cv.appendChild(s3);
+    document.body.appendChild(root);
+    var ob=el("button","",'Showcase'); ob.id="odms-open"; ob.type="button"; ob.title="Back to the showcase stage (S)"; ob.style.display="none"; ob.onclick=function(){open();}; document.body.appendChild(ob);
+    /* wiring */
+    qa(".grp",s1).forEach(function(g){g.addEventListener("click",function(){var i=+g.getAttribute("data-g");if(S.loaded[i])return;if(S.own)say("Drag the file onto the stage: it is imported into "+esc(S.cfg.name)+" like any other import.");else loadGroup(i);});});
+    qa(".oc",s3).forEach(function(o){o.addEventListener("click",function(){runOut(+o.getAttribute("data-o"));});});
+    q(".close .btn",s3).addEventListener("click",function(){go(3);}); q(".close .btn",s2).addEventListener("click",function(){close();});
+    qa(".step",cv).forEach(function(s){s.style.cursor="pointer";s.addEventListener("click",function(){go(+s.getAttribute("data-i"));});});
+    window.addEventListener("resize",fit); fit();
+    document.addEventListener("keydown",onKey,true);
+    /* real files from a folder (full copies only; the website demo refuses them) */
+    root.addEventListener("dragover",function(e){if(S.scene!==1)return;e.preventDefault();e.stopPropagation();root.classList.add("dragging");});
+    root.addEventListener("dragleave",function(e){e.stopPropagation();if(e.target===q(".drop",root))root.classList.remove("dragging");});
+    root.addEventListener("drop",function(e){root.classList.remove("dragging");if(S.scene!==1)return;e.preventDefault();e.stopPropagation();var fl=[].slice.call((e.dataTransfer&&e.dataTransfer.files)||[]);if(fl.length)fromDisk(fl);});
+  }
+  function fit(){ if(!cv) return; var k=Math.min(window.innerWidth/1600,window.innerHeight/900); cv.style.transform="scale("+k+") translate(-50%,-50%)"; cv.style.transformOrigin="0 0"; cv.style.left=(window.innerWidth/2)+"px"; cv.style.top=(window.innerHeight/2)+"px"; cv.style.transform="translate(-50%,-50%) scale("+k+")"; cv.style.transformOrigin="50% 50%"; }
+  function say(t){var s=q(".say",root);if(s)s.innerHTML=t||"";}
+
+  /* ---------- navigation ---------- */
+  function go(i){
+    i=Math.max(S.own?1:0,Math.min(SCENES.length-1,i));
+    if(i>=2&&!allRequired()){ flashNext(); return; }
+    S.scene=i;
+    qa(".scene",cv).forEach(function(s){s.classList.toggle("on",+s.getAttribute("data-s")===i);});
+    qa(".step",cv).forEach(function(s){var k=+s.getAttribute("data-i");s.classList.toggle("on",k===i);s.classList.toggle("done",k<i);});
+    if(i===1) paintGroups();
+    if(i===3) paintDecisions();
+  }
+  function allRequired(){return S.own||S.cfg.groups.every(function(g,i){return g.optional||S.loaded[i];});}
+  function nextGroup(){if(S.own)return -1;for(var i=0;i<S.cfg.groups.length;i++){if(!S.loaded[i])return i;}return -1;}
+  function flashNext(){var g=q('.grp.next',root);if(g){g.style.transform="translateX(6px)";setTimeout(function(){g.style.transform="";},180);}}
+  function next(){
+    if(S.scene===0) return go(1);
+    if(S.scene===1){ if(S.loading!=null) return; var n=nextGroup(); if(n>=0) return loadGroup(n); return go(2); }
+    if(S.scene===2) return go(3);
+    if(S.scene===3) return close();
+  }
+  function back(){ if(S.scene>(S.own?1:0)) go(S.scene-1); }
+  function onKey(e){
+    if(!S.cfg) return;
+    if(!S.on){ if(S.active&&(e.key==="s"||e.key==="S")&&!/INPUT|TEXTAREA|SELECT/.test((e.target||{}).tagName||"")&&!e.ctrlKey&&!e.metaKey){ e.preventDefault(); open(); } return; }
+    var k=e.key, used=true;
+    if(k==="ArrowRight"||k===" "||k==="PageDown"||k==="Enter") next();
+    else if(k==="ArrowLeft"||k==="PageUp"||k==="Backspace") back();
+    else if(k==="Escape") close();
+    else if(k==="f"||k==="F") fullscreen();
+    else if(S.scene===2&&/^[1-9]$/.test(k)) runOut(+k-1);
+    else if(k==="Home") go(0); else if(k==="End") go(3);
+    else used=false;
+    if(used){ e.preventDefault(); e.stopPropagation(); }
+  }
+  function fullscreen(){try{if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen();}catch(e){}}
+  function open(){ if(!root) return; root.classList.remove("off"); S.on=true; q("#odms-open").style.display="none"; fit(); go(S.scene); }
+  function close(){
+    if(!root) return; root.classList.add("off"); S.on=false; q("#odms-open").style.display="";
+    if(allRequired()&&S.cfg.reveal){ try{ S.cfg.reveal(); }catch(e){ console.error(e); } }
+  }
+
+  /* ---------- loading the exports ---------- */
+  async function sampleFiles(g){
+    var out=[];
+    for(var i=0;i<g.files.length;i++){
+      var n=g.files[i], r=await fetch("../samples/"+S.cfg.sampleTool+"/"+n);
+      if(!r.ok) throw new Error("The sample file "+n+" could not be read. Keep Odieman_Sample_Hospital.js beside the tool.");
+      var b=await r.blob(); out.push(new File([b],n,{type:"text/csv"}));
+    }
+    return out;
+  }
+  async function loadGroup(i,files){
+    if(S.loading!=null||S.loaded[i]) return;
+    var g=S.cfg.groups[i]; S.loading=i; paintGroups();
+    var t0=performance.now();
+    try{
+      say("Reading "+esc(g.title.toLowerCase())+"&hellip;");
+      await wait(60);
+      if(!files) files=await sampleFiles(g);
+      var size=files.reduce(function(a,f){return a+(f.size||0);},0);
+      S.cfg.quiet(true);
+      try{ await g.load(files); } finally { S.cfg.quiet(false); }
+      S.loaded[i]={files:files.length,size:size,ms:performance.now()-t0,own:!!files.own};
+      S.order.push(i);
+      if(!S.own&&allRequired()&&!S.finished){ S.finished=true; try{ S.cfg.quiet(true); await (S.cfg.finish&&S.cfg.finish()); }catch(e){ console.error(e); } finally { S.cfg.quiet(false); } }
+      var secs=(S.loaded[i].ms/1000);
+      say(esc(g.title)+": "+files.length+" file"+(files.length>1?"s":"")+", "+bytes(size)+", read in "+(secs<10?secs.toFixed(1):Math.round(secs))+" s.");
+    }catch(e){ console.error(e); say('<span style="color:#ff9b94">'+esc(e.message||e)+'</span>'); }
+    S.loading=null; paintGroups(); await paintWork(i);
+  }
+  async function fromDisk(list){
+    var used={}, unknown=[];
+    list.forEach(function(f){var gi=S.cfg.groups.findIndex(function(g){return g.match&&g.match.test(f.name);});if(gi<0)unknown.push(f.name);else (used[gi]=used[gi]||[]).push(f);});
+    for(var k in used){ var arr=used[k]; arr.own=true; if(!S.loaded[k]) await loadGroup(+k,arr); }
+    if(unknown.length) say('<span style="color:#ffb4ae">Not recognised: '+esc(unknown.join(", "))+'</span>');
+  }
+  function paintGroups(){
+    var nx=nextGroup();
+    qa(".grp",root).forEach(function(d){var i=+d.getAttribute("data-g"), L=S.loaded[i], g=S.cfg.groups[i];
+      d.className="grp"+(g.optional?" opt":"")+(L?" done":S.loading===i?" busy":(i===nx&&S.loading==null?" next":" wait"));
+      var st=q(".st",d);
+      if(L){ var n=null; try{n=g.rows();}catch(e){} st.innerHTML=(n!=null?'<b class="num">'+fmtN(n)+'</b>'+esc(g.rowsLabel||"rows"):'<b>&#10003;</b>loaded')+(L.own&&!L.present?'<br>from your folder':''); }
+      else if(S.loading===i) st.innerHTML="reading&hellip;";
+      else if(i===nx) st.innerHTML="&rarr; next";
+      else if(S.own) st.innerHTML='<span style="color:#ffb4ae">not loaded</span><br>drop the file here';
+      else st.innerHTML="";
+    });
+  }
+  async function paintWork(justLoaded){
+    var c=S.cfg;
+    /* stations, one after another, like an assembly line */
+    var sn=qa(".stn",root);
+    for(var i=0;i<c.stations.length;i++){
+      var t=c.stations[i], d=sn[i], v=null, sub="";
+      try{v=t.value();}catch(e){}
+      try{sub=t.sub?t.sub():"";}catch(e){}
+      var nn=q(".n",d), old=+nn.getAttribute("data-v")||0;
+      if(v!=null&&v!==old){ d.classList.add("live"); d.classList.remove("zero"); countTo(nn,v,t.d||0,900); q(".d",d).innerHTML=sub||""; await wait(260); d.classList.remove("live"); }
+      else if(v!=null){ d.classList.remove("zero"); q(".d",d).innerHTML=sub||""; }
+    }
+    /* ledger */
+    try{ var L=c.ledger&&c.ledger(); var lg=q(".ledger",root);
+      if(L){ var used=L.used.reduce(function(a,x){return a+x[1];},0), aside=L.aside.reduce(function(a,x){return a+x[1];},0), ok=used+aside===L.total, A=L.aside.filter(function(x){return x[1]>0;});
+        lg.innerHTML='<span><b class="num">'+fmtN(L.total)+'</b> '+esc(L.what)+' in = '+L.used.map(function(x){return '<b class="num">'+fmtN(x[1])+'</b> '+esc(x[0]);}).join(" + ")+
+          (A.length?' + '+A.map(function(x){return '<b class="num">'+fmtN(x[1])+'</b> set aside ('+esc(x[0])+')';}).join(" + "):"")+'</span>'+
+          (ok?'<span class="okk">&#10003; adds up</span>':'<span class="bad">does not add up: '+fmtN(L.total-used-aside)+'</span>');
+      } }catch(e){ console.error(e); }
+    /* tiles: red names the missing file, green counts up */
+    var tl=qa(".tile[data-k]",root);
+    for(var k=0;k<c.tiles.length;k++){
+      var T=c.tiles[k], dn=tl[k], r=null;
+      try{ r=T.get(); }catch(e){ console.error(e); r=null; }
+      if(!r) continue;
+      var was=dn.className, vn=q(".v",dn), sn2=q(".s",dn);
+      if(r.st==="red"){ dn.className="tile red"; vn.removeAttribute("data-v"); vn.innerHTML=esc(r.why||"Needs more data"); sn2.innerHTML=esc(r.sub||""); }
+      else if(r.st==="grey"){ dn.className="tile"; vn.innerHTML="&mdash;"; sn2.innerHTML=esc(r.sub||"no data yet"); }
+      else { var cls="tile "+(r.st==="amb"?"amb":"ok"); var turned=!/\b(ok|amb)\b/.test(was);
+        dn.className=cls; if(turned){ dn.classList.add("flash"); setTimeout(function(x){return function(){x.classList.remove("flash");};}(dn),1300); vn.setAttribute("data-v","0"); }
+        if(typeof r.v==="number") countTo(vn,r.v,r.d||0,turned?1300:700,r.unit?'<small>'+esc(r.unit)+'</small>':"");
+        else vn.innerHTML=esc(r.v)+(r.unit?'<small>'+esc(r.unit)+'</small>':"");
+        sn2.innerHTML=esc(r.sub||""); if(turned) await wait(140); }
+    }
+  }
+  function paintDecisions(){
+    var c=S.cfg, A=[], B=[];
+    try{A=c.decisions.a.cards()||[];}catch(e){console.error(e);}
+    try{B=c.decisions.b.cards()||[];}catch(e){console.error(e);}
+    function card(x){return '<div class="dc"><div class="fig num">'+esc(x.fig)+(x.figSub?'<small>'+esc(x.figSub)+'</small>':'')+'</div><div class="lab">'+esc(x.label)+'</div><div class="txt">'+esc(x.text||"")+'</div><div class="act">'+esc(x.act||"")+'</div></div>';}
+    q(".dca",root).innerHTML=A.map(card).join(""); q(".dcb",root).innerHTML=B.map(card).join("");
+    qa(".dc",root).forEach(function(d,i){setTimeout(function(){d.classList.add("in");},120+i*160);});
+  }
+
+  /* ---------- one-click outputs ---------- */
+  async function runOut(i){
+    var o=S.cfg.outputs[i]; if(!o) return; var d=q('.oc[data-o="'+i+'"]',root); if(!d||d.classList.contains("busy")) return;
+    d.className="oc busy"; q(".res",d).innerHTML="writing&hellip;";
+    S.dl=[]; S.capture=true; var note="";
+    try{ S.cfg.quiet(true); var r=await o.run(); if(typeof r==="string") note=r; await wait(o.settle||900); }
+    catch(e){ console.error(e); S.capture=false; S.cfg.quiet(false); d.className="oc err"; q(".res",d).innerHTML=esc("Not written: "+(e.message||e)); return; }
+    S.capture=false; S.cfg.quiet(false);
+    var files=S.dl.filter(function(x){return x.name;});
+    if(files.length){ d.className="oc done"; q(".res",d).innerHTML="&#10003; "+files.map(function(f){return esc(f.name)+(f.size?" &middot; "+bytes(f.size):"");}).join(", "); q(".res",d).title=files.map(function(f){return f.name;}).join("\n"); }
+    else if(note){ d.className="oc done"; q(".res",d).innerHTML="&#10003; "+esc(note); }
+    else { d.className="oc err"; q(".res",d).innerHTML="Nothing was written. Check that the browser allows downloads."; }
+  }
+
+  /* ---------- header button in every copy, the stage only on the sample hospital ---------- */
+  function addButton(){
+    if(!document.getElementById("odms-btn-css")){var st=document.createElement("style");st.id="odms-btn-css";st.textContent=".odm-btn.odm-show{border-color:#d4a017!important}";document.head.appendChild(st);}
+    var t=0, h=setInterval(function(){ var bar=document.getElementById("odm-bar"); if(bar||++t>60){ clearInterval(h);
+      if(!bar||document.getElementById("odm-show")) return;
+      var b=document.createElement("button"); b.type="button"; b.id="odm-show"; b.className="odm-btn odm-show"; b.textContent="★ Showcase";
+      b.title="A stage for a talk: the sample hospital's exports go in one by one, or the data loaded now goes straight on stage; it ends on decisions and one-click outputs.";
+      b.addEventListener("click",function(){
+        if(S.cfg&&S.active){ open(); return; }
+        var inSample=false; try{inSample=inDemo();}catch(e){}
+        var has=false; try{has=!!(S.cfg&&S.cfg.hasData&&S.cfg.hasData());}catch(e){}
+        if(inSample||!has){ location.href=BASE+"?demo=1&show=1"; return; }
+        var m=document.getElementById("odms-menu"); if(m){m.remove();return;}
+        m=document.createElement("div"); m.id="odms-menu";
+        m.style.cssText="position:fixed;z-index:2147481500;background:#0b1222;color:#e8edf6;border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:8px;box-shadow:0 12px 40px rgba(0,0,0,.45);font:14px 'Segoe UI',system-ui,sans-serif;min-width:300px";
+        var r=b.getBoundingClientRect(); m.style.top=(r.bottom+6)+"px"; m.style.left=Math.max(8,Math.min(window.innerWidth-320,r.left))+"px";
+        function item(t,d,fn){var x=document.createElement("button");x.type="button";x.style.cssText="display:block;width:100%;text-align:left;background:transparent;border:0;color:inherit;font:inherit;padding:9px 10px;border-radius:8px;cursor:pointer";x.innerHTML="<b>"+t+"</b><br><span style='color:#9aa6bd;font-size:12.5px'>"+d+"</span>";x.onmouseenter=function(){x.style.background="rgba(255,255,255,.07)";};x.onmouseleave=function(){x.style.background="transparent";};x.onclick=function(){m.remove();fn();};m.appendChild(x);}
+        item("The data loaded now","Your own figures on the stage. Nothing is changed or saved.",function(){ S.startOwn(); });
+        item("The sample hospital","Opens the tool on simulated data, empty, and brings the files in one by one.",function(){ location.href=BASE+"?demo=1&show=1"; });
+        document.body.appendChild(m);
+        setTimeout(function(){document.addEventListener("click",function h(e){if(!m.contains(e.target)&&e.target!==b){m.remove();document.removeEventListener("click",h);}});},0);
+      });
+      var pr=document.getElementById("odm-present"); if(pr&&pr.nextSibling) bar.insertBefore(b,pr.nextSibling); else bar.appendChild(b); } },250);
+  }
+  S.startOwn=function(){
+    if(!S.cfg||S.active) return false; var c=S.cfg;
+    if(!c.hasData||!c.hasData()) return false;
+    S.own=true; S.active=true; if(c.ownGroups){ try{ var og=c.ownGroups(); if(og&&og.length) c.groups=og; }catch(e){ console.error(e); } } build();
+    c.groups.forEach(function(g,i){ var n=0; try{n=g.rows();}catch(e){} if(n>0) S.loaded[i]={files:0,size:0,ms:0,own:true,present:true}; });
+    var step0=q('.step[data-i="0"]',cv); if(step0) step0.style.display="none";
+    open(); go(1); paintWork(-1); say("Figures read from the data loaded now. Drop more exports onto the stage to import them.");
+    return true;
+  };
+  S.init=function(cfg){
+    S.cfg=cfg; cfg.quiet=cfg.quiet||function(){};
+    function boot(){
+      addButton();
+      if(!param("show")) return;
+      if(!inDemo()){ location.replace(BASE+"?demo=1&show=1"); return; }
+      S.active=true;
+      if(window.ODM_PRESENT) window.ODM_PRESENT.sampleExtrasDone=true; /* the showcase brings the extras in itself, in view */
+      build(); open(); go(0);
+      try{ cfg.prepare&&cfg.prepare(); }catch(e){ console.error(e); }
+    }
+    if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",boot); else setTimeout(boot,0);
+  };
+  S.next=next; S.back=back; S.go=go; S.open=open; S.close=close; S.loadGroup=loadGroup; S.runOut=runOut;
+})();
+
+</script>
+<script>
+/* ============ AMS Pro 5.7: printable antibiogram (CLSI M39) and the Showcase stage ============ */
+(function(){
+  var esc=function(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});};
+  var fmt=function(n,d){return n==null||isNaN(n)?"—":Number(n).toLocaleString("en-US",{minimumFractionDigits:d||0,maximumFractionDigits:d||0});};
+  var low=function(s){return String(s||"").toLowerCase();};
+
+  /* ---------- CLSI M39 / EUCAST rules used by the printable antibiogram ----------
+     Intrinsic (expected) resistance: printed as "R*" (resistant by nature), never as a calculated %.
+     Unreportable pairs: an agent that should not be reported for that organism or specimen is left blank.
+     Sources: CLSI M100 Appendix B (intrinsic resistance), EUCAST Expected Resistant Phenotypes v1.2,
+     CLSI M39-A5 (first isolate per patient per period, ≥30 isolates per organism before a % is reported). */
+  var GRAM_NEG=[["escherichia","Escherichia coli"],["klebsiella","Klebsiella pneumoniae"],["pseudomonas","Pseudomonas aeruginosa"],["acinetobacter","Acinetobacter baumannii"],["proteus","Proteus mirabilis"],["salmonella typhi","Salmonella Typhi"],["salmonella","Salmonella spp."],["shigella","Shigella spp."],["haemophilus","Haemophilus influenzae"],["enterobacter","Enterobacter spp."],["citrobacter","Citrobacter spp."],["serratia","Serratia spp."],["morganella","Morganella morganii"],["neisseria","Neisseria spp."]];
+  var GRAM_POS=[["staphylococcus aureus","Staphylococcus aureus"],["staphylococcus","Staphylococcus (coagulase-negative)"],["streptococcus pneumoniae","Streptococcus pneumoniae"],["streptococcus","Streptococcus spp."],["enterococcus","Enterococcus spp."]];
+  var INTRINSIC={ /* organism key -> agents (lower-case fragments) */
+    "klebsiella":["ampicillin"],
+    "proteus":["nitrofurantoin","colistin","tetracycline","tigecycline"],
+    "pseudomonas":["ampicillin","amoxicillin","cloxacillin","ceftriaxone","cefotaxime","trimethoprim","sulfamethoxazole","chloramphenicol","nitrofurantoin","ertapenem","tetracycline","doxycycline"],
+    "acinetobacter":["ampicillin","amoxicillin","cloxacillin","trimethoprim","chloramphenicol","nitrofurantoin","ertapenem"],
+    "enterobacter":["ampicillin","amoxicillin"],"citrobacter":["ampicillin","amoxicillin"],"serratia":["ampicillin","amoxicillin","nitrofurantoin","colistin"],"morganella":["ampicillin","amoxicillin","nitrofurantoin","colistin","tetracycline"],
+    "enterococcus":["ceftriaxone","ceftazidime","cefotaxime","cefazolin","cephalexin","cloxacillin","clindamycin","trimethoprim","sulfamethoxazole","aminoglycoside-low:gentamicin","aminoglycoside-low:amikacin"],
+    "streptococcus":["gentamicin","amikacin"],"staphylococcus":["ceftazidime"],
+    "salmonella":["gentamicin","amikacin"],"shigella":["gentamicin","amikacin"],"haemophilus":["clindamycin","erythromycin","cloxacillin"]
+  };
+  var URINE_ONLY=["nitrofurantoin"], GRAM_POS_ONLY=["vancomycin","cloxacillin","clindamycin","erythromycin"], GRAM_NEG_ONLY=["ceftazidime","amikacin","aztreonam","colistin"];
+  function orgGroup(org){var o=low(org);for(var i=0;i<GRAM_POS.length;i++)if(o.indexOf(GRAM_POS[i][0])>=0)return{g:"pos",key:GRAM_POS[i][0]};for(var j=0;j<GRAM_NEG.length;j++)if(o.indexOf(GRAM_NEG[j][0])>=0)return{g:"neg",key:GRAM_NEG[j][0]};return{g:"other",key:o};}
+  function intrinsic(org,drug){var o=low(org),d=low(drug),L=[];Object.keys(INTRINSIC).forEach(function(k){if(o.indexOf(k)>=0)L=L.concat(INTRINSIC[k]);});return L.some(function(x){x=x.replace(/^aminoglycoside-low:/,"");return d.indexOf(x)>=0;});}
+  function unreportable(org,drug,specimens){var g=orgGroup(org).g,d=low(drug);
+    if(URINE_ONLY.some(function(x){return d.indexOf(x)>=0;})&&!(specimens&&specimens.urineOnly))return true;
+    if(g==="neg"&&GRAM_POS_ONLY.some(function(x){return d.indexOf(x)>=0;}))return true;
+    if(g==="pos"&&GRAM_NEG_ONLY.some(function(x){return d.indexOf(x)>=0;})&&!(low(org).indexOf("staphylococcus")>=0&&d.indexOf("amikacin")>=0))return true;
+    return false;}
+
+  /* Builds the printable antibiogram from DB.isolates: first isolate per patient per organism in the period. */
+  window.abgBuildPrint=function(opts){
+    opts=opts||{}; var spec=opts.specimen||"";
+    var iso=(DB.isolates||[]).filter(function(x){return x.organism&&x.results&&Object.keys(x.results).length;});
+    if(spec)iso=iso.filter(function(x){return (x.specimenType||"")===spec;});
+    var dates=iso.map(function(x){return x.date||"";}).filter(Boolean).sort();
+    var seen={},first=[];iso.slice().sort(function(a,b){return (a.date||"").localeCompare(b.date||"");}).forEach(function(x){var k=(x.patientId||"?")+"|"+low(x.organism);if(seen[k])return;seen[k]=1;first.push(x);});
+    var drugs=[];first.forEach(function(x){Object.keys(x.results).forEach(function(d){if(drugs.indexOf(d)<0)drugs.push(d);});});
+    drugs.sort(function(a,b){var ca=classifyAware(low(a),currentAwareScheme())||"Z",cb=classifyAware(low(b),currentAwareScheme())||"Z";return ca===cb?a.localeCompare(b):ca.localeCompare(cb);});
+    var byOrg={};first.forEach(function(x){(byOrg[x.organism]=byOrg[x.organism]||[]).push(x);});
+    var orgs=Object.keys(byOrg).sort(function(a,b){return byOrg[b].length-byOrg[a].length;});
+    var rows=orgs.map(function(org){var L=byOrg[org],n=L.length,urine=L.every(function(x){return /urine/i.test(x.specimenType||"");});
+      var cells=drugs.map(function(d){var tested=L.filter(function(x){return x.results[d]==="S"||x.results[d]==="I"||x.results[d]==="R";}),t=tested.length;
+        if(intrinsic(org,d))return{k:"intr"};
+        if(unreportable(org,d,{urineOnly:urine||/urine/i.test(spec)}))return{k:"na"};
+        if(!t)return{k:"none"};
+        var s=tested.filter(function(x){return x.results[d]==="S";}).length;
+        return{k:n<30?"low":"ok",n:t,s:s,pct:Math.round(100*s/t)};});
+      return{org:org,n:n,group:orgGroup(org).g,cells:cells,specimens:(function(){var c={};L.forEach(function(x){var s=x.specimenType||"?";c[s]=(c[s]||0)+1;});return Object.keys(c).sort(function(a,b){return c[b]-c[a];}).map(function(s){return s+" "+c[s];}).join(", ");})()};});
+    /* headline markers */
+    function pctR(orgKey,drugFrag){var r=rows.find(function(x){return low(x.org).indexOf(orgKey)>=0;});if(!r)return null;var i=drugs.findIndex(function(d){return low(d).indexOf(drugFrag)>=0;});if(i<0)return null;var c=r.cells[i];return c&&c.n?{pct:100-c.pct,n:c.n,low:r.n<30}:null;}
+    var head=[["MRSA (S. aureus, cloxacillin R)",pctR("staphylococcus aureus","cloxacillin")],["E. coli, ceftriaxone R (3GC-R)",pctR("escherichia","ceftriaxone")],["K. pneumoniae, ceftriaxone R",pctR("klebsiella","ceftriaxone")],["K. pneumoniae, meropenem R",pctR("klebsiella","meropenem")],["E. coli, ciprofloxacin R",pctR("escherichia","ciprofloxacin")]].filter(function(x){return x[1];});
+    /* use next to susceptibility: antibiotics prescribed most, by DDD, with their overall %S across all first isolates tested */
+    var use=(DB.consumption||[]).slice().sort(function(a,b){return (b.ddd||b.units||0)-(a.ddd||a.units||0);}).slice(0,6).map(function(c){var i=drugs.findIndex(function(d){return low(d)===low(c.drug)||low(d).indexOf(low(c.drug))>=0;});var S=0,T=0;if(i>=0)rows.forEach(function(r){var x=r.cells[i];if(x&&x.n){S+=x.s;T+=x.n;}});return{drug:c.drug,cls:c.cls,lines:c.lines,ddd:c.ddd,pct:T?Math.round(100*S/T):null,n:T};});
+    return{rows:rows,drugs:drugs,isolatesIn:iso.length,first:first.length,from:dates[0]||"",to:dates[dates.length-1]||"",specimen:spec,head:head,use:use,
+      aware:drugs.map(function(d){return classifyAware(low(d),currentAwareScheme())||"";})};
+  };
+  window.abgPrintHTML=function(A){
+    var fac=(DB.facility&&DB.facility.name)||"Facility",by=(DB.facility&&DB.facility.preparedBy)||"",today=new Date().toISOString().slice(0,10);
+    var ed=(window.ODMREF&&ODMREF.current&&ODMREF.current())||"";
+    function cell(c){if(c.k==="intr")return'<td class="intr" title="Resistant by nature (intrinsic). Not calculated.">R*</td>';if(c.k==="na")return'<td class="na">&middot;</td>';if(c.k==="none")return'<td class="na">&ndash;</td>';
+      var cls=c.pct>=80?"g":c.pct>=60?"a":"r";return'<td class="'+cls+(c.k==="low"?" low":"")+'"><b>'+c.pct+'</b><small>'+c.n+'</small></td>';}
+    function tbl(group,title){var R=A.rows.filter(function(r){return r.group===group;});if(!R.length)return"";
+      return'<h2>'+title+'</h2><table><thead><tr><th class="o">Organism <small>(first isolates)</small></th>'+A.drugs.map(function(d,i){return'<th><span class="aw '+low(A.aware[i])+'">'+esc(A.aware[i]||"")+'</span>'+esc(d)+'</th>';}).join("")+'</tr></thead><tbody>'+
+        R.map(function(r){return'<tr class="'+(r.n<30?"few":"")+'"><td class="o"><i>'+esc(r.org)+'</i> <b>'+r.n+'</b>'+(r.n<30?' <span class="flag">&lt;30: not reported</span>':'')+'<small>'+esc(r.specimens)+'</small></td>'+r.cells.map(cell).join("")+'</tr>';}).join("")+'</tbody></table>';}
+    var css='@page{size:A4 landscape;margin:10mm}body{font:10.5px/1.3 "Segoe UI",Arial,sans-serif;color:#111;margin:0}h1{font-size:19px;margin:0 0 2px}h2{font-size:12.5px;margin:9px 0 3px;color:#1f3a5f}.meta{font-size:10px;color:#444;margin-bottom:4px}table{border-collapse:collapse;width:100%;table-layout:fixed}th,td{border:1px solid #bbb;padding:2px 2px;text-align:center;font-size:9.5px}th{background:#eef2f7;font-weight:700;font-size:8.3px;line-height:1.15;vertical-align:bottom;word-wrap:break-word;hyphens:auto}th.o,td.o{text-align:left;width:150px}td.o small{display:block;color:#666;font-size:7.5px;font-style:normal}td b{font-size:11px;display:block}td small{color:#666;font-size:7.5px}td.g{background:#dff3e3}td.a{background:#fff3c4}td.r{background:#fbd5d1}td.intr{background:#e8e8e8;color:#444;font-weight:700}td.na{color:#aaa}tr.few td.g,tr.few td.a,tr.few td.r{background:#f4f4f4;color:#999}tr.few td b{color:#999}.flag{color:#a33;font-size:8px;font-weight:700}.aw{display:block;font-size:7px;letter-spacing:.5px;color:#fff;border-radius:3px;padding:0 3px;margin:0 auto 2px;width:fit-content}.aw.access{background:#1a7f37}.aw.watch{background:#9a6700}.aw.reserve{background:#cf222e}.aw.{display:none}.row{display:flex;gap:14px;margin-top:8px}.box{flex:1;border:1px solid #bbb;border-radius:6px;padding:6px 9px}.box h3{font-size:11px;margin:0 0 4px}.box table th,.box table td{font-size:9px;padding:2px 4px}.box td{text-align:left}.foot{font-size:8.3px;color:#333;margin-top:8px;line-height:1.35;column-count:2;column-gap:18px}.sig{display:flex;gap:30px;margin-top:10px;font-size:9.5px}.sig span{flex:1;border-top:1px solid #333;padding-top:3px}.card{page-break-before:always;width:100%;border:1.2px dashed #333;border-radius:6px;padding:5px 7px;font-size:8px}.card h1{font-size:11px}.card table{table-layout:auto}.card th,.card td{font-size:7.3px;padding:1px 2px}.card td b{font-size:8.5px;display:inline}.card td small{display:none}';
+    var head=A.head.length?'<div class="box"><h3>Headline resistance</h3><table>'+A.head.map(function(h){return'<tr><td>'+esc(h[0])+'</td><td style="text-align:right"><b>'+h[1].pct+'%</b> R <small>(n='+h[1].n+(h[1].low?', &lt;30':'')+')</small></td></tr>';}).join("")+'</table></div>':"";
+    var use=A.use.length?'<div class="box"><h3>Most used antibiotics next to their susceptibility</h3><table><tr><th>Antibiotic</th><th>AWaRe</th><th>Lines</th><th>Overall %S (all first isolates tested)</th></tr>'+A.use.map(function(u){return'<tr><td>'+esc(u.drug)+'</td><td>'+esc(u.cls||"")+'</td><td>'+fmt(u.lines)+'</td><td>'+(u.pct==null?'<span style="color:#999">not tested</span>':'<b>'+u.pct+'%</b> (n='+u.n+')')+'</td></tr>';}).join("")+'</table><div style="font-size:8px;color:#555;margin-top:3px">Facility-wide signal only: not indication-specific. A low %S for a heavily used antibiotic is a question for the AMS committee, not a verdict.</div></div>':"";
+    var big=A.rows.filter(function(r){return r.n>=30;});
+    var card='<div class="card"><h1>Pocket antibiogram &middot; '+esc(fac)+' &middot; '+esc(A.from.slice(0,7))+' to '+esc(A.to.slice(0,7))+'</h1><div class="meta">Cut out and keep: '+A.first+' first isolates &middot; % susceptible, number tested below &middot; only organisms with &ge;30 isolates &middot; R* = resistant by nature &middot; green &ge;80, amber 60&ndash;79, red &lt;60</div>'+
+      (big.length?('<table><thead><tr><th>Organism</th>'+A.drugs.map(function(d){return'<th>'+esc(d.replace(/ \+ /g,"+").replace(/Sulfamethoxazole\+Trimethoprim/,"SXT").replace(/Amoxicillin\+Clavulanic Acid/,"AMC"))+'</th>';}).join("")+'</tr></thead><tbody>'+big.map(function(r){return'<tr><td style="text-align:left"><i>'+esc(r.org)+'</i> ('+r.n+')</td>'+r.cells.map(cell).join("")+'</tr>';}).join("")+'</tbody></table>'):'<div class="meta">No organism reached 30 first isolates in this period, so no percentage is printed. More cultures are needed before an antibiogram can guide empirical choices.</div>')+'</div>';
+    return'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Cumulative antibiogram '+esc(fac)+' '+esc(today)+'</title><style>'+css+'</style></head><body>'+
+      '<h1>Cumulative antibiogram &middot; '+esc(fac)+'</h1><div class="meta">Period '+esc(A.from||"?")+' to '+esc(A.to||"?")+(A.specimen?' &middot; specimen: '+esc(A.specimen):' &middot; all specimens')+' &middot; <b>'+A.first+'</b> first isolates from '+A.isolatesIn+' results (one isolate per patient per organism, CLSI M39) &middot; cells show <b>% susceptible</b> with the number tested &middot; printed '+esc(today)+(by?' &middot; prepared by '+esc(by):'')+'</div>'+
+      tbl("neg","Gram-negative")+tbl("pos","Gram-positive")+tbl("other","Other organisms")+
+      '<div class="row">'+head+use+'</div>'+
+      '<div class="foot"><b>How to read.</b> Green &ge;80% susceptible, amber 60&ndash;79%, red &lt;60%. Only S counts as susceptible; I (intermediate / increased exposure) counts as not susceptible. <b>R*</b> = resistant by nature (intrinsic), from CLSI M100 Appendix B / EUCAST expected phenotypes; never calculated. A dot (&middot;) means the agent is not reported for that organism or specimen (e.g. nitrofurantoin only for urine, vancomycin only for Gram-positives). <b>&lt;30 isolates</b>: the row is greyed and no percentage should guide treatment (CLSI M39). <b>Bias.</b> Where cultures are mostly sent after first-line treatment has failed, the antibiogram leans towards resistance and does not describe every patient. Interpretive breakpoints are those applied by the laboratory at the time of testing; AMS Pro does not re-interpret MICs. AWaRe groups: WHO AWaRe classification'+(ed?' ('+esc(ed)+')':'')+'. Made in Odieman AMS Pro '+esc(dwVersion&&dwVersion()||"")+'.</div>'+
+      '<div class="sig"><span>Laboratory in charge</span><span>AMS committee chair</span><span>Medical officer in charge</span></div>'+card+'</body></html>';
+  };
+  window.abgPrintA4=function(){
+    if(!(DB.isolates||[]).length){toast("No culture & sensitivity isolates loaded yet.");return;}
+    var A=abgBuildPrint({specimen:window._abgSpecFilter||""}),html=abgPrintHTML(A);
+    var w=window.open("","_blank");
+    if(!w){dl("Antibiogram_"+((DB.facility&&DB.facility.name)||"Facility").replace(/[^A-Za-z0-9_-]/g,"_")+".html",html,"text/html");toast("Pop-ups are blocked: the antibiogram was saved as a file instead. Open it and print.");return;}
+    w.document.open();w.document.write(html);w.document.close();
+    setTimeout(function(){try{w.focus();w.print();}catch(e){}},400);
+  };
+
+  /* ============================== Showcase ============================== */
+  if(!window.ODM_SHOW) return;
+  var G={pharm:/AMS_Pharmacy_Dispensing_\d{4}\.csv$/i,admit:/AMS_Admissions_\d{4}\.csv$/i,labproc:/AMS_(Lab_Results_TAT|Procedures)_\d{4}\.csv$/i,cult:/AMS_Culture_Sensitivity_\d{4}\.csv$/i,issue:/AMS_Ward_Stock_Issues_\d{4}\.csv$/i};
+  var _toast=null;
+  function quiet(on){ if(on){ if(!_toast){_toast=window.toast;window.toast=function(){};} } else if(_toast){ window.toast=_toast;_toast=null; } }
+  async function hub(cat,files){ if(currentView!=="hub") go("hub"); await hubFiles(cat,files); if(pendingCats().indexOf(cat)>=0) analyzeAllStaged(); }
+  var m=function(){return DB.metrics||{};}, ab=function(){return scopedPharmacyTx().filter(function(t){return t.drugMatched;});};
+  var chk=function(id){try{return mdaCheck().find(function(x){return x.id===id;});}catch(e){return null;}};
+  var st=function(c){return !c?"grey":c.st==="ready"?"ok":c.st==="limited"?"amb":c.st==="optional"?"grey":"red";};
+  var has=function(k){return !!ODM_SHOW.loaded[k];};
+  var pct=function(x){return x==null?null:Math.round(x*1000)/10;};
+  var AMR=function(id){return (DB.indicators||[]).find(function(x){return x.id===id;})||{};};
+  function topDrug(){var c=(DB.consumption||[]).slice().sort(function(a,b){return (b.lines||0)-(a.lines||0);});return c[0]||null;}
+  function abgSummary(){try{compileAntibiogram();}catch(e){}var A=DB.antibiogram||{};var cells=0,ok=0;(A.organisms||[]).forEach(function(o){(A.drugs||[]).forEach(function(d){var c=A.matrix[o][d];if(c){cells++;if(!c.lowN)ok++;}});});return{first:A.isolateCount||0,total:A.totalIsolates||0,cells:cells,ok:ok,orgs:(A.organisms||[]).length};}
+  function ecoR(){var A=abgBuildPrint({});var r=A.head.find(function(h){return /E\. coli, ceftriaxone/.test(h[0]);});return r?r[1]:null;}
+  function tzs(n){return n==null?"—":"TZS "+fmt(n);}
+
+  ODM_SHOW.init({
+    tool:"ams",name:"AMS Pro",version:"5.7",mark:"AMS",sampleTool:"ams",
+    accent:"#2f81f7",accent2:"#79b8ff",soft:"rgba(47,129,247,.20)",soft2:"rgba(47,129,247,.08)",
+    kicker:"Antimicrobial stewardship",tagline:"Three years of a hospital's own exports, read in minutes: how much, which antibiotics, where, at what cost, and what the laboratory sees.",
+    hospital:"Demo Regional Referral Hospital",layout:"Afya eHMS export layout",hospitalName:function(){return (DB.facility&&DB.facility.name)||"";},hasData:function(){return scopedPharmacyTx().length>0;},
+    quiet:quiet,
+    prepare:function(){ go("hub"); },
+    groups:[
+      {title:"Pharmacy dispensing",source:"Afya eHMS › Pharmacy › Dispensing report, one file per year",files:["AMS_Pharmacy_Dispensing_2024.csv","AMS_Pharmacy_Dispensing_2025.csv","AMS_Pharmacy_Dispensing_2026.csv"],filesLabel:"3 files · 2024, 2025, 2026 · item, quantity, dosage text, ward, price, patient number",match:G.pharm,rowsLabel:"lines",
+        rows:function(){return DB.pharmacyTx.length;},load:function(f){return hub("pharm",f);}},
+      {title:"Admissions and discharges",source:"Afya eHMS › Inpatient › Admission register (ward, dates, bed-days, diagnosis)",files:["AMS_Admissions_2024.csv","AMS_Admissions_2025.csv","AMS_Admissions_2026.csv"],filesLabel:"3 files · the denominator: patient-days",match:G.admit,rowsLabel:"admissions",
+        rows:function(){return DB.admitTx.length;},load:function(f){return hub("admit",f);}},
+      {title:"Laboratory and theatre",source:"Afya eHMS › Laboratory turnaround report · Theatre › Procedures register",files:["AMS_Lab_Results_TAT_2024.csv","AMS_Lab_Results_TAT_2025.csv","AMS_Lab_Results_TAT_2026.csv","AMS_Procedures_2024.csv","AMS_Procedures_2025.csv","AMS_Procedures_2026.csv"],filesLabel:"6 files · turnaround times, procedures",match:G.labproc,rowsLabel:"records",
+        rows:function(){return DB.labTx.length+DB.procedureTx.length;},load:async function(f){await hub("lab",f.filter(function(x){return /Lab_Results/i.test(x.name);}));await hub("procedures",f.filter(function(x){return /Procedures/i.test(x.name);}));}},
+      {title:"Culture and sensitivity",source:"Laboratory › Microbiology results (or a WHONET file)",files:["AMS_Culture_Sensitivity_2024.csv","AMS_Culture_Sensitivity_2025.csv","AMS_Culture_Sensitivity_2026.csv"],filesLabel:"3 files · organism, specimen, S/I/R per antibiotic",match:G.cult,rowsLabel:"isolates",
+        rows:function(){return DB.isolates.length;},load:async function(f){for(var i=0;i<f.length;i++)await astImportFile({files:[f[i]],value:""});compileReport();}},
+      {title:"Ward stock issues",source:"Store › Issues to wards (same months)",files:["AMS_Ward_Stock_Issues_2026.csv"],filesLabel:"1 file · what the store issued vs what was dispensed",match:G.issue,rowsLabel:"issue lines",optional:true,
+        rows:function(){return (DB.wardReceipts||[]).length;},load:function(f){return hub("issue",f);}}
+    ],
+    finish:async function(){
+      DB.facility.name="Demo Regional Referral Hospital"; compileReport(); try{demoProjects();}catch(e){console.error(e);} buildNav();
+      try{var X=await ODM_PRESENT.extras(); if(X){ if(X.cqiMeetings&&!(+DB.metrics.cqiMeetings>0))DB.metrics.cqiMeetings=X.cqiMeetings;
+        if(X.indicators)Object.keys(X.indicators).forEach(function(id){var r=DB.indicators.find(function(x){return x.id===id;}),v=X.indicators[id];if(r&&!(+r.den>0)){r.num=v.num;r.den=v.den;r.perf=(v.num/v.den*100).toFixed(1)+"%";}});
+        if(X.didItWork){var D=dwSettings();if(!D.start)Object.assign(D,X.didItWork);} } }catch(e){console.error(e);}
+      try{window._dwR=dwAnalyse(dwSettings());}catch(e){console.error(e);}
+    },
+    stations:[
+      {label:"Lines read",value:function(){return DB.pharmacyTx.length||null;},sub:function(){return "every dispensing line, drugs and supplies";}},
+      {label:"Antibiotics matched",value:function(){return ab().length||null;},sub:function(){var a=ab(),u=(DB.consumption||[]).length;return a.length?u+" antibiotics · 100% of lines given an AWaRe group and WHO ATC/DDD":"";}},
+      {label:"Patient-days linked",value:function(){return +m().bedDaysTotal||null;},sub:function(){return m().bedDaysTotal?DB.admitTx.length.toLocaleString()+" admissions on "+(DB.facility.wardScope||[]).length+" wards":"waiting for admissions";}},
+      {label:"Lab and theatre",value:function(){return (DB.labTx.length+DB.procedureTx.length)||null;},sub:function(){return DB.labTx.length?DB.labTx.length.toLocaleString()+" lab results · "+DB.procedureTx.length.toLocaleString()+" procedures":"waiting for the laboratory";}},
+      {label:"First isolates",value:function(){var s=abgSummary();return s.first||null;},sub:function(){var s=abgSummary();return s.first?"from "+s.total+" results · "+s.orgs+" organisms":"waiting for culture results";}}
+    ],
+    ledger:function(){ var tx=scopedPharmacyTx(); if(!tx.length) return null; var a=tx.filter(function(t){return t.drugMatched;}).length,d=tx.filter(function(t){return !t.drugMatched&&t.kind==="drug";}).length,s=tx.filter(function(t){return !t.drugMatched&&t.kind!=="drug";}).length;
+      return {what:"dispensing lines",total:tx.length,used:[["systemic antibiotics",a]],aside:[["other medicines",d],["supplies",s]]}; },
+    tiles:[
+      {label:"Access share of antibiotic lines",get:function(){var c=chk("aware");if(!c||c.st==="no")return{st:"grey"};return{st:st(c),v:pct(m().awareAccess),d:1,unit:"%",sub:"WHO AWaRe · target ≥70% by 2030 (UN 2024)"};}},
+      {label:"Watch + Reserve share",get:function(){var c=chk("aware");if(!c||c.st==="no")return{st:"grey"};var w=pct((m().awareWatch||0)+(m().awareReserve||0));return{st:w>30?"amb":"ok",v:w,d:1,unit:"%",sub:"Watch "+pct(m().awareWatch)+"% · Reserve "+pct(m().awareReserve)+"%"};}},
+      {label:"DDD per 1,000 patient-days",get:function(){var c=chk("ddd");if(!c||c.st==="no")return{st:"grey"};if(!m().dddPer1000)return{st:"red",why:"Needs: Admissions file",sub:fmt(m().dddTotal,0)+" DDD counted · no patient-days yet"};return{st:st(c),v:+m().dddPer1000,d:0,sub:fmt(m().dddTotal,0)+" DDD over "+fmt(m().bedDaysTotal)+" patient-days"};}},
+      {label:"DOT per 1,000 patient-days",get:function(){var c=chk("dot");if(!c||c.st==="no")return{st:"grey"};if(!m().dotPer1000)return{st:"red",why:"Needs: Admissions file",sub:fmt(m().dotTotal,0)+" days of therapy · no patient-days yet"};return{st:st(c),v:+m().dotPer1000,d:0,sub:fmt(m().dotTotal,0)+" days of therapy"};}},
+      {label:"Antibiotic share of medicine spend",get:function(){if(!ab().length)return{st:"grey"};try{if(!DB.economics||!DB.economics.totals)compileEconomics();}catch(e){}var e=DB.economics&&DB.economics.totals;if(!e)return{st:"grey"};return{st:"ok",v:e.amrShareOfRevenue,d:0,unit:"%",sub:tzs(e.amrRevenue)+" of "+tzs(e.revenue)};}},
+      {label:"Lab results on time (AMR-2)",get:function(){if(!ab().length)return{st:"grey"};var r=AMR("AMR-2");if(!(+r.den>0))return{st:"red",why:"Needs: Laboratory turnaround file",sub:"turnaround met / all results"};return{st:+r.perf>=80?"ok":"amb",v:+r.perf,d:0,unit:"%",sub:fmt(r.num)+" of "+fmt(r.den)+" results within the target time"};}},
+      {label:"Antibiogram cells reportable",get:function(){if(!ab().length)return{st:"grey"};var s=abgSummary();if(!s.first)return{st:"red",why:"Needs: Culture & sensitivity file",sub:"CLSI M39 · ≥30 first isolates per organism"};return{st:s.ok?"ok":"amb",v:s.ok,d:0,unit:" of "+s.cells,sub:s.first+" first isolates (one per patient per organism) · "+s.orgs+" organisms"};}},
+      {label:"Doses matching the STG (AMR-1)",get:function(){if(!ab().length)return{st:"grey"};var r=AMR("AMR-1");if(!(+r.den>0))return{st:"grey"};return{st:+r.perf>=80?"ok":"amb",v:+r.perf,d:0,unit:"%",sub:fmt(r.num)+" of "+fmt(r.den)+" computable prescriptions"};}}
+    ],
+    decideTitle:"What the data says, and what to decide",decideSub:function(){return ODM_SHOW.own?"Every figure below comes from the data loaded in AMS Pro now.":"Every figure below was worked out a moment ago from the five exports on the previous screen. Simulated hospital.";},
+    decisions:{
+      a:{title:"For the AMS committee",cards:function(){var M=m(),t=topDrug(),e=ecoR(),s=abgSummary(),w=pct((M.awareWatch||0)+(M.awareReserve||0));
+        var out=[{fig:pct(M.awareAccess)+"%",figSub:"Access share of "+fmt(ab().length)+" antibiotic lines",label:"Access vs the 70% target",text:"Watch and Reserve make up "+w+"% of antibiotic lines; the UN 2024 declaration asks for at least 70% Access by 2030.",act:(pct(M.awareAccess)>=70?"Hold the line: keep Access ≥70% in every ward's monthly feedback.":"Set a ward-by-ward Access target and feed it back monthly (Reports › ward profiles).")}];
+        if(t)out.push({fig:fmt(t.lines),figSub:"lines of "+t.drug+" ("+t.cls+")",label:"The most prescribed antibiotic",text:e?"E. coli first isolates were "+e.pct+"% resistant to ceftriaxone (n="+e.n+").":"Culture results tell whether it still works.",act:e&&e.pct>=40&&/ceftriaxone/i.test(t.drug)?"Review empirical ceftriaxone use for suspected E. coli infections against the local antibiogram.":"Audit indications for "+t.drug+" on the two wards using it most."});
+        out.push({fig:s.ok+"/"+s.cells,figSub:"antibiogram cells with ≥30 isolates",label:"Where the laboratory can already guide us",text:s.first+" first isolates in "+(DB.facility.period||"the period")+". Cells below 30 isolates are shown but not relied on (CLSI M39).",act:"Print the A4 antibiogram for the wards; ask the laboratory to raise blood-culture numbers where rows are grey."});
+        return out;}},
+      b:{title:"For hospital management",cards:function(){var M=m(),E=(DB.economics&&DB.economics.totals)||{},r2=AMR("AMR-2"),D=window._dwR,S=dwSettings();
+        var out=[{fig:(E.amrRevenue>=1e6?fmt(E.amrRevenue/1e6,1)+" M":fmt(E.amrRevenue)),figSub:"TZS "+fmt(E.amrRevenue)+" on antibiotics: "+(E.amrShareOfRevenue||0)+"% of all medicine spend",label:"What antibiotics cost the hospital",text:"Spend by AWaRe group, ward and payer is on the Cost & Impact page; Watch antibiotics cost more per line than Access.",act:"Fund the stewardship team from the savings target the scenario page shows."}];
+        if(+r2.den>0)out.push({fig:(+r2.perf||0)+"%",figSub:"laboratory results within the turnaround target",label:"Turnaround time (AMR-2)",text:fmt(r2.num)+" of "+fmt(r2.den)+" results on time. Late results keep patients on broad empirical antibiotics longer.",act:(+r2.perf>=80?"Keep the target in the laboratory's quarterly review.":"Agree a turnaround target with the laboratory and track it quarterly.")});
+        if(D&&D.c&&D.c.level){var lv=D.c.level,np=Array.isArray(D.pre)?D.pre.length:D.pre,nq=Array.isArray(D.post)?D.post.length:D.post,sig=(lv.lo>0||lv.hi<0);
+          out.push({fig:(lv.est>0?"+":"")+fmt(lv.est,1),figSub:"points · level change in Watch+Reserve share after "+(S.name||"the intervention")+" ("+(S.start||"")+")",label:"Did it work? (interrupted time series)",text:"Segmented regression on "+np+" months before and "+nq+" after; 95% CI "+fmt(lv.lo,1)+" to "+fmt(lv.hi,1)+(sig?": a real change.":": no change can be claimed yet; the series was already falling.")+" Model and Stata commands: Did It Work? page.",act:"Decide the next intervention from the measured effect, not from impressions."});}
+        else out.push({fig:fmt(M.patientsOnAbx),figSub:"patients given a systemic antibiotic",label:"How many patients this touches",text:fmt(ab().length)+" antibiotic lines over "+(DB.facility.period||"the period")+".",act:"Make stewardship a standing item on the management meeting agenda."});
+        return out;}}
+    },
+    outSub:"Real files, written now from the data just loaded, in the formats the wider world reads. Nothing is uploaded.",
+    outputs:[
+      {fmt:"DOCX",color:"#185abd",title:"Full report (Word)",std:"Editable: AWaRe, DDD/DOT, cost, indicators, gaps",run:function(){return generateDeepReportDocx(null);},settle:2500},
+      {fmt:"PPTX",color:"#c43e1c",title:"Committee slides (PowerPoint)",std:"Editable deck for the AMS committee",run:function(){return generateDeepReportPptx(null);},settle:3000},
+      {fmt:"A4",color:"#1a7f37",title:"Printable antibiogram",std:"CLSI M39 · first-isolate rule · intrinsic R · pocket card",run:function(){abgPrintA4();return "Print view opened (A4 landscape + pocket card)";}},
+      {fmt:"WHONET",color:"#6e40c9",title:"WHONET isolate file",std:"WHO WHONET / BacLink CSV layout",run:function(){exportWhonetCSV();}},
+      {fmt:"GLASS",color:"#0b7285",title:"WHO GLASS summary",std:"GLASS-AMR specimen × pathogen × antibiotic",run:function(){exportGlassSummaryCSV();}},
+      {fmt:"CSV",color:"#8250df",title:"WHO ATC/DDD consumption",std:"GLASS-AMU style: ATC, DDD, route, month",run:function(){exportAmuAtcDddCSV();}},
+      {fmt:"REDCap",color:"#b35900",title:"REDCap data dictionary",std:"AMS Pro's pharmacy form, ready to upload to REDCap",run:function(){dl("AMS_Pro_REDCap_Data_Dictionary.csv",AE_OWN_DICT,"text/csv");}},
+      {fmt:"Stata",color:"#1f6feb",title:"Stata data + do-file",std:"ITS data (.dta) and the commands that reproduce it",run:function(){if(!window._dwR)window._dwR=dwAnalyse(dwSettings());dwExportDta();dwExportDo();},settle:1200}
+    ],
+    closing:"Every number you saw was worked out on this laptop, offline, from the hospital's own exports.",
+    reveal:function(){ try{ go("dash"); }catch(e){} }
+  });
+})();
+
 </script>
 </body>
 </html>
