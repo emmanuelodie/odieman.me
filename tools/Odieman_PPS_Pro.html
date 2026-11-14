@@ -261,7 +261,7 @@ html.odm-present #reportBody table{display:block;overflow-x:auto;max-width:100%}
 <body>
 <div class="app">
 <aside>
-  <div class="logo"><b>Odieman PPS Pro</b><span>Point Prevalence Survey · v3.9</span></div>
+  <div class="logo"><b>Odieman PPS Pro</b><span>Point Prevalence Survey · v3.10</span></div>
   <nav id="nav"></nav>
 </aside>
 <main>
@@ -349,7 +349,7 @@ const FORMULARY = {
  "Ampicillin-cloxacillin":{atc:"",aware:"Not recommended",route:"O",ddd:{}},
  "Amoxicillin-flucloxacillin":{atc:"",aware:"Not recommended",route:"O",ddd:{}},
  "Ampicillin-sulbactam":{atc:"J01CR01",aware:"Access",route:"P",ddd:{}},
- "Cefepime":{atc:"J01DE01",aware:"Watch",route:"P",ddd:{}},
+ "Cefepime":{atc:"J01DE01",aware:"Watch",route:"P",ddd:{P:4}},
  "Dihydroartemisinin-piperaquine":{atc:"P01BF05",aware:"Not classified",route:"O",ddd:{}},
  "Artemether":{atc:"P01BE02",aware:"Not classified",route:"P",ddd:{}},
  "Fluconazole":{atc:"J02AC01",aware:"Not classified",route:"O",ddd:{O:0.2,P:0.2}},
@@ -1301,6 +1301,8 @@ function vGuide(){
  <div id="gd">
  <div class="card section"><h3>Odieman PPS Pro — User Guide</h3><p>PPS Pro records and analyses WHO point prevalence surveys (PPS) of antimicrobial use: on one day, every inpatient on a ward is checked for antimicrobials, and the results are compared ward by ward and survey by survey. Repeating the survey every 6–12 months shows whether stewardship is working. Everything runs offline on this computer.</p>
  <div class="row">${toc.map(([id,t])=>`<button class="btn small ghost" data-scroll="${id}">${t}</button>`).join("")}</div></div>
+ <div class="card section"><h3>What's new in v3.10 (November 2026)</h3><ul>
+  <li><b>Showcase</b> (<b>&#9733; Showcase</b> in the top bar): a stage for a talk. PPS Pro opens empty on the sample hospital, the survey files go in one by one, the figures turn from red to green as the data they need arrive, and it ends on decisions for the AMS committee and for management, and on one-click outputs (WHO PPS worksheet, REDCap, Stata). Every figure on the stage is read from PPS Pro after it has done the work. Keys: &rarr; next, &larr; back, 1&ndash;8 outputs, F full screen, Esc open the tool. Memory only: nothing is saved, and your own data is not touched.</li></ul></div>
  <div class="card section"><h3>What's new in v3.8 and v3.9 (November 2026)</h3><ul>
   <li><b>Manual entry (any form)</b> (Output menu, v3.8): fill in PPS Pro's own form, or load any REDCap project's data dictionary and fill in that project's form instead, with its branching logic. Send the entries to a plain CSV, a REDCap import CSV, a labelled Stata file (.dta), WHONET format (only where the form has isolate columns) and/or, with PPS Pro's own form, straight into PPS Pro's surveys. Every file is made on this computer.</li>
   <li><b>Decision brief</b> (Start menu, v3.9): one printable page for a committee that will not read the full report: what was measured, the latest survey's headline figures exactly as PPS Pro shows them (nothing recomputed), whether the data meet the bar on <b>Minimum data</b>, a few plain-language lines on what it means, and a question for the committee to decide, never an instruction. <b>Print / Save as PDF</b> uses the browser's own print dialog.</li>
@@ -1426,7 +1428,7 @@ function vGuide(){
    Hospitals (WHO/EMP/IAU/2018.01): Hospital, Ward, Patient, Indication and Antibiotic levels with WHO variable
    names and codes. Values PPS Pro does not collect are left blank; every value that had to be converted or
    guessed is listed on the Check sheet. Written here, offline, as an Excel workbook or as one CSV per level. */
-const PPS_VER="3.9";
+const PPS_VER="3.10";
 const WHO_WT=[["AMW","Adult medical ward"],["ASW","Adult surgical ward"],["AHRW","Adult high-risk ward"],["AICU","Adult intensive care unit"],
  ["PMW","Paediatric medical ward"],["PSW","Paediatric surgical ward"],["PHRW","Paediatric high-risk ward"],["PICU","Paediatric intensive care unit"],
  ["NMW","Neonatal medical ward"],["NICU","Neonatal intensive care unit"],["MXW","Mixed ward"]];
@@ -2443,21 +2445,21 @@ document.addEventListener("mousedown",e=>{const b=e.target.closest&&e.target.clo
 
 /* ============ v3.3: AWaRe — WHO and Tanzania (NEMLIT 2021), checked against each other ============
    The Tanzania STG/NEMLIT 2021 groups antibiotics nationally (NEMLIT 6.2.1 Access, 6.2.2 Watch, 6.2.3 Reserve,
-   p.7–9). PPS Pro follows the national group only where it is STRICTER than WHO and the book's own level of care
+   printed pages 8–10). PPS Pro follows the national group only where it is STRICTER than WHO and the book's own level of care
    supports it (B, C or S). Where the book puts a dispensary-level (A) antibiotic in Watch or Reserve, or puts an
    antibiotic in a lower group than WHO, WHO wins — and the tool says so, with the page.
    Stored data and the WHO PPS export always use WHO. */
 const TZ_BOOK=[ // [name as printed, group as printed, level of care, page]
- ["ampicillin","Access","A",7],["ampicillin + cloxacillin","Access","B",7],["amoxicillin","Access","A",7],["amoxicillin + clavulanic acid","Access","B",7],
- ["benzathine benzylpenicillin","Access","A",8],["benzylpenicillin","Access","A",8],["cefalexin","Access","B",8],["cloxacillin","Access","B",8],["doxycycline","Access","A",8],
- ["erythromycin","Access","A",8],["flucloxacillin + amoxicillin","Access","C",8],["flucloxacillin","Access","C",8],["metronidazole","Access","A",8],["nitrofurantoin","Access","A",8],
- ["phenoxymethylpenicillin","Access","A",8],["tetracycline","Access","S",8],
- ["ampicillin + sulbactam","Watch","C",8],["azithromycin","Watch","B",8],["clarithromycin","Watch","C",8],["chloramphenicol","Watch","B",8],["ceftriaxone","Watch","B",8],
- ["ceftriaxone + sulbactam","Watch","D",8],["ciprofloxacin","Watch","A",8],["gentamicin","Watch","A",9],["piperacillin + tazobactam","Watch","S",9],
- ["sulfamethoxazole + trimethoprim","Watch","A",9],["ceftazidime","Watch","D",9],["cefixime","Watch","S",9],["cefuroxime","Watch","D",9],
- ["amikacin","Reserve","S",9],["cefepime","Reserve","S",9],["clindamycin","Reserve","S",9],["colistin","Reserve","S",9],["meropenem","Reserve","S",9],["vancomycin","Reserve","S",9],
- ["linezolid","Reserve","S",9]];
-const TZ_SRC="Tanzania STG/NEMLIT 2021, NEMLIT 6.2.1–6.2.3, p.7–9";
+ ["ampicillin","Access","A",8],["ampicillin + cloxacillin","Access","B",8],["amoxicillin","Access","A",8],["amoxicillin + clavulanic acid","Access","B",8],
+ ["benzathine benzylpenicillin","Access","A",9],["benzylpenicillin","Access","A",9],["cefalexin","Access","B",9],["cloxacillin","Access","B",9],["doxycycline","Access","A",9],
+ ["erythromycin","Access","A",9],["flucloxacillin + amoxicillin","Access","C",9],["flucloxacillin","Access","C",9],["metronidazole","Access","A",9],["nitrofurantoin","Access","A",9],
+ ["phenoxymethylpenicillin","Access","A",9],["tetracycline","Access","S",9],
+ ["ampicillin + sulbactam","Watch","C",9],["azithromycin","Watch","B",9],["clarithromycin","Watch","C",9],["chloramphenicol","Watch","B",9],["ceftriaxone","Watch","B",9],
+ ["ceftriaxone + sulbactam","Watch","D",8],["ciprofloxacin","Watch","A",9],["gentamicin","Watch","A",10],["piperacillin + tazobactam","Watch","S",10],
+ ["sulfamethoxazole + trimethoprim","Watch","A",10],["ceftazidime","Watch","D",9],["cefixime","Watch","S",10],["cefuroxime","Watch","D",9],
+ ["amikacin","Reserve","S",10],["cefepime","Reserve","S",10],["clindamycin","Reserve","S",10],["colistin","Reserve","S",10],["meropenem","Reserve","S",10],["vancomycin","Reserve","S",10],
+ ["linezolid","Reserve","S",10]];
+const TZ_SRC="Tanzania STG/NEMLIT 2021 (6th ed.), NEMLIT 6.2.1–6.2.3, printed pages 8–10";
 const TZ_BK=(()=>{const m={};TZ_BOOK.forEach(([n,g,l,p])=>m[stgKey(n)]={g,l,p});return m})();
 const AW_RANK={Access:1,Watch:2,Reserve:3};
 const awView=()=>DB.meta.awareView==="TZ"?"TZ":"WHO";
@@ -2873,7 +2875,7 @@ window.ODMREF=(function(){
   });
 })();
 
-if(DEMO){runDemo()}else (async()=>{try{const d=await IDB.get("db");if(d&&Array.isArray(d.surveys))DB=Object.assign(DB,d,{meta:Object.assign(DB.meta,d.meta||{})})}catch(e){}
+if(DEMO){if(new URLSearchParams(location.search).has("show"))pill();else runDemo()}else (async()=>{try{const d=await IDB.get("db");if(d&&Array.isArray(d.surveys))DB=Object.assign(DB,d,{meta:Object.assign(DB.meta,d.meta||{})})}catch(e){}
  if(window.ODMREF){try{ODMREF.sync()}catch(e){console.error(e)}fillDrugList()}
  await FS.restore();if(!DB.surveys.length&&FS.state!=="connected"&&FS.state!=="needs-permission")UI.page="guide";pill();render();if(FS.state==="connected")await onFolderReady()})();
 </script>
@@ -3396,6 +3398,602 @@ function vMentry(){
  (PE.source==="own"?("<button class=\"btn ghost\" onclick=\"peSendToAnalysis()\" "+(PE.rows.length?"":"disabled")+" style=\"margin-left:8px\">Add these "+PE.rows.length+" record(s) straight into this survey</button>"):"")+
  "</div></div>";
 }
+</script>
+
+<script>
+/* ============ Odieman Showcase (shared by PPS Pro, AMS Pro and VigiWard) ============
+   A stage for a talk: the tool opens empty, the hospital's exports go in one by one, the tool's own engine
+   reads, cleans, classifies and links them while the counts rise, each headline figure turns from red
+   (with the missing file named) to green, and the show ends on a decision board and on one-click outputs
+   that write real files. Every number on the stage is read from the tool after it has done the work;
+   the stage only paces it. Opened with ?demo=1&show=1 on the sample hospital (memory only, nothing saved).
+   Keys: → Space PageDown next · ← PageUp back · 1-9 outputs · F full screen · Esc open the tool · S stage. */
+(function(){
+  if(window.ODM_SHOW) return;
+  var S=window.ODM_SHOW={cfg:null,scene:0,on:false,loaded:{},loading:null,order:[],finished:false,dl:[],capture:false,own:false};
+  var SCENES=[["empty","Empty"],["data","Data in"],["out","Reports"],["decide","Decisions"]];
+  var BASE=location.href.split(/[?#]/)[0];
+  function q(s,r){return (r||document).querySelector(s);}
+  function qa(s,r){return [].slice.call((r||document).querySelectorAll(s));}
+  function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+  function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+  function wait(ms){return new Promise(function(r){setTimeout(r,ms);});}
+  function fmtN(n,d){if(n==null||isNaN(n))return "—";return Number(n).toLocaleString("en-US",{minimumFractionDigits:d||0,maximumFractionDigits:d||0});}
+  S.fmt=fmtN; S.esc=esc;
+  function param(k){return new URLSearchParams(location.search).has(k);}
+  function inDemo(){try{return !!(window.ODM_PRESENT&&window.ODM_PRESENT.cfg&&window.ODM_PRESENT.cfg.inDemo());}catch(e){return false;}}
+  function bytes(n){return n>=1048576?(n/1048576).toFixed(1)+" MB":n>=1024?Math.round(n/1024)+" KB":n+" B";}
+
+  /* ---------- style ---------- */
+  var CSS=[
+  "#odms{position:fixed;inset:0;z-index:2147482000;background:#070b16;color:#e8edf6;font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased}",
+  "#odms.off{display:none}",
+  "#odms .cv{position:absolute;left:50%;top:50%;width:1600px;height:900px;transform-origin:0 0;background:radial-gradient(1200px 700px at 78% -10%,var(--soft) 0%,rgba(7,11,22,0) 60%),linear-gradient(180deg,#0b1222,#070b16);overflow:hidden}",
+  "#odms *{box-sizing:border-box}",
+  "#odms .num{font-variant-numeric:tabular-nums;font-feature-settings:'tnum'}",
+  "#odms .top{position:absolute;left:0;right:0;top:0;height:72px;display:flex;align-items:center;padding:0 44px;gap:18px;border-bottom:1px solid rgba(255,255,255,.07)}",
+  "#odms .mark{width:40px;height:40px;border-radius:10px;background:var(--acc);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;letter-spacing:.5px;color:#fff;box-shadow:0 6px 20px var(--soft)}",
+  "#odms .brand{font-size:21px;font-weight:600;letter-spacing:.2px}#odms .brand small{font-size:13px;color:#9aa6bd;font-weight:600;margin-left:8px;padding:3px 8px;border:1px solid rgba(255,255,255,.14);border-radius:999px}",
+  "#odms .steps{flex:1;display:flex;justify-content:center;gap:26px}",
+  "#odms .step{display:flex;align-items:center;gap:9px;font-size:15px;color:rgba(232,237,246,.32);font-weight:600}#odms .step i{width:9px;height:9px;border-radius:50%;background:currentColor;display:block}",
+  "#odms .step.done{color:rgba(232,237,246,.62)}#odms .step.on{color:#fff}#odms .step.on i{background:var(--acc);box-shadow:0 0 0 5px var(--soft)}",
+  "#odms .chip{font-size:12px;font-weight:700;letter-spacing:1px;padding:6px 11px;border-radius:999px;white-space:nowrap}",
+  "#odms .chip.sim{background:rgba(212,160,23,.15);color:#f2c94c;border:1px solid rgba(242,201,76,.35)}",
+  "#odms .chip.own{background:rgba(47,129,247,.16);color:#79b8ff;border:1px solid rgba(121,184,255,.4)}",
+  "#odms .chip.off{background:rgba(46,160,67,.14);color:#56d364;border:1px solid rgba(86,211,100,.35)}",
+  "#odms .foot{position:absolute;left:0;right:0;bottom:0;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 44px;font-size:13px;color:#7d8aa3;border-top:1px solid rgba(255,255,255,.06)}",
+  "#odms .foot b{color:#aeb9cc;font-weight:600}#odms kbd{font:12px/1 inherit;border:1px solid rgba(255,255,255,.2);border-bottom-width:2px;border-radius:5px;padding:2px 6px;color:#c9d2e3;margin:0 2px}",
+  "#odms .scene{position:absolute;left:0;right:0;top:72px;bottom:44px;padding:30px 44px;opacity:0;transform:translateY(14px);transition:opacity .45s ease,transform .45s ease;pointer-events:none}",
+  "#odms .scene.on{opacity:1;transform:none;pointer-events:auto}",
+  /* empty */
+  "#odms .hero{text-align:center;padding-top:34px}",
+  "#odms .kick{font-size:15px;letter-spacing:4px;font-weight:700;color:var(--acc2);text-transform:uppercase}",
+  "#odms .h1{font-size:104px;font-weight:800;letter-spacing:-2px;line-height:1.04;margin:12px 0 10px;background:linear-gradient(180deg,#fff,#c8d3e6);-webkit-background-clip:text;background-clip:text;color:transparent}",
+  "#odms .tag{font-size:27px;color:#aab6cc;max-width:1100px;margin:0 auto;line-height:1.35}",
+  "#odms .zrow{margin:26px auto 0;display:flex;justify-content:center;gap:48px;color:#6f7c95;font-size:17px}",
+  "#odms .zrow b{display:block;font-size:54px;font-weight:700;color:#3b4660;line-height:1.1}",
+  "#odms .hint{position:absolute;left:0;right:0;bottom:26px;text-align:center;font-size:17px;color:#8793aa}#odms .hint b{color:#fff}",
+  "#odms .ghosts{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1160px;margin:30px auto 0}",
+  /* tiles */
+  "#odms .tile{position:relative;border-radius:14px;padding:16px 18px 14px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);min-height:146px;overflow:hidden;transition:border-color .5s,background .5s,box-shadow .5s}",
+  "#odms .tile .l{font-size:14px;font-weight:600;color:#9eabc2;line-height:1.25;min-height:36px;padding-right:22px}",
+  "#odms .tile .v{font-size:46px;font-weight:750;line-height:1.08;margin-top:6px;color:#3b4660;letter-spacing:-.5px}",
+  "#odms .tile .v small{font-size:22px;font-weight:650;margin-left:3px;color:inherit;opacity:.8}",
+  "#odms .tile .s{font-size:13px;color:#8692a9;margin-top:4px;line-height:1.3}",
+  "#odms .tile .dot{position:absolute;right:16px;top:17px;width:11px;height:11px;border-radius:50%;background:#2a3348}",
+  "#odms .tile.red{background:rgba(248,81,73,.08);border-color:rgba(248,81,73,.45)}#odms .tile.red .dot{background:#f85149;box-shadow:0 0 0 5px rgba(248,81,73,.18)}",
+  "#odms .tile.red .v{color:#f85149;font-size:20px;font-weight:700;margin-top:12px;line-height:1.25;letter-spacing:0}#odms .tile.red .s{color:#ffb4ae}",
+  "#odms .tile.ok{background:rgba(46,160,67,.07);border-color:rgba(86,211,100,.4)}#odms .tile.ok .v{color:#fff}#odms .tile.ok .dot{background:#3fb950;box-shadow:0 0 0 5px rgba(63,185,80,.18)}",
+  "#odms .tile.amb{background:rgba(210,153,34,.08);border-color:rgba(242,201,76,.42)}#odms .tile.amb .v{color:#fff}#odms .tile.amb .dot{background:#d29922;box-shadow:0 0 0 5px rgba(210,153,34,.2)}",
+  "#odms .tile.flash{box-shadow:0 0 0 3px rgba(86,211,100,.55),0 0 40px rgba(63,185,80,.35)}",
+  /* data scene */
+  "#odms .tray{position:absolute;left:44px;top:30px;bottom:30px;width:438px;display:flex;flex-direction:column;gap:12px}",
+  "#odms .cap{font-size:13px;font-weight:700;letter-spacing:2px;color:#7d8aa3;text-transform:uppercase;margin-bottom:2px}",
+  "#odms .grp{position:relative;border-radius:14px;padding:13px 16px 13px 62px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);cursor:pointer;transition:all .35s;min-height:78px}",
+  "#odms .grp .ic{position:absolute;left:15px;top:14px;width:34px;height:42px;border-radius:5px;background:#1a2235;border:1px solid rgba(255,255,255,.12);font-size:9px;font-weight:800;color:#8a97ae;display:flex;align-items:flex-end;justify-content:center;padding-bottom:5px;letter-spacing:.5px}",
+  "#odms .grp .ic:before{content:'';position:absolute;right:-1px;top:-1px;border-style:solid;border-width:0 10px 10px 0;border-color:transparent #070b16 rgba(255,255,255,.2) transparent}",
+  "#odms .grp .t{font-size:18px;font-weight:650;color:#dbe3f0;padding-right:96px;line-height:1.2}",
+  "#odms .grp .src{font-size:12.5px;color:#7f8ba2;margin-top:3px;line-height:1.3;padding-right:110px}",
+  "#odms .grp .f{font-size:12px;color:#6b778f;margin-top:4px}",
+  "#odms .grp .st{position:absolute;right:15px;top:13px;text-align:right;font-size:12px;color:#7f8ba2;max-width:120px}",
+  "#odms .grp .st b{display:block;font-size:22px;color:#fff;font-weight:700}",
+  "#odms .grp.wait{opacity:.5}#odms .grp.next{opacity:1;border-color:var(--acc);box-shadow:0 0 0 1px var(--acc),0 8px 30px var(--soft)}",
+  "#odms .grp.next .st{color:var(--acc2);font-weight:700;font-size:13px}",
+  "#odms .grp.busy{opacity:1;border-color:var(--acc)}#odms .grp.busy .ic{animation:odmsPulse 1s infinite}",
+  "#odms .grp.done{opacity:1;background:rgba(255,255,255,.05);border-color:rgba(86,211,100,.3)}#odms .grp.done .ic{background:var(--acc);color:#fff;border-color:transparent}",
+  "#odms .grp.opt .t:after{content:' optional';font-size:12px;color:#7f8ba2;font-weight:600}",
+  "@keyframes odmsPulse{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}",
+  "#odms .work{position:absolute;left:516px;right:44px;top:30px;bottom:30px}",
+  "#odms .line{display:flex;align-items:stretch;gap:0}",
+  "#odms .stn{flex:1;position:relative;border-radius:14px;padding:14px 16px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);margin-right:26px;min-height:128px;transition:border-color .4s,background .4s}",
+  "#odms .stn:last-child{margin-right:0}",
+  "#odms .stn:after{content:'';position:absolute;right:-20px;top:50%;margin-top:-7px;border-style:solid;border-width:7px 0 7px 10px;border-color:transparent transparent transparent rgba(255,255,255,.25)}",
+  "#odms .stn:last-child:after{display:none}",
+  "#odms .stn .k{font-size:12px;font-weight:700;letter-spacing:2px;color:#7d8aa3;text-transform:uppercase}",
+  "#odms .stn .n{font-size:38px;font-weight:750;line-height:1.1;margin-top:8px;color:#fff;letter-spacing:-.5px}",
+  "#odms .stn .d{font-size:13px;color:#8d99b0;margin-top:5px;line-height:1.3}",
+  "#odms .stn.live{border-color:var(--acc);background:var(--soft2)}",
+  "#odms .stn.zero .n{color:#2f394e}",
+  "#odms .ledger{margin:16px 0 18px;padding:11px 16px;border-radius:10px;background:rgba(255,255,255,.03);border:1px dashed rgba(255,255,255,.14);font-size:16px;color:#b5c0d3;min-height:46px;display:flex;align-items:center;gap:10px}",
+  "#odms .ledger b{color:#fff}#odms .ledger .okk{margin-left:auto;color:#56d364;font-weight:700;font-size:14px;white-space:nowrap}#odms .ledger .bad{margin-left:auto;color:#f85149;font-weight:700;font-size:14px}",
+  "#odms .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}",
+  "#odms .drop{position:absolute;inset:0;background:rgba(7,11,22,.86);border:3px dashed var(--acc);border-radius:18px;display:none;align-items:center;justify-content:center;font-size:34px;font-weight:700;color:#fff;z-index:5}",
+  "#odms.dragging .drop{display:flex}",
+  "#odms .say{position:absolute;left:516px;right:44px;bottom:-2px;font-size:14px;color:#9aa6bd;height:22px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}",
+  /* decisions */
+  "#odms .h2{font-size:38px;font-weight:750;letter-spacing:-.5px;margin:0 0 4px}",
+  "#odms .h2s{font-size:18px;color:#93a0b8;margin-bottom:22px}",
+  "#odms .cols{display:grid;grid-template-columns:1fr 1fr;gap:28px}",
+  "#odms .colh{display:inline-block;font-size:14px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:7px 13px;border-radius:999px;margin-bottom:12px}",
+  "#odms .colh.a{background:var(--soft);color:var(--acc2)}#odms .colh.b{background:rgba(163,113,247,.16);color:#c9a8ff}",
+  "#odms .dc{border-radius:14px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);padding:15px 20px 14px 20px;margin-bottom:12px;display:grid;grid-template-columns:200px 1fr;gap:4px 20px;align-items:start;opacity:0;transform:translateY(10px);transition:opacity .5s,transform .5s}",
+  "#odms .dc.in{opacity:1;transform:none}",
+  "#odms .dc .fig{grid-row:span 3;font-size:44px;font-weight:800;line-height:1.05;color:#fff;letter-spacing:-1px}#odms .dc .fig small{display:block;font-size:13px;font-weight:600;color:#8d99b0;letter-spacing:0;margin-top:6px;line-height:1.3}",
+  "#odms .dc .lab{font-size:17px;font-weight:700;color:#e8edf6;line-height:1.3}",
+  "#odms .dc .txt{font-size:15px;color:#a7b3c8;line-height:1.4}",
+  "#odms .dc .act{font-size:15.5px;font-weight:700;color:var(--acc2);line-height:1.35}#odms .dc .act:before{content:'\\2192  ';}",
+  "#odms .colb .dc .act{color:#c9a8ff}",
+  /* outputs */
+  "#odms .outs{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}",
+  "#odms .oc{position:relative;border-radius:14px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.09);padding:18px 18px 14px;min-height:178px;cursor:pointer;transition:border-color .3s,background .3s,transform .15s}",
+  "#odms .oc:hover{border-color:rgba(255,255,255,.25)}#odms .oc:active{transform:scale(.99)}",
+  "#odms .oc .fmt{display:inline-block;font-size:12px;font-weight:800;letter-spacing:1px;padding:5px 9px;border-radius:6px;color:#fff}",
+  "#odms .oc .key{position:absolute;right:16px;top:16px;font-size:13px;color:#7d8aa3}",
+  "#odms .oc .t{font-size:19px;font-weight:700;margin-top:12px;line-height:1.25;color:#fff}",
+  "#odms .oc .std{font-size:13.5px;color:#8d99b0;margin-top:5px;line-height:1.35}",
+  "#odms .oc .res{position:absolute;left:18px;right:18px;bottom:13px;font-size:13px;color:#7d8aa3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}",
+  "#odms .oc.busy{border-color:var(--acc)}#odms .oc.busy .res{color:var(--acc2)}",
+  "#odms .oc.done{border-color:rgba(86,211,100,.45);background:rgba(46,160,67,.07)}#odms .oc.done .res{color:#56d364;font-weight:600}",
+  "#odms .oc.err{border-color:rgba(248,81,73,.5)}#odms .oc.err .res{color:#ff9b94}",
+  "#odms .close{margin-top:18px;display:flex;align-items:center;justify-content:space-between;font-size:17px;color:#a7b3c8}",
+  "#odms .btn{font:inherit;font-size:16px;font-weight:700;padding:11px 20px;border-radius:10px;border:0;background:var(--acc);color:#fff;cursor:pointer}",
+  "#odms .gbtn{font:inherit;font-size:14px;font-weight:600;padding:7px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.18);background:transparent;color:#c9d2e3;cursor:pointer}",
+  "#odms-open{position:fixed;right:16px;bottom:16px;z-index:2147481000;font:600 14px 'Segoe UI',system-ui,sans-serif;padding:10px 16px;border-radius:999px;border:0;background:#0b1222;color:#fff;box-shadow:0 6px 24px rgba(0,0,0,.35);cursor:pointer}",
+  "#odms-open:before{content:'\\2605  ';color:#f2c94c}",
+  ".odm-btn.odm-show{border-color:#d4a017!important}",
+  "@media print{#odms,#odms-open{display:none!important}}"
+  ].join("\n");
+
+  /* ---------- download capture: lets an output card name the file it just wrote ---------- */
+  var blobSize=new Map();
+  (function(){
+    var oc=URL.createObjectURL; URL.createObjectURL=function(o){var u=oc.apply(URL,arguments);try{if(o&&o.size!=null)blobSize.set(u,o.size);}catch(e){}return u;};
+    var ck=HTMLAnchorElement.prototype.click; HTMLAnchorElement.prototype.click=function(){try{if(S.capture&&this.download)S.dl.push({name:this.download,size:blobSize.get(this.href)||(/^data:/.test(this.href)?Math.round(this.href.length*.74):null)});}catch(e){}return ck.apply(this,arguments);};
+    var de=EventTarget.prototype.dispatchEvent; EventTarget.prototype.dispatchEvent=function(ev){try{if(S.capture&&this instanceof HTMLAnchorElement&&this.download&&ev&&ev.type==="click")S.dl.push({name:this.download,size:blobSize.get(this.href)||null});}catch(e){}return de.apply(this,arguments);};
+    if(window.showSaveFilePicker){var sp=window.showSaveFilePicker;window.showSaveFilePicker=function(o){try{if(S.capture&&o&&o.suggestedName)S.dl.push({name:o.suggestedName,size:null});}catch(e){}return sp.apply(window,arguments);};}
+    var wo=window.open; window.open=function(){var w=wo.apply(window,arguments);try{if(S.capture)S.dl.push({name:"",size:null,win:true});}catch(e){}return w;};
+  })();
+
+  /* ---------- counters ---------- */
+  function countTo(node,to,d,ms,suffix){
+    if(!node) return; var from=+node.getAttribute("data-v")||0; d=d||0; ms=ms||1100;
+    node.setAttribute("data-v",to);
+    if(to==null||isNaN(to)){node.innerHTML="—";return;}
+    var t0=null;
+    requestAnimationFrame(function f(t){ if(t0==null) t0=t; var k=Math.max(0,Math.min(1,(t-t0)/ms)), e=1-Math.pow(1-k,3), v=from+(to-from)*e;
+      node.innerHTML=fmtN(k<1?v:to,d)+(suffix||""); if(k<1) requestAnimationFrame(f); });
+  }
+
+  /* ---------- building the stage ---------- */
+  var root, cv;
+  function build(){
+    var c=S.cfg;
+    var st=document.createElement("style"); st.id="odms-css"; st.textContent=CSS; document.head.appendChild(st);
+    root=el("div",""); root.id="odms"; root.setAttribute("role","dialog"); root.setAttribute("aria-label",c.name+" showcase");
+    root.style.setProperty("--acc",c.accent); root.style.setProperty("--acc2",c.accent2||c.accent);
+    root.style.setProperty("--soft",c.soft||"rgba(47,129,247,.18)"); root.style.setProperty("--soft2",c.soft2||"rgba(47,129,247,.07)");
+    cv=el("div","cv"); root.appendChild(cv);
+    cv.appendChild(el("div","top",
+      '<div class="mark">'+esc(c.mark||c.name.slice(0,3).toUpperCase())+'</div><div class="brand">Odieman '+esc(c.name)+'<small>'+esc(c.version)+'</small></div>'+
+      '<div class="steps">'+SCENES.map(function(s,i){return '<div class="step" data-i="'+i+'"><i></i>'+s[1]+'</div>';}).join("")+'</div>'+
+      (S.own?'<span class="chip own">YOUR DATA</span>':'<span class="chip sim">SIMULATED DATA</span>')+'<span class="chip off">&#9679; OFFLINE</span>'));
+    var hosp=S.own?((c.hospitalName&&c.hospitalName())||"This facility"):(c.hospital||"Demo Regional Referral Hospital");
+    cv.appendChild(el("div","foot",'<span><b>'+esc(hosp)+'</b> &middot; '+(S.own?'the data loaded in '+esc(c.name)+' now':'simulated &middot; '+esc(c.layout||"Afya eHMS export layout"))+' &middot; nothing leaves this computer</span>'+
+      '<span><kbd>&rarr;</kbd> next &nbsp; <kbd>&larr;</kbd> back &nbsp; <kbd>F</kbd> full screen &nbsp; <kbd>Esc</kbd> open the tool</span>'));
+    /* scene 0: empty */
+    var s0=el("div","scene"); s0.setAttribute("data-s","0");
+    s0.innerHTML='<div class="hero"><div class="kick">'+esc(c.kicker||"")+'</div><div class="h1">'+esc(c.name)+'</div><div class="tag">'+esc(c.tagline||"")+'</div>'+
+      '<div class="ghosts">'+c.tiles.slice(0,4).map(function(t){return '<div class="tile"><span class="dot"></span><div class="l">'+esc(t.label)+'</div><div class="v">&mdash;</div><div class="s">no data yet</div></div>';}).join("")+'</div>'+
+      '<div class="zrow"><span><b class="num">0</b>files</span><span><b class="num">0</b>records</span><span><b class="num">0</b>analyses ready</span></div></div>'+
+      '<div class="hint">The tool is empty. Press <b>&rarr;</b> to bring in the hospital&rsquo;s exports.</div>';
+    cv.appendChild(s0);
+    /* scene 1: data in */
+    var s1=el("div","scene"); s1.setAttribute("data-s","1");
+    s1.innerHTML='<div class="tray"><div class="cap">'+(S.own?'What is loaded':'Hospital exports')+'</div>'+c.groups.map(function(g,i){
+        return '<div class="grp wait'+(g.optional?' opt':'')+'" data-g="'+i+'"><div class="ic">'+esc(g.ext||"CSV")+'</div><div class="t">'+esc(g.title)+'</div><div class="src">'+esc(g.source)+'</div><div class="f">'+esc(g.filesLabel||(g.files||[]).join(", "))+'</div><div class="st"></div></div>';}).join("")+
+      '</div><div class="work"><div class="cap">What '+esc(c.name)+' does with them</div><div class="line">'+c.stations.map(function(t,i){
+        return '<div class="stn zero" data-t="'+i+'"><div class="k">'+esc(t.label)+'</div><div class="n num" data-v="0">0</div><div class="d">'+esc(t.idle||"")+'</div></div>';}).join("")+'</div>'+
+      '<div class="ledger"><span class="lt">Every row is accounted for: rows in = rows used + rows set aside, with the reason.</span></div>'+
+      '<div class="tiles">'+c.tiles.map(function(t,i){return '<div class="tile" data-k="'+i+'"><span class="dot"></span><div class="l">'+esc(t.label)+'</div><div class="v num">&mdash;</div><div class="s">no data yet</div></div>';}).join("")+'</div>'+
+      '<div class="drop">Drop the export files here</div></div><div class="say"></div>';
+    cv.appendChild(s1);
+    /* scene 2: decisions */
+    var s2=el("div","scene"); s2.setAttribute("data-s","3");
+    s2.innerHTML='<div class="h2">'+esc(c.decideTitle||"What the data says, and what to decide")+'</div><div class="h2s">'+esc((typeof c.decideSub==="function"?c.decideSub():c.decideSub)||"Every figure below was worked out a moment ago from the files on the left.")+'</div>'+
+      '<div class="cols"><div class="cola"><span class="colh a">'+esc(c.decisions.a.title)+'</span><div class="dca"></div></div><div class="colb"><span class="colh b">'+esc(c.decisions.b.title)+'</span><div class="dcb"></div></div></div>'+
+      '<div class="close"><span>'+esc(c.closing||("Every number you saw came from the files, on this laptop, offline."))+'</span><button class="btn" type="button">Open '+esc(c.name)+' &rarr;</button></div>';
+    cv.appendChild(s2);
+    /* scene 3: outputs */
+    var s3=el("div","scene"); s3.setAttribute("data-s","2");
+    s3.innerHTML='<div class="h2">Reports, one click</div><div class="h2s">'+esc(c.outSub||"Real files, written now from the data just loaded, in the formats the wider world reads.")+'</div>'+
+      '<div class="outs">'+c.outputs.map(function(o,i){return '<div class="oc" data-o="'+i+'"><span class="fmt" style="background:'+(o.color||"#30363d")+'">'+esc(o.fmt)+'</span><span class="key">'+(i<9?'<kbd>'+(i+1)+'</kbd>':'')+'</span><div class="t">'+esc(o.title)+'</div><div class="std">'+esc(o.std||"")+'</div><div class="res">Press '+(i+1)+' or click</div></div>';}).join("")+'</div>'+
+      '<div class="close"><span>Press &rarr; for the decisions.</span><button class="btn" type="button">Decisions &rarr;</button></div>';
+    cv.appendChild(s3);
+    document.body.appendChild(root);
+    var ob=el("button","",'Showcase'); ob.id="odms-open"; ob.type="button"; ob.title="Back to the showcase stage (S)"; ob.style.display="none"; ob.onclick=function(){open();}; document.body.appendChild(ob);
+    /* wiring */
+    qa(".grp",s1).forEach(function(g){g.addEventListener("click",function(){var i=+g.getAttribute("data-g");if(S.loaded[i])return;if(S.own)say("Drag the file onto the stage: it is imported into "+esc(S.cfg.name)+" like any other import.");else loadGroup(i);});});
+    qa(".oc",s3).forEach(function(o){o.addEventListener("click",function(){runOut(+o.getAttribute("data-o"));});});
+    q(".close .btn",s3).addEventListener("click",function(){go(3);}); q(".close .btn",s2).addEventListener("click",function(){close();});
+    qa(".step",cv).forEach(function(s){s.style.cursor="pointer";s.addEventListener("click",function(){go(+s.getAttribute("data-i"));});});
+    window.addEventListener("resize",fit); fit();
+    document.addEventListener("keydown",onKey,true);
+    /* real files from a folder (full copies only; the website demo refuses them) */
+    root.addEventListener("dragover",function(e){if(S.scene!==1)return;e.preventDefault();e.stopPropagation();root.classList.add("dragging");});
+    root.addEventListener("dragleave",function(e){e.stopPropagation();if(e.target===q(".drop",root))root.classList.remove("dragging");});
+    root.addEventListener("drop",function(e){root.classList.remove("dragging");if(S.scene!==1)return;e.preventDefault();e.stopPropagation();var fl=[].slice.call((e.dataTransfer&&e.dataTransfer.files)||[]);if(fl.length)fromDisk(fl);});
+  }
+  function fit(){ if(!cv) return; var k=Math.min(window.innerWidth/1600,window.innerHeight/900); cv.style.transform="scale("+k+") translate(-50%,-50%)"; cv.style.transformOrigin="0 0"; cv.style.left=(window.innerWidth/2)+"px"; cv.style.top=(window.innerHeight/2)+"px"; cv.style.transform="translate(-50%,-50%) scale("+k+")"; cv.style.transformOrigin="50% 50%"; }
+  function say(t){var s=q(".say",root);if(s)s.innerHTML=t||"";}
+
+  /* ---------- navigation ---------- */
+  function go(i){
+    i=Math.max(S.own?1:0,Math.min(SCENES.length-1,i));
+    if(i>=2&&!allRequired()){ flashNext(); return; }
+    S.scene=i;
+    qa(".scene",cv).forEach(function(s){s.classList.toggle("on",+s.getAttribute("data-s")===i);});
+    qa(".step",cv).forEach(function(s){var k=+s.getAttribute("data-i");s.classList.toggle("on",k===i);s.classList.toggle("done",k<i);});
+    if(i===1) paintGroups();
+    if(i===3) paintDecisions();
+  }
+  function allRequired(){return S.own||S.cfg.groups.every(function(g,i){return g.optional||S.loaded[i];});}
+  function nextGroup(){if(S.own)return -1;for(var i=0;i<S.cfg.groups.length;i++){if(!S.loaded[i])return i;}return -1;}
+  function flashNext(){var g=q('.grp.next',root);if(g){g.style.transform="translateX(6px)";setTimeout(function(){g.style.transform="";},180);}}
+  function next(){
+    if(S.scene===0) return go(1);
+    if(S.scene===1){ if(S.loading!=null) return; var n=nextGroup(); if(n>=0) return loadGroup(n); return go(2); }
+    if(S.scene===2) return go(3);
+    if(S.scene===3) return close();
+  }
+  function back(){ if(S.scene>(S.own?1:0)) go(S.scene-1); }
+  function onKey(e){
+    if(!S.cfg) return;
+    if(!S.on){ if(S.active&&(e.key==="s"||e.key==="S")&&!/INPUT|TEXTAREA|SELECT/.test((e.target||{}).tagName||"")&&!e.ctrlKey&&!e.metaKey){ e.preventDefault(); open(); } return; }
+    var k=e.key, used=true;
+    if(k==="ArrowRight"||k===" "||k==="PageDown"||k==="Enter") next();
+    else if(k==="ArrowLeft"||k==="PageUp"||k==="Backspace") back();
+    else if(k==="Escape") close();
+    else if(k==="f"||k==="F") fullscreen();
+    else if(S.scene===2&&/^[1-9]$/.test(k)) runOut(+k-1);
+    else if(k==="Home") go(0); else if(k==="End") go(3);
+    else used=false;
+    if(used){ e.preventDefault(); e.stopPropagation(); }
+  }
+  function fullscreen(){try{if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen();}catch(e){}}
+  function open(){ if(!root) return; root.classList.remove("off"); S.on=true; q("#odms-open").style.display="none"; fit(); go(S.scene); }
+  function close(){
+    if(!root) return; root.classList.add("off"); S.on=false; q("#odms-open").style.display="";
+    if(allRequired()&&S.cfg.reveal){ try{ S.cfg.reveal(); }catch(e){ console.error(e); } }
+  }
+
+  /* ---------- loading the exports ---------- */
+  async function sampleFiles(g){
+    var out=[];
+    for(var i=0;i<g.files.length;i++){
+      var n=g.files[i], r=await fetch("../samples/"+S.cfg.sampleTool+"/"+n);
+      if(!r.ok) throw new Error("The sample file "+n+" could not be read. Keep Odieman_Sample_Hospital.js beside the tool.");
+      var b=await r.blob(); out.push(new File([b],n,{type:"text/csv"}));
+    }
+    return out;
+  }
+  async function loadGroup(i,files){
+    if(S.loading!=null||S.loaded[i]) return;
+    var g=S.cfg.groups[i]; S.loading=i; paintGroups();
+    var t0=performance.now();
+    try{
+      say("Reading "+esc(g.title.toLowerCase())+"&hellip;");
+      await wait(60);
+      if(!files) files=await sampleFiles(g);
+      var size=files.reduce(function(a,f){return a+(f.size||0);},0);
+      S.cfg.quiet(true);
+      try{ await g.load(files); } finally { S.cfg.quiet(false); }
+      S.loaded[i]={files:files.length,size:size,ms:performance.now()-t0,own:!!files.own};
+      S.order.push(i);
+      if(!S.own&&allRequired()&&!S.finished){ S.finished=true; try{ S.cfg.quiet(true); await (S.cfg.finish&&S.cfg.finish()); }catch(e){ console.error(e); } finally { S.cfg.quiet(false); } }
+      var secs=(S.loaded[i].ms/1000);
+      say(esc(g.title)+": "+files.length+" file"+(files.length>1?"s":"")+", "+bytes(size)+", read in "+(secs<10?secs.toFixed(1):Math.round(secs))+" s.");
+    }catch(e){ console.error(e); say('<span style="color:#ff9b94">'+esc(e.message||e)+'</span>'); }
+    S.loading=null; paintGroups(); await paintWork(i);
+  }
+  async function fromDisk(list){
+    var used={}, unknown=[];
+    list.forEach(function(f){var gi=S.cfg.groups.findIndex(function(g){return g.match&&g.match.test(f.name);});if(gi<0)unknown.push(f.name);else (used[gi]=used[gi]||[]).push(f);});
+    for(var k in used){ var arr=used[k]; arr.own=true; if(!S.loaded[k]) await loadGroup(+k,arr); }
+    if(unknown.length) say('<span style="color:#ffb4ae">Not recognised: '+esc(unknown.join(", "))+'</span>');
+  }
+  function paintGroups(){
+    var nx=nextGroup();
+    qa(".grp",root).forEach(function(d){var i=+d.getAttribute("data-g"), L=S.loaded[i], g=S.cfg.groups[i];
+      d.className="grp"+(g.optional?" opt":"")+(L?" done":S.loading===i?" busy":(i===nx&&S.loading==null?" next":" wait"));
+      var st=q(".st",d);
+      if(L){ var n=null; try{n=g.rows();}catch(e){} st.innerHTML=(n!=null?'<b class="num">'+fmtN(n)+'</b>'+esc(g.rowsLabel||"rows"):'<b>&#10003;</b>loaded')+(L.own&&!L.present?'<br>from your folder':''); }
+      else if(S.loading===i) st.innerHTML="reading&hellip;";
+      else if(i===nx) st.innerHTML="&rarr; next";
+      else if(S.own) st.innerHTML='<span style="color:#ffb4ae">not loaded</span><br>drop the file here';
+      else st.innerHTML="";
+    });
+  }
+  async function paintWork(justLoaded){
+    var c=S.cfg;
+    /* stations, one after another, like an assembly line */
+    var sn=qa(".stn",root);
+    for(var i=0;i<c.stations.length;i++){
+      var t=c.stations[i], d=sn[i], v=null, sub="";
+      try{v=t.value();}catch(e){}
+      try{sub=t.sub?t.sub():"";}catch(e){}
+      var nn=q(".n",d), old=+nn.getAttribute("data-v")||0;
+      if(v!=null&&v!==old){ d.classList.add("live"); d.classList.remove("zero"); countTo(nn,v,t.d||0,900); q(".d",d).innerHTML=sub||""; await wait(260); d.classList.remove("live"); }
+      else if(v!=null){ d.classList.remove("zero"); q(".d",d).innerHTML=sub||""; }
+    }
+    /* ledger */
+    try{ var L=c.ledger&&c.ledger(); var lg=q(".ledger",root);
+      if(L){ var used=L.used.reduce(function(a,x){return a+x[1];},0), aside=L.aside.reduce(function(a,x){return a+x[1];},0), ok=used+aside===L.total, A=L.aside.filter(function(x){return x[1]>0;});
+        lg.innerHTML='<span><b class="num">'+fmtN(L.total)+'</b> '+esc(L.what)+' in = '+L.used.map(function(x){return '<b class="num">'+fmtN(x[1])+'</b> '+esc(x[0]);}).join(" + ")+
+          (A.length?' + '+A.map(function(x){return '<b class="num">'+fmtN(x[1])+'</b> set aside ('+esc(x[0])+')';}).join(" + "):"")+'</span>'+
+          (ok?'<span class="okk">&#10003; adds up</span>':'<span class="bad">does not add up: '+fmtN(L.total-used-aside)+'</span>');
+      } }catch(e){ console.error(e); }
+    /* tiles: red names the missing file, green counts up */
+    var tl=qa(".tile[data-k]",root);
+    for(var k=0;k<c.tiles.length;k++){
+      var T=c.tiles[k], dn=tl[k], r=null;
+      try{ r=T.get(); }catch(e){ console.error(e); r=null; }
+      if(!r) continue;
+      var was=dn.className, vn=q(".v",dn), sn2=q(".s",dn);
+      if(r.st==="red"){ dn.className="tile red"; vn.removeAttribute("data-v"); vn.innerHTML=esc(r.why||"Needs more data"); sn2.innerHTML=esc(r.sub||""); }
+      else if(r.st==="grey"){ dn.className="tile"; vn.innerHTML="&mdash;"; sn2.innerHTML=esc(r.sub||"no data yet"); }
+      else { var cls="tile "+(r.st==="amb"?"amb":"ok"); var turned=!/\b(ok|amb)\b/.test(was);
+        dn.className=cls; if(turned){ dn.classList.add("flash"); setTimeout(function(x){return function(){x.classList.remove("flash");};}(dn),1300); vn.setAttribute("data-v","0"); }
+        if(typeof r.v==="number") countTo(vn,r.v,r.d||0,turned?1300:700,r.unit?'<small>'+esc(r.unit)+'</small>':"");
+        else vn.innerHTML=esc(r.v)+(r.unit?'<small>'+esc(r.unit)+'</small>':"");
+        sn2.innerHTML=esc(r.sub||""); if(turned) await wait(140); }
+    }
+  }
+  function paintDecisions(){
+    var c=S.cfg, A=[], B=[];
+    try{A=c.decisions.a.cards()||[];}catch(e){console.error(e);}
+    try{B=c.decisions.b.cards()||[];}catch(e){console.error(e);}
+    function card(x){return '<div class="dc"><div class="fig num">'+esc(x.fig)+(x.figSub?'<small>'+esc(x.figSub)+'</small>':'')+'</div><div class="lab">'+esc(x.label)+'</div><div class="txt">'+esc(x.text||"")+'</div><div class="act">'+esc(x.act||"")+'</div></div>';}
+    q(".dca",root).innerHTML=A.map(card).join(""); q(".dcb",root).innerHTML=B.map(card).join("");
+    qa(".dc",root).forEach(function(d,i){setTimeout(function(){d.classList.add("in");},120+i*160);});
+  }
+
+  /* ---------- one-click outputs ---------- */
+  async function runOut(i){
+    var o=S.cfg.outputs[i]; if(!o) return; var d=q('.oc[data-o="'+i+'"]',root); if(!d||d.classList.contains("busy")) return;
+    d.className="oc busy"; q(".res",d).innerHTML="writing&hellip;";
+    S.dl=[]; S.capture=true; var note="";
+    try{ S.cfg.quiet(true); var r=await o.run(); if(typeof r==="string") note=r; await wait(o.settle||900); }
+    catch(e){ console.error(e); S.capture=false; S.cfg.quiet(false); d.className="oc err"; q(".res",d).innerHTML=esc("Not written: "+(e.message||e)); return; }
+    S.capture=false; S.cfg.quiet(false);
+    var files=S.dl.filter(function(x){return x.name;});
+    if(files.length){ d.className="oc done"; q(".res",d).innerHTML="&#10003; "+files.map(function(f){return esc(f.name)+(f.size?" &middot; "+bytes(f.size):"");}).join(", "); q(".res",d).title=files.map(function(f){return f.name;}).join("\n"); }
+    else if(note){ d.className="oc done"; q(".res",d).innerHTML="&#10003; "+esc(note); }
+    else { d.className="oc err"; q(".res",d).innerHTML="Nothing was written. Check that the browser allows downloads."; }
+  }
+
+  /* ---------- header button in every copy, the stage only on the sample hospital ---------- */
+  function addButton(){
+    if(!document.getElementById("odms-btn-css")){var st=document.createElement("style");st.id="odms-btn-css";st.textContent=".odm-btn.odm-show{border-color:#d4a017!important}";document.head.appendChild(st);}
+    var t=0, h=setInterval(function(){ var bar=document.getElementById("odm-bar"); if(bar||++t>60){ clearInterval(h);
+      if(!bar||document.getElementById("odm-show")) return;
+      var b=document.createElement("button"); b.type="button"; b.id="odm-show"; b.className="odm-btn odm-show"; b.textContent="★ Showcase";
+      b.title="A stage for a talk: the sample hospital's exports go in one by one, or the data loaded now goes straight on stage; it ends on decisions and one-click outputs.";
+      b.addEventListener("click",function(){
+        if(S.cfg&&S.active){ open(); return; }
+        var inSample=false; try{inSample=inDemo();}catch(e){}
+        var has=false; try{has=!!(S.cfg&&S.cfg.hasData&&S.cfg.hasData());}catch(e){}
+        if(inSample||!has){ location.href=BASE+"?demo=1&show=1"; return; }
+        var m=document.getElementById("odms-menu"); if(m){m.remove();return;}
+        m=document.createElement("div"); m.id="odms-menu";
+        m.style.cssText="position:fixed;z-index:2147481500;background:#0b1222;color:#e8edf6;border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:8px;box-shadow:0 12px 40px rgba(0,0,0,.45);font:14px 'Segoe UI',system-ui,sans-serif;min-width:300px";
+        var r=b.getBoundingClientRect(); m.style.top=(r.bottom+6)+"px"; m.style.left=Math.max(8,Math.min(window.innerWidth-320,r.left))+"px";
+        function item(t,d,fn){var x=document.createElement("button");x.type="button";x.style.cssText="display:block;width:100%;text-align:left;background:transparent;border:0;color:inherit;font:inherit;padding:9px 10px;border-radius:8px;cursor:pointer";x.innerHTML="<b>"+t+"</b><br><span style='color:#9aa6bd;font-size:12.5px'>"+d+"</span>";x.onmouseenter=function(){x.style.background="rgba(255,255,255,.07)";};x.onmouseleave=function(){x.style.background="transparent";};x.onclick=function(){m.remove();fn();};m.appendChild(x);}
+        item("The data loaded now","Your own figures on the stage. Nothing is changed or saved.",function(){ S.startOwn(); });
+        item("The sample hospital","Opens the tool on simulated data, empty, and brings the files in one by one.",function(){ location.href=BASE+"?demo=1&show=1"; });
+        document.body.appendChild(m);
+        setTimeout(function(){document.addEventListener("click",function h(e){if(!m.contains(e.target)&&e.target!==b){m.remove();document.removeEventListener("click",h);}});},0);
+      });
+      var pr=document.getElementById("odm-present"); if(pr&&pr.nextSibling) bar.insertBefore(b,pr.nextSibling); else bar.appendChild(b); } },250);
+  }
+  S.startOwn=function(){
+    if(!S.cfg||S.active) return false; var c=S.cfg;
+    if(!c.hasData||!c.hasData()) return false;
+    S.own=true; S.active=true; if(c.ownGroups){ try{ var og=c.ownGroups(); if(og&&og.length) c.groups=og; }catch(e){ console.error(e); } } build();
+    c.groups.forEach(function(g,i){ var n=0; try{n=g.rows();}catch(e){} if(n>0) S.loaded[i]={files:0,size:0,ms:0,own:true,present:true}; });
+    var step0=q('.step[data-i="0"]',cv); if(step0) step0.style.display="none";
+    open(); go(1); paintWork(-1); say("Figures read from the data loaded now. Drop more exports onto the stage to import them.");
+    return true;
+  };
+  S.init=function(cfg){
+    S.cfg=cfg; cfg.quiet=cfg.quiet||function(){};
+    function boot(){
+      addButton();
+      if(!param("show")) return;
+      if(!inDemo()){ location.replace(BASE+"?demo=1&show=1"); return; }
+      S.active=true;
+      if(window.ODM_PRESENT) window.ODM_PRESENT.sampleExtrasDone=true; /* the showcase brings the extras in itself, in view */
+      build(); open(); go(0);
+      try{ cfg.prepare&&cfg.prepare(); }catch(e){ console.error(e); }
+    }
+    if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",boot); else setTimeout(boot,0);
+  };
+  S.next=next; S.back=back; S.go=go; S.open=open; S.close=close; S.loadGroup=loadGroup; S.runOut=runOut;
+})();
+
+</script>
+<script>
+/* ============ PPS Pro 3.10: Showcase adapter (see the shared Odieman Showcase engine above) ============
+   The sample hospital's five survey days and the second surveyor's file go in one by one through PPS Pro's own
+   readers (the same path as the sample hospital and the importer). Every figure the stage shows is read back from
+   PPS Pro afterwards: calc(), mdCheck(), mdTrendCheck(), trendTest() and the agreement check. Nothing is saved. */
+(function(){
+  if(!window.ODM_SHOW) return;
+  var HOSP="Demo Regional Referral Hospital";
+  var G={};            /* group index -> survey ids it brought in */
+  var ROWS={};         /* file name -> {rows: data rows read, pts: patients kept} */
+  var _toast=null;
+  function surveys(){ try{ return sorted(); }catch(e){ return []; } }
+  function latest(){ var S=surveys(); return S.length?S[S.length-1]:null; }
+  function C(s){ return s?calc(s):null; }
+  function p1(v){ return v==null?null:+(v*100).toFixed(1); }      /* the same rounding as PPS Pro's own pct() */
+  function md(){ var s=latest(); var a=[]; try{ a=mdCheck(s).concat(mdTrendCheck()); }catch(e){} return a; }
+  function mdi(id){ return md().find(function(x){return x.id===id;})||null; }
+  function stOf(id){ var m=mdi(id); return !m?"ok":m.st==="ready"?"ok":m.st==="limited"?"amb":m.st==="no"?"red":"ok"; }
+  function fmt(n,d){ return ODM_SHOW.fmt(n,d); }
+  function pc(v){ return v==null?"–":(v*100).toFixed(1)+"%"; }
+  function when(s){ try{ return monYr(s.date); }catch(e){ return s.date; } }
+  function sumC(k){ return surveys().reduce(function(a,s){ var c=calc(s); return a+(typeof c[k]==="number"?c[k]:c[k].n); },0); }
+
+  /* ---------- reading the files the way PPS Pro does ---------- */
+  async function addSurveyFiles(gi,files){
+    var before=new Set(DB.surveys.map(function(s){return s.id;}));
+    var own=files.filter(function(f){return !/\.csv$|\.txt$/i.test(f.name);});
+    for(var i=0;i<files.length;i++){ var f=files[i]; if(own.indexOf(f)>=0) continue;
+      var text=await f.text(), got=csvToSurveys(text,f.name), rows=Math.max(0,parseCSV(text).length-1), pts=0;
+      got.forEach(function(x){ x.source=f.name; if(DB.surveys.some(function(s){return s.id===x.id;})) return; DB.surveys.push(x); pts+=x.patients.length; });
+      ROWS[f.name]={rows:rows,pts:pts};
+    }
+    if(own.length){ var n0=DB.surveys.length; await importFiles(own); own.forEach(function(f){ ROWS[f.name]={rows:0,pts:0}; });
+      var added=DB.surveys.filter(function(s){return !before.has(s.id);}); var pts=added.reduce(function(a,s){return a+s.patients.length;},0);
+      if(own.length===1&&DB.surveys.length>n0) ROWS[own[0].name]={rows:pts,pts:pts}; }
+    G[gi]=DB.surveys.filter(function(s){return !before.has(s.id);}).map(function(s){return s.id;});
+    DB.meta.facility=DB.meta.facility||HOSP;
+    var L=latest(); if(L) UI.sid=L.id; UI.page="overview"; render();
+  }
+  async function addSecondSurveyor(gi,files){
+    var f=files[0], S=surveys(); if(!f||!S.length) throw new Error("Load a survey first.");
+    var m=/^(PPS-\d{4}-\d{2})/i.exec(f.name), s=(m&&S.find(function(x){return x.id.toUpperCase()===m[1].toUpperCase();}))||S[S.length-1];
+    UI.sid=s.id; UI.agree=null; await agreeLoad(f);
+    if(!UI.agree) throw new Error(f.name+" could not be compared with "+s.id+".");
+    G[gi]=[s.id]; var L=latest(); if(L) UI.sid=L.id; UI.page="overview"; render();
+  }
+  /* own-data stage: one tray card per survey already loaded, plus the agreement file and a card for more files */
+  function ownGroups(){
+    var S=surveys(), out=S.map(function(s,i){ G[i]=[s.id];
+      return {title:s.id+(s.date?" · "+when(s):""),source:s.source?("from "+s.source):"entered in PPS Pro",files:[],filesLabel:s.patients.length+" patients on "+Object.keys(calc(s).wards||{}).length+" wards",ext:"PPS",match:/^$/,rowsLabel:"patients",rows:function(){return s.patients.length;},load:function(){}}; });
+    var gi=out.length; G[gi]=UI.agree&&UI.agree.res?[latest().id]:[];
+    out.push({title:"Second surveyor",source:"Blind re-survey of the same day, for the agreement check",files:[],filesLabel:"drop the second surveyor's CSV here",ext:"CSV",optional:true,match:/second.?surveyor/i,rowsLabel:"matched",rows:function(){return UI.agree&&UI.agree.res?UI.agree.res.matched:null;},load:function(f){return addSecondSurveyor(gi,f);}});
+    var gj=gi+1; G[gj]=[];
+    out.push({title:"Another survey day",source:"Drop a PPS Pro survey CSV to add it",files:[],filesLabel:"",ext:"CSV",optional:true,match:/.*/,rowsLabel:"patients",rows:function(){return groupPts(gj)||null;},load:function(f){return addSurveyFiles(gj,f);}});
+    return out;
+  }
+  function groupPts(gi){ return (G[gi]||[]).reduce(function(a,id){ var s=getS(id); return a+(s?s.patients.length:0); },0); }
+
+  /* ---------- tiles: the latest survey, exactly as the Overview shows it ---------- */
+  function tileInd(k,mdId,sub){
+    return function(){ var s=latest(); if(!s) return {st:"grey"}; var c=calc(s), x=c[k];
+      if(!x||x.v==null||!x.d){ var m=mdi(mdId); return {st:"red",why:(m&&m.todo)||"Not recorded in this survey",sub:m?m.detail:""}; }
+      return {st:stOf(mdId),v:p1(x.v),d:1,unit:"%",sub:sub(c,s,x)}; };
+  }
+  var tiles=[
+    {label:"Inpatients on an antimicrobial",get:tileInd("prev","prev",function(c,s,x){return x.n+" of "+x.d+" inpatients · "+when(s);})},
+    {label:"Access share of prescriptions",get:tileInd("access","aware",function(c,s,x){return x.n+" of "+x.d+" · UN 2030 target ≥70%";})},
+    {label:"Given by injection (parenteral)",get:tileInd("parenteral","parenteral",function(c,s,x){return x.n+" of "+x.d+" prescriptions";})},
+    {label:"Guideline-compliant choice",get:tileInd("guide","guide",function(c,s,x){return x.n+" of "+x.d+" assessable patients";})},
+    {label:"Surgical prophylaxis beyond 1 day",get:tileInd("spLong","spLong",function(c,s,x){return x.n+" of "+x.d+" patients"+(x.d<20?" · ⚠ few":"");})},
+    {label:"Stop or review date documented",get:tileInd("stop","stop",function(c,s,x){return x.n+" of "+x.d+" treated patients";})},
+    {label:"Access share gained since the first survey",get:function(){ var S=surveys(); if(!S.length) return {st:"grey"};
+      if(S.length<2) return {st:"red",why:"Needs a second survey",sub:"A trend needs two surveys done the same way"};
+      var a=calc(S[0]).access.v, b=calc(S[S.length-1]).access.v, t=trendTest("access");
+      return {st:stOf("trends"),v:+((b-a)*100).toFixed(1),d:1,unit:" pts",sub:pc(a)+" ("+when(S[0])+") → "+pc(b)+" ("+when(S[S.length-1])+")"+(t?" · trend "+pTxt(t.p):"")}; }},
+    {label:"Surveyor agreement, lowest field",get:function(){ if(!surveys().length) return {st:"grey"};
+      var A=UI.agree; if(!A||!A.res||!A.res.matched) return {st:"red",why:"Needs the second surveyor's file",sub:"Same-day blind re-survey of about 1 in 10 patients"};
+      var R=A.res.rows.filter(function(r){return r.po!=null;}); if(!R.length) return {st:"red",why:"No field could be compared"};
+      var lo=Math.min.apply(null,R.map(function(r){return r.po;})), ks=R.filter(function(r){return r.k!=null;}).map(function(r){return r.k;});
+      return {st:A.res.matched<10?"amb":"ok",v:+(lo*100).toFixed(1),d:1,unit:"%",sub:A.res.matched+" patients re-surveyed blind"+(ks.length?" · kappa "+Math.min.apply(null,ks).toFixed(2)+"–"+Math.max.apply(null,ks).toFixed(2):"")}; }}
+  ];
+
+  /* ---------- decisions: every figure from the loaded surveys ---------- */
+  function topWatch(s){ var m={}; s.patients.filter(function(p){return p.on==="Y";}).forEach(function(p){ p.abs.forEach(function(a){ if(awOf(a)==="Watch") m[a.name]=(m[a.name]||0)+1; }); });
+    var e=Object.keys(m).map(function(k){return [k,m[k]];}).sort(function(a,b){return b[1]-a[1];}); return e[0]||null; }
+  function worstWard(s){ var w={}; s.patients.filter(function(p){return p.on==="Y"&&(p.guide==="Y"||p.guide==="N");}).forEach(function(p){ var o=w[p.ward]=w[p.ward]||{y:0,n:0}; o.n++; if(p.guide==="Y") o.y++; });
+    var e=Object.keys(w).filter(function(k){return w[k].n>=8;}).map(function(k){return {ward:k,y:w[k].y,n:w[k].n,v:w[k].y/w[k].n};}).sort(function(a,b){return a.v-b.v;}); return e[0]||null; }
+  function trendLine(k){ var S=surveys(); if(S.length<2) return ""; var a=calc(S[0])[k].v, b=calc(S[S.length-1])[k].v, t=trendTest(k);
+    return pc(a)+" in "+when(S[0])+", "+pc(b)+" in "+when(S[S.length-1])+(t?" (trend "+pTxt(t.p)+")":"")+"."; }
+  var decisions={
+    a:{title:"For the AMS committee",cards:function(){ var s=latest(), c=calc(s), out=[];
+      var tw=topWatch(s), gap=+((0.7-c.access.v)*100).toFixed(1);
+      out.push({fig:pc(c.access.v),figSub:c.access.n+" of "+c.access.d+" prescriptions",label:"Access share, latest survey",
+        text:"UN 2024 target: at least 70% Access by 2030. "+trendLine("access"),
+        act:gap>0?((gap<2?gap.toFixed(1)+" points below the target: hold the gains and keep reviewing ":gap.toFixed(1)+" points to go: start by reviewing ")+(tw?tw[0]+" ("+tw[1]+" Watch prescriptions)":"the top Watch drug")+" against the STG"):("Target met: keep it there, and watch "+(tw?tw[0]:"the Watch group")+" next survey")});
+      var sp=c.spLong;
+      if(sp.d) out.push({fig:pc(sp.v),figSub:sp.n+" of "+sp.d+" patients",label:"Surgical prophylaxis beyond one day",
+        text:"For most operations a single dose, or at most 24 hours, is enough. "+trendLine("spLong")+(sp.d<20?" Few patients: read with care.":""),
+        act:"Agree a single-dose policy with surgeons and theatre; check again next survey"});
+      var g=c.guide, ww=worstWard(s);
+      if(g.d) out.push({fig:pc(g.v),figSub:g.n+" of "+g.d+" assessable",label:"Choice compliant with the guideline",
+        text:"Ward by ward, the gap is not the same everywhere."+(ww?" Lowest: "+ww.ward+", "+ww.y+" of "+ww.n+".":""),
+        act:(ww?"Start ward feedback on "+ww.ward+": the sheet is ready on Ward feedback":"Print the ward feedback sheets and discuss them on each ward")});
+      return out; }},
+    b:{title:"For hospital management",cards:function(){ var s=latest(), c=calc(s), out=[], S=surveys();
+      out.push({fig:pc(c.prev.v),figSub:c.prev.n+" of "+c.prev.d+" inpatients",label:"Inpatients on an antimicrobial on survey day",
+        text:c.N+" inpatients on "+Object.keys(c.wards).length+" wards, "+fmtDate(s.date)+". "+trendLine("prev"),
+        act:"Adopt it as the hospital's headline AMS indicator, re-measured twice a year"});
+      out.push({fig:pc(c.parenteral.v),figSub:c.parenteral.n+" of "+c.parenteral.d+" prescriptions",label:"Antimicrobials given by injection",
+        text:"An injected course costs more than the drug alone: cannulas, giving sets, nursing time and often extra bed-days.",
+        act:"Back an IV-to-oral switch protocol: pharmacists review every IV antimicrobial at 48–72 hours"});
+      out.push({fig:pc(c.cult.v),figSub:c.cult.n+" of "+c.cult.d+" treated patients",label:"Treated patients with a culture taken",
+        text:"Without a culture, treatment stays a guess."+(c.targeted.d?" Treatment based on a culture result: "+pc(c.targeted.v)+" ("+c.targeted.n+" of "+c.targeted.d+").":""),
+        act:"Fund culture media and blood-culture bottles so treatment can follow the laboratory"});
+      return out; }}
+  };
+
+  /* ---------- one click: only what PPS Pro really writes ---------- */
+  function onLatest(a){ return async function(){ var L=latest(); if(!L) throw new Error("No survey loaded"); UI.sid=L.id; await act(a); }; }
+  var outputs=[
+    {fmt:"XLSX",color:"#1f7a43",title:"WHO PPS worksheet",std:"WHO methodology for PPS on antibiotic use (2018): Hospital, Ward, Patient and Antibiotic levels, latest survey",run:onLatest("whoxlsx")},
+    {fmt:"ZIP · CSV",color:"#5b6b84",title:"WHO PPS files, one CSV per level",std:"The same four WHO levels as plain CSV, with a README",run:onLatest("whocsv")},
+    {fmt:"CSV",color:"#a2302a",title:"REDCap import file",std:"Latest survey, one record per inpatient, PPS Pro's REDCap variable names and codes",run:onLatest("rcexport")},
+    {fmt:"CSV",color:"#a2302a",title:"REDCap data dictionary",std:"Upload once in REDCap Project Setup: the PPS patient form with every field and code",run:onLatest("rcdict")},
+    {fmt:"DTA",color:"#1a5a96",title:"Stata: patients",std:"All surveys, one row per inpatient, labelled values (Stata 14 and later)",run:onLatest("dtapat")},
+    {fmt:"DTA",color:"#1a5a96",title:"Stata: antimicrobials",std:"All surveys, one row per prescription, labelled values (Stata 14 and later)",run:onLatest("dtaab")},
+    {fmt:"HTML",color:"#c9772b",title:"Trend report",std:"Every survey, every indicator, trend tests and key messages: ready to print or send",run:onLatest("savereport")},
+    {fmt:"CSV",color:"#5b6b84",title:"Indicator table",std:"Every indicator for every survey, with numerators and denominators",run:onLatest("savesummary")}
+  ];
+
+  var SURV_SRC="WHO PPS ward forms → CSV";
+  ODM_SHOW.init({
+    tool:"pps", name:"PPS Pro", version:"3.10", mark:"PPS", sampleTool:"pps",
+    accent:"#c9772b", accent2:"#eaa865", soft:"rgba(201,119,43,.22)", soft2:"rgba(201,119,43,.08)",
+    kicker:"Point prevalence surveys of antimicrobial use",
+    tagline:"From the ward forms of a survey day to decisions, in minutes.",
+    hospital:HOSP, layout:"WHO PPS methodology (2018) · PPS Pro survey layout", hospitalName:function(){return (DB.meta&&DB.meta.facility)||"";}, hasData:function(){return DB.surveys.length>0;},
+    quiet:function(on){ if(on){ if(!_toast){ _toast=window.toast; window.toast=function(){}; } } else if(_toast){ window.toast=_toast; _toast=null; } },
+    prepare:function(){ DB.surveys=[]; DB.meta.facility=HOSP; UI.sid=null; UI.agree=null; UI.page="overview"; try{ pill(); }catch(e){} render();
+      /* files dropped on the stage are the stage's: keep PPS Pro's own drop-to-import (on document) from reading them a second time */
+      var st=document.getElementById("odms"); if(st) ["dragover","dragleave","drop"].forEach(function(t){ st.addEventListener(t,function(e){ e.stopPropagation(); }); }); },
+    groups:[
+      {title:"Survey day 1 · March 2024",source:SURV_SRC,files:["PPS-2024-03_19Mar2024.csv"],filesLabel:"19 Mar 2024 · every inpatient at 8 a.m.",ext:"CSV",
+        match:/^(?!.*second.?surveyor).*(PPS-2024-0[1-6]|Mar2024)/i,rowsLabel:"patients",rows:function(){return groupPts(0);},load:function(f){return addSurveyFiles(0,f);}},
+      {title:"Survey day 2 · October 2024",source:SURV_SRC,files:["PPS-2024-10_22Oct2024.csv"],filesLabel:"22 Oct 2024",ext:"CSV",
+        match:/^(?!.*second.?surveyor).*(PPS-2024-(0[7-9]|1[0-2])|Oct2024)/i,rowsLabel:"patients",rows:function(){return groupPts(1);},load:function(f){return addSurveyFiles(1,f);}},
+      {title:"Survey days 3 and 4 · 2025",source:SURV_SRC,files:["PPS-2025-05_13May2025.csv","PPS-2025-12_09Dec2025.csv"],filesLabel:"13 May 2025 · 9 Dec 2025",ext:"CSV",
+        match:/^(?!.*second.?surveyor).*(PPS-2025|2025)/i,rowsLabel:"patients",rows:function(){return groupPts(2);},load:function(f){return addSurveyFiles(2,f);}},
+      {title:"Survey day 5 · July 2026",source:SURV_SRC,files:["PPS-2026-07_21Jul2026.csv"],filesLabel:"21 Jul 2026 · the latest survey",ext:"CSV",
+        match:/^(?!.*second.?surveyor).*(PPS-2026|2026)/i,rowsLabel:"patients",rows:function(){return groupPts(3);},load:function(f){return addSurveyFiles(3,f);}},
+      {title:"Second surveyor · July 2026",source:"Blind re-survey, 1 in 10 patients",files:["PPS-2026-07_SecondSurveyor.csv"],filesLabel:"Same day, CSV · for the agreement check",ext:"CSV",
+        match:/second.?surveyor/i,rowsLabel:"matched",rows:function(){return UI.agree&&UI.agree.res?UI.agree.res.matched:null;},load:function(f){return addSecondSurveyor(4,f);}}
+    ],
+    stations:[
+      {label:"Read",idle:"survey rows",value:function(){ var n=0; for(var k in ROWS) n+=ROWS[k].rows; return n||null; },
+        sub:function(){ var f=Object.keys(ROWS).length, s=surveys().length; return f+" file"+(f>1?"s":"")+" · "+s+" survey day"+(s>1?"s":""); }},
+      {label:"Inpatients",idle:"eligible on survey day",value:function(){ return surveys().length?sumC("N"):null; },
+        sub:function(){ var w=new Set(); surveys().forEach(function(s){s.patients.forEach(function(p){w.add(p.ward);});}); return "on "+w.size+" wards"; }},
+      {label:"Treated",idle:"on an antimicrobial",value:function(){ return surveys().length?sumC("t"):null; },
+        sub:function(){ return "on an antimicrobial · "+fmt(sumC("rx"))+" prescriptions"; }},
+      {label:"Classified",idle:"AWaRe · route · DDD",value:function(){ var S=surveys(); if(!S.length) return null; return S.reduce(function(a,s){var c=calc(s);return a+c.access.n+c.watch.n+c.reserve.n;},0); },
+        sub:function(){ var S=surveys(), dd=0;
+          S.forEach(function(s){ s.patients.forEach(function(p){ if(p.on==="Y") p.abs.forEach(function(a){ if(abDDD(a)>0) dd++; }); }); });
+          return "AWaRe of "+fmt(sumC("rx"))+" · "+fmt(dd)+" with a WHO DDD"; }},
+      {label:"Analyses ready",idle:"of PPS Pro's checks",value:function(){ if(!surveys().length) return null; return md().filter(function(x){return x.st==="ready";}).length; },
+        sub:function(){ var a=md(); return a.filter(function(x){return x.st==="limited";}).length+" limited · "+a.filter(function(x){return x.st==="no";}).length+" not possible"; }}
+    ],
+    ownGroups:ownGroups,
+    ledger:function(){ var S=surveys(); if(!S.length) return null; var rows=0, pts=0; for(var k in ROWS){ rows+=ROWS[k].rows; pts+=ROWS[k].pts; }
+      var P=S.reduce(function(a,s){return a.concat(s.patients);},[]), y=P.filter(function(p){return p.on==="Y";}).length, n=P.filter(function(p){return p.on==="N";}).length, o=P.length-y-n;
+      if(!rows){ rows=P.length; pts=P.length; }
+      return {total:rows,what:"patient rows",used:[["on antimicrobials",y],["not on antimicrobials",n]],aside:[["antimicrobial status not recorded",o],["rows that are not a patient",rows-pts]].filter(function(x){return x[1]!==0;})}; },
+    tiles:tiles,
+    decisions:decisions,
+    decideSub:"Latest survey against the targets, and the trend across every survey day. Every figure was worked out a moment ago.",
+    outputs:outputs,
+    outSub:"Real files, written now from the surveys just loaded, in the formats WHO, REDCap and Stata read.",
+    closing:"Five survey days, read, checked and analysed on this laptop, offline.",
+    finish:function(){ DB.meta.facility=DB.meta.facility||HOSP; var L=latest(); if(L) UI.sid=L.id; UI.page="overview"; render(); },
+    reveal:function(){ var L=latest(); if(L) UI.sid=L.id; UI.page="overview"; render(); try{ window.scrollTo(0,0); }catch(e){} }
+  });
+})();
+
 </script>
 </body>
 </html>

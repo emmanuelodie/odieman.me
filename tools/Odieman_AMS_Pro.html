@@ -24140,7 +24140,7 @@ const AWARE_REF={
   "piperacillin":"Watch","vancomycin":"Watch","fosfomycin":"Watch","rifampicin":"Watch","cefepime":"Watch",
   "meropenem":"Watch","imipenem":"Watch","ertapenem":"Watch","cilastatin + imipenem":"Watch","colistin":"Reserve","linezolid":"Reserve","tigecycline":"Reserve",
   "polymyxin b":"Reserve","daptomycin":"Reserve","ceftaroline fosamil":"Reserve",
-  /* WHO AWaRe "Not Recommended" fixed-dose antibiotic combinations (WHO AWaRe book, 2023 ed.) —
+  /* WHO AWaRe "Not recommended" fixed-dose antibiotic combinations (WHO AWaRe classification 2023, WHO/MHP/HPS/EML/2023.04; see also the WHO AWaRe antibiotic book, 2022) —
      these are combo keys, always stored in alphabetically-sorted-component order (see comboKey())
      so lookup doesn't depend on which order the two agents were written on the dispensing slip.
      Several are adopted as first-line in Tanzania's NEMLIT/STG 2021 despite WHO's classification
@@ -24161,7 +24161,7 @@ const AWARE_REF={
   "sulfamethoxazole + trimethoprim":"Access"
 };
 /* Tanzania STG/NEMLIT 2021 (6th ed.) groups antibiotics nationally (NEMLIT 6.2.1 Access, 6.2.2 Watch,
-   6.2.3 Reserve, p.7-9). AMS Pro (like PPS Pro) follows the national group only where it is STRICTER
+   6.2.3 Reserve, printed pages 8-10). AMS Pro (like PPS Pro) follows the national group only where it is STRICTER
    than WHO and the book's own level of care supports it (B, C or S). Where the book puts a
    dispensary-level (A) antibiotic in Watch (gentamicin, cotrimoxazole) or puts an antibiotic in a
    lower group than WHO (erythromycin; the WHO "Not recommended" combinations Ampiclox,
@@ -24173,13 +24173,13 @@ const TANZANIA_AWARE_OVERRIDES={
   "amikacin":"Reserve","cefepime":"Reserve","clindamycin":"Reserve","meropenem":"Reserve","vancomycin":"Reserve"
 };
 const TZ_AWARE_SOURCE={
-  "chloramphenicol":"NEMLIT 2021 §6.2.2 Watch, p.8 (level B, reserved for meningitis). WHO: Access",
-  "ampicillin + sulbactam":"NEMLIT 2021 §6.2.2 Watch, p.8 (level C). WHO: Access",
-  "amikacin":"NEMLIT 2021 §6.2.3 Reserve, p.9 (level S). WHO: Access",
-  "cefepime":"NEMLIT 2021 §6.2.3 Reserve, p.9 (level S). WHO: Watch",
-  "clindamycin":"NEMLIT 2021 §6.2.3 Reserve, p.9 (level S). WHO: Access",
-  "meropenem":"NEMLIT 2021 §6.2.3 Reserve, p.9 (level S). WHO: Watch",
-  "vancomycin":"NEMLIT 2021 §6.2.3 Reserve, p.9 (level S). WHO: Watch"
+  "chloramphenicol":"NEMLIT 2021 §6.2.2 Watch, p.9 (level B, reserved for meningitis). WHO: Access",
+  "ampicillin + sulbactam":"NEMLIT 2021 §6.2.2 Watch, p.9 (level C). WHO: Access",
+  "amikacin":"NEMLIT 2021 §6.2.3 Reserve, p.10 (level S). WHO: Access",
+  "cefepime":"NEMLIT 2021 §6.2.3 Reserve, p.10 (level S). WHO: Watch",
+  "clindamycin":"NEMLIT 2021 §6.2.3 Reserve, p.10 (level S). WHO: Access",
+  "meropenem":"NEMLIT 2021 §6.2.3 Reserve, p.10 (level S). WHO: Watch",
+  "vancomycin":"NEMLIT 2021 §6.2.3 Reserve, p.10 (level S). WHO: Watch"
 };
 /* v4.8: filled only by a reference-list update (Setup > Reference lists). AWARE_ROUTE holds WHO groups
    that differ by route (e.g. fosfomycin: oral Watch, injection Reserve); DDD_REFERS names the component
@@ -26262,7 +26262,7 @@ function saveReportNotes(v){ DB.reportNotes=v; save(); }
 const WHO_ACCESS_TARGET_PCT=70;
 const WHO_ACCESS_TARGET_CITATION="UN General Assembly 2024 Political Declaration on AMR — \u226570% Access-group antibiotic use by 2030 (supersedes the earlier \u226560% Muscat Manifesto/GPW13 target)";
 const INDICATOR_META={
-  "AMR-1":{framework:"Tanzania MOH GHS-CQI · WHO AWaRe 2025",citation:"Tanzania National AMS Programme guidance; WHO AWaRe antibiotic classification (2025 edition); STG/NEMLIT 4th Edition",targetPct:80,compiledBy:"AMS Lead / Pharmacist",note:"Auto-filled with a PROXY: the share of dispensing lines whose quantity exactly equals the Dose Reference adult regimen (units per dose × frequency × days). It does not assess drug choice, indication, or weight-based paediatric dosing. Review a sample of records against the STG before reporting this as guideline adherence."},
+  "AMR-1":{framework:"Tanzania MOH GHS-CQI · WHO AWaRe 2023",citation:"Tanzania National AMS Programme guidance; WHO AWaRe antibiotic classification 2023 (2025 update available); Tanzania STG/NEMLIT 2021 (6th Edition)",targetPct:80,compiledBy:"AMS Lead / Pharmacist",note:"Auto-filled with a PROXY: the share of dispensing lines whose quantity exactly equals the Dose Reference adult regimen (units per dose × frequency × days). It does not assess drug choice, indication, or weight-based paediatric dosing. Review a sample of records against the STG before reporting this as guideline adherence."},
   "AMR-2":{framework:"Tanzania MOH GHS-CQI",citation:"Tanzania National AMS Programme guidance; laboratory turnaround-time (TAT) monitoring practice",targetPct:null,compiledBy:"Laboratory Focal Person",note:"Populates from a structured lab surveillance import/entry with a TAT-met flag, or a raw TAT timestamp log (Sample Collected / Result Submitted vs TAT target)."},
   "AMR-3":{framework:"Tanzania MOH GHS-CQI",citation:"Tanzania National AMS Programme guidance; culture-before-therapy stewardship practice",targetPct:80,compiledBy:"AMS Lead / Laboratory Focal Person",note:"Populates from a structured lab surveillance import/entry with an AST-documented flag for Watch/Reserve prescriptions."},
   "AMR-4":{framework:"Tanzania MOH GHS-CQI · WHO GLASS-AMR",citation:"WHO Global Antimicrobial Resistance and Use Surveillance System (GLASS)",targetPct:null,compiledBy:"Laboratory Focal Person / IPC Focal Person",note:"An absolute monthly count of laboratory-confirmed AMR cases, not a percentage — tracked for trend, not against a fixed target."},
@@ -26487,7 +26487,7 @@ async function generateDeepReportDocx(btnId){
     }
 
     children.push(H1("Methods & Citations"));
-    children.push(P(awareEdLabel()+". WHO Collaborating Centre for Drug Statistics Methodology — ATC/DDD Index. WHO/DAP/93.1 WHO/INRUD core drug-use indicators. UN General Assembly 2024 Political Declaration on AMR (≥70% Access by 2030). Tanzania MOH Global Health Security Continuous Quality Improvement (GHS-CQI) process indicators. Tanzania Standard Treatment Guidelines / National Essential Medicines List (STG/NEMLIT), 4th Edition. Tanzania National Infection Prevention and Control Guidelines (NIPCG). WHO/AFRO IPC core components. WHO Infection Prevention and Control Assessment Framework (IPCAF). This is a facility working document generated from locally entered/imported data — verify against current published templates before external submission."));
+    children.push(P(awareEdLabel()+". WHO Collaborating Centre for Drug Statistics Methodology — ATC/DDD Index. WHO/DAP/93.1 WHO/INRUD core drug-use indicators. UN General Assembly 2024 Political Declaration on AMR (≥70% Access by 2030). Tanzania MOH Global Health Security Continuous Quality Improvement (GHS-CQI) process indicators. Tanzania Standard Treatment Guidelines / National Essential Medicines List (STG/NEMLIT), 6th Edition, 2021. Tanzania National Infection Prevention and Control Guidelines (NIPCG). WHO/AFRO IPC core components. WHO Infection Prevention and Control Assessment Framework (IPCAF). This is a facility working document generated from locally entered/imported data — verify against current published templates before external submission."));
 
     const doc=new Document({creator:DB.facility.preparedBy||"",lastModifiedBy:DB.facility.preparedBy||"",title:"Antimicrobial Stewardship Report"+(DB.facility.name?" — "+DB.facility.name:""),description:"",sections:[{
       headers:{default:new Header({children:[new Paragraph({children:[new TextRun({text:(f.name||"Facility")+" · Deep Report",size:16})],alignment:AlignmentType.RIGHT})]})},
@@ -34576,7 +34576,7 @@ function renderMentry(){
      Intrinsic (expected) resistance: printed as "R*" (resistant by nature), never as a calculated %.
      Unreportable pairs: an agent that should not be reported for that organism or specimen is left blank.
      Sources: CLSI M100 Appendix B (intrinsic resistance), EUCAST Expected Resistant Phenotypes v1.2,
-     CLSI M39-A5 (first isolate per patient per period, ≥30 isolates per organism before a % is reported). */
+     CLSI M39, 5th ed. (2022) (first isolate per patient per analysis period; ≥30 isolates per organism before a % is reported). */
   var GRAM_NEG=[["escherichia","Escherichia coli"],["klebsiella","Klebsiella pneumoniae"],["pseudomonas","Pseudomonas aeruginosa"],["acinetobacter","Acinetobacter baumannii"],["proteus","Proteus mirabilis"],["salmonella typhi","Salmonella Typhi"],["salmonella","Salmonella spp."],["shigella","Shigella spp."],["haemophilus","Haemophilus influenzae"],["enterobacter","Enterobacter spp."],["citrobacter","Citrobacter spp."],["serratia","Serratia spp."],["morganella","Morganella morganii"],["neisseria","Neisseria spp."]];
   var GRAM_POS=[["staphylococcus aureus","Staphylococcus aureus"],["staphylococcus","Staphylococcus (coagulase-negative)"],["streptococcus pneumoniae","Streptococcus pneumoniae"],["streptococcus","Streptococcus spp."],["enterococcus","Enterococcus spp."]];
   var INTRINSIC={ /* organism key -> agents (lower-case fragments) */
@@ -34586,13 +34586,15 @@ function renderMentry(){
     "acinetobacter":["ampicillin","amoxicillin","cloxacillin","trimethoprim","chloramphenicol","nitrofurantoin","ertapenem"],
     "enterobacter":["ampicillin","amoxicillin"],"citrobacter":["ampicillin","amoxicillin"],"serratia":["ampicillin","amoxicillin","nitrofurantoin","colistin"],"morganella":["ampicillin","amoxicillin","nitrofurantoin","colistin","tetracycline"],
     "enterococcus":["ceftriaxone","ceftazidime","cefotaxime","cefazolin","cephalexin","cloxacillin","clindamycin","trimethoprim","sulfamethoxazole","aminoglycoside-low:gentamicin","aminoglycoside-low:amikacin"],
-    "streptococcus":["gentamicin","amikacin"],"staphylococcus":["ceftazidime"],
-    "salmonella":["gentamicin","amikacin"],"shigella":["gentamicin","amikacin"],"haemophilus":["clindamycin","erythromycin","cloxacillin"]
+    "streptococcus":["gentamicin","amikacin"],"haemophilus":["clindamycin","cloxacillin"]
   };
+  /* CLSI do-not-report rules (not intrinsic resistance): printed as a dot, like other unreportable pairs */
+  var NOREPORT={"salmonella":["gentamicin","amikacin"],"shigella":["gentamicin","amikacin"],"staphylococcus":["ceftazidime"]};
   var URINE_ONLY=["nitrofurantoin"], GRAM_POS_ONLY=["vancomycin","cloxacillin","clindamycin","erythromycin"], GRAM_NEG_ONLY=["ceftazidime","amikacin","aztreonam","colistin"];
   function orgGroup(org){var o=low(org);for(var i=0;i<GRAM_POS.length;i++)if(o.indexOf(GRAM_POS[i][0])>=0)return{g:"pos",key:GRAM_POS[i][0]};for(var j=0;j<GRAM_NEG.length;j++)if(o.indexOf(GRAM_NEG[j][0])>=0)return{g:"neg",key:GRAM_NEG[j][0]};return{g:"other",key:o};}
   function intrinsic(org,drug){var o=low(org),d=low(drug),L=[];Object.keys(INTRINSIC).forEach(function(k){if(o.indexOf(k)>=0)L=L.concat(INTRINSIC[k]);});return L.some(function(x){x=x.replace(/^aminoglycoside-low:/,"");return d.indexOf(x)>=0;});}
-  function unreportable(org,drug,specimens){var g=orgGroup(org).g,d=low(drug);
+  function unreportable(org,drug,specimens){var g=orgGroup(org).g,d=low(drug),o=low(org);
+    for(var k in NOREPORT){ if(o.indexOf(k)>=0&&NOREPORT[k].some(function(x){return d.indexOf(x)>=0;})) return true; }
     if(URINE_ONLY.some(function(x){return d.indexOf(x)>=0;})&&!(specimens&&specimens.urineOnly))return true;
     if(g==="neg"&&GRAM_POS_ONLY.some(function(x){return d.indexOf(x)>=0;}))return true;
     if(g==="pos"&&GRAM_NEG_ONLY.some(function(x){return d.indexOf(x)>=0;})&&!(low(org).indexOf("staphylococcus")>=0&&d.indexOf("amikacin")>=0))return true;
@@ -34643,7 +34645,7 @@ function renderMentry(){
       '<h1>Cumulative antibiogram &middot; '+esc(fac)+'</h1><div class="meta">Period '+esc(A.from||"?")+' to '+esc(A.to||"?")+(A.specimen?' &middot; specimen: '+esc(A.specimen):' &middot; all specimens')+' &middot; <b>'+A.first+'</b> first isolates from '+A.isolatesIn+' results (one isolate per patient per organism, CLSI M39) &middot; cells show <b>% susceptible</b> with the number tested &middot; printed '+esc(today)+(by?' &middot; prepared by '+esc(by):'')+'</div>'+
       tbl("neg","Gram-negative")+tbl("pos","Gram-positive")+tbl("other","Other organisms")+
       '<div class="row">'+head+use+'</div>'+
-      '<div class="foot"><b>How to read.</b> Green &ge;80% susceptible, amber 60&ndash;79%, red &lt;60%. Only S counts as susceptible; I (intermediate / increased exposure) counts as not susceptible. <b>R*</b> = resistant by nature (intrinsic), from CLSI M100 Appendix B / EUCAST expected phenotypes; never calculated. A dot (&middot;) means the agent is not reported for that organism or specimen (e.g. nitrofurantoin only for urine, vancomycin only for Gram-positives). <b>&lt;30 isolates</b>: the row is greyed and no percentage should guide treatment (CLSI M39). <b>Bias.</b> Where cultures are mostly sent after first-line treatment has failed, the antibiogram leans towards resistance and does not describe every patient. Interpretive breakpoints are those applied by the laboratory at the time of testing; AMS Pro does not re-interpret MICs. AWaRe groups: WHO AWaRe classification'+(ed?' ('+esc(ed)+')':'')+'. Made in Odieman AMS Pro '+esc(dwVersion&&dwVersion()||"")+'.</div>'+
+      '<div class="foot"><b>How to read.</b> Green &ge;80% susceptible, amber 60&ndash;79%, red &lt;60%. Only S counts as susceptible; I (intermediate / increased exposure) counts as not susceptible. <b>R*</b> = resistant by nature (intrinsic), from CLSI M100 Appendix B / EUCAST expected phenotypes; never calculated. A dot (&middot;) means the agent is not reported for that organism or specimen under CLSI reporting rules (e.g. nitrofurantoin only for urine, vancomycin only for Gram-positives, aminoglycosides not for Salmonella/Shigella). <b>&lt;30 isolates</b>: the row is greyed and no percentage should guide treatment (CLSI M39). <b>Bias.</b> Where cultures are mostly sent after first-line treatment has failed, the antibiogram leans towards resistance and does not describe every patient. Interpretive breakpoints are those applied by the laboratory at the time of testing; AMS Pro does not re-interpret MICs. AWaRe groups: WHO AWaRe classification'+(ed?' ('+esc(ed)+')':'')+'. Made in Odieman AMS Pro '+esc(dwVersion&&dwVersion()||"")+'.</div>'+
       '<div class="sig"><span>Laboratory in charge</span><span>AMS committee chair</span><span>Medical officer in charge</span></div>'+card+'</body></html>';
   };
   window.abgPrintA4=function(){
@@ -34736,7 +34738,7 @@ function renderMentry(){
     outputs:[
       {fmt:"DOCX",color:"#185abd",title:"Full report (Word)",std:"Editable: AWaRe, DDD/DOT, cost, indicators, gaps",run:function(){return generateDeepReportDocx(null);},settle:2500},
       {fmt:"PPTX",color:"#c43e1c",title:"Committee slides (PowerPoint)",std:"Editable deck for the AMS committee",run:function(){return generateDeepReportPptx(null);},settle:3000},
-      {fmt:"A4",color:"#1a7f37",title:"Printable antibiogram",std:"CLSI M39 · first-isolate rule · intrinsic R · pocket card",run:function(){abgPrintA4();return "Print view opened (A4 landscape + pocket card)";}},
+      {fmt:"A4",color:"#1a7f37",title:"Printable antibiogram",std:"CLSI M39 (5th ed.) · first-isolate rule · intrinsic R · pocket card",run:function(){abgPrintA4();return "Print view opened (A4 landscape + pocket card)";}},
       {fmt:"WHONET",color:"#6e40c9",title:"WHONET isolate file",std:"WHO WHONET / BacLink CSV layout",run:function(){exportWhonetCSV();}},
       {fmt:"GLASS",color:"#0b7285",title:"WHO GLASS summary",std:"GLASS-AMR specimen × pathogen × antibiotic",run:function(){exportGlassSummaryCSV();}},
       {fmt:"CSV",color:"#8250df",title:"WHO ATC/DDD consumption",std:"GLASS-AMU style: ATC, DDD, route, month",run:function(){exportAmuAtcDddCSV();}},
