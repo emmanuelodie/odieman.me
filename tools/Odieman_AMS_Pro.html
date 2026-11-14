@@ -30245,7 +30245,7 @@ function renderGuide(){
       <tr><td><b>Procedures / services</b></td><td>Product Name / Procedure</td><td>Patient ID, Sub Department Name, Ordered Date, Price</td><td>Surgical prophylaxis continued beyond 24&nbsp;h (Time-out), Patient Master</td></tr>
     </tbody></table></div>
     <div class="notice" style="margin-top:12px"><b>Most important rule:</b> the ward names in the admissions file must be written exactly as the <i>Department</i> names in the dispensing file. That is how AMS Pro links bed-days to dispensing and decides which wards are in scope.</div>
-    <div class="notice good" style="margin-top:10px">New in 5.7: <b>Showcase</b> (&#9733; in the top bar) and <b>Print antibiogram (A4)</b> on the Antibiogram page. New in 5.3: <b>Minimum Data</b> (Getting Started) lists every heading the importer recognises, gives blank templates, and checks the data loaded now. <button class="btn sm ghost" onclick="go('mindata')">Open &rarr;</button></div>`)}
+    <div class="notice good" style="margin-top:10px">New in 5.7: <b>Showcase</b> (&#9733; in the top bar, in place of the Present tour) and <b>Print antibiogram (A4)</b> on the Antibiogram page. New in 5.3: <b>Minimum Data</b> (Getting Started) lists every heading the importer recognises, gives blank templates, and checks the data loaded now. <button class="btn sm ghost" onclick="go('mindata')">Open &rarr;</button></div>`)}
 
   ${sec("modules","3. What each module shows",`
     <div class="tablewrap"><table><thead><tr><th>Module</th><th>What it shows</th><th>How to read / use it</th><th></th></tr></thead><tbody>
@@ -33569,9 +33569,7 @@ try{ if(localStorage.getItem("odiemanpro_sidebar_collapsed")==="1") document.bod
     function b(id,label,title,fn,primary){var x=el("button",{type:"button",id:id,class:"odm-btn"+(primary?" odm-primary":""),title:title},label);x.addEventListener("click",fn);bar.appendChild(x);}
     if(!P.sampleMode()){
       b("odm-sample","Sample hospital","Open this tool on a simulated hospital, in memory only. Your own data is not touched.",function(){location.href=BASE+"?demo=1";});
-      b("odm-present","▶ Present","A short guided tour for a talk or a first look. Uses the data loaded now, or the sample hospital if there is none.",function(){if(P.cfg.hasData())P.start();else location.href=BASE+"?demo=1&present=1";},true);
     }else{
-      b("odm-present","▶ Present","A short guided tour of the sample hospital (keys: → next, ← back, Esc stop).",function(){P.start();},true);
       if(!P.demoBuild()) b("odm-leave","Leave sample hospital","Go back to your own data.",function(){location.href=BASE;});
     }
     if(P.cfg.placeBar) P.cfg.placeBar(host,bar); else host.appendChild(bar);
@@ -34323,13 +34321,13 @@ function renderMentry(){
       (S.own?'<span class="chip own">YOUR DATA</span>':'<span class="chip sim">SIMULATED DATA</span>')+'<span class="chip off">&#9679; OFFLINE</span>'));
     var hosp=S.own?((c.hospitalName&&c.hospitalName())||"This facility"):(c.hospital||"Demo Regional Referral Hospital");
     cv.appendChild(el("div","foot",'<span><b>'+esc(hosp)+'</b> &middot; '+(S.own?'the data loaded in '+esc(c.name)+' now':'simulated &middot; '+esc(c.layout||"Afya eHMS export layout"))+' &middot; nothing leaves this computer</span>'+
-      '<span><kbd>&rarr;</kbd> next &nbsp; <kbd>&larr;</kbd> back &nbsp; <kbd>F</kbd> full screen &nbsp; <kbd>Esc</kbd> open the tool</span>'));
+      '<span>Odieman '+esc(c.name)+' '+esc(c.version)+'</span>'));
     /* scene 0: empty */
     var s0=el("div","scene"); s0.setAttribute("data-s","0");
     s0.innerHTML='<div class="hero"><div class="kick">'+esc(c.kicker||"")+'</div><div class="h1">'+esc(c.name)+'</div><div class="tag">'+esc(c.tagline||"")+'</div>'+
       '<div class="ghosts">'+c.tiles.slice(0,4).map(function(t){return '<div class="tile"><span class="dot"></span><div class="l">'+esc(t.label)+'</div><div class="v">&mdash;</div><div class="s">no data yet</div></div>';}).join("")+'</div>'+
       '<div class="zrow"><span><b class="num">0</b>files</span><span><b class="num">0</b>records</span><span><b class="num">0</b>analyses ready</span></div></div>'+
-      '<div class="hint">The tool is empty. Press <b>&rarr;</b> to bring in the hospital&rsquo;s exports.</div>';
+      '';
     cv.appendChild(s0);
     /* scene 1: data in */
     var s1=el("div","scene"); s1.setAttribute("data-s","1");
@@ -34350,8 +34348,8 @@ function renderMentry(){
     /* scene 3: outputs */
     var s3=el("div","scene"); s3.setAttribute("data-s","2");
     s3.innerHTML='<div class="h2">Reports, one click</div><div class="h2s">'+esc(c.outSub||"Real files, written now from the data just loaded, in the formats the wider world reads.")+'</div>'+
-      '<div class="outs">'+c.outputs.map(function(o,i){return '<div class="oc" data-o="'+i+'"><span class="fmt" style="background:'+(o.color||"#30363d")+'">'+esc(o.fmt)+'</span><span class="key">'+(i<9?'<kbd>'+(i+1)+'</kbd>':'')+'</span><div class="t">'+esc(o.title)+'</div><div class="std">'+esc(o.std||"")+'</div><div class="res">Press '+(i+1)+' or click</div></div>';}).join("")+'</div>'+
-      '<div class="close"><span>Press &rarr; for the decisions.</span><button class="btn" type="button">Decisions &rarr;</button></div>';
+      '<div class="outs">'+c.outputs.map(function(o,i){return '<div class="oc" data-o="'+i+'"><span class="fmt" style="background:'+(o.color||"#30363d")+'">'+esc(o.fmt)+'</span><div class="t">'+esc(o.title)+'</div><div class="std">'+esc(o.std||"")+'</div><div class="res">Ready</div></div>';}).join("")+'</div>'+
+      '<div class="close"><span>Each file is written on this computer from the data just loaded.</span><button class="btn" type="button">Decisions &rarr;</button></div>';
     cv.appendChild(s3);
     document.body.appendChild(root);
     var ob=el("button","",'Showcase'); ob.id="odms-open"; ob.type="button"; ob.title="Back to the showcase stage (S)"; ob.style.display="none"; ob.onclick=function(){open();}; document.body.appendChild(ob);
@@ -34452,7 +34450,7 @@ function renderMentry(){
       var st=q(".st",d);
       if(L){ var n=null; try{n=g.rows();}catch(e){} st.innerHTML=(n!=null?'<b class="num">'+fmtN(n)+'</b>'+esc(g.rowsLabel||"rows"):'<b>&#10003;</b>loaded')+(L.own&&!L.present?'<br>from your folder':''); }
       else if(S.loading===i) st.innerHTML="reading&hellip;";
-      else if(i===nx) st.innerHTML="&rarr; next";
+      else if(i===nx) st.innerHTML="waiting";
       else if(S.own) st.innerHTML='<span style="color:#ffb4ae">not loaded</span><br>drop the file here';
       else st.innerHTML="";
     });

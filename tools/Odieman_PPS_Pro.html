@@ -1302,7 +1302,7 @@ function vGuide(){
  <div class="card section"><h3>Odieman PPS Pro — User Guide</h3><p>PPS Pro records and analyses WHO point prevalence surveys (PPS) of antimicrobial use: on one day, every inpatient on a ward is checked for antimicrobials, and the results are compared ward by ward and survey by survey. Repeating the survey every 6–12 months shows whether stewardship is working. Everything runs offline on this computer.</p>
  <div class="row">${toc.map(([id,t])=>`<button class="btn small ghost" data-scroll="${id}">${t}</button>`).join("")}</div></div>
  <div class="card section"><h3>What's new in v3.10 (November 2026)</h3><ul>
-  <li><b>Showcase</b> (<b>&#9733; Showcase</b> in the top bar): a stage for a talk. PPS Pro opens empty on the sample hospital, the survey files go in one by one, the figures turn from red to green as the data they need arrive, and it ends on decisions for the AMS committee and for management, and on one-click outputs (WHO PPS worksheet, REDCap, Stata). Every figure on the stage is read from PPS Pro after it has done the work. Keys: &rarr; next, &larr; back, 1&ndash;8 outputs, F full screen, Esc open the tool. Memory only: nothing is saved, and your own data is not touched.</li></ul></div>
+  <li><b>Showcase</b> (<b>&#9733; Showcase</b> in the top bar): a stage for a talk. PPS Pro opens empty on the sample hospital, the survey files go in one by one, the figures turn from red to green as the data they need arrive, and it ends on decisions for the AMS committee and for management, and on one-click outputs (WHO PPS worksheet, REDCap, Stata). Every figure on the stage is read from PPS Pro after it has done the work. Keys: &rarr; next, &larr; back, 1&ndash;8 outputs, F full screen, Esc open the tool. Memory only: nothing is saved, and your own data is not touched. The Showcase replaces the Present tour on the top bar.</li></ul></div>
  <div class="card section"><h3>What's new in v3.8 and v3.9 (November 2026)</h3><ul>
   <li><b>Manual entry (any form)</b> (Output menu, v3.8): fill in PPS Pro's own form, or load any REDCap project's data dictionary and fill in that project's form instead, with its branching logic. Send the entries to a plain CSV, a REDCap import CSV, a labelled Stata file (.dta), WHONET format (only where the form has isolate columns) and/or, with PPS Pro's own form, straight into PPS Pro's surveys. Every file is made on this computer.</li>
   <li><b>Decision brief</b> (Start menu, v3.9): one printable page for a committee that will not read the full report: what was measured, the latest survey's headline figures exactly as PPS Pro shows them (nothing recomputed), whether the data meet the bar on <b>Minimum data</b>, a few plain-language lines on what it means, and a question for the committee to decide, never an instruction. <b>Print / Save as PDF</b> uses the browser's own print dialog.</li>
@@ -2908,9 +2908,7 @@ if(DEMO){if(new URLSearchParams(location.search).has("show"))pill();else runDemo
     function b(id,label,title,fn,primary){var x=el("button",{type:"button",id:id,class:"odm-btn"+(primary?" odm-primary":""),title:title},label);x.addEventListener("click",fn);bar.appendChild(x);}
     if(!P.sampleMode()){
       b("odm-sample","Sample hospital","Open this tool on a simulated hospital, in memory only. Your own data is not touched.",function(){location.href=BASE+"?demo=1";});
-      b("odm-present","▶ Present","A short guided tour for a talk or a first look. Uses the data loaded now, or the sample hospital if there is none.",function(){if(P.cfg.hasData())P.start();else location.href=BASE+"?demo=1&present=1";},true);
     }else{
-      b("odm-present","▶ Present","A short guided tour of the sample hospital (keys: → next, ← back, Esc stop).",function(){P.start();},true);
       if(!P.demoBuild()) b("odm-leave","Leave sample hospital","Go back to your own data.",function(){location.href=BASE;});
     }
     if(P.cfg.placeBar) P.cfg.placeBar(host,bar); else host.appendChild(bar);
@@ -3569,13 +3567,13 @@ function vMentry(){
       (S.own?'<span class="chip own">YOUR DATA</span>':'<span class="chip sim">SIMULATED DATA</span>')+'<span class="chip off">&#9679; OFFLINE</span>'));
     var hosp=S.own?((c.hospitalName&&c.hospitalName())||"This facility"):(c.hospital||"Demo Regional Referral Hospital");
     cv.appendChild(el("div","foot",'<span><b>'+esc(hosp)+'</b> &middot; '+(S.own?'the data loaded in '+esc(c.name)+' now':'simulated &middot; '+esc(c.layout||"Afya eHMS export layout"))+' &middot; nothing leaves this computer</span>'+
-      '<span><kbd>&rarr;</kbd> next &nbsp; <kbd>&larr;</kbd> back &nbsp; <kbd>F</kbd> full screen &nbsp; <kbd>Esc</kbd> open the tool</span>'));
+      '<span>Odieman '+esc(c.name)+' '+esc(c.version)+'</span>'));
     /* scene 0: empty */
     var s0=el("div","scene"); s0.setAttribute("data-s","0");
     s0.innerHTML='<div class="hero"><div class="kick">'+esc(c.kicker||"")+'</div><div class="h1">'+esc(c.name)+'</div><div class="tag">'+esc(c.tagline||"")+'</div>'+
       '<div class="ghosts">'+c.tiles.slice(0,4).map(function(t){return '<div class="tile"><span class="dot"></span><div class="l">'+esc(t.label)+'</div><div class="v">&mdash;</div><div class="s">no data yet</div></div>';}).join("")+'</div>'+
       '<div class="zrow"><span><b class="num">0</b>files</span><span><b class="num">0</b>records</span><span><b class="num">0</b>analyses ready</span></div></div>'+
-      '<div class="hint">The tool is empty. Press <b>&rarr;</b> to bring in the hospital&rsquo;s exports.</div>';
+      '';
     cv.appendChild(s0);
     /* scene 1: data in */
     var s1=el("div","scene"); s1.setAttribute("data-s","1");
@@ -3596,8 +3594,8 @@ function vMentry(){
     /* scene 3: outputs */
     var s3=el("div","scene"); s3.setAttribute("data-s","2");
     s3.innerHTML='<div class="h2">Reports, one click</div><div class="h2s">'+esc(c.outSub||"Real files, written now from the data just loaded, in the formats the wider world reads.")+'</div>'+
-      '<div class="outs">'+c.outputs.map(function(o,i){return '<div class="oc" data-o="'+i+'"><span class="fmt" style="background:'+(o.color||"#30363d")+'">'+esc(o.fmt)+'</span><span class="key">'+(i<9?'<kbd>'+(i+1)+'</kbd>':'')+'</span><div class="t">'+esc(o.title)+'</div><div class="std">'+esc(o.std||"")+'</div><div class="res">Press '+(i+1)+' or click</div></div>';}).join("")+'</div>'+
-      '<div class="close"><span>Press &rarr; for the decisions.</span><button class="btn" type="button">Decisions &rarr;</button></div>';
+      '<div class="outs">'+c.outputs.map(function(o,i){return '<div class="oc" data-o="'+i+'"><span class="fmt" style="background:'+(o.color||"#30363d")+'">'+esc(o.fmt)+'</span><div class="t">'+esc(o.title)+'</div><div class="std">'+esc(o.std||"")+'</div><div class="res">Ready</div></div>';}).join("")+'</div>'+
+      '<div class="close"><span>Each file is written on this computer from the data just loaded.</span><button class="btn" type="button">Decisions &rarr;</button></div>';
     cv.appendChild(s3);
     document.body.appendChild(root);
     var ob=el("button","",'Showcase'); ob.id="odms-open"; ob.type="button"; ob.title="Back to the showcase stage (S)"; ob.style.display="none"; ob.onclick=function(){open();}; document.body.appendChild(ob);
@@ -3698,7 +3696,7 @@ function vMentry(){
       var st=q(".st",d);
       if(L){ var n=null; try{n=g.rows();}catch(e){} st.innerHTML=(n!=null?'<b class="num">'+fmtN(n)+'</b>'+esc(g.rowsLabel||"rows"):'<b>&#10003;</b>loaded')+(L.own&&!L.present?'<br>from your folder':''); }
       else if(S.loading===i) st.innerHTML="reading&hellip;";
-      else if(i===nx) st.innerHTML="&rarr; next";
+      else if(i===nx) st.innerHTML="waiting";
       else if(S.own) st.innerHTML='<span style="color:#ffb4ae">not loaded</span><br>drop the file here';
       else st.innerHTML="";
     });

@@ -854,7 +854,7 @@ html.odm-present .suite-nav .arm-btn,html.odm-present .suite-nav .navgrp,html.od
   </div>
 
   <div class="card" id="g-new315"><h2>What's new in v3.15 (November 2026)</h2><ul>
-    <li><b>Showcase</b> (&#9733; Showcase in the top bar): a stage for a talk. VigiWard opens empty, the sample hospital's exports go in one by one, each figure turns from red to green when the file it needs arrives, and it ends on decisions for the PV team and for management and on one-click outputs (TMDA, ICH E2B, VigiFlow, REDCap, Stata). Keys: &rarr; next, &larr; back, 1&ndash;8 outputs, F full screen, Esc open the tool. Memory only; nothing is saved. The stage can also run on the data loaded now.</li>
+    <li><b>Showcase</b> (&#9733; Showcase in the top bar): a stage for a talk. VigiWard opens empty, the sample hospital's exports go in one by one, each figure turns from red to green when the file it needs arrives, and it ends on decisions for the PV team and for management and on one-click outputs (TMDA, ICH E2B, VigiFlow, REDCap, Stata). Keys: &rarr; next, &larr; back, 1&ndash;8 outputs, F full screen, Esc open the tool. Memory only; nothing is saved. The stage can also run on the data loaded now. It replaces the Present tour on the top bar.</li>
     <li><b>Pharmacology check</b> on every flag (&#9878; chip on the card, and the Pharmacology button): what the medicine is known to do (labelled reactions, Rawlins type, mechanism), who is at higher risk of it, and what this patient's own record shows: age, sex, ward, and the creatinine with eGFR (CKD-EPI 2021), potassium, ALT, glucose and neutrophils measured around the event. It ends in a plausibility reading (labelled or not; strong, moderate) for the reviewer. Not a causality score: Naranjo and WHO-UMC remain the causality tools. Profiles are built in for 71 medicines in common use, each reviewed against its sources (WHO Model Formulary, BNF, KDIGO, Tanzania STG).</li></ul></div>
   <div class="card" id="g-new314"><h2>What's new in v3.13 and v3.14 (November 2026)</h2><ul>
     <li><b>Manual entry</b> (Report menu, beside REDCap &amp; Stata; v3.13): fill in VigiWard's own case-review form, or load any REDCap project's data dictionary and fill in that form, with its branching logic. Send the entries to a plain CSV, a REDCap import CSV, a labelled Stata file (.dta), WHONET format (only where the form has isolate columns) and/or, with VigiWard's own form, straight into case review. Every file is made on this computer.</li>
@@ -5727,9 +5727,7 @@ if(DEMO){if(new URLSearchParams(location.search).has("show"))vwfPaint();else run
     function b(id,label,title,fn,primary){var x=el("button",{type:"button",id:id,class:"odm-btn"+(primary?" odm-primary":""),title:title},label);x.addEventListener("click",fn);bar.appendChild(x);}
     if(!P.sampleMode()){
       b("odm-sample","Sample hospital","Open this tool on a simulated hospital, in memory only. Your own data is not touched.",function(){location.href=BASE+"?demo=1";});
-      b("odm-present","▶ Present","A short guided tour for a talk or a first look. Uses the data loaded now, or the sample hospital if there is none.",function(){if(P.cfg.hasData())P.start();else location.href=BASE+"?demo=1&present=1";},true);
     }else{
-      b("odm-present","▶ Present","A short guided tour of the sample hospital (keys: → next, ← back, Esc stop).",function(){P.start();},true);
       if(!P.demoBuild()) b("odm-leave","Leave sample hospital","Go back to your own data.",function(){location.href=BASE;});
     }
     if(P.cfg.placeBar) P.cfg.placeBar(host,bar); else host.appendChild(bar);
@@ -6396,13 +6394,13 @@ function renderMentry(){
       (S.own?'<span class="chip own">YOUR DATA</span>':'<span class="chip sim">SIMULATED DATA</span>')+'<span class="chip off">&#9679; OFFLINE</span>'));
     var hosp=S.own?((c.hospitalName&&c.hospitalName())||"This facility"):(c.hospital||"Demo Regional Referral Hospital");
     cv.appendChild(el("div","foot",'<span><b>'+esc(hosp)+'</b> &middot; '+(S.own?'the data loaded in '+esc(c.name)+' now':'simulated &middot; '+esc(c.layout||"Afya eHMS export layout"))+' &middot; nothing leaves this computer</span>'+
-      '<span><kbd>&rarr;</kbd> next &nbsp; <kbd>&larr;</kbd> back &nbsp; <kbd>F</kbd> full screen &nbsp; <kbd>Esc</kbd> open the tool</span>'));
+      '<span>Odieman '+esc(c.name)+' '+esc(c.version)+'</span>'));
     /* scene 0: empty */
     var s0=el("div","scene"); s0.setAttribute("data-s","0");
     s0.innerHTML='<div class="hero"><div class="kick">'+esc(c.kicker||"")+'</div><div class="h1">'+esc(c.name)+'</div><div class="tag">'+esc(c.tagline||"")+'</div>'+
       '<div class="ghosts">'+c.tiles.slice(0,4).map(function(t){return '<div class="tile"><span class="dot"></span><div class="l">'+esc(t.label)+'</div><div class="v">&mdash;</div><div class="s">no data yet</div></div>';}).join("")+'</div>'+
       '<div class="zrow"><span><b class="num">0</b>files</span><span><b class="num">0</b>records</span><span><b class="num">0</b>analyses ready</span></div></div>'+
-      '<div class="hint">The tool is empty. Press <b>&rarr;</b> to bring in the hospital&rsquo;s exports.</div>';
+      '';
     cv.appendChild(s0);
     /* scene 1: data in */
     var s1=el("div","scene"); s1.setAttribute("data-s","1");
@@ -6423,8 +6421,8 @@ function renderMentry(){
     /* scene 3: outputs */
     var s3=el("div","scene"); s3.setAttribute("data-s","2");
     s3.innerHTML='<div class="h2">Reports, one click</div><div class="h2s">'+esc(c.outSub||"Real files, written now from the data just loaded, in the formats the wider world reads.")+'</div>'+
-      '<div class="outs">'+c.outputs.map(function(o,i){return '<div class="oc" data-o="'+i+'"><span class="fmt" style="background:'+(o.color||"#30363d")+'">'+esc(o.fmt)+'</span><span class="key">'+(i<9?'<kbd>'+(i+1)+'</kbd>':'')+'</span><div class="t">'+esc(o.title)+'</div><div class="std">'+esc(o.std||"")+'</div><div class="res">Press '+(i+1)+' or click</div></div>';}).join("")+'</div>'+
-      '<div class="close"><span>Press &rarr; for the decisions.</span><button class="btn" type="button">Decisions &rarr;</button></div>';
+      '<div class="outs">'+c.outputs.map(function(o,i){return '<div class="oc" data-o="'+i+'"><span class="fmt" style="background:'+(o.color||"#30363d")+'">'+esc(o.fmt)+'</span><div class="t">'+esc(o.title)+'</div><div class="std">'+esc(o.std||"")+'</div><div class="res">Ready</div></div>';}).join("")+'</div>'+
+      '<div class="close"><span>Each file is written on this computer from the data just loaded.</span><button class="btn" type="button">Decisions &rarr;</button></div>';
     cv.appendChild(s3);
     document.body.appendChild(root);
     var ob=el("button","",'Showcase'); ob.id="odms-open"; ob.type="button"; ob.title="Back to the showcase stage (S)"; ob.style.display="none"; ob.onclick=function(){open();}; document.body.appendChild(ob);
@@ -6525,7 +6523,7 @@ function renderMentry(){
       var st=q(".st",d);
       if(L){ var n=null; try{n=g.rows();}catch(e){} st.innerHTML=(n!=null?'<b class="num">'+fmtN(n)+'</b>'+esc(g.rowsLabel||"rows"):'<b>&#10003;</b>loaded')+(L.own&&!L.present?'<br>from your folder':''); }
       else if(S.loading===i) st.innerHTML="reading&hellip;";
-      else if(i===nx) st.innerHTML="&rarr; next";
+      else if(i===nx) st.innerHTML="waiting";
       else if(S.own) st.innerHTML='<span style="color:#ffb4ae">not loaded</span><br>drop the file here';
       else st.innerHTML="";
     });
