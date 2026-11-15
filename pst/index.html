@@ -7,6 +7,12 @@
 <meta name="description" content="56th PST Scientific Conference & AGM, Mwanza, 25–27 November 2026 — try AMS Pro, PPS Pro and VigiWard live in your browser, take the tools home, and help carry them forward.">
 <title>PST 2026, Mwanza — Odieman Health Tools</title>
 <link rel="stylesheet" href="../style.css">
+<style>
+.tour li a{font-family:"Segoe UI",sans-serif;font-size:14px;font-weight:600;color:var(--teal);white-space:nowrap;}
+.scan-btn.book{background:var(--ochre);}
+.scan-btn.book span{color:#FDEBD3;}
+.scan-btn.book:hover{background:#92400E;}
+</style>
 </head>
 <body>
 
@@ -16,10 +22,12 @@
       <small>Field-built instruments for antimicrobial stewardship, PPS &amp; pharmacovigilance</small>
     </a>
     <nav class="links sans">
+      <a href="#path">Start here</a>
       <a href="#poster">Poster</a>
       <a href="#try">Try it</a>
       <a href="#minute">In 60 seconds</a>
       <a href="#forward">Carry it forward</a>
+      <a href="#books">Books</a>
       <a href="#contact">Contact</a>
     </nav>
   </div>
@@ -32,6 +40,15 @@
     <p class="lede">Welcome — you probably scanned the poster. Hospital systems such as Afya eHMS already record almost everything an antimicrobial stewardship or pharmacovigilance team needs. What was missing was a tool to assemble and analyse it. Here are three — offline, free for Tanzania&rsquo;s public health facilities, built by a hospital pharmacy technician.</p>
   </section>
 
+  <section id="path" style="padding-top:4px;">
+    <h2>Start here: four steps, in this order</h2>
+    <ol class="tour">
+      <li><b>Watch one tool work.</b> Open a live demo and press <b>&#9733; Showcase</b>: the tool starts empty and builds its figures and reports as the hospital&rsquo;s files go in. <a href="#try">Choose a tool &darr;</a></li>
+      <li><b>Take the tools home.</b> Free for Tanzania&rsquo;s public health facilities. One short form. <a href="../get/">Request the tools &rarr;</a></li>
+      <li><b>Save my contact.</b> One tap adds me to your phone, so we can talk after Mwanza. <a href="odindo-emmanuel-thomas.vcf">Save contact</a></li>
+      <li><b>Then read something different.</b> I also write books, as Emmanuel Odie: one on faith, one a comedy about the mathematics that built the world. Both free. <a href="#books">See the books &darr;</a></li>
+    </ol>
+  </section>
   <section id="poster" style="padding-top:6px;">
     <h2>The poster</h2>
     <p class="kv" style="margin:0 0 6px;">Sub-theme: Digital Health and Innovation in Pharmacy</p>
@@ -50,7 +67,7 @@
 
   <section id="try" style="padding-top:10px;">
     <h2>Try them now</h2>
-    <p class="section-note">Each opens the real tool in your browser with three years of simulated data from a fictional hospital. Nothing is saved or sent anywhere. Press <b>Present</b> for the guided tour shown in the talk. A laptop shows the most; a phone works for a first look.</p>
+    <p class="section-note">Each opens the real tool in your browser with 33 months of simulated data from a fictional hospital. Nothing is saved or sent anywhere. Press <b>&#9733; Showcase</b> to watch the tool start empty and build its figures as the hospital&rsquo;s files go in, as in the talk. A laptop shows the most; a phone works for a first look.</p>
     <div class="scan-row">
       <a class="scan-btn" href="../tools/Odieman_AMS_Pro.html?demo=1"><b>AMS Pro &rarr;</b><span>Access rising 36% &rarr; 60%; run charts, antibiogram, daily review list</span></a>
       <a class="scan-btn" href="../tools/VigiWard.html?demo=1"><b>VigiWard &rarr;</b><span>995 suspected reactions found — and a simulated bad batch</span></a>
@@ -81,6 +98,15 @@
     </div>
   </section>
 
+  <section id="books">
+    <h2>Also by the author</h2>
+    <p class="section-note">Away from the pharmacy I write, as Emmanuel Odie. Both books are complete and free, to read online or download as a PDF.</p>
+    <div class="scan-row">
+      <a class="scan-btn book" href="https://emmanuelodie.github.io/run-to-the-name/" data-ev="book-rtn-read"><b>Run to the Name &rarr;</b><span>The names of God for every storm of life &middot; 19 chapters</span></a>
+      <a class="scan-btn book" href="https://emmanuelodie.github.io/the-watermelon-moon/" data-ev="book-wm-read"><b>The Watermelon Moon &rarr;</b><span>A comic chronicle of the mathematics that built the world &middot; 13 Moons</span></a>
+    </div>
+    <p class="kv"><a href="../books.html">More about the books</a></p>
+  </section>
   <section id="contact">
     <h2>Contact</h2>
     <div class="contact-card">
@@ -88,6 +114,7 @@
       <div class="who">
         <b>Odindo Emmanuel Thomas</b><br>
         Pharmaceutical technician &middot; builder of AMS Pro, PPS Pro and VigiWard<br>
+        Author, as Emmanuel Odie, of <a href="https://emmanuelodie.github.io/run-to-the-name/" data-ev="book-rtn-read"><i>Run to the Name</i></a> and <a href="https://emmanuelodie.github.io/the-watermelon-moon/" data-ev="book-wm-read"><i>The Watermelon Moon</i></a><br>
         <a href="mailto:emmanuelodie94@gmail.com">emmanuelodie94@gmail.com</a> &middot; <a href="mailto:emmanuelodie94@proton.me">emmanuelodie94@proton.me</a><br>
         <a href="tel:+255620799907">+255 620 799 907</a> &middot; <a href="tel:+255759547025">+255 759 547 025</a><br>
         <span style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;">
@@ -113,6 +140,7 @@
 window.odmEvent=function(path,title){try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:path,title:title||path,event:true});}catch(e){}};
 document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href');
   var m=h.match(/(Odieman_AMS_Pro|Odieman_PPS_Pro|VigiWard)\.html\?demo=1/);if(m){odmEvent('demo-'+m[1].replace('Odieman_',''),'Live demo opened');return;}
+  if(a.getAttribute('data-ev')){odmEvent(a.getAttribute('data-ev'),'Book link');return;}
   if(/^https:\/\/wa\.me\//.test(h))odmEvent('contact-whatsapp','WhatsApp link');else if(/^mailto:/.test(h))odmEvent('contact-email','Email link');else if(/\.vcf$/.test(h))odmEvent('contact-vcard','Contact saved');else if(/\.pdf$/.test(h))odmEvent('abstract-pdf','Abstract downloaded');});
 </script>
 <script data-goatcounter="https://emmanuelodie94.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
