@@ -328,3 +328,9 @@ table.dl td.demo a:hover{text-decoration:underline;}
 .abstract p{margin:0 0 10px;font-size:15.5px;color:var(--ink-soft);line-height:1.6;}
 .abstract p:last-child{margin-bottom:0;}
 .abstract b{color:var(--ink);}
+
+/* Logo in the top bar */
+.nav-inner{align-items:center;}
+.brand{display:block;line-height:0;}
+.brand img{display:block;height:50px;width:auto;}
+@media (max-width:760px){.brand img{height:40px;}}
