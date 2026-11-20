@@ -110,7 +110,7 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Odieman AMS Pro v5.7 (demo)</title>
+<title>Odieman AMS Pro v5.8 (demo)</title>
 <style>
 :root{
   --bg:#0d1117; --panel:#161b22; --panel2:#1c2230; --line:#2b3340;
@@ -338,7 +338,9 @@ td input.wide{min-width:220px;white-space:normal}
 .odm-btn{font:600 12.5px/1.2 "Segoe UI",Arial,sans-serif;padding:6px 11px;border-radius:8px;border:1px solid #9aa7b0;background:#fff;color:#1b2a33;cursor:pointer;white-space:nowrap}
 .odm-btn:hover{border-color:#1f6feb}
 .odm-btn.odm-primary{background:#1f6feb;border-color:#1f6feb;color:#fff}
-#odm-stamp{position:fixed;left:10px;bottom:10px;z-index:2147482000;background:#b42318;color:#fff;font:700 11px/1 "Segoe UI",Arial,sans-serif;letter-spacing:.08em;padding:6px 9px;border-radius:6px;opacity:.88;pointer-events:none}
+#odm-stamp{position:fixed;left:0;bottom:0;width:230px;box-sizing:border-box;text-align:center;z-index:2147482000;background:#b42318;color:#fff;font:700 11px/1 "Segoe UI",Arial,sans-serif;letter-spacing:.08em;padding:8px 9px;border-radius:0 6px 0 0;opacity:.95;pointer-events:none}
+body:has(#odm-stamp) #sidebar{bottom:27px}
+@media(max-width:900px){#odm-stamp{width:auto}}
 #odm-tour{display:none;position:fixed;inset:0;z-index:2147482500;pointer-events:none;font-family:"Segoe UI",Arial,sans-serif}
 #odm-spot{position:fixed;border:3px solid #f5b400;border-radius:10px;box-shadow:0 0 0 9999px rgba(15,23,32,.42);transition:all .25s ease;pointer-events:none}
 #odm-card{position:fixed;left:50%;transform:translateX(-50%);bottom:12px;width:min(920px,calc(100vw - 24px));background:#fff;color:#14212b;border-radius:12px;box-shadow:0 10px 36px rgba(0,0,0,.35);padding:14px 18px 12px;pointer-events:auto;border-top:5px solid #1f6feb}
@@ -385,7 +387,7 @@ html.odm-present #v-hub .panel table{display:block;overflow-x:auto;max-width:100
 <body>
 <header>
   <div class="logo">Odieman <b>AMS&nbsp;Pro</b></div>
-  <div class="tag">Offline Antimicrobial Stewardship Suite &mdash; Data Entry, Bulk Ingestion &amp; Reporting&nbsp;&middot;&nbsp;v5.7</div>
+  <div class="tag">Offline Antimicrobial Stewardship Suite &mdash; Data Entry, Bulk Ingestion &amp; Reporting&nbsp;&middot;&nbsp;v5.8</div>
   <div class="spacer"></div>
   <button id="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle navigation" title="Toggle navigation">&#9776;</button>
   <div id="backup-badge" class="bbadge" onclick="backupBadgeClick()" title="Backup status — click to manage">&#9211; No backup yet</div>
@@ -24289,7 +24291,7 @@ function xlDateH(v){ const s=(""+(v==null?"":v)).trim(); if(!s) return s;
   return s; }
 
 /* ============================= NAV ============================= */
-const VIEWS=[["guide","User Guide"],["mindata","Minimum Data"],["brief","Decision brief"],["setup","Setup"],["doseref","Dose Reference"],["entry","Data Entry"],["mentry","Manual entry (any form)"],["hub","Import Hub"],["patients","Patients"],["prescriptions","Prescriptions"],["antibiogram","Antibiogram"],["drvzones","Driver Zones"],["wrtrend","Resistance Trend"],["wins","What's Working"],["dash","Dashboard"],["timeout","Antibiotic Time-out"],["bugdrug","Bug–drug Check"],["its","Did It Work?"],["impact","Intervention Impact"],["csp","C/S Prophylaxis Project"],["wr","AMS Ward Rounds"],["spc","Run Charts (SPC)"],["reports","Reports"],["indicators","Indicators"],["consumption","Consumption"],["economics","Cost & Impact"],["analytics","Analytics"],["discrep","Discrepancy"],["pdca","PDCA / 7 Wastes"],["inrud","WHO/INRUD Indicators"],["crf","CRF Forms"],["export","Export"]];
+const VIEWS=[["guide","User Guide"],["mindata","Minimum Data"],["brief","Decision brief"],["setup","Setup"],["doseref","Dose Reference"],["entry","Data Entry"],["mentry","Manual entry (any form)"],["hub","Import Hub"],["patients","Patients"],["prescriptions","Prescriptions"],["antibiogram","Antibiogram"],["drvzones","Driver Zones"],["wrtrend","Resistance Trend"],["wins","What's Working"],["dash","Dashboard"],["timeout","Antibiotic Time-out"],["bugdrug","Bug–drug Check"],["its","Did It Work?"],["impact","Intervention Impact"],["csp","Ward AMS Projects"],["wr","AMS Ward Rounds"],["spc","Run Charts (SPC)"],["reports","Reports"],["indicators","Indicators"],["consumption","Consumption"],["economics","Cost & Impact"],["analytics","Analytics"],["discrep","Discrepancy"],["pdca","PDCA / 7 Wastes"],["inrud","WHO/INRUD Indicators"],["crf","CRF Forms"],["export","Export"]];
 /* ============================= SIDEBAR NAV GROUPS ============================= */
 /* Groups the flat VIEWS list into the left-sidebar sections, ordered roughly as a monthly AMS
    workflow: data in, then AMS operations/analysis, then reporting, then setup/reference at the
@@ -28091,6 +28093,7 @@ function renderDash(){
   ${storageQuotaExceeded&&saveDirHandle&&folderSyncStatus==="connected"?`<div class="notice good">&#128193; This dataset is larger than the browser can hold, so it is kept in your data folder <b>${esc(saveDirHandle.name)}</b> instead &mdash; it is saved there automatically and will reload from there next time.</div>`:""}
   ${storageQuotaExceeded&&!(saveDirHandle&&folderSyncStatus==="connected")?`<div class="notice err">&#9888; This dataset is too large for the browser to save persistently (local storage is full). Everything is still working for this session &mdash; <span class="linkfix" onclick="go('export')">download a JSON backup now</span> so nothing is lost if you close or reload the page. Better: <span class="linkfix" onclick="backupBadgeClick()">open a data folder</span> (Setup &rsaquo; Data folder) &mdash; it has no size limit and saves automatically.</div>`:""}
   <div class="notice">${esc(f.name||"Facility")} &middot; ${esc(f.period||"period not set")} ${f.generated?`&middot; report generated ${esc(f.generated)}`:""}</div>
+  ${askPanel()}
   <div class="notice ${txTotal?'good':''}">Compiled from <b>${txTotal}</b> working-ground record(s)${m.lastCompiled?` &middot; last compiled ${esc(m.lastCompiled)}`:" — no imports or manual entries yet, showing seed data"}. <span class="linkfix" onclick="go('entry')">Add data</span> &middot; <span class="linkfix" onclick="compileReport();save();renderDash();toast('Recompiled')">Recompile now</span></div>
   ${gaps.length?`<div class="notice warn">${gaps.length} gap(s) still need manual completion &mdash; see <span class="linkfix" onclick="go('hub')">Import Hub</span> for details.</div>`:""}
   ${f.wardScope.length?`<div class="notice good">Report scoped to <b>${f.wardScope.map(w=>esc(smartCase(w))).join(", ")}</b> &mdash; <span class="linkfix" onclick="go('setup')">change on Setup</span>.</div>`:""}
@@ -29602,7 +29605,7 @@ function pushPartInner(cat,part){
   if(cat==="surgery"){ const have=new Set((DB.surgeryTx||[]).map(r=>[r.patientId,r.date,normH(r.operation),r.time].join("|"))); let rep=0; const add=[];
     part.records.forEach(r=>{ const k=[r.patientId,r.date,normH(r.operation),r.time].join("|"); if(have.has(k)){ rep++; return; } have.add(k); add.push(r); });
     DB.surgeryTx=(DB.surgeryTx||[]).concat(add); window._cspIdx=null; const i=part.info;
-    return {records:add.length,note:`${add.length.toLocaleString()} operation row(s) from ${i.minDate||"?"} to ${i.maxDate||"?"}${rep?`; ${rep} exact repeat(s) kept once`:""}${i.cancelled?`; ${i.cancelled} marked cancelled or postponed (kept, but left out of the C/S cohort)`:""}${i.skipped?`; ${i.skipped} row(s) without a patient number or readable date skipped`:""}. Dates read ${i.order==="mdy"?"month-first":"day-first"}. Feeds the C/S Prophylaxis Project.`}; }
+    return {records:add.length,note:`${add.length.toLocaleString()} operation row(s) from ${i.minDate||"?"} to ${i.maxDate||"?"}${rep?`; ${rep} exact repeat(s) kept once`:""}${i.cancelled?`; ${i.cancelled} marked cancelled or postponed (kept, but left out of the C/S cohort)`:""}${i.skipped?`; ${i.skipped} row(s) without a patient number or readable date skipped`:""}. Dates read ${i.order==="mdy"?"month-first":"day-first"}. Feeds the C/S eHMS cohort engine (Ward AMS Projects).`}; }
   if(cat==="whonet"){ const have=new Set((DB.isolates||[]).map(x=>[cspPid(x.patientId),normH(x.organism),x.date,normH(x.specimenType)].join("|"))); let rep=0; const add=[];
     part.records.forEach(x=>{ const k=[cspPid(x.patientId),normH(x.organism),x.date,normH(x.specimenType)].join("|"); if(have.has(k)){ rep++; return; } have.add(k); add.push(x); });
     DB.isolates=(DB.isolates||[]).concat(add); window._cspIdx=null; const i=part.info;
@@ -29845,9 +29848,9 @@ function renderHub(){
   ${dz("admit","Admissions / ward log","Populates bed-days (for DDD/DOT), CRF02 (Cesarean sections, SSI), IPC-7, and sets the report's ward scope automatically &mdash; per-patient rows with ward, bed-days and Y/N flags.",".xlsx,.xlsm,.csv")}
   ${dz("diagnosis","Diagnosis log","A diagnosis-only export &mdash; Patient ID/Registration + Diagnosis text, nothing else required. Feeds the Diagnosis Profile section of Reports by enriching matching patients with a working diagnosis. Kept separate from Admissions/ward above so a file like this is never flagged as missing Ward/Bed-days columns it was never meant to carry.",".xlsx,.xlsm,.csv")}
   ${dz("procedures","Procedures / services report","A billed procedures/services export (Product Name, Sub Department, Ordered/Served By and Date, Quantity, Price) &mdash; patient-linked but not itself an antibiotic, lab, or admission record. Used only to enrich the Patient Master export with what procedures a patient had.",".xlsx,.xlsm,.csv")}
-  ${dz("surgery","Surgery Patients Report","The theatre list from the hospital system (Patient Number, Surgery/Procedure, Surgery Date; Start Time, Surgery Type (emergency/elective) and Status if the export has them). Defines the caesarean sections and gynaecological operations for the C/S Prophylaxis Project. Title rows above the header are skipped; dates written 05/02/2027 are read day-first.",".xlsx,.xlsm,.csv")}
+  ${dz("surgery","Surgery Patients Report","The theatre list from the hospital system (Patient Number, Surgery/Procedure, Surgery Date; Start Time, Surgery Type (emergency/elective) and Status if the export has them). Defines the caesarean sections and gynaecological operations for the C/S eHMS cohort engine (Ward AMS Projects, C/S template). Title rows above the header are skipped; dates written 05/02/2027 are read day-first.",".xlsx,.xlsm,.csv")}
   ${dz("whonet","WHONET isolate listing","Culture and sensitivity results exported from WHONET (patient or laboratory number, specimen date and type, organism, one column per antibiotic with R, I or S). WHONET codes such as CRO or CRO_ND30 and organism codes such as eco are recognised; a laboratory number is matched to the patient through the lab log. Feeds the Antibiogram, Bug–drug Check and the project's resistance table.",".xlsx,.xlsm,.csv")}
-  ${dz("issue","Store / ward issue report","What the main store issued to each ward (Item Name, Quantity Issued, Issued To, Date). Used by the C/S Prophylaxis Project to flag weeks without stock and to compare ward issues with patient-level dispensing.",".xlsx,.xlsm,.csv")}
+  ${dz("issue","Store / ward issue report","What the main store issued to each ward (Item Name, Quantity Issued, Issued To, Date). Used by the C/S eHMS cohort engine to flag weeks without stock and to compare ward issues with patient-level dispensing.",".xlsx,.xlsm,.csv")}
   <div class="panel">
     <h2>Synthesis &amp; gaps</h2>
     <div class="sub">What the imports above have filled so far, and what still needs your input.</div>
@@ -30211,7 +30214,7 @@ function renderGuide(){
   const open=(k,label)=>`<button class="btn sm ghost" onclick="go('${k}')">${label||"Open"} &rarr;</button>`;
   const sec=(id,title,body)=>`<div class="panel" id="guide-${id}"><h2>${title}</h2>${body}</div>`;
   const toc=[["start","1. Getting started in 6 steps"],["data","2. What data you need"],["modules","3. What each module shows"],["sample","4. Practise with the sample data"],
-    ["saving","5. Saving, backups and moving computers"],["stats","6. Reading the statistics correctly"],["trouble","7. Troubleshooting"],["glossary","8. Glossary"],["csp","9. The C/S Prophylaxis Project"],["wr","10. AMS ward rounds"]];
+    ["saving","5. Saving, backups and moving computers"],["stats","6. Reading the statistics correctly"],["trouble","7. Troubleshooting"],["glossary","8. Glossary"],["csp","9. Ward AMS projects and the C/S engine"],["wr","10. AMS ward rounds"]];
   const mod=(k,name,what,read)=>`<tr><td style="white-space:nowrap"><b>${name}</b></td><td>${what}</td><td>${read}</td><td>${open(k)}</td></tr>`;
   $("#v-guide").innerHTML=`
   <style>#v-guide td,#v-guide th{white-space:normal!important;vertical-align:top;line-height:1.5}#v-guide .tablewrap{overflow:visible!important;max-height:none!important}#v-guide td .btn{white-space:nowrap}#v-guide table{table-layout:auto;width:100%}#v-guide td:first-child{min-width:130px}#v-guide li{margin-bottom:4px}</style>
@@ -30239,13 +30242,13 @@ function renderGuide(){
       <tr><td><b>Admissions / ward</b></td><td>Patient ID or Ward</td><td>Ward, Date Admitted, Date Discharged, Bed Days, Diagnosis, Procedure, Cesarean Section, SSI Confirmed, Receiving Antibiotic</td><td>Bed-days denominator for DDD and DOT per 1,000 patient-days, ward scope, CRF02 (SSI after C-section), CRF03 roster, diagnosis profile</td></tr>
       <tr><td><b>Laboratory</b></td><td>Test name + either TAT timestamps or flag columns</td><td>Patient Number, Sample Collected Time, Submission Time, TAT Expected (e.g. &ldquo;72Hrs&rdquo;)</td><td>Turnaround-time indicator (AMR-2), lab activity, culture use, Reserve-without-culture check</td></tr>
       <tr><td><b>Culture &amp; sensitivity</b><br><span class="hint">via Bug&ndash;drug Check</span></td><td>Patient ID, Sample date, Organism, one column per antibiotic with S/I/R</td><td>Specimen</td><td>Antibiogram (CLSI M39, first isolate per patient), empirical-therapy review, bug&ndash;drug mismatches</td></tr>
-      <tr><td><b>Surgery Patients Report</b><br><span class="hint">for the C/S Prophylaxis Project</span></td><td>Patient Number, Surgery / Procedure, Surgery Date</td><td>Start Time, Surgery Type (emergency/elective), Status</td><td>Defines every caesarean section and its Day 0 for the C/S Prophylaxis Project</td></tr>
+      <tr><td><b>Surgery Patients Report</b><br><span class="hint">for the C/S eHMS cohort engine</span></td><td>Patient Number, Surgery / Procedure, Surgery Date</td><td>Start Time, Surgery Type (emergency/elective), Status</td><td>Defines every caesarean section and its Day 0 for the C/S Prophylaxis Project</td></tr>
       <tr><td><b>WHONET isolate listing</b></td><td>Patient or laboratory number, organism, antibiotic columns with R/I/S</td><td>Specimen date and type, ward</td><td>Antibiogram, Bug&ndash;drug Check, ceftriaxone resistance in the project</td></tr>
       <tr><td><b>Store / ward issue report</b></td><td>Item Name, Quantity Issued, Issued To</td><td>Date Issued</td><td>Stock-outs and the ward-stock completeness check in the project</td></tr>
       <tr><td><b>Procedures / services</b></td><td>Product Name / Procedure</td><td>Patient ID, Sub Department Name, Ordered Date, Price</td><td>Surgical prophylaxis continued beyond 24&nbsp;h (Time-out), Patient Master</td></tr>
     </tbody></table></div>
     <div class="notice" style="margin-top:12px"><b>Most important rule:</b> the ward names in the admissions file must be written exactly as the <i>Department</i> names in the dispensing file. That is how AMS Pro links bed-days to dispensing and decides which wards are in scope.</div>
-    <div class="notice good" style="margin-top:10px">New in 5.7: <b>Showcase</b> (&#9733; in the top bar, in place of the Present tour) and <b>Print antibiogram (A4)</b> on the Antibiogram page. New in 5.3: <b>Minimum Data</b> (Getting Started) lists every heading the importer recognises, gives blank templates, and checks the data loaded now. <button class="btn sm ghost" onclick="go('mindata')">Open &rarr;</button></div>`)}
+    <div class="notice good" style="margin-top:10px">New in 5.8: a <b>Quick answer</b> on the Dashboard (how much of one antibiotic was used in the last few months, in DDD and DDD per 100 bed-days) and <b>Ward AMS Projects</b> (AMS Operations) &mdash; a project on any ward chosen from a list, with the AMS secretary&rsquo;s CRF 03 as the standard source where eHMS does not hold the ward&rsquo;s data, the ward&rsquo;s consumption sheet, integrity checks and reports. New in 5.7: <b>Showcase</b> (&#9733; in the top bar, in place of the Present tour) and <b>Print antibiogram (A4)</b> on the Antibiogram page. New in 5.3: <b>Minimum Data</b> (Getting Started) lists every heading the importer recognises, gives blank templates, and checks the data loaded now. <button class="btn sm ghost" onclick="go('mindata')">Open &rarr;</button></div>`)}
 
   ${sec("modules","3. What each module shows",`
     <div class="tablewrap"><table><thead><tr><th>Module</th><th>What it shows</th><th>How to read / use it</th><th></th></tr></thead><tbody>
@@ -30256,7 +30259,7 @@ function renderGuide(){
       ${mod("patients","Patients","One line per patient joined across pharmacy, lab, admissions and procedures.","Look up a patient's full antibiotic exposure, cultures and stay in one place.")}
       ${mod("prescriptions","Prescriptions","Every dispensing line with matched generic, AWaRe class, route, days and DDD.","Check how an item name was matched; spot unrecognised or unusual lines.")}
       ${mod("antibiogram","Antibiogram","% susceptible by organism &times; antibiotic, first isolate per patient (CLSI M39). Empirical therapy review flags drugs below 80% coverage.","Cells with fewer than 30 isolates carry a &#9888; &mdash; read them as indicative only. Filter by period and specimen.")}
-      ${mod("csp","C/S Prophylaxis Project","The caesarean section prophylaxis project from start to end-term: cohort, SP1/SP2/SP3 labels, infection signal, indicators C1&ndash;C6, B1&ndash;B5 and S1&ndash;S7, weekly time series, before&ndash;after tests, file-review validation, ward audits and reports.","See section 9 below.")}
+      ${mod("csp","Ward AMS Projects","An AMS project on any ward chosen from a list: phases, the AMS secretary&rsquo;s CRF 03 as the standard source where eHMS does not hold the ward&rsquo;s data, the ward&rsquo;s consumption sheet, integrity checks, indicators W1&ndash;W11 and DDD per 100 bed-days, run charts, time series, before&ndash;after tests and reports. The C/S template adds the eHMS cohort engine: SP1/SP2/SP3 labels, infection signal, indicators C1&ndash;C6, B1&ndash;B5, S1&ndash;S7, file-review validation.","See section 9 below.")}
       ${mod("wr","AMS Ward Rounds","A one-page round form pre-filled from dispensing (with what to look at first), typed in after the round; findings per 10 patients, agreement, follow-up, flag check, teaching points and a monthly Word report.","See section 10 below.")}
       ${mod("timeout","Antibiotic Time-out","A daily review list: IV &ge;3 days, double anaerobic cover, two beta-lactams, &ge;3 antibiotics, long courses, Reserve without culture, post-op prophylaxis &gt;24&nbsp;h &mdash; and IV&rarr;oral step-downs as good practice.","Print the ward sheet for the morning round. Each line is a prompt for review, not a judgement.")}
       ${mod("bugdrug","Bug–drug Check","Culture results linked to the same patient's dispensing from 1 day before to 7 days after the sample.","A mismatch is an antibiotic given that the isolate is resistant to &mdash; the action is to change therapy once the result is out.")}
@@ -30337,11 +30340,22 @@ function renderGuide(){
       <tr><td><b>n &minus; a</b></td><td>The analysed group: all caesarean sections (n) less the women already on antibiotics for an infection before surgery (a).</td></tr>
     </tbody></table></div>`)}
 
-  ${sec("csp","9. The C/S Prophylaxis Project",`
+  ${sec("csp","9. Ward AMS projects and the C/S engine",`
+    <div class="sub">Any ward can run an AMS project. Open <i>Ward AMS Projects</i>, pick the ward from the list (wards come from the Admission Report and the consumption sheets; any other name can be typed), choose the type of project and set the phases. Several wards can run projects at the same time.</div>
+    <div class="notice"><b>Data source rule.</b> ${esc(WAP_RULE)}</div>
+    <ol style="line-height:1.7;margin:0;padding-left:20px">
+      <li><b>Check whether eHMS holds the ward&rsquo;s data</b> on <i>Data integrity</i>: AMS Pro compares the Admission Report and the dispensing export with the CRF. Where eHMS misses the antibiotics of many patients (doses from ward stock, or not entered), the CRF is the standard source.</li>
+      <li><b>Each month the AMS secretary fills in the CRF 03</b> from the doctors&rsquo; and nurses&rsquo; review notes, one row per patient: dates, bed-days, receiving antibiotics, prophylaxis length, AB1&ndash;AB4 with route and planned days, review/stop date and guideline adherence. <i>CRF records</i> gives a blank CRF, or one already listing the ward&rsquo;s admissions for a month. Import the completed files (several months at once is fine).</li>
+      <li><b>Import the ward&rsquo;s consumption sheet</b> (units per drug per month) on <i>Consumption</i>. AMS Pro works out the DDD from the WHO values, checks the sheet&rsquo;s own DDD and per-100 figures, and reads a bed-days note such as &ldquo;268 for August&rdquo;.</li>
+      <li><b>Fix what the checks find</b> on <i>Data integrity</i>: errors (no patient number or admission date, duplicates) and contradictions between answers (Receiving AB No with antibiotics listed; adherence Yes with prophylaxis beyond 24 h). Correct the CRF and import it again: a file with the same name replaces the old one.</li>
+      <li><b>Read the results</b> on <i>Indicators</i>, <i>Time series</i> and <i>Before&ndash;after</i> (any two phases or months), and make the report on <i>Reports</i>. Every output names its source.</li>
+      <li><b>To use eHMS instead</b>, the AMS secretary compares the ward&rsquo;s eHMS records with the notes and registers and confirms their integrity on <i>Data &amp; rules</i>. The confirmation (name, date, how it was checked) is printed on every output, and can be withdrawn.</li>
+    </ol>
+    <div class="subhead"><h3>The C/S eHMS cohort engine (C/S template)</h3><div class="line"></div></div>
     <div class="sub">Built for the project on antibiotic prophylaxis after caesarean section. It follows the written analysis plan approved by the AMS Committee, and every report prints the rules and data dates used, so anyone can check how a figure was made.</div>
     <ol style="line-height:1.7;margin:0;padding-left:20px">
       <li><b>Import the exports</b> in the Import Hub: Surgery Patients Report, Admission Report (all wards), Dispensed Medication Report, laboratory log, WHONET isolate listing and the store/ward issue report. Use the same months for all of them, starting at least 7 days before the first operation you want.</li>
-      <li><b>Set the phases and rules</b> on <i>C/S Prophylaxis Project &rsaquo; Data &amp; rules</i>: the date each phase starts (a short period when a change was only partly in place, such as the weeks between the first CME and the SOPs, can be marked as a run-in and is left out of the time series), the routine regimen in the guideline (and a new row when the revised guideline takes effect), the look-back window and the usual course length. The defaults follow the plan.</li>
+      <li><b>Set the phases and rules</b> on <i>Ward AMS Projects &rsaquo; C/S eHMS cohort engine &rsaquo; Data &amp; rules</i>: the date each phase starts (a short period when a change was only partly in place, such as the weeks between the first CME and the SOPs, can be marked as a run-in and is left out of the time series), the routine regimen in the guideline (and a new row when the revised guideline takes effect), the look-back window and the usual course length. The defaults follow the plan.</li>
       <li><b>Check the cohort</b>: the flow of women shows all C/S (n), those not linked, those excluded (a) by reason and the analysed group (n &minus; a). If many are not linked, the two exports are using different patient numbers.</li>
       <li><b>Validate early</b>: on <i>Validation</i>, draw the sample, give the review sheet to the reviewers, and import it back. Aim for a kappa of 0.60 or more before reporting results.</li>
       <li><b>Each month</b>: import the new exports, the two ward audits (checklist antibiotic time, day-30 wound check), the Patient Antibiotic Audit CRFs (H1) and the month's SSI count from DHIS2 (H2) on <i>Ward audits &amp; logs</i>, then make the ward feedback sheet on <i>Reports</i> and mark it delivered. DDD per 100 bed-days (H3) is worked out from the exports.</li>
@@ -31639,10 +31653,10 @@ const cspXN=(o,dp)=>o&&o.n?`${o.x.toLocaleString()}/${o.n.toLocaleString()} (${(
 const cspF1=(v,dp)=>v==null||!isFinite(v)?"—":(+v).toFixed(dp==null?1:dp);
 const cspPv=p=>p==null?"—":p<0.001?"< 0.001":p.toFixed(3);
 
-function renderCsp(){
+function renderCspEngine(){
   const el=$("#v-csp"); if(!el) return; cspS();
   const tabs=[["overview","Overview"],["data","Data & rules"],["cohort","Cohort"],["ind","Indicators"],["ts","Time series"],["ba","Before–after"],["valid","Validation"],["audits","Ward audits & logs"],["reports","Reports"]];
-  const head=`<div class="panel" style="border-color:var(--accent)"><h2>Caesarean section antibiotic prophylaxis project</h2>
+  const head=`<div class="panel" style="border-color:var(--accent)"><div class="row" style="justify-content:space-between;align-items:center;gap:10px"><h2 style="margin:0">C/S eHMS cohort engine — caesarean section antibiotic prophylaxis</h2><button class="btn sm ghost" onclick="wapBack()">&larr; Back to the ward project</button></div>
     <div class="sub">Follows the agreed analysis plan: every C/S from the Surgery Patients Report is linked to the woman's admission and dispensing; women already on antibiotics for an infection before surgery are set aside (n − a); each remaining woman gets a prophylaxis length (SP1, SP2, SP3 or Unrecorded) and a separate infection signal (Yes, Unclear or No). All indicators, charts, tests and reports come from those two labels. Every rule is set on <i>Data &amp; rules</i> and printed on every output.</div>
     <div class="tabsel">${tabs.map(([k,l])=>`<button class="${cspTab===k?"on":""}" onclick="cspGo('${k}')">${l}</button>`).join("")}</div></div>`;
   let body="";
@@ -32258,6 +32272,655 @@ function cspWeeklyCSV(){ const C=cspCohort(); const keys=Object.keys(CSP_SERIES)
 
 function cspGranWord(){ return (cspS().itsGran||"week")==="month"?"Monthly":"Weekly"; }
 
+/* =====================================================================================
+   WARD AMS PROJECTS (v5.8)
+   An AMS project can run on any ward of the hospital, chosen from a drop-down list. Each project
+   keeps its own ward, phases, data source and records, so several wards can run projects at once.
+   DATA SOURCE RULE: where a ward's key data (for example antibiotic consumption) cannot be found
+   reliably in the eHMS exports, the standard source is the CRF 03 filled in by the AMS secretary
+   from the doctors' and nurses' review notes. eHMS data is used for that ward only when the AMS
+   secretary confirms its integrity. Every output names the source of every figure.
+   The C/S template keeps the full eHMS cohort engine (SP1–SP3, infection signal) one click away.
+   ===================================================================================== */
+const WAP_RULE="Where a ward's key data, such as antibiotic consumption, cannot be found reliably in the Afya eHMS exports, the standard source is the case report form (CRF 03), filled in by the AMS secretary from the doctors' and nurses' review notes. eHMS data is used for that ward only when the AMS secretary confirms its integrity. Every output states which source each figure came from.";
+let wapMode="project";      /* "project" = the ward projects; "engine" = the C/S eHMS cohort engine */
+let wapTab="overview";
+let wapMsg="";
+const wapToday=()=>new Date().toISOString().slice(0,10);
+function wapUid(){ return "p"+Date.now().toString(36)+Math.floor(Math.random()*1e6).toString(36); }
+function wapGuessCsWard(){ try{ const S=cspS(); const re=cspRe(S.csRe); const all=cspAdmWards().map(x=>x[0]); return all.find(w=>re.test(w))||all.find(w=>/post\s*c|ceas|caes/i.test(w))||""; }catch(e){ return ""; } }
+function wapNewProject(template,ward){
+  const cs=template==="cs"; let phases=[{name:"Baseline",start:""}];
+  if(cs){ try{ phases=JSON.parse(JSON.stringify(cspS().phases||phases)); }catch(e){} }
+  return {id:wapUid(),name:"",ward:ward||"",template:cs?"cs":"general",created:wapToday(),phases,end:"",
+    source:"crf",integrity:{ok:false,by:"",date:"",note:""},bedTyped:{},consWard:"",crf:[],files:[],tallyChk:null,
+    cmpA:"",cmpB:"",tsInd:cs?"W2":"W1",notes:{message:"",challenges:"",lessons:""}}; }
+function wapFix(P){ const d=wapNewProject(P.template||"general",P.ward); Object.keys(d).forEach(k=>{ if(P[k]===undefined) P[k]=d[k]; });
+  if(!P.integrity||typeof P.integrity!=="object") P.integrity={ok:false,by:"",date:"",note:""}; if(!P.notes) P.notes={message:"",challenges:"",lessons:""};
+  if(!Array.isArray(P.phases)||!P.phases.length) P.phases=[{name:"Baseline",start:""}]; return P; }
+function wapS(){ DB.wap=DB.wap||{}; const W=DB.wap; if(!Array.isArray(W.projects)) W.projects=[];
+  if(!W.projects.length){ const ward=wapGuessCsWard(); W.projects.push(wapNewProject("cs",ward)); }
+  W.projects.forEach(wapFix); if(!W.projects.some(p=>p.id===W.cur)) W.cur=W.projects[0].id; return W; }
+function wapCur(){ const W=wapS(); return W.projects.find(p=>p.id===W.cur); }
+function wapName(P){ return P.name||((P.ward||"Ward not chosen")+" · "+(P.template==="cs"?"C/S prophylaxis":"antibiotic use")); }
+function wapSave(){ window._wapCache=null; save(); }
+function wapSource(P){ return P.source==="ehms"&&P.integrity&&P.integrity.ok?"ehms":"crf"; }
+function wapSourceText(P){ const I=P.integrity||{};
+  return wapSource(P)==="ehms"?`eHMS (Admission Report and dispensing) — integrity confirmed by ${I.by||"the AMS secretary"}${I.date?" on "+cspFmtD(cspDay(I.date)):""}`:"CRF 03 filled in by the AMS secretary from the review notes (standard source)"; }
+
+/* ---------- wards for the drop-down list ---------- */
+function wapWardList(){ const m=new Map();
+  try{ cspAdmWards().forEach(([w,n])=>m.set(w,{w,adm:n})); }catch(e){}
+  (DB.wardUse||[]).forEach(x=>{ if(x.ward&&!m.has(x.ward)) m.set(x.ward,{w:x.ward,adm:0}); });
+  ((DB.wap||{}).projects||[]).forEach(p=>{ if(p.ward&&!m.has(p.ward)) m.set(p.ward,{w:p.ward,adm:0}); });
+  return [...m.values()].sort((a,b)=>b.adm-a.adm||a.w.localeCompare(b.w)); }
+const wapWardEq=(a,b)=>{ const x=normH(a), y=normH(b); return !!x&&!!y&&(x===y||x.indexOf(y)>=0||y.indexOf(x)>=0); };
+
+/* ---------- phases ---------- */
+function wapPhases(P){ return (P.phases||[]).map((p,i)=>({i,name:p.name||("Phase "+(i+1)),start:p.start?cspDay(p.start):null,startIso:p.start||"",transition:!!p.transition})); }
+function wapPhaseOf(P,day){ if(day==null) return -1; const e=P.end?cspDay(P.end):null; if(e!=null&&day>e) return -1;
+  let k=-1; wapPhases(P).forEach((p,i)=>{ if(p.start==null){ if(i===0) k=0; } else if(day>=p.start) k=i; }); return k; }
+function wapMonthPhase(P,m){ const end=cspDay(wrtAddMonth(m,1)+"-01")-1; const e=P.end?cspDay(P.end):null; return wapPhaseOf(P,e!=null&&end>e?Math.max(cspDay(m+"-01"),e):end); }
+
+/* ---------- reading a CRF 03 ---------- */
+function wapYN(v){ const s=(""+(v==null?"":v)).trim().toLowerCase(); if(!s) return null; if(/^(y|yes|ndiyo|1|true)$/.test(s)) return true; if(/^(n|no|hapana|0|false)$/.test(s)) return false; return null; }
+function wapProph(v){ const s=(""+(v==null?"":v)).trim().toLowerCase(); if(!s) return null;
+  if(/^(no|n|none|nil|not given|0|hapana)$/.test(s)) return "no"; if(/<|≤|less|under|within|single|stat|one dose/.test(s)) return "le24"; if(/>|more|over|above|beyond/.test(s)) return "gt24"; return null; }
+/* a date cell: day number and minutes; eHMS writes a missing date as 0 or 1899-12-30, which is treated as missing */
+function wapDate(v,order){ const s=(""+(v==null?"":v)).trim(); if(!s) return {d:null};
+  if(/^0?\.\d+$/.test(s)||/^0(\.0+)?$/.test(s)) return {d:null,ph:true};
+  const y=s.match(/^(\d{4})-\d{1,2}-\d{1,2}/); if(y&&+y[1]<2000) return {d:null,ph:true};
+  const d=cspDay(s,order); if(d==null) return {d:null,bad:true,raw:s}; if(numDay(d).slice(0,4)<"2000") return {d:null,ph:true};
+  let t=null; if(/^\d+\.\d+$/.test(s)) t=Math.round((Number(s)%1)*1440)%1440; else { const mm=s.match(/\b(\d{1,2}):(\d{2})/); if(mm) t=(+mm[1])*60+(+mm[2]); }
+  return {d,t}; }
+/* names the hospital system knows but the AMS secretary may shorten on the CRF */
+const WAP_ABBR=[[/flucamox|fluclomox|flu-?amox/,"flucloxacillin + amoxicillin"],[/\bmetro\b|flagyl/,"metronidazole"],[/\bceftri|rocephin/,"ceftriaxone"],[/\bgenta\b|gentamycin/,"gentamicin"],[/augmentin|amoxyclav|co-?amoxiclav/,"amoxicillin + clavulanic acid"],[/\bcipro\b/,"ciprofloxacin"],[/\bdoxy\b/,"doxycycline"],[/\bamoxy\b|\bamoxil\b/,"amoxicillin"],[/\bampi\b/,"ampicillin"],[/\bclari\b/,"clarithromycin"],[/\bery\b|\berythro\b/,"erythromycin"]];
+function wapGeneric(name){ const g=extractGeneric(name); if(g) return g; const s=(""+name).toLowerCase();
+  for(const [re,full] of WAP_ABBR) if(re.test(s)) return extractGeneric(full+" "+s.replace(re," ")); return null; }
+function wapAb(name,routeRaw,days){ const rU=(""+(routeRaw||"")).toUpperCase().trim();
+  let route=/\bI\.?V\b|INTRAVEN|INJ/.test(rU)?"IV":/\bI\.?M\b|INTRAMUS/.test(rU)?"IM":/\bP\.?O\b|ORAL|MOUTH|TAB|CAP/.test(rU)?"PO":"";
+  const dr=dddRoute({itemRaw:name,route:route==="PO"?"PO":route?"IV":""}); if(!route) route=dr==="P"?"IV":dr==="O"?"PO":"";
+  const g=wapGeneric(name); const cls=g?(classifyAware(g,undefined,route==="PO"?"O":route?"P":dr)||"Unclassified"):null;
+  return {name:(""+name).trim(),route,days:days==null||isNaN(days)?null:+days,g,cls}; }
+function wapCrfCols(hdr){ const c={ab:{}}; let score=0;
+  (hdr||[]).forEach((h0,i)=>{ const h=normH(h0); if(!h) return; let m;
+    if((m=h.match(/^(?:ab|abx|antibiotic|drug)\s*(\d)\b\s*(.*)$/))){ const o=c.ab[+m[1]]=c.ab[+m[1]]||{}; const rest=m[2];
+      if(/route/.test(rest)){ if(o.route==null) o.route=i; } else if(/day|duration/.test(rest)){ if(o.days==null) o.days=i; } else if(/dose|freq|strength/.test(rest)){} else if(o.name==null) o.name=i; return; }
+    const set=k=>{ if(c[k]==null){ c[k]=i; score++; } };
+    if(/^(s\s*no|sno|sn|serial.*|no)$/.test(h)) set("sno");
+    else if(/patient\s*(id|no|number)|^mrn\b|registration|file\s*(no|number)|^ip\s*(no|number)|^reg\s*no/.test(h)) set("pid");
+    else if(/^age\b/.test(h)) set("age");
+    else if(/discharg/.test(h)) set("dis");
+    else if(/admi/.test(h)&&/date|^admitted/.test(h)) set("adm");
+    else if(/bed\s*days?|length of stay|^los\b/.test(h)) set("bd");
+    else if(/receiving|on antibiotic/.test(h)) set("rec");
+    else if(/prophyla/.test(h)) set("proph");
+    else if(/review|stop date/.test(h)) set("rev");
+    else if(/guideline|adheren/.test(h)) set("adh");
+    else if(/procedure|operation|surgery/.test(h)) set("proc");
+    else if(/diagnos/.test(h)) set("dx");
+    else if(/referr/.test(h)) set("ref");
+    else if(/^ward\b|^department/.test(h)) set("ward");
+    else if(/timing|first dose/.test(h)) set("timing"); });
+  Object.keys(c.ab).forEach(k=>{ if(c.ab[k].name==null) delete c.ab[k]; });
+  score+=Object.keys(c.ab).length*2; return {c,score}; }
+function wapCrfHeader(grid){ let best=null;
+  for(let r=0;r<Math.min(grid.length,15);r++){ const x=wapCrfCols(grid[r]||[]); const c=x.c;
+    if(c.pid==null||(c.adm==null&&c.rec==null&&!Object.keys(c.ab).length)) continue; if(!best||x.score>best.score) best={hr:r,c,score:x.score}; }
+  return best; }
+async function wapReadCrf(f){
+  const ext=(f.name.split(".").pop()||"").toLowerCase(); let grids;
+  if(ext==="xlsx"||ext==="xlsm"){ if(typeof DecompressionStream==="undefined") throw "This browser can't unzip Excel offline. Use Chrome or Edge."; grids=await readWorkbookGrids(await f.arrayBuffer()); }
+  else if(ext==="csv"||ext==="txt") grids={CSV:parseCSVGrid(await f.text())};
+  else throw "Use .xlsx, .xlsm or .csv.";
+  let best=null; Object.entries(grids).forEach(([sheet,grid])=>{ const h=wapCrfHeader(grid); if(h&&(!best||h.score>best.h.score)) best={sheet,grid,h}; });
+  if(!best) throw "No CRF 03 columns found (Patient ID with Date Admitted, Receiving AB? or AB1 name). Use the template.";
+  const {grid,h}=best, c=h.c; const dv=[]; for(let r=h.hr+1;r<grid.length;r++){ const row=grid[r]||[]; if(c.adm!=null) dv.push(row[c.adm]); if(c.dis!=null) dv.push(row[c.dis]); } const order=cspDateOrder(dv);
+  const rows=[], totals=[]; let blank=0;
+  for(let r=h.hr+1;r<grid.length;r++){ const row=grid[r]||[]; if(!row.some(x=>(""+(x==null?"":x)).trim())) { blank++; continue; }
+    const s=k=>c[k]!=null?(""+(row[c[k]]==null?"":row[c[k]])).trim():"";
+    const pid=cspPid(s("pid")), admRaw=s("adm");
+    if(!pid&&!admRaw){ const b=num(s("bd")); if(b!=null) totals.push({row:r+1,bd:b}); continue; }   /* a totals or note row under the records */
+    const A=wapDate(admRaw,order), D=wapDate(s("dis"),order);
+    const abs=[]; Object.keys(c.ab).sort((a,b)=>a-b).forEach(k=>{ const o=c.ab[k]; const name=o.name!=null?(""+(row[o.name]==null?"":row[o.name])).trim():"";
+      if(!name||/^(none|nil|n\/?a|-|0|no)$/i.test(name)) return; abs.push(wapAb(name,o.route!=null?row[o.route]:"",o.days!=null?num(row[o.days]):null)); });
+    rows.push({pid,sno:s("sno"),age:num(s("age")),adm:A.d,admT:A.t==null?null:A.t,admBad:!!A.bad,dis:D.d,disT:D.t==null?null:D.t,disPh:!!D.ph,disBad:!!D.bad,
+      bdCol:num(s("bd")),proc:s("proc"),dx:s("dx"),rec:wapYN(s("rec")),recRaw:s("rec"),proph:wapProph(s("proph")),prophRaw:s("proph"),abs,
+      rev:wapYN(s("rev")),revRaw:s("rev"),adh:wapYN(s("adh")),adhRaw:s("adh"),ref:s("ref"),ward:s("ward"),timing:s("timing"),file:f.name,row:r+1}); }
+  return {rows,totals,sheet:best.sheet,headerRow:h.hr+1,cols:c,blank}; }
+async function wapCrfImport(input){ const files=[...(input.files||[])]; input.value=""; if(!files.length) return; const P=wapCur(); const notes=[]; let added=0, updated=0, other=0;
+  for(const f of files){ try{ const R=await wapReadCrf(f); let rows=R.rows;
+      if(P.ward&&rows.some(x=>x.ward)){ const keep=rows.filter(x=>!x.ward||wapWardEq(x.ward,P.ward)); other+=rows.length-keep.length; rows=keep; }
+      if(!rows.length) throw "no patient rows for this ward";
+      P.crf=(P.crf||[]).filter(x=>x.file!==f.name);   /* a corrected copy of the same file replaces the old one */
+      const key=x=>x.pid?x.pid+"|"+(x.adm==null?"?"+x.file+x.row:x.adm):"row|"+x.file+"|"+x.row; const map=new Map(P.crf.map(x=>[key(x),x]));
+      rows.forEach(x=>{ if(map.has(key(x))) updated++; else added++; map.set(key(x),x); }); P.crf=[...map.values()];
+      const ms=[...new Set(rows.filter(x=>x.adm!=null).map(x=>cspMonth(x.adm)))].sort();
+      P.files=(P.files||[]).filter(x=>x.name!==f.name).concat([{name:f.name,at:wapToday(),sheet:R.sheet,headerRow:R.headerRow,rows:rows.length,months:ms,totals:R.totals,abCols:Object.keys(R.cols.ab).length}]);
+      notes.push(`${f.name}: ${rows.length} record(s)${ms.length?" · "+ms.map(itsMon).join(", "):""}`);
+    }catch(e){ notes.push(`${f.name}: not read — ${e&&e.message||e}`); } }
+  wapMsg=notes.join(" · ")+(added||updated?` — ${added} new, ${updated} updated`:"")+(other?`; ${other} row(s) from other wards left out`:"");
+  wapSave(); renderCsp(); }
+function wapCrfRemoveFile(enc){ const n=decodeURIComponent(enc); const P=wapCur(); if(!confirm(`Remove every record read from “${n}”?`)) return; P.crf=(P.crf||[]).filter(x=>x.file!==n); P.files=(P.files||[]).filter(x=>x.name!==n); wapSave(); renderCsp(); }
+const WAP_CRF_HEAD=["S/No","Patient ID","Age","Date Admitted","Date Discharged","Bed-days","Procedure performed","Diagnosis","Receiving AB? (Y/N)","Surgical prophylaxis? (<24h/>24h/No)","AB1 name","AB1 route","AB1 planned days","AB2 name","AB2 route","AB2 planned days","AB3 name","AB3 route","AB3 planned days","AB4 name","AB4 route","AB4 planned days","Review/stop date written? (Y/N)","Guideline adherence? (Y/N)","Referral from"];
+function wapCrfTemplate(){ dl("CRF03_patient_antibiotic_audit_template.csv",toCSV([WAP_CRF_HEAD,
+  ["1","123456","28","2026-08-01 09:35","2026-08-04 12:52","3","Caesarean section","","Y","<24h","Ceftriaxone Injection 1g","IV","1","Metronidazole Injection 500mg/100ml","IV","1","","","","","","","N","Y",""],
+  ["2","123457","31","2026-08-01 11:05","2026-08-06 15:05","5","Caesarean section","","Y",">24h","Ceftriaxone Injection 1g","IV","3","Amoxicillin + Clavulanic Acid 625mg","PO","5","","","","","","","Y","N","Muheza"]]),"text/csv"); }
+/* a CRF 03 already filled with the ward's admissions for one month, for the AMS secretary to complete from the notes */
+function wapCrfPrefill(m){ const P=wapCur(); if(!P.ward) return toast("Choose the ward first"); const order=cspDateOrder((DB.admitTx||[]).map(r=>r.dateAdmitted));
+  const L=(DB.admitTx||[]).filter(r=>r._primary!==false&&(r.ward||"").trim()===P.ward).map(r=>({r,a:cspDay(r.dateAdmitted||r.date,order),d:cspDay(r.dateDischarged,order)})).filter(x=>x.a!=null&&cspMonth(x.a)===m).sort((x,y)=>x.a-y.a);
+  if(!L.length) return toast("No admissions on this ward in "+itsMon(m));
+  const rows=L.map((x,i)=>{ const d=x.d!=null&&x.d>=x.a&&numDay(x.d)>="2000"?x.d:null; return [i+1,x.r.patientId||"",x.r.age||"",(x.r.dateAdmitted||"").toString().slice(0,16),d!=null?(x.r.dateDischarged||"").toString().slice(0,16):"",d!=null?Math.max(1,d-x.a):(x.r.bedDays||""),x.r.procedure||"",x.r.diagnosis||x.r.dx||""].concat(Array(WAP_CRF_HEAD.length-8).fill("")); });
+  dl(`CRF03_${safeFileName(P.ward).replace(/\s+/g,"_")}_${m}.csv`,toCSV([WAP_CRF_HEAD].concat(rows)),"text/csv"); toast(`${rows.length} admission(s) listed — fill in the rest from the notes`); }
+
+/* ---------- records ready for analysis ---------- */
+function wapPrep(P,x){ const r=Object.assign({},x); r.bdCalc=x.adm!=null&&x.dis!=null&&x.dis>=x.adm?Math.max(1,x.dis-x.adm):null;
+  r.bd=x.bdCol!=null&&x.bdCol>=0?x.bdCol:r.bdCalc; r.m=x.adm!=null?cspMonth(x.adm):null; r.phase=x.adm!=null?wapPhaseOf(P,x.adm):-1;
+  r.onAbx=x.rec!=null?x.rec:(x.abs&&x.abs.length?true:null); r.abs=x.abs||[]; return r; }
+function wapCrfRows(P){ return (P.crf||[]).map(x=>wapPrep(P,x)); }
+
+/* ---------- eHMS for one ward: stays from the Admission Report, antibiotics from dispensing ---------- */
+function wapEhms(ward){ const key=[ward,(DB.admitTx||[]).length,(DB.pharmacyTx||[]).length,DB.metrics&&DB.metrics.lastCompiled].join("#");
+  window._wapEh=window._wapEh||{}; if(window._wapEh.key===key) return window._wapEh.val;
+  const adm=(DB.admitTx||[]).filter(r=>r._primary!==false&&ward&&(r.ward||"").trim()===ward); const order=cspDateOrder(adm.map(r=>r.dateAdmitted).concat(adm.map(r=>r.dateDischarged)));
+  const lastDisp=(()=>{ let hi=null; (DB.pharmacyTx||[]).forEach(t=>{ const d=dayNum(t.date); if(d!=null&&(hi==null||d>hi)) hi=d; }); return hi; })();
+  const stays=[]; adm.forEach(r=>{ const pid=cspPid(r.patientId); const A=wapDate(r.dateAdmitted||r.date,order); if(!pid||A.d==null) return; const D=wapDate(r.dateDischarged,order);
+    const dis=D.d!=null&&D.d>=A.d&&D.d-A.d<=366?D.d:null; stays.push({pid,adm:A.d,dis,bdCol:num(r.bedDays),r}); });
+  const want=new Set(stays.map(s=>s.pid)); const byPid=new Map();
+  (DB.pharmacyTx||[]).forEach(t=>{ if(!t.drugMatched) return; const pid=cspPid(t.patientId); if(!want.has(pid)) return; const d=dayNum(t.date); if(d==null) return; (byPid.get(pid)||byPid.set(pid,[]).get(pid)).push({t,d}); });
+  stays.forEach(s=>{ const to=s.dis!=null?s.dis:(lastDisp!=null?Math.min(lastDisp,s.adm+60):s.adm+60); s.lines=(byPid.get(s.pid)||[]).filter(x=>x.d>=s.adm&&x.d<=to); });
+  const val={stays,lastDisp}; window._wapEh={key,val}; return val; }
+function wapEhmsRows(P){ const E=wapEhms(P.ward); return E.stays.map(s=>{ const by=new Map();
+    s.lines.forEach(({t,d})=>{ const g=(t.drugMatched||"").toLowerCase(); const rt=dddRoute(t)==="P"?"IV":dddRoute(t)==="O"?"PO":""; const k=g+"|"+rt; const o=by.get(k)||by.set(k,{name:t.drugMatched,route:rt,g,cls:classifyAware(g,undefined,dddRoute(t))||"Unclassified",days:new Set()}).get(k); o.days.add(d); });
+    const abs=[...by.values()].map(o=>({name:o.name,route:o.route,g:o.g,cls:o.cls,days:null,dispDays:o.days.size}));
+    return wapPrep(P,{pid:s.pid,adm:s.adm,dis:s.dis,bdCol:s.dis==null?s.bdCol:null,rec:abs.length>0,proph:null,abs,rev:null,adh:null,file:"eHMS",row:null,ehms:true}); }); }
+function wapRows(P){ return wapSource(P)==="ehms"?wapEhmsRows(P):wapCrfRows(P); }
+
+/* ---------- indicators ---------- */
+const WAP_IND=[
+  {k:"W1",l:{cs:"Women receiving antibiotics",general:"Patients on antibiotics"},kind:"p",goal:0,den:r=>r.onAbx!=null,num:r=>r.onAbx===true},
+  {k:"W2",l:{cs:"Prophylaxis 24 h or less",general:"Surgical prophylaxis 24 h or less"},kind:"p",goal:1,den:r=>r.proph==="le24"||r.proph==="gt24",num:r=>r.proph==="le24"},
+  {k:"W3",l:"Review or stop date written",kind:"p",goal:1,den:r=>r.onAbx===true&&r.rev!=null,num:r=>r.rev===true},
+  {k:"W4",l:"Guideline adherence",kind:"p",goal:1,den:r=>r.onAbx===true&&r.adh!=null,num:r=>r.adh===true},
+  {k:"W5",l:"Watch antibiotic given",kind:"p",goal:-1,den:r=>r.onAbx===true&&r.abs.length>0,num:r=>r.abs.some(a=>a.cls==="Watch")},
+  {k:"W6",l:"Not-recommended combination given",kind:"p",goal:-1,den:r=>r.onAbx===true&&r.abs.length>0,num:r=>r.abs.some(a=>/not\s*recommended/i.test(a.cls||""))},
+  {k:"W7",l:{cs:"Oral antibiotics added after C/S",general:"Any oral antibiotic in the course"},kind:"p",goal:{cs:-1,general:0},den:r=>r.onAbx===true&&r.abs.length>0,num:r=>r.abs.some(a=>a.route==="PO")},
+  {k:"W8",l:"Antibiotics per patient on antibiotics",kind:"m",unit:"drugs",goal:{cs:-1,general:0},den:r=>r.onAbx===true&&r.abs.length>0,val:r=>r.abs.length},
+  {k:"W9",l:"Longest planned course",kind:"m",unit:"days",goal:-1,den:r=>r.onAbx===true&&r.abs.some(a=>a.days!=null),val:r=>Math.max(...r.abs.filter(a=>a.days!=null).map(a=>a.days))},
+  {k:"W10",l:"Length of stay",kind:"m",unit:"bed-days",goal:0,den:r=>r.bd!=null,val:r=>r.bd},
+  {k:"W11",l:"Access share of antibiotics given",kind:"lines",goal:1}];
+const wapIndDef=k=>WAP_IND.find(d=>d.k===k);
+function wapLabel(d,P){ return typeof d.l==="string"?d.l:d.l[P.template]||d.l.general; }
+function wapGoal(d,P){ return typeof d.goal==="object"?(d.goal[P.template]||0):d.goal; }
+const WAP_CLS=["Access","Watch","Reserve","Not recommended"];
+function wapCalc(d,rows){
+  if(d.kind==="lines"){ let x=0,n=0; rows.forEach(r=>{ if(r.onAbx!==true) return; r.abs.forEach(a=>{ if(WAP_CLS.some(c=>c.toLowerCase()===(a.cls||"").toLowerCase())){ n++; if(a.cls==="Access") x++; } }); }); return {x,n,value:n?x/n*100:null}; }
+  const D=rows.filter(d.den); if(d.kind==="p"){ const x=D.filter(d.num).length; return {x,n:D.length,value:D.length?x/D.length*100:null}; }
+  const vals=D.map(d.val).filter(v=>v!=null&&isFinite(v)); const s=vals.reduce((a,b)=>a+b,0); return {x:s,n:vals.length,vals,value:vals.length?s/vals.length:null,med:cspMedian(vals)}; }
+function wapCell(d,o,dp){ if(!o||!o.n) return "—"; if(d.kind==="m") return `${o.value.toFixed(dp==null?1:dp)} <span class="hint">(n ${o.n})</span>`; return `${o.x.toLocaleString()}/${o.n.toLocaleString()} (${o.value.toFixed(dp==null?1:dp)}%)`; }
+function wapCellTxt(d,o){ if(!o||!o.n) return "—"; if(d.kind==="m") return `${o.value.toFixed(1)} ${d.unit} (n ${o.n})`; return `${o.x}/${o.n} (${o.value.toFixed(1)}%)`; }
+function wapMonths(rows){ const ms=[...new Set(rows.map(r=>r.m).filter(Boolean))].sort(); return ms.length?cspMonthKeys(ms[0],ms[ms.length-1]):[]; }
+function wapSeries(P,rows,k){ const d=wapIndDef(k); const ms=wapMonths(rows);
+  return ms.map((m,i)=>{ const L=rows.filter(r=>r.m===m); const o=wapCalc(d,L); const start=cspDay(m+"-01"), end=cspDay(wrtAddMonth(m,1)+"-01")-1;
+    return {k:m,i,label:itsMon(m),start,end,phase:wapMonthPhase(P,m),x:o.x,n:d.kind==="m"?null:o.n,cnt:o.n,value:o.value,records:L.length,excl:!L.length?"no records":!o.n?"not recorded":null}; }); }
+
+/* ---------- bed-days and consumption ---------- */
+function wapConsWard(P){ return P.consWard||P.ward; }
+function wapBedSources(P,crfRows){ const out={};
+  crfRows.forEach(r=>{ if(r.m&&r.bd!=null){ const o=out[r.m]||(out[r.m]={}); o.crf=(o.crf||0)+r.bd; } });
+  if(P.ward){ wapEhms(P.ward).stays.forEach(s=>{ if(s.dis!=null){ const n=Math.max(1,s.dis-s.adm); for(let k=0;k<n;k++){ const m=cspMonth(s.adm+k); const o=out[m]||(out[m]={}); o.adm=(o.adm||0)+1; } }
+    else if(s.bdCol>0){ const m=cspMonth(s.adm); const o=out[m]||(out[m]={}); o.adm=(o.adm||0)+s.bdCol; } }); }
+  const note=P.tallyChk&&P.tallyChk.bdNote||{}; Object.entries(note).forEach(([m,v])=>{ const o=out[m]||(out[m]={}); o.note=v; });
+  return out; }
+function wapBd(P,m,B){ const t=num((P.bedTyped||{})[m]); if(t>0) return {bd:t,src:"entered by hand"}; const o=B[m]||{};
+  const order=wapSource(P)==="ehms"?[["adm","Admission Report"],["crf","CRF bed-days"],["note","consumption sheet note"]]:[["crf","CRF bed-days"],["note","consumption sheet note"],["adm","Admission Report"]];
+  for(const [k,src] of order) if(o[k]>0) return {bd:o[k],src}; return {bd:null,src:""}; }
+function wapCons(P){ const src=wapSource(P), ward=wapConsWard(P); const crfRows=wapCrfRows(P); const B=wapBedSources(P,crfRows);
+  const by={}, items={}; const mo=m=>by[m]||(by[m]={ddd:0,units:0,noDddUnits:0,acc:0,watch:0,res:0,nr:0});
+  const add=(m,name,generic,cls,units,per,dsrc,why)=>{ const o=mo(m); o.units+=units; const c=(cls||"").toLowerCase();
+    if(per!=null){ const v=units*per; o.ddd+=v; if(c==="access") o.acc+=v; else if(c==="watch") o.watch+=v; else if(c==="reserve") o.res+=v; } else o.noDddUnits+=units;
+    const it=items[name]||(items[name]={name,generic,cls,per,src:dsrc,why,m:{},ddd:{}}); it.m[m]=(it.m[m]||0)+units; if(per!=null) it.ddd[m]=(it.ddd[m]||0)+units*per; };
+  let basis;
+  if(src==="crf"){ basis=`ward consumption sheet “${ward||"—"}”`; (DB.wardUse||[]).filter(x=>x.ward===ward).forEach(x=>add(x.m,x.itemRaw,x.generic,x.cls,+x.units||0,x.dddPerUnit,x.dddSrc,x.dddWhy)); }
+  else { basis="eHMS dispensing during stays on the ward"; const seen=new Set();
+    wapEhms(P.ward).stays.forEach(s=>s.lines.forEach(({t,d})=>{ if(seen.has(t)) return; seen.add(t); const q=num(t.qty)||0; const per=t.dddContribution!=null&&q>0?(+t.dddContribution)/q:null;
+      add(cspMonth(d),t.itemRaw||t.drugRaw||t.drugMatched,t.drugMatched,t.awareCls||classifyAware((t.drugMatched||"").toLowerCase(),undefined,dddRoute(t)),q,per,"WHO",t.dddWhy); })); }
+  const months=Object.keys(by).sort(); const rows=months.length?cspMonthKeys(months[0],months[months.length-1]).map(m=>{ const o=by[m]||mo(m); const b=wapBd(P,m,B);
+    return Object.assign({m,label:itsMon(m),phase:wapMonthPhase(P,m),bd:b.bd,bdSrc:b.src,value:b.bd?o.ddd/b.bd*100:null},o); }):[];
+  return {rows,items:Object.values(items).sort((a,b)=>Object.values(b.m).reduce((s,v)=>s+v,0)-Object.values(a.m).reduce((s,v)=>s+v,0)),basis,ward,B}; }
+
+/* the consumption sheet: units per drug per month (read with the same reader as Intervention Impact, into the
+   same store, so a sheet imported in either place is used in both) plus the sheet's own DDD and per-100 figures
+   and a bed-days note, kept only to check the sheet's arithmetic */
+const WAP_MON_RE="(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)";
+function wapTallyExtras(grid,T,year){ const hr=T.headerRow; const H=grid[hr]||[], G=grid[hr-1]||[]; const firstMo=Math.min(...T.cols.map(c=>c.ci));
+  let dc=0; for(let ci=0;ci<firstMo;ci++){ if(H[ci]!==""&&H[ci]!=null){ dc=ci; break; } }
+  let lab=""; const group=[]; for(let ci=0;ci<H.length;ci++){ const g=normH(G[ci]); if(g) lab=g; group[ci]=lab; }
+  const unitCols=new Set(T.cols.map(c=>c.ci)); const cols=[];
+  H.forEach((h0,ci)=>{ if(unitCols.has(ci)) return; const h=normH(h0); if(!h) return; const mh=itsMonthHeader(h.replace(/\b(ddd|units?|per|100|bed|days?|total)\b/g," ").replace(/\s+/g," ").trim()); if(!mh) return;
+    const g=(group[ci]||"")+" "+h; const kind=/100|bed/.test(g)?"per100":/\bddd\b/.test(g)?"ddd":null; if(!kind) return; cols.push({ci,kind,m:(mh.y||year)+"-"+String(mh.mo).padStart(2,"0")}); });
+  const perCol=H.findIndex(h=>/\bddd\b.*\b(unit|per)\b|\bper unit\b.*\bddd\b/.test(normH(h)));
+  const out={perUnit:{},ddd:{},per100:{},bdNote:{}};
+  for(let r=hr+1;r<grid.length;r++){ const row=grid[r]||[]; const name=(""+(row[dc]==null?"":row[dc])).trim(); if(!name) continue;
+    if(perCol>=0&&num(row[perCol])!=null) out.perUnit[name]=num(row[perCol]);
+    cols.forEach(c=>{ const v=num(row[c.ci]); if(v!=null) (out[c.kind][name]=out[c.kind][name]||{})[c.m]=v; }); }
+  const re=new RegExp("(\\d{2,6})\\s*(?:bed[\\s-]*days?\\s*)?(?:for|in)\\s+"+WAP_MON_RE+"\\b","gi");
+  grid.forEach(row=>(row||[]).forEach(v=>{ const s=""+(v==null?"":v); if(!/bed/i.test(s)) return; let m; re.lastIndex=0; while((m=re.exec(s))){ const mh=itsMonthHeader(m[2].toLowerCase()); if(mh) out.bdNote[year+"-"+String(mh.mo).padStart(2,"0")]=+m[1]; } }));
+  return out; }
+async function wapTallyImport(input){ const f=input.files&&input.files[0]; input.value=""; if(!f) return; const P=wapCur(); const ward=wapConsWard(P); if(!ward) return toast("Choose the ward first (Data & rules)");
+  let grid; try{ grid=await readFirstGrid(f); }catch(e){ return toast("Could not read the file: "+(e&&e.message||e)); }
+  const T=itsParseWardTable(grid); if(!T) return toast("No row with at least three month names (January, Feb, 2026-03…) was found.");
+  const crfYear=(()=>{ const ms=wapCrfRows(P).map(r=>r.m).filter(Boolean).sort(); return ms.length?+ms[ms.length-1].slice(0,4):null; })();
+  const year=+(($("#wap-ty")||{}).value||0)||T.year||crfYear||new Date().getFullYear();
+  DB.wardUse=DB.wardUse||[]; const skipped=[]; let added=0;
+  T.items.forEach(it=>{ const g=wapGeneric(it.name); if(!g||isExcludedForm(it.name)){ skipped.push(it.name); return; }
+    const tbl=WHO_DDD[g]; let route=/inj|\biv\b|vial|infus|\bim\b/i.test(it.name)?"P":/tab|cap|oral|syr|susp|solid/i.test(it.name)?"O":null; if(!route) route=tbl&&tbl.P&&!tbl.O?"P":"O";
+    const t={itemRaw:it.name,drugMatched:titleCase(g),qty:1,route:route==="P"?"IV":"PO"}; let dd=whoDddFor(t,{}), dddSrc="WHO";
+    if(dd.ddd==null&&it.tableDdd>0&&tbl&&g.indexOf(" + ")<0){ dd={ddd:it.tableDdd}; dddSrc="table"; }
+    const cls=classifyAware(g,undefined,dddRoute(t))||"Unclassified";
+    it.vals.forEach(v=>{ if(v.units==null) return; const m=(v.y||year)+"-"+String(v.mo).padStart(2,"0");
+      DB.wardUse=DB.wardUse.filter(x=>!(x.ward===ward&&x.m===m&&x.itemRaw===it.name));
+      DB.wardUse.push({ward,m,itemRaw:it.name,generic:titleCase(g),cls,route:dddRoute(t),units:v.units,dddPerUnit:dd.ddd,dddSrc:dd.ddd==null?"":dddSrc,dddWhy:dd.ddd==null?dd.why:"",file:f.name,at:wapToday()}); added++; }); });
+  const X=wapTallyExtras(grid,T,year); P.tallyChk=Object.assign({file:f.name,year,ward,at:wapToday(),skipped},X);
+  wapMsg=`${f.name}: ${added} month-value(s) for ${T.items.length-skipped.length} antibiotic(s) on “${ward}” (${year})${skipped.length?`; not antibiotics or not recognised, left out: ${skipped.join(", ")}`:""}${Object.keys(X.bdNote).length?`; bed-days note read: ${Object.entries(X.bdNote).map(([m,v])=>itsMon(m)+" "+v).join(", ")}`:""}.`;
+  wapSave(); renderCsp(); }
+function wapTallyRemove(){ const P=wapCur(); const w=wapConsWard(P); if(!confirm(`Remove the consumption sheet for “${w}”? (It is also removed from Intervention Impact.)`)) return; DB.wardUse=(DB.wardUse||[]).filter(x=>x.ward!==w); P.tallyChk=null; wapSave(); renderCsp(); }
+/* the sheet's own arithmetic, checked against WHO DDDs and the bed-days */
+function wapTallyChecks(P){ const X=P.tallyChk; if(!X) return []; const out=[]; const recs=(DB.wardUse||[]).filter(x=>x.ward===X.ward);
+  const C=wapCons(P); const bdOf=m=>{ const r=C.rows.find(z=>z.m===m); return X.bdNote[m]||(r&&r.bd)||null; };
+  const names=[...new Set(recs.map(x=>x.itemRaw))];
+  names.forEach(n=>{ const r=recs.find(x=>x.itemRaw===n); const typedPer=X.perUnit[n];
+    if(typedPer!=null){ if(r.dddPerUnit==null) out.push({lv:"warn",item:n,m:"",what:`DDD per unit ${typedPer} in the sheet, but ${esc(r.dddWhy||"WHO gives no DDD for this item")}. AMS Pro leaves it out of the DDD total.`});
+      else if(r.dddSrc==="table"){ const w=WHO_DDD[(r.generic||"").toLowerCase()]||{}; const wd=r.route==="P"?w.P:w.O;
+        out.push({lv:"info",item:n,m:"",what:`No strength in the name, so the sheet's DDD per unit (${typedPer}) is used.${wd?` WHO's DDD is ${wd} g ${r.route==="P"?"parenteral":"oral"}, so ${typedPer} per unit means ${+(typedPer*wd).toFixed(3)} g per unit: check it against the vial or tablet strength.`:" Check it against the vial or tablet strength."}`}); }
+      else if(Math.abs(typedPer-r.dddPerUnit)>Math.max(0.005,0.02*r.dddPerUnit)) out.push({lv:"err",item:n,m:"",what:`DDD per unit ${typedPer} in the sheet; WHO for this strength is ${(+r.dddPerUnit).toFixed(3)}.`}); }
+    Object.entries(X.ddd[n]||{}).forEach(([m,v])=>{ const u=recs.find(x=>x.itemRaw===n&&x.m===m); if(!u) return; const per=typedPer!=null?typedPer:u.dddPerUnit; if(per==null) return; const exp=u.units*per;
+      if(Math.abs(v-exp)>Math.max(0.6,0.02*exp)) out.push({lv:"err",item:n,m,what:`DDD typed ${v}; ${u.units} units × ${per} = ${exp.toFixed(2)}.`}); });
+    Object.entries(X.per100[n]||{}).forEach(([m,v])=>{ const typedDdd=(X.ddd[n]||{})[m]; const bd=bdOf(m); if(typedDdd==null||!bd) return; const exp=typedDdd/bd*100;
+      if(Math.abs(v-exp)>Math.max(0.05,0.03*exp)) out.push({lv:"err",item:n,m,what:`DDD per 100 bed-days typed ${v}; ${typedDdd} DDD ÷ ${bd} bed-days × 100 = ${exp.toFixed(2)}.`}); }); });
+  return out; }
+
+/* ---------- integrity checks on the CRF records ---------- */
+const WAP_CHK={
+  noPid:["err","No patient number"],admBad:["err","Admission date missing or unreadable"],disBefore:["err","Discharge date before admission"],dup:["err","Same patient and admission date twice"],
+  recNoAb:["warn","“Receiving AB” is No, yet antibiotics are listed"],recYesNoAb:["warn","“Receiving AB” is Yes, but no antibiotic is listed"],prophNoAbx:["warn","Prophylaxis length given, but “Receiving AB” is No"],
+  bdDiff:["warn","Bed-days column differs from the dates"],adhLong:["warn","Guideline adherence Yes with prophylaxis beyond 24 h"],noBd:["warn","No bed-days and no discharge date"],
+  disMissing:["info","Discharge date missing (eHMS writes 1899-12-30 or 0); the Bed-days column is used"],abUnknown:["info","Antibiotic name not recognised"],answer:["info","Answer not understood (use Y/N, <24h/>24h/No)"],
+  readmit:["info","Readmitted within 30 days (check for a complication)"],unanswered:["info","Key question left blank"]};
+function wapChecks(P){ const rows=wapCrfRows(P); const flags=new Map(); const add=(r,k,det)=>{ const a=flags.get(r)||flags.set(r,[]).get(r); a.push({k,det}); };
+  const seen=new Map(); const byPid=new Map();
+  rows.forEach(r=>{ if(!r.pid) add(r,"noPid"); if(r.adm==null) add(r,"admBad",r.admBad?"":""); if(r.dis!=null&&r.adm!=null&&r.dis<r.adm) add(r,"disBefore");
+    if(r.disPh) add(r,"disMissing"); if(r.bdCol==null&&r.bdCalc==null) add(r,"noBd");
+    if(r.bdCol!=null&&r.adm!=null&&r.dis!=null&&r.dis>=r.adm){ const cal=r.dis-r.adm; const full=r.admT!=null&&r.disT!=null?Math.floor(((r.dis-r.adm)*1440+r.disT-r.admT)/1440):null;
+      if(r.bdCol!==cal&&r.bdCol!==full&&r.bdCol!==Math.max(1,cal)) add(r,"bdDiff",`column ${r.bdCol}, dates give ${full!=null&&full!==cal?full+" (full days) or ":""}${cal}`); }
+    if(r.rec===false&&r.abs.length) add(r,"recNoAb",r.abs.map(a=>a.name).join(", ")); if(r.rec===true&&!r.abs.length) add(r,"recYesNoAb");
+    if(r.rec===false&&(r.proph==="le24"||r.proph==="gt24")) add(r,"prophNoAbx");
+    if(P.template==="cs"&&r.proph==="gt24"&&r.adh===true) add(r,"adhLong");
+    r.abs.filter(a=>!a.g).forEach(a=>add(r,"abUnknown",a.name));
+    [["recRaw","rec","Receiving AB"],["prophRaw","proph","Prophylaxis"],["revRaw","rev","Review/stop"],["adhRaw","adh","Adherence"]].forEach(([raw,k,l])=>{ if(r[raw]&&r[k]==null) add(r,"answer",`${l}: “${r[raw]}”`); });
+    const blank=[]; if(r.rec==null&&!r.abs.length) blank.push("Receiving AB"); if(P.template==="cs"&&r.proph==null&&!r.prophRaw) blank.push("Prophylaxis"); if(r.onAbx===true&&r.rev==null&&!r.revRaw) blank.push("Review/stop"); if(r.onAbx===true&&r.adh==null&&!r.adhRaw) blank.push("Adherence");
+    if(blank.length) add(r,"unanswered",blank.join(", "));
+    if(r.pid&&r.adm!=null){ const k=r.pid+"|"+r.adm; if(seen.has(k)){ add(r,"dup",`also row ${seen.get(k).row} of ${seen.get(k).file}`); } else seen.set(k,r); (byPid.get(r.pid)||byPid.set(r.pid,[]).get(r.pid)).push(r); } });
+  byPid.forEach(L=>{ L.sort((a,b)=>a.adm-b.adm); for(let i=1;i<L.length;i++){ const prevEnd=L[i-1].dis!=null?L[i-1].dis:L[i-1].adm+(L[i-1].bd||0); if(L[i].adm>L[i-1].adm&&L[i].adm-prevEnd<=30) add(L[i],"readmit",`previous stay admitted ${cspFmtD(L[i-1].adm)}`); } });
+  const count={}; flags.forEach(a=>a.forEach(f=>{ count[f.k]=(count[f.k]||0)+1; }));
+  const clean=rows.filter(r=>!(flags.get(r)||[]).some(f=>WAP_CHK[f.k][0]!=="info")).length;
+  return {rows,flags,count,clean}; }
+
+/* ---------- does eHMS hold this ward's data? (checked against the CRF when both exist) ---------- */
+function wapCross(P){ if(!P.ward) return null; const E=wapEhms(P.ward); if(!E.stays.length) return null; const crf=wapCrfRows(P);
+  const out={stays:E.stays.length,withAbx:E.stays.filter(s=>s.lines.length).length,lastDisp:E.lastDisp,months:{}};
+  E.stays.forEach(s=>{ const m=cspMonth(s.adm); const o=out.months[m]||(out.months[m]={adm:0,crf:0,matched:0,onAbx:0,captured:0,ehAbx:0}); o.adm++; if(s.lines.length) o.ehAbx++; });
+  const used=new Set(); let onAbx=0, cap=0;
+  crf.forEach(r=>{ if(r.m==null) return; const o=out.months[r.m]||(out.months[r.m]={adm:0,crf:0,matched:0,onAbx:0,captured:0,ehAbx:0}); o.crf++;
+    const s=E.stays.find(z=>!used.has(z)&&z.pid===r.pid&&Math.abs(z.adm-r.adm)<=1); if(s){ used.add(s); o.matched++; }
+    if(r.onAbx===true){ o.onAbx++; onAbx++; const st=s||E.stays.find(z=>z.pid===r.pid&&Math.abs(z.adm-r.adm)<=1); if(st&&st.lines.length){ o.captured++; cap++; } } });
+  out.onAbx=onAbx; out.captured=cap; out.capture=onAbx?cap/onAbx:null; out.crfN=crf.length; out.matched=used.size; return out; }
+
+/* ---------- time series (monthly segmented regression, as on the C/S engine, with this project's phases) ---------- */
+function wapItsFit(P,rows){
+  const Pp=wapPhases(P); const used=rows.filter(r=>!r.excl&&r.value!=null&&!(Pp[r.phase]&&Pp[r.phase].transition)&&r.phase>=0);
+  if(used.length<8) return {ok:false,reason:`Only ${used.length} usable month(s) — the time series needs at least 8, with at least 3 on each side of a phase start. Until then use the run chart and the before–after table.`};
+  const sel=Pp.filter(p=>p.i>0&&!p.transition&&p.start!=null).map(p=>{ let t=rows.findIndex(r=>r.start<=p.start&&p.start<=r.end); if(t<0) t=p.start<rows[0].start?0:rows.length; return {i:p.i,name:p.name,t}; })
+    .filter(p=>used.filter(r=>r.i>=p.t).length>=3&&used.filter(r=>r.i<p.t).length>=3);
+  const X=used.map(r=>{ const row=[1,r.i]; sel.forEach(p=>row.push(r.i>=p.t?1:0,r.i>=p.t?r.i-p.t:0)); return row; }); const y=used.map(r=>r.value);
+  const o=ITS.ols(X,y); if(!o) return {ok:false,reason:"The model could not be fitted (phase starts too close together)."};
+  const n=y.length,k=X[0].length; const tests=[]; const b1=ITS.bg(X,o.e,1); if(b1) tests.push(b1); const autocorr=tests.some(x=>x.pF<0.10); const L=Math.max(1,Math.floor(4*Math.pow(n/100,2/9))); const NW=ITS.nwCov(X,o.e,o.XtXi,L); const tc=ITS.tInv(0.975,o.df);
+  const lc=c=>{ const est=c.reduce((s,v,i)=>s+v*o.b[i],0); const vv=V=>{ let s=0; for(let i=0;i<k;i++) for(let j=0;j<k;j++) s+=c[i]*c[j]*V[i][j]; return Math.sqrt(Math.max(0,s)); }; const se=autocorr?Math.max(vv(o.covOLS),vv(NW)):vv(o.covOLS); const t=se>0?est/se:0; return {est,se,lo:est-tc*se,hi:est+tc*se,p:se>0?ITS.tP2(t,o.df):1}; };
+  const unit=i=>{ const c=Array(k).fill(0); c[i]=1; return c; };
+  const res={ok:true,n,df:o.df,r2:o.r2,autocorr,method:autocorr?"Newey–West (never smaller than OLS)":"ordinary least squares",sel,base:lc(unit(0)),pre:lc(unit(1)),phases:sel.map((p,j)=>({name:p.name,t:p.t,level:lc(unit(2+2*j)),slope:lc(unit(3+2*j))}))};
+  res.fitAt=t=>{ let v=o.b[0]+o.b[1]*t; sel.forEach((p,j)=>{ if(t>=p.t) v+=o.b[2+2*j]+o.b[3+2*j]*(t-p.t); }); return v; }; res.used=new Set(used.map(r=>r.k)); return res; }
+function wapChartCfg(P,rows,label,unit,theme,its,target){ const T=cspTheme(theme); const pct=unit==="%"; const run=cspRun(rows,0);
+  const ds=[{label,data:rows.map(r=>r.excl?null:r.value),borderColor:T.pt,backgroundColor:T.pt,pointRadius:rows.map((r,i)=>run.sig[i].length?5:3.4),pointBackgroundColor:rows.map((r,i)=>run.sig[i].length?T.red:T.pt),borderWidth:1.5,tension:0,spanGaps:false},
+    {label:`Median (${run.medianFrom})`,data:rows.map(()=>run.median),borderColor:T.med,borderWidth:1.3,borderDash:[6,4],pointRadius:0}];
+  if(its&&its.ok) ds.push({label:"Fitted time-series model",data:rows.map(r=>its.used.has(r.k)?its.fitAt(r.i):null),borderColor:T.fit,borderWidth:2,pointRadius:0,tension:0,spanGaps:true});
+  if(target!=null&&!isNaN(target)) ds.push({label:"Target",data:rows.map(()=>target),borderColor:T.tgt,borderWidth:2,pointRadius:0});
+  const lines=wapPhases(P).slice(1).filter(p=>p.start!=null).map((p,j)=>({idx:rows.findIndex(r=>r.end>=p.start),label:p.name,color:T.mark,row:j%2})).filter(l=>l.idx>0);
+  return {type:"line",data:{labels:rows.map(r=>r.label),datasets:ds},plugins:[cspMarkPlugin],options:{responsive:theme!=="print",maintainAspectRatio:false,animation:false,interaction:{mode:"index",intersect:false},
+    plugins:{legend:{labels:{color:T.ink,boxWidth:12,font:{size:theme==="print"?12:11}}},cspMark:{lines},tooltip:{callbacks:{label:c=>c.parsed.y==null?null:`${c.dataset.label}: ${c.parsed.y.toFixed(1)}`}}},
+    scales:{x:{ticks:{color:T.muted,maxRotation:60,autoSkip:true,font:{size:10}},grid:{color:T.grid}},y:{ticks:{color:T.muted},grid:{color:T.grid},title:{display:true,text:pct?"% of patients":unit,color:T.muted},suggestedMin:0,suggestedMax:pct?100:undefined}}}}; }
+/* one series for any indicator, or DDD per 100 bed-days */
+function wapSeriesAny(P,rows,k){ if(k==="DDD"){ const C=wapCons(P); return {label:"DDD per 100 bed-days",unit:"DDD/100 bed-days",rows:C.rows.map((r,i)=>({k:r.m,i,label:r.label,start:cspDay(r.m+"-01"),end:cspDay(wrtAddMonth(r.m,1)+"-01")-1,phase:r.phase,x:r.ddd,n:null,value:r.value,excl:r.value==null?"no bed-days or no consumption":null}))}; }
+  const d=wapIndDef(k); return {label:k+" "+wapLabel(d,P),unit:d.kind==="m"?d.unit:"%",rows:wapSeries(P,rows,k)}; }
+
+/* ---------- before–after: any two phases or months ---------- */
+function wapPeriods(P,rows){ const out=[]; wapPhases(P).forEach(p=>{ const n=rows.filter(r=>r.phase===p.i).length; if(n) out.push({v:"ph:"+p.i,label:p.name+(p.transition?" (run-in)":""),n}); });
+  wapMonths(rows).forEach(m=>{ const n=rows.filter(r=>r.m===m).length; if(n) out.push({v:"m:"+m,label:itsMon(m),n}); }); return out; }
+function wapPeriodRows(rows,v){ if(!v) return []; if(v.startsWith("ph:")){ const i=+v.slice(3); return rows.filter(r=>r.phase===i); } const m=v.slice(2); return rows.filter(r=>r.m===m); }
+function wapPeriodLabel(P,v){ if(!v) return "—"; if(v.startsWith("ph:")){ const p=wapPhases(P)[+v.slice(3)]; return p?p.name:"—"; } return itsMon(v.slice(2)); }
+function wapDefaultAB(P,rows){ const L=wapPeriods(P,rows); const Pp=wapPhases(P); const ph=L.filter(x=>x.v.startsWith("ph:")&&!(Pp[+x.v.slice(3)]||{}).transition), ms=L.filter(x=>x.v.startsWith("m:"));
+  const ok=v=>L.some(x=>x.v===v); let a=ok(P.cmpA)?P.cmpA:null, b=ok(P.cmpB)?P.cmpB:null;
+  if(!a||!b){ if(ph.length>=2){ a=a||ph[0].v; b=b||ph[ph.length-1].v; } else if(ms.length>=2){ a=a||ms[0].v; b=b||ms[ms.length-1].v; } else { a=a||(L[0]||{}).v; b=b||(L[L.length-1]||{}).v; } }
+  return {a,b,L}; }
+function wapCompare(P,rows,a,b){ const A=wapPeriodRows(rows,a), B=wapPeriodRows(rows,b);
+  return WAP_IND.map(d=>{ const x=wapCalc(d,A), y=wapCalc(d,B); let c=null;
+    if(d.kind==="p"&&x.n&&y.n){ const r=ITS.compareProps(y.x,y.n,x.x,x.n); if(r) c={diff:r.diff*100,lo:r.lo*100,hi:r.hi*100,p:r.p,test:r.test,unit:"pts"}; }
+    else if(d.kind==="m"){ const r=cspMannWhitney(x.vals||[],y.vals||[]); if(r) c={diff:r.hl,lo:r.lo,hi:r.hi,p:r.p,test:"Mann–Whitney; Hodges–Lehmann shift",unit:d.unit,medA:r.medA,medB:r.medB}; }
+    else if(d.kind==="lines"&&x.n&&y.n) c={diff:y.value-x.value,lo:null,hi:null,p:null,test:"antibiotic lines are not independent: no test",unit:"pts"};
+    return {d,x,y,c}; }); }
+
+/* ---------- page ---------- */
+function wapAfter(f){ (window._wapAfter=window._wapAfter||[]).push(f); }
+function wapGo(t){ wapTab=t; renderCsp(); window.scrollTo(0,0); }
+function wapPick(id){ wapS().cur=id; wapSave(); renderCsp(); }
+function wapSetWard(v){ const P=wapCur(); if(v==="__other"){ const n=prompt("Ward name, as written in the Admission Report or on the CRF:",P.ward||""); if(n==null){ renderCsp(); return; } v=n.trim(); }
+  P.ward=v; window._wapEh=null; wapSave(); renderCsp(); }
+function wapSetTemplate(v){ const P=wapCur(); P.template=v==="cs"?"cs":"general"; wapSave(); renderCsp(); }
+function wapAdd(){ const W=wapS(); const P=wapNewProject("general",""); W.projects.push(P); W.cur=P.id; wapTab="data"; wapSave(); renderCsp(); toast("New ward project: choose the ward and set the phases"); }
+function wapDel(){ const W=wapS(); const P=wapCur(); if(!confirm(`Delete the project “${wapName(P)}” with its ${(P.crf||[]).length} CRF record(s)? The ward's consumption sheet is kept.`)) return;
+  W.projects=W.projects.filter(p=>p.id!==P.id); W.cur=(W.projects[0]||{}).id; wapSave(); renderCsp(); }
+function wapEngine(){ wapMode="engine"; renderCsp(); window.scrollTo(0,0); }
+function wapBack(){ wapMode="project"; renderCsp(); window.scrollTo(0,0); }
+function wapSet(k,v){ const P=wapCur(); P[k]=v; wapSave(); renderCsp(); }
+function wapWardSelect(P,wards){ const has=wards.some(x=>x.w===P.ward);
+  return `<select onchange="wapSetWard(this.value)" style="min-width:220px"><option value="" ${P.ward?"":"selected"}>Choose a ward…</option>${!has&&P.ward?`<option selected>${esc(P.ward)}</option>`:""}${wards.map(x=>`<option value="${esc(x.w)}" ${x.w===P.ward?"selected":""}>${esc(x.w)}${x.adm?` (${x.adm.toLocaleString()} admissions)`:""}</option>`).join("")}<option value="__other">Type another ward name…</option></select>`; }
+const wapPill=c=>{ const s=(c||"").toLowerCase(); return s==="access"?"access":s==="watch"?"watch":s==="reserve"?"reserve":/not/.test(s)?"nr":"unc"; };
+const wapKpi=(v,l,s,cls)=>`<div class="kpi"><div class="v ${cls||""}" style="font-size:22px">${v}</div><div class="l">${l}</div>${s?`<div class="hint" style="margin-top:4px">${s}</div>`:""}</div>`;
+function renderWap(){ const el=$("#v-csp"); if(!el) return; const W=wapS(); const P=wapCur(); window._wapAfter=[]; const src=wapSource(P);
+  const tabs=[["overview","Overview"],["data","Data & rules"],["crf","CRF records"],["cons","Consumption"],["ind","Indicators"],["ts","Time series"],["ba","Before–after"],["integ","Data integrity"],["reports","Reports"]];
+  const head=`<div class="panel" style="border-color:var(--accent)"><h2>Ward AMS projects</h2>
+    <div class="sub">An AMS project can run on any ward. Choose the ward, set the phases, then bring in the data: the CRF 03 the AMS secretary fills in from the review notes, the ward's consumption sheet, and the eHMS exports where they hold the ward's data. Every indicator, chart and report names its source.</div>
+    <div class="row" style="gap:12px;align-items:flex-end;flex-wrap:wrap">
+      <div class="field"><label>Project</label><select onchange="wapPick(this.value)" style="min-width:240px">${W.projects.map(p=>`<option value="${p.id}" ${p.id===P.id?"selected":""}>${esc(wapName(p))}</option>`).join("")}</select></div>
+      <div class="field"><label>Ward</label>${wapWardSelect(P,wapWardList())}</div>
+      <div class="field"><label>Type of project</label><select onchange="wapSetTemplate(this.value)"><option value="general" ${P.template!=="cs"?"selected":""}>Antibiotic use on the ward</option><option value="cs" ${P.template==="cs"?"selected":""}>Surgical prophylaxis after C/S</option></select></div>
+      <button class="btn sm ghost" onclick="wapAdd()">+ New ward project</button>${W.projects.length>1?`<button class="btn sm danger" onclick="wapDel()">Delete this project</button>`:""}</div>
+    <div class="notice ${src==="ehms"?"good":""}" style="margin:12px 0 10px"><b>Data source rule.</b> ${esc(WAP_RULE)}<div style="margin-top:4px">This project: <b>${esc(wapSourceText(P))}</b>. <span class="linkfix" onclick="wapGo('data')">Change</span></div></div>
+    ${wapMsg?`<div class="notice good">${esc(wapMsg)}</div>`:""}
+    <div class="tabsel">${tabs.map(([k,l])=>`<button class="${wapTab===k?"on":""}" onclick="wapGo('${k}')">${l}</button>`).join("")}${P.template==="cs"?`<button onclick="wapEngine()" title="The eHMS cohort analysis for C/S: SP1–SP3 labels, infection signal, validation and the hospital measures H1–H3">C/S eHMS cohort engine &rsaquo;</button>`:""}</div></div>`;
+  let body=""; try{ body=({overview:wapOverview,data:wapDataTab,crf:wapCrfTab,cons:wapConsTab,ind:wapIndTab,ts:wapTsTab,ba:wapBaTab,integ:wapIntegTab,reports:wapRepTab}[wapTab]||wapOverview)(P); }
+  catch(e){ console.error(e); body=`<div class="panel"><div class="notice err">This page could not be computed: ${esc(e&&e.message||e)}. The records imported so far are untouched.</div></div>`; }
+  el.innerHTML=head+body; wapMsg="";
+  setTimeout(()=>{ (window._wapAfter||[]).forEach(f=>{ try{ f(); }catch(e){ console.error(e); } }); window._wapAfter=[]; },0); }
+
+/* ---------- Overview ---------- */
+function wapGaps(P,rows,K,C,X){ const out=[]; const src=wapSource(P);
+  if(!P.ward) out.push(`No ward chosen yet: pick it in the <b>Ward</b> list above.`);
+  if(src==="crf"&&!(P.crf||[]).length) out.push(`No CRF 03 records yet. Import the AMS secretary's CRF on <span class="linkfix" onclick="wapGo('crf')">CRF records</span>${(DB.admitTx||[]).length?", or download a CRF already listing the ward's admissions for a month":""}.`);
+  if(wapPhases(P).filter(p=>p.start!=null||p.i===0).length<2) out.push(`Only one phase is set. Add the date the change started on <span class="linkfix" onclick="wapGo('data')">Data &amp; rules</span> so before and after can be compared (any two months can still be compared on Before–after).`);
+  if(!C.rows.some(r=>r.value!=null)) out.push(src==="crf"?`No consumption sheet for this ward yet, so DDD per 100 bed-days stays empty (<span class="linkfix" onclick="wapGo('cons')">Consumption</span>).`:"No eHMS dispensing found for stays on this ward, so DDD per 100 bed-days stays empty.");
+  const bad=(P.crf||[]).length-K.clean; if(src==="crf"&&bad>0) out.push(`${bad} CRF record(s) carry an error or a warning: see <span class="linkfix" onclick="wapGo('integ')">Data integrity</span>.`);
+  if(X&&X.crfN&&X.capture!=null&&X.capture<0.8) out.push(`eHMS shows antibiotic dispensing for only ${(X.capture*100).toFixed(0)}% of the patients the CRF lists on antibiotics (${X.captured} of ${X.onAbx}). Under the rule, the CRF stays the standard source for this ward.`);
+  if(X&&!X.crfN&&X.stays) out.push(`eHMS has ${X.stays.toLocaleString()} stay(s) on this ward; ${(X.withAbx/X.stays*100).toFixed(0)}% have any antibiotic dispensed. If that looks low for the ward, the doses come from ward stock and the CRF is the standard source.`);
+  return out; }
+function wapOverview(P){ const rows=wapRows(P); const K=wapChecks(P); const C=wapCons(P); const X=wapCross(P); const ms=wapMonths(rows); const src=wapSource(P);
+  const key=P.template==="cs"?"W2":"W1"; const d=wapIndDef(key); const first=ms[0], last=ms[ms.length-1];
+  const f=first?wapCalc(d,rows.filter(r=>r.m===first)):null, l=last?wapCalc(d,rows.filter(r=>r.m===last)):null; const pc=o=>o&&o.n?o.value.toFixed(1)+"%":"—";
+  const crfN=(P.crf||[]).length; const cr=C.rows.filter(r=>r.value!=null); const dlast=cr[cr.length-1];
+  const gaps=wapGaps(P,rows,K,C,X); const show=ms.slice(-8);
+  return `<div class="kpis">${wapKpi(rows.length.toLocaleString(),src==="crf"?"CRF 03 records":"eHMS stays on the ward",ms.length?`${itsMon(first)} – ${itsMon(last)} · ${ms.length} month(s)`:"no records yet")}
+    ${wapKpi(src==="crf"?"CRF":"eHMS","Data source",src==="crf"?"standard source under the rule":"integrity confirmed by "+esc(P.integrity.by||"the AMS secretary"))}
+    ${src==="crf"?wapKpi(crfN?(K.clean/crfN*100).toFixed(0)+"%":"—","Records with no error or warning",crfN?`${crfN-K.clean} to check`:"",crfN&&K.clean/crfN<0.8?"a":"g"):""}
+    ${wapKpi(pc(f)+" → "+pc(l),key+" "+esc(wapLabel(d,P)),first?`${itsMon(first)} → ${itsMon(last)}`:"","big")}
+    ${wapKpi(dlast?dlast.value.toFixed(1):"—","DDD per 100 bed-days",dlast?`${dlast.label} · ${esc(C.basis)}`:"no consumption yet")}</div>
+  <div class="panel"><h2>Where the project stands</h2>${gaps.length?`<div class="notice warn"><ul style="margin:0;padding-left:18px">${gaps.map(x=>`<li>${x}</li>`).join("")}</ul></div>`:`<div class="notice good">Ward chosen, phases set, records and consumption in place.</div>`}</div>
+  ${show.length?`<div class="panel"><h2>Month by month</h2><div class="sub">Source: ${esc(wapSourceText(P))}. A dash means the question was not recorded that month${src==="ehms"?" (eHMS cannot give prophylaxis length, review/stop dates, adherence or planned days)":""}.</div>
+    <div class="tablewrap"><table><thead><tr><th>Indicator</th>${show.map(m=>`<th>${itsMon(m)}</th>`).join("")}</tr></thead><tbody>
+    <tr><td>Records</td>${show.map(m=>`<td>${rows.filter(r=>r.m===m).length}</td>`).join("")}</tr>
+    ${WAP_IND.map(d=>`<tr><td><b>${d.k}</b> ${esc(wapLabel(d,P))}</td>${show.map(m=>`<td>${wapCell(d,wapCalc(d,rows.filter(r=>r.m===m)),0)}</td>`).join("")}</tr>`).join("")}
+    <tr><td><b>DDD</b> per 100 bed-days</td>${show.map(m=>{ const r=C.rows.find(z=>z.m===m); return `<td>${r&&r.value!=null?r.value.toFixed(1):"—"}</td>`; }).join("")}</tr></tbody></table></div></div>`:""}`; }
+
+/* ---------- Data & rules ---------- */
+function wapPhaseSet(i,k,v){ const P=wapCur(); P.phases[i][k]=v; if(k==="start") P.phases.sort((a,b)=>(a.start||"")<(b.start||"")?-1:1); wapSave(); renderCsp(); }
+function wapPhaseAdd(){ const P=wapCur(); P.phases.push({name:P.phases.length===1?"Intervention":"New phase",start:wapToday()}); wapSave(); renderCsp(); }
+function wapPhaseDel(i){ const P=wapCur(); if(!confirm(`Remove the phase “${P.phases[i].name}”?`)) return; P.phases.splice(i,1); if(!P.phases.length) P.phases=[{name:"Baseline",start:""}]; wapSave(); renderCsp(); }
+function wapPhasesFromEngine(){ const P=wapCur(); P.phases=JSON.parse(JSON.stringify(cspS().phases||[])); P.end=cspS().end||""; wapSave(); renderCsp(); toast("Phases copied from the C/S engine"); }
+function wapSourcePick(v){ const P=wapCur(); P.source=v==="ehms"?"ehms":"crf"; if(P.source==="crf") P.integrity.ok=false; wapSave(); renderCsp(); }
+function wapConfirm(){ const P=wapCur(); const v=id=>(($("#"+id)||{}).value||"").trim(); const by=v("wap-ib"), date=v("wap-id");
+  if(!by) return toast("Write the name of the AMS secretary confirming"); if(!($("#wap-ic")||{}).checked) return toast("Tick the confirmation first");
+  P.integrity={ok:true,by,date:date||wapToday(),note:v("wap-in")}; P.source="ehms"; wapSave(); renderCsp(); toast("Integrity confirmed: this ward now uses eHMS"); }
+function wapUnconfirm(){ const P=wapCur(); if(!confirm("Withdraw the confirmation? The project goes back to the CRF as its source.")) return; P.integrity.ok=false; P.source="crf"; wapSave(); renderCsp(); }
+function wapBedSet(m,v){ const P=wapCur(); P.bedTyped=P.bedTyped||{}; const n=num(v); if(n>0) P.bedTyped[m]=n; else delete P.bedTyped[m]; wapSave(); renderCsp(); }
+function wapDataTab(P){ const Ph=P.phases||[]; const X=wapCross(P); const src=wapSource(P); const crf=wapCrfRows(P); const B=wapBedSources(P,crf);
+  const ms=[...new Set(Object.keys(B).concat(wapMonths(crf)))].sort(); const tables=itsWardNames().map(x=>x[0]);
+  const phaseRows=Ph.map((p,i)=>`<tr><td><input value="${esc(p.name)}" onchange="wapPhaseSet(${i},'name',this.value)"></td><td><input type="date" value="${esc(p.start||"")}" onchange="wapPhaseSet(${i},'start',this.value)"></td><td>${i>0?`<label class="hint"><input type="checkbox" style="width:auto" ${p.transition?"checked":""} onchange="wapPhaseSet(${i},'transition',this.checked)"> run-in (left out of the time series)</label>`:`<span class="hint">${p.start?"":"from the first record"}</span>`}</td><td>${Ph.length>1?`<button class="btn sm danger" onclick="wapPhaseDel(${i})">Remove</button>`:""}</td></tr>`).join("");
+  const capTxt=X&&X.crfN&&X.capture!=null?`eHMS shows antibiotic dispensing for ${(X.capture*100).toFixed(0)}% of the patients the CRF lists on antibiotics (${X.captured} of ${X.onAbx}).`:X?`eHMS has ${X.stays.toLocaleString()} stay(s) on this ward; ${(X.withAbx/X.stays*100).toFixed(0)}% with any antibiotic dispensed.`:"No Admission Report rows for this ward yet, so eHMS cannot be checked.";
+  return `<div class="panel"><h2>Project</h2><div class="grid">
+      <div class="field"><label>Project name</label><input value="${esc(P.name)}" placeholder="${esc(wapName(Object.assign({},P,{name:""})))}" onchange="wapSet('name',this.value.trim())"></div>
+      <div class="field"><label>Ward</label>${wapWardSelect(P,wapWardList())}<div class="hint">Wards come from the Admission Report and the consumption sheets; type any other name.</div></div>
+      <div class="field"><label>Type of project</label><select onchange="wapSetTemplate(this.value)"><option value="general" ${P.template!=="cs"?"selected":""}>Antibiotic use on the ward</option><option value="cs" ${P.template==="cs"?"selected":""}>Surgical prophylaxis after C/S</option></select><div class="hint">${P.template==="cs"?"Adds the C/S wording and opens the C/S eHMS cohort engine.":"Works for any medical, surgical, paediatric or other ward."}</div></div>
+      <div class="field"><label>Started</label><input value="${esc(P.created||"")}" disabled></div></div></div>
+  <div class="panel"><h2>Phases</h2><div class="sub">Each record belongs to the last phase that started on or before its admission date. Leave the first start empty to begin with the first record.</div>
+    <table style="max-width:820px"><thead><tr><th>Phase</th><th>Starts</th><th></th><th></th></tr></thead><tbody>${phaseRows}</tbody></table>
+    <div class="row" style="margin-top:10px"><button class="btn sm ghost" onclick="wapPhaseAdd()">+ Add a phase</button>${P.template==="cs"?`<button class="btn sm ghost" onclick="wapPhasesFromEngine()">Copy the phases from the C/S engine</button>`:""}<label class="hint">Project ends <input type="date" value="${esc(P.end||"")}" onchange="wapSet('end',this.value)"></label></div></div>
+  <div class="panel"><h2>Data source</h2><div class="notice"><b>Rule.</b> ${esc(WAP_RULE)}</div>
+    <div class="row" style="gap:18px"><label style="display:inline-flex;gap:6px;align-items:center"><input type="radio" name="wap-src" style="width:auto" ${P.source!=="ehms"?"checked":""} onchange="wapSourcePick('crf')"> <b>CRF 03</b> from the AMS secretary (standard)</label>
+      <label style="display:inline-flex;gap:6px;align-items:center"><input type="radio" name="wap-src" style="width:auto" ${P.source==="ehms"?"checked":""} onchange="wapSourcePick('ehms')"> <b>eHMS</b> (Admission Report + dispensing), only with the AMS secretary's confirmation</label></div>
+    <div class="hint" style="margin-top:8px">${esc(capTxt)}</div>
+    ${P.source==="ehms"&&!P.integrity.ok?`<div class="notice warn" style="margin-top:10px"><b>Not confirmed yet — the project still uses the CRF.</b> The AMS secretary checks this ward's eHMS records against the ward's notes and registers, then confirms here.
+      <div class="grid" style="margin-top:8px"><div class="field"><label>AMS secretary</label><input id="wap-ib" value="${esc(P.integrity.by||"")}"></div><div class="field"><label>Date</label><input id="wap-id" type="date" value="${esc(P.integrity.date||wapToday())}"></div><div class="field"><label>How it was checked</label><input id="wap-in" value="${esc(P.integrity.note||"")}" placeholder="e.g. 30 files compared with eHMS for March"></div></div>
+      <label style="display:flex;gap:8px;align-items:flex-start;margin-top:8px"><input id="wap-ic" type="checkbox" style="width:auto;margin-top:3px"> <span>As AMS secretary I have compared this ward's eHMS records with the ward's notes and registers and I confirm their integrity for this project.</span></label>
+      <div class="row" style="margin-top:8px"><button class="btn green" onclick="wapConfirm()">Confirm integrity and use eHMS</button></div></div>`:""}
+    ${P.integrity.ok?`<div class="notice good" style="margin-top:10px">Integrity confirmed by <b>${esc(P.integrity.by)}</b> on ${esc(cspFmtD(cspDay(P.integrity.date)))}${P.integrity.note?` — ${esc(P.integrity.note)}`:""}. Every output says so. <button class="btn sm ghost" onclick="wapUnconfirm()">Withdraw</button></div>`:""}</div>
+  <div class="panel"><h2>Bed-days by month</h2><div class="sub">Used for DDD per 100 bed-days. ${src==="crf"?"Under the CRF, the sum of the CRF's Bed-days column for patients admitted that month comes first, then the consumption sheet's note, then the Admission Report":"Under eHMS, the Admission Report comes first (each day counted in its own month)"}. A number typed here overrides both.</div>
+    ${ms.length?`<div class="tablewrap"><table style="max-width:820px"><thead><tr><th>Month</th><th>CRF bed-days</th><th>Consumption sheet note</th><th>Admission Report</th><th>Used</th><th>Type to override</th></tr></thead><tbody>${ms.map(m=>{ const o=B[m]||{}; const u=wapBd(P,m,B);
+      return `<tr><td>${itsMon(m)}</td><td>${o.crf!=null?o.crf.toLocaleString():"—"}</td><td>${o.note!=null?o.note.toLocaleString():"—"}</td><td>${o.adm!=null?o.adm.toLocaleString():"—"}</td><td><b>${u.bd!=null?u.bd.toLocaleString():"—"}</b> <span class="hint">${esc(u.src)}</span></td><td><input type="number" style="width:90px" value="${esc((P.bedTyped||{})[m]||"")}" onchange="wapBedSet('${m}',this.value)"></td></tr>`; }).join("")}</tbody></table></div>`:`<div class="hint">No months with data yet.</div>`}</div>
+  <div class="panel"><h2>Consumption sheet</h2><div class="sub">The ward's monthly units per drug. Sheets imported here or in Intervention Impact are shared.</div>
+    <label class="hint">Use the sheet for <select onchange="wapSet('consWard',this.value===P.ward?'':this.value)"><option value="${esc(P.ward)}" ${!P.consWard?"selected":""}>${esc(P.ward||"this ward")}</option>${tables.filter(w=>w!==P.ward).map(w=>`<option ${P.consWard===w?"selected":""}>${esc(w)}</option>`).join("")}</select></label></div>`; }
+
+/* ---------- CRF records ---------- */
+function wapCrfTab(P){ const rows=wapCrfRows(P); const K=wapChecks(P); const ms=wapMonths(rows); const fm=window._wapCrfM&&ms.includes(window._wapCrfM)?window._wapCrfM:"";
+  const admMs=(()=>{ if(!P.ward) return []; const s=new Set(); wapEhms(P.ward).stays.forEach(x=>s.add(cspMonth(x.adm))); return [...s].sort().reverse(); })();
+  const L=rows.filter(r=>!fm||r.m===fm).sort((a,b)=>(a.adm||0)-(b.adm||0)); const show=L.slice(0,400);
+  const yn=v=>v===true?'<span class="pill good">Y</span>':v===false?'<span class="pill bad">N</span>':'<span class="hint">—</span>';
+  const ph=r=>r.proph==="le24"?'<span class="pill good">&lt;24h</span>':r.proph==="gt24"?'<span class="pill watch">&gt;24h</span>':r.proph==="no"?'<span class="pill unc">No</span>':(r.prophRaw?`<span class="pill bad">${esc(r.prophRaw)}</span>`:'<span class="hint">—</span>');
+  const fl=r=>{ const a=K.flags.get(r)||[]; if(!a.length) return '<span class="pill good">&#10003;</span>'; const lv=a.some(f=>WAP_CHK[f.k][0]==="err")?"bad":a.some(f=>WAP_CHK[f.k][0]==="warn")?"watch":"unc";
+    return `<span class="pill ${lv}" title="${esc(a.map(f=>WAP_CHK[f.k][1]+(f.det?": "+f.det:"")).join("\n"))}">${a.length} check${a.length>1?"s":""}</span>`; };
+  return `<div class="panel"><h2>Import the CRF 03</h2><div class="sub">One file per month or several at once (.xlsx or .csv). AMS Pro finds the sheet and the header row, reads the Patient ID, dates, bed-days, “Receiving AB?”, prophylaxis, AB1–AB4 with route and planned days, review/stop date and adherence. A totals row under the records is used only to check the sum. A corrected copy of a file with the same name replaces the old one.</div>
+    <div class="row"><input type="file" multiple accept=".xlsx,.xlsm,.csv" onchange="wapCrfImport(this)"><button class="btn sm ghost" onclick="wapCrfTemplate()">&#11015; Blank CRF 03 (CSV)</button>
+      ${admMs.length?`<label class="hint">CRF 03 listing this ward's admissions for <select id="wap-pm">${admMs.map(m=>`<option value="${m}">${itsMon(m)}</option>`).join("")}</select></label><button class="btn sm ghost" onclick="wapCrfPrefill(($('#wap-pm')||{}).value)">&#11015; Prefilled CRF</button>`:""}</div>
+    ${(P.files||[]).length?`<div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>File</th><th>Sheet</th><th>Records</th><th>Months</th><th>Imported</th><th></th></tr></thead><tbody>${P.files.map(f=>`<tr><td>${esc(f.name)}</td><td class="hint">${esc(f.sheet||"")}, header row ${f.headerRow||"?"}</td><td>${f.rows}</td><td>${(f.months||[]).map(itsMon).join(", ")}</td><td class="hint">${esc(f.at||"")}</td><td><button class="btn sm danger" onclick="wapCrfRemoveFile('${encodeURIComponent(f.name)}')">Remove</button></td></tr>`).join("")}</tbody></table></div>`:""}</div>
+  <div class="panel"><h2>Records${fm?" — "+itsMon(fm):""} (${L.length.toLocaleString()})</h2>
+    <div class="row" style="gap:10px;margin-bottom:8px"><label class="hint">Month <select onchange="window._wapCrfM=this.value;renderCsp()"><option value="">All months</option>${ms.map(m=>`<option value="${m}" ${m===fm?"selected":""}>${itsMon(m)} (${rows.filter(r=>r.m===m).length})</option>`).join("")}</select></label>
+      <span class="hint">Patient numbers stay on this computer; every shared file uses study codes.</span>${rows.length?`<button class="btn sm danger" onclick="if(confirm('Remove all CRF records of this project?')){const P=wapCur();P.crf=[];P.files=[];wapSave();renderCsp();}">Remove all</button>`:""}</div>
+    ${show.length?`<div class="tablewrap"><table><thead><tr><th>File row</th><th>S/No</th><th>Patient</th><th>Admitted</th><th>Discharged</th><th>Bed-days</th><th>On AB</th>${P.template==="cs"||rows.some(r=>r.proph)?"<th>Prophylaxis</th>":""}<th style="white-space:normal">Antibiotics</th><th>Review/stop</th><th>Adherence</th><th>Checks</th></tr></thead><tbody>
+      ${show.map(r=>`<tr><td class="hint">${r.row}</td><td>${esc(r.sno)}</td><td>${esc(r.pid||"—")}</td><td>${r.adm!=null?cspFmtD(r.adm):"—"}</td><td>${r.dis!=null?cspFmtD(r.dis):(r.disPh?'<span class="hint">missing</span>':"—")}</td><td>${r.bd!=null?r.bd:"—"}</td><td>${yn(r.rec)}</td>${P.template==="cs"||rows.some(z=>z.proph)?`<td>${ph(r)}</td>`:""}
+        <td style="white-space:normal;min-width:220px">${r.abs.map(a=>`<span class="pill ${wapPill(a.cls)}" title="${esc(a.name+(a.cls?" · "+a.cls:" · not recognised"))}" style="margin:1px">${esc(a.g?titleCase(a.g):a.name)}${a.route?" "+a.route:""}${a.days!=null?" "+a.days+"d":""}</span>`).join("")||'<span class="hint">—</span>'}</td><td>${yn(r.rev)}</td><td>${yn(r.adh)}</td><td>${fl(r)}</td></tr>`).join("")}</tbody></table></div>${L.length>show.length?`<div class="hint" style="margin-top:6px">First ${show.length} of ${L.length} shown; choose a month to see the rest.</div>`:""}`:`<div class="empty">No CRF records yet.</div>`}</div>`; }
+
+/* ---------- Consumption ---------- */
+function wapConsTab(P){ const C=wapCons(P); const src=wapSource(P); const chk=wapTallyChecks(P); const X=P.tallyChk;
+  const ms=C.rows.map(r=>r.m); const pc=(a,b)=>b?(a/b*100).toFixed(0)+"%":"—";
+  return `<div class="panel"><h2>${src==="crf"?"The ward's consumption sheet":"Consumption from eHMS dispensing"}</h2>
+    <div class="sub">${src==="crf"?`Under the rule, consumption comes from the sheet the AMS secretary keeps for the ward (units per drug per month, read from the treatment sheets and notes). AMS Pro works out the DDD itself from the WHO values and the strength in each item name, and checks the sheet's own DDD and per-100 figures.`:`Antibiotic lines dispensed to patients while they were on this ward, from admission day to discharge day. DDD from the WHO values.`}</div>
+    ${src==="crf"?`<div class="row" style="gap:10px"><input type="file" accept=".xlsx,.xlsm,.csv" onchange="wapTallyImport(this)"><label class="hint">Year of the months <input id="wap-ty" type="number" style="width:80px" placeholder="${(()=>{ const m=wapMonths(wapCrfRows(P)); return m.length?m[m.length-1].slice(0,4):new Date().getFullYear(); })()}"></label>
+      ${(DB.wardUse||[]).some(x=>x.ward===C.ward)?`<button class="btn sm danger" onclick="wapTallyRemove()">Remove this ward's sheet</button>`:""}<span class="hint">One row per drug, one column per month (August, Sep, 2026-10…); a “DDD per unit” column is used only when the item name has no strength.</span></div>`:""}
+    ${X?`<div class="hint" style="margin-top:6px">Sheet: ${esc(X.file)} (${X.year}), imported ${esc(X.at)}${X.skipped&&X.skipped.length?`; left out (not antibiotics or not recognised): ${esc(X.skipped.join(", "))}`:""}.</div>`:""}</div>
+  ${C.rows.length?`<div class="panel"><h2>DDD per 100 bed-days by month</h2><div class="tablewrap"><table><thead><tr><th>Month</th><th>Phase</th><th>Bed-days</th><th>DDD</th><th>DDD per 100 bed-days</th><th>Access share of DDD</th><th>Watch share of DDD</th><th>Units with no WHO DDD</th></tr></thead><tbody>
+    ${C.rows.map(r=>`<tr><td>${r.label}</td><td class="hint">${esc((wapPhases(P)[r.phase]||{}).name||"—")}</td><td>${r.bd!=null?r.bd.toLocaleString():"—"} <span class="hint">${esc(r.bdSrc)}</span></td><td>${r.ddd.toFixed(1)}</td><td><b>${r.value!=null?r.value.toFixed(1):"—"}</b></td><td>${pc(r.acc,r.ddd)}</td><td>${pc(r.watch,r.ddd)}</td><td>${r.noDddUnits?r.noDddUnits.toLocaleString():"0"}</td></tr>`).join("")}</tbody></table></div>
+    <div class="hint" style="margin-top:6px">DDD per 100 bed-days = DDD ÷ bed-days × 100. Fixed-dose combinations without a WHO DDD (ampicillin + cloxacillin, flucloxacillin + amoxicillin) are counted in units but not in DDD, so the DDD total is not overstated by invented values.</div></div>
+  <div class="panel"><h2>By drug</h2><div class="tablewrap"><table><thead><tr><th>Item</th><th>AWaRe</th><th>DDD per unit</th>${ms.map(m=>`<th>${itsMon(m)}<br><span class="hint">units</span></th>`).join("")}<th>DDD in all</th></tr></thead><tbody>
+    ${C.items.map(it=>`<tr><td>${esc(it.name)}</td><td><span class="pill ${wapPill(it.cls)}">${esc(it.cls||"—")}</span></td><td>${it.per!=null?(+it.per).toFixed(3)+` <span class="hint">${esc(it.src==="table"?"from the sheet":"WHO")}</span>`:`<span class="hint">${esc(it.why||"none")}</span>`}</td>${ms.map(m=>`<td>${it.m[m]!=null?it.m[m].toLocaleString():"—"}</td>`).join("")}<td>${Object.values(it.ddd).reduce((s,v)=>s+v,0).toFixed(1)}</td></tr>`).join("")}</tbody></table></div></div>`:`<div class="panel"><div class="empty">No consumption for this ward yet.</div></div>`}
+  ${src==="crf"&&X?`<div class="panel"><h2>Checks on the sheet's own arithmetic</h2><div class="sub">The sheet's DDD per unit against WHO, its DDD against units × DDD per unit, and its DDD per 100 bed-days against DDD ÷ bed-days × 100 (bed-days from the sheet's note when it has one).</div>
+    ${chk.length?`<div class="tablewrap"><table><thead><tr><th></th><th>Item</th><th>Month</th><th style="white-space:normal">Finding</th></tr></thead><tbody>${chk.map(c=>`<tr><td><span class="pill ${c.lv==="err"?"bad":c.lv==="warn"?"watch":"unc"}">${c.lv==="err"?"error":c.lv==="warn"?"check":"note"}</span></td><td>${esc(c.item)}</td><td>${c.m?itsMon(c.m):"—"}</td><td style="white-space:normal">${c.what}</td></tr>`).join("")}</tbody></table></div>`:`<div class="notice good">The sheet's figures agree with AMS Pro's.</div>`}</div>`:""}`; }
+
+/* ---------- Indicators ---------- */
+function wapIndTab(P){ const rows=wapRows(P); const Ph=wapPhases(P).filter(p=>rows.some(r=>r.phase===p.i)); const C=wapCons(P);
+  const out=rows.filter(r=>r.phase<0).length;
+  return `<div class="panel"><h2>Indicators by phase</h2><div class="sub">Source: ${esc(wapSourceText(P))}. Percentages use only the records where the question was answered; “n” is that number.${out?` ${out} record(s) fall outside the phases (before the first start or after the end) and appear only under “All records”.`:""}</div>
+    <div class="tablewrap" style="max-height:none"><table><thead><tr><th>Indicator</th>${Ph.map(p=>`<th>${esc(p.name)}${p.start!=null?`<br><span class="hint" style="text-transform:none">from ${cspFmtD(p.start)}</span>`:""}</th>`).join("")}<th>All records</th></tr></thead><tbody>
+    <tr><td>Records</td>${Ph.map(p=>`<td>${rows.filter(r=>r.phase===p.i).length}</td>`).join("")}<td>${rows.length}</td></tr>
+    ${WAP_IND.map(d=>`<tr><td><b>${d.k}</b> ${esc(wapLabel(d,P))}${d.kind==="m"?` <span class="hint">(mean ${d.unit})</span>`:""}</td>${Ph.map(p=>`<td>${wapCell(d,wapCalc(d,rows.filter(r=>r.phase===p.i)))}</td>`).join("")}<td>${wapCell(d,wapCalc(d,rows))}</td></tr>`).join("")}
+    <tr><td><b>DDD</b> per 100 bed-days <span class="hint">(${esc(C.basis)})</span></td>${Ph.map(p=>{ const L=C.rows.filter(r=>r.phase===p.i&&r.value!=null); const dd=L.reduce((s,r)=>s+r.ddd,0), bd=L.reduce((s,r)=>s+r.bd,0); return `<td>${bd?(dd/bd*100).toFixed(1):"—"}</td>`; }).join("")}<td>${(()=>{ const L=C.rows.filter(r=>r.value!=null); const dd=L.reduce((s,r)=>s+r.ddd,0), bd=L.reduce((s,r)=>s+r.bd,0); return bd?(dd/bd*100).toFixed(1):"—"; })()}</td></tr></tbody></table></div>
+    <div class="hint" style="margin-top:8px"><b>How each is counted.</b> W1: “Receiving AB?” Yes (a blank answer counts as Yes when antibiotics are listed). W2: &lt;24h among &lt;24h and &gt;24h. W3, W4: Yes among patients on antibiotics with the question answered. W5–W8: among patients on antibiotics with at least one antibiotic listed; AWaRe follows the scheme set in Setup. W9: the longest planned days among the antibiotics listed. W10: the Bed-days column (or the dates). W11: Access antibiotics among all antibiotics listed (lines).</div></div>`; }
+
+/* ---------- Time series ---------- */
+function wapTsTab(P){ const rows=wapRows(P); const k=P.tsInd&&(P.tsInd==="DDD"||wapIndDef(P.tsInd))?P.tsInd:"W1"; const S=wapSeriesAny(P,rows,k); const its=wapItsFit(P,S.rows);
+  const tgt=parseFloat((P.targets||{})[k]); const run=cspRun(S.rows,0); const sigs=typeof cspSignalText==="function"?cspSignalText(S.rows,run):[];
+  if(S.rows.length) wapAfter(()=>{ if($("#wap-ts")) proChart("wap-ts",wapChartCfg(P,S.rows,S.label,S.unit,"screen",its,tgt)); });
+  return `<div class="panel"><h2>Run chart and time series — monthly</h2><div class="sub">Source: ${esc(k==="DDD"?wapCons(P).basis:wapSourceText(P))}. The green dashed line is the median; 6 or more months on one side of it is a shift, 5 going the same way is a trend. Dashed amber lines mark the phase starts. With 8 or more months the segmented regression is fitted as on the C/S engine.</div>
+    <div class="row" style="gap:12px"><label class="hint">Indicator <select onchange="wapSet('tsInd',this.value)">${WAP_IND.map(d=>`<option value="${d.k}" ${d.k===k?"selected":""}>${d.k} ${esc(wapLabel(d,P))}</option>`).join("")}<option value="DDD" ${k==="DDD"?"selected":""}>DDD per 100 bed-days</option></select></label>
+      <label class="hint">Target <input type="number" style="width:80px" value="${isNaN(tgt)?"":tgt}" onchange="const P=wapCur();P.targets=P.targets||{};if(this.value==='')delete P.targets['${k}'];else P.targets['${k}']=+this.value;wapSave();renderCsp()"></label></div>
+    ${S.rows.length?`<div style="position:relative;height:340px;margin-top:10px"><canvas id="wap-ts"></canvas></div><div class="hint" style="margin-top:6px">${sigs.length?"<b>Signals:</b> "+esc(sigs.join(" · ")):"No run-chart signal."}</div>`:`<div class="empty">No months with data yet.</div>`}</div>
+  <div class="panel"><h2>Segmented regression</h2>${its.ok?`<div class="tablewrap"><table><thead><tr><th>Estimate</th><th>Value</th><th>95% CI</th><th>p</th></tr></thead><tbody>
+      <tr><td>Level at the first month</td><td>${cspF1(its.base.est)}</td><td>${cspF1(its.base.lo)} to ${cspF1(its.base.hi)}</td><td>${cspPv(its.base.p)}</td></tr><tr><td>Trend before, per month</td><td>${cspF1(its.pre.est,2)}</td><td>${cspF1(its.pre.lo,2)} to ${cspF1(its.pre.hi,2)}</td><td>${cspPv(its.pre.p)}</td></tr>
+      ${its.phases.map(p=>`<tr><td><b>Change in level at ${esc(p.name)}</b></td><td><b>${cspF1(p.level.est)}</b></td><td>${cspF1(p.level.lo)} to ${cspF1(p.level.hi)}</td><td>${cspPv(p.level.p)}</td></tr><tr><td>Change in trend at ${esc(p.name)}, per month</td><td>${cspF1(p.slope.est,2)}</td><td>${cspF1(p.slope.lo,2)} to ${cspF1(p.slope.hi,2)}</td><td>${cspPv(p.slope.p)}</td></tr>`).join("")||`<tr><td colspan="4" class="hint">No phase start has 3 months on each side yet.</td></tr>`}
+    </tbody></table></div><div class="hint" style="margin-top:6px">${its.n} months, ${its.df} degrees of freedom, R² ${its.r2.toFixed(2)}; ${its.method}. Units: ${S.unit==="%"?"percentage points":esc(S.unit)}. Run-in months are left out.</div>`:`<div class="notice">${esc(its.reason)}</div>`}</div>`; }
+
+/* ---------- Before–after ---------- */
+function wapBaTab(P){ const rows=wapRows(P); const {a,b,L}=wapDefaultAB(P,rows); if(L.length<2) return `<div class="panel"><div class="empty">Two phases or two months with records are needed for a comparison.</div></div>`;
+  const R=wapCompare(P,rows,a,b); const sel=(k,v)=>`<select onchange="wapSet('${k}',this.value)"><optgroup label="Phases">${L.filter(x=>x.v.startsWith("ph:")).map(x=>`<option value="${x.v}" ${x.v===v?"selected":""}>${esc(x.label)} (${x.n})</option>`).join("")}</optgroup><optgroup label="Months">${L.filter(x=>x.v.startsWith("m:")).map(x=>`<option value="${x.v}" ${x.v===v?"selected":""}>${esc(x.label)} (${x.n})</option>`).join("")}</optgroup></select>`;
+  const C=wapCons(P); const dd=v=>{ const ks=new Set(wapPeriodRows(rows,v).map(r=>r.m)); const Lr=C.rows.filter(r=>(v.startsWith("ph:")?r.phase===+v.slice(3):r.m===v.slice(2))&&r.value!=null); const x=Lr.reduce((s,r)=>s+r.ddd,0), bd=Lr.reduce((s,r)=>s+r.bd,0); return bd?(x/bd*100).toFixed(1):"—"; };
+  return `<div class="panel"><h2>Before–after comparison</h2><div class="row" style="gap:10px"><span class="hint">Compare</span>${sel("cmpA",a)}<span class="hint">with</span>${sel("cmpB",b)}</div>
+    <div class="hint" style="margin-top:6px">Source: ${esc(wapSourceText(P))}. Differences are the second period minus the first: percentage points with Newcombe 95% CIs (chi-square test, or Fisher's exact test when an expected count is below 5); means with the Mann–Whitney test and the Hodges–Lehmann shift.</div>
+    <div class="tablewrap" style="max-height:none;margin-top:10px"><table><thead><tr><th>Indicator</th><th>${esc(wapPeriodLabel(P,a))}</th><th>${esc(wapPeriodLabel(P,b))}</th><th>Difference (95% CI)</th><th>p</th><th>Test</th></tr></thead><tbody>
+    ${R.map(({d,x,y,c})=>`<tr><td><b>${d.k}</b> ${esc(wapLabel(d,P))}</td><td>${wapCell(d,x)}</td><td>${wapCell(d,y)}</td><td>${c?`${c.diff.toFixed(1)} ${c.unit}${c.lo!=null?` (${c.lo.toFixed(1)} to ${c.hi.toFixed(1)})`:""}`:"—"}</td><td>${c&&c.p!=null?cspPv(c.p):"—"}</td><td class="hint">${c?esc(c.test):""}</td></tr>`).join("")}
+    <tr><td><b>DDD</b> per 100 bed-days</td><td>${dd(a)}</td><td>${dd(b)}</td><td colspan="3" class="hint">${esc(C.basis)}; one value per month, no test</td></tr></tbody></table></div>
+    <div class="notice" style="margin-top:10px">A before–after comparison shows a change, not its cause. Read it with the run chart, and note anything else that changed on the ward (stock-outs, new staff, a new guideline).</div></div>`; }
+
+/* ---------- Data integrity ---------- */
+function wapIntegTab(P){ const K=wapChecks(P); const rows=K.rows; const X=wapCross(P); const src=wapSource(P); const T=P.tallyChk?wapTallyChecks(P):[];
+  const lvN=lv=>Object.entries(K.count).filter(([k])=>WAP_CHK[k][0]===lv).reduce((s,[,n])=>s+n,0);
+  const flagged=rows.filter(r=>(K.flags.get(r)||[]).length).sort((a,b)=>{ const w=r=>(K.flags.get(r)||[]).some(f=>WAP_CHK[f.k][0]==="err")?0:(K.flags.get(r)||[]).some(f=>WAP_CHK[f.k][0]==="warn")?1:2; return w(a)-w(b)||(a.adm||0)-(b.adm||0); });
+  const ord={err:0,warn:1,info:2}; const lvP=lv=>lv==="err"?"bad":lv==="warn"?"watch":"unc"; const lvT=lv=>lv==="err"?"error":lv==="warn"?"check":"note";
+  const fileSum=(P.files||[]).map(f=>{ const R=rows.filter(r=>r.file===f.name); const sum=R.reduce((s,r)=>s+(r.bdCol!=null?r.bdCol:0),0); const tot=(f.totals||[]).map(t=>t.bd);
+    return `<tr><td>${esc(f.name)}</td><td>${R.length}</td><td>${(f.months||[]).map(itsMon).join(", ")}</td><td>${tot.length?tot.map(t=>`${t} ${t===sum?'<span class="pill good">&#10003; equals the rows</span>':`<span class="pill bad">rows add up to ${sum}</span>`}`).join("; "):'<span class="hint">no totals row</span>'}</td><td>${R.filter(r=>!(K.flags.get(r)||[]).some(x=>WAP_CHK[x.k][0]!=="info")).length} of ${R.length}</td></tr>`; }).join("");
+  return `<div class="panel"><h2>Data integrity</h2><div class="notice"><b>Rule.</b> ${esc(WAP_RULE)}</div>
+    <div class="kpis">${wapKpi((P.crf||[]).length.toLocaleString(),"CRF records")}${wapKpi(lvN("err").toLocaleString(),"Errors","must be corrected on the CRF",lvN("err")?"r":"g")}${wapKpi(lvN("warn").toLocaleString(),"Checks","contradictions to confirm with the notes",lvN("warn")?"a":"g")}${wapKpi((P.crf||[]).length?(K.clean/(P.crf||[]).length*100).toFixed(0)+"%":"—","Records with no error or check")}</div>
+    ${fileSum?`<div class="tablewrap"><table><thead><tr><th>File</th><th>Records</th><th>Months</th><th>Totals row (bed-days)</th><th>Records with no error or check</th></tr></thead><tbody>${fileSum}</tbody></table></div>`:""}</div>
+  <div class="panel"><h2>What the checks found</h2>${Object.keys(K.count).length?`<div class="tablewrap"><table><thead><tr><th></th><th>Check</th><th>Records</th></tr></thead><tbody>${Object.entries(K.count).sort((a,b)=>ord[WAP_CHK[a[0]][0]]-ord[WAP_CHK[b[0]][0]]||b[1]-a[1]).map(([k,n])=>`<tr><td><span class="pill ${lvP(WAP_CHK[k][0])}">${lvT(WAP_CHK[k][0])}</span></td><td>${esc(WAP_CHK[k][1])}</td><td>${n}</td></tr>`).join("")}</tbody></table></div>
+      <div class="hint" style="margin-top:6px">Errors stop a record being counted correctly. Checks are contradictions between answers on the same form: confirm them from the notes, correct the CRF and import it again. Notes need no action but help the reader.</div>`:`<div class="notice good">No problems found in the CRF records.</div>`}</div>
+  ${flagged.length?`<div class="panel"><h2>Records to look at (${flagged.length})</h2><div class="tablewrap"><table><thead><tr><th>File, row</th><th>S/No</th><th>Patient</th><th>Admitted</th><th style="white-space:normal">Findings</th></tr></thead><tbody>
+    ${flagged.slice(0,300).map(r=>`<tr><td class="hint">${esc(r.file)}, ${r.row}</td><td>${esc(r.sno)}</td><td>${esc(r.pid||"—")}</td><td>${r.adm!=null?cspFmtD(r.adm):"—"}</td><td style="white-space:normal">${(K.flags.get(r)||[]).sort((a,b)=>ord[WAP_CHK[a.k][0]]-ord[WAP_CHK[b.k][0]]).map(f=>`<span class="pill ${lvP(WAP_CHK[f.k][0])}" style="margin:1px">${esc(WAP_CHK[f.k][1])}</span>${f.det?` <span class="hint">${esc(f.det)}</span>`:""}`).join("<br>")}</td></tr>`).join("")}</tbody></table></div>${flagged.length>300?`<div class="hint">First 300 shown.</div>`:""}</div>`:""}
+  <div class="panel"><h2>Does eHMS hold this ward's data?</h2><div class="sub">The same patients in the Admission Report and the dispensing export. When eHMS misses the antibiotics of many patients the CRF shows on antibiotics, the ward's doses come from ward stock or are not entered, and the CRF stays the standard source.</div>
+    ${X?`<div class="tablewrap"><table><thead><tr><th>Month</th><th>eHMS stays on the ward</th><th>With any antibiotic dispensed (eHMS)</th><th>CRF records</th><th>CRF records found in eHMS</th><th>On antibiotics (CRF)</th><th>…with antibiotics in eHMS</th></tr></thead><tbody>
+      ${Object.keys(X.months).sort().map(m=>{ const o=X.months[m]; return `<tr><td>${itsMon(m)}</td><td>${o.adm}</td><td>${cspPct(o.ehAbx,o.adm,0)}</td><td>${o.crf}</td><td>${o.crf?cspPct(o.matched,o.crf,0):"—"}</td><td>${o.onAbx||"—"}</td><td>${o.onAbx?cspPct(o.captured,o.onAbx,0):"—"}</td></tr>`; }).join("")}</tbody></table></div>
+      ${X.crfN?`<div class="notice ${X.capture!=null&&X.capture>=0.8?"good":"warn"}" style="margin-top:10px">${X.capture==null?"No CRF patient on antibiotics yet.":`eHMS shows antibiotic dispensing for <b>${(X.capture*100).toFixed(0)}%</b> of the patients the CRF lists on antibiotics (${X.captured} of ${X.onAbx}). ${X.capture>=0.8?"eHMS looks close to complete for this ward: the AMS secretary may confirm its integrity on Data &amp; rules.":"eHMS is incomplete for this ward, so the CRF stays the standard source."}`}</div>`:""}`
+      :`<div class="hint">No Admission Report rows for this ward${P.ward?"":" (no ward chosen)"}. Import the Admission Report and the dispensing export in the Import Hub to check eHMS against the CRF.</div>`}</div>
+  ${T.length?`<div class="panel"><h2>Consumption sheet</h2><div class="hint">${T.filter(c=>c.lv==="err").length} error(s) and ${T.filter(c=>c.lv!=="err").length} check(s) in the sheet's own figures: see <span class="linkfix" onclick="wapGo('cons')">Consumption</span>.</div></div>`:""}`; }
+
+/* ---------- Reports ---------- */
+function wapStudyCode(pid){ let h=2166136261>>>0; const s="wap|"+pid; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619)>>>0; } return "W-"+h.toString(36).toUpperCase().padStart(7,"0").slice(-7); }
+function wapStamp(P){ const rows=wapRows(P); const ms=wapMonths(rows); const C=wapCons(P);
+  return `Project: ${wapName(P)} · ward ${P.ward||"—"} · phases ${wapPhases(P).map(p=>p.name+(p.start!=null?" from "+cspFmtD(p.start):"")).join("; ")}. Source: ${wapSourceText(P)}; ${rows.length} record(s)${ms.length?", "+itsMon(ms[0])+" – "+itsMon(ms[ms.length-1]):""}. Consumption: ${C.basis}. Data source rule: ${WAP_RULE} Generated ${wapToday()} with AMS Pro v5.8.`; }
+function wapMonthlyCSV(){ const P=wapCur(); const rows=wapRows(P); const ms=wapMonths(rows); if(!ms.length) return toast("No months with data yet"); const C=wapCons(P);
+  const head=["month","phase","records"].concat(WAP_IND.flatMap(d=>d.kind==="m"?[d.k+"_mean",d.k+"_n"]:[d.k+"_num",d.k+"_den",d.k+"_pct"])).concat(["DDD","bed_days","DDD_per_100_bed_days","bed_days_source"]);
+  const out=ms.map(m=>{ const L=rows.filter(r=>r.m===m); const ph=wapPhases(P)[wapMonthPhase(P,m)]; const c=C.rows.find(r=>r.m===m);
+    return [m,ph?ph.name:"",L.length].concat(WAP_IND.flatMap(d=>{ const o=wapCalc(d,L); return d.kind==="m"?[o.n?+o.value.toFixed(3):"",o.n]:[o.x,o.n,o.n?+o.value.toFixed(2):""]; })).concat(c?[+c.ddd.toFixed(3),c.bd||"",c.value!=null?+c.value.toFixed(3):"",c.bdSrc]:["","","",""]); });
+  dl(cspFile("ward_project_monthly",safeFileName(P.ward||"ward"))+".csv",toCSV([head].concat(out).concat([[]]).concat([["Notes",wapStamp(P)]])),"text/csv"); }
+function wapCasesCSV(){ const P=wapCur(); const rows=wapRows(P); if(!rows.length) return toast("No records yet"); const K=wapSource(P)==="crf"?wapChecks(P):{flags:new Map()};
+  const head=["study_code","month","phase","age","bed_days","receiving_ab","prophylaxis","n_antibiotics","antibiotics","awaRe","routes","longest_planned_days","review_stop_written","guideline_adherence","checks"];
+  const out=rows.map(r=>{ const ds=r.abs.filter(a=>a.days!=null).map(a=>a.days); return [r.pid?wapStudyCode(r.pid):"",r.m||"",((wapPhases(P)[r.phase])||{}).name||"",r.age==null?"":r.age,r.bd==null?"":r.bd,r.onAbx==null?"":r.onAbx?"Y":"N",r.proph||"",r.abs.length,r.abs.map(a=>a.g?titleCase(a.g):a.name).join("; "),r.abs.map(a=>a.cls||"").join("; "),r.abs.map(a=>a.route||"").join("; "),ds.length?Math.max(...ds):"",r.rev==null?"":r.rev?"Y":"N",r.adh==null?"":r.adh?"Y":"N",(K.flags.get(r)||[]).map(f=>WAP_CHK[f.k][1]).join("; ")]; });
+  dl(cspFile("ward_project_cases",safeFileName(P.ward||"ward"))+".csv",toCSV([head].concat(out).concat([[]]).concat([["Notes","Study codes only; patient numbers stay on the computer that holds the data. "+wapStamp(P)]])),"text/csv"); }
+async function wapReportBlocks(P){ const rows=wapRows(P); const ms=wapMonths(rows); const C=wapCons(P); const K=wapChecks(P); const src=wapSource(P);
+  const Ph=wapPhases(P).filter(p=>rows.some(r=>r.phase===p.i)); const {a,b}=wapDefaultAB(P,rows); const R=a&&b&&a!==b?wapCompare(P,rows,a,b):null;
+  const k=P.tsInd&&(P.tsInd==="DDD"||wapIndDef(P.tsInd))?P.tsInd:(P.template==="cs"?"W2":"W1"); const S=wapSeriesAny(P,rows,k);
+  let img=null; if(S.rows.length>=2){ try{ img=await cspPng(wapChartCfg(P,S.rows,S.label,S.unit,"print",wapItsFit(P,S.rows),parseFloat((P.targets||{})[k])),1100,460); }catch(e){ console.error(e); } }
+  const msg=(P.notes||{}).message||"";
+  const blocks=[{t:"title",text:`${wapName(P)} — AMS project report`},{t:"small",text:`${DB.facility.name||""}${DB.facility.preparedBy?" · prepared by "+DB.facility.preparedBy:""} · ${wapToday()}`},
+    {t:"p",text:`**Data source.** ${wapSourceText(P)}. ${WAP_RULE}`},
+    {t:"p",text:`**Records.** ${rows.length} ${src==="crf"?"CRF 03 record(s)":"eHMS stay(s)"}${ms.length?` from ${itsMon(ms[0])} to ${itsMon(ms[ms.length-1])}`:""}.${src==="crf"&&(P.crf||[]).length?` ${K.clean} of ${(P.crf||[]).length} (${(K.clean/(P.crf||[]).length*100).toFixed(0)}%) passed every integrity check.`:""}`}];
+  if(msg) blocks.push({t:"p",text:`**Message.** ${msg}`});
+  if(Ph.length) blocks.push({t:"h1",text:"Indicators by phase"},{t:"table",head:["Indicator"].concat(Ph.map(p=>p.name)).concat(["All"]),rows:WAP_IND.map(d=>[d.k+" "+wapLabel(d,P)].concat(Ph.map(p=>wapCellTxt(d,wapCalc(d,rows.filter(r=>r.phase===p.i))))).concat([wapCellTxt(d,wapCalc(d,rows))])),note:"Percentages use only the records where the question was answered."});
+  if(R) blocks.push({t:"h1",text:`Before–after: ${wapPeriodLabel(P,a)} and ${wapPeriodLabel(P,b)}`},{t:"table",head:["Indicator",wapPeriodLabel(P,a),wapPeriodLabel(P,b),"Difference (95% CI)","p"],rows:R.map(({d,x,y,c})=>[d.k+" "+wapLabel(d,P),wapCellTxt(d,x),wapCellTxt(d,y),c?`${c.diff.toFixed(1)} ${c.unit}${c.lo!=null?` (${c.lo.toFixed(1)} to ${c.hi.toFixed(1)})`:""}`:"—",c&&c.p!=null?cspPv(c.p):"—"]),note:"Second period minus the first. Proportions: Newcombe 95% CI, chi-square or Fisher's exact test. Means: Hodges–Lehmann shift, Mann–Whitney test."});
+  if(img) blocks.push({t:"h1",text:"Month by month"},{t:"img",url:img,w:620,h:260,caption:`${S.label}, by month. Dashed lines mark the phase starts; the green dashed line is the median.`});
+  if(ms.length) blocks.push({t:"table",head:["Month","Records"].concat(["W1","W2","W3","W4","W5"].map(x=>x)).concat(["DDD/100 bed-days"]),rows:ms.map(m=>{ const L=rows.filter(r=>r.m===m); const c=C.rows.find(r=>r.m===m); return [itsMon(m),L.length].concat(["W1","W2","W3","W4","W5"].map(x=>{ const o=wapCalc(wapIndDef(x),L); return o.n?o.value.toFixed(0)+"%":"—"; })).concat([c&&c.value!=null?c.value.toFixed(1):"—"]); }),note:"W1 "+wapLabel(wapIndDef("W1"),P)+"; W2 "+wapLabel(wapIndDef("W2"),P)+"; W3 review or stop date written; W4 guideline adherence; W5 Watch antibiotic given. Consumption: "+C.basis+"."});
+  if(src==="crf"&&Object.keys(K.count).length) blocks.push({t:"h1",text:"Data integrity"},{t:"table",head:["Finding","Records"],rows:Object.entries(K.count).filter(([k])=>WAP_CHK[k][0]!=="info").map(([k,n])=>[WAP_CHK[k][1],n]),note:"Contradictions between answers on the same CRF, to be confirmed from the notes."});
+  if((P.notes||{}).challenges) blocks.push({t:"h1",text:"Challenges"},{t:"p",text:P.notes.challenges}); if((P.notes||{}).lessons) blocks.push({t:"h1",text:"Lessons learned"},{t:"p",text:P.notes.lessons});
+  blocks.push({t:"small",text:wapStamp(P)});
+  return {title:`${wapName(P)} — AMS project report`,blocks,file:cspFile("ward_project_report",safeFileName(P.ward||"ward"))}; }
+async function wapReport(fmt,btn){ const b=document.getElementById(btn); const old=b?b.textContent:""; try{ if(b){ b.textContent="Preparing…"; b.disabled=true; }
+    const P=wapCur(); const r=await wapReportBlocks(P); if(fmt==="docx"){ await cspToDocx(r.title,r.blocks,r.file+".docx",DB.facility.name||""); toast(r.title+" downloaded"); } else cspToPrint(r.title,r.blocks);
+  }catch(e){ console.error(e); toast("Could not prepare the report: "+(e&&e.message||e)); } finally{ if(b){ b.textContent=old; b.disabled=false; } } }
+function wapNote(k,v){ const P=wapCur(); P.notes=P.notes||{}; P.notes[k]=v; wapSave(); }
+function wapRepTab(P){ return `<div class="panel"><h2>Project report</h2><div class="sub">Indicators by phase, the before–after table chosen on Before–after, the run chart of the indicator chosen on Time series, the monthly table, the integrity findings and the source of every figure. Word opens for editing; the printable page goes to paper or PDF.</div>
+    <div class="field"><label>The project's one message (optional)</label><textarea rows="3" onchange="wapNote('message',this.value)">${esc((P.notes||{}).message||"")}</textarea></div>
+    <div class="row" style="margin-top:10px"><button class="btn" id="wap-r-d" onclick="wapReport('docx','wap-r-d')">Word</button><button class="btn ghost" id="wap-r-p" onclick="wapReport('print','wap-r-p')">Printable page / PDF</button>
+      <button class="btn ghost" onclick="wapMonthlyCSV()">Monthly indicators (CSV)</button><button class="btn ghost" onclick="wapCasesCSV()">Records with study codes (CSV)</button></div>
+    <div class="grid" style="margin-top:12px"><div class="field"><label>Challenges</label><textarea rows="4" onchange="wapNote('challenges',this.value)">${esc((P.notes||{}).challenges||"")}</textarea></div><div class="field"><label>Lessons learned</label><textarea rows="4" onchange="wapNote('lessons',this.value)">${esc((P.notes||{}).lessons||"")}</textarea></div></div>
+    <div class="hint" style="margin-top:8px">Figures are aggregate. The records file uses study codes; patient numbers never leave this computer.</div></div>`; }
+
+/* ---------- the page dispatcher: ward projects, or the C/S eHMS engine ---------- */
+function renderCsp(){ if(wapMode==="engine") return renderCspEngine(); return renderWap(); }
+
+/* ---------- live demo only: a simulated CRF 03 and consumption sheet for the sample hospital ---------- */
+function wapDemo(){ const wards=cspAdmWards().map(x=>x[0]); if(!wards.length) return;
+  const S=cspS(); const re=cspRe(S.csRe); const csWard=wards.find(w=>re.test(w))||wards.find(w=>/obst|matern|labou?r|post\s*nat|gyn/i.test(w))||wards[0];
+  const order=cspDateOrder((DB.admitTx||[]).map(r=>r.dateAdmitted)); const stays=(DB.admitTx||[]).filter(r=>r._primary!==false&&(r.ward||"").trim()===csWard).map(r=>({r,a:cspDay(r.dateAdmitted||r.date,order),d:cspDay(r.dateDischarged,order)})).filter(x=>x.a!=null);
+  if(!stays.length) return; const hi=Math.max(...stays.map(x=>x.a)); const from=cspDay(wrtAddMonth(cspMonth(hi),-14)+"-01"); const change=cspDay(wrtAddMonth(cspMonth(hi),-7)+"-01");
+  const rnd=cspRand(20261121); const pick=a=>a[Math.floor(rnd()*a.length)];
+  const AB={cro:["Ceftriaxone Injection 1g","IV"],mtz:["Metronidazole Injection 500mg/100ml","IV"],amp:["Ampicillin + Cloxacillin Capsules 250mg + 250mg","PO"],amc:["Amoxicillin + Clavulanic Acid Tablets 625mg","PO"],mtzo:["Metronidazole Tablets 200mg","PO"],gen:["Gentamicin Injection 80mg/2ml","IV"]};
+  const P=wapNewProject("cs",csWard); P.name=csWard+" · C/S prophylaxis (demo)"; P.phases=[{name:"Baseline",start:""},{name:"SOPs and checklist",start:numDay(change)}];
+  const tally={}; const T=(m,k,u)=>{ (tally[m]=tally[m]||{}); tally[m][k]=(tally[m][k]||0)+u; };
+  stays.filter(x=>x.a>=from).sort((x,y)=>x.a-y.a).forEach((x,i)=>{ const after=x.a>=change; const m=cspMonth(x.a); const ramp=after?Math.min(1,(x.a-change)/60):0;
+    const d=x.d!=null&&x.d>=x.a&&numDay(x.d)>="2000"?x.d:null; const bd=d!=null?Math.max(1,d-x.a):1+Math.floor(rnd()*4);
+    const rec=rnd()<(after?0.97:0.9); const abs=[]; let proph=null;
+    if(rec){ const long=rnd()<(after?0.45-0.3*ramp:0.62); proph=long?"gt24":"le24"; const days=long?2+Math.floor(rnd()*3):1;
+      abs.push(wapAb(AB.cro[0],AB.cro[1],days),wapAb(AB.mtz[0],AB.mtz[1],days)); T(m,"cro",days); T(m,"mtz",days*3);
+      if(rnd()<(after?0.4-0.3*ramp:0.55)){ const o=rnd()<(after?0.3:0.6)?"amp":"amc"; abs.push(wapAb(AB[o][0],AB[o][1],5),wapAb(AB.mtzo[0],AB.mtzo[1],5)); T(m,o,o==="amp"?20:15); T(m,"mtzo",30); }
+      if(rnd()<0.04){ abs.push(wapAb(AB.gen[0],AB.gen[1],3)); T(m,"gen",3); } } else proph="no";
+    const listedAnyway=!rec&&rnd()<0.05; if(listedAnyway) abs.push(wapAb(AB.cro[0],AB.cro[1],1));
+    P.crf.push({pid:cspPid(x.r.patientId),sno:""+(i+1),age:num(x.r.age),adm:x.a,admT:null,dis:d,disT:null,disPh:d==null,disBad:false,bdCol:bd,proc:"Caesarean section",dx:"",rec,recRaw:rec?"Y":"N",proph,prophRaw:proph==="le24"?"<24h":proph==="gt24"?">24h":"No",abs,
+      rev:rec?rnd()<(after?0.25+0.5*ramp:0.08):null,revRaw:rec?"Y":"",adh:rec?(proph==="gt24"?rnd()<0.08:rnd()<(after?0.7+0.25*ramp:0.55)):null,adhRaw:rec?"Y":"",ref:"",ward:"",timing:"",file:"Demo_CRF03_"+safeFileName(csWard).replace(/\s+/g,"_")+".xlsx",row:i+2}); });
+  P.crf.forEach(r=>{ if(r.rev==null) r.revRaw=""; else r.revRaw=r.rev?"Y":"N"; if(r.adh==null) r.adhRaw=""; else r.adhRaw=r.adh?"Y":"N"; });
+  P.files=[{name:P.crf[0]?P.crf[0].file:"Demo_CRF03.xlsx",at:wapToday(),sheet:"CRF3",headerRow:1,rows:P.crf.length,months:[...new Set(P.crf.map(r=>cspMonth(r.adm)))].sort(),totals:[]}];
+  const NM={cro:"Ceftriaxone Injection 1g",mtz:"Metronidazole Injection 500mg/100ml",amp:"Ampicillin + Cloxacillin Capsules 250mg + 250mg",amc:"Amoxicillin + Clavulanic Acid Tablets 625mg",mtzo:"Metronidazole Tablets 200mg",gen:"Gentamicin Injection 80mg/2ml"};
+  DB.wardUse=(DB.wardUse||[]).filter(x=>x.ward!==csWard);
+  Object.entries(tally).forEach(([m,o])=>Object.entries(o).forEach(([k,u])=>{ const name=NM[k]; const g=wapGeneric(name); const t={itemRaw:name,drugMatched:titleCase(g),qty:1,route:/inj/i.test(name)?"IV":"PO"}; const dd=whoDddFor(t,{});
+    DB.wardUse.push({ward:csWard,m,itemRaw:name,generic:titleCase(g),cls:classifyAware(g,undefined,dddRoute(t))||"Unclassified",route:dddRoute(t),units:Math.round(u),dddPerUnit:dd.ddd,dddSrc:dd.ddd==null?"":"WHO",dddWhy:dd.ddd==null?dd.why:"",file:"Demo consumption sheet",at:wapToday()}); }));
+  const W=wapS(); W.projects=[P];
+  /* a second project on a medical ward, run from eHMS with the AMS secretary's confirmation */
+  const med=wards.find(w=>w!==csWard&&/medic|female|male|paed|pediat/i.test(w))||wards.find(w=>w!==csWard);
+  if(med){ const Q=wapNewProject("general",med); Q.name=med+" · antibiotic use (demo)"; Q.phases=[{name:"Baseline",start:""},{name:"Weekly AMS ward rounds",start:"2026-04-01"}];
+    Q.source="ehms"; Q.integrity={ok:true,by:"AMS secretary (demo)",date:"2026-03-20",note:"30 files compared with eHMS for February (demo)"}; W.projects.push(Q); }
+  W.cur=P.id; wapTab="overview"; wapMode="project"; }
+
+/* ---------- Quick answer on the Dashboard: how much of one antibiotic was used in the last few months? (v5.8) ----------
+   The question an AMS committee asks most ("what was the DDD of ceftriaxone for the last three months?"), answered
+   from the same matched dispensing lines, WHO DDDs and ward scope as the rest of AMS Pro. Bed-days come from the
+   Admission Report (each day in its own month), so the ward names must match the dispensing departments. */
+function askState(){ window._ask=window._ask||{}; return window._ask; }
+function askSet(k,v){ askState()[k]=v; renderDash(); }
+function askData(){ const tx=scopedPharmacyTx().filter(t=>t.drugMatched); const ms=new Set(), drugs={}, depts={};
+  tx.forEach(t=>{ const d=dayNum(t.date); if(d==null) return; ms.add(numDay(d).slice(0,7)); drugs[t.drugMatched]=(drugs[t.drugMatched]||0)+1; const w=(t.department||"").trim(); if(w) depts[w]=(depts[w]||0)+1; });
+  return {tx,months:[...ms].sort(),drugs:Object.entries(drugs).sort((a,b)=>b[1]-a[1]).map(x=>x[0]),depts:Object.entries(depts).sort((a,b)=>b[1]-a[1]).map(x=>x[0])}; }
+function askAnswer(){ const A=askState(); const D=askData(); if(!D.months.length||!D.drugs.length) return null;
+  const drug=A.drug&&D.drugs.includes(A.drug)?A.drug:(D.drugs.find(g=>/^ceftriaxone$/i.test(g))||D.drugs[0]);
+  const n=Math.max(1,Math.min(24,+A.n||3)); const ward=A.ward&&D.depts.includes(A.ward)?A.ward:"";
+  const last=D.months[D.months.length-1]; const months=[]; for(let k=n-1;k>=0;k--) months.push(wrtAddMonth(last,-k)); const inM=new Set(months);
+  const L=D.tx.filter(t=>t.drugMatched===drug&&(!ward||(t.department||"").trim()===ward)&&(()=>{ const d=dayNum(t.date); return d!=null&&inM.has(numDay(d).slice(0,7)); })());
+  const byM={}; months.forEach(m=>byM[m]={ddd:0,units:0,lines:0,noDdd:0});
+  L.forEach(t=>{ const o=byM[numDay(dayNum(t.date)).slice(0,7)]; o.lines++; o.units+=num(t.qty)||0; if(t.dddContribution!=null) o.ddd+=+t.dddContribution; else o.noDdd++; });
+  const sum=k=>months.reduce((s,m)=>s+byM[m][k],0);
+  const admWards=[...new Set((DB.admitTx||[]).filter(r=>r._primary!==false).map(r=>(r.ward||"").trim()).filter(Boolean))];
+  const scope=(DB.facility.wardScope||[]).length?admWards.filter(w=>inWardScope(w)):admWards;
+  const B=itsBedDays(ward?[ward]:scope); const bd=months.reduce((s,m)=>s+(B.by[m]||0),0);
+  const C=itsCoverage(); const partial=months.filter(m=>C.medDays&&(C.days[m]||0)<0.8*C.medDays);
+  const cls=(L[0]&&L[0].awareCls)||classifyAware(drug.toLowerCase())||"";
+  return {drug,n,ward,months,byM,ddd:sum("ddd"),units:sum("units"),lines:sum("lines"),noDdd:sum("noDdd"),bd,per100:bd?sum("ddd")/bd*100:null,cls,partial,D}; }
+function askPanel(){ let R; try{ R=askAnswer(); }catch(e){ console.error(e); return ""; } if(!R) return "";
+  const D=R.D; const mon=m=>itsMon(m); const per=R.months.length>1?`${mon(R.months[0])} – ${mon(R.months[R.months.length-1])}`:mon(R.months[0]);
+  const ss='style="background:var(--panel2);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:6px 9px;font-size:13px;font-family:inherit"';
+  const pill=c=>{ const s=(c||"").toLowerCase(); return s==="access"?"access":s==="watch"?"watch":s==="reserve"?"reserve":/not/.test(s)?"nr":"unc"; };
+  return `<div class="panel" style="border-color:var(--accent)"><h2>Quick answer</h2>
+    <div class="row" style="gap:10px;align-items:center;flex-wrap:wrap;font-size:14px"><span>How much</span>
+      <select ${ss} onchange="askSet('drug',this.value)">${D.drugs.map(g=>`<option ${g===R.drug?"selected":""}>${esc(g)}</option>`).join("")}</select>
+      <span>was used in the last</span><select ${ss} onchange="askSet('n',+this.value)">${[1,2,3,6,12].map(k=>`<option value="${k}" ${k===R.n?"selected":""}>${k} month${k>1?"s":""}</option>`).join("")}</select>
+      <span>on</span><select ${ss} onchange="askSet('ward',this.value)"><option value="">all wards in scope</option>${D.depts.map(w=>`<option ${w===R.ward?"selected":""}>${esc(w)}</option>`).join("")}</select><span>?</span></div>
+    <div class="kpis" style="margin:14px 0 6px">
+      <div class="kpi"><div class="v big">${R.ddd.toLocaleString(undefined,{maximumFractionDigits:1})}</div><div class="l">DDD of ${esc(R.drug)} <span class="pill ${pill(R.cls)}">${esc(R.cls||"—")}</span></div><div class="hint" style="margin-top:4px">${esc(per)}${R.ward?" · "+esc(R.ward):""}</div></div>
+      <div class="kpi"><div class="v">${R.per100!=null?R.per100.toFixed(1):"—"}</div><div class="l">DDD per 100 bed-days</div><div class="hint" style="margin-top:4px">${R.bd?`${R.bd.toLocaleString()} bed-days from the Admission Report${R.per100!=null?` · ${(R.per100*10).toFixed(0)} per 1,000 patient-days`:""}`:"no bed-days: import the Admission Report"}</div></div>
+      <div class="kpi"><div class="v">${R.units.toLocaleString()}</div><div class="l">Units dispensed</div><div class="hint" style="margin-top:4px">${R.lines.toLocaleString()} dispensing line(s)</div></div></div>
+    <div class="hint">Month by month: ${R.months.map(m=>`${mon(m)} <b>${R.byM[m].ddd.toLocaleString(undefined,{maximumFractionDigits:1})}</b> DDD`).join(" · ")}.${R.noDdd?` ${R.noDdd} line(s) have no WHO DDD (a combination, or no strength in the item name) and are not in the DDD.`:""}${R.partial.length?` <b>${R.partial.map(mon).join(", ")}</b> look${R.partial.length>1?"":"s"} incomplete in the export (fewer dispensing days than usual).`:""} DDD = WHO ATC/DDD values applied to the strength in each item name, as on Consumption and Prescriptions.</div></div>`; }
+
 /* ===================== AMS WARD ROUNDS =====================
    A one-page round form, pre-filled from the dispensing export, filled in at the bedside,
    typed in afterwards by the team secretary, and summarised month by month.            */
@@ -32704,6 +33367,7 @@ function demoProjects(){
   const S=cspS();
   S.phases=[{name:"Baseline",start:"2024-01-01"},{name:"Training (run-in)",start:"2025-06-02",transition:true},{name:"SOPs and checklist",start:"2025-07-01"}];
   S.end="2026-09-30"; S.cmpEnd=""; S.itsPhases=null; S.cmpA=0; S.cmpB=2; window._cspCache=null;
+  try{ wapDemo(); }catch(e){ console.error(e); }
   // AMS ward rounds: a weekly round on three wards from April to September, filled in by a simulated team
   const X=wrIndex(); if(X.maxD==null) return;
   const wards=wrWardList().filter(w=>!/obstet|gyn|neonat|intensive|\bicu\b|opd/i.test(w)).slice(0,3); if(!wards.length) return;
@@ -32744,7 +33408,7 @@ const VW_STAGE={
     mods:["entry","doseref","consumption","prescriptions","inrud","indicators","crf","export"]},
   building:{label:"Building",note:"Act on patients and feed back: daily review lists, ward rounds, culture results, run charts, recognition.",
     mods:["entry","doseref","consumption","prescriptions","inrud","indicators","crf","export","timeout","wr","antibiogram","bugdrug","patients","spc","wins","economics","discrep"]},
-  advanced:{label:"Advanced",note:"Run and evaluate projects: the C/S project, Did It Work?, intervention impact, time series, trends and improvement cycles.",
+  advanced:{label:"Advanced",note:"Run and evaluate projects: ward AMS projects (any ward, CRF 03), Did It Work?, intervention impact, time series, trends and improvement cycles.",
     mods:null}};                                                  // null = every module
 const VW_ROLE={
   ams:{label:"AMS team (pharmacist, AMS secretary)",mods:null},   // null = follows the AMS stage
@@ -33319,7 +33983,8 @@ function mdaCheck(){ const out=[], add=(id,name,page,st,detail,todo)=>out.push({
   { const lab=DB.labTx||[], tat=lab.filter(r=>r.tatMet==="Y"||r.tatMet==="N").length;
     add("lab","Laboratory indicators (turnaround time, AMR-2)","indicators",!lab.length?"optional":tat?"ready":"limited",!lab.length?"No laboratory file loaded.":`${lab.length.toLocaleString()} laboratory records; ${tat.toLocaleString()} with a turnaround-time result.`,!lab.length?"Optional: the turnaround-time log (sample collected and result submission times).":tat?"":"A test-order log has no TAT flags; import the turnaround-time log."); }
   { const su=DB.surgeryTx||[], cs=su.filter(r=>cspRe(cspS().csRe).test(r.operation||"")).length;
-    add("csp","C/S Prophylaxis Project","csp",!su.length?"optional":cs&&pid?"ready":"limited",!su.length?"No Surgery Patients Report loaded.":`${su.length.toLocaleString()} operations, ${cs.toLocaleString()} caesarean sections.`+(pid?"":" The dispensing export has no patient numbers, so prophylaxis cannot be linked."),!su.length?"Optional: the Surgery Patients Report, with dispensing from at least 7 days before the first operation.":""); }
+    { const Wp=((DB.wap||{}).projects||[]); const nW=Wp.reduce((s,p)=>s+(p.crf||[]).length,0); add("wap","Ward AMS Projects","csp",nW?"ready":"optional",nW?`${Wp.length} project(s), ${nW.toLocaleString()} CRF 03 record(s).`:"No CRF 03 records imported.",nW?"":"Optional: the AMS secretary's CRF 03 for the project ward and the ward's consumption sheet."); }
+    add("csp","C/S eHMS cohort engine","csp",!su.length?"optional":cs&&pid?"ready":"limited",!su.length?"No Surgery Patients Report loaded.":`${su.length.toLocaleString()} operations, ${cs.toLocaleString()} caesarean sections.`+(pid?"":" The dispensing export has no patient numbers, so prophylaxis cannot be linked."),!su.length?"Optional: the Surgery Patients Report, with dispensing from at least 7 days before the first operation.":""); }
   { const W=(DB.wr&&DB.wr.rounds)||[]; add("wr","AMS Ward Rounds","wr",W.length?"ready":"optional",W.length?`${W.length} ward round${W.length>1?"s":""} entered.`:"No ward rounds entered.",W.length?"":"Optional: print the ward-round form, then enter or import the completed forms."); }
   add("inrud","WHO/INRUD indicators","inrud",!tx.length?"no":tx.filter(t=>(""+(t.patientId||"")).trim()).length?"ready":"no",tx.length?`Whole basket: ${tx.length.toLocaleString()} lines (drugs and supplies).`:"No dispensing lines.",tx.length&&!tx.filter(t=>(""+(t.patientId||"")).trim()).length?"Encounters need a patient number on each line.":"");
   add("cost","Cost & Impact","economics",!n||!price?"no":price<n?"limited":"ready",n?`Price on ${pc(price)} of antibiotic lines.`:"No antibiotic lines.",!price?"Export the price column with the dispensing report.":"");
@@ -33375,7 +34040,8 @@ function renderMinData(){ const el=$("#v-mindata"); if(!el) return; const I=mdaC
     <tr><td><b>Antibiogram</b></td><td>Culture results with R/I/S per antibiotic (WHONET listing)</td><td>Specimen date and type</td><td>30 isolates per organism–antibiotic cell; first isolate per patient per organism</td><td>CLSI M39</td></tr>
     <tr><td><b>Bug–drug Check</b></td><td>Culture results and dispensing with the same patient numbers</td><td>–</td><td>–</td><td>–</td></tr>
     <tr><td><b>Time-out, Patients, Prescriptions</b></td><td>Dispensing with patient numbers and dates</td><td>Dosage text (IV days, duration); procedures or surgery list for prophylaxis</td><td>–</td><td>–</td></tr>
-    <tr><td><b>C/S Prophylaxis Project</b></td><td>Surgery Patients Report and dispensing with patient numbers, from 7 days before the first operation</td><td>Admissions, laboratory, WHONET, store issues for the same months</td><td>30 days of follow-up for infection signals; 12 usable weeks and 4 on each side of a phase start for the time series</td><td>–</td></tr>
+    <tr><td><b>Ward AMS Projects</b></td><td>The AMS secretary&rsquo;s CRF 03 for the ward (standard), or the Admission Report and dispensing when the AMS secretary confirms their integrity</td><td>The ward&rsquo;s consumption sheet (units per drug per month)</td><td>8 months, 3 on each side of a phase start, for the time series</td><td>&ndash;</td></tr>
+    <tr><td><b>C/S eHMS cohort engine</b></td><td>Surgery Patients Report and dispensing with patient numbers, from 7 days before the first operation</td><td>Admissions, laboratory, WHONET, store issues for the same months</td><td>30 days of follow-up for infection signals; 12 usable weeks and 4 on each side of a phase start for the time series</td><td>–</td></tr>
     <tr><td><b>AMS Ward Rounds</b></td><td>Completed ward-round forms</td><td>–</td><td>–</td><td>–</td></tr>
     <tr><td><b>WHO/INRUD indicators</b></td><td>The whole dispensing basket with patient numbers</td><td>–</td><td>–</td><td>WHO/DAP/93.1</td></tr>
     <tr><td><b>Cost &amp; Impact</b></td><td>Price on the dispensing lines</td><td>–</td><td>–</td><td>–</td></tr>
@@ -34673,7 +35339,7 @@ function renderMentry(){
   function tzs(n){return n==null?"—":"TZS "+fmt(n);}
 
   ODM_SHOW.init({
-    tool:"ams",name:"AMS Pro",version:"5.7",mark:"AMS",sampleTool:"ams",
+    tool:"ams",name:"AMS Pro",version:"5.8",mark:"AMS",sampleTool:"ams",
     accent:"#2f81f7",accent2:"#79b8ff",soft:"rgba(47,129,247,.20)",soft2:"rgba(47,129,247,.08)",
     kicker:"Antimicrobial stewardship",tagline:"Three years of a hospital's own exports, read in minutes: how much, which antibiotics, where, at what cost, and what the laboratory sees.",
     hospital:"Demo Regional Referral Hospital",layout:"Afya eHMS export layout",hospitalName:function(){return (DB.facility&&DB.facility.name)||"";},hasData:function(){return scopedPharmacyTx().length>0;},
