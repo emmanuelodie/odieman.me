@@ -4,368 +4,294 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="Odindo Emmanuel Thomas">
-<meta name="description" content="From data collection to data-driven decisions. AMS Pro, PPS Pro and VigiWard — offline, single-file tools for antimicrobial stewardship, WHO point prevalence surveys and pharmacovigilance, built and tested on real hospital data in Tanzania. Try them live in your browser.">
-<title>Odieman Health Tools — AMS, PPS &amp; pharmacovigilance tools for African hospitals</title>
-<link rel="stylesheet" href="style.css">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="description" content="56th PST Scientific Conference & AGM, Mwanza, 25–27 November 2026 — try AMS Pro, PPS Pro and VigiWard live in your browser, read the questions people ask about each tool and the Forum 5 panel answers, take the tools home, and help carry them forward.">
+<title>PST 2026, Mwanza — Odieman Health Tools</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <style>
-.req{margin-top:22px;padding:20px 22px;border:1px solid var(--paper-line,#ddd8cc);border-radius:10px;}
-.req h3{margin:0 0 14px;font-size:18px;color:var(--navy-deep,#1d2f4f);}
-.req-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px;}
-.req-grid .wide{grid-column:1/-1;}
-.req label{display:flex;flex-direction:column;gap:4px;font-size:14px;color:var(--ink,#222);}
-.req label.chk{flex-direction:row;align-items:flex-start;gap:8px;}
-.req label.chk input{margin-top:3px;}
-.req input:not([type=checkbox]),.req select,.req textarea{font:inherit;font-size:15px;padding:8px 10px;border:1px solid var(--paper-line,#ccc);border-radius:6px;background:#fff;color:var(--ink,#222);width:100%;box-sizing:border-box;}
-.req input:focus,.req select:focus,.req textarea:focus{outline:2px solid var(--teal,#2a7f7a);outline-offset:1px;}
-.req fieldset{border:0;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px 22px;}
-.req legend{font-size:14px;padding:0;margin-bottom:6px;color:var(--ink,#222);}
-.req .opt{color:var(--ink-soft,#666);font-weight:normal;}
-.req-err{color:#B42318;font-size:14px;min-height:1px;margin:10px 0 6px;}
-.req-note{margin:12px 0 0;}
-.req .btn{cursor:pointer;border:0;}
-.req-actions{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 6px;}
-.req-dl{margin:14px 0 0;padding:0;list-style:none;}
-.req-dl li{padding:8px 0;border-top:1px solid var(--paper-line,#ddd);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
-.req-link{background:none;border:0;padding:0;font:inherit;color:var(--teal,#2a7f7a);text-decoration:underline;cursor:pointer;}
-@media (max-width:640px){.req{padding:16px;}.req-grid{grid-template-columns:1fr;}}
+.tour li a{font-family:"Segoe UI",sans-serif;font-size:14px;font-weight:600;color:var(--teal);white-space:nowrap;}
+.scan-btn.book{background:var(--ochre);}
+.scan-btn.book span{color:#FDEBD3;}
+.scan-btn.book:hover{background:#92400E;}
+section[id]{scroll-margin-top:170px;}
+.qa-group{margin:0 0 22px;}
+.qa-group h3{font-size:20px;color:var(--navy-deep);margin:24px 0 10px;}
+details.qa{background:#fff;border:1px solid var(--paper-line);border-left:4px solid var(--teal);margin:0 0 8px;}
+details.qa summary{cursor:pointer;list-style:none;padding:12px 16px 12px 14px;font-family:"Segoe UI",sans-serif;font-size:15.5px;font-weight:600;color:var(--ink);}
+details.qa summary::-webkit-details-marker{display:none;}
+details.qa summary::before{content:"+";display:inline-block;width:20px;color:var(--teal);font-weight:700;}
+details.qa[open] summary::before{content:"\2013";}
+details.qa > div{padding:0 18px 12px 34px;}
+details.qa p{margin:0 0 8px;font-size:15.5px;color:var(--ink-soft);line-height:1.6;}
+.qa-all{font-family:"Segoe UI",sans-serif;font-size:14px;font-weight:600;}
+.panel-q{background:#fff;border:1px solid var(--paper-line);border-left:4px solid var(--navy-deep);padding:16px 20px 8px;margin:0 0 14px;}
+.panel-q h3{margin:0 0 4px;font-size:20px;color:var(--navy-deep);}
+.panel-q .asked{font-family:"Segoe UI",sans-serif;font-size:14px;color:var(--ink-soft);font-style:italic;margin:0 0 12px;}
+.panel-q p{font-size:15.5px;color:var(--ink-soft);margin:0 0 10px;line-height:1.6;}
+.panel-q p b{color:var(--ink);}
 </style>
 </head>
 <body>
 
 <header class="site">
   <div class="nav-inner">
-    <a href="#" class="brand"><img src="odieman-logo.png" width="181" height="50" alt="Odieman Health Tools"></a>
+    <a href="../index.html" class="brand"><img src="../odieman-logo.png" width="181" height="50" alt="Odieman Health Tools"></a>
     <nav class="links sans">
-      <a href="#tools">Tools</a>
-      <a href="#demo">Live demos</a>
-      <a href="story.html">The story</a>
-      <a href="methodology.html">Methodology</a>
-      <a href="technical.html">Technical</a>
-      <a href="#download">Get the tools</a>
-      <a href="books.html">Books</a>
-      <a href="#about">About</a>
-      <a href="pst/">PST 2026</a>
+      <a href="#path">Start here</a>
+      <a href="#poster">Poster</a>
+      <a href="#why">Why</a>
+      <a href="#try">Try it</a>
+      <a href="#questions">Questions</a>
+      <a href="#panel">Panel</a>
+      <a href="#forward">Carry it forward</a>
+      <a href="#books">Books</a>
+      <a href="#contact">Contact</a>
     </nav>
   </div>
 </header>
 
 <main class="wrap">
-
-  <section class="hero">
-    <a class="pst-flag" href="pst/">At PST 2026 in Mwanza, 25&ndash;27 November? Start here &rarr;</a>
-    <p class="kicker sans">Built and tested on real hospital data in Tanzania</p>
-    <h1>From data collection to data-driven decisions.</h1>
-    <p class="lede">Pharmacists already collect the data: every dispensing, admission and laboratory result is recorded. Three offline, single-file tools — <b>AMS Pro</b>, <b>PPS Pro</b> and <b>VigiWard</b> — take the exports your hospital system already produces and turn them into analysis, one-click reports and decisions guided by data, not impressions. For antimicrobial stewardship, WHO point prevalence surveys and pharmacovigilance, with no IT department needed.</p>
-    <div class="cta-row">
-      <a href="#demo" class="btn primary sans">Try a live demo</a>
-      <a href="#download" class="btn ghost sans">Get the tools</a>
-    </div>
-    <div class="pst-strip"><span>Meet us at the <b>56th PST Scientific Conference &amp; AGM</b> &middot; Mwanza &middot; 25&ndash;27 November 2026</span><a href="pst/">Conference page &rarr;</a></div>
+  <section class="page-hero">
+    <p class="event">56th PST Scientific Conference &amp; AGM &middot; 25&ndash;27 November 2026 &middot; Kwatunza Beach Conference Hall, Mwanza</p>
+    <h1>The data is already collected. These tools turn it into stewardship.</h1>
+    <p class="lede">Welcome — you probably scanned the poster. Hospital systems such as Afya eHMS already record almost everything an antimicrobial stewardship or pharmacovigilance team needs. What was missing was a tool to assemble and analyse it. Here are three — offline, free for Tanzania&rsquo;s public health facilities, built by a hospital pharmacy technician.</p>
+    <p class="whatsnew">Following the discussion? <a href="#questions">The questions people ask about each tool</a> and <a href="#panel">the Forum 5 panel questions, answered in full</a>, are further down this page.</p>
   </section>
 
-  <div class="stats sans">
-    <div class="stat"><span class="n">3</span><span class="l">tools in active hospital use</span></div>
-    <div class="stat"><span class="n">1 click</span><span class="l">from the hospital's export to a committee report</span></div>
-    <div class="stat"><span class="n">33</span><span class="l">months of open sample data to try every tool</span></div>
-    <div class="stat"><span class="n">0</span><span class="l">bytes of patient data ever leave the browser</span></div>
-  </div>
+  <section id="path" style="padding-top:4px;">
+    <h2>Start here: four steps, in this order</h2>
+    <ol class="tour">
+      <li><b>Watch one tool work.</b> Open a live demo and press <b>&#9733; Showcase</b>: the tool starts empty and builds its figures and reports as the hospital&rsquo;s files go in. <a href="#try">Choose a tool &darr;</a></li>
+      <li><b>Take the tools home.</b> Free for Tanzania&rsquo;s public health facilities. One short form. <a href="../get/">Request the tools &rarr;</a></li>
+      <li><b>Save my contact.</b> One tap adds me to your phone, so we can talk after Mwanza. <a href="odindo-emmanuel-thomas.vcf">Save contact</a></li>
+      <li><b>Then read something different.</b> I also write books, as Emmanuel Odie: one on faith, one a comedy about the mathematics that built the world. Both free. <a href="#books">See the books &darr;</a></li>
+    </ol>
+  </section>
+  <section id="poster" style="padding-top:6px;">
+    <h2>The poster</h2>
+    <p class="kv" style="margin:0 0 6px;">Sub-theme: Digital Health and Innovation in Pharmacy</p>
+    <h3 style="font-size:21px;line-height:1.3;color:var(--navy-deep);margin:0 0 12px;">Offline Digital Tools for Point Prevalence Surveys, Antimicrobial Consumption Monitoring and Ward-Level ADR Detection at Tanga Regional Referral Hospital</h3>
+    <p class="sans" style="font-size:15px;color:var(--ink);line-height:1.6;margin:0 0 4px;"><b>Odindo Emmanuel Thomas</b><sup>1</sup>, <b>Zalha Nuhu</b><sup>2</sup></p>
+    <p class="kv" style="margin:0 0 18px;line-height:1.6;"><sup>1</sup> Matema Health Center, Kyela District Council, Mbeya, Tanzania<br><sup>2</sup> Tanga Regional Referral Hospital (Bombo), Tanga, Tanzania</p>
+    <div class="abstract">
+      <p><b>Background.</b> Hospital AMS teams in Tanzania are asked to do a lot with very little. They run point prevalence surveys, monitor antibiotic use and watch for adverse drug reactions, mostly on paper forms and spreadsheets that take days to clean and analyse. By the time a report reaches the committee, the data is often old. ADR reporting from the wards remains low, because busy ward staff do not see it as part of their daily work. We set out to build simple, affordable tools that let pharmacy staff collect, analyse and report their own data without internet access.</p>
+      <p><b>Methods.</b> Drawing on three years of supporting the Tanga RRH AMS committee, we developed the Odieman suite, three linked offline tools. PPS Pro handles point prevalence surveys using WHO methodology. AMS Pro tracks antimicrobial consumption through DDD and DOT trends, Pareto analysis and cost estimates, and supports PDCA improvement cycles. VigiWard looks for ADR signals at ward level and analyses NCD and cardiometabolic patterns from routine pharmacy data. All three share one data source.</p>
+      <p><b>Results.</b> The tools are in routine use by the AMS and pharmacovigilance teams at Tanga RRH. With PPS Pro, analysis is fully automated: once data collection ends, a complete PPS report is available with one click, while the findings are still relevant. Consumption and ADR data become committee-ready charts and reports the same way, on an ordinary computer without internet.</p>
+      <p><b>Conclusion.</b> Practical digital tools can be built locally, by the people who do the work, at low cost. Timely PPS and consumption results allow early decisions on antibiotic use, while VigiWard brings pharmacovigilance closer to the wards, where most ADRs happen but few are reported. With support, these tools could reach other facilities and strengthen Tanzania&rsquo;s National Action Plan on AMR and ADR reporting to TMDA.</p>
+      <p class="kv"><b>Keywords:</b> antimicrobial stewardship, point prevalence survey, pharmacovigilance, digital health, Tanzania</p>
+    </div>
+    <p class="kv" style="margin-top:10px;">Presenting author: Odindo Emmanuel Thomas &middot; <a href="Abstract_PST2026_Odindo.pdf" download>Download the abstract (PDF)</a></p>
+  </section>
 
   <section id="why">
-    <h2>Why these tools exist</h2>
-    <p class="section-note">Too much of pharmacy data stops at collection: it is recorded, stored and summarised by hand, and reaches the committee days or weeks later. These tools exist to move pharmacists along the whole line, so the same data ends in a decision.</p>
-    <div class="stats sans">
-      <div class="stat"><span class="n">Collect</span><span class="l">what the hospital system already records; no new forms</span></div>
-      <div class="stat"><span class="n">Analyse</span><span class="l">AWaRe, DDD and DOT, prevalence, ADR signals: done by the tool</span></div>
-      <div class="stat"><span class="n">Report</span><span class="l">one click: committee report, ward feedback, WHO and TMDA formats</span></div>
-      <div class="stat"><span class="n">Decide</span><span class="l">which ward, which drug, which patient to act on first</span></div>
+    <h2>Why I built each tool</h2>
+    <p class="section-note">Each of these tools started as a problem on my own desk.</p>
+    <div class="abstract" style="margin-bottom:16px;border-left-color:var(--ochre)">
+      <p><b>Where it began &middot; 400 prescriptions, 2024.</b> Our hospital pharmacist asked me to sample 400 handwritten prescriptions and analyse them against the WHO core prescribing indicators, with a prescription audit, in two weeks. When I presented the findings to the pharmacy department, nobody agreed with them. The hospital pharmacist gave me one more week and a colleague to help: a gesture I have never forgotten, and from then on I never wanted to let my team down. We redid the analysis, the department supported the findings, and I presented them to the whole hospital meeting. That work helped start the move to electronic prescriptions, which not every doctor had accepted before. Today the same indicators come from every electronic prescription, on AMS Pro&rsquo;s <i>WHO/INRUD Indicators</i> page.</p>
     </div>
-    <p>For each tool, three questions are answered plainly: <b>what data it needs</b>, <b>what one click gives you</b>, and <b>which decision it guides</b>. The live demos below show all three on a simulated hospital, so you can see each step for yourself.</p>
+    <div class="ask">
+      <div style="border-left-color:var(--teal)"><h4>PPS Pro &middot; the worksheet</h4><p>The WHO point prevalence survey is the right method, and every hospital should use it. Done by hand, it means every patient typed in, every code looked up and every total counted, and a team spends days on it before anyone sees a result. PPS Pro follows the same WHO method and, at the end, writes the same WHO worksheet with one click.</p></div>
+      <div style="border-left-color:var(--teal)"><h4>AMS Pro &middot; one question</h4><p>As assistant secretary of our hospital&rsquo;s AMS team, I was asked by our chairperson: what was the DDD of ceftriaxone for the last three months? I didn&rsquo;t yet know what DDD meant. I spent many hours learning it and working the answer out by hand. Stewardship work is squeezed between our job descriptions, management roles and patients, and it needs a solution that lasts. In AMS Pro that question now takes seconds: it is the <i>Quick answer</i> on the Dashboard.</p></div>
+      <div style="border-left-color:var(--teal)"><h4>VigiWard &middot; one window</h4><p>Most of our adverse-reaction forms used to come from one window: the CTC pharmacy, where I worked as a pharmaceutical technician, and I collected most of them myself. When I was busy, reporting stopped, and the wards, where most reactions happen, sent very few. Pharmacovigilance cannot depend on one person at one window, so VigiWard takes it into the wards.</p></div>
+    </div>
+    <p class="kv" style="margin-top:12px;">With your help, they can stop being one person&rsquo;s solution. <a href="#forward">Help carry them forward &darr;</a></p>
   </section>
 
-  <section id="tools">
-    <p class="whatsnew"><b>New in November 2026: AMS Pro 5.7, PPS Pro 3.10 and VigiWard 3.15.</b> In all three: <b>&#9733; Showcase</b>, a stage for a talk &mdash; the tool opens empty, the sample hospital's exports go in one by one, every headline figure turns from red to green as the file it needs arrives, and it ends on one-click reports and decisions for the committee and for management; it is in the live demos too &middot; <b>Check my data</b> says, analysis by analysis, whether the data loaded can support the result (<a href="minimum-data.html">minimum data</a>) &middot; a one-page <b>decision brief</b> &middot; <b>manual entry</b> on the tool's own form or any REDCap project's form &middot; labelled <b>Stata</b> files. AMS Pro prints a one-page <b>antibiogram</b> (CLSI M39); VigiWard adds a <b>pharmacology check</b> on every flag. What's new: <a href="ams-pro.html#new">AMS Pro</a> &middot; <a href="pps-pro.html#new">PPS Pro</a> &middot; <a href="vigiward.html#new">VigiWard</a>. <a href="checks.html">How every release is checked</a>.</p>
-    <h2>The tools</h2>
-    <p class="section-note">Each one runs as a single HTML file — open it in Chrome or Edge on any hospital PC, with no install, no server and no internet connection required.</p>
-
-    <div class="tool">
-      <span class="ver">v5.7</span>
-      <div>
-        <h3><a href="ams-pro.html" style="color:inherit;text-decoration:none;">AMS Pro &rarr;</a></h3>
-        <p>Antimicrobial stewardship from raw hospital exports — pharmacy dispensing, admissions, laboratory and culture results. WHO AWaRe shares (with a Tanzania STG/NEMLIT view), DDD and DOT per 1,000 patient-days, a first-isolate antibiogram printable on one A4 page, Laney p&prime; run charts, antibiotic time-out and bug&ndash;drug review lists, AMS ward round forms, a C/S prophylaxis project with interrupted time series, cost &amp; impact, CRF forms, and editable Word and PowerPoint reports. <i>Did It Work?</i> writes its model as Stata files that re-run it.</p>
-        <span class="facts">32 pages · AWaRe WHO + Tanzania · antibiogram · run charts · ward rounds · Word &amp; PowerPoint · Stata · WHONET-ready</span>
-        <div class="links-row"><a href="ams-pro.html">Details</a><a href="tools/Odieman_AMS_Pro.html?demo=1" target="_blank" rel="noopener">Live demo &nearr;</a></div>
-      </div>
+  <section id="try" style="padding-top:10px;">
+    <h2>Try them now</h2>
+    <p class="section-note">Each opens the real tool in your browser with 33 months of simulated data from a fictional hospital. Nothing is saved or sent anywhere. Press <b>&#9733; Showcase</b> to watch the tool start empty and build its figures as the hospital&rsquo;s files go in, as in the talk. A laptop shows the most; a phone works for a first look.</p>
+    <div class="scan-row">
+      <a class="scan-btn" href="../tools/Odieman_AMS_Pro.html?demo=1"><b>AMS Pro &rarr;</b><span>Access rising 36% &rarr; 60%; run charts, antibiogram, daily review list</span></a>
+      <a class="scan-btn" href="../tools/VigiWard.html?demo=1"><b>VigiWard &rarr;</b><span>995 suspected reactions found — and a simulated bad batch</span></a>
+      <a class="scan-btn" href="../tools/Odieman_PPS_Pro.html?demo=1"><b>PPS Pro &rarr;</b><span>Five survey rounds; prevalence 68% &rarr; 45%, with trend tests</span></a>
     </div>
+    <p class="kv">New to the tools? <a href="../story.html">Read the 10-minute story</a> of the demo hospital first.</p>
+    <p class="kv">Want to keep them? <a href="../get/">Request the full tools</a> — free for Tanzania&rsquo;s public health facilities. Each is a single file that runs offline in Chrome or Edge, with a built-in user guide and sample data.</p>
+  </section>
 
-    <div class="tool">
-      <span class="ver">v3.10</span>
-      <div>
-        <h3><a href="pps-pro.html" style="color:inherit;text-decoration:none;">PPS Pro &rarr;</a></h3>
-        <p>WHO point prevalence surveys from ward form to trend report: bedside entry, or start from Excel, the WHO PPS tables or the Afya eHMS pharmacy and admission exports. Every prescription checked against the Tanzania STG, adults, children and neonates, surgical prophylaxis, empiric vs targeted treatment, appropriateness, a one-page feedback sheet for each ward, and trend tests across survey rounds.</p>
-        <span class="facts">WHO PPS-aligned · Tanzania STG check · ward feedback · surveyor agreement (kappa) · Wilson 95% CI · REDCap &amp; Stata both ways</span>
-        <div class="links-row"><a href="pps-pro.html">Details</a><a href="tools/Odieman_PPS_Pro.html?demo=1" target="_blank" rel="noopener">Live demo &nearr;</a></div>
-      </div>
-    </div>
-
-    <div class="tool">
-      <span class="ver">v3.15</span>
-      <div>
-        <h3><a href="vigiward.html" style="color:inherit;text-decoration:none;">VigiWard &rarr;</a></h3>
-        <p>Pharmacovigilance from routine data: suspected adverse-reaction signals (prescribing cascades, lab-supported, clusters, interactions), a ranked patient watch-list, spike alerts for possible bad batches, an NCD prescribing audit, TB/HIV active drug-safety monitoring, a pharmacology check on every flag, and draft TMDA and E2B reports. Flags go to REDCap for pharmacist case review, and the reviews come back as the share of each rule's flags that were real reactions.</p>
-        <span class="facts">Signal detection · spike alerts · NCD audit · aDSM · REDCap case review · TMDA-ready</span>
-        <div class="links-row"><a href="vigiward.html">Details</a><a href="tools/VigiWard.html?demo=1" target="_blank" rel="noopener">Live demo &nearr;</a></div>
-      </div>
+  <section id="minute">
+    <h2>The idea in 60 seconds</h2>
+    <div class="minute">
+      <div><h4>The gap</h4><p>Stewardship and pharmacovigilance reports are compiled by hand, if at all — while the dispensing, lab and admission records that answer the questions sit unused in the hospital system.</p></div>
+      <div><h4>The tools</h4><p><b>AMS Pro</b> for antibiotic use and resistance, <b>PPS Pro</b> for WHO point prevalence surveys, <b>VigiWard</b> for adverse reactions in the wards. One data source, each tool using what it needs.</p></div>
+      <div><h4>In real use</h4><p>Developed inside a regional referral hospital's AMS committee work, producing reports and slides from the hospital's own exports. Every figure shown publicly comes from simulated demonstration data.</p></div>
+      <div><h4>Safe by design</h4><p>Everything runs on the user's own computer. No server, no internet needed, no patient data transmitted — outputs are aggregate figures.</p></div>
     </div>
   </section>
 
-  <section id="suite">
-    <h2>One hospital, one data source, three tools</h2>
-    <p class="section-note">The tools read the same exports a hospital system already produces. They were built around Afya eHMS, and read other systems&rsquo; exports when the columns match. Each uses only what is relevant to it — nothing has to be typed twice.</p>
-    <div class="suite">
-      <div class="col">
-        <div class="src">Pharmacy dispensing export<small>item, quantity, dosage, ward, date, price</small></div>
-        <div class="src">Laboratory results &amp; culture/sensitivity<small>test, value, turnaround time, organism, S/I/R</small></div>
-        <div class="src">Admissions &amp; procedures<small>ward, bed-days, diagnosis, surgery</small></div>
-        <div class="src">Deaths register &middot; NCD readings<small>outcome, blood pressure, HbA1c</small></div>
-        <div class="src">PPS ward forms<small>one survey day, every inpatient</small></div>
-      </div>
-      <div class="mid">&rarr;</div>
-      <div class="col">
-        <div class="dst"><b>AMS Pro</b><span>dispensing + admissions + lab + cultures &rarr; AWaRe, DDD/DOT, antibiogram, run charts, review lists, reports</span></div>
-        <div class="dst"><b>VigiWard</b><span>dispensing + lab + deaths + readings &rarr; ADR signals, spike alerts, NCD audit, aDSM, TMDA reports</span></div>
-        <div class="dst"><b>PPS Pro</b><span>PPS ward forms &rarr; prevalence, quality indicators and trends across survey rounds</span></div>
-      </div>
+  <section id="questions">
+    <h2>Questions people ask, tool by tool</h2>
+    <p class="section-note">The questions that come up at the poster and in the panel, answered plainly. Where a tool cannot do something yet, the answer says so. <a href="#" class="qa-all" onclick="return qaAll(this)">Open all answers</a></p>
+
+    <div class="qa-group">
+      <h3>About all three tools</h3>
+      <details class="qa"><summary>Have the tools been validated?</summary><div>
+        <p>Not formally yet, and I say so openly. Every release is checked against the one before it, figure by figure, and new calculations are worked out a second time independently (<a href="../checks.html">how each release is checked</a>). The reference lists and VigiWard&rsquo;s medicine profiles were reviewed against named sources.</p>
+        <p>The next step is a proper validation in three or four hospitals, comparing the tools with the usual method. I am looking for partners to do it.</p></div></details>
+      <details class="qa"><summary>Is patient data safe?</summary><div>
+        <p>Nothing is uploaded. There is no server and no internet connection is needed: the data stays in a folder on the hospital&rsquo;s own computer, chosen by the hospital. Reports and slides show aggregate figures, and files meant for sharing use study codes instead of patient numbers. Sharing is always the hospital&rsquo;s decision.</p></div></details>
+      <details class="qa"><summary>What happens if you move on, or the laptop dies?</summary><div>
+        <p>Each tool is one file with its own data folder and a daily backup, so it survives a dead computer: copy the folder and open the file on another PC. When I moved from Tanga to a health centre in August 2026, the teams there kept using the tools without me.</p>
+        <p>For the long term the tools need an institutional home, such as PST, a university or the Ministry&rsquo;s pharmaceutical services, so they never depend on one person. That is one of my asks.</p></div></details>
+      <details class="qa"><summary>Does it work with our hospital system?</summary><div>
+        <p>The tools were built around Afya eHMS exports. They read other systems&rsquo; exports when the columns can be matched; each tool&rsquo;s <a href="../minimum-data.html">minimum data</a> page lists every heading it accepts, with blank templates. Adapting them to GoTHoMIS exports is work I would welcome partners on.</p></div></details>
+      <details class="qa"><summary>Is it free? Why do some users pay?</summary><div>
+        <p>Free for all government health facilities and government institutions in Tanzania, for their own non-commercial use. Private and faith-based facilities, NGOs, international organisations, research projects and any use outside Tanzania are by licence or partnership, and that is what keeps the tools maintained. <a href="../get/">Request the tools</a>.</p></div></details>
+      <details class="qa"><summary>What do I need to run them?</summary><div>
+        <p>A computer with Google Chrome or Microsoft Edge. Nothing to install, no internet. A laptop shows the most; a phone is fine for a first look at the live demos.</p></div></details>
+      <details class="qa"><summary>Why not just use Global-PPS, VigiFlow or WHONET?</summary><div>
+        <p>They are good tools, and these feed into them rather than replace them. The outputs include the WHO PPS files, REDCap and Stata files, a WHONET isolate file and a WHO GLASS summary, TMDA ADR reports and ICH E2B(R3) case reports. What these tools add is working offline, on the hospital&rsquo;s own exports, with all three jobs in one place.</p></div></details>
+      <details class="qa"><summary>Who built them?</summary><div>
+        <p>A pharmaceutical technician who did the AMS committee&rsquo;s data work at a regional referral hospital for about three years and lived the problem: the frontline view PST asked the panel to bring. The real test is whether others can check the work, which is why I am asking for validation partners.</p></div></details>
+      <details class="qa"><summary>Are the figures in the demos real?</summary><div>
+        <p>No. Every live demo runs on a fictional hospital with 33 months of simulated data, and the tools say so on screen. The tools are in routine use at Tanga Regional Referral Hospital, but that hospital&rsquo;s figures belong to the hospital and its committee, so they are not shown in public.</p></div></details>
+    </div>
+
+    <div class="qa-group">
+      <h3>AMS Pro</h3>
+      <details class="qa"><summary>Can consumption worked out from dispensing be trusted?</summary><div>
+        <p>Dispensing is not administration, and hospital systems rarely record why a drug was given; AMS Pro says so on its pages. DDD and DOT from dispensing, by the WHO ATC/DDD method, are a valid measure of consumption and a good starting point, not proof of what each patient received.</p></div></details>
+      <details class="qa"><summary>Our ward&rsquo;s antibiotics are not in eHMS. Can AMS Pro still follow a project there?</summary><div>
+        <p>Yes. A ward AMS project can run on any ward, chosen from a list. Where a ward&rsquo;s key data cannot be found reliably in eHMS (doses given from ward stock, or not entered), the standard source is the CRF 03 that the AMS secretary fills in from the doctors&rsquo; and nurses&rsquo; review notes, with the ward&rsquo;s own consumption sheet. eHMS is used for that ward only when the AMS secretary confirms its integrity, and every report says which source it used.</p>
+        <p>AMS Pro also checks the CRF for contradictions between answers and checks the arithmetic of the consumption sheet. In the live demo: <i>Ward AMS Projects</i>.</p></div></details>
+      <details class="qa"><summary>What if we have too few culture results for an antibiogram?</summary><div>
+        <p>Below 30 isolates, AMS Pro does not give a percentage, following CLSI M39. It greys the cell and says what it cannot support instead of guessing.</p></div></details>
+      <details class="qa"><summary>How do you know a change is real and not noise?</summary><div>
+        <p>Run charts with the standard rules, p&prime; control charts, trend tests and interrupted time series. The <i>Did It Work?</i> page also says plainly when a change cannot be claimed, for example when the fall was already under way before the intervention.</p></div></details>
+      <details class="qa"><summary>Which AWaRe list does it use: WHO or Tanzania&rsquo;s?</summary><div>
+        <p>Both, side by side, and every page says which one is in use. Where the Tanzania STG/NEMLIT list and the WHO list disagree, for example on gentamicin, the tool shows the difference openly.</p></div></details>
+    </div>
+
+    <div class="qa-group">
+      <h3>PPS Pro</h3>
+      <details class="qa"><summary>Does it follow the WHO method?</summary><div>
+        <p>Yes: the WHO point prevalence survey methodology and forms, with every prescription also checked against the Tanzania STG. It writes the WHO PPS worksheet and WHO files, and follows each indicator across survey rounds with formal trend tests.</p></div></details>
+      <details class="qa"><summary>How long does a survey take?</summary><div>
+        <p>Collecting on the wards still takes the team&rsquo;s time. What disappears is the days of compiling and cleaning afterwards: once collection ends, the full report is one click away, while the findings still matter.</p></div></details>
+      <details class="qa"><summary>We already collect in REDCap or analyse in Stata.</summary><div>
+        <p>PPS Pro writes a REDCap data dictionary from its own code lists and reads a REDCap export as it is, and it reads and writes labelled Stata files. So far this has been tested with simulated REDCap files; a test in a live REDCap project comes next.</p></div></details>
+    </div>
+
+    <div class="qa-group">
+      <h3>VigiWard</h3>
+      <details class="qa"><summary>How can a flag in the data be an adverse reaction?</summary><div>
+        <p>It can&rsquo;t. A flag is a signal for review. Only a pharmacist&rsquo;s chart review, with the Naranjo and WHO-UMC causality methods, makes it a suspected reaction. The reviews then show how often each rule is right, so the team learns which rules to trust.</p></div></details>
+      <details class="qa"><summary>Does it report to TMDA by itself?</summary><div>
+        <p>No. It prepares drafts aligned with TMDA&rsquo;s reporting form, and ICH E2B(R3) case reports. The pharmacist reviews the chart, makes the clinical call and submits through TMDA&rsquo;s usual channel.</p></div></details>
+      <details class="qa"><summary>What else does it look for?</summary><div>
+        <p>Medication errors and treatment failures; spike alerts that could mean a bad batch; a cardiometabolic prescribing audit; safety monitoring for TB and HIV medicines; and a ward huddle sheet, in English or Kiswahili, of who is on a high-risk medicine today.</p></div></details>
+      <details class="qa"><summary>Why the name VigiWard?</summary><div>
+        <p>Pharmacovigilance in the wards: busy wards are where most reactions happen and the fewest are reported.</p></div></details>
     </div>
   </section>
 
-  <section id="demo">
-    <h2>Try them live — in your browser</h2>
-    <p class="section-note">Each demo opens the real tool loaded with 33 months (January 2024 &ndash; September 2026) of simulated data from a fictional hospital. Explore every page; nothing is saved and nothing leaves your browser. Press <b>&#9733; Showcase</b> to watch the tool start empty and build its figures and reports as the hospital's files go in, the way it is shown in a talk.</p>
-    <div class="demo-grid">
-      <div class="demo-card">
-        <h3>AMS Pro</h3>
-        <p>29,300 dispensing lines, 5,200 admissions, 5,500 lab and 580 culture results. Watch the Access share of use rise from 36% to 60% and days of therapy nearly halve, with run charts showing which changes are statistically real and a daily list of injections that could be tablets.</p>
-        <span class="look">Look at: Dashboard &middot; Run Charts &middot; Antibiogram &middot; Time-out</span>
-        <a class="btn primary sans" href="tools/Odieman_AMS_Pro.html?demo=1" target="_blank" rel="noopener">Open AMS Pro demo</a>
-      </div>
-      <div class="demo-card">
-        <h3>VigiWard</h3>
-        <p>49,000 dispensing lines from the wards, an NCD clinic and a CTC/TB clinic. Find the prescribing cascades, the lab-confirmed kidney injuries — and the simulated bad batch of ceftriaxone in August 2025. 102 simulated pharmacist reviews show how often each rule is right.</p>
-        <span class="look">Look at: Spike alerts &middot; Watch-list &middot; REDCap &amp; Stata &middot; aDSM</span>
-        <a class="btn primary sans" href="tools/VigiWard.html?demo=1" target="_blank" rel="noopener">Open VigiWard demo</a>
-      </div>
-      <div class="demo-card">
-        <h3>PPS Pro</h3>
-        <p>Five survey rounds, about 250 inpatients each across nine wards. Prevalence falls from 68% to 45% and Access climbs from 42% to 70% — past the earlier WHO 60% mark and almost at the UN 2030 goal — while parenteral use barely moves.</p>
-        <span class="look">Look at: Overview &middot; Survey dashboard &middot; Trends &middot; Ward feedback</span>
-        <a class="btn primary sans" href="tools/Odieman_PPS_Pro.html?demo=1" target="_blank" rel="noopener">Open PPS Pro demo</a>
-      </div>
-    </div>
-    <p class="demo-note">The demo hospital and its patients are fictional; the data is simulated for demonstration. Best viewed on a laptop or desktop in Chrome or Edge.</p>
-    <p class="whatsnew" style="margin-top:18px"><b>Not sure where to start?</b> <a href="story.html">Read the story</a>: the demo hospital&rsquo;s 33 months in seven short chapters, each figure linked to the screen in the demo that produced it.</p>
-  </section>
+  <!-- Forum 5 panel: remove this section if the moderator prefers the answers not to be online -->
+  <section id="panel">
+    <h2>Forum 5 panel: the questions, answered in full</h2>
+    <p class="section-note">Digital Health, Innovation and Research &middot; Thursday 26 November 2026. A panel gives each speaker a few minutes; here is the longer version for anyone who wants it.</p>
 
-  <section id="method">
-    <h2>Methodology, not magic</h2>
-    <p class="section-note">Every number these tools produce traces back to a named statistical method — the kind a reviewing biostatistician can check line by line.</p>
-    <div class="method-grid">
-      <div class="method-item">
-        <h4>Wilson score intervals</h4>
-        <p>Prevalence and proportion estimates carry a proper 95% CI (<code>z=1.959964</code>, the exact value often rounded to 1.96), not a bare percentage — with a small-sample warning on thin data.</p>
-      </div>
-      <div class="method-item">
-        <h4>AWaRe + country view</h4>
-        <p>WHO's global Access/Watch/Reserve classification, with the Tanzania STG/NEMLIT 2021 grouping shown side by side and checked against it, so the ruler used is always stated.</p>
-      </div>
-      <div class="method-item">
-        <h4>Change that is real, not noise</h4>
-        <p>Laney p&prime; control charts, Cochran&ndash;Armitage trend tests and exact Poisson spike tests separate genuine change from ordinary month-to-month variation.</p>
-      </div>
+    <div class="panel-q">
+      <h3>1. What changed when the tools came in?</h3>
+      <p class="asked">How have PPS Pro, AMS Pro and VigiWard changed the way stewardship and adverse-reaction data are collected and used?</p>
+      <p><b>Before,</b> all three jobs ran on paper. Forms and files were scattered, and when a file went missing its data went with it. Collecting and compiling took a large team several full days, and by the time a report reached the committee, the moment to act on it had often passed.</p>
+      <p><b>PPS Pro:</b> the team still collects on the wards, but compiling, analysis and the report now follow on the same day.</p>
+      <p><b>AMS Pro:</b> the exports the hospital system already holds become the analysis. Before a ward round, the team loads the latest data, sees the few problems standing out on that ward, and walks in already knowing which patients to see. Their time goes to patients, not paperwork.</p>
+      <p><b>VigiWard:</b> pharmacy staff start from a list of patients and wards where a reaction is likely, instead of waiting for someone to notice one. It also brings in medication errors and treatment failures, and records the prescriber, the dispenser and the nurse who gave the medicine, so every case can be followed up. Reporting from the wards rose well beyond what the hospital managed on paper.</p>
+      <p><b>To be honest,</b> the tools are not yet used to their full potential: teams tend to report up to the target they are given, and VigiWard flags more than that. The biggest change is not the software. Pharmacists moved from collecting data to acting on it.</p>
+      <p class="kv">Figures from Tanga Regional Referral Hospital belong to the hospital; they are not on this page.</p>
+    </div>
+
+    <div class="panel-q">
+      <h3>2. What would it take to scale tools like these?</h3>
+      <p class="asked">What would it take for locally built tools to be validated, adopted and sustained across more facilities, and what support do frontline innovators need?</p>
+      <p>Our innovations come from the daily frustrations we see. Scaling them takes three things.</p>
+      <p><b>Proof.</b> I learned this in 2024, when nobody in our pharmacy department agreed with my first prescription audit; only after a colleague and I redid it did they accept the findings. Nobody should trust a tool because of who built it either. Test it side by side with the current method, one PPS round and a few months of ADR reporting, in two or three facilities, reviewed by neutral bodies: TMDA for pharmacovigilance, the Ministry of Health for stewardship, and a university for the evaluation. The standards to test against already exist.</p>
+      <p><b>A home.</b> Today the tools live with the person who built them, and that is their weakest point. They need an institution that holds them, registers who uses them and trains new users. PST is a natural home, because this is where hospital pharmacists already meet: a simple pathway would be enough, where a tool is submitted, reviewed and, if it passes, shared with members.</p>
+      <p><b>A team.</b> The tools already run without me: I left Tanga in August 2026 and the teams kept using them. But keeping them current with new guidelines and new hospital systems needs more than one person.</p>
+      <p>From the health system: let facilities export the data they already collect in a standard format. From PST: recognise frontline innovation, protect the innovator&rsquo;s credit, and connect us with the people who can take it further.</p>
+    </div>
+
+    <div class="panel-q">
+      <h3>3. A Tanzanian pharmacy in 2030</h3>
+      <p class="asked">It is 2030 and you walk into a Tanzanian pharmacy. What is the first thing you see that does not exist today?</p>
+      <p>&ldquo;I see a pharmacist scan a QR code on a prescription, even without internet, and the sale quietly reaches a national dashboard when the phone finds a signal, so we protect the next antibiotic before it fails.&rdquo; <a href="#next">How it could work &darr;</a></p>
     </div>
   </section>
 
-  <section id="ready">
-    <h2>Will the results stand?</h2>
-    <p class="section-note">Two pages for anyone deciding whether to trust these tools with their own hospital's data.</p>
-    <div class="method-grid">
-      <div class="method-item">
-        <h4><a href="minimum-data.html">Minimum data &rarr;</a></h4>
-        <p>What each tool needs for each analysis, written down before you start. If your exports have it, the analysis is valid; if they do not, <i>Check my data</i> says what is missing instead of producing a weak figure.</p>
-      </div>
-      <div class="method-item">
-        <h4><a href="checks.html">How every release is checked &rarr;</a></h4>
-        <p>Each new version is compared with the one before it, figure by figure, and new calculations are worked out a second time, independently. What has been tested, and what has not yet, is stated.</p>
-      </div>
-    </div>
+  <section id="next">
+    <h2>A next idea, for a pilot: the prescription that closes the loop</h2>
+    <p class="section-note">A design idea and a proposal for a pilot. None of it is built yet.</p>
+    <p class="sans" style="font-size:15.5px;color:var(--ink-soft);max-width:64ch;">Today, when a medicine is out of stock, the hospital prints a slip and the patient buys the medicine elsewhere. After that the hospital loses sight of the patient. A signed code on the prescription could close that loop, working offline first, like these tools:</p>
+    <ol class="tour">
+      <li><b>At the counter, offline.</b> The pharmacist scans the QR code on the prescription. The code is digitally signed, so the phone can check it is genuine without internet.</li>
+      <li><b>Saved on the device.</b> The sale is recorded with the medicine, its AWaRe group, the quantity, the date, the outlet and the prescription code. No patient name.</li>
+      <li><b>Sent when a signal appears.</b> The phone uploads the saved records in the background and picks up again if the connection drops.</li>
+      <li><b>Checked nationally.</b> The national unit, whichever body owns it, checks the records, flags problems and updates the dashboard.</li>
+    </ol>
+    <p class="sans" style="font-size:15.5px;color:var(--ink-soft);max-width:64ch;"><b style="color:var(--ink)">What it would give:</b> whether the patient got the medicine; out-of-stock patterns by medicine and month to guide procurement; and Watch antibiotics such as ceftriaxone sold only against a real prescription.</p>
+    <p class="sans" style="font-size:15.5px;color:var(--ink-soft);max-width:64ch;"><b style="color:var(--ink)">Honest limits:</b> an offline phone only catches a code reused on that same phone, so reuse elsewhere is found after syncing, not blocked at the counter. Signed codes, tamper-evident records and secure uploads are essential, or the data won&rsquo;t be trusted. Only what is needed travels, with no patient identity, checked against Tanzania&rsquo;s data protection rules. Each pharmacy needs a phone and power, which may be hard for remote ADDOs. It needs a change to the prescribing system, made by that system&rsquo;s owner, and a regulator who wants the data and will act on it. The patient still chooses where to buy, and the code is printed on the slip as well as sent by text.</p>
+    <p class="kv">Offline-first reporting has precedent: the Uppsala Monitoring Centre lists a mobile reporting app, VigiMobile, among the tools connected to VigiFlow (<a href="https://who-umc.org/pv-products" target="_blank" rel="noopener">UMC</a>).</p>
   </section>
 
-  <section id="offline">
-    <h2>Why these tools are offline-first</h2>
-    <p class="section-note">Most hospital-facility software in this region assumes reliable connectivity and a maintained server. These tools assume the opposite, on purpose.</p>
-    <div class="diagram">
-      <div class="diag-box"><b>Your Excel / CSV export</b>loaded once, in the browser</div>
-      <div class="diag-arrow">→</div>
-      <div class="diag-box"><b>The tool</b>runs entirely on your machine</div>
-      <div class="diag-arrow">→</div>
-      <div class="diag-box"><b>Your data folder</b>saved automatically, backed up daily</div>
-    </div>
-    <p class="diag-off">No server in the middle. No connectivity required. No patient data ever transmitted.</p>
-    <p class="kv" style="text-align:center;margin-top:14px">What each tool reads, where it keeps its data, what it produces and the one connection it can make: <a href="technical.html">technical documentation &rarr;</a></p>
-  </section>
-
-  <section id="download">
-    <h2>Get the tools</h2>
-    <p class="section-note">Free for Tanzania&rsquo;s government health facilities and institutions; for everyone else, by licence agreement (see below). Send a short request below and Emmanuel will send your licensed copies himself, by WhatsApp or email. Each copy is registered to your facility, and it is how news of updates and fixes reaches you. Each tool is a single file that opens in Google Chrome or Microsoft Edge, with its own user guide. The live demos run on simulated data only.</p>
-    <table class="dl">
-      <tr><th>Tool</th><th>Version</th><th>Size</th><th>Try first</th></tr>
-      <tr><td>AMS Pro</td><td>v5.7</td><td>~2.8 MB</td><td class="demo"><a href="tools/Odieman_AMS_Pro.html?demo=1" target="_blank" rel="noopener">Live demo</a></td></tr>
-      <tr><td>PPS Pro</td><td>v3.10</td><td>~1.4 MB</td><td class="demo"><a href="tools/Odieman_PPS_Pro.html?demo=1" target="_blank" rel="noopener">Live demo</a></td></tr>
-      <tr><td>VigiWard</td><td>v3.15</td><td>~1.6 MB</td><td class="demo"><a href="tools/VigiWard.html?demo=1" target="_blank" rel="noopener">Live demo</a></td></tr>
-      <tr><td>Complete suite, with the sample hospital</td><td>Nov 2026</td><td>~3.3 MB zip</td><td class="kv">on request</td></tr>
-    </table>
-
-    <form id="reqform" class="req sans" novalidate>
-      <h3>Request the tools</h3>
-      <div class="req-grid">
-        <label>Your name<input name="name" required autocomplete="name"></label>
-        <label>Your role<input name="role" required placeholder="e.g. pharmacist, AMS focal person"></label>
-        <label class="wide">Facility or organisation<input name="org" required autocomplete="organization"></label>
-        <label class="wide">Type
-          <select name="type" required>
-            <option value="">Choose one&hellip;</option>
-            <option value="gov-facility">Government health facility in Tanzania</option>
-            <option value="gov-institution">Government institution in Tanzania (ministry, RHMT/CHMT, agency, public training institution)</option>
-            <option value="private">Private or faith-based facility</option>
-            <option value="ngo">NGO or international organisation (including WHO)</option>
-            <option value="research">Research project or programme</option>
-            <option value="abroad">Outside Tanzania</option>
-          </select>
-        </label>
-        <label>Region and district, or country<input name="place" required placeholder="e.g. Mbeya, Kyela"></label>
-        <label>Phone or email<input name="contact" required autocomplete="email"></label>
-        <fieldset class="wide"><legend>Tools you need</legend>
-          <label class="chk"><input type="checkbox" name="tool" value="AMS Pro" checked> AMS Pro</label>
-          <label class="chk"><input type="checkbox" name="tool" value="PPS Pro" checked> PPS Pro</label>
-          <label class="chk"><input type="checkbox" name="tool" value="VigiWard" checked> VigiWard</label>
-        </fieldset>
-        <label class="wide"><span>How will you use them? <span class="opt">(optional)</span></span><textarea name="use" rows="2" placeholder="e.g. monthly AMS committee report, PPS in March"></textarea></label>
-        <label class="chk wide"><input type="checkbox" name="agree" required> I have read the licence below and will use the tools under its terms.</label>
-      </div>
-      <p class="req-err" id="reqerr" role="alert"></p>
-      <button type="submit" class="btn primary sans">Continue</button>
-      <p class="kv req-note">Nothing you type here is sent to this website. It goes to Emmanuel only when you press <b>Send</b> on the next step, from your own WhatsApp or email. Your browser remembers your details so you don&rsquo;t retype them next time.</p>
-    </form>
-
-    <div id="reqresult" class="req sans" hidden aria-live="polite"></div>
-
-    <noscript><p class="whatsnew">To request the tools, write on <a href="https://wa.me/255759547025">WhatsApp (+255 759 547 025)</a> or to <a href="mailto:emmanuelodie94@proton.me">emmanuelodie94@proton.me</a> with your name, role, facility and region.</p></noscript>
-
-    <div class="license" style="margin-top:22px;">
-      <b>Licence.</b> Free of charge for government (public) health facilities and government institutions in Tanzania, for their own non-commercial use, with attribution to the author. All other use &mdash; private facilities, NGOs, international organisations, research projects and programmes, and any use outside Tanzania &mdash; is by written licence agreement with the author. Modification or redistribution requires the author&rsquo;s written consent. &copy; 2024&ndash;2026 Odindo Emmanuel Thomas. All rights reserved.
-    </div>
-    <div class="whatsnew" style="margin-top:14px;">
-      <b>WHO, NGOs and programmes working in pharmacovigilance or antimicrobial stewardship:</b> the tools are available to you through a partnership or licence agreement &mdash; pilots in the facilities you support, adaptation to your reporting formats and indicators, multi-site use and training for your teams. Choose your organisation type in the form above, or <a href="#about">get in touch directly</a>.
+  <section id="forward">
+    <h2>Help carry it forward</h2>
+    <p class="section-note">These tools were built by one person, out of hospital AMS committee work. The aim is for the idea to outlive any single builder. If any of these is you, let's talk at the poster or afterwards.</p>
+    <div class="ask">
+      <div><h4>A hospital or AMS committee</h4><p>Pilot the tools on your own data, with help setting them up and reading the first reports.</p></div>
+      <div><h4>A pharmacovigilance or TMDA colleague</h4><p>Test VigiWard's signals and TMDA drafts against real reporting, and shape what a useful ward-level PV report looks like.</p></div>
+      <div><h4>A data or IT person</h4><p>Help maintain and extend the tools — new export formats, translations, testing on other hospital systems.</p></div>
+      <div><h4>WHO, an NGO or a programme</h4><p>Working in pharmacovigilance or stewardship? Bring the tools to the facilities you support &mdash; pilots, adaptation to your indicators and reporting, multi-site use and training &mdash; through a partnership or licence agreement.</p></div>
     </div>
   </section>
 
   <section id="books">
-    <h2>Books by the same author</h2>
-    <p class="section-note">Away from the pharmacy, Emmanuel writes as Emmanuel Odie. Two complete books, free to read online or download as a PDF. <a href="books.html">More about the books &rarr;</a></p>
-    <div class="demo-grid">
-      <div class="demo-card">
-        <h3>Run to the Name</h3>
-        <p>The names of God for every storm of life. Nineteen names, from Elohim to Abba, each set beside one storm of modern life, most of them in Tanzania.</p>
-        <span class="look">19 chapters &middot; 241-page PDF</span>
-        <a class="btn primary sans" href="https://emmanuelodie.github.io/run-to-the-name/" target="_blank" rel="noopener" data-ev="book-rtn-read">Read Run to the Name</a>
-      </div>
-      <div class="demo-card">
-        <h3>The Watermelon Moon</h3>
-        <p>A comic chronicle in which the ancient world is found alive inside a watermelon Moon. The world is invented; the mathematics and the science are real.</p>
-        <span class="look">Thirteen Moons &middot; 208-page PDF</span>
-        <a class="btn primary sans" href="https://emmanuelodie.github.io/the-watermelon-moon/" target="_blank" rel="noopener" data-ev="book-wm-read">Read The Watermelon Moon</a>
+    <h2>Also by the author</h2>
+    <p class="section-note">Away from the pharmacy I write, as Emmanuel Odie. Both books are complete and free, to read online or download as a PDF.</p>
+    <div class="scan-row">
+      <a class="scan-btn book" href="https://emmanuelodie.github.io/run-to-the-name/" data-ev="book-rtn-read"><b>Run to the Name &rarr;</b><span>The names of God for every storm of life &middot; 19 chapters</span></a>
+      <a class="scan-btn book" href="https://emmanuelodie.github.io/the-watermelon-moon/" data-ev="book-wm-read"><b>The Watermelon Moon &rarr;</b><span>A comic chronicle of the mathematics that built the world &middot; 13 Moons</span></a>
+    </div>
+    <p class="kv"><a href="../books.html">More about the books</a></p>
+  </section>
+  <section id="contact">
+    <h2>Contact</h2>
+    <div class="contact-card">
+      <img src="qr-pst2026.png" alt="QR code linking to this page">
+      <div class="who">
+        <b>Odindo Emmanuel Thomas</b><br>
+        Pharmaceutical technician &middot; builder of AMS Pro, PPS Pro and VigiWard<br>
+        Author, as Emmanuel Odie, of <a href="https://emmanuelodie.github.io/run-to-the-name/" data-ev="book-rtn-read"><i>Run to the Name</i></a> and <a href="https://emmanuelodie.github.io/the-watermelon-moon/" data-ev="book-wm-read"><i>The Watermelon Moon</i></a><br>
+        <a href="mailto:emmanuelodie94@gmail.com">emmanuelodie94@gmail.com</a> &middot; <a href="mailto:emmanuelodie94@proton.me">emmanuelodie94@proton.me</a><br>
+        <a href="tel:+255620799907">+255 620 799 907</a> &middot; <a href="tel:+255759547025">+255 759 547 025</a><br>
+        <span style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;">
+          <a class="btn primary sans wa" style="font-size:14px;padding:8px 14px;" href="https://wa.me/255759547025?text=Hello%20Emmanuel%2C%20I%20saw%20the%20Odieman%20tools%20%28AMS%20Pro%2C%20PPS%20Pro%2C%20VigiWard%29%20and%20would%20like%20to%20talk." target="_blank" rel="noopener">Chat on WhatsApp</a>
+          <a class="btn ghost sans" style="font-size:14px;padding:8px 14px;" href="odindo-emmanuel-thomas.vcf" download>Save contact to your phone</a>
+        </span>
       </div>
     </div>
+    <p class="kv" style="margin-top:12px;">Showing this page to someone next to you? They can scan the code above.</p>
   </section>
 
-  <section id="about">
-    <h2>About</h2>
-    <p class="section-note"><a href="about.html">About the builder &rarr;</a> how the tools grew out of the antimicrobial stewardship committee at Tanga Regional Referral Hospital, and what changed there.</p>
-    <p class="section-note">Built by a pharmaceutical technician, using antimicrobial stewardship and pharmacovigilance experience gained across hospital pharmacy practice — for the same reason most hospital tools in this region don't exist yet: because nobody else was going to build it first. The tools grew out of the day-to-day work of a hospital AMS committee and have been used with real hospital data, not just simulated in a lab.</p>
-    <p style="max-width:60ch;color:var(--ink-soft);">
-      Emmanuel Odie (Odindo Emmanuel Thomas)<br>
-      <a href="mailto:emmanuelodie94@gmail.com">emmanuelodie94@gmail.com</a> &middot; <a href="mailto:emmanuelodie94@proton.me">emmanuelodie94@proton.me</a><br>
-      +255 620 799 907 &middot; +255 759 547 025 &middot; <a href="https://wa.me/255759547025?text=Hello%20Emmanuel%2C%20I%20saw%20the%20Odieman%20tools%20%28AMS%20Pro%2C%20PPS%20Pro%2C%20VigiWard%29%20and%20would%20like%20to%20talk." target="_blank" rel="noopener">WhatsApp</a>
-    </p>
-  </section>
-
+  <a href="../index.html" class="back-link">&larr; Odieman Health Tools home</a>
 </main>
 
 <footer class="wrap">
   <div class="fline">
-    <span>© 2026 Odieman Health Tools.</span>
+    <span>&copy; 2026 Odieman Health Tools.</span>
     <span>No patient data is collected by this website; visits are counted anonymously, without cookies (GoatCounter). Live demos run entirely in your browser.</span>
   </div>
 </footer>
-
 <script>
 /* Visit counting: GoatCounter, no cookies, no personal data. Events record only which demo or tool was opened. */
 window.odmEvent=function(path,title){try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:path,title:title||path,event:true});}catch(e){}};
+function qaAll(a){var d=document.querySelectorAll('details.qa');var open=a.getAttribute('data-open')!=='1';d.forEach(function(x){x.open=open;});a.setAttribute('data-open',open?'1':'0');a.textContent=open?'Close all answers':'Open all answers';return false;}
+document.addEventListener('toggle',function(e){var t=e.target;if(t&&t.matches&&t.matches('details.qa')&&t.open){var s=t.querySelector('summary');odmEvent('faq-'+(s?s.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g,'-').slice(0,48):'item'),'Question opened');}},true);
 document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href');
   var m=h.match(/(Odieman_AMS_Pro|Odieman_PPS_Pro|VigiWard)\.html\?demo=1/);if(m){odmEvent('demo-'+m[1].replace('Odieman_',''),'Live demo opened');return;}
   if(a.getAttribute('data-ev')){odmEvent(a.getAttribute('data-ev'),'Book link');return;}
   if(/^https:\/\/wa\.me\//.test(h))odmEvent('contact-whatsapp','WhatsApp link');else if(/^mailto:/.test(h))odmEvent('contact-email','Email link');else if(/\.vcf$/.test(h))odmEvent('contact-vcard','Contact saved');else if(/\.pdf$/.test(h))odmEvent('abstract-pdf','Abstract downloaded');});
 </script>
 <script data-goatcounter="https://emmanuelodie94.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
-<script>
-(function(){
-  var WA='255759547025', MAIL='emmanuelodie94@proton.me';
-  var LABEL={'gov-facility':'Government health facility in Tanzania','gov-institution':'Government institution in Tanzania',
-    'private':'Private or faith-based facility','ngo':'NGO or international organisation','research':'Research project or programme','abroad':'Outside Tanzania'};
-  var f=document.getElementById('reqform'), out=document.getElementById('reqresult'), err=document.getElementById('reqerr');
-  if(!f||!out)return;
-  var KEY='odm-request';
-  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-  // Refill the form for a returning visitor (kept only in this browser).
-  try{var saved=JSON.parse(localStorage.getItem(KEY)||'null');if(saved){['name','role','org','type','place','contact','use'].forEach(function(k){if(saved[k]&&f.elements[k])f.elements[k].value=saved[k];});
-    if(saved.tools){[].forEach.call(f.querySelectorAll('input[name=tool]'),function(c){c.checked=saved.tools.indexOf(c.value)>=0;});}}}catch(e){}
-
-  f.addEventListener('submit',function(e){
-    e.preventDefault(); err.textContent='';
-    var d={}; ['name','role','org','type','place','contact','use'].forEach(function(k){d[k]=(f.elements[k].value||'').trim();});
-    d.tools=[].filter.call(f.querySelectorAll('input[name=tool]'),function(c){return c.checked;}).map(function(c){return c.value;});
-    var missing=['name','role','org','type','place','contact'].filter(function(k){return !d[k];});
-    if(missing.length){err.textContent='Please fill in every field except "How will you use them?".';var el=f.elements[missing[0]];el.focus();return;}
-    if(!d.tools.length){err.textContent='Please tick at least one tool.';return;}
-    if(!f.elements.agree.checked){err.textContent='Please confirm you have read the licence.';f.elements.agree.focus();return;}
-    try{localStorage.setItem(KEY,JSON.stringify(d));}catch(e){}
-    var gov=d.type==='gov-facility'||d.type==='gov-institution';
-    odmEvent('request-'+d.type,'Request form: '+LABEL[d.type]);
-    var msg=(gov?'Odieman tools - request (government)':'Odieman tools - licence request')+'\n\n'+
-      'Name: '+d.name+'\nRole: '+d.role+'\nFacility/organisation: '+d.org+'\nType: '+LABEL[d.type]+
-      '\nRegion/district or country: '+d.place+'\nContact: '+d.contact+'\nTools: '+d.tools.join(', ')+
-      (d.use?'\nIntended use: '+d.use:'')+'\nLicence read and accepted: yes';
-    var wa='https://wa.me/'+WA+'?text='+encodeURIComponent(msg);
-    var mail='mailto:'+MAIL+'?subject='+encodeURIComponent(gov?'Odieman tools - request (government)':'Odieman tools - licence request')+'&body='+encodeURIComponent(msg);
-    var html='';
-    if(gov){
-      html='<h3>Thank you, '+esc(d.name.split(' ')[0])+'</h3><p>One last step: send your request to Emmanuel. For government facilities and institutions in Tanzania the tools are free; he will reply and send your copies, registered to your facility. Meanwhile, the live demos above show every screen.</p>';
-    }else{
-      var FOR={'private':'For private and faith-based facilities','ngo':'For NGOs and international organisations','research':'For research projects and programmes','abroad':'Outside Tanzania'};
-      html='<h3>Thank you, '+esc(d.name.split(' ')[0])+'</h3><p>'+FOR[d.type]+', the tools are available by written licence or partnership agreement'+(d.type==='ngo'?' &mdash; including pilots in the facilities you support, adaptation to your indicators and training for your teams':'')+'. Send your request and Emmanuel will reply to agree the terms and send your copies. Meanwhile, the live demos above show every screen.</p>';
-    }
-    html+='<div class="req-actions"><a class="btn primary sans" data-send="whatsapp" href="'+esc(wa)+'" target="_blank" rel="noopener">Send on WhatsApp</a><a class="btn ghost sans" data-send="email" href="'+esc(mail)+'">Send by email</a></div>'+
-      '<p class="kv">Opens your own WhatsApp or email with the message written for you. Check it, then press send.</p>'+
-      '<p class="kv"><button type="button" class="req-link" id="reqedit">&larr; Change my details</button></p>';
-    out.innerHTML=html; out.hidden=false; f.hidden=true;
-    out.scrollIntoView({behavior:'smooth',block:'start'});
-    document.getElementById('reqedit').onclick=function(){out.hidden=true;f.hidden=false;f.scrollIntoView({behavior:'smooth',block:'start'});};
-    [].forEach.call(out.querySelectorAll('[data-send]'),function(b){b.addEventListener('click',function(){
-      odmEvent('request-sent-'+b.getAttribute('data-send'),(gov?'Request (government)':'Licence request')+' sent by '+b.getAttribute('data-send'));});});
-  });
-
-})();
-</script>
 </body>
 </html>
