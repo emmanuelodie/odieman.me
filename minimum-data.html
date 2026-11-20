@@ -55,7 +55,7 @@
       <tr><td><span class="status">Ready</span></td><td>The data loaded has what the analysis needs, at the size the method asks for.</td><td>AMS Pro, antibiogram: 579 first isolates; 56 of 98 organism&ndash;antibiotic cells reach 30 isolates (the cells that do not are flagged, not hidden).</td></tr>
       <tr><td><span class="status">Limited</span></td><td>The analysis runs, but part of the data is missing or small, and the result must be read with that in mind.</td><td>PPS Pro, ward feedback: one ward has fewer than 10 patients, so its percentages change a lot with one patient.</td></tr>
       <tr><td><span class="status">Not possible</span></td><td>A file or a column the analysis cannot do without is missing. The tool says which, instead of showing a weak figure.</td><td>Any analysis whose essential file has not been loaded.</td></tr>
-      <tr><td><span class="status">Optional</span></td><td>An extra that adds an analysis but is not needed for the others.</td><td>AMS Pro, C/S Prophylaxis Project: needs the Surgery Patients Report.</td></tr>
+      <tr><td><span class="status">Optional</span></td><td>An extra that adds an analysis but is not needed for the others.</td><td>AMS Pro, the C/S eHMS cohort engine: needs the Surgery Patients Report.</td></tr>
     </table></div>
     <p class="section-note">The check reads the data on screen, every time. The same check is printed in each tool's reports (<i>Data used and its limits</i>), so a reader of the report sees what the figures rest on.</p>
   </section>
@@ -87,7 +87,8 @@
       <tr><td>Run charts</td><td>Dated dispensing</td><td>20 points before the limits are trusted</td><td>Laney p&prime; chart</td></tr>
       <tr><td>Antibiogram</td><td>Culture results with R, I or S</td><td>30 isolates per organism&ndash;antibiotic cell; first isolate per patient per organism</td><td>CLSI M39</td></tr>
       <tr><td>Antibiotic Time-out, patients, prescriptions</td><td>Dispensing with patient numbers and dates; dosage text for IV days and duration</td><td>&ndash;</td><td>&ndash;</td></tr>
-      <tr><td>C/S Prophylaxis Project</td><td>Surgery Patients Report and dispensing from 7 days before the first operation</td><td>30 days of follow-up for infection signals; 12 usable weeks, 4 on each side of a phase start</td><td>&ndash;</td></tr>
+      <tr><td>Ward AMS Projects (AMS Pro 5.8)</td><td>The AMS secretary&rsquo;s CRF 03 for the ward (the standard source), or the Admission Report and dispensing once the AMS secretary confirms their integrity; the ward&rsquo;s consumption sheet for DDD per 100 bed-days</td><td>8 months, 3 on each side of a phase start, for the time series</td><td>&ndash;</td></tr>
+      <tr><td>C/S eHMS cohort engine</td><td>Surgery Patients Report and dispensing from 7 days before the first operation</td><td>30 days of follow-up for infection signals; 12 usable weeks, 4 on each side of a phase start</td><td>&ndash;</td></tr>
       <tr><td>WHO/INRUD indicators</td><td>The whole dispensing basket with patient numbers</td><td>&ndash;</td><td>WHO/DAP/93.1</td></tr>
       <tr><td>Cost &amp; Impact; ward stock discrepancy</td><td>Price on dispensing lines; the store issue report for the same months</td><td>&ndash;</td><td>&ndash;</td></tr>
       <tr><td>Laboratory indicators</td><td>Turnaround-time log</td><td>&ndash;</td><td>Tanzania MOH GHS-CQI</td></tr>
