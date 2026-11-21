@@ -15,6 +15,18 @@
 .scan-btn.book span{color:#FDEBD3;}
 .scan-btn.book:hover{background:#92400E;}
 section[id]{scroll-margin-top:170px;}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:8px 0 16px;}
+@media (max-width:700px){.story-grid{grid-template-columns:1fr;}}
+.story{background:#fff;border:1px solid var(--paper-line);border-top:4px solid var(--ochre);padding:18px 20px 18px;display:flex;flex-direction:column;}
+.story .num{font-family:"Iowan Old Style",Georgia,serif;font-size:36px;line-height:1;color:var(--ochre);font-weight:700;margin:0 0 8px;}
+.story .tag{font-family:"Segoe UI",sans-serif;font-size:12.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--teal);font-weight:700;margin:0 0 6px;}
+.story h3{margin:0 0 10px;font-size:21px;line-height:1.25;color:var(--navy-deep);}
+.story p{margin:0 0 12px;font-size:15.5px;line-height:1.6;color:var(--ink-soft);}
+.story p.now{margin:auto 0 14px;font-family:"Segoe UI",sans-serif;font-size:14.5px;line-height:1.5;color:var(--ink);background:#EEF6F5;border-left:3px solid var(--teal);padding:9px 12px;}
+.story p.now b{color:var(--teal);}
+.story a.go{display:block;font-family:"Segoe UI",sans-serif;font-size:15px;font-weight:700;color:#fff;background:var(--navy-deep);text-decoration:none;padding:11px 14px;text-align:center;}
+.story a.go:hover{background:var(--navy);}
+.story-close{font-family:"Segoe UI",sans-serif;font-size:15px;color:var(--ink);margin:4px 0 0;}
 .qa-group{margin:0 0 22px;}
 .qa-group h3{font-size:20px;color:var(--navy-deep);margin:24px 0 10px;}
 details.qa{background:#fff;border:1px solid var(--paper-line);border-left:4px solid var(--teal);margin:0 0 8px;}
@@ -38,9 +50,9 @@ details.qa p{margin:0 0 8px;font-size:15.5px;color:var(--ink-soft);line-height:1
   <div class="nav-inner">
     <a href="../index.html" class="brand"><img src="../odieman-logo.png" width="181" height="50" alt="Odieman Health Tools"></a>
     <nav class="links sans">
-      <a href="#path">Start here</a>
+      <a href="#why">Stories</a>
+      <a href="#path">Next steps</a>
       <a href="#poster">Poster</a>
-      <a href="#why">Why</a>
       <a href="#try">Try it</a>
       <a href="#questions">Questions</a>
       <a href="#panel">Panel</a>
@@ -53,13 +65,53 @@ details.qa p{margin:0 0 8px;font-size:15.5px;color:var(--ink-soft);line-height:1
 <main class="wrap">
   <section class="page-hero">
     <p class="event">56th PST Scientific Conference &amp; AGM &middot; 25&ndash;27 November 2026 &middot; Kwatunza Beach Conference Hall, Mwanza</p>
-    <h1>The data is already collected. These tools turn it into stewardship.</h1>
-    <p class="lede">Welcome — you probably scanned the poster. Hospital systems such as Afya eHMS already record almost everything an antimicrobial stewardship or pharmacovigilance team needs. What was missing was a tool to assemble and analyse it. Here are three — offline, free for Tanzania&rsquo;s public health facilities, built by a hospital pharmacy technician.</p>
+    <h1>400 prescriptions. Nobody believed me.</h1>
+    <p class="lede">Then came a question I couldn&rsquo;t answer, a worksheet that took days, and one window where every ADR form waited for me. These four stories became three offline tools, PPS Pro, AMS Pro and VigiWard, free for Tanzania&rsquo;s public health facilities. Read them, then try the tools yourself.</p>
     <p class="whatsnew">Following the discussion? <a href="#questions">The questions people ask about each tool</a> and <a href="#panel">the Forum 5 panel questions, answered in full</a>, are further down this page.</p>
   </section>
 
+  <section id="why">
+    <h2>Four stories, three tools</h2>
+    <p class="section-note">Each of these tools started as a problem on my own desk.</p>
+    <div class="story-grid">
+      <div class="story">
+        <div class="num">01</div>
+        <p class="tag">2024 &middot; The audit</p>
+        <h3>One more week</h3>
+        <p>Our hospital pharmacist gave me two weeks to audit 400 handwritten prescriptions against the WHO core prescribing indicators. When I presented the findings, nobody in the pharmacy department agreed with me. The hospital pharmacist gave me one more week and a colleague to help, a gesture I have never forgotten. We redid it, the department backed it, and I presented it to the whole hospital. It helped start our move to electronic prescriptions.</p>
+        <p class="now"><b>Now:</b> the same indicators come from every electronic prescription, on AMS Pro&rsquo;s <i>WHO/INRUD Indicators</i> page.</p>
+        <a class="go" href="../tools/Odieman_AMS_Pro.html?demo=1">Open AMS Pro &rarr;</a>
+      </div>
+      <div class="story">
+        <div class="num">02</div>
+        <p class="tag">AMS Pro &middot; The question</p>
+        <h3>The question I couldn&rsquo;t answer</h3>
+        <p>&ldquo;What was the DDD of ceftriaxone for the last three months?&rdquo; Our AMS chairperson asked me that. I was the committee&rsquo;s assistant secretary, and I didn&rsquo;t yet know what DDD meant. It took me many hours to learn it and work the answer out by hand.</p>
+        <p class="now"><b>Now:</b> that question takes seconds. It is the <i>Quick answer</i> at the top of the AMS Pro Dashboard.</p>
+        <a class="go" href="../tools/Odieman_AMS_Pro.html?demo=1">Ask AMS Pro &rarr;</a>
+      </div>
+      <div class="story">
+        <div class="num">03</div>
+        <p class="tag">PPS Pro &middot; The worksheet</p>
+        <h3>The worksheet that took days</h3>
+        <p>The WHO point prevalence survey is the right method, and every hospital should use it. By hand, it means typing in every patient, looking up every code and counting every total. A team spends days on it before anyone sees a result.</p>
+        <p class="now"><b>Now:</b> PPS Pro follows the same WHO method and writes the same WHO worksheet in one click.</p>
+        <a class="go" href="../tools/Odieman_PPS_Pro.html?demo=1">Try PPS Pro &rarr;</a>
+      </div>
+      <div class="story">
+        <div class="num">04</div>
+        <p class="tag">VigiWard &middot; The window</p>
+        <h3>One window, one person</h3>
+        <p>Most of our hospital&rsquo;s ADR forms came from one window: the CTC pharmacy, where I worked. I collected most of them myself. When I was busy, reporting stopped, and the wards, where most reactions happen, sent very few.</p>
+        <p class="now"><b>Now:</b> VigiWard takes pharmacovigilance into the wards, so it no longer depends on one person at one window.</p>
+        <a class="go" href="../tools/VigiWard.html?demo=1">Try VigiWard &rarr;</a>
+      </div>
+    </div>
+    <p class="story-close">With your help, they can stop being one person&rsquo;s solution. <a href="#forward">Help carry them forward &darr;</a></p>
+  </section>
+
   <section id="path" style="padding-top:4px;">
-    <h2>Start here: three steps, in this order</h2>
+    <h2>Your next three steps</h2>
     <ol class="tour">
       <li><b>Watch one tool work.</b> Open a live demo and press <b>&#9733; Showcase</b>: the tool starts empty and builds its figures and reports as the hospital&rsquo;s files go in. <a href="#try">Choose a tool &darr;</a></li>
       <li><b>Take the tools home.</b> Free for Tanzania&rsquo;s public health facilities. One short form. <a href="../get/">Request the tools &rarr;</a></li>
@@ -83,19 +135,6 @@ details.qa p{margin:0 0 8px;font-size:15.5px;color:var(--ink-soft);line-height:1
     <p class="kv" style="margin-top:10px;">Presenting author: Odindo Emmanuel Thomas &middot; <a href="Abstract_PST2026_Odindo.pdf" download>Download the abstract (PDF)</a></p>
   </section>
 
-  <section id="why">
-    <h2>Why I built each tool</h2>
-    <p class="section-note">Each of these tools started as a problem on my own desk.</p>
-    <div class="abstract" style="margin-bottom:16px;border-left-color:var(--ochre)">
-      <p><b>Where it began &middot; 400 prescriptions, 2024.</b> Our hospital pharmacist asked me to sample 400 handwritten prescriptions and analyse them against the WHO core prescribing indicators, with a prescription audit, in two weeks. When I presented the findings to the pharmacy department, nobody agreed with them. The hospital pharmacist gave me one more week and a colleague to help: a gesture I have never forgotten, and from then on I never wanted to let my team down. We redid the analysis, the department supported the findings, and I presented them to the whole hospital meeting. That work helped start the move to electronic prescriptions, which not every doctor had accepted before. Today the same indicators come from every electronic prescription, on AMS Pro&rsquo;s <i>WHO/INRUD Indicators</i> page.</p>
-    </div>
-    <div class="ask">
-      <div style="border-left-color:var(--teal)"><h4>PPS Pro &middot; the worksheet</h4><p>The WHO point prevalence survey is the right method, and every hospital should use it. Done by hand, it means every patient typed in, every code looked up and every total counted, and a team spends days on it before anyone sees a result. PPS Pro follows the same WHO method and, at the end, writes the same WHO worksheet with one click.</p></div>
-      <div style="border-left-color:var(--teal)"><h4>AMS Pro &middot; one question</h4><p>As assistant secretary of our hospital&rsquo;s AMS team, I was asked by our chairperson: what was the DDD of ceftriaxone for the last three months? I didn&rsquo;t yet know what DDD meant. I spent many hours learning it and working the answer out by hand. Stewardship work is squeezed between our job descriptions, management roles and patients, and it needs a solution that lasts. In AMS Pro that question now takes seconds: it is the <i>Quick answer</i> on the Dashboard.</p></div>
-      <div style="border-left-color:var(--teal)"><h4>VigiWard &middot; one window</h4><p>Most of our adverse-reaction forms used to come from one window: the CTC pharmacy, where I worked as a pharmaceutical technician, and I collected most of them myself. When I was busy, reporting stopped, and the wards, where most reactions happen, sent very few. Pharmacovigilance cannot depend on one person at one window, so VigiWard takes it into the wards.</p></div>
-    </div>
-    <p class="kv" style="margin-top:12px;">With your help, they can stop being one person&rsquo;s solution. <a href="#forward">Help carry them forward &darr;</a></p>
-  </section>
 
   <section id="try" style="padding-top:10px;">
     <h2>Try them now</h2>
