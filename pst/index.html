@@ -156,6 +156,7 @@ details.qa p{margin:0 0 8px;font-size:15.5px;color:var(--ink-soft);line-height:1
       <div><h4>In real use</h4><p>Developed inside a regional referral hospital's AMS committee work, producing reports and slides from the hospital's own exports. Every figure shown publicly comes from simulated demonstration data.</p></div>
       <div><h4>Safe by design</h4><p>Everything runs on the user's own computer. No server, no internet needed, no patient data transmitted — outputs are aggregate figures.</p></div>
     </div>
+    <p class="story-close" style="margin-top:18px;"><b>Semi-automated, on purpose.</b> The tool does the counting; people do the judging: the data only people can enter, causality scoring, and a final read of every report before it goes out.</p>
   </section>
 
   <section id="questions">
@@ -164,6 +165,8 @@ details.qa p{margin:0 0 8px;font-size:15.5px;color:var(--ink-soft);line-height:1
 
     <div class="qa-group">
       <h3>About all three tools</h3>
+      <details class="qa"><summary>Is it fully automated?</summary><div>
+        <p>No, and that is on purpose. The tools are semi-automated: they do the counting, compiling and drafting. People still do what only people can: enter the survey forms on the ward, score each suspected reaction with Naranjo or WHO-UMC, and read every report and correct it before it goes out. The time saved goes to ward rounds and patients, not to spreadsheets.</p></div></details>
       <details class="qa"><summary>Have the tools been validated?</summary><div>
         <p>Not formally yet, and I say so openly. Every release is checked against the one before it, figure by figure, and new calculations are worked out a second time independently (<a href="../checks.html">how each release is checked</a>). The reference lists and VigiWard&rsquo;s medicine profiles were reviewed against named sources.</p>
         <p>The next step is a proper validation in three or four hospitals, comparing the tools with the usual method. I am looking for partners to do it.</p></div></details>
@@ -206,7 +209,7 @@ details.qa p{margin:0 0 8px;font-size:15.5px;color:var(--ink-soft);line-height:1
       <details class="qa"><summary>Does it follow the WHO method?</summary><div>
         <p>Yes: the WHO point prevalence survey methodology and forms, with every prescription also checked against the Tanzania STG. It writes the WHO PPS worksheet and WHO files, and follows each indicator across survey rounds with formal trend tests.</p></div></details>
       <details class="qa"><summary>How long does a survey take?</summary><div>
-        <p>Collecting on the wards still takes the team&rsquo;s time. What disappears is the days of compiling and cleaning afterwards: once collection ends, the full report is one click away, while the findings still matter.</p></div></details>
+        <p>Collecting on the wards still takes the team&rsquo;s time. What disappears is the days of compiling and cleaning afterwards: once collection ends, one click drafts the full report for the team to check, while the findings still matter.</p></div></details>
       <details class="qa"><summary>We already collect in REDCap or analyse in Stata.</summary><div>
         <p>PPS Pro writes a REDCap data dictionary from its own code lists and reads a REDCap export as it is, and it reads and writes labelled Stata files. So far this has been tested with simulated REDCap files; a test in a live REDCap project comes next.</p></div></details>
     </div>
