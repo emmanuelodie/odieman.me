@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <!--
   ============================================================================
-  VigiWard — Hospital Pharmacovigilance · v3.15 (Active PV / Signal Detection)
-  © 2024–2026 Odindo Emmanuel Thomas. All rights reserved.
-  Sole author & developer: Odindo Emmanuel Thomas · Tanga RRH, Tanzania
+  VigiWard — Hospital Pharmacovigilance · v3.16 (Active PV / Signal Detection)
+  © 2024–2026 Emmanuel Thomas. All rights reserved.
+  Sole author & developer: Emmanuel Thomas · Tanga RRH, Tanzania
   emmanuelodie94@gmail.com · "VigiWard" is an unregistered trademark (™) of the author.
   Single-file, fully offline. SheetJS (xlsx) inlined for Excel reading.
   ----------------------------------------------------------------------------
@@ -22,7 +22,7 @@
 <html lang="en">
 <head>
 <!-- Odieman VigiWard - DEMO VERSION. Runs on simulated sample data only.
-     (c) 2024-2026 Odindo Emmanuel Thomas. All rights reserved.
+     (c) 2024-2026 Emmanuel Thomas. All rights reserved.
      The full version is licensed to named holders only; copying or modifying this file is not permitted. -->
 <script>
 (function(){
@@ -613,7 +613,7 @@ html.odm-present .suite-nav .arm-btn,html.odm-present .suite-nav .navgrp,html.od
   <div class="page-head">
     <div class="eyebrow">Cardiometabolic arm · same Hub, independent NCD reports</div>
     <h1>NCD prescribing audit & analytics</h1>
-    <p>The cardiometabolic engine reads the <strong>same dispensing dataset</strong> ingested in the Hub, detects NCD conditions from drug-class proxies, and audits each regimen against WHO HEARTS, HEARTS-D, KDIGO and the active national guideline — producing its own reports (concordance, control & risk, renal, trends, advisory) separate from the ward signals.</p>
+    <p>The cardiometabolic engine reads the <strong>same dispensing dataset</strong> ingested in the Hub, detects NCD conditions from drug-class proxies, and audits each regimen against WHO HEARTS, HEARTS-D, KDIGO and the active national guideline — producing its own reports (concordance, control & risk, renal, trends, advisory) separate from the ward signals. For the Tanzania profile, treatment rules are from the 2021 edition; review against the 7th edition (2026) is pending.</p>
   </div>
   <div class="row" style="gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:6px">
     <label class="fld" style="margin:0"><span>Guideline profile</span>
@@ -853,7 +853,8 @@ html.odm-present .suite-nav .arm-btn,html.odm-present .suite-nav .navgrp,html.od
     </div>
   </div>
 
-  <div class="card" id="g-new315"><h2>What's new in v3.15 (November 2026)</h2><ul>
+  <div class="card" id="g-new316"><h2>What's new in v3.16 (November 2026)</h2><ul><li><b>Manual entry saves as you type.</b> Every record on the list, and the one being filled in, is kept on this computer within a second (and in the data folder when one is open), so it comes back after a closed tab, a crash or a power cut. Save now (Ctrl+S), save a copy as a file, open a saved copy, or start fresh. Switching form or loading another dictionary asks first and saves a copy of the records before clearing them. The first click on <i>Add this record</i> after typing now always counts.</li></ul></div>
+<div class="card" id="g-new315"><h2>What's new in v3.15 (November 2026)</h2><ul>
     <li><b>Showcase</b> (&#9733; Showcase in the top bar): a stage for a talk. VigiWard opens empty, the sample hospital's exports go in one by one, each figure turns from red to green when the file it needs arrives, and it ends on decisions for the PV team and for management and on one-click outputs (TMDA, ICH E2B, VigiFlow, REDCap, Stata). Keys: &rarr; next, &larr; back, 1&ndash;8 outputs, F full screen, Esc open the tool. Memory only; nothing is saved. The stage can also run on the data loaded now. It replaces the Present tour on the top bar.</li>
     <li><b>Pharmacology check</b> on every flag (&#9878; chip on the card, and the Pharmacology button): what the medicine is known to do (labelled reactions, Rawlins type, mechanism), who is at higher risk of it, and what this patient's own record shows: age, sex, ward, and the creatinine with eGFR (CKD-EPI 2021), potassium, ALT, glucose and neutrophils measured around the event. It ends in a plausibility reading (labelled or not; strong, moderate) for the reviewer. Not a causality score: Naranjo and WHO-UMC remain the causality tools. Profiles are built in for 71 medicines in common use, each reviewed against its sources (WHO Model Formulary, BNF, KDIGO, Tanzania STG).</li></ul></div>
   <div class="card" id="g-new314"><h2>What's new in v3.13 and v3.14 (November 2026)</h2><ul>
@@ -991,7 +992,7 @@ html.odm-present .suite-nav .arm-btn,html.odm-present .suite-nav .navgrp,html.od
   <div class="card">
     <p style="font-size:13px;color:var(--ink-soft);background:var(--surface-2);border-left:3px solid var(--accent);padding:9px 12px;border-radius:0 6px 6px 0;margin-bottom:12px"><strong>Merged build.</strong> VigiWard now carries a <strong>Cardiometabolic</strong> arm (the former VigiCardio engine). Both arms share <em>one Hub</em> — a single dispensing upload — yet produce independent reports: the ward arm detects ADR signals, the cardiometabolic arm audits NCD prescribing against WHO HEARTS / HEARTS-D / KDIGO and the national STG. The <strong>Findings</strong> tab carries both (Ward PV · Cardiometabolic), and the upgraded <strong>Interactions</strong> arm reads across both arms — teaching the pharmacology of each critical pair with WHO/STG and reference-grade citations, then transcribing confirmed interactions into Authorship for publication. Flags and interactions now list the de-identified patient ID with the implicated prescription.</p>
     <p><strong>Active pharmacovigilance by signal detection.</strong> Reads routine pharmacy dispensing data and flags patterns suggesting a <em>suspected</em> ADR for a person to review — it does not replace the TMDA spontaneous-reporting form; it helps find cases that might otherwise go unreported.</p>
-    <p><strong>Developed for:</strong> Tanga Regional Referral Hospital pharmacovigilance, Tanzania.<br><span style="font-size:12px;color:var(--ink-faint)">Developer &amp; author: Odindo Emmanuel Thomas · emmanuelodie94@gmail.com</span></p>
+    <p><strong>Developed for:</strong> Tanga Regional Referral Hospital pharmacovigilance, Tanzania.<br><span style="font-size:12px;color:var(--ink-faint)">Developer &amp; author: Emmanuel Thomas · emmanuelodie94@gmail.com</span></p>
     <div class="hr"></div>
     <p style="font-size:12.5px;color:var(--ink-soft)"><strong>Detection methods.</strong> (1) Prescribing cascades — a drug followed by one that treats its known adverse effect (NSAID→PPI gastritis, opioid→antiemetic/laxative, antipsychotic→anticholinergic EPS, loop/thiazide→potassium hypokalaemia, ACEI→antitussive cough, corticosteroid→antidiabetic hyperglycaemia). (2) Marker-drug clusters — rescue drugs co-dispensed (e.g. adrenaline/hydrocortisone with an antibiotic ⇒ probable hypersensitivity). (3) Stop/switch — early discontinuation with a same-indication switch. Lab data confirms nephrotoxicity (rising creatinine), hepatotoxicity (rising ALT/AST), hypokalaemia (low potassium after a potassium-wasting diuretic), and hyperglycaemia (high glucose after a corticosteroid). Cascade windows and lab thresholds are tunable in the Hub, and a false-positive guard requires the rescue drug to be newly started after the culprit.</p>
     <p style="font-size:12.5px;color:var(--ink-soft)"><strong>New in v3.0.</strong> An Overview dashboard (top culprit drugs, MedDRA SOC, WHO AWaRe class, detection method, review status, monthly trend); a per-patient timeline drill-down showing the full medication and lab chronology with the culprit and rescue highlighted; case triage on every signal (New → Reviewing → Confirmed / Dismissed) with a reviewer note and a saved Naranjo score that persist across re-runs; WHO AWaRe 2023 antibiotic classification (Access / Watch / Reserve); search and sort on the signal list; and one-click export of the signal line-list to Excel or CSV. Every signal now also carries a plain-language, reporter-verifiable justification — naming the exact dates, drugs, lab values, intervals and thresholds behind the flag — shown on the card, carried into the TMDA report, and included in the export. The Overview now adds two evidence panels — a <strong>validation precision (PPV)</strong> read-out built from your triage decisions, and a <strong>crude sequence symmetry analysis</strong> giving each cascade pair a statistical sequence ratio with a 95% confidence interval — plus optional downloadable reports: the SSA table, a validation log, a draft ICH E2B-style XML, and a MedDRA mapping worksheet for a licensed coder. The E2B file is a draft skeleton and states its limits plainly.</p>
@@ -1011,8 +1012,8 @@ html.odm-present .suite-nav .arm-btn,html.odm-present .suite-nav .navgrp,html.od
       <li><b>How to establish it.</b> Review a defined sample of signals (for example 50–100, stratified by detection method) against patient files, record Confirmed / Dismissed and a Naranjo score for each; the Overview's validation log then reports the confirmed proportion with a 95% confidence interval per method. The <b>REDCap &amp; Stata</b> page (Report menu) sets this up in REDCap: it sends a random sample of each method for chart review and reports the confirmed proportion per method with its 95% interval. Only those figures should be quoted as accuracy.</li>
       <li><b>Known biases.</b> Dispensing is not administration; outpatients may not take or may buy medicines elsewhere; rescue drugs have other indications; incomplete exports (departments missing in some months) distort rates; "first dose" means first in the data, not first ever.</li>
     </ul>
-    <p style="font-size:12.5px;color:var(--ink-faint)"><strong>© 2024–2026 Odindo Emmanuel Thomas. All rights reserved.</strong> “VigiWard” is an unregistered trademark (™) of the author.</p>
-    <div class="ref">Cite as: Odindo, E. T. (2026). VigiWard: Hospital Pharmacovigilance (Version 3.15) [Computer software]. Tanga, Tanzania.</div>
+    <p style="font-size:12.5px;color:var(--ink-faint)"><strong>© 2024–2026 Emmanuel Thomas. All rights reserved.</strong> “VigiWard” is an unregistered trademark (™) of the author.</p>
+    <div class="ref">Cite as: Odindo, E. T. (2026). VigiWard: Hospital Pharmacovigilance (Version 3.16) [Computer software]. Tanga, Tanzania.</div>
   </div>
 </section>
 
@@ -4136,7 +4137,7 @@ function renderInteractions(){
     return;
   }
   const body=list.length?list.map(c=>rxCardHTML(c,agg[c.effect])).join(''):'<div class="empty" style="padding:14px">No interactions match these filters.</div>';
-  const foot=`<p class="sub" style="margin-top:14px">A <em>candidate</em> is co-dispensing within the interaction window — possible concurrent exposure, not confirmed co-administration and not in itself a reaction. It becomes a <strong>signal</strong> only when an outcome layer (lab, rescue medicine, or death) supports the expected consequence; such signals are transcribed to Authorship. Citations resolve the national standard to <strong>${esc(rxStg())}</strong>.</p>`;
+  const foot=`<p class="sub" style="margin-top:14px">A <em>candidate</em> is co-dispensing within the interaction window — possible concurrent exposure, not confirmed co-administration and not in itself a reaction. It becomes a <strong>signal</strong> only when an outcome layer (lab, rescue medicine, or death) supports the expected consequence; such signals are transcribed to Authorship. Citations resolve the national standard to <strong>${esc(rxStg())}</strong>.${/Tanzania/.test(rxStg())?' Treatment rules are from the 2021 edition; review against the 7th edition (2026) is pending.':''}</p>`;
   el.innerHTML=controls+denom+body+foot;
 }
 
@@ -4146,7 +4147,7 @@ function rxReport(){
   const lines=[];const today=new Date().toISOString().slice(0,10);
   lines.push('PHARMACOVIGILANCE — DRUG-INTERACTION REPORT');
   lines.push('VigiWard · generated '+today);
-  lines.push('National standard applied: '+rxStg());
+  lines.push('National standard applied: '+rxStg()+(/Tanzania/.test(rxStg())?'. Treatment rules are from the 2021 edition; review against the 7th edition (2026) is pending.':''));
   lines.push('');
   const detected=cat.filter(c=>agg[c.effect]);
   const coPts=new Set((DB.interactions||[]).map(e=>e.pid)).size;
@@ -4179,7 +4180,7 @@ function rxToAuthorship(effect){
 }
 
 /* =====================================================================
-   CARDIOMETABOLIC ENGINE  (ported from VigiCardio v2 — Odindo E.T.)
+   CARDIOMETABOLIC ENGINE  (ported from VigiCardio v2 — Emmanuel Thomas)
    Wrapped as an isolated module reading the shared Hub dataset.
    Identity coding is delegated to the host (HOSTPCODE) so pharmacy and
    readings join on the same de-identified patient key.
@@ -4584,7 +4585,7 @@ function buildAdvisoryLines(m){
   const L=[];const H=t=>L.push(['h',t]),P=t=>L.push(['p',t]),B=t=>L.push(['b',t]);
   H('Cardiometabolic & NCD Prescribing Advisory');
   P(fac+'  ·  Period: '+m.period+'  ·  Generated '+new Date().toISOString().slice(0,10));
-  P('Guideline basis: '+(COUNTRY[DB.country]||COUNTRY.TZ).label+' · WHO HEARTS-D · KDIGO · Beers/STOPP-START.');
+  P('Guideline basis: '+(COUNTRY[DB.country]||COUNTRY.TZ).label+' · WHO HEARTS-D · KDIGO · Beers/STOPP-START.'+((COUNTRY[DB.country]||COUNTRY.TZ)===COUNTRY.TZ?' Treatment rules are from the 2021 edition; review against the 7th edition (2026) is pending.':''));
   if(author)P('Prepared by: '+author);
   H('1. Population overview');
   P(m.patients.toLocaleString()+' patients analysed from dispensing data. Conditions detected by drug-class proxy — hypertension '+m.cond.htn.toLocaleString()+', diabetes '+m.cond.dm.toLocaleString()+', ischaemic heart disease '+m.cond.ihd.toLocaleString()+', possible heart failure '+m.cond.hf.toLocaleString()+'.');
@@ -4720,7 +4721,7 @@ function renderFindingsTab(elId){
       <div class="rule-body">${esc(r.desc)}<div class="rule-pts"><strong>Flagged patients (${r.hits.length}) — de-identified ID &amp; implicated medicines:</strong>${pts}${r.hits.length>80?`<div>… ${r.hits.length-80} more</div>`:''}</div></div></div>`;
   }).join(''):'<div class="empty" style="padding:14px">No findings at this severity — try a broader filter.</div>';
   el.innerHTML=`<div class="kpis">${kpis}</div>${cond}${seg}${list}
-     <p class="sub" style="margin-top:12px">Each finding states what departs from guideline, why it matters, and the cited standard (WHO HEARTS / HEARTS-D / KDIGO / ${esc(natLabel())}). The advisory transcribes these into a formatted report.</p>`;
+     <p class="sub" style="margin-top:12px">Each finding states what departs from guideline, why it matters, and the cited standard (WHO HEARTS / HEARTS-D / KDIGO / ${esc(natLabel())}).${natLabel().indexOf('Tanzania')>=0?' Treatment rules are from the 2021 edition; review against the 7th edition (2026) is pending.':''} The advisory transcribes these into a formatted report.</p>`;
 }
 
 function render(){ if((!DB.pharmacy||!DB.pharmacy.length)&&window.__wardPharmacy){buildFrom(window.__wardPharmacy());} go(_cur||'audit'); }
@@ -5344,7 +5345,7 @@ function vmdReportLines(){const ph=DB.pharmacy||[],M=vmdMonths(ph),q=DB.qa||{},L
  if(lim.length){L.push({p:"Limits found by VigiWard's data check (Minimum data):"});lim.forEach(x=>L.push({b:`${x.name}: ${String(x.detail).replace(/<[^>]+>/g,'')}`}));}
  else L.push({p:"VigiWard's data check (Minimum data) found no limits."});
  return L}
-const VW_VER='3.15', VRC_FORM='adr_case_review';
+const VW_VER='3.16', VRC_FORM='adr_case_review';
 const VRC_METHOD=[['LAB','Lab-supported'],['DDI','Drug interaction'],['CLUSTER','Cluster'],['CASCADE','Cascade'],['STOPSWITCH','Stop/switch']];
 const VRC_STRENGTH=[['WEAK','Possible'],['MODERATE','Probable'],['STRONG','Certain']].map(([c,k])=>[c,SIG_STRENGTH[k],k]);
 const VRC_SEV=[['MILD','Mild','mild'],['MODERATE','Moderate','moderate'],['SEVERE','Severe','severe']];
@@ -6223,6 +6224,219 @@ function renderMentry(){
  (VE.source==="own"?("<button class=\"arm-btn\" onclick=\"veSendToAnalysis()\" "+(VE.rows.length?"":"disabled")+" style=\"margin-left:8px\">Send these "+VE.rows.length+" record(s) to case review</button>"):"")+
  "</div></div>";
 }
+
+/* ============ Entry safety (shared by PPS Pro, AMS Pro and VigiWard) ============
+   Nothing typed by hand should be lost.
+   - Manual entry page: every change, even a half-typed box, is kept as a draft on this computer about
+     half a second later (browser storage; and in the data folder too when one is connected). Closing the
+     tab, a power cut or a crash brings the same records back the next time the page opens.
+     The page shows when it last saved, with Save now (Ctrl+S), Save a copy as a file, Open a saved copy
+     and Start fresh. Switching form, loading another dictionary or removing a record asks first, and a
+     copy is saved as a file before any records are cleared.
+   - Other entry forms (ESAFE.forms): boxes typed but not yet added are kept until their Add button
+     succeeds, and are put back if the form is redrawn or the tool is reopened.
+   - Ctrl+S anywhere saves the tool's own data at once. Before the page closes, the box being typed in is
+     committed, and drafts are written straight away.
+   Demo mode keeps drafts in this browser tab only, so nothing is left behind on a shared computer. */
+const ESAFE=(function(){
+ const DBN="odieman_entry_drafts", ST="kv";
+ const cfgs={}, mem={}, timers={}, forms={};
+ let dbp=null, mainSave=null;
+ const store=()=>DEMO?sessionStorage:localStorage;
+ const lk=k=>DBN+":"+k;
+ function idb(){ if(dbp) return dbp;
+  dbp=new Promise((res,rej)=>{ if(!window.indexedDB){ rej(new Error("this browser has no IndexedDB")); return; }
+   const r=indexedDB.open(DBN,1); r.onupgradeneeded=()=>r.result.createObjectStore(ST);
+   r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error||new Error("storage blocked")); });
+  dbp.catch(()=>{ dbp=null; }); return dbp; }
+ async function put(k,v){
+  if(DEMO){ store().setItem(lk(k),JSON.stringify(v)); return; }
+  const db=await idb();
+  await new Promise((res,rej)=>{ const tx=db.transaction(ST,"readwrite"); tx.objectStore(ST).put(v,k);
+   tx.oncomplete=()=>res(); tx.onerror=()=>rej(tx.error); tx.onabort=()=>rej(tx.error||new Error("storage full")); });
+  try{ localStorage.removeItem(lk(k)); }catch(e){} /* the quick copy written on closing is no longer needed */ }
+ async function get(k){
+  let a=null,b=null;
+  try{ const s=store().getItem(lk(k)); if(s) b=JSON.parse(s); }catch(e){}
+  if(!DEMO){ try{ const db=await idb(); a=await new Promise((res,rej)=>{ const r=db.transaction(ST).objectStore(ST).get(k); r.onsuccess=()=>res(r.result||null); r.onerror=()=>rej(r.error); }); }catch(e){} }
+  if(a&&b) return (b.savedAt||0)>(a.savedAt||0)?b:a;
+  return a||b; }
+ async function del(k){
+  try{ store().removeItem(lk(k)); }catch(e){}
+  if(DEMO) return;
+  try{ const db=await idb(); await new Promise(res=>{ const tx=db.transaction(ST,"readwrite"); tx.objectStore(ST).delete(k); tx.oncomplete=res; tx.onerror=res; }); }catch(e){} }
+ function quick(k,v){ try{ store().setItem(lk(k),JSON.stringify(v)); }catch(e){} }
+ const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+ const hm=t=>new Date(t).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});
+ const dm=t=>{ const d=new Date(t), n=new Date(); return d.toDateString()===n.toDateString()?"today at "+hm(t):d.toLocaleDateString([],{day:"numeric",month:"short"})+", "+hm(t); };
+ const say=m=>{ try{ toast(m); }catch(e){} };
+ function dl(name,text){ const url=URL.createObjectURL(new Blob([text],{type:"application/json"})); const a=document.createElement("a");
+  a.href=url; a.download=name; document.body.appendChild(a); a.click(); setTimeout(()=>{ a.remove(); URL.revokeObjectURL(url); },1500); }
+ function stamp(){ const t=new Date(), p=n=>String(n).padStart(2,"0"); return t.getFullYear()+"-"+p(t.getMonth()+1)+"-"+p(t.getDate())+"_"+p(t.getHours())+p(t.getMinutes()); }
+
+ /* ---------- manual entry page ---------- */
+ function filled(v){ return Object.keys(v||{}).some(x=>v[x]!==""&&v[x]!=null&&v[x]!=="0"); }
+ function hasContent(k){ const s=cfgs[k].S(); return s.rows.length>0||filled(s.values); }
+ function snap(k){ const c=cfgs[k], s=c.S();
+  return {v:1,kind:"odieman-entry-draft",tool:c.tool,savedAt:Date.now(),source:s.source,fields:s.source==="own"?null:s.fields,values:s.values,rows:s.rows}; }
+ function apply(k,d){ const s=cfgs[k].S();
+  s.source=d.source||"own"; s.fields=s.source==="own"?[]:(d.fields||[]); s.values=d.values||{}; s.rows=d.rows||[]; s.err=null; }
+ function changed(k){ const m=mem[k]; m.status="pending"; m.restored=null; clearTimeout(timers[k]); timers[k]=setTimeout(()=>flush(k),500); paint(k); }
+ async function flush(k){
+  clearTimeout(timers[k]); timers[k]=null;
+  const c=cfgs[k], m=mem[k], has=hasContent(k), d=has?snap(k):null;
+  try{ if(has) await put(k,d); else await del(k); m.status="saved"; m.savedAt=Date.now(); m.err=""; }
+  catch(e){ m.status="error"; m.err=(e&&e.message)||String(e); }
+  if(has && !DEMO && c.folder && c.folder.ok()){
+   try{ await c.folder.write(c.file,JSON.stringify(d,null,1)); m.folderAt=Date.now(); m.folderErr=false; }catch(e){ m.folderErr=true; } }
+  paint(k); }
+ function copy(k,quiet){ const c=cfgs[k], s=c.S();
+  dl(c.short+"_manual_entry_saved_"+stamp()+".json",JSON.stringify(snap(k),null,1));
+  if(!quiet) say("A copy of "+s.rows.length+" record(s) was saved to your Downloads folder"); }
+ function openCopy(k,file){ if(!file) return; const c=cfgs[k];
+  const rd=new FileReader();
+  rd.onload=()=>{ let d=null; try{ d=JSON.parse(String(rd.result)); }catch(e){}
+   if(!d||d.kind!=="odieman-entry-draft"||!Array.isArray(d.rows)){ alert("This file is not a saved copy of manual entries."); c.rerender(); return; }
+   if(d.tool!==c.tool){ alert("This copy was saved by another tool ("+d.tool+"). Open it in that tool."); c.rerender(); return; }
+   const s=c.S(), same=(d.source||"own")===s.source && (s.source==="own" || JSON.stringify((d.fields||[]).map(f=>f.var))===JSON.stringify((s.fields||[]).map(f=>f.var)));
+   if(hasContent(k)){
+    if(same && s.rows.length){
+     if(!confirm("Add the "+d.rows.length+" record(s) from this file to the "+s.rows.length+" already on the list?")){ c.rerender(); return; }
+     s.rows=s.rows.concat(d.rows);
+    } else {
+     if(!confirm("Replace what is on screen with the "+d.rows.length+" record(s) in this file?\n\nA copy of what is on screen now will be saved as a file first.")){ c.rerender(); return; }
+     copy(k,true); apply(k,d);
+    }
+   } else apply(k,d);
+   changed(k); c.rerender(); say(d.rows.length+" record(s) opened from the saved copy"); };
+  rd.readAsText(file); }
+ function fresh(k){ const c=cfgs[k], s=c.S();
+  if(hasContent(k)){
+   if(!confirm("Clear the form"+(s.rows.length?" and the "+s.rows.length+" record(s) on the list":"")+"?"+(s.rows.length?"\n\nA copy will be saved as a file first.":""))) return;
+   if(s.rows.length) copy(k,true); }
+  s.values={}; s.rows=[]; changed(k); c.rerender(); }
+ function paint(k){
+  const c=cfgs[k], m=mem[k], f=document.getElementById(c.formId); if(!f) return;
+  let bar=document.getElementById("esafe-"+k);
+  if(!bar){ bar=document.createElement("div"); bar.id="esafe-"+k; const a=c.anchor(f); if(!a||!a.parentElement) return; a.parentElement.insertBefore(bar,a); }
+  const s=c.S(), has=hasContent(k), n=s.rows.length, typing=filled(s.values);
+  const what=(n?n+" record"+(n===1?"":"s")+" on the list":"")+(n&&typing?" + ":"")+(typing?"one being filled in":"");
+  let cls="ok", msg;
+  if(m.status==="pending"){ cls="wait"; msg="Saving…"; }
+  else if(m.status==="error"){ cls="err"; msg="Could not save in this browser ("+esc(m.err)+"). Use <b>Save a copy as a file</b> now so nothing is lost."; }
+  else if(!has){ cls="idle"; msg="Everything you type here is saved on this computer as you go."; }
+  else { msg="Saved on this computer "+dm(m.savedAt||Date.now())+" &middot; "+what+(m.folderAt&&!m.folderErr?" &middot; a copy is in your data folder":""); }
+  if(DEMO){ cls=cls==="err"?"err":"demo"; msg="Demo: "+(has?what+", kept in this browser tab only. ":"")+"Entries stay while this tab is open, even if you reload it. They are gone when the tab closes."; }
+  const B=c.btn||"btn small ghost";
+  bar.className="esafe "+cls;
+  bar.innerHTML='<div class="esafe-row"><span class="esafe-dot" aria-hidden="true"></span><span class="esafe-msg" role="status">'+msg+'</span>'+
+   '<span class="esafe-btns">'+
+   '<button type="button" class="'+B+'" onclick="ESAFE.now(\''+k+'\')" title="Ctrl+S">Save now</button>'+
+   '<button type="button" class="'+B+'" onclick="ESAFE.copy(\''+k+'\')" '+(has?"":"disabled")+'>Save a copy as a file</button>'+
+   '<label class="'+B+' esafe-open">Open a saved copy<input type="file" accept=".json,application/json" onchange="ESAFE.open(\''+k+'\',this.files[0])"></label>'+
+   '<button type="button" class="'+B+'" onclick="ESAFE.fresh(\''+k+'\')" '+(has?"":"disabled")+'>Start fresh</button>'+
+   '</span></div>'+
+   (m.restored?'<div class="esafe-note">'+(m.restored.n?"Brought back "+m.restored.n+" record"+(m.restored.n===1?"":"s")+" you entered earlier":"Brought back what you were typing")+' (last saved '+dm(m.restored.at)+').'+(m.restored.n?" Export or send them when you are ready, or choose Start fresh.":"")+'</div>':"");
+ }
+ function wrap(name,fn){ const o=window[name]; if(typeof o!=="function") return false; window[name]=fn(o); return true; }
+ function entry(c){
+  const k=c.key; cfgs[k]=c; mem[k]={status:"idle"};
+  const P=c.prefix;
+  const visKey=()=>{ const s=c.S(); try{ return EE.visibleFields(s.fields,s.values).map(f=>f.var).join("|"); }catch(e){ return null; } };
+  /* A box already recorded while typing is only redrawn if it changes which questions show. Redrawing
+     on every change made the first click on "Add this record" after typing go nowhere (the button was
+     replaced while the mouse was still down). */
+  wrap(P+"SetVal",o=>function(key,v){ const s=c.S();
+   if(s.values[key]===v && mem[k].vis!=null && visKey()===mem[k].vis){ changed(k); return; }
+   const r=o.apply(this,arguments); changed(k); return r; });
+  wrap(P+"AddRow",o=>function(){ const r=o.apply(this,arguments); changed(k); return r; });
+  wrap(P+"DeleteRow",o=>function(i){ const s=c.S(); if(s.rows[i] && !confirm("Remove record "+(i+1)+" from the list?")) return; const r=o.apply(this,arguments); changed(k); return r; });
+  wrap(P+"SetSource",o=>function(src){ const s=c.S();
+   if(src!==s.source && s.rows.length){
+    if(!confirm("Switching form clears the "+s.rows.length+" record(s) on the list.\n\nOK: save a copy of them as a file first, then switch.\nCancel: stay on this form.")){ c.rerender(); return; }
+    copy(k,true); }
+   const r=o.apply(this,arguments); changed(k); return r; });
+  wrap(P+"LoadDict",o=>function(file){ const s=c.S();
+   if(file && s.rows.length){
+    if(!confirm("Loading another dictionary clears the "+s.rows.length+" record(s) on the list.\n\nOK: save a copy of them as a file first, then load it.\nCancel: keep this form.")){ c.rerender(); return; }
+    copy(k,true); }
+   const r=o.apply(this,arguments); setTimeout(()=>changed(k),300); return r; });
+  wrap(P+"SendToAnalysis",o=>function(){ const r=o.apply(this,arguments); Promise.resolve(r).then(()=>changed(k),()=>changed(k)); return r; });
+  wrap(c.render,o=>function(){ const r=o.apply(this,arguments); try{ if(document.getElementById(c.formId)) mem[k].vis=visKey(); paint(k); }catch(e){} return r; });
+  /* keep half-typed text boxes too: the form itself only records a box when it loses focus */
+  document.addEventListener("input",e=>{ const t=e.target; if(!t||!t.id||t.id.indexOf("ee_f_")!==0) return;
+   const f=document.getElementById(c.formId); if(!f||!f.contains(t)||t.type==="checkbox") return;
+   c.S().values[t.id.slice(5)]=t.value; changed(k); },true);
+  get(k).then(d=>{ if(!d||!(d.rows&&d.rows.length||filled(d.values))) return; if(hasContent(k)) return;
+   apply(k,d); mem[k].status="saved"; mem[k].savedAt=d.savedAt; mem[k].restored={at:d.savedAt,n:(d.rows||[]).length};
+   if(document.getElementById(c.formId)) c.rerender(); }).catch(()=>{});
+ }
+
+ /* ---------- other entry forms: keep boxes typed but not yet added ---------- */
+ function formsKeep(c){
+  const k=c.key; let d={}, tm=null, busy=false;
+  forms[k]={save:()=>{ if(tm){ clearTimeout(tm); tm=null; } const has=Object.keys(d).some(i=>d[i]!==""); if(has) quick(k,{v:1,savedAt:Date.now(),values:d}); }};
+  const persist=()=>{ clearTimeout(tm); tm=setTimeout(()=>{ tm=null; const has=Object.keys(d).some(i=>d[i]!=="");
+   (has?put(k,{v:1,savedAt:Date.now(),values:d}):del(k)).catch(()=>{}); },500); };
+  const inBox=t=>{ const b=document.getElementById(c.box); return b&&b.contains(t); };
+  const note=t=>{ if(!t||!t.id||!c.ids.test(t.id)||t.type==="file"||t.type==="checkbox"||!inBox(t)) return; d[t.id]=t.value; t.classList.remove("esafe-kept"); persist(); };
+  document.addEventListener("input",e=>note(e.target),true);
+  document.addEventListener("change",e=>note(e.target),true);
+  function fill(){ if(busy) return; const b=document.getElementById(c.box); if(!b) return; let n=0;
+   Object.keys(d).forEach(id=>{ const el=document.getElementById(id); if(el&&b.contains(el)&&!el.value&&d[id]!==""){ el.value=d[id]; el.classList.add("esafe-kept"); n++; } });
+   const old=b.querySelector(".esafe-keptnote"); if(old) old.remove();
+   if(n){ const p=document.createElement("div"); p.className="esafe-keptnote";
+    p.innerHTML=n+" box"+(n===1?"":"es")+" kept from before (typed but not added yet). <button type=\"button\" class=\""+(c.btn||"btn small ghost")+"\">Clear them</button>";
+    p.querySelector("button").onclick=()=>{ b.querySelectorAll(".esafe-kept").forEach(el=>{ delete d[el.id]; el.value=""; el.classList.remove("esafe-kept"); }); p.remove(); persist(); };
+    b.insertBefore(p,b.firstChild); } }
+  wrap(c.render,o=>function(){ const r=o.apply(this,arguments); try{ fill(); }catch(e){} return r; });
+  /* while an Add button runs, the form is redrawn empty on success: hold the refill until we know */
+  Object.keys(c.adders).forEach(fn=>wrap(fn,o=>function(){ const before=c.count(); busy=true; let r;
+   try{ r=o.apply(this,arguments); } finally { busy=false; }
+   if(c.count()>before){ const pre=c.adders[fn]; Object.keys(d).forEach(id=>{ if(id.indexOf(pre)===0) delete d[id]; }); persist(); }
+   fill(); return r; }));
+  get(k).then(x=>{ if(x&&x.values) d=Object.assign({},x.values,d); fill(); }).catch(()=>{});
+ }
+
+ /* ---------- everywhere: Ctrl+S, and closing the page ---------- */
+ function commitActive(){ const a=document.activeElement;
+  if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)&&a.type!=="file"&&a.type!=="checkbox"&&a.type!=="radio"){ const id=a.id; a.blur(); return id; } return null; }
+ function now(k){ const id=commitActive();
+  (k?[k]:Object.keys(cfgs)).forEach(x=>flush(x));
+  Object.keys(forms).forEach(x=>forms[x].save());
+  if(!DEMO && typeof mainSave==="function"){ try{ mainSave(); }catch(e){ console.error(e); } }
+  say(DEMO?"Demo: entries are kept in this browser tab only":"Saved");
+  if(id) setTimeout(()=>{ const n=document.getElementById(id); if(n) n.focus(); },0); }
+ document.addEventListener("keydown",e=>{ if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&!e.altKey&&(e.key==="s"||e.key==="S")){ e.preventDefault(); e.stopPropagation(); now(); } },true);
+ function leaving(){ commitActive();
+  Object.keys(cfgs).forEach(k=>{ if(hasContent(k)&&(timers[k]||mem[k].status!=="saved")) quick(k,snap(k)); });
+  Object.keys(forms).forEach(x=>forms[x].save()); }
+ window.addEventListener("pagehide",leaving);
+ window.addEventListener("beforeunload",e=>{ leaving();
+  if(Object.keys(cfgs).some(k=>hasContent(k)&&(DEMO||mem[k].status==="error"))){ e.preventDefault(); e.returnValue=""; } });
+ document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="hidden") Object.keys(cfgs).forEach(k=>{ if(timers[k]) flush(k); }); });
+
+ const css=document.createElement("style");
+ css.textContent=".esafe{margin:12px 0;padding:9px 12px;border-radius:10px;border:1px solid rgba(127,127,127,.35);font-size:13px;line-height:1.45}"+
+  ".esafe-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px}.esafe-msg{flex:1 1 260px}"+
+  ".esafe-dot{width:9px;height:9px;border-radius:50%;flex:0 0 9px;background:#2ea043}"+
+  ".esafe.ok{background:rgba(46,160,67,.09);border-color:rgba(46,160,67,.45)}"+
+  ".esafe.wait .esafe-dot,.esafe.demo .esafe-dot{background:#d29922}.esafe.wait,.esafe.demo{background:rgba(210,153,34,.09);border-color:rgba(210,153,34,.45)}"+
+  ".esafe.err .esafe-dot{background:#cf222e}.esafe.err{background:rgba(207,34,46,.09);border-color:rgba(207,34,46,.5)}"+
+  ".esafe.idle .esafe-dot{background:#8c959f}"+
+  ".esafe-btns{display:flex;flex-wrap:wrap;gap:6px}.esafe-btns button[disabled]{opacity:.45;cursor:default}"+
+  ".esafe-open{position:relative;overflow:hidden;cursor:pointer;display:inline-block}.esafe-open input{position:absolute;inset:0;opacity:0;cursor:pointer}"+
+  ".esafe-note{margin-top:6px;font-weight:600}"+
+  ".esafe-kept{outline:2px solid rgba(210,153,34,.7);outline-offset:1px}"+
+  ".esafe-keptnote{margin:0 0 10px;padding:6px 10px;border-radius:8px;background:rgba(210,153,34,.1);border:1px solid rgba(210,153,34,.45);font-size:13px}";
+ document.head.appendChild(css);
+
+ return {entry,forms:formsKeep,now,copy:k=>copy(k),open:openCopy,fresh,main:fn=>{ mainSave=fn; },_mem:mem};
+})();
+ESAFE.entry({key:"vw",tool:"VigiWard",short:"VigiWard",prefix:"ve",S:()=>VE,render:"renderMentry",rerender:()=>renderMentry(),
+ formId:"veForm",anchor:()=>document.querySelector("#arm-mentry .card"),file:"drafts/odieman_vigiward_entry_draft.json",
+ folder:{ok:()=>VWF.state==="connected",write:(n,t)=>vwfWriteFile(n,t)},btn:"arm-btn"});
+ESAFE.main(()=>save());
 </script>
 
 <script>
@@ -6680,7 +6894,7 @@ function renderMentry(){
   function lc1(t){ t=String(t||""); return /^[A-Z][a-z]/.test(t)?t.charAt(0).toLowerCase()+t.slice(1):t; }
 
   ODM_SHOW.init({
-    tool:"vw", name:"VigiWard", version:"3.15", mark:"VW", sampleTool:"vigiward",
+    tool:"vw", name:"VigiWard", version:"3.16", mark:"VW", sampleTool:"vigiward",
     accent:"#0f766e", accent2:"#5eead4", soft:"rgba(20,184,166,.24)", soft2:"rgba(20,184,166,.08)",
     kicker:"Hospital pharmacovigilance",
     tagline:"Suspected drug reactions, found in the pharmacy's own dispensing data.",
@@ -6936,7 +7150,7 @@ function renderMentry(){
    {k:["dextromethorphan"],cls:"Antitussive",adr:[["serotonin|agitat|confus","A","Serotonin syndrome with SSRIs, linezolid, tramadol"],["drowsi|dizz|"+INTOL,"A","Common, mild"]],risk:{child:"Avoid under 6 years"},labs:[]},
    {k:["oral rehydration","ringer","sodium chloride","dextrose","normal saline"],cls:"Fluid / electrolyte",adr:[["fluid|overload|(?<!angi)oedema|heart failure|dyspn","A","Volume overload in cardiac or renal patients"],["hyperglyc|glucose","A","Dextrose"],["hypernat|hyponat|sodium","A","Inappropriate fluid choice"],[KHI,"A","Ringer's lactate contains potassium: caution in hyperkalaemia"]],risk:{renal:"Volume and potassium handling impaired",elderly:"Overload"},labs:["potassium","glucose","creatinine"]}
   ];
-  var REFS="WHO Model Formulary 2008 and WHO Model List of Essential Medicines 2025 (24th list); British National Formulary (BNF, current edition); product Summaries of Product Characteristics (SmPC); KDIGO 2024 CKD guideline (drug dosing by eGFR); CKD-EPI 2021 creatinine equation (Inker et al., NEJM 2021); Rawlins & Thompson reaction types; United Republic of Tanzania Standard Treatment Guidelines and National Essential Medicines List (STG/NEMLIT) 2021; Tanzania National Guidelines for the Management of HIV and AIDS (7th ed., 2019, with later circulars) and TB and Leprosy (2022); WHO consolidated guidelines on TB (2022) for bedaquiline/linezolid; WHO guidelines for malaria (2023) for artemisinins; MedDRA for reaction terms.";
+  var REFS="WHO Model Formulary 2008 and WHO Model List of Essential Medicines 2025 (24th list); British National Formulary (BNF, current edition); product Summaries of Product Characteristics (SmPC); KDIGO 2024 CKD guideline (drug dosing by eGFR); CKD-EPI 2021 creatinine equation (Inker et al., NEJM 2021); Rawlins & Thompson reaction types; United Republic of Tanzania Standard Treatment Guidelines and National Essential Medicines List (STG/NEMLIT) 2021; Tanzania National Guidelines for the Management of HIV and AIDS (7th ed., 2019, with later circulars) and TB and Leprosy (2022); WHO consolidated guidelines on TB (2022) for bedaquiline/linezolid; WHO guidelines for malaria (2023) for artemisinins; MedDRA for reaction terms. Treatment rules are from the 2021 edition; review against the 7th edition (2026) is pending.";
   var NAMES={hypersens:"Hypersensitivity / anaphylaxis",diarrh:"Diarrhoea / C. difficile",intoleran:"GI intolerance",neutropen:"Blood dyscrasia",cholel:"Biliary sludge",kidney:"Kidney injury",hepat:"Hepatotoxicity",seizure:"Seizures / neurotoxicity",thrombocyt:"Thrombocytopenia / cytopenia",flush:"Red-man / infusion reaction",oto:"Ototoxicity",neuromusc:"Neuromuscular blockade",tendon:"Tendinopathy",qt:"QT prolongation",neuropath:"Peripheral neuropathy",hypoglyc:"Dysglycaemia",photosens:"Photosensitivity",aortic:"Aortic aneurysm",hearing:"Hearing loss",oesophag:"Oesophageal ulceration",intracranial:"Intracranial hypertension",nausea:"Nausea / taste disturbance",disulfiram:"Disulfiram-like reaction",anaemia:"Marrow suppression",grey:"Grey-baby syndrome",optic:"Optic neuropathy",rash:"Rash / skin reaction",lung:"Pneumonitis / fibrosis",haemoly:"Haemolysis",lactic:"Lactic acidosis",serotonin:"Serotonin syndrome",skin:"Skin discolouration",abdominal:"Abdominal pain",flu:"Flu-like syndrome",gout:"Hyperuricaemia / gout",visual:"Visual disturbance",orange:"Orange body fluids",failure:"Loss of effect (induction)",bone:"Bone density loss",insomn:"Neuropsychiatric effects",weight:"Weight change",gi:"GI ulcer / bleeding",hyperkal:"Hyperkalaemia",hypertens:"Hypertension / fluid retention",asthma:"Bronchospasm / pseudo-allergy",stroke:"Cardiovascular events",reye:"Reye syndrome",respiratory:"Respiratory depression / sedation",constipat:"Constipation",itch:"Pruritus",urinary:"Urinary retention",confus:"Confusion / delirium",hypotens:"Hypotension",oedema:"Peripheral oedema",palpit:"Palpitations / tachycardia",gingiv:"Gingival hyperplasia",cough:"Cough",angioedema:"Angioedema",fetal:"Fetal toxicity",hypokal:"Hypokalaemia",hyponat:"Hyponatraemia / dehydration",hyperglyc:"Hyperglycaemia",dizz:"Dizziness / postural hypotension",gynaecomast:"Gynaecomastia",muscle:"Myopathy",headache:"Headache / dyspepsia",b12:"B12 deficiency",cholest:"Cholestasis",lipo:"Lipodystrophy / injection site",bleed:"Bleeding",osteopor:"Osteoporosis",hypomag:"Hypomagnesaemia",difficile:"C. difficile / infections",fracture:"Fractures",eps:"Extrapyramidal symptoms",drowsi:"Sedation",galact:"Hyperprolactinaemia",neuroleptic:"Neuroleptic malignant syndrome",sedat:"Sedation",tardive:"Tardive dyskinesia",prolactin:"Hyperprolactinaemia",dry:"Antimuscarinic effects",tachycard:"Tachycardia / arrhythmia",infection:"Infection / TB reactivation",psych:"Neuropsychiatric effects",myopath:"Myopathy",adrenal:"Adrenal suppression",hyperton:"Uterine hyperstimulation",fluid:"Fluid overload",hypernat:"Sodium disturbance",bloat:"Bloating / cramps"};
   function adrName(rx){ var k=rx.split("|")[0]; return NAMES[k]||k.charAt(0).toUpperCase()+k.slice(1); }
   function profile(ing){ var i=low(ing); for(var a=0;a<P.length;a++){ for(var b=0;b<P[a].k.length;b++) if(i.indexOf(P[a].k[b])>=0) return P[a]; } return null; }

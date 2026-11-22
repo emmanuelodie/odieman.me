@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <!-- Odieman AMS Pro - DEMO VERSION. Runs on simulated sample data only.
-     (c) 2024-2026 Odindo Emmanuel Thomas. All rights reserved.
+     (c) 2024-2026 Emmanuel Thomas. All rights reserved.
      The full version is licensed to named holders only; copying or modifying this file is not permitted. -->
 <script>
 (function(){
@@ -110,7 +110,7 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Odieman AMS Pro v5.8 (demo)</title>
+<title>Odieman AMS Pro v5.9 (demo)</title>
 <style>
 :root{
   --bg:#0d1117; --panel:#161b22; --panel2:#1c2230; --line:#2b3340;
@@ -387,7 +387,7 @@ html.odm-present #v-hub .panel table{display:block;overflow-x:auto;max-width:100
 <body>
 <header>
   <div class="logo">Odieman <b>AMS&nbsp;Pro</b></div>
-  <div class="tag">Offline Antimicrobial Stewardship Suite &mdash; Data Entry, Bulk Ingestion &amp; Reporting&nbsp;&middot;&nbsp;v5.8</div>
+  <div class="tag">Offline Antimicrobial Stewardship Suite &mdash; Data Entry, Bulk Ingestion &amp; Reporting&nbsp;&middot;&nbsp;v5.9</div>
   <div class="spacer"></div>
   <button id="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle navigation" title="Toggle navigation">&#9776;</button>
   <div id="backup-badge" class="bbadge" onclick="backupBadgeClick()" title="Backup status — click to manage">&#9211; No backup yet</div>
@@ -409,6 +409,7 @@ html.odm-present #v-hub .panel table{display:block;overflow-x:auto;max-width:100
   <div id="v-wrtrend" class="view"></div>
   <div id="v-wins" class="view"></div>
   <div id="v-dash" class="view"></div>
+  <div id="v-opdipd" class="view"></div>
   <div id="v-reports" class="view"></div>
   <div id="v-indicators" class="view"></div>
   <div id="v-consumption" class="view"></div>
@@ -427,7 +428,7 @@ html.odm-present #v-hub .panel table{display:block;overflow-x:auto;max-width:100
   <div id="v-crf" class="view"></div>
   <div id="v-export" class="view"></div>
 </main>
-<div class="foot">Odieman&trade; AMS Pro &middot; built by Odindo Emmanuel Thomas &middot; all data stays on this device (browser local storage). Export regularly.</div>
+<div class="foot">Odieman&trade; AMS Pro &middot; built by Emmanuel Thomas &middot; all data stays on this device (browser local storage). Export regularly.</div>
 
 <script>
 /* Chart.js 4.4 */
@@ -23659,7 +23660,7 @@ const DEFAULT_DB = {
   doseRefEdition:"WHO ATC/DDD standard values + Tanzania STG/NEMLIT common adult defaults (built-in)",
   doseRef:[
     {drug:"Metronidazole",unitMg:400,whoDddG:2,stgUnitsPerDose:2,route:"Oral/IV",form:"400mg tablet",notes:"WHO DDD: 2g oral (P01AB01), 1.5g parenteral (J01XD01). 800mg/dose TDS is a common Tanzania STG regimen"},
-    {drug:"Ampicillin + Cloxacillin",unitMg:500,whoDddG:"",stgUnitsPerDose:1,route:"Oral",form:"250mg+250mg cap (Ampiclox)",notes:"WHO AWaRe: Not Recommended FDC — but adopted first-line in Tanzania NEMLIT/STG 2021. WHO assigns no DDD to this combination, so no DDD is computed."},
+    {drug:"Ampicillin + Cloxacillin",unitMg:500,whoDddG:"",stgUnitsPerDose:1,route:"Oral",form:"250mg+250mg cap (Ampiclox)",notes:"WHO AWaRe: Not Recommended FDC — but listed as Access in Tanzania NEMLIT 2026 (§6.2.1, p.8) and first-line in STG 2021. WHO assigns no DDD to this combination, so no DDD is computed."},
     {drug:"Amoxicillin",unitMg:500,whoDddG:1.5,stgUnitsPerDose:1,route:"Oral",form:"500mg capsule",notes:""},
     {drug:"Amoxicillin + Clavulanic Acid",unitMg:500,whoDddG:1.5,stgUnitsPerDose:1,route:"Oral",form:"625mg tablet (co-amoxiclav)",notes:"WHO DDD refers to the amoxicillin content (625mg tablet = 500mg amoxicillin)"},
     {drug:"Amoxicillin + Flucloxacillin",unitMg:500,whoDddG:"",stgUnitsPerDose:1,route:"Oral",form:"250mg+250mg cap/liquid",notes:"WHO AWaRe: Not Recommended FDC. WHO assigns no DDD to this combination, so no DDD is computed."},
@@ -24145,7 +24146,7 @@ const AWARE_REF={
   /* WHO AWaRe "Not recommended" fixed-dose antibiotic combinations (WHO AWaRe classification 2023, WHO/MHP/HPS/EML/2023.04; see also the WHO AWaRe antibiotic book, 2022) —
      these are combo keys, always stored in alphabetically-sorted-component order (see comboKey())
      so lookup doesn't depend on which order the two agents were written on the dispensing slip.
-     Several are adopted as first-line in Tanzania's NEMLIT/STG 2021 despite WHO's classification
+     Several are listed in Tanzania's NEMLIT 2026 (first-line in STG 2021) despite WHO's classification
      (ampicillin-cloxacillin i.e. "Ampiclox", flucloxacillin-amoxicillin, ceftriaxone-sulbactam are
      explicitly named there). The tool reports the WHO classification here; the STG-adoption context
      is kept in the Dose Reference notes so the discrepancy is visible rather than hidden either way.
@@ -24162,27 +24163,35 @@ const AWARE_REF={
   "avibactam + ceftazidime":"Reserve","ceftolozane + tazobactam":"Reserve","meropenem + vaborbactam":"Reserve",
   "sulfamethoxazole + trimethoprim":"Access"
 };
-/* Tanzania STG/NEMLIT 2021 (6th ed.) groups antibiotics nationally (NEMLIT 6.2.1 Access, 6.2.2 Watch,
-   6.2.3 Reserve, printed pages 8-10). AMS Pro (like PPS Pro) follows the national group only where it is STRICTER
-   than WHO and the book's own level of care supports it (B, C or S). Where the book puts a
-   dispensary-level (A) antibiotic in Watch (gentamicin, cotrimoxazole) or puts an antibiotic in a
-   lower group than WHO (erythromycin; the WHO "Not recommended" combinations Ampiclox,
-   amoxicillin+flucloxacillin, ceftriaxone+sulbactam), WHO is used and the reason is shown
-   (odieTzNotFollowed). Antibiotics not in the NEMLIT lists (e.g. imipenem) keep their WHO group.
-   The list stays editable in Setup (DB.facility.tzAware). */
+/* Tanzania STG/NEMLIT 7th Edition, 2026 groups antibiotics nationally (NEMLIT 6.2.1 Access, printed pages 8-9;
+   6.2.2 Watch, page 9; 6.2.3 Reserve, pages 9-10). WHO AWaRe stays the default scheme. The Tanzania view (as in
+   PPS Pro) uses the national group where it is the same as WHO or stricter and the book's own level of care
+   supports it (B, C, D or S): amikacin, clindamycin, imipenem + cilastatin, meropenem, vancomycin, levofloxacin and
+   moxifloxacin Reserve. Where the book puts a dispensary-level (A) antibiotic in Watch (gentamicin),
+   puts an antibiotic in a lower group than WHO, or lists a combination WHO does not recommend (Ampiclox,
+   flucloxacillin + amoxicillin, ceftriaxone + sulbactam), WHO is used and the reason is shown (odieTzNotFollowed).
+   Antibiotics not in the NEMLIT lists keep their WHO group.
+   Listed here: only the groups that differ from AMS Pro's built-in WHO list. Ampicillin + sulbactam is listed
+   because the built-in WHO list does not carry it (WHO AWaRe 2025: Access, the same as NEMLIT). The other TB and
+   leprosy medicines in 6.2.3 are not antibiotics AMS Pro recognises. Editable in Setup (DB.facility.tzAware). */
 const TANZANIA_AWARE_OVERRIDES={
-  "chloramphenicol":"Watch","ampicillin + sulbactam":"Watch",
-  "amikacin":"Reserve","cefepime":"Reserve","clindamycin":"Reserve","meropenem":"Reserve","vancomycin":"Reserve"
+  "ampicillin + sulbactam":"Access",
+  "amikacin":"Reserve","clindamycin":"Reserve","imipenem":"Reserve","cilastatin + imipenem":"Reserve","meropenem":"Reserve","vancomycin":"Reserve",
+  "levofloxacin":"Reserve","moxifloxacin":"Reserve"
 };
 const TZ_AWARE_SOURCE={
-  "chloramphenicol":"NEMLIT 2021 §6.2.2 Watch, p.9 (level B, reserved for meningitis). WHO: Access",
-  "ampicillin + sulbactam":"NEMLIT 2021 §6.2.2 Watch, p.9 (level C). WHO: Access",
-  "amikacin":"NEMLIT 2021 §6.2.3 Reserve, p.10 (level S). WHO: Access",
-  "cefepime":"NEMLIT 2021 §6.2.3 Reserve, p.10 (level S). WHO: Watch",
-  "clindamycin":"NEMLIT 2021 §6.2.3 Reserve, p.10 (level S). WHO: Access",
-  "meropenem":"NEMLIT 2021 §6.2.3 Reserve, p.10 (level S). WHO: Watch",
-  "vancomycin":"NEMLIT 2021 §6.2.3 Reserve, p.10 (level S). WHO: Watch"
+  "ampicillin + sulbactam":"NEMLIT 2026 §6.2.1 Access, p.8 (level C). WHO AWaRe 2025 also lists it as Access",
+  "amikacin":"NEMLIT 2026 §6.2.3 Reserve, p.9 (level S)",
+  "clindamycin":"NEMLIT 2026 §6.2.3 Reserve, p.9 (level S)",
+  "imipenem":"NEMLIT 2026 §6.2.3 Reserve, p.10 (imipenem + cilastatin, level S)",
+  "cilastatin + imipenem":"NEMLIT 2026 §6.2.3 Reserve, p.10 (level S)",
+  "meropenem":"NEMLIT 2026 §6.2.3 Reserve, p.10 (level S)",
+  "vancomycin":"NEMLIT 2026 §6.2.3 Reserve, p.10 (level S)",
+  "levofloxacin":"NEMLIT 2026 §6.2.3 Reserve, p.10 (tablet, level S)",
+  "moxifloxacin":"NEMLIT 2026 §6.2.3 Reserve, p.10 (tablet, level S)"
 };
+const TZ_AWARE_EDITION="STG/NEMLIT 7th Edition, 2026";
+const TZ_AWARE_TARGETS="Access more than 60%, Watch 28% or less, Reserve 12% or less of total antibiotic use";
 /* v4.8: filled only by a reference-list update (Setup > Reference lists). AWARE_ROUTE holds WHO groups
    that differ by route (e.g. fosfomycin: oral Watch, injection Reserve); DDD_REFERS names the component
    a new combination's WHO DDD refers to (e.g. piperacillin in piperacillin + tazobactam). */
@@ -24291,7 +24300,7 @@ function xlDateH(v){ const s=(""+(v==null?"":v)).trim(); if(!s) return s;
   return s; }
 
 /* ============================= NAV ============================= */
-const VIEWS=[["guide","User Guide"],["mindata","Minimum Data"],["brief","Decision brief"],["setup","Setup"],["doseref","Dose Reference"],["entry","Data Entry"],["mentry","Manual entry (any form)"],["hub","Import Hub"],["patients","Patients"],["prescriptions","Prescriptions"],["antibiogram","Antibiogram"],["drvzones","Driver Zones"],["wrtrend","Resistance Trend"],["wins","What's Working"],["dash","Dashboard"],["timeout","Antibiotic Time-out"],["bugdrug","Bug–drug Check"],["its","Did It Work?"],["impact","Intervention Impact"],["csp","Ward AMS Projects"],["wr","AMS Ward Rounds"],["spc","Run Charts (SPC)"],["reports","Reports"],["indicators","Indicators"],["consumption","Consumption"],["economics","Cost & Impact"],["analytics","Analytics"],["discrep","Discrepancy"],["pdca","PDCA / 7 Wastes"],["inrud","WHO/INRUD Indicators"],["crf","CRF Forms"],["export","Export"]];
+const VIEWS=[["guide","User Guide"],["mindata","Minimum Data"],["brief","Decision brief"],["setup","Setup"],["doseref","Dose Reference"],["entry","Data Entry"],["mentry","Manual entry (any form)"],["hub","Import Hub"],["patients","Patients"],["prescriptions","Prescriptions"],["antibiogram","Antibiogram"],["drvzones","Driver Zones"],["wrtrend","Resistance Trend"],["wins","What's Working"],["dash","Dashboard"],["opdipd","OPD vs Inpatients"],["timeout","Antibiotic Time-out"],["bugdrug","Bug–drug Check"],["its","Did It Work?"],["impact","Intervention Impact"],["csp","Ward AMS Projects"],["wr","AMS Ward Rounds"],["spc","Run Charts (SPC)"],["reports","Reports"],["indicators","Indicators"],["consumption","Consumption"],["economics","Cost & Impact"],["analytics","Analytics"],["discrep","Discrepancy"],["pdca","PDCA / 7 Wastes"],["inrud","WHO/INRUD Indicators"],["crf","CRF Forms"],["export","Export"]];
 /* ============================= SIDEBAR NAV GROUPS ============================= */
 /* Groups the flat VIEWS list into the left-sidebar sections, ordered roughly as a monthly AMS
    workflow: data in, then AMS operations/analysis, then reporting, then setup/reference at the
@@ -24300,7 +24309,7 @@ const VIEWS=[["guide","User Guide"],["mindata","Minimum Data"],["brief","Decisio
 const NAV_GROUPS=[
   {id:"start",label:"Getting Started",items:["guide","mindata"]},
   {id:"records",label:"Clinical Records",items:["patients","prescriptions","antibiogram"]},
-  {id:"ams",label:"AMS Operations",items:["dash","csp","wr","timeout","bugdrug","consumption","economics","analytics","spc","its","impact","drvzones","wrtrend","wins","discrep","pdca"]},
+  {id:"ams",label:"AMS Operations",items:["dash","opdipd","csp","wr","timeout","bugdrug","consumption","economics","analytics","spc","its","impact","drvzones","wrtrend","wins","discrep","pdca"]},
   {id:"reporting",label:"Reporting & Indicators",items:["reports","indicators","inrud","crf","export"]},
   {id:"setup",label:"Setup & Data",items:["setup","doseref","entry","mentry","hub"]}
 ];
@@ -24365,7 +24374,7 @@ function go(k){
   if(k==="doseref")renderDoseRef();
   if(k==="entry")renderEntry();
   if(k==="mentry")renderMentry();
-  if(k==="hub")renderHub();
+  if(k==="opdipd")renderOpdIpd(); if(k==="hub")renderHub();
   if(k==="patients")renderPatients();
   if(k==="prescriptions")renderPrescriptions();
   if(k==="antibiogram")renderAntibiogram();
@@ -24438,15 +24447,15 @@ function renderSetup(){
   </div>
   <div class="panel" style="border-color:var(--accent)">
     <h2>AWaRe classification scheme</h2>
-    <div class="sub">The Tanzania STG/NEMLIT 2021 groups some antibiotics differently from WHO. AMS Pro follows the national group where it is stricter than WHO and the book's own level of care supports it (meropenem, vancomycin, amikacin, cefepime and clindamycin as Reserve; chloramphenicol and ampicillin+sulbactam as Watch). Where the book contradicts itself (gentamicin and cotrimoxazole printed as Watch, yet stocked at every dispensary) or is less strict than WHO (erythromycin; Ampiclox and the other combinations WHO does not recommend), WHO is used and the reason is shown below. Every dispensing record is reclassified on Apply, and every report states which scheme produced it.</div>
+    <div class="sub">The Tanzania STG/NEMLIT 7th Edition, 2026 (NEMLIT 6.2.1&ndash;6.2.3, pages 8&ndash;10) groups some antibiotics differently from WHO. WHO AWaRe stays the default for the headline figures; choose the Tanzania view for MoH reporting. The Tanzania view uses the national group where it is the same as WHO or stricter and the book's own level of care supports it (amikacin, clindamycin, imipenem, meropenem, vancomycin, levofloxacin and moxifloxacin as Reserve). Where the book contradicts itself (gentamicin printed as Watch, yet stocked at every dispensary) or is less strict than WHO (Ampiclox and the other combinations WHO does not recommend), WHO is used and the reason is shown below. Every dispensing record is reclassified on Apply, and every report states which scheme produced it. Targets: WHO/UN, Access ${WHO_ACCESS_TARGET_PCT}% or more by 2030. Tanzania (${TZ_AWARE_EDITION}), ${TZ_AWARE_TARGETS}.</div>
     <div class="row" style="align-items:center;gap:10px;margin-top:10px">
       <select id="f_awarescheme">
         <option value="who" ${f.awareScheme!=='tanzania'?'selected':''}>WHO AWaRe (global) — for international comparison</option>
-        <option value="tanzania" ${f.awareScheme==='tanzania'?'selected':''}>Tanzania STG/NEMLIT 2021, checked against WHO — for MoH reporting</option>
+        <option value="tanzania" ${f.awareScheme==='tanzania'?'selected':''}>Tanzania STG/NEMLIT 7th Edition, 2026, checked against WHO — for MoH reporting</option>
       </select>
       <button class="btn sm" onclick="saveAwareScheme()">Apply &amp; reclassify</button>
     </div>
-    <div class="notice ${f.awareScheme==='tanzania'?'warn':''}" style="margin-top:14px">Currently: <b>${f.awareScheme==='tanzania'?'Tanzania STG/NEMLIT 2021 national AWaRe categorization':'WHO AWaRe (strict)'}</b>. ${f.awareScheme==='tanzania'?'Antibiotics are classed as in the national list below (stricter national groups only); everything else follows WHO. Reports also show the WHO figures alongside.':'Matches the published WHO AWaRe classification. Reports also show the Tanzania STG/NEMLIT figures alongside.'}</div>
+    <div class="notice ${f.awareScheme==='tanzania'?'warn':''}" style="margin-top:14px">Currently: <b>${f.awareScheme==='tanzania'?'Tanzania STG/NEMLIT 2026 national AWaRe categorization':'WHO AWaRe (strict)'}</b>. ${f.awareScheme==='tanzania'?'Antibiotics are classed as in the national list: the national group where it is the same as WHO or stricter and its level of care supports it, WHO where the book contradicts itself or is less strict (listed below). Antibiotics not in the national list keep their WHO group. Reports also show the WHO figures alongside.':'Matches the published WHO AWaRe classification. Reports also show the Tanzania STG/NEMLIT figures alongside.'}</div>
     ${tzAwareEditor()}
   </div>
   ${odieNamesPanel()}
@@ -24512,17 +24521,19 @@ function clearBedDaysEstimate(){
 function awareCmpRows(m){ const b=m.awareBoth; if(!b) return null; const f=x=>(x*100).toFixed(1)+"%";
   return [["Access",f(b.who.Access),f(b.tz.Access)],["Watch",f(b.who.Watch),f(b.tz.Watch)],["Reserve",f(b.who.Reserve),f(b.tz.Reserve)],["Not recommended",f(b.who.NR),f(b.tz.NR)],["Unclassified",f(b.who.Unclassified),f(b.tz.Unclassified)]]; }
 function awareCmpHTML(m){ const r=awareCmpRows(m); if(!r) return ""; const b=m.awareBoth; const act=currentAwareScheme();
-  return `<div class="tablewrap" style="margin:10px 0"><table><thead><tr><th>Share of ${b.n} antibiotic dispensing lines</th><th${act==="who"?' style="text-decoration:underline"':''}>WHO AWaRe</th><th${act==="tanzania"?' style="text-decoration:underline"':''}>Tanzania STG/NEMLIT 2021, checked</th></tr></thead><tbody>${r.map(x=>`<tr><td>${x[0]}</td><td>${x[1]}</td><td>${x[2]}</td></tr>`).join("")}</tbody></table></div>
+  return `<div class="tablewrap" style="margin:10px 0"><table><thead><tr><th>Share of ${b.n} antibiotic dispensing lines</th><th${act==="who"?' style="text-decoration:underline"':''}>WHO AWaRe</th><th${act==="tanzania"?' style="text-decoration:underline"':''}>Tanzania STG/NEMLIT 2026, checked</th></tr></thead><tbody>${r.map(x=>`<tr><td>${x[0]}</td><td>${x[1]}</td><td>${x[2]}</td></tr>`).join("")}</tbody></table></div>
   ${b.diff.length?`<div class="hint">Classified differently: ${b.diff.map(d=>`${esc(d.drug)} (${d.lines} lines) — WHO ${esc(d.who)}, Tanzania ${esc(d.tz)}`).join("; ")}. Headline figures use the <b>${act==="tanzania"?"Tanzania":"WHO"}</b> scheme (switch in Setup).</div>`:""}
-  ${b.nf&&b.nf.length?`<div class="notice warn" style="margin-top:8px"><b>Where the NEMLIT 2021 list is not followed:</b> ${b.nf.map(d=>`${esc(d.drug)} (${d.lines} lines) — ${esc(d.why)}`).join(" ")} <span class="hint">Applied exactly as printed, Access would be ${(b.printedAccess*100).toFixed(1)}% (WHO ${(b.who.Access*100).toFixed(1)}%). Worth raising with the NEMLIT committee.</span></div>`:""}`; }
+  ${b.nf&&b.nf.length?`<div class="notice warn" style="margin-top:8px"><b>Where the NEMLIT 2026 list is not followed:</b> ${b.nf.map(d=>`${esc(d.drug)} (${d.lines} lines) — ${esc(d.why)}`).join(" ")} <span class="hint">Applied exactly as printed, Access would be ${(b.printedAccess*100).toFixed(1)}% (WHO ${(b.who.Access*100).toFixed(1)}%). Worth raising with the NEMLIT committee.</span></div>`:""}
+  <div class="hint" style="margin-top:6px">Targets: WHO/UN, Access ${WHO_ACCESS_TARGET_PCT}% or more by 2030. Tanzania (${TZ_AWARE_EDITION}), ${TZ_AWARE_TARGETS}.</div>`; }
 function tzAwareEditor(){
   const map=tzAwareMap(); const keys=Object.keys(map).sort();
-  return `<div class="subhead" style="margin-top:16px"><h3>Tanzania national list &mdash; differences from WHO</h3><div class="line"></div></div>
+  return `<div class="subhead" style="margin-top:16px"><h3>Tanzania national list (STG/NEMLIT 7th Edition, 2026) &mdash; differences from WHO</h3><div class="line"></div></div>
   <div class="hint">Only antibiotics whose Tanzanian class differs from WHO and is followed are listed, each with its NEMLIT section, page and level of care. Edit, remove or add a row (generic name as matched by the tool, e.g. <i>gentamicin</i> or <i>ampicillin + cloxacillin</i>), then Apply &amp; reclassify.</div>
+  ${(()=>{ const u=DB.facility.tzAware; if(!u) return ""; const s=o=>JSON.stringify(Object.keys(o).sort().map(k=>[k,o[k]])); return s(u)===s(TANZANIA_AWARE_OVERRIDES)?"":`<div class="notice warn" style="margin-top:8px">This facility uses its own saved copy of the list, which differs from the built-in STG/NEMLIT 2026 list (a copy saved before this update still has the 2021 groups). Press <i>Restore defaults</i> below to use the 2026 list; your own changes are then lost.</div>`; })()}
   <div class="tablewrap"><table><thead><tr><th>Generic (as matched)</th><th>WHO</th><th>Tanzania</th><th style="white-space:normal">Basis</th><th></th></tr></thead><tbody>
   ${keys.map(k=>`<tr><td>${esc(k)}</td><td>${esc(classifyAware(k,"who")||"\u2014")}</td><td><select onchange="tzAwareSet('${esc(k)}',this.value)">${["Access","Watch","Reserve","Not recommended"].map(o=>`<option ${o===map[k]?"selected":""}>${o}</option>`).join("")}</select></td><td style="white-space:normal;font-size:12px">${esc(TZ_AWARE_SOURCE[k]||"Added by user")}</td><td><button class="btn sm danger" onclick="tzAwareDel('${esc(k)}')">Remove</button></td></tr>`).join("")}
   </tbody></table></div>
-  <div class="subhead" style="margin-top:16px"><h3>Where the NEMLIT 2021 list is not followed</h3><div class="line"></div></div>
+  <div class="subhead" style="margin-top:16px"><h3>Where the NEMLIT 2026 list is not followed</h3><div class="line"></div></div>
   <div class="tablewrap"><table><thead><tr><th>Generic</th><th>NEMLIT prints</th><th>Used (WHO)</th><th style="white-space:normal">Why</th></tr></thead><tbody>
   ${Object.entries(odieTzNotFollowed()).map(([k,v])=>`<tr><td>${esc(k)}</td><td>${esc(v.printed)} (p.${v.page})</td><td>${esc(classifyAware(k,"who")||"\u2014")}</td><td style="white-space:normal;font-size:12px">${esc(v.why)}</td></tr>`).join("")}
   </tbody></table></div>
@@ -24569,7 +24580,7 @@ function renderDoseRef(){
   $("#v-doseref").innerHTML=`
   <div class="panel">
     <h2>Dose reference table &mdash; Tanzania STG &amp; WHO ATC/DDD</h2>
-    <div class="sub">DDDs are calculated from the built-in WHO ATC/DDD Index values with the strength read from each item name; this table's strength and DDD are a fallback only, for item names without a strength or drugs outside the built-in list. This table drives <b>STG dose-compliance checking</b> (does the actual quantity dispensed match units-per-dose × frequency × duration for that drug?). Every value here is a standard default &mdash; verify and edit against your facility's current STG edition and the strengths you actually stock, especially for combination products.</div>
+    <div class="sub">DDDs are calculated from the built-in WHO ATC/DDD Index values with the strength read from each item name; this table's strength and DDD are a fallback only, for item names without a strength or drugs outside the built-in list. This table drives <b>STG dose-compliance checking</b> (does the actual quantity dispensed match units-per-dose × frequency × duration for that drug?). Every value here is a standard default &mdash; verify and edit against your facility's current STG edition and the strengths you actually stock, especially for combination products. Treatment rules are from the 2021 edition; review against the 7th edition (2026) is pending.</div>
     <div class="grid" style="margin-top:10px">${field("Current edition / source","doseref_edition","text",null,DB.doseRefEdition,"e.g. \"Tanzania NEMLIT 2024\" or \"Kenya STG 2023\" — shown in Reports for audit trail")}</div>
     <div class="row" style="margin-top:4px"><button class="btn ghost" onclick="doseRefEditionSave($('#doseref_edition').value)">Save edition label</button></div>
     <div class="row" style="margin-top:14px;padding-top:14px;border-top:1px solid var(--line)">
@@ -24980,8 +24991,8 @@ function awareBasisNote(m){
   if(m.awareBasis!=="lines") return "AWaRe shares as entered manually.";
   let s=`AWaRe shares are of systemic antibiotic dispensing lines (n=${m.cumulativeRx}; topical/eye/ear items excluded).`;
   if(m.awareDDD) s+=` Measured by WHO DDD instead (classes as per the scheme in use; ${m.dddCoveragePct}% of lines have a WHO DDD — fixed-dose combinations without one are left out): Access ${(m.awareDDD.Access*100).toFixed(0)}%, Watch ${(m.awareDDD.Watch*100).toFixed(0)}%, Reserve ${(m.awareDDD.Reserve*100).toFixed(0)}%.`;
-  if(m.awareAlt){ const a=m.awareAlt; s+=` Under the ${a.scheme==="tanzania"?"Tanzania STG/NEMLIT 2021 national":"WHO"} categorization the same lines give Access ${(a.Access*100).toFixed(0)}%, Watch ${(a.Watch*100).toFixed(0)}%, Reserve ${(a.Reserve*100).toFixed(0)}%, Not recommended ${(a.NR*100).toFixed(0)}%.`; }
-  s+=` The UN 2030 ≥70% Access target is set on national consumption, so comparison of a single facility with it is indicative only.`;
+  if(m.awareAlt){ const a=m.awareAlt; s+=` Under the ${a.scheme==="tanzania"?"Tanzania STG/NEMLIT 2026 national":"WHO"} categorization the same lines give Access ${(a.Access*100).toFixed(0)}%, Watch ${(a.Watch*100).toFixed(0)}%, Reserve ${(a.Reserve*100).toFixed(0)}%, Not recommended ${(a.NR*100).toFixed(0)}%.`; }
+  s+=` The UN 2030 ≥70% Access target is set on national consumption, so comparison of a single facility with it is indicative only; the same holds for Tanzania's national targets (${TZ_AWARE_EDITION}: ${TZ_AWARE_TARGETS}).`;
   return s;
 }
 
@@ -25292,7 +25303,7 @@ function advisorSignals(){
       how:"Monthly Access % by department from the dispensing export; review top Watch drugs and their departments.",
       actions:[["sort","Remove Watch agents from default order sets / pre-packed kits where an Access agent is first line"],["set","Put the STG first-line table for the 5 commonest infections on every consulting-room wall"],["shine","Monthly pharmacist audit of 20 Watch prescriptions against STG with feedback"],["standardize","Require a documented indication for Watch agents at dispensing"],["sustain","Track Access % on the run chart each month at the AMS meeting"]]});
     if(both&&both.who.NR>0.05) push({id:"nr",waste:"defects",metric:"WHO Not-recommended FDC share",value:both.who.NR,fmt:"pct",target:"as low as possible (WHO)",
-      what:`${(both.who.NR*100).toFixed(1)}% of antibiotic lines are fixed-dose combinations WHO lists as Not recommended (${Object.entries(both.nrDrugs||{}).sort((a,b)=>b[1]-a[1]).map(([d,n])=>d+" "+n).join(", ")}). Tanzania STG/NEMLIT 2021 lists some of these (Ampiclox, amoxicillin+flucloxacillin) as first-line; AMS Pro keeps WHO's grouping for them.`,
+      what:`${(both.who.NR*100).toFixed(1)}% of antibiotic lines are fixed-dose combinations WHO lists as Not recommended (${Object.entries(both.nrDrugs||{}).sort((a,b)=>b[1]-a[1]).map(([d,n])=>d+" "+n).join(", ")}). Tanzania NEMLIT 2026 lists some of these (Ampiclox, amoxicillin+flucloxacillin) as Access; AMS Pro keeps WHO's grouping for them.`,
       where:topDepts(a=>awareBucket(classifyAware(a.g,"who"))==="NR"),who:"Prescribers, MTC/DTC, procurement",
       why:["Combinations listed in national STG and procured by default","Habit and patient expectation","Single agents (amoxicillin, flucloxacillin) not consistently stocked"],
       how:"WHO vs Tanzania comparison on the dashboard; procurement records.",
@@ -26264,7 +26275,7 @@ function saveReportNotes(v){ DB.reportNotes=v; save(); }
 const WHO_ACCESS_TARGET_PCT=70;
 const WHO_ACCESS_TARGET_CITATION="UN General Assembly 2024 Political Declaration on AMR — \u226570% Access-group antibiotic use by 2030 (supersedes the earlier \u226560% Muscat Manifesto/GPW13 target)";
 const INDICATOR_META={
-  "AMR-1":{framework:"Tanzania MOH GHS-CQI · WHO AWaRe 2023",citation:"Tanzania National AMS Programme guidance; WHO AWaRe antibiotic classification 2023 (2025 update available); Tanzania STG/NEMLIT 2021 (6th Edition)",targetPct:80,compiledBy:"AMS Lead / Pharmacist",note:"Auto-filled with a PROXY: the share of dispensing lines whose quantity exactly equals the Dose Reference adult regimen (units per dose × frequency × days). It does not assess drug choice, indication, or weight-based paediatric dosing. Review a sample of records against the STG before reporting this as guideline adherence."},
+  "AMR-1":{framework:"Tanzania MOH GHS-CQI · WHO AWaRe 2023",citation:"Tanzania National AMS Programme guidance; WHO AWaRe antibiotic classification 2023 (2025 update available); Tanzania STG/NEMLIT 2021 (6th Edition)",targetPct:80,compiledBy:"AMS Lead / Pharmacist",note:"Auto-filled with a PROXY: the share of dispensing lines whose quantity exactly equals the Dose Reference adult regimen (units per dose × frequency × days). It does not assess drug choice, indication, or weight-based paediatric dosing. Review a sample of records against the STG before reporting this as guideline adherence. Treatment rules are from the 2021 edition; review against the 7th edition (2026) is pending."},
   "AMR-2":{framework:"Tanzania MOH GHS-CQI",citation:"Tanzania National AMS Programme guidance; laboratory turnaround-time (TAT) monitoring practice",targetPct:null,compiledBy:"Laboratory Focal Person",note:"Populates from a structured lab surveillance import/entry with a TAT-met flag, or a raw TAT timestamp log (Sample Collected / Result Submitted vs TAT target)."},
   "AMR-3":{framework:"Tanzania MOH GHS-CQI",citation:"Tanzania National AMS Programme guidance; culture-before-therapy stewardship practice",targetPct:80,compiledBy:"AMS Lead / Laboratory Focal Person",note:"Populates from a structured lab surveillance import/entry with an AST-documented flag for Watch/Reserve prescriptions."},
   "AMR-4":{framework:"Tanzania MOH GHS-CQI · WHO GLASS-AMR",citation:"WHO Global Antimicrobial Resistance and Use Surveillance System (GLASS)",targetPct:null,compiledBy:"Laboratory Focal Person / IPC Focal Person",note:"An absolute monthly count of laboratory-confirmed AMR cases, not a percentage — tracked for trend, not against a fixed target."},
@@ -26347,8 +26358,8 @@ function renderWhoStandardsReportSection(){
     </div>
     <p class="tor-prose" style="font-size:12px;opacity:.85">${esc(awareBasisNote(m))}</p>
     ${awareCmpHTML(m)}
-    <h3 style="margin-top:14px">1. AWaRe antibiotic classification &mdash; ${DB.facility.awareScheme==='tanzania'?'Tanzania STG/NEMLIT 2021 national AWaRe categorization':awareEdLabel()}</h3>
-    <p class="tor-prose">The WHO AWaRe framework (${esc(awareEdLabel())}) sorts antibiotics into Access, Watch, Reserve and Not Recommended tiers by resistance risk.${DB.facility.awareScheme==='tanzania'?' <b>Tanzania STG/NEMLIT 2021 national categorization in use</b> (Setup tab): it differs from WHO for some agents (e.g. meropenem is Reserve nationally, Watch under WHO; Ampiclox is Access nationally, Not recommended under WHO). WHO figures for the same data are given in the basis note.':''} The UN General Assembly's 2024 Political Declaration on AMR commits countries to <b>Access &ge; 70%</b> of total human antibiotic use by 2030 (superseding the earlier &ge;60% Muscat Manifesto target). This facility's Access share this period was <b>${(m.awareAccess*100).toFixed(1)}%</b> of antibiotic dispensing lines — <span class="pill ${accessMet?'good':'bad'}">${accessMet?"target met":"below target"}</span>. Watch ${(m.awareWatch*100).toFixed(1)}%, Reserve ${(m.awareReserve*100).toFixed(1)}%${m.awareNR>0?`, Not Recommended ${(m.awareNR*100).toFixed(1)}%`:""}.</p>
+    <h3 style="margin-top:14px">1. AWaRe antibiotic classification &mdash; ${DB.facility.awareScheme==='tanzania'?'Tanzania STG/NEMLIT 2026 national AWaRe categorization':awareEdLabel()}</h3>
+    <p class="tor-prose">The WHO AWaRe framework (${esc(awareEdLabel())}) sorts antibiotics into Access, Watch, Reserve and Not Recommended tiers by resistance risk.${DB.facility.awareScheme==='tanzania'?' <b>Tanzania STG/NEMLIT 2026 national categorization in use</b> (Setup tab): it differs from WHO for some agents (e.g. meropenem is Reserve nationally, Watch under WHO). Where the national list contradicts itself (gentamicin printed as Watch at dispensary level) or is less strict (Ampiclox is Access nationally, Not recommended under WHO), WHO is kept. WHO figures for the same data are given in the basis note.':''} The UN General Assembly's 2024 Political Declaration on AMR commits countries to <b>Access &ge; 70%</b> of total human antibiotic use by 2030 (superseding the earlier &ge;60% Muscat Manifesto target). Tanzania's national targets (${TZ_AWARE_EDITION}): ${TZ_AWARE_TARGETS}. This facility's Access share this period was <b>${(m.awareAccess*100).toFixed(1)}%</b> of antibiotic dispensing lines — <span class="pill ${accessMet?'good':'bad'}">${accessMet?"target met":"below target"}</span>. Watch ${(m.awareWatch*100).toFixed(1)}%, Reserve ${(m.awareReserve*100).toFixed(1)}%${m.awareNR>0?`, Not Recommended ${(m.awareNR*100).toFixed(1)}%`:""}.</p>
     <h3>2. Consumption density &mdash; WHO ATC/DDD Index methodology</h3>
     <p class="tor-prose">${m.dddPer1000?`DDD/1000 patient-days: <b>${m.dddPer1000}</b>. DOT/1000 patient-days: <b>${m.dotPer1000||"—"}</b>. Computed per the WHO Collaborating Centre for Drug Statistics Methodology's Anatomical Therapeutic Chemical (ATC) / Defined Daily Dose (DDD) index, applied here per dispensing instance against the Dose Reference table.${(m.bedDaysSource||"").indexOf("estimated")===0?` <b>Patient-days denominator is estimated</b>, not measured — ${esc(m.bedDaysSource)}.`:""}`:(m.dddTotal?`Total consumption this period: <b>${m.dddTotal}</b> DDD, <b>${m.dotTotal||"—"}</b> DOT. No bed-days denominator is set yet, so this cannot be expressed per 1,000 patient-days for cross-facility or cross-period comparison — set facility bed-days (measured or estimated) on Setup.`:"DDD/DOT could not be computed this period — see the Analytics tab's data-confidence notes.")}</p>
     <div class="hint">DDD/DOT figures reflect this facility's own dispensing and Dose Reference table; they are only comparable to national or WHO benchmark figures if your Dose Reference values match the current WHO ATC/DDD Index edition — review the Dose Reference tab before citing this figure externally.</div>
@@ -26403,15 +26414,15 @@ async function generateDeepReportDocx(btnId){
     children.push(H1("1. Executive Summary"));
     children.push(P(`${m.patientsOnAbx} patient(s) recorded on antibiotics this period, generating ${m.cumulativeRx} antibiotic dispensing line(s).`));
     children.push(P(awareBasisNote(m)));
-    if(awareCmpRows(m)){ children.push(table(["Share of antibiotic dispensing lines","WHO AWaRe","Tanzania STG/NEMLIT 2021"],awareCmpRows(m))); if(m.awareBoth.diff.length) children.push(P("Classified differently: "+m.awareBoth.diff.map(d=>`${d.drug} (${d.lines} lines): WHO ${d.who}, Tanzania ${d.tz}`).join("; ")+".")); }
+    if(awareCmpRows(m)){ children.push(table(["Share of antibiotic dispensing lines","WHO AWaRe","Tanzania STG/NEMLIT 2026"],awareCmpRows(m))); if(m.awareBoth.diff.length) children.push(P("Classified differently: "+m.awareBoth.diff.map(d=>`${d.drug} (${d.lines} lines): WHO ${d.who}, Tanzania ${d.tz}`).join("; ")+".")); }
     children.push(P(`AWaRe distribution — Access ${(m.awareAccess*100).toFixed(1)}% (WHO/UNGA 2030 target ≥${WHO_ACCESS_TARGET_PCT}%, ${m.awareAccess*100>=WHO_ACCESS_TARGET_PCT?"met":"below target"}), Watch ${(m.awareWatch*100).toFixed(1)}%, Reserve ${(m.awareReserve*100).toFixed(1)}%${m.awareNR>0?`, Not Recommended ${(m.awareNR*100).toFixed(1)}%`:""}.`));
     children.push(P(m.dddPer1000?`Consumption density: ${m.dddPer1000} DDD and ${m.dotPer1000||"—"} DOT per 1,000 patient-days.`:(m.dddTotal?`Total consumption: ${m.dddTotal} DDD, ${m.dotTotal||"—"} DOT (no bed-days denominator set).`:"DDD/DOT could not be computed this period.")));
     children.push(P(`${m.findings} active clinical finding(s), ${m.cqiMeetings} CQI meeting(s), ${m.wardRounds} ward round(s) this period.`));
     if(gaps.length) children.push(P(`Data confidence: ${gaps.length} open gap(s) in this dataset — see Import Hub.`,{spacing:{after:200}}));
 
     children.push(H1("2. WHO Standards"));
-    children.push(H2(`AWaRe Antibiotic Classification (${DB.facility.awareScheme==='tanzania'?'Tanzania STG/NEMLIT 2021 national AWaRe categorization':'WHO Essential Medicines List, 2025'})`));
-    children.push(P(`Access ${(m.awareAccess*100).toFixed(1)}% vs the global ≥${WHO_ACCESS_TARGET_PCT}% by-2030 target — ${m.awareAccess*100>=WHO_ACCESS_TARGET_PCT?"target met":"below target"}.${DB.facility.awareScheme==='tanzania'?" Classified using the Tanzania STG/NEMLIT 2021 national AWaRe categorization; WHO figures for the same data are given above.":""}`));
+    children.push(H2(`AWaRe Antibiotic Classification (${DB.facility.awareScheme==='tanzania'?'Tanzania STG/NEMLIT 2026 national AWaRe categorization':'WHO Essential Medicines List, 2025'})`));
+    children.push(P(`Access ${(m.awareAccess*100).toFixed(1)}% vs the global ≥${WHO_ACCESS_TARGET_PCT}% by-2030 target — ${m.awareAccess*100>=WHO_ACCESS_TARGET_PCT?"target met":"below target"}.${DB.facility.awareScheme==='tanzania'?" Classified using the Tanzania STG/NEMLIT 2026 national AWaRe categorization; WHO figures for the same data are given above.":""} Tanzania's national targets (${TZ_AWARE_EDITION}): ${TZ_AWARE_TARGETS}.`));
     children.push(H2("Consumption Density (WHO ATC/DDD Index methodology)"));
     children.push(P(m.dddPer1000?`DDD/1000 patient-days: ${m.dddPer1000}. DOT/1000 patient-days: ${m.dotPer1000||"—"}.${(m.bedDaysSource||"").indexOf("estimated")===0?" Patient-days denominator is ESTIMATED, not measured (beds × occupancy × days — see Setup).":""}`:"Not yet computable — no bed-days denominator set."));
     children.push(H2("WHO/INRUD Core Drug-Use Indicator Proxies"));
@@ -26489,7 +26500,7 @@ async function generateDeepReportDocx(btnId){
     }
 
     children.push(H1("Methods & Citations"));
-    children.push(P(awareEdLabel()+". WHO Collaborating Centre for Drug Statistics Methodology — ATC/DDD Index. WHO/DAP/93.1 WHO/INRUD core drug-use indicators. UN General Assembly 2024 Political Declaration on AMR (≥70% Access by 2030). Tanzania MOH Global Health Security Continuous Quality Improvement (GHS-CQI) process indicators. Tanzania Standard Treatment Guidelines / National Essential Medicines List (STG/NEMLIT), 6th Edition, 2021. Tanzania National Infection Prevention and Control Guidelines (NIPCG). WHO/AFRO IPC core components. WHO Infection Prevention and Control Assessment Framework (IPCAF). This is a facility working document generated from locally entered/imported data — verify against current published templates before external submission."));
+    children.push(P(awareEdLabel()+". WHO Collaborating Centre for Drug Statistics Methodology — ATC/DDD Index. WHO/DAP/93.1 WHO/INRUD core drug-use indicators. UN General Assembly 2024 Political Declaration on AMR (≥70% Access by 2030). Tanzania MOH Global Health Security Continuous Quality Improvement (GHS-CQI) process indicators. Tanzania Standard Treatment Guidelines / National Essential Medicines List (STG/NEMLIT), 7th Edition, 2026, NEMLIT 6.2.1–6.2.3 (national AWaRe groups and targets). STG/NEMLIT, 6th Edition, 2021 (dose and treatment defaults). Treatment rules are from the 2021 edition; review against the 7th edition (2026) is pending. Tanzania National Infection Prevention and Control Guidelines (NIPCG). WHO/AFRO IPC core components. WHO Infection Prevention and Control Assessment Framework (IPCAF). This is a facility working document generated from locally entered/imported data — verify against current published templates before external submission."));
 
     const doc=new Document({creator:DB.facility.preparedBy||"",lastModifiedBy:DB.facility.preparedBy||"",title:"Antimicrobial Stewardship Report"+(DB.facility.name?" — "+DB.facility.name:""),description:"",sections:[{
       headers:{default:new Header({children:[new Paragraph({children:[new TextRun({text:(f.name||"Facility")+" · Deep Report",size:16})],alignment:AlignmentType.RIGHT})]})},
@@ -26533,10 +26544,11 @@ async function generateDeepReportPptx(btnId){
 
     const awareSlide=pres.addSlide();
     awareSlide.addText("AWaRe Distribution",{x:0.5,y:0.3,w:12,h:0.6,fontSize:26,bold:true,color:BRAND});
-    if(awareCmpRows(m)){ awareSlide.addText("WHO vs Tanzania STG/NEMLIT 2021 (share of "+m.awareBoth.n+" dispensing lines)",{x:7.3,y:1.3,w:5.6,h:0.4,fontSize:12,bold:true,color:BRAND});
+    if(awareCmpRows(m)){ awareSlide.addText("WHO vs Tanzania STG/NEMLIT 2026 (share of "+m.awareBoth.n+" dispensing lines)",{x:7.3,y:1.3,w:5.6,h:0.4,fontSize:12,bold:true,color:BRAND});
       awareSlide.addTable([["Class","WHO","Tanzania"].map(t=>({text:t,options:{bold:true,fontSize:11}}))].concat(awareCmpRows(m).map(r=>r.map(t=>({text:t,options:{fontSize:11}})))),{x:7.3,y:1.8,w:5.6,colW:[2.2,1.7,1.7],border:{type:"solid",pt:0.5,color:"BBBBBB"}});
       if(m.awareBoth.diff.length) awareSlide.addText("Differ: "+m.awareBoth.diff.slice(0,6).map(d=>`${d.drug} — WHO ${d.who} / TZ ${d.tz}`).join("\n"),{x:7.3,y:4.6,w:5.6,h:1.8,fontSize:10,color:"444444",valign:"top"}); }
-    awareSlide.addText(f.awareScheme==='tanzania'?"Pie: Tanzania STG/NEMLIT 2021 national AWaRe categorization":"Pie: WHO AWaRe classification",{x:0.6,y:0.9,w:12,h:0.4,fontSize:13,color:"666666"});
+    awareSlide.addText(f.awareScheme==='tanzania'?"Pie: Tanzania STG/NEMLIT 2026 national AWaRe categorization":"Pie: WHO AWaRe classification",{x:0.6,y:0.9,w:12,h:0.4,fontSize:13,color:"666666"});
+    awareSlide.addText("Targets: WHO/UN, Access "+WHO_ACCESS_TARGET_PCT+"% or more by 2030. Tanzania ("+TZ_AWARE_EDITION+"), "+TZ_AWARE_TARGETS+".",{x:0.6,y:6.55,w:12.2,h:0.5,fontSize:11,color:"444444"});
     awareSlide.addChart(pres.ChartType.pie,[{name:"AWaRe",labels:["Access","Watch","Reserve","Not Rec."],values:[+(m.awareAccess*100).toFixed(1),+(m.awareWatch*100).toFixed(1),+(m.awareReserve*100).toFixed(1),+(m.awareNR*100).toFixed(1)]}],{x:1,y:1.2,w:6,h:5,chartColors:[GOOD,"D4A72C",WARN,"6B7280"],showLegend:true,showPercent:true});
     if(stewReportText()){ const ss=pres.addSlide(); const sm=stewSummary();
       ss.addText("Stewardship actions — antibiotic time-out",{x:0.5,y:0.3,w:12,h:0.6,fontSize:26,bold:true,color:BRAND});
@@ -26730,7 +26742,7 @@ async function generateDeepReportPptx(btnId){
     const closing=pres.addSlide();
     closing.background={color:BRAND};
     closing.addText("Methods & Citations",{x:0.6,y:0.5,w:12,h:0.6,fontSize:24,bold:true,color:"FFFFFF"});
-    closing.addText(awareEdLabel(true)+" · WHO ATC/DDD Index · WHO/DAP/93.1 WHO/INRUD indicators · UN 2024 AMR Declaration (≥70% Access by 2030) · Tanzania STG/NEMLIT 4th Ed. · Tanzania MOH GHS-CQI · Tanzania NIPCG · WHO/AFRO IPC core components · WHO IPCAF.\n\nGenerated entirely offline from this facility's own working data — verify against current published templates before external submission.",{x:0.6,y:1.4,w:12,h:4,fontSize:14,color:"E6F0EA"});
+    closing.addText(awareEdLabel(true)+" · WHO ATC/DDD Index · WHO/DAP/93.1 WHO/INRUD indicators · UN 2024 AMR Declaration (≥70% Access by 2030) · Tanzania STG/NEMLIT 7th Ed. 2026 (AWaRe groups and targets); treatment rules from the 6th Ed. 2021, review against the 7th edition pending · Tanzania MOH GHS-CQI · Tanzania NIPCG · WHO/AFRO IPC core components · WHO IPCAF.\n\nGenerated entirely offline from this facility's own working data — verify against current published templates before external submission.",{x:0.6,y:1.4,w:12,h:4,fontSize:14,color:"E6F0EA"});
 
     const safeLabel=(f.period||d.generated).replace(/[^A-Za-z0-9_-]/g,"_");
     const pptxName=`${(f.name||"Facility").replace(/[^A-Za-z0-9_-]/g,"_")}_DeepReport_${safeLabel}.pptx`;
@@ -26786,7 +26798,7 @@ function renderDeepReportPrintSection(){
     ${disc.hasReceiptData?`<h3>Ward Stock Discrepancy</h3><p class="tor-prose">Apparent loss ${fmtTZS(disc.apparentLossCost)}, apparent surplus ${fmtTZS(disc.apparentSurplusCost)}.</p>`:""}
     ${(()=>{const g=gapsReport(); return g.length?`<h3>Challenges &amp; Data Gaps</h3><p class="tor-prose">Everything computable from the data imported so far is reported above. The items below are the ones it could not compute, and what's needed to unlock them &mdash; a gap in the data on hand, not a defect in the tool.</p><ul style="margin:8px 0 0;padding-left:18px">${g.map(x=>`<li style="margin-bottom:4px">${x}</li>`).join("")}</ul>`:"";})()}
     ${mdaReportHTML()}
-    <div class="hint">${esc(awareEdLabel(true))} · WHO ATC/DDD Index · WHO/DAP/93.1 WHO/INRUD indicators · UN 2024 AMR Declaration (≥70% Access by 2030) · Tanzania STG/NEMLIT 4th Ed. · Tanzania MOH GHS-CQI · Tanzania NIPCG · WHO/AFRO IPC core components · WHO IPCAF. Generated from this facility's own working data.</div>
+    <div class="hint">${esc(awareEdLabel(true))} · WHO ATC/DDD Index · WHO/DAP/93.1 WHO/INRUD indicators · UN 2024 AMR Declaration (≥70% Access by 2030) · Tanzania STG/NEMLIT 7th Ed. 2026 (AWaRe groups and targets); treatment rules from the 6th Ed. 2021, review against the 7th edition pending · Tanzania MOH GHS-CQI · Tanzania NIPCG · WHO/AFRO IPC core components · WHO IPCAF. Generated from this facility's own working data.</div>
   </div>`;
 }
 function renderReports(){
@@ -27684,7 +27696,7 @@ function renderImpact(){
   const lvl={info:"&#10004;",warn:"&#9888;",stop:"&#9940;"};
   const basis=S.source==="adm"?`Each patient's antibiotics are the dispensing lines with the same patient number from the admission day to the discharge day.`:S.source==="ward"?`Values come from the ward's own consumption table.`:`Each month's value comes only from the dispensing lines of the department(s) chosen.`;
   if(A.checks&&A.checks.length) body+=`<div class="panel"><h2>Checks and decisions made by AMS Pro</h2><ul style="margin:0;padding-left:4px;list-style:none;line-height:1.6">${A.checks.map(x=>`<li style="margin-bottom:6px"><span style="color:${x.level==="warn"?"var(--amber)":"var(--green)"}">${lvl[x.level]}</span> ${esc(x.text)}</li>`).join("")}</ul>
-    <div class="hint" style="margin-top:8px">AWaRe groups follow the ${currentAwareScheme()==="tanzania"?"Tanzania STG/NEMLIT 2021":"WHO"} scheme set on Setup${window.ODMREF?" ("+esc(ODMREF.sourceLine())+")":""}; “Not recommended” always follows WHO. ${basis}</div></div>`;
+    <div class="hint" style="margin-top:8px">AWaRe groups follow the ${currentAwareScheme()==="tanzania"?"Tanzania STG/NEMLIT 2026":"WHO"} scheme set on Setup${window.ODMREF?" ("+esc(ODMREF.sourceLine())+")":""}; “Not recommended” always follows WHO. ${basis}</div></div>`;
   const role=i=>A.role?A.role[i]:"";
   const cap=s=>s[0].toUpperCase()+s.slice(1);
   const cols=[["Month",r=>itsMon(r.m)],[cap(B.volLabel),r=>Math.round(r.lines).toLocaleString()]];
@@ -28100,7 +28112,7 @@ function renderDash(){
   ${m._wardScopeAutoSkipped?`<div class="notice warn"><b>Ward names in your admission data don't match any pharmacy department name</b> &mdash; auto-scoping was skipped so the report stays full-facility instead of silently going empty. If you want it narrowed to specific wards, set that manually on <span class="linkfix" onclick="go('setup')">Setup</span> using the exact department text your pharmacy export uses.</div>`:""}
   <div class="kpis">
     <div class="kpi"><div class="v big" id="k_patients">${m.patientsOnAbx}</div><div class="l">Patients on antibiotics (${m.cumulativeRx} antibiotic dispensing lines)</div></div>
-    <div class="kpi"><div class="v ${m.awareAccess*100>=WHO_ACCESS_TARGET_PCT?'g':''}">${(m.awareAccess*100).toFixed(1)}%</div><div class="l">AWaRe Access (of dispensing lines) &middot; UN 2030 target \u2265 ${WHO_ACCESS_TARGET_PCT}%${m.awareDDD?` <span style="display:block;font-size:10px;opacity:.8">by WHO DDD: ${(m.awareDDD.Access*100).toFixed(0)}% (${m.dddCoveragePct}% of lines have a DDD)</span>`:""}</div></div>
+    <div class="kpi"><div class="v ${m.awareAccess*100>=WHO_ACCESS_TARGET_PCT?'g':''}">${(m.awareAccess*100).toFixed(1)}%</div><div class="l">AWaRe Access (of dispensing lines) &middot; UN 2030 target \u2265 ${WHO_ACCESS_TARGET_PCT}%${currentAwareScheme()==="tanzania"?" &middot; Tanzania target: more than 60%":""}${m.awareDDD?` <span style="display:block;font-size:10px;opacity:.8">by WHO DDD: ${(m.awareDDD.Access*100).toFixed(0)}% (${m.dddCoveragePct}% of lines have a DDD)</span>`:""}</div></div>
     <div class="kpi"><div class="v a">${(m.awareWatch*100).toFixed(1)}%</div><div class="l">AWaRe Watch</div></div>
     <div class="kpi"><div class="v r">${(m.awareReserve*100).toFixed(1)}%</div><div class="l">AWaRe Reserve</div></div>
     <div class="kpi"><div class="v r">${(m.awareNR*100).toFixed(1)}%</div><div class="l">AWaRe Not Recommended</div></div>
@@ -28112,7 +28124,7 @@ function renderDash(){
   </div>
   <div class="charts">
     <div class="chartbox">
-      <h3>AWaRe: WHO vs Tanzania STG/NEMLIT 2021</h3>${awareCmpHTML(m)}
+      <h3>AWaRe: WHO vs Tanzania STG/NEMLIT 2026</h3>${awareCmpHTML(m)}
       <h3>AWaRe distribution (of ${m.cumulativeRx} antibiotic dispensing lines) &mdash; ${currentAwareScheme()==="tanzania"?"Tanzania scheme":"WHO scheme"}</h3>
       <div class="bar"><div class="lab">Access</div><div class="track"><div class="fill" style="width:${(m.awareAccess*100)}%;background:var(--access)"></div></div><div class="num">${(m.awareAccess*100).toFixed(1)}%</div></div>
       <div class="bar"><div class="lab">Watch</div><div class="track"><div class="fill" style="width:${(m.awareWatch*100)}%;background:var(--watch)"></div></div><div class="num">${(m.awareWatch*100).toFixed(1)}%</div></div>
@@ -28804,8 +28816,8 @@ function renderInrud(){
       const v=p[ind.proxyKey];
       const scope = ind.proxyKey==="encAntibiotic"
         ? (v.method==="join"
-            ? "Inpatient-only proxy, computed by patient-ID join: of admitted patients in scope with a recorded ID, the share whose ID also appears on an antibiotic dispensing record. Used here because the admission sheet's own \u201con antibiotic\u201d Y/N flag has little or no coverage in this data \u2014 the join gives a usable figure without needing that column filled in. Still NOT the classic all-encounter (OPD+IPD, every diagnosis) measure; outpatient encounters aren't captured by this tool at all."
-            : "Inpatient-only proxy: of admission records in scope with the on-antibiotic flag actually recorded, the share flagged \u201cyes\u201d. This is NOT the classic all-encounter (OPD+IPD, every diagnosis) measure \u2014 outpatient encounters aren't captured by this tool at all, so a facility-wide figure isn't available.")
+            ? "Inpatient-only proxy, computed by patient-ID join: of admitted patients in scope with a recorded ID, the share whose ID also appears on an antibiotic dispensing record. Used here because the admission sheet's own \u201con antibiotic\u201d Y/N flag has little or no coverage in this data \u2014 the join gives a usable figure without needing that column filled in. Still NOT the classic all-encounter (OPD+IPD, every diagnosis) measure; outpatient visits are analysed separately on the OPD vs Inpatients page."
+            : "Inpatient-only proxy: of admission records in scope with the on-antibiotic flag actually recorded, the share flagged \u201cyes\u201d. This is NOT the classic all-encounter (OPD+IPD, every diagnosis) measure \u2014 outpatient visits are analysed separately on the OPD vs Inpatients page.")
         : ind.proxyScope;
       valueBlock=`<div class="kpis" style="margin:10px 0 6px">
         <div class="kpi"><div class="v">${v.pct!=null?v.pct+"%":"—"}</div><div class="l">${v.num.toLocaleString()} / ${v.den.toLocaleString()}</div></div>
@@ -29079,6 +29091,257 @@ function renderCRF3(){
 function crf3Update(i,f,v){ DB.crf3.rows[i][f]=v; save(); }
 function crf3Add(){ const rows=DB.crf3.rows; rows.push({sno:rows.length+1,patientId:"",age:"",procedure:"",diagnosis:"",flag:"",labSummary:"",receivingAB:"",prophylaxis:"",timingFirstDose:"",ab1n:"",ab1r:"",ab1d:"",ab2n:"",ab2r:"",ab2d:"",ab3n:"",ab3r:"",ab3d:"",reviewStop:"",adherence:""}); save(); renderCRF3(); }
 function crf3Del(i){ DB.crf3.rows.splice(i,1); DB.crf3.rows.forEach((r,idx)=>r.sno=idx+1); save(); renderCRF3(); }
+
+/* ============================= OPD vs INPATIENTS ============================= */
+/* The pharmacy log holds outpatients and inpatients together. Matched against the admission file,
+   each dispensing line is placed:
+   - INPATIENT: the patient ID has a primary admission whose stay covers the dispensing date (from one
+     day before admission to one day after discharge; with no discharge date the recorded bed-days set
+     the end; with neither, the stay is treated as still open).
+   - OPD: the patient ID is not in the admission file, or the line was dispensed at a clinic outside every
+     stay of that patient (a clinic visit before or after an admission).
+   - CAN'T PLACE: no patient ID, no date, a date outside the months the admission file covers, or a line
+     under a ward name for an admitted patient but outside every recorded stay (stay dates to check).
+     These are counted and shown, never guessed.
+   With no admission file loaded, lines are placed by clinic or ward name only, and the page says so.
+   OPD and inpatients are then analysed separately. Inpatients whose pharmacy record is unclear are
+   listed so the AMS secretary can complete them by hand on CRF 03. Facility-wide: the Setup ward
+   scope does not apply here, because the split itself decides who is an inpatient. */
+const OI_CLINIC_RE=/opd|out.?patient|clinic|ambulator|casualty|emergency|\bemd\b|walk.?in|\brch\b|\bctc\b|dental|\beye\b|dispensary/i;
+let oiTab="opd";
+function oiId(v){ return (v==null?"":String(v)).trim().toUpperCase().replace(/\s+/g,""); }
+function oiDay(s){ const d=String(s||"").slice(0,10); if(!/^\d{4}-\d{2}-\d{2}$/.test(d)) return null; const n=Date.parse(d+"T00:00:00Z"); return isNaN(n)?null:Math.floor(n/864e5); }
+function oiDate(n){ return n==null?"":new Date(n*864e5).toISOString().slice(0,10); }
+function oiPct(a,b,d){ return b?(a/b*100).toFixed(d==null?1:d):"—"; }
+function oiFmt(n){ return (n==null||isNaN(n))?"—":Number(n).toLocaleString(); }
+function oiIsAbx(t){ return !!t.drugMatched; }
+function oiInj(t){ return (t.dddRoute||dddRoute(t))==="P"||/^(IV|IM)$/i.test(t.route||""); }
+function oiBucketColor(b){ return b==="Access"?"var(--access)":b==="Watch"?"var(--watch)":b==="Reserve"?"var(--reserve)":b==="NR"?"var(--purple)":"var(--unc)"; }
+function oiBucketLabel(b){ return b==="NR"?"Not recommended":b; }
+function oiSplit(){
+ const sig=DB.pharmacyTx.length+"|"+DB.admitTx.length+"|"+(DB.__savedAt||"");
+ if(window._oi&&window._oi.sig===sig) return window._oi;
+ const stays={}; let minA=null,maxE=null,nStays=0,openStays=0;
+ DB.admitTx.forEach(t=>{
+  if(!t._primary) return;
+  const pid=oiId(t.patientId), a=oiDay(t.dateAdmitted||t.date); if(!pid||a==null) return;
+  let b=oiDay(t.dateDischarged); const bd=num(t.bedDays);
+  if(b==null||b<a) b=(bd!=null&&bd>=0)?a+Math.round(bd):null;
+  if(b==null) openStays++;
+  const s={pid,a,b,ward:(t.ward||"").trim()||"(ward not recorded)",bd:(bd!=null&&bd>=0)?bd:(b!=null?b-a:0),
+   onAbx:yesish(t.onAntibiotic),row:t,lines:[],abx:[],undated:0};
+  (stays[pid]=stays[pid]||[]).push(s); nStays++;
+  if(minA==null||a<minA) minA=a; const e=b==null?a:b; if(maxE==null||e>maxE) maxE=e;
+ });
+ const hasAdm=nStays>0;
+ const R={sig,hasAdm,nStays,openStays,from:minA,to:maxE,opd:[],ipd:[],unclear:[],stayOf:new Map(),stays,
+  why:{noid:0,nodate:0,outside:0,notAdmitted:0,between:0,inStay:0,byName:0,wardOutside:0},wardNamed:0,admittedIds:Object.keys(stays).length,admittedSeen:0};
+ const admSeen=new Set();
+ DB.pharmacyTx.forEach(t=>{
+  const pid=oiId(t.patientId); let cls;
+  if(!hasAdm){
+   const dep=(t.department||"").trim();
+   if(!dep){ cls="unclear"; R.why.noid++; } else { cls=OI_CLINIC_RE.test(dep)?"opd":"ipd"; R.why.byName++; }
+  } else if(!pid){ cls="unclear"; R.why.noid++; }
+  else {
+   const d=oiDay(t.date);
+   if(d==null){ cls="unclear"; R.why.nodate++; if(stays[pid]&&oiIsAbx(t)) stays[pid][stays[pid].length-1].undated++; }
+   else if(d<minA-1||d>maxE+1){ cls="unclear"; R.why.outside++; }
+   else if(!stays[pid]){ cls="opd"; R.why.notAdmitted++; if((t.department||"").trim()&&!OI_CLINIC_RE.test(t.department)) R.wardNamed++; }
+   else {
+    const s=stays[pid].find(s=>d>=s.a-1&&(s.b==null||d<=s.b+1));
+    if(s){ cls="ipd"; R.why.inStay++; s.lines.push(t); if(oiIsAbx(t)) s.abx.push(t); R.stayOf.set(t,s); admSeen.add(pid); }
+    else if((t.department||"").trim()&&!OI_CLINIC_RE.test(t.department)){ cls="unclear"; R.why.wardOutside++; }
+    else { cls="opd"; R.why.between++; }
+   }
+  }
+  R[cls].push(t);
+ });
+ R.admittedSeen=admSeen.size;
+ R.fullBasket=DB.pharmacyTx.filter(t=>!oiIsAbx(t)).length>DB.pharmacyTx.length*0.2;
+ window._oi=R; return R;
+}
+function oiDrugTable(lines){
+ const by={}; lines.forEach(t=>{ const k=t.drugMatched; const o=by[k]||(by[k]={drug:k,bucket:awareBucket(t.awareCls),lines:0,pts:new Set()}); o.lines++; if(t.patientId) o.pts.add(oiId(t.patientId)); });
+ return Object.values(by).sort((a,b)=>b.lines-a.lines);
+}
+function oiAware(lines){ const c={Access:0,Watch:0,Reserve:0,NR:0,Unclassified:0}; lines.forEach(t=>c[awareBucket(t.awareCls)]++); return c; }
+function oiOpdStats(R){
+ const visits={}; let k=0;
+ R.opd.forEach(t=>{ const pid=oiId(t.patientId), day=String(t.date||"").slice(0,10);
+  const key=(pid||("line"+(k++)))+"|"+day;
+  const v=visits[key]||(visits[key]={pid,day,depts:{},abx:new Set(),lines:0});
+  v.lines++; const dep=(t.department||"").trim()||"(clinic not recorded)"; v.depts[dep]=(v.depts[dep]||0)+1;
+  if(oiIsAbx(t)) v.abx.add(t.drugMatched); });
+ const V=Object.values(visits); V.forEach(v=>{ v.dept=Object.entries(v.depts).sort((a,b)=>b[1]-a[1])[0][0]; });
+ const abxLines=R.opd.filter(oiIsAbx), withAbx=V.filter(v=>v.abx.size);
+ const clinics={}, months={};
+ V.forEach(v=>{ const c=clinics[v.dept]||(clinics[v.dept]={name:v.dept,visits:0,withAbx:0,lines:0,watch:0}); c.visits++; if(v.abx.size) c.withAbx++;
+  const m=v.day.slice(0,7); if(/^\d{4}-\d{2}$/.test(m)){ const o=months[m]||(months[m]={m,visits:0,withAbx:0,lines:0,watch:0}); o.visits++; if(v.abx.size) o.withAbx++; } });
+ abxLines.forEach(t=>{ const dep=(t.department||"").trim()||"(clinic not recorded)"; const c=clinics[dep]; if(c){ c.lines++; if(awareBucket(t.awareCls)==="Watch") c.watch++; }
+  const m=String(t.date||"").slice(0,7); if(months[m]){ months[m].lines++; if(awareBucket(t.awareCls)==="Watch") months[m].watch++; } });
+ return {V,withAbx,abxLines,aw:oiAware(abxLines),inj:abxLines.filter(oiInj).length,
+  perAbxVisit:withAbx.length?withAbx.reduce((s,v)=>s+v.abx.size,0)/withAbx.length:null,
+  clinics:Object.values(clinics).sort((a,b)=>b.visits-a.visits),months:Object.values(months).sort((a,b)=>a.m.localeCompare(b.m)),drugs:oiDrugTable(abxLines)};
+}
+function oiIpdStats(R){
+ const S=[].concat(...Object.values(R.stays));
+ const abxLines=R.ipd.filter(oiIsAbx);
+ const ddd=abxLines.reduce((s,t)=>s+(t.dddContribution||0),0), dddLines=abxLines.filter(t=>t.dddContribution!=null).length;
+ const bd=S.reduce((s,x)=>s+(x.bd||0),0);
+ const inPeriod=t=>{ const d=oiDay(t.date); return d!=null&&d>=R.from-1&&d<=R.to+1; };
+ const opdDdd=R.opd.filter(t=>oiIsAbx(t)&&inPeriod(t)).reduce((s,t)=>s+(t.dddContribution||0),0);
+ const wards={};
+ S.forEach(s=>{ const w=wards[s.ward]||(wards[s.ward]={name:s.ward,stays:0,withAbx:0,lines:0,watch:0,ddd:0,bd:0}); w.stays++; if(s.abx.length) w.withAbx++; w.bd+=s.bd||0;
+  s.abx.forEach(t=>{ w.lines++; if(awareBucket(t.awareCls)==="Watch") w.watch++; w.ddd+=t.dddContribution||0; }); });
+ return {S,abxLines,aw:oiAware(abxLines),withAbx:S.filter(s=>s.abx.length).length,ddd,dddLines,bd,opdDdd,inj:abxLines.filter(oiInj).length,
+  wards:Object.values(wards).sort((a,b)=>b.stays-a.stays),drugs:oiDrugTable(abxLines)};
+}
+function oiUnclear(R){
+ const out=[];
+ Object.values(R.stays).forEach(list=>list.forEach(s=>{
+  const why=[];
+  if(s.onAbx&&!s.abx.length) why.push("Admission record says on antibiotics; none found in the pharmacy log for this stay");
+  const noDur=s.abx.filter(t=>!String(t.days||"").trim()||!String(t.freq||"").trim()).length;
+  if(noDur) why.push(noDur+" antibiotic line(s) without days or frequency");
+  if(s.undated) why.push(s.undated+" antibiotic line(s) for this patient have no date");
+  if(s.b==null) why.push("No discharge date or bed-days, so the end of the stay is unknown");
+  if(R.fullBasket&&!s.lines.length) why.push("Nothing dispensed under this patient ID during the stay (ward stock, or another ID?)");
+  if(why.length) out.push({s,why});
+ }));
+ return out.sort((a,b)=>b.why.length-a.why.length||b.s.a-a.s.a);
+}
+function oiKpi(v,l,cls){ return `<div class="kpi"><div class="v ${cls||""}">${v}</div><div class="l">${l}</div></div>`; }
+function oiAwareBar(aw){
+ const tot=Object.values(aw).reduce((a,b)=>a+b,0)||1;
+ return `<div style="display:flex;height:14px;border-radius:7px;overflow:hidden;margin:6px 0 4px">${Object.entries(aw).filter(([,n])=>n).map(([b,n])=>`<div title="${oiBucketLabel(b)}: ${n}" style="width:${n/tot*100}%;background:${oiBucketColor(b)}"></div>`).join("")}</div>
+ <div class="hint">${Object.entries(aw).filter(([,n])=>n).map(([b,n])=>`<span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:${oiBucketColor(b)};margin:0 4px 0 0"></span>${oiBucketLabel(b)} ${oiPct(n,tot,0)}%`).join(" &nbsp; ")}</div>`;
+}
+function oiDrugBars(drugs,total){
+ const max=Math.max(1,...drugs.map(d=>d.lines));
+ return drugs.slice(0,12).map(d=>`<div class="bar"><div class="lab">${esc(d.drug)}</div><div class="track"><div class="fill" style="width:${d.lines/max*100}%;background:${oiBucketColor(d.bucket)}"></div></div><div class="num" style="white-space:nowrap;min-width:92px;text-align:right">${oiFmt(d.lines)} (${oiPct(d.lines,total,0)}%)</div></div>`).join("")||`<div class="hint">No antibiotic lines.</div>`;
+}
+function renderOpdIpd(){
+ const el=$("#v-opdipd"); if(!el) return;
+ if(!DB.pharmacyTx.length){ el.innerHTML=`<div class="panel"><h2>OPD vs Inpatients</h2><div class="empty">Load the pharmacy dispensing export (all clinics and wards) and the admission register on the Import Hub. Patients found in the pharmacy log but not admitted are treated as outpatients, and each group is analysed on its own.</div></div>`; return; }
+ const R=oiSplit(), tot=DB.pharmacyTx.length;
+ const abx=a=>a.filter(oiIsAbx).length;
+ const notes=[];
+ if(!R.hasAdm) notes.push(`<div class="notice warn"><b>No admission register loaded.</b> Lines are placed by clinic or ward name only (a name with OPD, clinic, RCH, CTC, dental, eye, casualty or emergency counts as OPD). Load the admission register for the same months to place every line by patient ID and date.</div>`);
+ if(R.hasAdm&&R.why.outside) notes.push(`<div class="notice warn">${oiFmt(R.why.outside)} line(s) are dated outside the months the admission register covers (${oiDate(R.from)} to ${oiDate(R.to)}), so they can't be placed. Load admissions for the same months as the pharmacy log.</div>`);
+ if(R.hasAdm&&R.admittedIds>=20&&R.admittedSeen/R.admittedIds<0.2) notes.push(`<div class="notice err">Only ${oiFmt(R.admittedSeen)} of ${oiFmt(R.admittedIds)} admitted patients were found in the pharmacy log during their stay. If patient numbers are written differently in the two exports (a prefix, leading zeros), the split below is not reliable.</div>`);
+ if(R.hasAdm&&R.why.wardOutside) notes.push(`<div class="notice">${oiFmt(R.why.wardOutside)} line(s) were dispensed under a ward name to admitted patients but fall outside their recorded stay, so they are counted as neither OPD nor inpatient. Check those admission and discharge dates.</div>`);
+ if(R.hasAdm&&R.wardNamed) notes.push(`<div class="notice">${oiFmt(R.wardNamed)} OPD line(s) belong to patients not in the admission register but were dispensed under a ward name. Check that the register includes every ward; if it does, these are most likely day cases or clinic patients served from a ward.</div>`);
+ const tabs=[["opd","Outpatients (OPD)"],["ipd","Inpatients"],["crf","Inpatients to complete on CRF 03"]];
+ el.innerHTML=`<div class="panel">
+  <h2>OPD vs Inpatients</h2>
+  <div class="sub">The pharmacy log holds outpatients and inpatients together. ${R.hasAdm?`Each line is matched to the admission register by patient ID and date: dispensed during an admission is <b>inpatient</b>; a patient not in the register, or seen outside every admission, is <b>OPD</b>.`:`No admission register yet, so lines are placed by clinic or ward name.`} Each group is analysed on its own below. Facility-wide: the Setup ward scope does not apply on this page.</div>
+  <div class="kpis" style="margin-top:12px">
+   ${oiKpi(oiFmt(R.opd.length),`OPD lines (${oiPct(R.opd.length,tot)}%) &middot; ${oiFmt(abx(R.opd))} antibiotic`,"big")}
+   ${oiKpi(oiFmt(R.ipd.length),`Inpatient lines (${oiPct(R.ipd.length,tot)}%) &middot; ${oiFmt(abx(R.ipd))} antibiotic`,"g")}
+   ${oiKpi(oiFmt(R.unclear.length),`Can't place (${oiPct(R.unclear.length,tot)}%) &middot; ${oiFmt(abx(R.unclear))} antibiotic`,R.unclear.length?"a":"")}
+  </div>
+  <div class="hint">How lines were placed: ${R.hasAdm?`${oiFmt(R.why.inStay)} during an admission &middot; ${oiFmt(R.why.notAdmitted)} patient not in the register &middot; ${oiFmt(R.why.between)} admitted patient seen at a clinic outside a stay &middot; ${oiFmt(R.why.wardOutside)} under a ward name but outside the patient's recorded stay &middot; ${oiFmt(R.why.noid)} no patient ID &middot; ${oiFmt(R.why.nodate)} no date &middot; ${oiFmt(R.why.outside)} outside the register's months. ${oiFmt(R.nStays)} admissions from ${oiDate(R.from)} to ${oiDate(R.to)}${R.openStays?` (${oiFmt(R.openStays)} with no discharge date or bed-days, treated as still open)`:""}.`:`${oiFmt(R.why.byName)} by clinic or ward name &middot; ${oiFmt(R.why.noid)} with no clinic or ward name.`}</div>
+  ${notes.join("")}
+  <div class="tabsel" style="margin-top:12px">${tabs.map(([k,l])=>`<button class="${oiTab===k?"on":""}" onclick="oiTab='${k}';renderOpdIpd()">${l}</button>`).join("")}</div>
+  <div id="oi_body">${oiTab==="ipd"?oiRenderIpd(R):oiTab==="crf"?oiRenderCrf(R):oiRenderOpd(R)}</div>
+ </div>`;
+}
+function oiRenderOpd(R){
+ const O=oiOpdStats(R); window._oiOpd=O;
+ if(!O.V.length) return `<div class="empty">No OPD lines yet. Load the pharmacy export for the clinics too (OPD, MOPD, SOPD, RCH, CTC, dental and so on), not only the wards.</div>`;
+ const L=O.abxLines.length;
+ return `<div class="kpis">
+   ${oiKpi(oiFmt(O.V.length),"OPD visits that reached the pharmacy (one patient, one day)","big")}
+   ${oiKpi(oiPct(O.withAbx.length,O.V.length)+"%","of those visits got at least one antibiotic",O.withAbx.length/O.V.length>0.3?"a":"g")}
+   ${oiKpi(O.perAbxVisit==null?"—":O.perAbxVisit.toFixed(2),"antibiotics per visit that got one")}
+   ${oiKpi(oiPct(O.aw.Watch,L)+"%","Watch share of OPD antibiotic lines",O.aw.Watch/(L||1)>0.4?"a":"")}
+   ${oiKpi(oiPct(O.inj,L)+"%","of OPD antibiotic lines are injections")}
+  </div>
+  <div class="notice">A visit here is one patient on one day in the OPD part of the pharmacy log. Visits where nothing was dispensed are not in the log, so the share with an antibiotic is a share of <i>visits that reached the pharmacy</i>; over all OPD visits it would be lower. For comparison, the WHO/INRUD reference range often quoted for the share of encounters with an antibiotic is 20.0&ndash;26.8% (Isah et al., WHO, 2004).</div>
+  <div class="chartbox" style="margin-bottom:14px"><h3>AWaRe split of OPD antibiotic lines (${oiFmt(L)})</h3>${oiAwareBar(O.aw)}</div>
+  <div class="chartbox" style="margin-bottom:14px"><h3>Antibiotics most dispensed in OPD</h3>${oiDrugBars(O.drugs,L)}</div>
+  <div class="subhead"><h3>By clinic</h3><div class="line"></div></div>
+  <div class="tablewrap"><table><thead><tr><th>Clinic</th><th>Visits</th><th>With an antibiotic</th><th>%</th><th>Antibiotic lines</th><th>Watch %</th></tr></thead><tbody>
+   ${O.clinics.map(c=>`<tr><td>${esc(c.name)}</td><td>${oiFmt(c.visits)}</td><td>${oiFmt(c.withAbx)}</td><td><b>${oiPct(c.withAbx,c.visits)}%</b></td><td>${oiFmt(c.lines)}</td><td>${oiPct(c.watch,c.lines)}%</td></tr>`).join("")}
+  </tbody></table></div>
+  <div class="subhead"><h3>Month by month</h3><div class="line"></div></div>
+  <div class="tablewrap"><table><thead><tr><th>Month</th><th>Visits</th><th>% with an antibiotic</th><th></th><th>Watch % of antibiotic lines</th></tr></thead><tbody>
+   ${O.months.slice(-18).reverse().map(m=>`<tr><td>${esc(monthLabel(m.m))}</td><td>${oiFmt(m.visits)}</td><td><b>${oiPct(m.withAbx,m.visits)}%</b></td><td style="width:30%"><div style="height:8px;border-radius:4px;background:var(--line)"><div style="height:8px;border-radius:4px;width:${m.visits?m.withAbx/m.visits*100:0}%;background:var(--accent)"></div></div></td><td>${oiPct(m.watch,m.lines)}%</td></tr>`).join("")}
+  </tbody></table></div>
+  ${O.months.length>18?`<div class="hint">Latest 18 of ${O.months.length} months shown; the export has them all.</div>`:""}
+  <div class="row" style="margin-top:12px"><button class="btn ghost" onclick="oiExport('opd')">Export OPD tables (CSV)</button></div>`;
+}
+function oiRenderIpd(R){
+ if(!R.hasAdm) return `<div class="empty">Load the admission register to analyse inpatients by stay, ward and bed-days.</div>`;
+ const I=oiIpdStats(R); window._oiIpd=I;
+ const L=I.abxLines.length, per100=I.bd?I.ddd/I.bd*100:null, all100=I.bd?(I.ddd+I.opdDdd)/I.bd*100:null;
+ return `<div class="kpis">
+   ${oiKpi(oiFmt(I.S.length),"admissions in the register","big")}
+   ${oiKpi(oiPct(I.withAbx,I.S.length)+"%","of admissions had an antibiotic dispensed during the stay")}
+   ${oiKpi(per100==null?"—":per100.toFixed(1),"DDD per 100 bed-days, inpatient lines only")}
+   ${oiKpi(oiPct(I.aw.Watch,L)+"%","Watch share of inpatient antibiotic lines",I.aw.Watch/(L||1)>0.4?"a":"")}
+   ${oiKpi(oiFmt(Math.round(I.bd)),"bed-days (from the register)")}
+  </div>
+  ${per100!=null&&I.opdDdd>0?`<div class="notice"><b>Why the split matters for DDD.</b> Bed-days belong to inpatients only. Dividing all dispensing in the same months by them would give ${all100.toFixed(1)} DDD per 100 bed-days, ${oiPct(all100-per100,per100,0)}% higher than the inpatient figure of ${per100.toFixed(1)}, because OPD antibiotics would be counted against beds they never used.</div>`:""}
+  <div class="hint" style="margin-bottom:10px">${oiFmt(I.dddLines)} of ${oiFmt(L)} inpatient antibiotic lines have a WHO DDD (${oiPct(I.dddLines,L,0)}%); lines without one are left out of DDD rather than guessed. Admissions with no discharge date are counted with the bed-days recorded for them.</div>
+  <div class="chartbox" style="margin-bottom:14px"><h3>AWaRe split of inpatient antibiotic lines (${oiFmt(L)})</h3>${oiAwareBar(I.aw)}</div>
+  <div class="chartbox" style="margin-bottom:14px"><h3>Antibiotics most dispensed to inpatients</h3>${oiDrugBars(I.drugs,L)}</div>
+  <div class="subhead"><h3>By ward (ward on the admission record)</h3><div class="line"></div></div>
+  <div class="tablewrap"><table><thead><tr><th>Ward</th><th>Admissions</th><th>With an antibiotic</th><th>%</th><th>Antibiotic lines</th><th>Watch %</th><th>Bed-days</th><th>DDD / 100 bed-days</th></tr></thead><tbody>
+   ${I.wards.map(w=>`<tr><td>${esc(w.name)}</td><td>${oiFmt(w.stays)}</td><td>${oiFmt(w.withAbx)}</td><td><b>${oiPct(w.withAbx,w.stays)}%</b></td><td>${oiFmt(w.lines)}</td><td>${oiPct(w.watch,w.lines)}%</td><td>${oiFmt(Math.round(w.bd))}</td><td>${w.bd?(w.ddd/w.bd*100).toFixed(1):"—"}</td></tr>`).join("")}
+  </tbody></table></div>
+  <div class="row" style="margin-top:12px"><button class="btn ghost" onclick="oiExport('ipd')">Export inpatient tables (CSV)</button> <button class="btn ghost" onclick="oiTab='crf';renderOpdIpd()">Inpatients to complete on CRF 03</button></div>`;
+}
+function oiRenderCrf(R){
+ if(!R.hasAdm) return `<div class="empty">Load the admission register first: this list is built from admitted patients whose pharmacy record is unclear.</div>`;
+ const U=oiUnclear(R); window._oiU=U;
+ if(!U.length) return `<div class="notice good">Every admission in the register has a clear pharmacy record: nothing to complete by hand.</div>`;
+ const counts={}; U.forEach(u=>u.why.forEach(w=>{ const k=w.replace(/^\d+ /,"N "); counts[k]=(counts[k]||0)+1; }));
+ const shown=U.slice(0,150);
+ return `<div class="notice">These admitted patients have a pharmacy record that is unclear. Where the antibiotics a patient got can't be read from the pharmacy log, the standard source is the doctors' and nurses' review notes, entered by hand on <b>CRF 03</b> by the AMS secretary. <b>Fill in on CRF 03</b> opens that patient's row (adding it if needed) with the reason written in its data quality flag.</div>
+  <div class="tablewrap" style="max-height:none;margin-bottom:12px"><table><thead><tr><th>What is unclear</th><th>Admissions</th></tr></thead><tbody>
+   ${Object.entries(counts).sort((a,b)=>b[1]-a[1]).map(([k,n])=>`<tr><td>${esc(k)}</td><td>${oiFmt(n)}</td></tr>`).join("")}
+  </tbody></table></div>
+  <div class="tablewrap"><table><thead><tr><th>Patient ID</th><th>Ward</th><th>Admitted</th><th>Discharged</th><th>What is unclear</th><th></th></tr></thead><tbody>
+   ${shown.map(u=>`<tr><td>${esc(u.s.row.patientId)}</td><td>${esc(u.s.ward)}</td><td>${oiDate(u.s.a)}</td><td>${u.s.b==null?"—":oiDate(u.s.b)}</td><td>${u.why.map(esc).join("<br>")}</td><td><button class="btn sm" onclick="oiToCrf('${esc(oiId(u.s.row.patientId)).replace(/'/g,"")}',${u.s.a})">Fill in on CRF 03</button></td></tr>`).join("")}
+  </tbody></table></div>
+  ${U.length>shown.length?`<div class="hint">First ${shown.length} of ${oiFmt(U.length)} shown, most reasons first; the export has them all.</div>`:""}
+  <div class="row" style="margin-top:12px"><button class="btn ghost" onclick="oiExport('crf')">Export this list (CSV)</button></div>`;
+}
+function oiToCrf(pid,a){
+ const R=oiSplit(), list=R.stays[pid]||[], s=list.find(x=>x.a===a)||list[list.length-1];
+ const u=oiUnclear(R).find(x=>x.s===s);
+ let row=DB.crf3.rows.find(r=>oiId(r.patientId)===pid);
+ if(!row){
+  row={sno:DB.crf3.rows.length+1,patientId:s?s.row.patientId:pid,age:s&&s.row.age||"",procedure:s&&s.row.procedure||"",diagnosis:s&&s.row.diagnosis||"",flag:"",labSummary:"",receivingAB:"",prophylaxis:"",timingFirstDose:"",ab1n:"",ab1r:"",ab1d:"",ab2n:"",ab2r:"",ab2d:"",ab3n:"",ab3r:"",ab3d:"",reviewStop:"",adherence:""};
+  DB.crf3.rows.push(row);
+ }
+ if(u) crf3AddFlag(row,"Complete by hand ("+(s?s.ward+", admitted "+oiDate(s.a):"")+"): "+u.why.join("; "));
+ save();
+ crfTab="crf3"; go("crf");
+ setTimeout(()=>{ const tr=[...document.querySelectorAll("#crf_body tbody tr")].find(tr=>[...tr.querySelectorAll("input")].some(i=>oiId(i.value)===pid));
+  if(tr){ tr.scrollIntoView({block:"center"}); tr.style.outline="2px solid var(--watch)"; tr.style.outlineOffset="-2px"; }
+  toast(tr?"Patient "+esc(row.patientId)+" is highlighted on CRF 03":"Patient added to CRF 03 (choose All months to see the row)"); },60);
+}
+function oiCsv(rows){ return rows.map(r=>r.map(v=>{ const s=v==null?"":String(v); return /[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s; }).join(",")).join("\n"); }
+function oiExport(which){
+ const R=oiSplit(), stamp=new Date().toISOString().slice(0,10); let rows=[];
+ if(which==="opd"){ const O=window._oiOpd||oiOpdStats(R);
+  rows.push(["Table","Name","Visits","Visits with antibiotic","% with antibiotic","Antibiotic lines","Watch lines","AWaRe","Patients"]);
+  O.clinics.forEach(c=>rows.push(["By clinic",c.name,c.visits,c.withAbx,oiPct(c.withAbx,c.visits),c.lines,c.watch,"",""]));
+  O.months.forEach(m=>rows.push(["By month",m.m,m.visits,m.withAbx,oiPct(m.withAbx,m.visits),m.lines,m.watch,"",""]));
+  O.drugs.forEach(d=>rows.push(["Antibiotic",d.drug,"","","",d.lines,"",oiBucketLabel(d.bucket),d.pts.size]));
+ } else if(which==="ipd"){ const I=window._oiIpd||oiIpdStats(R);
+  rows.push(["Table","Name","Admissions","With antibiotic","% with antibiotic","Antibiotic lines","Watch lines","Bed-days","DDD","DDD per 100 bed-days","AWaRe","Patients"]);
+  I.wards.forEach(w=>rows.push(["By ward",w.name,w.stays,w.withAbx,oiPct(w.withAbx,w.stays),w.lines,w.watch,Math.round(w.bd),w.ddd.toFixed(2),w.bd?(w.ddd/w.bd*100).toFixed(2):"","",""]));
+  I.drugs.forEach(d=>rows.push(["Antibiotic",d.drug,"","","",d.lines,"","","","",oiBucketLabel(d.bucket),d.pts.size]));
+ } else { const U=window._oiU||oiUnclear(R);
+  rows.push(["Patient ID","Ward","Date admitted","Date discharged","Bed-days","What is unclear"]);
+  U.forEach(u=>rows.push([u.s.row.patientId,u.s.ward,oiDate(u.s.a),u.s.b==null?"":oiDate(u.s.b),u.s.bd,u.why.join("; ")]));
+ }
+ dl("AMS_"+(which==="opd"?"OPD":which==="ipd"?"Inpatients":"Inpatients_for_CRF03")+"_"+stamp+".csv",oiCsv(rows),"text/csv");
+}
 
 /* ============================= IMPORT HUB ============================= */
 /* ---- generic offline file readers (no dependencies) — same engine PPS Pro uses ---- */
@@ -30228,7 +30491,7 @@ function renderGuide(){
     <div class="notice" style="margin-bottom:10px"><b>Too many modules?</b> Click <b>View &middot; Change</b> at the top of the menu and pick who uses this computer (AMS team, clinician, IPC, laboratory or management), the facility level and the stage of the AMS programme. The menu then shows only those modules; the rest keep working and come back with <i>Show everything</i>. <a href="#" style="color:var(--accent)" onclick="viewPanel();return false">Choose a view</a></div>
     <ol style="line-height:1.7;margin:0;padding-left:20px">
       <li><b>Open a data folder.</b> Setup &rsaquo; <i>Data folder</i> &rsaquo; <i>Open data folder</i> and choose (or create) a folder such as <b>Documents &rsaquo; Odieman &rsaquo; AMS_Data</b>. From then on everything saves there by itself. Do this <u>before</u> importing more than a few months of data &mdash; the browser on its own holds only 5&ndash;10&nbsp;MB. ${open("setup","Setup")}</li>
-      <li><b>Fill in the facility details</b> on Setup: facility name, reporting period, the person preparing the report, and the AWaRe scheme (WHO for international comparison, or Tanzania STG/NEMLIT 2021 for MoH reporting).</li>
+      <li><b>Fill in the facility details</b> on Setup: facility name, reporting period, the person preparing the report, and the AWaRe scheme (WHO for international comparison, or Tanzania STG/NEMLIT 7th Edition, 2026 for MoH reporting).</li>
       <li><b>Import your exports.</b> Import Hub &rsaquo; drop each file into its bucket (Pharmacy dispensing, Admissions/ward, Laboratory, Procedures, Diagnosis). Several files per bucket are merged automatically &mdash; for example one per year. When everything is staged, click <b>&#9889; Analyze all staged buckets now</b>. ${open("hub","Import Hub")}</li>
       <li><b>Add culture &amp; sensitivity results</b> (optional, but needed for the Antibiogram and Bug&ndash;drug check): Bug&ndash;drug Check &rsaquo; <i>Import culture/AST results</i>. ${open("bugdrug","Bug–drug Check")}</li>
       <li><b>Read the Dashboard first</b> &mdash; it confirms the period, the wards in scope, the bed-days denominator and the headline AWaRe, DDD and DOT figures. If anything there looks wrong, fix it before going further (see Troubleshooting). ${open("dash","Dashboard")}</li>
@@ -30248,7 +30511,7 @@ function renderGuide(){
       <tr><td><b>Procedures / services</b></td><td>Product Name / Procedure</td><td>Patient ID, Sub Department Name, Ordered Date, Price</td><td>Surgical prophylaxis continued beyond 24&nbsp;h (Time-out), Patient Master</td></tr>
     </tbody></table></div>
     <div class="notice" style="margin-top:12px"><b>Most important rule:</b> the ward names in the admissions file must be written exactly as the <i>Department</i> names in the dispensing file. That is how AMS Pro links bed-days to dispensing and decides which wards are in scope.</div>
-    <div class="notice good" style="margin-top:10px">New in 5.8: a <b>Quick answer</b> on the Dashboard (how much of one antibiotic was used in the last few months, in DDD and DDD per 100 bed-days) and <b>Ward AMS Projects</b> (AMS Operations) &mdash; a project on any ward chosen from a list, with the AMS secretary&rsquo;s CRF 03 as the standard source where eHMS does not hold the ward&rsquo;s data, the ward&rsquo;s consumption sheet, integrity checks and reports. New in 5.7: <b>Showcase</b> (&#9733; in the top bar, in place of the Present tour) and <b>Print antibiogram (A4)</b> on the Antibiogram page. New in 5.3: <b>Minimum Data</b> (Getting Started) lists every heading the importer recognises, gives blank templates, and checks the data loaded now. <button class="btn sm ghost" onclick="go('mindata')">Open &rarr;</button></div>`)}
+    <div class="notice good" style="margin-top:10px">New in 5.9: <b>OPD vs Inpatients</b> (AMS Operations) &mdash; the pharmacy log split into outpatients and inpatients by matching patient numbers and dates with the admission register, each analysed on its own (OPD visits with an antibiotic by clinic and month; admissions on antibiotics, DDD per 100 bed-days and Watch share by ward), with unclear inpatients listed for CRF 03. Manual entry and Data Entry now keep what you type until it is saved or added (Save now, Ctrl+S). Tanzania view updated to STG/NEMLIT 7th Edition, 2026. New in 5.8: a <b>Quick answer</b> on the Dashboard (how much of one antibiotic was used in the last few months, in DDD and DDD per 100 bed-days) and <b>Ward AMS Projects</b> (AMS Operations) &mdash; a project on any ward chosen from a list, with the AMS secretary&rsquo;s CRF 03 as the standard source where eHMS does not hold the ward&rsquo;s data, the ward&rsquo;s consumption sheet, integrity checks and reports. New in 5.7: <b>Showcase</b> (&#9733; in the top bar, in place of the Present tour) and <b>Print antibiogram (A4)</b> on the Antibiogram page. New in 5.3: <b>Minimum Data</b> (Getting Started) lists every heading the importer recognises, gives blank templates, and checks the data loaded now. <button class="btn sm ghost" onclick="go('mindata')">Open &rarr;</button></div>`)}
 
   ${sec("modules","3. What each module shows",`
     <div class="tablewrap"><table><thead><tr><th>Module</th><th>What it shows</th><th>How to read / use it</th><th></th></tr></thead><tbody>
@@ -30269,7 +30532,8 @@ function renderGuide(){
       ${mod("spc","Run Charts (SPC)","Laney p&prime; control charts per week or month for Access, Watch, Not-recommended, injectable share and time-out flags.","A red point is a real change (outside limits, 8 in a row on one side, or 6 rising/falling). Anything inside the limits is ordinary noise.")}
       ${mod("its","Did It Work?","Evaluates an intervention: monthly before-vs-after comparison and an interrupted time series (segmented regression) for any ward and indicator, including course length and post-operative continuation.","The verdict compares the end of follow-up with what the earlier trend predicted. Download the 300-dpi figure, the monthly CSV, the Stata files (labelled data, and commands that re-run this model and check it against AMS Pro) and the ready-written methods and results for a paper.")}
       ${mod("impact","Intervention Impact","Did an intervention work? Interrupted time series on monthly values, plus a quarter-by-quarter comparison. Who is studied can be dispensing departments, patients admitted to a ward (admissions linked to dispensing — for sub-wards such as Post-C that dispensing does not name), or a ward consumption table.","Choose the ward, the outcome and the month the intervention started. Read the verdict and the &ldquo;Checks and decisions&rdquo; list; about 12 months before and 12 after give a firm answer.")}
-      ${mod("drvzones","Driver Zones","Antibiotic use grouped by resistance-pressure zone: out-patient, surgical prophylaxis (incl. C-section) and respiratory.","Shows which zone carries most Watch use and whether cefazolin is used for clean surgery.")}
+      ${mod("opdipd","OPD vs Inpatients","Splits the pharmacy log into outpatients and inpatients by matching patient IDs and dates with the admission register, then analyses each on its own: OPD visits with an antibiotic by clinic and month; admissions on antibiotics, DDD per 100 bed-days and Watch share by ward.","Patients in the pharmacy log who were never admitted count as OPD. Lines that can&rsquo;t be placed are shown, not guessed. Inpatients whose pharmacy record is unclear are listed for completion by hand on CRF 03.")}
+ ${mod("drvzones","Driver Zones","Antibiotic use grouped by resistance-pressure zone: out-patient, surgical prophylaxis (incl. C-section) and respiratory.","Shows which zone carries most Watch use and whether cefazolin is used for clean surgery.")}
       ${mod("wrtrend","Resistance Trend","Monthly Watch+Reserve share with a fitted trend, 95% band and 12-month projection.","A falling line with high R&sup2; is a sustained improvement; a low R&sup2; means too noisy to call.")}
       ${mod("wins","What's Working","Recognition by ward and by prescriber: Access and Watch+Reserve shares, using a fair minimum volume.","Use it for recognition at CQI meetings &mdash; it is not adjusted for case-mix, so it is not a league table.")}
       ${mod("discrep","Discrepancy","Ward stock receipts compared with what was dispensed (CRF01 reconciliation).","Needs a ward stock-receipt export (imported on CRF Forms).")}
@@ -30286,7 +30550,7 @@ function renderGuide(){
     <ol style="line-height:1.7;padding-left:20px">
       <li>Open a data folder first (Setup &rsaquo; Data folder) &mdash; three years of data is about 14&nbsp;MB.</li>
       <li>Export &rsaquo; <i>Erase all data</i> to start clean (a safety copy is kept in the folder).</li>
-      <li>Import Hub: drop the three <code>AMS_Pharmacy_Dispensing_20xx.csv</code> files into Pharmacy, the three <code>AMS_Admissions_</code> files into Admissions, the three <code>AMS_Lab_Results_TAT_</code> files into Laboratory and the three <code>AMS_Procedures_</code> files into Procedures. Then <b>Analyze all staged buckets now</b>.</li>
+      <li>Import Hub: drop the three <code>AMS_Pharmacy_Dispensing_20xx.csv</code> files (wards) and the three <code>AMS_Pharmacy_OPD_Clinics_20xx.csv</code> files (clinics) into Pharmacy, the three <code>AMS_Admissions_</code> files into Admissions, the three <code>AMS_Lab_Results_TAT_</code> files into Laboratory and the three <code>AMS_Procedures_</code> files into Procedures. Then <b>Analyze all staged buckets now</b>.</li>
       <li>Bug&ndash;drug Check &rsaquo; <i>Import culture/AST results</i> &mdash; import each <code>AMS_Culture_Sensitivity_20xx.csv</code> file.</li>
     </ol>
     <div class="notice good"><b>What the sample data is built to show:</b> Access share rising (44% in early 2024 &rarr; 67% by mid-2026), monthly DDDs falling, shorter courses, more IV&rarr;oral switches, more cultures sent and reported on time, surgical prophylaxis increasingly stopped after the operation, surgical-site infections after C-section falling from 8.4% (2024) to 3.9% (2026) &mdash; and realistic resistance (e.g. <i>E.&nbsp;coli</i> and <i>Klebsiella</i> resistance to ceftriaxone above 50%, carbapenem resistance creeping up). Run Charts, Resistance Trend and Analytics show these changes as statistically real.</div>`)}
@@ -30382,12 +30646,10 @@ function renderGuide(){
    unmistakable (same first letter, one clear best match); otherwise Setup > Antibiotic names asks "Did you mean...?".
    What the team decides is remembered (DB.facility.itemAlias) and used for every later import. */
 function odieTzNotFollowed(){ return {
-  "gentamicin":{printed:"Watch",page:9,why:"NEMLIT 2021 (p.9) lists it as Watch, but at level of care A (stocked at every dispensary), which contradicts the Watch definition. WHO: Access, used here."},
-  "sulfamethoxazole + trimethoprim":{printed:"Watch",page:9,why:"NEMLIT 2021 (p.9) lists it as Watch, but at level of care A (stocked at every dispensary), which contradicts the Watch definition. WHO: Access, used here."},
-  "erythromycin":{printed:"Access",page:8,why:"NEMLIT 2021 (p.8) lists it as Access; WHO groups it as Watch. An antibiotic is never counted in a lower group than WHO."},
-  "ampicillin + cloxacillin":{printed:"Access",page:7,why:"NEMLIT 2021 (p.7) lists it as Access; WHO does not recommend this fixed-dose combination. WHO used."},
-  "amoxicillin + flucloxacillin":{printed:"Access",page:8,why:"NEMLIT 2021 (p.8) lists it as Access; WHO does not recommend this fixed-dose combination. WHO used."},
-  "ceftriaxone + sulbactam":{printed:"Watch",page:8,why:"NEMLIT 2021 (p.8) lists it as Watch; WHO does not recommend this fixed-dose combination. WHO used."}
+  "gentamicin":{printed:"Watch",page:9,why:"NEMLIT 2026 (p.9) lists it as Watch, but at level of care A (stocked at every dispensary), which contradicts the Watch definition. WHO: Access, used here."},
+  "ampicillin + cloxacillin":{printed:"Access",page:8,why:"NEMLIT 2026 (p.8) lists it as Access; WHO does not recommend this fixed-dose combination. WHO used."},
+  "amoxicillin + flucloxacillin":{printed:"Access",page:9,why:"NEMLIT 2026 (p.9) lists it as Access (as flucloxacillin + amoxicillin); WHO does not recommend this fixed-dose combination. WHO used."},
+  "ceftriaxone + sulbactam":{printed:"Watch",page:9,why:"NEMLIT 2026 (p.9) lists it as Watch; WHO does not recommend this fixed-dose combination. WHO used."}
 }; }
 function odieLev(a,b,max){ if(a===b)return 0; const m=a.length,n=b.length; if(max==null)max=99; if(Math.abs(m-n)>max) return max+1; if(!m)return n; if(!n)return m; let p=Array.from({length:n+1},(_,j)=>j);
   for(let i=1;i<=m;i++){ const c=[i]; let lo=c[0]; for(let j=1;j<=n;j++){ c[j]=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]===b[j-1]?0:1)); if(c[j]<lo)lo=c[j]; } if(lo>max) return max+1; p=c; } return p[n]; }
@@ -30464,7 +30726,7 @@ function odieHintHTML(text,inputId){ const t=(""+(text||"")).trim(); if(!t) retu
   const r=odieResolve(t);
   if(r.key&&isExcludedForm(t)) return `<span style="color:#d08a1a">!</span> Eye, ear and skin preparations are recorded but not counted as systemic antibiotic use.`;
   if(r.key){ const w=classifyAware(r.key,"who")||"Unclassified", tz=classifyAware(r.key,"tanzania")||w, nf=odieTzNotFollowed()[r.key];
-    return `<span style="color:#2e7d4f">&#10003;</span> <b>${esc(titleCase(r.key))}</b> &middot; WHO ${esc(w)}${tz!==w?` &middot; Tanzania ${esc(tz)}`:""}${nf?` <span class="muted" title="${esc(nf.why)}">(NEMLIT 2021 prints ${nf.printed}, p.${nf.page}; WHO used)</span>`:""}${r.how==="close"?` <span class="muted">recognised from &ldquo;${esc(t)}&rdquo;</span>`:""}`; }
+    return `<span style="color:#2e7d4f">&#10003;</span> <b>${esc(titleCase(r.key))}</b> &middot; WHO ${esc(w)}${tz!==w?` &middot; Tanzania ${esc(tz)}`:""}${nf?` <span class="muted" title="${esc(nf.why)}">(NEMLIT 2026 prints ${nf.printed}, p.${nf.page}; WHO used)</span>`:""}${r.how==="close"?` <span class="muted">recognised from &ldquo;${esc(t)}&rdquo;</span>`:""}`; }
   if(r.how==="suggest") return `Did you mean <b>${esc(titleCase(r.sug))}</b>? <button type="button" class="btn sm ghost" onclick="odieUse('${inputId}','${esc(titleCase(r.sug))}')">Use ${esc(titleCase(r.sug))}</button>`;
   if(r.how==="notabx") return `Recorded as not an antibiotic (taught in Setup).`;
   const pk=normH(t).replace(/ /g,""); if(pk.length>=4){ const pre=[...new Set(ODIE_VOCAB.filter(([v])=>v.startsWith(pk)).map(([,k])=>k))]; if(pre.length===1) return `Did you mean <b>${esc(titleCase(pre[0]))}</b>? <button type="button" class="btn sm ghost" onclick="odieUse('${inputId}','${esc(titleCase(pre[0]))}')">Use ${esc(titleCase(pre[0]))}</button>`; }
@@ -30837,8 +31099,10 @@ const AMS_REF_BASE={};
         if(Object.keys(g).length&&(!combo||a.dddRefersTo||WHO_DDD[k])){ WHO_DDD[k]=g; if(combo&&a.dddRefersTo&&!AMS_REF_BASE.ddd[k]) DDD_REFERS[k]=a.dddRefersTo; }
       });
       (p.notRecommended||[]).forEach(n=>{ if(!AWARE_REF[n.key]||AWARE_REF[n.key]==="Not recommended") AWARE_REF[n.key]="Not recommended"; });
-      const tz=p.tanzania&&p.tanzania.differences;
-      if(tz&&tz.length){ Object.keys(TANZANIA_AWARE_OVERRIDES).forEach(k=>delete TANZANIA_AWARE_OVERRIDES[k]); Object.keys(TZ_AWARE_SOURCE).forEach(k=>delete TZ_AWARE_SOURCE[k]);
+      /* A Tanzania list in an update file replaces the built-in one, unless it was made from a national edition
+         older than the built-in STG/NEMLIT 2026 (update 2026.1 carried the 2021 list). */
+      const tz=p.tanzania&&p.tanzania.differences, tzOld=/\b20(0\d|1\d|2[0-5])\b/.test(String((p.tanzania&&p.tanzania.name)||""));
+      if(tz&&tz.length&&!tzOld){ Object.keys(TANZANIA_AWARE_OVERRIDES).forEach(k=>delete TANZANIA_AWARE_OVERRIDES[k]); Object.keys(TZ_AWARE_SOURCE).forEach(k=>delete TZ_AWARE_SOURCE[k]);
         tz.forEach(t=>{ TANZANIA_AWARE_OVERRIDES[t.key]=t.aware; if(t.basis) TZ_AWARE_SOURCE[t.key]=t.basis; }); }
     },
     view(){ const v={}; const keys=new Set(Object.keys(AWARE_REF).concat(Object.keys(WHO_DDD),Object.keys(ATC_CODES)));
@@ -32810,7 +33074,7 @@ function wapIntegTab(P){ const K=wapChecks(P); const rows=K.rows; const X=wapCro
 /* ---------- Reports ---------- */
 function wapStudyCode(pid){ let h=2166136261>>>0; const s="wap|"+pid; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619)>>>0; } return "W-"+h.toString(36).toUpperCase().padStart(7,"0").slice(-7); }
 function wapStamp(P){ const rows=wapRows(P); const ms=wapMonths(rows); const C=wapCons(P);
-  return `Project: ${wapName(P)} · ward ${P.ward||"—"} · phases ${wapPhases(P).map(p=>p.name+(p.start!=null?" from "+cspFmtD(p.start):"")).join("; ")}. Source: ${wapSourceText(P)}; ${rows.length} record(s)${ms.length?", "+itsMon(ms[0])+" – "+itsMon(ms[ms.length-1]):""}. Consumption: ${C.basis}. Data source rule: ${WAP_RULE} Generated ${wapToday()} with AMS Pro v5.8.`; }
+  return `Project: ${wapName(P)} · ward ${P.ward||"—"} · phases ${wapPhases(P).map(p=>p.name+(p.start!=null?" from "+cspFmtD(p.start):"")).join("; ")}. Source: ${wapSourceText(P)}; ${rows.length} record(s)${ms.length?", "+itsMon(ms[0])+" – "+itsMon(ms[ms.length-1]):""}. Consumption: ${C.basis}. Data source rule: ${WAP_RULE} Generated ${wapToday()} with AMS Pro v5.9.`; }
 function wapMonthlyCSV(){ const P=wapCur(); const rows=wapRows(P); const ms=wapMonths(rows); if(!ms.length) return toast("No months with data yet"); const C=wapCons(P);
   const head=["month","phase","records"].concat(WAP_IND.flatMap(d=>d.kind==="m"?[d.k+"_mean",d.k+"_n"]:[d.k+"_num",d.k+"_den",d.k+"_pct"])).concat(["DDD","bed_days","DDD_per_100_bed_days","bed_days_source"]);
   const out=ms.map(m=>{ const L=rows.filter(r=>r.m===m); const ph=wapPhases(P)[wapMonthPhase(P,m)]; const c=C.rows.find(r=>r.m===m);
@@ -33405,9 +33669,9 @@ function demoProjects(){
 const VW_CORE=["guide","mindata","setup","hub","dash","reports"];          // always in the menu
 const VW_STAGE={
   starting:{label:"Starting",note:"Know how antibiotics are used: consumption, AWaRe, prescribing indicators, the first reports.",
-    mods:["entry","doseref","consumption","prescriptions","inrud","indicators","crf","export"]},
+    mods:["entry","doseref","consumption","opdipd","prescriptions","inrud","indicators","crf","export"]},
   building:{label:"Building",note:"Act on patients and feed back: daily review lists, ward rounds, culture results, run charts, recognition.",
-    mods:["entry","doseref","consumption","prescriptions","inrud","indicators","crf","export","timeout","wr","antibiogram","bugdrug","patients","spc","wins","economics","discrep"]},
+    mods:["entry","doseref","consumption","opdipd","prescriptions","inrud","indicators","crf","export","timeout","wr","antibiogram","bugdrug","patients","spc","wins","economics","discrep"]},
   advanced:{label:"Advanced",note:"Run and evaluate projects: ward AMS projects (any ward, CRF 03), Did It Work?, intervention impact, time series, trends and improvement cycles.",
     mods:null}};                                                  // null = every module
 const VW_ROLE={
@@ -33415,7 +33679,7 @@ const VW_ROLE={
   clin:{label:"Clinician / prescriber",mods:["timeout","wr","antibiogram","bugdrug","patients","prescriptions","doseref","wins"]},
   ipc:{label:"IPC focal person",mods:["wr","csp","antibiogram","indicators","crf","spc"]},
   lab:{label:"Laboratory / microbiology",mods:["antibiogram","bugdrug","wrtrend","wr","export"]},
-  mgmt:{label:"Hospital management",mods:["economics","wins","indicators","its","impact"]}};
+  mgmt:{label:"Hospital management",mods:["economics","wins","indicators","its","impact","opdipd"]}};
 const VW_LEVEL={hc:"Dispensary or health centre",dh:"District hospital",rrh:"Regional referral hospital",zh:"Zonal or national hospital"};
 const VW_NOLAB=["antibiogram","bugdrug"];                         // need culture results, rarely available below hospital level
 
@@ -33812,7 +34076,7 @@ function dwStataData(S,R){ const M=DW_METRICS[S.metric], [numL,denL]=dwStataPart
     col("fitted","Fitted by the model","double",rows.map(r=>r.fit==null||!isFinite(r.fit)?null:r.fit)),
     col("expected","Expected without the intervention (earlier trend carried on)","double",rows.map(r=>R.m&&r.cf!=null&&isFinite(r.cf)?r.cf:null)));
   const vl=[{name:"phase",entries:[[1,"Before"],[2,"Transition (left out)"],[3,"After"]]},{name:"noyes",entries:[[0,"No"],[1,"Yes"]]}];
-  const ver=dwVersion(), scheme=currentAwareScheme()==="tanzania"?"Tanzania STG/NEMLIT 2021 grouping":"WHO AWaRe classification";
+  const ver=dwVersion(), scheme=currentAwareScheme()==="tanzania"?"Tanzania STG/NEMLIT 2026 grouping":"WHO AWaRe classification";
   const notes=[`Indicator: ${dwIndicator(S)} (${M.unit})`,`Ward: ${S.ward||"all wards in scope"}`,
     `Intervention started ${S.start?dwMonthLabel(S.start):"(not set)"}; transition months left out: ${R.trans||0}`,
     R.m?`Model: segmented regression of value on time, post and time_after, months with in_model = 1 taken as consecutive, Newey-West standard errors with lag ${R.lag}`:"No model: fewer than 3 months before or after the intervention",
@@ -34002,6 +34266,7 @@ function renderBrief(){const el=$("#v-brief");if(!el)return;
   const lines=[];
   if(m.cumulativeRx)lines.push(`${m.cumulativeRx.toLocaleString()} antibiotic dispensing line(s) recorded${f.period?` over ${esc(f.period)}`:""}.`);
   if(accPct!=null)lines.push(`Access-group use is ${pct1(m.awareAccess)}${accOk?`, meeting the UN 2030 ≥70% Access target.`:`, below the UN 2030 ≥70% Access target.`}`);
+  if(accPct!=null&&currentAwareScheme()==="tanzania")lines.push(`Shares follow the Tanzania ${TZ_AWARE_EDITION} grouping (Setup). Tanzania's national targets: ${TZ_AWARE_TARGETS}.`);
   if(m.awareReserve)lines.push(`${pct1(m.awareReserve)} of lines are Reserve-group antibiotics — the first place stewardship review should look.`);
   if(no+limited>0)lines.push(`${no+limited} of ${I.length} analyses on Minimum Data are limited or not yet possible from the data loaded — see Minimum Data for what to add.`);
   const q=accOk?"Does the committee want to check this result holds across all wards in scope, not just the busiest ones?":"Access-group use is below the UN 2030 ≥70% target — does the committee want to set a Watch/Reserve review as the next audit-and-feedback cycle’s focus?";
@@ -34031,7 +34296,7 @@ function renderMinData(){ const el=$("#v-mindata"); if(!el) return; const I=mdaC
       <div class="row" style="margin-top:6px"><button class="btn sm ghost" onclick="mdaTemplate('${f.cat}')">&#11015; Blank template (CSV)</button><button class="btn sm ghost" onclick="go('hub')">Import Hub &rarr;</button></div>
       <details style="margin-top:6px"><summary style="cursor:pointer">Headings recognised</summary>${mapTable(f)}</details></div>`).join("")}</div>
   <div class="panel"><h2>2. What each analysis needs</h2><div class="tablewrap"><table><thead><tr><th>Analysis</th><th>Essential</th><th>Recommended, and what it adds</th><th>Minimum</th><th>Source</th></tr></thead><tbody>
-    <tr><td><b>Dashboard, AWaRe shares, Consumption</b></td><td>Pharmacy dispensing: item name, quantity, date</td><td>Department (ward tables), patient number (patients on antibiotics)</td><td>–</td><td>WHO AWaRe; Tanzania STG/NEMLIT; UN 2024 target ≥${WHO_ACCESS_TARGET_PCT}% Access</td></tr>
+    <tr><td><b>Dashboard, AWaRe shares, Consumption</b></td><td>Pharmacy dispensing: item name, quantity, date</td><td>Department (ward tables), patient number (patients on antibiotics)</td><td>–</td><td>WHO AWaRe; Tanzania STG/NEMLIT 7th Edition, 2026 (national targets: ${TZ_AWARE_TARGETS}); UN 2024 target ≥${WHO_ACCESS_TARGET_PCT}% Access</td></tr>
     <tr><td><b>DDD per 1,000 patient-days</b></td><td>Strength in the item name and quantity, for a drug with a WHO DDD</td><td>Bed-days: admissions with Ward and Date Admitted or Bed Days, or an estimate on Setup</td><td>–</td><td>WHO ATC/DDD index</td></tr>
     <tr><td><b>DOT per 1,000 patient-days</b></td><td>Duration in the dosage text (“Duration: 5 /7”)</td><td>Bed-days, as above</td><td>–</td><td>–</td></tr>
     <tr><td><b>Did It Work?</b></td><td>Dated dispensing on both sides of the intervention</td><td>Admissions for rates per 100 admissions or patient-days; the Surgery Patients Report for prophylaxis after surgery</td><td>3 months before and 3 after; 8 or more on each side for steadier estimates; 12 on each side to allow for season</td><td>Cochrane EPOC</td></tr>
@@ -34041,7 +34306,7 @@ function renderMinData(){ const el=$("#v-mindata"); if(!el) return; const I=mdaC
     <tr><td><b>Bug–drug Check</b></td><td>Culture results and dispensing with the same patient numbers</td><td>–</td><td>–</td><td>–</td></tr>
     <tr><td><b>Time-out, Patients, Prescriptions</b></td><td>Dispensing with patient numbers and dates</td><td>Dosage text (IV days, duration); procedures or surgery list for prophylaxis</td><td>–</td><td>–</td></tr>
     <tr><td><b>Ward AMS Projects</b></td><td>The AMS secretary&rsquo;s CRF 03 for the ward (standard), or the Admission Report and dispensing when the AMS secretary confirms their integrity</td><td>The ward&rsquo;s consumption sheet (units per drug per month)</td><td>8 months, 3 on each side of a phase start, for the time series</td><td>&ndash;</td></tr>
-    <tr><td><b>C/S eHMS cohort engine</b></td><td>Surgery Patients Report and dispensing with patient numbers, from 7 days before the first operation</td><td>Admissions, laboratory, WHONET, store issues for the same months</td><td>30 days of follow-up for infection signals; 12 usable weeks and 4 on each side of a phase start for the time series</td><td>–</td></tr>
+    <tr><td><b>OPD vs Inpatients</b></td><td>Dispensing for all clinics and wards, with patient numbers and dates; the admission register for the same months (patient number, ward, date admitted, date discharged or bed-days)</td><td>&ndash;</td><td>Both files covering the same months, with patient numbers written the same way in both</td><td>&ndash;</td></tr> <tr><td><b>C/S eHMS cohort engine</b></td><td>Surgery Patients Report and dispensing with patient numbers, from 7 days before the first operation</td><td>Admissions, laboratory, WHONET, store issues for the same months</td><td>30 days of follow-up for infection signals; 12 usable weeks and 4 on each side of a phase start for the time series</td><td>–</td></tr>
     <tr><td><b>AMS Ward Rounds</b></td><td>Completed ward-round forms</td><td>–</td><td>–</td><td>–</td></tr>
     <tr><td><b>WHO/INRUD indicators</b></td><td>The whole dispensing basket with patient numbers</td><td>–</td><td>–</td><td>WHO/DAP/93.1</td></tr>
     <tr><td><b>Cost &amp; Impact</b></td><td>Price on the dispensing lines</td><td>–</td><td>–</td><td>–</td></tr>
@@ -34065,7 +34330,7 @@ function mdaReportHTML(){ const U=mdaReportLines();
 /* ---------- text for the paper ---------- */
 function dwMethodsText(S,R){
   const M=DW_METRICS[S.metric], ward=S.ward||"all wards in scope", v=dwVersion();
-  const scheme=currentAwareScheme()==="tanzania"?"the Tanzania STG/NEMLIT 2021 grouping as applied in AMS Pro":"the WHO AWaRe classification";
+  const scheme=currentAwareScheme()==="tanzania"?"the Tanzania STG/NEMLIT 7th Edition (2026) grouping as applied in AMS Pro":"the WHO AWaRe classification";
   const cov=`${Math.round(R.Ser.dddCov*100)}% of the relevant dispensing lines had a computable DDD`, dname=(S.drug||"the antibiotic").toLowerCase();
   const ind=S.metric==="spLong"?"the monthly proportion of operated patients given antibiotics around the operation (from 2 days before to 1 day after) whose antibiotics were still dispensed 2 to 7 days after the operation, a marker of surgical prophylaxis continued beyond 24 hours; operations were identified from procedure and admission records and linked to dispensing by patient identifier"
     :S.metric==="drugPerPt"?`the monthly number of WHO Defined Daily Doses (DDD; WHO ATC/DDD Index) of ${dname} dispensed per patient treated, a proxy for course length (${cov})`
@@ -34385,7 +34650,7 @@ try{ if(localStorage.getItem("odiemanpro_sidebar_collapsed")==="1") document.bod
       var acc=cards.find(function(c){return /AWaRe Access/.test(txt(c));});
       if(acc){var l=acc.querySelector(".l"),sub=l&&l.querySelector("span");var scheme=currentAwareScheme()==="tanzania"?"Tanzania STG/NEMLIT scheme":"WHO scheme";
         if(sub){acc.title=txt(sub);sub.remove();}
-        if(l) l.innerHTML="Access share of antibiotic lines ("+scheme+") &middot; UN 2030 target \u2265 "+WHO_ACCESS_TARGET_PCT+"%";}
+        if(l) l.innerHTML="Access share of antibiotic lines ("+scheme+") &middot; UN 2030 target \u2265 "+WHO_ACCESS_TARGET_PCT+"%"+(currentAwareScheme()==="tanzania"?" &middot; Tanzania target: more than 60%":"");}
       cards.forEach(function(c){var vv=c.querySelector(".v"),l=c.querySelector(".l");if(!vv||!l)return;
         if(/^0\.0%$/.test(txt(vv))&&vv.classList.contains("r")) vv.classList.remove("r");});
       var W=(DB.wr&&Array.isArray(DB.wr.rounds))?DB.wr.rounds.filter(function(r){return r.status==="entered";}):[];
@@ -34816,6 +35081,222 @@ function renderMentry(){
  (AE.source==="own"?("<button class=\"btn ghost\" onclick=\"aeSendToAnalysis()\" "+(AE.rows.length?"":"disabled")+" style=\"margin-left:8px\">Add these "+AE.rows.length+" record(s) straight into Data Entry</button>"):"")+
  "</div></div>";
 }
+
+/* ============ Entry safety (shared by PPS Pro, AMS Pro and VigiWard) ============
+   Nothing typed by hand should be lost.
+   - Manual entry page: every change, even a half-typed box, is kept as a draft on this computer about
+     half a second later (browser storage; and in the data folder too when one is connected). Closing the
+     tab, a power cut or a crash brings the same records back the next time the page opens.
+     The page shows when it last saved, with Save now (Ctrl+S), Save a copy as a file, Open a saved copy
+     and Start fresh. Switching form, loading another dictionary or removing a record asks first, and a
+     copy is saved as a file before any records are cleared.
+   - Other entry forms (ESAFE.forms): boxes typed but not yet added are kept until their Add button
+     succeeds, and are put back if the form is redrawn or the tool is reopened.
+   - Ctrl+S anywhere saves the tool's own data at once. Before the page closes, the box being typed in is
+     committed, and drafts are written straight away.
+   Demo mode keeps drafts in this browser tab only, so nothing is left behind on a shared computer. */
+const ESAFE=(function(){
+ const DBN="odieman_entry_drafts", ST="kv";
+ const cfgs={}, mem={}, timers={}, forms={};
+ let dbp=null, mainSave=null;
+ const store=()=>DEMO?sessionStorage:localStorage;
+ const lk=k=>DBN+":"+k;
+ function idb(){ if(dbp) return dbp;
+  dbp=new Promise((res,rej)=>{ if(!window.indexedDB){ rej(new Error("this browser has no IndexedDB")); return; }
+   const r=indexedDB.open(DBN,1); r.onupgradeneeded=()=>r.result.createObjectStore(ST);
+   r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error||new Error("storage blocked")); });
+  dbp.catch(()=>{ dbp=null; }); return dbp; }
+ async function put(k,v){
+  if(DEMO){ store().setItem(lk(k),JSON.stringify(v)); return; }
+  const db=await idb();
+  await new Promise((res,rej)=>{ const tx=db.transaction(ST,"readwrite"); tx.objectStore(ST).put(v,k);
+   tx.oncomplete=()=>res(); tx.onerror=()=>rej(tx.error); tx.onabort=()=>rej(tx.error||new Error("storage full")); });
+  try{ localStorage.removeItem(lk(k)); }catch(e){} /* the quick copy written on closing is no longer needed */ }
+ async function get(k){
+  let a=null,b=null;
+  try{ const s=store().getItem(lk(k)); if(s) b=JSON.parse(s); }catch(e){}
+  if(!DEMO){ try{ const db=await idb(); a=await new Promise((res,rej)=>{ const r=db.transaction(ST).objectStore(ST).get(k); r.onsuccess=()=>res(r.result||null); r.onerror=()=>rej(r.error); }); }catch(e){} }
+  if(a&&b) return (b.savedAt||0)>(a.savedAt||0)?b:a;
+  return a||b; }
+ async function del(k){
+  try{ store().removeItem(lk(k)); }catch(e){}
+  if(DEMO) return;
+  try{ const db=await idb(); await new Promise(res=>{ const tx=db.transaction(ST,"readwrite"); tx.objectStore(ST).delete(k); tx.oncomplete=res; tx.onerror=res; }); }catch(e){} }
+ function quick(k,v){ try{ store().setItem(lk(k),JSON.stringify(v)); }catch(e){} }
+ const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+ const hm=t=>new Date(t).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});
+ const dm=t=>{ const d=new Date(t), n=new Date(); return d.toDateString()===n.toDateString()?"today at "+hm(t):d.toLocaleDateString([],{day:"numeric",month:"short"})+", "+hm(t); };
+ const say=m=>{ try{ toast(m); }catch(e){} };
+ function dl(name,text){ const url=URL.createObjectURL(new Blob([text],{type:"application/json"})); const a=document.createElement("a");
+  a.href=url; a.download=name; document.body.appendChild(a); a.click(); setTimeout(()=>{ a.remove(); URL.revokeObjectURL(url); },1500); }
+ function stamp(){ const t=new Date(), p=n=>String(n).padStart(2,"0"); return t.getFullYear()+"-"+p(t.getMonth()+1)+"-"+p(t.getDate())+"_"+p(t.getHours())+p(t.getMinutes()); }
+
+ /* ---------- manual entry page ---------- */
+ function filled(v){ return Object.keys(v||{}).some(x=>v[x]!==""&&v[x]!=null&&v[x]!=="0"); }
+ function hasContent(k){ const s=cfgs[k].S(); return s.rows.length>0||filled(s.values); }
+ function snap(k){ const c=cfgs[k], s=c.S();
+  return {v:1,kind:"odieman-entry-draft",tool:c.tool,savedAt:Date.now(),source:s.source,fields:s.source==="own"?null:s.fields,values:s.values,rows:s.rows}; }
+ function apply(k,d){ const s=cfgs[k].S();
+  s.source=d.source||"own"; s.fields=s.source==="own"?[]:(d.fields||[]); s.values=d.values||{}; s.rows=d.rows||[]; s.err=null; }
+ function changed(k){ const m=mem[k]; m.status="pending"; m.restored=null; clearTimeout(timers[k]); timers[k]=setTimeout(()=>flush(k),500); paint(k); }
+ async function flush(k){
+  clearTimeout(timers[k]); timers[k]=null;
+  const c=cfgs[k], m=mem[k], has=hasContent(k), d=has?snap(k):null;
+  try{ if(has) await put(k,d); else await del(k); m.status="saved"; m.savedAt=Date.now(); m.err=""; }
+  catch(e){ m.status="error"; m.err=(e&&e.message)||String(e); }
+  if(has && !DEMO && c.folder && c.folder.ok()){
+   try{ await c.folder.write(c.file,JSON.stringify(d,null,1)); m.folderAt=Date.now(); m.folderErr=false; }catch(e){ m.folderErr=true; } }
+  paint(k); }
+ function copy(k,quiet){ const c=cfgs[k], s=c.S();
+  dl(c.short+"_manual_entry_saved_"+stamp()+".json",JSON.stringify(snap(k),null,1));
+  if(!quiet) say("A copy of "+s.rows.length+" record(s) was saved to your Downloads folder"); }
+ function openCopy(k,file){ if(!file) return; const c=cfgs[k];
+  const rd=new FileReader();
+  rd.onload=()=>{ let d=null; try{ d=JSON.parse(String(rd.result)); }catch(e){}
+   if(!d||d.kind!=="odieman-entry-draft"||!Array.isArray(d.rows)){ alert("This file is not a saved copy of manual entries."); c.rerender(); return; }
+   if(d.tool!==c.tool){ alert("This copy was saved by another tool ("+d.tool+"). Open it in that tool."); c.rerender(); return; }
+   const s=c.S(), same=(d.source||"own")===s.source && (s.source==="own" || JSON.stringify((d.fields||[]).map(f=>f.var))===JSON.stringify((s.fields||[]).map(f=>f.var)));
+   if(hasContent(k)){
+    if(same && s.rows.length){
+     if(!confirm("Add the "+d.rows.length+" record(s) from this file to the "+s.rows.length+" already on the list?")){ c.rerender(); return; }
+     s.rows=s.rows.concat(d.rows);
+    } else {
+     if(!confirm("Replace what is on screen with the "+d.rows.length+" record(s) in this file?\n\nA copy of what is on screen now will be saved as a file first.")){ c.rerender(); return; }
+     copy(k,true); apply(k,d);
+    }
+   } else apply(k,d);
+   changed(k); c.rerender(); say(d.rows.length+" record(s) opened from the saved copy"); };
+  rd.readAsText(file); }
+ function fresh(k){ const c=cfgs[k], s=c.S();
+  if(hasContent(k)){
+   if(!confirm("Clear the form"+(s.rows.length?" and the "+s.rows.length+" record(s) on the list":"")+"?"+(s.rows.length?"\n\nA copy will be saved as a file first.":""))) return;
+   if(s.rows.length) copy(k,true); }
+  s.values={}; s.rows=[]; changed(k); c.rerender(); }
+ function paint(k){
+  const c=cfgs[k], m=mem[k], f=document.getElementById(c.formId); if(!f) return;
+  let bar=document.getElementById("esafe-"+k);
+  if(!bar){ bar=document.createElement("div"); bar.id="esafe-"+k; const a=c.anchor(f); if(!a||!a.parentElement) return; a.parentElement.insertBefore(bar,a); }
+  const s=c.S(), has=hasContent(k), n=s.rows.length, typing=filled(s.values);
+  const what=(n?n+" record"+(n===1?"":"s")+" on the list":"")+(n&&typing?" + ":"")+(typing?"one being filled in":"");
+  let cls="ok", msg;
+  if(m.status==="pending"){ cls="wait"; msg="Saving…"; }
+  else if(m.status==="error"){ cls="err"; msg="Could not save in this browser ("+esc(m.err)+"). Use <b>Save a copy as a file</b> now so nothing is lost."; }
+  else if(!has){ cls="idle"; msg="Everything you type here is saved on this computer as you go."; }
+  else { msg="Saved on this computer "+dm(m.savedAt||Date.now())+" &middot; "+what+(m.folderAt&&!m.folderErr?" &middot; a copy is in your data folder":""); }
+  if(DEMO){ cls=cls==="err"?"err":"demo"; msg="Demo: "+(has?what+", kept in this browser tab only. ":"")+"Entries stay while this tab is open, even if you reload it. They are gone when the tab closes."; }
+  const B=c.btn||"btn small ghost";
+  bar.className="esafe "+cls;
+  bar.innerHTML='<div class="esafe-row"><span class="esafe-dot" aria-hidden="true"></span><span class="esafe-msg" role="status">'+msg+'</span>'+
+   '<span class="esafe-btns">'+
+   '<button type="button" class="'+B+'" onclick="ESAFE.now(\''+k+'\')" title="Ctrl+S">Save now</button>'+
+   '<button type="button" class="'+B+'" onclick="ESAFE.copy(\''+k+'\')" '+(has?"":"disabled")+'>Save a copy as a file</button>'+
+   '<label class="'+B+' esafe-open">Open a saved copy<input type="file" accept=".json,application/json" onchange="ESAFE.open(\''+k+'\',this.files[0])"></label>'+
+   '<button type="button" class="'+B+'" onclick="ESAFE.fresh(\''+k+'\')" '+(has?"":"disabled")+'>Start fresh</button>'+
+   '</span></div>'+
+   (m.restored?'<div class="esafe-note">'+(m.restored.n?"Brought back "+m.restored.n+" record"+(m.restored.n===1?"":"s")+" you entered earlier":"Brought back what you were typing")+' (last saved '+dm(m.restored.at)+').'+(m.restored.n?" Export or send them when you are ready, or choose Start fresh.":"")+'</div>':"");
+ }
+ function wrap(name,fn){ const o=window[name]; if(typeof o!=="function") return false; window[name]=fn(o); return true; }
+ function entry(c){
+  const k=c.key; cfgs[k]=c; mem[k]={status:"idle"};
+  const P=c.prefix;
+  const visKey=()=>{ const s=c.S(); try{ return EE.visibleFields(s.fields,s.values).map(f=>f.var).join("|"); }catch(e){ return null; } };
+  /* A box already recorded while typing is only redrawn if it changes which questions show. Redrawing
+     on every change made the first click on "Add this record" after typing go nowhere (the button was
+     replaced while the mouse was still down). */
+  wrap(P+"SetVal",o=>function(key,v){ const s=c.S();
+   if(s.values[key]===v && mem[k].vis!=null && visKey()===mem[k].vis){ changed(k); return; }
+   const r=o.apply(this,arguments); changed(k); return r; });
+  wrap(P+"AddRow",o=>function(){ const r=o.apply(this,arguments); changed(k); return r; });
+  wrap(P+"DeleteRow",o=>function(i){ const s=c.S(); if(s.rows[i] && !confirm("Remove record "+(i+1)+" from the list?")) return; const r=o.apply(this,arguments); changed(k); return r; });
+  wrap(P+"SetSource",o=>function(src){ const s=c.S();
+   if(src!==s.source && s.rows.length){
+    if(!confirm("Switching form clears the "+s.rows.length+" record(s) on the list.\n\nOK: save a copy of them as a file first, then switch.\nCancel: stay on this form.")){ c.rerender(); return; }
+    copy(k,true); }
+   const r=o.apply(this,arguments); changed(k); return r; });
+  wrap(P+"LoadDict",o=>function(file){ const s=c.S();
+   if(file && s.rows.length){
+    if(!confirm("Loading another dictionary clears the "+s.rows.length+" record(s) on the list.\n\nOK: save a copy of them as a file first, then load it.\nCancel: keep this form.")){ c.rerender(); return; }
+    copy(k,true); }
+   const r=o.apply(this,arguments); setTimeout(()=>changed(k),300); return r; });
+  wrap(P+"SendToAnalysis",o=>function(){ const r=o.apply(this,arguments); Promise.resolve(r).then(()=>changed(k),()=>changed(k)); return r; });
+  wrap(c.render,o=>function(){ const r=o.apply(this,arguments); try{ if(document.getElementById(c.formId)) mem[k].vis=visKey(); paint(k); }catch(e){} return r; });
+  /* keep half-typed text boxes too: the form itself only records a box when it loses focus */
+  document.addEventListener("input",e=>{ const t=e.target; if(!t||!t.id||t.id.indexOf("ee_f_")!==0) return;
+   const f=document.getElementById(c.formId); if(!f||!f.contains(t)||t.type==="checkbox") return;
+   c.S().values[t.id.slice(5)]=t.value; changed(k); },true);
+  get(k).then(d=>{ if(!d||!(d.rows&&d.rows.length||filled(d.values))) return; if(hasContent(k)) return;
+   apply(k,d); mem[k].status="saved"; mem[k].savedAt=d.savedAt; mem[k].restored={at:d.savedAt,n:(d.rows||[]).length};
+   if(document.getElementById(c.formId)) c.rerender(); }).catch(()=>{});
+ }
+
+ /* ---------- other entry forms: keep boxes typed but not yet added ---------- */
+ function formsKeep(c){
+  const k=c.key; let d={}, tm=null, busy=false;
+  forms[k]={save:()=>{ if(tm){ clearTimeout(tm); tm=null; } const has=Object.keys(d).some(i=>d[i]!==""); if(has) quick(k,{v:1,savedAt:Date.now(),values:d}); }};
+  const persist=()=>{ clearTimeout(tm); tm=setTimeout(()=>{ tm=null; const has=Object.keys(d).some(i=>d[i]!=="");
+   (has?put(k,{v:1,savedAt:Date.now(),values:d}):del(k)).catch(()=>{}); },500); };
+  const inBox=t=>{ const b=document.getElementById(c.box); return b&&b.contains(t); };
+  const note=t=>{ if(!t||!t.id||!c.ids.test(t.id)||t.type==="file"||t.type==="checkbox"||!inBox(t)) return; d[t.id]=t.value; t.classList.remove("esafe-kept"); persist(); };
+  document.addEventListener("input",e=>note(e.target),true);
+  document.addEventListener("change",e=>note(e.target),true);
+  function fill(){ if(busy) return; const b=document.getElementById(c.box); if(!b) return; let n=0;
+   Object.keys(d).forEach(id=>{ const el=document.getElementById(id); if(el&&b.contains(el)&&!el.value&&d[id]!==""){ el.value=d[id]; el.classList.add("esafe-kept"); n++; } });
+   const old=b.querySelector(".esafe-keptnote"); if(old) old.remove();
+   if(n){ const p=document.createElement("div"); p.className="esafe-keptnote";
+    p.innerHTML=n+" box"+(n===1?"":"es")+" kept from before (typed but not added yet). <button type=\"button\" class=\""+(c.btn||"btn small ghost")+"\">Clear them</button>";
+    p.querySelector("button").onclick=()=>{ b.querySelectorAll(".esafe-kept").forEach(el=>{ delete d[el.id]; el.value=""; el.classList.remove("esafe-kept"); }); p.remove(); persist(); };
+    b.insertBefore(p,b.firstChild); } }
+  wrap(c.render,o=>function(){ const r=o.apply(this,arguments); try{ fill(); }catch(e){} return r; });
+  /* while an Add button runs, the form is redrawn empty on success: hold the refill until we know */
+  Object.keys(c.adders).forEach(fn=>wrap(fn,o=>function(){ const before=c.count(); busy=true; let r;
+   try{ r=o.apply(this,arguments); } finally { busy=false; }
+   if(c.count()>before){ const pre=c.adders[fn]; Object.keys(d).forEach(id=>{ if(id.indexOf(pre)===0) delete d[id]; }); persist(); }
+   fill(); return r; }));
+  get(k).then(x=>{ if(x&&x.values) d=Object.assign({},x.values,d); fill(); }).catch(()=>{});
+ }
+
+ /* ---------- everywhere: Ctrl+S, and closing the page ---------- */
+ function commitActive(){ const a=document.activeElement;
+  if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)&&a.type!=="file"&&a.type!=="checkbox"&&a.type!=="radio"){ const id=a.id; a.blur(); return id; } return null; }
+ function now(k){ const id=commitActive();
+  (k?[k]:Object.keys(cfgs)).forEach(x=>flush(x));
+  Object.keys(forms).forEach(x=>forms[x].save());
+  if(!DEMO && typeof mainSave==="function"){ try{ mainSave(); }catch(e){ console.error(e); } }
+  say(DEMO?"Demo: entries are kept in this browser tab only":"Saved");
+  if(id) setTimeout(()=>{ const n=document.getElementById(id); if(n) n.focus(); },0); }
+ document.addEventListener("keydown",e=>{ if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&!e.altKey&&(e.key==="s"||e.key==="S")){ e.preventDefault(); e.stopPropagation(); now(); } },true);
+ function leaving(){ commitActive();
+  Object.keys(cfgs).forEach(k=>{ if(hasContent(k)&&(timers[k]||mem[k].status!=="saved")) quick(k,snap(k)); });
+  Object.keys(forms).forEach(x=>forms[x].save()); }
+ window.addEventListener("pagehide",leaving);
+ window.addEventListener("beforeunload",e=>{ leaving();
+  if(Object.keys(cfgs).some(k=>hasContent(k)&&(DEMO||mem[k].status==="error"))){ e.preventDefault(); e.returnValue=""; } });
+ document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="hidden") Object.keys(cfgs).forEach(k=>{ if(timers[k]) flush(k); }); });
+
+ const css=document.createElement("style");
+ css.textContent=".esafe{margin:12px 0;padding:9px 12px;border-radius:10px;border:1px solid rgba(127,127,127,.35);font-size:13px;line-height:1.45}"+
+  ".esafe-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px}.esafe-msg{flex:1 1 260px}"+
+  ".esafe-dot{width:9px;height:9px;border-radius:50%;flex:0 0 9px;background:#2ea043}"+
+  ".esafe.ok{background:rgba(46,160,67,.09);border-color:rgba(46,160,67,.45)}"+
+  ".esafe.wait .esafe-dot,.esafe.demo .esafe-dot{background:#d29922}.esafe.wait,.esafe.demo{background:rgba(210,153,34,.09);border-color:rgba(210,153,34,.45)}"+
+  ".esafe.err .esafe-dot{background:#cf222e}.esafe.err{background:rgba(207,34,46,.09);border-color:rgba(207,34,46,.5)}"+
+  ".esafe.idle .esafe-dot{background:#8c959f}"+
+  ".esafe-btns{display:flex;flex-wrap:wrap;gap:6px}.esafe-btns button[disabled]{opacity:.45;cursor:default}"+
+  ".esafe-open{position:relative;overflow:hidden;cursor:pointer;display:inline-block}.esafe-open input{position:absolute;inset:0;opacity:0;cursor:pointer}"+
+  ".esafe-note{margin-top:6px;font-weight:600}"+
+  ".esafe-kept{outline:2px solid rgba(210,153,34,.7);outline-offset:1px}"+
+  ".esafe-keptnote{margin:0 0 10px;padding:6px 10px;border-radius:8px;background:rgba(210,153,34,.1);border:1px solid rgba(210,153,34,.45);font-size:13px}";
+ document.head.appendChild(css);
+
+ return {entry,forms:formsKeep,now,copy:k=>copy(k),open:openCopy,fresh,main:fn=>{ mainSave=fn; },_mem:mem};
+})();
+ESAFE.entry({key:"ams",tool:"AMS Pro",short:"AMS",prefix:"ae",S:()=>AE,render:"renderMentry",rerender:()=>renderMentry(),
+ formId:"aeForm",anchor:f=>f.closest(".grid")||f.parentElement,file:"drafts/odieman_ams_entry_draft.json",
+ folder:{ok:()=>!!saveDirHandle&&folderSyncStatus==="connected",write:(n,t)=>fsWrite(n,t)},btn:"btn small ghost"});
+ESAFE.forms({key:"ams_forms",box:"entry_body",ids:/^e_[plia]_/,render:"renderEntryBody",btn:"btn small ghost",
+ adders:{addPharmEntry:"e_p_",addLabEntry:"e_l_",addIsolateEntry:"e_i_",addAdmitEntry:"e_a_"},
+ count:()=>DB.pharmacyTx.length+DB.labTx.length+(DB.isolates||[]).length+DB.admitTx.length});
+ESAFE.main(()=>save());
 </script>
 
 <script>
@@ -35339,7 +35820,7 @@ function renderMentry(){
   function tzs(n){return n==null?"—":"TZS "+fmt(n);}
 
   ODM_SHOW.init({
-    tool:"ams",name:"AMS Pro",version:"5.8",mark:"AMS",sampleTool:"ams",
+    tool:"ams",name:"AMS Pro",version:"5.9",mark:"AMS",sampleTool:"ams",
     accent:"#2f81f7",accent2:"#79b8ff",soft:"rgba(47,129,247,.20)",soft2:"rgba(47,129,247,.08)",
     kicker:"Antimicrobial stewardship",tagline:"Three years of a hospital's own exports, read in minutes: how much, which antibiotics, where, at what cost, and what the laboratory sees.",
     hospital:"Demo Regional Referral Hospital",layout:"Afya eHMS export layout",hospitalName:function(){return (DB.facility&&DB.facility.name)||"";},hasData:function(){return scopedPharmacyTx().length>0;},

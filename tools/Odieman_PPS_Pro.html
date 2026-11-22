@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <!-- Odieman PPS Pro - DEMO VERSION. Runs on simulated sample data only.
-     (c) 2024-2026 Odindo Emmanuel Thomas. All rights reserved.
+     (c) 2024-2026 Emmanuel Thomas. All rights reserved.
      The full version is licensed to named holders only; copying or modifying this file is not permitted. -->
 <script>
 (function(){
@@ -117,7 +117,7 @@ function odmLegendRows(o,W){if(!o.legend)return 1;const p=odmLegendPos(o,W);retu
 </script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="author" content="Odindo Emmanuel Thomas">
+<meta name="author" content="Emmanuel Thomas">
 <meta name="application-name" content="Odieman PPS Pro">
 <title>Odieman PPS Pro (demo)</title>
 <style>
@@ -261,7 +261,7 @@ html.odm-present #reportBody table{display:block;overflow-x:auto;max-width:100%}
 <body>
 <div class="app">
 <aside>
-  <div class="logo"><b>Odieman PPS Pro</b><span>Point Prevalence Survey · v3.10</span></div>
+  <div class="logo"><b>Odieman PPS Pro</b><span>Point Prevalence Survey · v3.11</span></div>
   <nav id="nav"></nav>
 </aside>
 <main>
@@ -402,7 +402,7 @@ const INDS=[
 const IND=Object.fromEntries(INDS.map(x=>[x.k,x]));
 
 /* ============ State ============ */
-let DB={meta:{facility:"",author:"Odindo Emmanuel Thomas",keepBackups:30,ignored:[],created:new Date().toISOString(),updated:null},surveys:[]};
+let DB={meta:{facility:"",author:"Emmanuel Thomas",keepBackups:30,ignored:[],created:new Date().toISOString(),updated:null},surveys:[]};
 const UI={page:"overview",sid:null,stat:"prev",cmpA:null,cmpB:null,editIdx:null,dqSid:"all",trendSel:["prev","access","cult","spLong"]};
 const LOG=[];
 const dirty=new Set();
@@ -556,7 +556,7 @@ async function onFolderReady(){
  render();toast(`Data folder “${FS.handle.name}” connected${added?` · ${added} survey file(s) imported`:""}. Changes now save automatically.`)}
 function mergeDB(fdb){if(!fdb||!Array.isArray(fdb.surveys))return;const _rp=DB.meta.refPack;
  DB.meta=Object.assign({},fdb.meta||{},DB.meta.facility?{facility:DB.meta.facility}:{},{ignored:[...new Set([...(fdb.meta?.ignored||[]),...(DB.meta.ignored||[])])]});
- if(!DB.meta.author)DB.meta.author="Odindo Emmanuel Thomas";
+ if(!DB.meta.author||DB.meta.author==="Odindo Emmanuel Thomas")DB.meta.author="Emmanuel Thomas";
  if(_rp&&(!DB.meta.refPack||!DB.meta.refPack.pack||DB.meta.refPack.pack.serial<_rp.pack.serial))DB.meta.refPack=_rp;
  fdb.surveys.forEach(fs=>{const cur=getS(fs.id);if(!cur)DB.surveys.push(fs);else if((fs.updated||0)>(cur.updated||0))Object.assign(cur,fs)})}
 async function scanFolder(quiet){if(FS.state!=="connected")return 0;let added=0;
@@ -691,7 +691,7 @@ function vDash(){if(!DB.surveys.length)return noData();const s=getS(UI.sid),c=ca
  ${chartCard("Indication for treatment","Treated patients",barH(ind,{lw:200}),"indication_"+s.id)}
  ${chartCard("Diagnosis (site of infection)","Top 10, treated patients",barH(dx,{lw:200}),"dx_"+s.id)}
  ${chartCard("Route of administration","Share of prescriptions",barH([{label:"Parenteral",value:c.parenteral.v||0,color:"#c9772b"},{label:"Oral",value:1-(c.parenteral.v||0),color:"#13737a"}],{pct:1,max:1}),"route_"+s.id)}</div>`;
- h+=`<div class="card section"><h3>AWaRe — WHO and Tanzania</h3><div class="sub">The Tanzania STG/NEMLIT 2021 groups some antibiotics differently from WHO. PPS Pro follows the national group where it is stricter and the book's own level of care supports it (meropenem, vancomycin, amikacin as Reserve…); where the book contradicts itself or is laxer than WHO, WHO wins and the reason is shown.</div>${awCard(s)}</div>`;
+ h+=`<div class="card section"><h3>AWaRe — WHO and Tanzania</h3><div class="sub">The Tanzania STG/NEMLIT 7th Edition, 2026 groups some antibiotics differently from WHO. WHO stays the default. In the Tanzania view PPS Pro follows the national group where it is the same as WHO or stricter and the book's own level of care supports it (meropenem, imipenem, vancomycin, amikacin as Reserve…); where the book contradicts itself (gentamicin printed as Watch, yet stocked at every dispensary) or is less strict than WHO, WHO wins and the reason is shown.</div>${awCard(s)}</div>`;
  h+=`<div class="card section"><h3>Adults, children and neonates</h3><div class="sub">Neonates: under 28 days · children: 28 days to 17 years · adults: 18 years and over. Antibiotic use differs sharply between these groups, so a hospital-wide figure can hide a problem in one of them.</div>${ageTable(s)}</div>`;
  h+=`<div class="card section"><h3>Empiric or targeted treatment</h3><div class="sub">Treatment based on a culture result (targeted) versus chosen before results (empiric), and whether a biomarker such as CRP guided it. Low targeted treatment with low culture use means prescribing is guesswork; a culture taken but never acted on is a missed chance.</div>${txCard(s)}</div>`;
  h+=`<div class="card section"><h3>Appropriateness</h3><div class="sub">The survey team's judgement of each patient's treatment — agent, dose, route and duration — in NAPS categories: optimal, adequate, suboptimal, inadequate, not assessable.</div>${apprCard(s)}</div>`;
@@ -859,7 +859,7 @@ function reportHTML(){const S=sorted(),C=S.map(calc),labels=S.map(s=>monYr(s.dat
  <h2>7. Empiric or targeted treatment (${esc(S.at(-1).id)})</h2>${txCard(S.at(-1),1)}
  <h2>8. Appropriateness (${esc(S.at(-1).id)})</h2>${apprCard(S.at(-1),1)}
  <h2>9. Comparison with published Tanzanian surveys</h2>${benchCard(S.at(-1),1)}
- <h2>10. Methods note</h2><p>Surveys followed the WHO point prevalence survey methodology: all inpatients present on the ward at 08:00 on the survey day were included. Antimicrobials were classified with the ${awView()==="TZ"?"Tanzania STG/NEMLIT 2021 national AWaRe grouping, checked against WHO (WHO where not listed, contradictory or less strict)":"WHO AWaRe list"} and the WHO ATC/DDD index. Trends were tested with the Cochran–Armitage test for trend using time in years; 95% confidence intervals use the Wilson method. Surgical prophylaxis duration uses the WHO PPS codes (single dose, one day, more than one day); WHO surgical site infection guidelines (2016, 2018) recommend not continuing prophylaxis after the operation. Age groups: neonates under 28 days, children 28 days to 17 years, adults 18 years and over. Results are aggregate; no patient identifiers are reported.</p>${mdReportHTML()}</div>`}
+ <h2>10. Methods note</h2><p>Surveys followed the WHO point prevalence survey methodology: all inpatients present on the ward at 08:00 on the survey day were included. Antimicrobials were classified with the ${awView()==="TZ"?"Tanzania STG/NEMLIT 7th Edition, 2026 national AWaRe grouping, checked against WHO (WHO where not listed, contradictory or less strict; national targets: "+TZ_TARGETS+")":"WHO AWaRe list"} and the WHO ATC/DDD index. Trends were tested with the Cochran–Armitage test for trend using time in years; 95% confidence intervals use the Wilson method. Surgical prophylaxis duration uses the WHO PPS codes (single dose, one day, more than one day); WHO surgical site infection guidelines (2016, 2018) recommend not continuing prophylaxis after the operation. Age groups: neonates under 28 days, children 28 days to 17 years, adults 18 years and over. Results are aggregate; no patient identifiers are reported.</p>${mdReportHTML()}</div>`}
 function vReport(){if(sorted().length<2)return DB.surveys.length?`<div class="warnbox">The trend report needs at least two surveys.</div>`:noData();
  return`<div class="row section noprint"><button class="btn" data-act="print">Print / Save as PDF</button><button class="btn ghost" data-act="savereport">Save report (HTML) to folder</button><button class="btn ghost" data-act="savesummary">Save indicator table (CSV)</button></div>`+reportHTML()}
 /* ============ v3.4: REDCap — the same variable names in both directions ============
@@ -1251,9 +1251,9 @@ function vMinData(){const S=sorted(),s=UI.mdSid&&getS(UI.mdSid)||S.at(-1)||null;
   <p><b>Inpatient (IPD) dispensing export</b>: one row per item dispensed. Essential: patient number, item name, date. Recommended: ward and the dosage text (its duration decides who is on treatment on the survey day). <b>Admission register</b>: one row per admission. Essential: patient number and date admitted. Recommended: ward, date discharged, age, sex. Without the admission register or a typed count per ward, the denominator is missing and the survey is not a valid PPS.</p></div>
  <div class="card section"><h3>3. What each analysis needs</h3><div class="tablewrap" style="max-height:none"><table><tr><th>Analysis</th><th>Essential</th><th>Recommended, and what it adds</th><th>Minimum</th><th>Source</th></tr>
   <tr><td><b>Overview, Survey dashboard</b></td><td>One survey: ward and on_antimicrobial for every inpatient; antimicrobial names for the treated</td><td>Indication, diagnosis and the quality fields fill the other indicators</td><td>Fewer than 20 in a denominator is marked unstable</td><td>WHO PPS methodology</td></tr>
-  <tr><td><b>AWaRe shares, Antimicrobial use</b></td><td>Antimicrobial names</td><td>Route (parenteral share); dose and doses per day (DDD per 100 inpatients)</td><td>–</td><td>WHO AWaRe; Tanzania STG/NEMLIT 2021; WHO ATC/DDD index</td></tr>
+  <tr><td><b>AWaRe shares, Antimicrobial use</b></td><td>Antimicrobial names</td><td>Route (parenteral share); dose and doses per day (DDD per 100 inpatients)</td><td>–</td><td>WHO AWaRe; Tanzania STG/NEMLIT 7th Edition, 2026; WHO ATC/DDD index</td></tr>
   <tr><td><b>Reason, culture, stop/review date</b></td><td>Y or N for every treated patient</td><td>–</td><td>A blank counts as No in these three indicators</td><td>WHO PPS</td></tr>
-  <tr><td><b>Guideline compliance</b></td><td>guideline_compliant Y, N or NA</td><td>Diagnosis, indication and age let Data entry suggest a verdict</td><td>Only Y and N are counted</td><td>Tanzania STG/NEMLIT 2021 rules</td></tr>
+  <tr><td><b>Guideline compliance</b></td><td>guideline_compliant Y, N or NA</td><td>Diagnosis, indication and age let Data entry suggest a verdict</td><td>Only Y and N are counted</td><td>Tanzania STG/NEMLIT 2021 rules (review against the 7th edition, 2026, pending)</td></tr>
   <tr><td><b>Targeted, biomarker-guided, appropriate</b></td><td>treatment_type, biomarker, appropriateness</td><td>Counted only where recorded</td><td>–</td><td>–</td></tr>
   <tr><td><b>Surgical prophylaxis duration</b></td><td>Indication SP1, SP2 or SP3 for surgical prophylaxis</td><td>–</td><td>Fewer than 20 patients is marked unstable</td><td>WHO PPS codes; WHO SSI guidelines 2016, 2018</td></tr>
   <tr><td><b>Age groups</b></td><td>age_years</td><td>Weight for children</td><td>–</td><td>WHO PPS age groups</td></tr>
@@ -1301,7 +1301,8 @@ function vGuide(){
  <div id="gd">
  <div class="card section"><h3>Odieman PPS Pro — User Guide</h3><p>PPS Pro records and analyses WHO point prevalence surveys (PPS) of antimicrobial use: on one day, every inpatient on a ward is checked for antimicrobials, and the results are compared ward by ward and survey by survey. Repeating the survey every 6–12 months shows whether stewardship is working. Everything runs offline on this computer.</p>
  <div class="row">${toc.map(([id,t])=>`<button class="btn small ghost" data-scroll="${id}">${t}</button>`).join("")}</div></div>
- <div class="card section"><h3>What's new in v3.10 (November 2026)</h3><ul>
+ <div class="card section"><h3>What's new in v3.11 (November 2026)</h3><ul><li><b>Manual entry saves as you type.</b> Every record on the list, and the one being filled in, is kept on this computer within a second (and in the data folder when one is open), so it comes back after a closed tab, a crash or a power cut. Save now (Ctrl+S), save a copy as a file, open a saved copy, or start fresh. Switching form or loading another dictionary asks first and saves a copy of the records before clearing them. The first click on <i>Add this record</i> after typing now always counts.</li><li>Tanzania view updated to STG/NEMLIT 7th Edition, 2026.</li></ul></div>
+<div class="card section"><h3>What's new in v3.10 (November 2026)</h3><ul>
   <li><b>Showcase</b> (<b>&#9733; Showcase</b> in the top bar): a stage for a talk. PPS Pro opens empty on the sample hospital, the survey files go in one by one, the figures turn from red to green as the data they need arrive, and it ends on decisions for the AMS committee and for management, and on one-click outputs (WHO PPS worksheet, REDCap, Stata). Every figure on the stage is read from PPS Pro after it has done the work. Keys: &rarr; next, &larr; back, 1&ndash;8 outputs, F full screen, Esc open the tool. Memory only: nothing is saved, and your own data is not touched. The Showcase replaces the Present tour on the top bar.</li></ul></div>
  <div class="card section"><h3>What's new in v3.8 and v3.9 (November 2026)</h3><ul>
   <li><b>Manual entry (any form)</b> (Output menu, v3.8): fill in PPS Pro's own form, or load any REDCap project's data dictionary and fill in that project's form instead, with its branching logic. Send the entries to a plain CSV, a REDCap import CSV, a labelled Stata file (.dta), WHONET format (only where the form has isolate columns) and/or, with PPS Pro's own form, straight into PPS Pro's surveys. Every file is made on this computer.</li>
@@ -1348,10 +1349,10 @@ function vGuide(){
   <li><b>Who is included:</b> every patient admitted to the ward at 08:00 on the survey day. Patients admitted after 08:00 and day cases are not included. Each ward is surveyed once, on a single day.</li>
   <li><b>One form per ward</b> (ward name and type, number of eligible patients) and <b>one form per patient</b> (age, sex, weight for children, admission date, whether on an antimicrobial).</li>
   <li><b>For each patient on an antimicrobial,</b> record up to four agents with dose, doses per day and route; the diagnosis (site of infection), indication, whether the reason is written in the notes, whether the choice follows the guideline, whether a culture was taken and whether a stop/review date is documented.</li>
-  <li><b>Guideline compliance:</b> once the diagnosis, indication and antimicrobials are entered, PPS Pro shows an <b>STG check</b> — whether each agent is listed in the Tanzania STG/NEMLIT for that diagnosis and age group, with the section and page. It is a suggestion: you decide, and can set the field with one click. It checks the choice of agent, not dose or duration. Where the STG has no regimen (neonatal sepsis and meningitis, surgical prophylaxis outside obstetrics), clearly marked WHO rules are used instead. The rules can be seen, exported, and replaced with a newer STG edition under Settings.</li>
+  <li><b>Guideline compliance:</b> once the diagnosis, indication and antimicrobials are entered, PPS Pro shows an <b>STG check</b> — whether each agent is listed in the Tanzania STG/NEMLIT for that diagnosis and age group, with the section and page. It is a suggestion: you decide, and can set the field with one click. It checks the choice of agent, not dose or duration. Where the STG has no regimen (neonatal sepsis and meningitis, surgical prophylaxis outside obstetrics), clearly marked WHO rules are used instead. The rules can be seen, exported, and replaced with a newer STG edition under Settings. Treatment rules are from the 2021 edition; review against the 7th edition (2026) is pending.</li>
   <li><b>Empiric or targeted</b> (treated infections only): targeted means the choice is based on a culture or other microbiology result; empiric means chosen before any result. <b>Biomarker used</b>: CRP, procalcitonin or white cell count used to start or guide treatment — or None.</li>
   <li><b>Appropriateness</b> (ideally rated by two people from the AMS team): <b>optimal</b> — what a stewardship expert would choose; <b>adequate</b> — a reasonable alternative; <b>suboptimal</b> — reasonable but with a problem (spectrum, dose, route, duration, double cover); <b>inadequate</b> — unlikely to work, unsafe, or not needed; <b>not assessable</b>. Tick the reason for suboptimal or inadequate. Categories adapted from Australia's NAPS.</li>
-  <li><b>AWaRe:</b> every antibiotic gets its WHO group and its Tanzania NEMLIT 2021 group. The national group is followed only where it is stricter than WHO and the book's level of care supports it; where the book contradicts itself (gentamicin and cotrimoxazole printed as Watch but stocked at dispensary level) or is laxer than WHO, WHO wins and the dashboard says why, with the page. You choose which grouping results are counted in. The WHO PPS export always uses WHO.</li>
+  <li><b>AWaRe:</b> every antibiotic gets its WHO group and its Tanzania group from the STG/NEMLIT 7th Edition, 2026 (NEMLIT 6.2.1–6.2.3, pages 8–10). The national group is followed where it is the same as WHO or stricter and the book's level of care supports it (for example meropenem as Reserve); where the book contradicts itself (gentamicin printed as Watch but stocked at dispensary level) or is less strict than WHO (Ampiclox and the other combinations WHO does not recommend), WHO wins and the dashboard says why, with the page. You choose which grouping results are counted in; WHO is the default. The WHO PPS export always uses WHO. Targets: WHO / UN, Access 70% or more by 2030; Tanzania, Access more than 60%, Watch 28% or less, Reserve 12% or less of total antibiotic use.</li>
   <li><b>Antimicrobial names:</b> type them as written on the chart — “Ceftriaxone 1g IV BD”, “Augmentin 625”, “Ampiclox”, even with a spelling slip. PPS Pro finds the drug, fills route, dose and doses per day where it can, and shows the ATC code and AWaRe group itself; you never type them. If it is not sure it asks “Did you mean…?”, and remembers your answer (Settings › Drug names taught).</li>
   <li>Use the chart, treatment sheet and notes — not the patient's memory. Record what is prescribed on the survey day.</li>
   <li>Repeat at the same time of year where possible, with the same wards and the same method, so surveys can be compared.</li></ul></div>
@@ -1428,7 +1429,7 @@ function vGuide(){
    Hospitals (WHO/EMP/IAU/2018.01): Hospital, Ward, Patient, Indication and Antibiotic levels with WHO variable
    names and codes. Values PPS Pro does not collect are left blank; every value that had to be converted or
    guessed is listed on the Check sheet. Written here, offline, as an Excel workbook or as one CSV per level. */
-const PPS_VER="3.10";
+const PPS_VER="3.11";
 const WHO_WT=[["AMW","Adult medical ward"],["ASW","Adult surgical ward"],["AHRW","Adult high-risk ward"],["AICU","Adult intensive care unit"],
  ["PMW","Paediatric medical ward"],["PSW","Paediatric surgical ward"],["PHRW","Paediatric high-risk ward"],["PICU","Paediatric intensive care unit"],
  ["NMW","Neonatal medical ward"],["NICU","Neonatal intensive care unit"],["MXW","Mixed ward"]];
@@ -1529,7 +1530,7 @@ function whoZip(files){const enc=new TextEncoder(),parts=[],cd=[];let off=0;cons
  e.setUint32(12,size,true);e.setUint32(16,off,true);return new Blob([...parts,...cd,new Uint8Array(e.buffer)],{type:"application/zip"})}
 function whoXlsx(sheets,title){const X=v=>String(v).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
  const col=i=>{let s="";i++;while(i){const m=(i-1)%26;s=String.fromCharCode(65+m)+s;i=Math.floor((i-1)/26)}return s};
- const hd='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n',NS="http://schemas.openxmlformats.org",who=X(DB.meta.author||"Odindo Emmanuel Thomas");
+ const hd='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n',NS="http://schemas.openxmlformats.org",who=X(DB.meta.author||"Emmanuel Thomas");
  const iso=new Date().toISOString().replace(/\.\d+Z$/,"Z");
  const sheetXml=sh=>{const R=sh.rows,nc=Math.max(1,...R.map(r=>r.length));
   const w=[...Array(nc)].map((_,j)=>Math.min(sh.wide?90:46,Math.max(8,...R.slice(0,400).map(r=>String(r[j]??"").length+2))));
@@ -2065,7 +2066,7 @@ async function stgImport(file){try{const sheets=await readSheets(file);let rules
   DB.meta.stgRules={edition:edition||file.name.replace(/\.[^.]+$/,""),rules,imported:new Date().toISOString(),file:file.name};log(`STG rules loaded from ${file.name} (${rules.length} rules)`);touch();toast("STG rules loaded");render()}
  catch(e){toast(`${file.name}: ${e.message}`)}}
 function stgCard(){const A=stgActive(),R=A.rules,custom=A!==STG_BUILTIN;
- return`<div class="card" style="grid-column:1/-1"><h3>STG rules for the guideline check</h3><div class="sub">In use: <b>${esc(A.edition)}</b>${custom?` · loaded ${esc((DB.meta.stgRules.imported||"").slice(0,10))} from ${esc(DB.meta.stgRules.file||"")}`:" · built in"} · ${R.length} rules. The check compares the antimicrobials chosen with the regimens listed for the diagnosis, age group and indication. It is a suggestion; the surveyor decides. When a new STG edition is published, export these rules, update them from the new book (keep the source page on every rule) and load the file — or ask for an updated rules file.</div>
+ return`<div class="card" style="grid-column:1/-1"><h3>STG rules for the guideline check</h3><div class="sub">In use: <b>${esc(A.edition)}</b>${custom?` · loaded ${esc((DB.meta.stgRules.imported||"").slice(0,10))} from ${esc(DB.meta.stgRules.file||"")}`:" · built in"} · ${R.length} rules. The check compares the antimicrobials chosen with the regimens listed for the diagnosis, age group and indication. It is a suggestion; the surveyor decides. When a new STG edition is published, export these rules, update them from the new book (keep the source page on every rule) and load the file — or ask for an updated rules file.${custom?"":" Treatment rules are from the 2021 edition; review against the 7th edition (2026) is pending."}</div>
  <div class="row" style="margin:10px 0"><button class="btn small ghost" data-act="stgexport">Export rules (CSV)</button><label class="btn small ghost" style="cursor:pointer">Load newer rules (CSV / Excel)<input type="file" id="stgIn" accept=".csv,.xlsx,.xls" hidden></label>${custom?`<button class="btn small ghost" data-act="stgreset">Restore built-in 2021 rules</button>`:""}</div>
  <div class="tablewrap" style="max-height:420px"><table><tr><th>Diagnosis</th><th>Age</th><th>Situation</th><th>Line</th><th>Agents listed</th><th>Source</th></tr><tr><td colspan="6" class="muted" style="font-size:12px">Rules marked <b>WHO</b> are used only where the Tanzania STG gives no regimen (neonatal sepsis and meningitis, surgical prophylaxis outside obstetrics).</td></tr>${R.map(r=>`<tr><td>${r.sp?"Surgical prophylaxis":stgList(r.dx).map(d=>esc(DX[d]||d)).join(", ")}${r.ind?` <span class="muted">(${esc(r.ind)})</span>`:""}</td><td>${r.sp?esc(WTN[r.ward]||r.ward||""):stgList(r.age||"CHI; ADU").map(a=>({CHI:"Children",ADU:"Adults",NEO:"Neonates"})[a]||a).join(", ")}</td><td>${esc(r.label)}${r.note?`<div class="muted" style="font-size:12px">${esc(r.note)}</div>`:""}</td><td>${esc(r.line)}</td><td>${r.noAbx?"<i>No antibiotic indicated</i>":stgList(r.agents).map(esc).join(", ")}</td><td style="font-size:12px">${r.org==="WHO"?'<span class="tag nc">WHO</span> ':""}${esc(r.src)}</td></tr>`).join("")}</table></div></div>`}
 
@@ -2133,7 +2134,7 @@ function wardSheet(s,ward){const W=wardStats(s,ward),H=wardStats(s,null),ps=prev
  ${good.length?`<h2>Going well</h2><ul>${good.map(t=>`<li>${t}</li>`).join("")}</ul>`:""}
  <h2>Actions agreed with the ward team</h2><div class="lines"><div>1.</div><div>2.</div><div>3.</div></div>
  <p class="m">Discussed on ____________ with ______________________ (ward in-charge) and ______________________ (AMS team).</p>
- <div class="ft">Aggregate figures from the WHO-method point prevalence survey; no patient or prescriber is identified. AWaRe: ${awView()==="TZ"?"Tanzania NEMLIT 2021, checked against WHO":"WHO"}. Guideline check: ${esc(stgActive().edition)}, with WHO guidance only where the STG has no regimen. ▲▼ compare with this ward's previous survey (green = better). Prepared ${fmtDate(today())}${DB.meta.author?` by ${esc(DB.meta.author)}`:""} with Odieman PPS Pro.</div></section>`}
+ <div class="ft">Aggregate figures from the WHO-method point prevalence survey; no patient or prescriber is identified. AWaRe: ${awView()==="TZ"?"Tanzania NEMLIT 2026, checked against WHO":"WHO"}. Guideline check: ${esc(stgActive().edition)}${stgActive()===STG_BUILTIN?" (review against the 7th edition, 2026, pending)":""}, with WHO guidance only where the STG has no regimen. ▲▼ compare with this ward's previous survey (green = better). Prepared ${fmtDate(today())}${DB.meta.author?` by ${esc(DB.meta.author)}`:""} with Odieman PPS Pro.</div></section>`}
 const FB_CSS=`.fbs{font:13px/1.45 "Segoe UI",Arial,sans-serif;color:#1b1f24;background:#fff;max-width:760px;margin:0 auto 24px;padding:22px 26px;border:1px solid #dde3e4;border-radius:8px}
 .fbs .hd{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;border-bottom:2px solid #13737a;padding-bottom:10px;margin-bottom:10px}
 .fbs h1{font-size:22px;margin:2px 0;color:#0f3d40}.fbs h2{font-size:14px;margin:12px 0 4px;color:#0f3d40}.fbs .m{color:#5b6b6d;font-size:11.5px}
@@ -2424,7 +2425,7 @@ function parseRegimen(text,name){const t=String(text||"");return{route:/\b(iv|im
 function abInfoHTML(i,text){const r=drugResolve(text);if(r.how==="empty")return"";
  if(r.name){const f=FORMULARY[r.name]||{};const rt=(document.getElementById(`a${i}_route`)||{}).value||f.route||"";const aw=fCls(f,rt)||"Not classified",atc=fAtc(f,rt)||"–";
   const dk=f.ddd&&(f.ddd[rt]!=null?rt:Object.keys(f.ddd)[0]),dv=dk?f.ddd[dk]:null,ddd=dv!=null?` · WHO DDD ${f.unit==="IU"?(dv/1e6)+" MU":dv+" g"}${dk?" ("+(dk==="P"?"injection":dk==="O"?"oral":dk)+")":""}`:"";const ti=awTzInfo(r.name,aw),tz=ti.used;
-  return`<span style="color:#2e7d4f">✓</span> <b>${esc(r.name)}</b> · ATC ${esc(atc)} · WHO <span class="tag ${["Access","Watch","Reserve"].includes(aw)?aw:"nc"}">${esc(aw)}</span>${tz!==aw?` · Tanzania <span class="tag ${["Access","Watch","Reserve"].includes(tz)?tz:"nc"}">${esc(tz)}</span>`:""}${ddd}${ti.why?` <span class="muted" title="${esc(ti.why)}">(NEMLIT 2021 prints ${esc(ti.printed)}, p.${ti.page}; WHO used)</span>`:""}${r.how==="parsed"||r.how==="fuzzy"||r.how==="learned"?` <span class="muted">recognised from “${esc(text)}”</span>`:""}`}
+  return`<span style="color:#2e7d4f">✓</span> <b>${esc(r.name)}</b> · ATC ${esc(atc)} · WHO <span class="tag ${["Access","Watch","Reserve"].includes(aw)?aw:"nc"}">${esc(aw)}</span>${tz!==aw?` · Tanzania <span class="tag ${["Access","Watch","Reserve"].includes(tz)?tz:"nc"}">${esc(tz)}</span>`:""}${ddd}${ti.why?` <span class="muted" title="${esc(ti.why)}">(NEMLIT 2026 prints ${esc(ti.printed)}, p.${ti.page}; WHO used)</span>`:""}${r.how==="parsed"||r.how==="fuzzy"||r.how==="learned"?` <span class="muted">recognised from “${esc(text)}”</span>`:""}`}
  if(r.how==="suggest")return`Did you mean <b>${esc(r.sug)}</b>? <button type="button" class="btn small ghost" data-abuse="${i}" data-n="${esc(r.sug)}">Use ${esc(r.sug)}</button>`;
  if(r.how==="topical")return`<span style="color:#d08a1a">!</span> Eye, ear and skin preparations are not counted in a point prevalence survey.`;
  return`<span style="color:#b23b3b">?</span> Not in the drug list — pick a name from the list (start typing), or it is recorded as “Not classified”.`}
@@ -2443,40 +2444,45 @@ function learnedCard(){const m=userAlias(),e=Object.entries(m);
 document.addEventListener("mousedown",e=>{const b=e.target.closest&&e.target.closest("[data-abuse]");if(!b)return;e.preventDefault();   /* mousedown: acts before the name box loses focus */const i=b.dataset.abuse,el=document.getElementById(`a${i}_name`);if(!el)return;
  const orig=(el.dataset.orig||el.value).trim();if(orig)userAlias()[orig.toLowerCase()]=b.dataset.n;log(`Drug name taught: “${orig}” = ${b.dataset.n}`);touch();abApply(i,orig);toast(`Remembered: “${orig}” = ${b.dataset.n}`)});
 
-/* ============ v3.3: AWaRe — WHO and Tanzania (NEMLIT 2021), checked against each other ============
-   The Tanzania STG/NEMLIT 2021 groups antibiotics nationally (NEMLIT 6.2.1 Access, 6.2.2 Watch, 6.2.3 Reserve,
-   printed pages 8–10). PPS Pro follows the national group only where it is STRICTER than WHO and the book's own level of care
-   supports it (B, C or S). Where the book puts a dispensary-level (A) antibiotic in Watch or Reserve, or puts an
-   antibiotic in a lower group than WHO, WHO wins — and the tool says so, with the page.
+/* ============ AWaRe — WHO and Tanzania (NEMLIT 2026), checked against each other ============
+   The Tanzania STG/NEMLIT 7th Edition, 2026 groups antibiotics nationally (NEMLIT 6.2.1 Access, pages 8–9;
+   6.2.2 Watch, page 9; 6.2.3 Reserve, pages 9–10). PPS Pro follows the national group where it is the same as WHO
+   or STRICTER and the book's own level of care supports it (B, C, D or S). Where the book puts a dispensary-level (A)
+   antibiotic in Watch or Reserve (gentamicin), puts an antibiotic in a lower group than WHO, or lists a fixed-dose
+   combination WHO does not recommend, WHO wins — and the tool says so, with the page.
+   Listed: the 2026 entries for the antibiotics in PPS Pro's formulary. Trimethoprim alone (Access, level D, p.9)
+   is left out because PPS Pro reads it as cotrimoxazole; streptomycin, benzathine benzylpenicillin and the TB and
+   leprosy medicines of 6.2.3 are not in the formulary.
    Stored data and the WHO PPS export always use WHO. */
 const TZ_BOOK=[ // [name as printed, group as printed, level of care, page]
- ["ampicillin","Access","A",8],["ampicillin + cloxacillin","Access","B",8],["amoxicillin","Access","A",8],["amoxicillin + clavulanic acid","Access","B",8],
- ["benzathine benzylpenicillin","Access","A",9],["benzylpenicillin","Access","A",9],["cefalexin","Access","B",9],["cloxacillin","Access","B",9],["doxycycline","Access","A",9],
- ["erythromycin","Access","A",9],["flucloxacillin + amoxicillin","Access","C",9],["flucloxacillin","Access","C",9],["metronidazole","Access","A",9],["nitrofurantoin","Access","A",9],
- ["phenoxymethylpenicillin","Access","A",9],["tetracycline","Access","S",9],
- ["ampicillin + sulbactam","Watch","C",9],["azithromycin","Watch","B",9],["clarithromycin","Watch","C",9],["chloramphenicol","Watch","B",9],["ceftriaxone","Watch","B",9],
- ["ceftriaxone + sulbactam","Watch","D",8],["ciprofloxacin","Watch","A",9],["gentamicin","Watch","A",10],["piperacillin + tazobactam","Watch","S",10],
- ["sulfamethoxazole + trimethoprim","Watch","A",10],["ceftazidime","Watch","D",9],["cefixime","Watch","S",10],["cefuroxime","Watch","D",9],
- ["amikacin","Reserve","S",10],["cefepime","Reserve","S",10],["clindamycin","Reserve","S",10],["colistin","Reserve","S",10],["meropenem","Reserve","S",10],["vancomycin","Reserve","S",10],
- ["linezolid","Reserve","S",10]];
-const TZ_SRC="Tanzania STG/NEMLIT 2021 (6th ed.), NEMLIT 6.2.1–6.2.3, printed pages 8–10";
+ ["ampicillin","Access","A",8],["ampicillin + cloxacillin","Access","B",8],["ampicillin + sulbactam","Access","C",8],["amoxicillin","Access","A",8],
+ ["amoxicillin + clavulanic acid","Access","B/C",8],["benzylpenicillin","Access","A",8],["cefalexin","Access","B",8],["cefazolin","Access","B/C",8],["chloramphenicol","Access","B",8],
+ ["cloxacillin","Access","B",9],["doxycycline","Access","A",9],["flucloxacillin + amoxicillin","Access","C",9],["flucloxacillin","Access","C",9],["metronidazole","Access","A/B",9],
+ ["nitrofurantoin","Access","A",9],["phenoxymethylpenicillin","Access","A",9],["sulfamethoxazole + trimethoprim","Access","A",9],
+ ["azithromycin","Watch","B",9],["clarithromycin","Watch","C",9],["cefepime","Watch","D",9],["ceftriaxone","Watch","B",9],["ceftriaxone + sulbactam","Watch","D",9],
+ ["ciprofloxacin","Watch","A/C",9],["erythromycin","Watch","A",9],["gentamicin","Watch","A",9],["piperacillin + tazobactam","Watch","S",9],["ceftazidime","Watch","D",9],
+ ["cefixime","Watch","S",9],["cefotaxime","Watch","C",9],["cefuroxime","Watch","D",9],
+ ["amikacin","Reserve","S",9],["clindamycin","Reserve","S",9],["colistin","Reserve","S",10],["imipenem + cilastatin","Reserve","S",10],["meropenem","Reserve","S",10],
+ ["vancomycin","Reserve","S",10],["levofloxacin","Reserve","S",10],["linezolid","Reserve","S",10]];
+const TZ_SRC="Tanzania STG/NEMLIT 7th Edition, 2026, NEMLIT 6.2.1–6.2.3, printed pages 8–10";
+const TZ_TARGETS="Access more than 60%, Watch 28% or less, Reserve 12% or less of total antibiotic use";
 const TZ_BK=(()=>{const m={};TZ_BOOK.forEach(([n,g,l,p])=>m[stgKey(n)]={g,l,p});return m})();
 const AW_RANK={Access:1,Watch:2,Reserve:3};
 const awView=()=>DB.meta.awareView==="TZ"?"TZ":"WHO";
 /* the national group after checking it against WHO: {used, printed, page, level, why} */
 function awTzInfo(name,who){const b=TZ_BK[stgKey(name)];if(!b)return{used:who||"Not classified",printed:null};
  const base={printed:b.g,page:b.p,level:b.l};const w=who&&AW_RANK[who]?who:null;
- if(who==="Not recommended"&&b.g!=="Not recommended")return{...base,used:who,why:`NEMLIT 2021 (p.${b.p}) lists it as ${b.g}; WHO does not recommend this fixed-dose combination. PPS Pro uses WHO.`};
+ if(who==="Not recommended"&&b.g!=="Not recommended")return{...base,used:who,why:`NEMLIT 2026 (p.${b.p}) lists it as ${b.g}; WHO does not recommend this fixed-dose combination. PPS Pro uses WHO.`};
  if(!w)return{...base,used:b.g};
  if(b.g===w)return{...base,used:w};
- if(AW_RANK[b.g]<AW_RANK[w])return{...base,used:w,why:`NEMLIT 2021 (p.${b.p}) lists it as ${b.g}; WHO groups it as ${w}. PPS Pro never counts an antibiotic in a lower group than WHO.`};
- if(b.l==="A")return{...base,used:w,why:`NEMLIT 2021 (p.${b.p}) lists it as ${b.g}, but at level of care A (stocked at every dispensary), which contradicts the ${b.g} definition. WHO: ${w}. PPS Pro uses WHO.`};
+ if(AW_RANK[b.g]<AW_RANK[w])return{...base,used:w,why:`NEMLIT 2026 (p.${b.p}) lists it as ${b.g}; WHO groups it as ${w}. PPS Pro never counts an antibiotic in a lower group than WHO.`};
+ if(b.l==="A")return{...base,used:w,why:`NEMLIT 2026 (p.${b.p}) lists it as ${b.g}, but at level of care A (stocked at every dispensary), which contradicts the ${b.g} definition. WHO: ${w}. PPS Pro uses WHO.`};
  return{...base,used:b.g,why:null,stricter:true}}
 function awTz(name,who){return awTzInfo(name,who).used}
 /* the group used for counting, in the view chosen (WHO by default) */
 function awOf(a){return awView()==="TZ"?awTz(a.name,a.aware):a.aware}
 function awName(n){const f=FORMULARY[n]||{};return awView()==="TZ"?awTz(n,f.aware):f.aware}
-function awSet(v){DB.meta.awareView=v;_cache.clear();log(`AWaRe view: ${v==="TZ"?"Tanzania NEMLIT 2021, checked against WHO":"WHO"}`);touch();render()}
+function awSet(v){DB.meta.awareView=v;_cache.clear();log(`AWaRe view: ${v==="TZ"?"Tanzania NEMLIT 2026, checked against WHO":"WHO"}`);touch();render()}
 function awCard(s){const rx=s.patients.filter(p=>p.on==="Y").flatMap(p=>p.abs);if(!rx.length)return`<p class="muted">No prescriptions in ${esc(s.id)}.</p>`;
  const G=["Access","Watch","Reserve","Not recommended","Not classified"],cnt=f=>{const c={};G.forEach(g=>c[g]=0);rx.forEach(a=>{const g=f(a);c[G.includes(g)?g:"Not classified"]++});return c};
  const W=cnt(a=>a.aware),T=cnt(a=>awTz(a.name,a.aware)),P=cnt(a=>{const i=awTzInfo(a.name,a.aware);return i.printed||a.aware}),n=rx.length;
@@ -2484,13 +2490,13 @@ function awCard(s){const rx=s.patients.filter(p=>p.on==="Y").flatMap(p=>p.abs);i
  const rows=G.filter(g=>W[g]||T[g]).map(g=>`<tr><td>${tag(g)}</td><td class="n">${W[g]} <span class="muted">${pct(W[g]/n,0)}</span></td><td class="n">${T[g]} <span class="muted">${pct(T[g]/n,0)}</span></td></tr>`).join("");
  const by={};rx.forEach(a=>{const i=awTzInfo(a.name,a.aware);if(i.printed&&i.printed!==a.aware){const k=a.name;(by[k]=by[k]||{i,w:a.aware,c:0}).c++}});
  const ap=Object.entries(by).filter(([,v])=>v.i.stricter),ov=Object.entries(by).filter(([,v])=>v.i.why);
- return`<div class="row" style="margin:0 0 8px">Count results in: <select class="sel" id="awView"><option value="WHO" ${awView()==="WHO"?"selected":""}>WHO AWaRe</option><option value="TZ" ${awView()==="TZ"?"selected":""}>Tanzania NEMLIT 2021, checked against WHO</option></select>
+ return`<div class="row" style="margin:0 0 8px">Count results in: <select class="sel" id="awView"><option value="WHO" ${awView()==="WHO"?"selected":""}>WHO AWaRe</option><option value="TZ" ${awView()==="TZ"?"selected":""}>Tanzania NEMLIT 2026, checked against WHO</option></select>
  <span class="muted">Stored data and the WHO PPS export always use WHO.</span></div>
  <div class="tablewrap"><table><tr><th>Group</th><th class="n">WHO AWaRe</th><th class="n">Tanzania, checked</th></tr>${rows}</table></div>
  ${ap.length?`<p style="margin:8px 0 0"><b>Stricter national groups, followed:</b> ${ap.map(([k,v])=>`${esc(k)} ×${v.c} (WHO ${esc(v.w)} → ${esc(v.i.used)}, level ${v.i.level}, p.${v.i.page})`).join(" · ")}.</p>`:""}
- ${ov.length?`<div class="warnbox" style="margin-top:8px"><b>Where the NEMLIT 2021 list is not followed:</b><ul style="margin:4px 0 0 18px">${ov.map(([k,v])=>`<li>${esc(k)} ×${v.c}: ${esc(v.i.why)}</li>`).join("")}</ul>
+ ${ov.length?`<div class="warnbox" style="margin-top:8px"><b>Where the NEMLIT 2026 list is not followed:</b><ul style="margin:4px 0 0 18px">${ov.map(([k,v])=>`<li>${esc(k)} ×${v.c}: ${esc(v.i.why)}</li>`).join("")}</ul>
  <div class="muted" style="margin-top:4px">Applied exactly as printed, Access would be ${pct(P.Access/n,0)} (WHO ${pct(W.Access/n,0)}). Worth raising with the NEMLIT committee.</div></div>`:""}
- <p class="muted" style="margin-top:6px">${TZ_SRC}. Antibiotics not in those lists keep their WHO group. Target: WHO / UN 2030 ≥ 70% Access (WHO grouping).</p>`}
+ <p class="muted" style="margin-top:6px">${TZ_SRC}. Antibiotics not in those lists keep their WHO group. Targets: WHO / UN 2030 ≥ 70% Access (WHO grouping). Tanzania (STG/NEMLIT 2026): ${TZ_TARGETS}.</p>`}
 
 
 /* ============================= v4.9: dispensing records split over several rows =============================
@@ -3396,6 +3402,219 @@ function vMentry(){
  (PE.source==="own"?("<button class=\"btn ghost\" onclick=\"peSendToAnalysis()\" "+(PE.rows.length?"":"disabled")+" style=\"margin-left:8px\">Add these "+PE.rows.length+" record(s) straight into this survey</button>"):"")+
  "</div></div>";
 }
+
+/* ============ Entry safety (shared by PPS Pro, AMS Pro and VigiWard) ============
+   Nothing typed by hand should be lost.
+   - Manual entry page: every change, even a half-typed box, is kept as a draft on this computer about
+     half a second later (browser storage; and in the data folder too when one is connected). Closing the
+     tab, a power cut or a crash brings the same records back the next time the page opens.
+     The page shows when it last saved, with Save now (Ctrl+S), Save a copy as a file, Open a saved copy
+     and Start fresh. Switching form, loading another dictionary or removing a record asks first, and a
+     copy is saved as a file before any records are cleared.
+   - Other entry forms (ESAFE.forms): boxes typed but not yet added are kept until their Add button
+     succeeds, and are put back if the form is redrawn or the tool is reopened.
+   - Ctrl+S anywhere saves the tool's own data at once. Before the page closes, the box being typed in is
+     committed, and drafts are written straight away.
+   Demo mode keeps drafts in this browser tab only, so nothing is left behind on a shared computer. */
+const ESAFE=(function(){
+ const DBN="odieman_entry_drafts", ST="kv";
+ const cfgs={}, mem={}, timers={}, forms={};
+ let dbp=null, mainSave=null;
+ const store=()=>DEMO?sessionStorage:localStorage;
+ const lk=k=>DBN+":"+k;
+ function idb(){ if(dbp) return dbp;
+  dbp=new Promise((res,rej)=>{ if(!window.indexedDB){ rej(new Error("this browser has no IndexedDB")); return; }
+   const r=indexedDB.open(DBN,1); r.onupgradeneeded=()=>r.result.createObjectStore(ST);
+   r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error||new Error("storage blocked")); });
+  dbp.catch(()=>{ dbp=null; }); return dbp; }
+ async function put(k,v){
+  if(DEMO){ store().setItem(lk(k),JSON.stringify(v)); return; }
+  const db=await idb();
+  await new Promise((res,rej)=>{ const tx=db.transaction(ST,"readwrite"); tx.objectStore(ST).put(v,k);
+   tx.oncomplete=()=>res(); tx.onerror=()=>rej(tx.error); tx.onabort=()=>rej(tx.error||new Error("storage full")); });
+  try{ localStorage.removeItem(lk(k)); }catch(e){} /* the quick copy written on closing is no longer needed */ }
+ async function get(k){
+  let a=null,b=null;
+  try{ const s=store().getItem(lk(k)); if(s) b=JSON.parse(s); }catch(e){}
+  if(!DEMO){ try{ const db=await idb(); a=await new Promise((res,rej)=>{ const r=db.transaction(ST).objectStore(ST).get(k); r.onsuccess=()=>res(r.result||null); r.onerror=()=>rej(r.error); }); }catch(e){} }
+  if(a&&b) return (b.savedAt||0)>(a.savedAt||0)?b:a;
+  return a||b; }
+ async function del(k){
+  try{ store().removeItem(lk(k)); }catch(e){}
+  if(DEMO) return;
+  try{ const db=await idb(); await new Promise(res=>{ const tx=db.transaction(ST,"readwrite"); tx.objectStore(ST).delete(k); tx.oncomplete=res; tx.onerror=res; }); }catch(e){} }
+ function quick(k,v){ try{ store().setItem(lk(k),JSON.stringify(v)); }catch(e){} }
+ const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+ const hm=t=>new Date(t).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});
+ const dm=t=>{ const d=new Date(t), n=new Date(); return d.toDateString()===n.toDateString()?"today at "+hm(t):d.toLocaleDateString([],{day:"numeric",month:"short"})+", "+hm(t); };
+ const say=m=>{ try{ toast(m); }catch(e){} };
+ function dl(name,text){ const url=URL.createObjectURL(new Blob([text],{type:"application/json"})); const a=document.createElement("a");
+  a.href=url; a.download=name; document.body.appendChild(a); a.click(); setTimeout(()=>{ a.remove(); URL.revokeObjectURL(url); },1500); }
+ function stamp(){ const t=new Date(), p=n=>String(n).padStart(2,"0"); return t.getFullYear()+"-"+p(t.getMonth()+1)+"-"+p(t.getDate())+"_"+p(t.getHours())+p(t.getMinutes()); }
+
+ /* ---------- manual entry page ---------- */
+ function filled(v){ return Object.keys(v||{}).some(x=>v[x]!==""&&v[x]!=null&&v[x]!=="0"); }
+ function hasContent(k){ const s=cfgs[k].S(); return s.rows.length>0||filled(s.values); }
+ function snap(k){ const c=cfgs[k], s=c.S();
+  return {v:1,kind:"odieman-entry-draft",tool:c.tool,savedAt:Date.now(),source:s.source,fields:s.source==="own"?null:s.fields,values:s.values,rows:s.rows}; }
+ function apply(k,d){ const s=cfgs[k].S();
+  s.source=d.source||"own"; s.fields=s.source==="own"?[]:(d.fields||[]); s.values=d.values||{}; s.rows=d.rows||[]; s.err=null; }
+ function changed(k){ const m=mem[k]; m.status="pending"; m.restored=null; clearTimeout(timers[k]); timers[k]=setTimeout(()=>flush(k),500); paint(k); }
+ async function flush(k){
+  clearTimeout(timers[k]); timers[k]=null;
+  const c=cfgs[k], m=mem[k], has=hasContent(k), d=has?snap(k):null;
+  try{ if(has) await put(k,d); else await del(k); m.status="saved"; m.savedAt=Date.now(); m.err=""; }
+  catch(e){ m.status="error"; m.err=(e&&e.message)||String(e); }
+  if(has && !DEMO && c.folder && c.folder.ok()){
+   try{ await c.folder.write(c.file,JSON.stringify(d,null,1)); m.folderAt=Date.now(); m.folderErr=false; }catch(e){ m.folderErr=true; } }
+  paint(k); }
+ function copy(k,quiet){ const c=cfgs[k], s=c.S();
+  dl(c.short+"_manual_entry_saved_"+stamp()+".json",JSON.stringify(snap(k),null,1));
+  if(!quiet) say("A copy of "+s.rows.length+" record(s) was saved to your Downloads folder"); }
+ function openCopy(k,file){ if(!file) return; const c=cfgs[k];
+  const rd=new FileReader();
+  rd.onload=()=>{ let d=null; try{ d=JSON.parse(String(rd.result)); }catch(e){}
+   if(!d||d.kind!=="odieman-entry-draft"||!Array.isArray(d.rows)){ alert("This file is not a saved copy of manual entries."); c.rerender(); return; }
+   if(d.tool!==c.tool){ alert("This copy was saved by another tool ("+d.tool+"). Open it in that tool."); c.rerender(); return; }
+   const s=c.S(), same=(d.source||"own")===s.source && (s.source==="own" || JSON.stringify((d.fields||[]).map(f=>f.var))===JSON.stringify((s.fields||[]).map(f=>f.var)));
+   if(hasContent(k)){
+    if(same && s.rows.length){
+     if(!confirm("Add the "+d.rows.length+" record(s) from this file to the "+s.rows.length+" already on the list?")){ c.rerender(); return; }
+     s.rows=s.rows.concat(d.rows);
+    } else {
+     if(!confirm("Replace what is on screen with the "+d.rows.length+" record(s) in this file?\n\nA copy of what is on screen now will be saved as a file first.")){ c.rerender(); return; }
+     copy(k,true); apply(k,d);
+    }
+   } else apply(k,d);
+   changed(k); c.rerender(); say(d.rows.length+" record(s) opened from the saved copy"); };
+  rd.readAsText(file); }
+ function fresh(k){ const c=cfgs[k], s=c.S();
+  if(hasContent(k)){
+   if(!confirm("Clear the form"+(s.rows.length?" and the "+s.rows.length+" record(s) on the list":"")+"?"+(s.rows.length?"\n\nA copy will be saved as a file first.":""))) return;
+   if(s.rows.length) copy(k,true); }
+  s.values={}; s.rows=[]; changed(k); c.rerender(); }
+ function paint(k){
+  const c=cfgs[k], m=mem[k], f=document.getElementById(c.formId); if(!f) return;
+  let bar=document.getElementById("esafe-"+k);
+  if(!bar){ bar=document.createElement("div"); bar.id="esafe-"+k; const a=c.anchor(f); if(!a||!a.parentElement) return; a.parentElement.insertBefore(bar,a); }
+  const s=c.S(), has=hasContent(k), n=s.rows.length, typing=filled(s.values);
+  const what=(n?n+" record"+(n===1?"":"s")+" on the list":"")+(n&&typing?" + ":"")+(typing?"one being filled in":"");
+  let cls="ok", msg;
+  if(m.status==="pending"){ cls="wait"; msg="Saving…"; }
+  else if(m.status==="error"){ cls="err"; msg="Could not save in this browser ("+esc(m.err)+"). Use <b>Save a copy as a file</b> now so nothing is lost."; }
+  else if(!has){ cls="idle"; msg="Everything you type here is saved on this computer as you go."; }
+  else { msg="Saved on this computer "+dm(m.savedAt||Date.now())+" &middot; "+what+(m.folderAt&&!m.folderErr?" &middot; a copy is in your data folder":""); }
+  if(DEMO){ cls=cls==="err"?"err":"demo"; msg="Demo: "+(has?what+", kept in this browser tab only. ":"")+"Entries stay while this tab is open, even if you reload it. They are gone when the tab closes."; }
+  const B=c.btn||"btn small ghost";
+  bar.className="esafe "+cls;
+  bar.innerHTML='<div class="esafe-row"><span class="esafe-dot" aria-hidden="true"></span><span class="esafe-msg" role="status">'+msg+'</span>'+
+   '<span class="esafe-btns">'+
+   '<button type="button" class="'+B+'" onclick="ESAFE.now(\''+k+'\')" title="Ctrl+S">Save now</button>'+
+   '<button type="button" class="'+B+'" onclick="ESAFE.copy(\''+k+'\')" '+(has?"":"disabled")+'>Save a copy as a file</button>'+
+   '<label class="'+B+' esafe-open">Open a saved copy<input type="file" accept=".json,application/json" onchange="ESAFE.open(\''+k+'\',this.files[0])"></label>'+
+   '<button type="button" class="'+B+'" onclick="ESAFE.fresh(\''+k+'\')" '+(has?"":"disabled")+'>Start fresh</button>'+
+   '</span></div>'+
+   (m.restored?'<div class="esafe-note">'+(m.restored.n?"Brought back "+m.restored.n+" record"+(m.restored.n===1?"":"s")+" you entered earlier":"Brought back what you were typing")+' (last saved '+dm(m.restored.at)+').'+(m.restored.n?" Export or send them when you are ready, or choose Start fresh.":"")+'</div>':"");
+ }
+ function wrap(name,fn){ const o=window[name]; if(typeof o!=="function") return false; window[name]=fn(o); return true; }
+ function entry(c){
+  const k=c.key; cfgs[k]=c; mem[k]={status:"idle"};
+  const P=c.prefix;
+  const visKey=()=>{ const s=c.S(); try{ return EE.visibleFields(s.fields,s.values).map(f=>f.var).join("|"); }catch(e){ return null; } };
+  /* A box already recorded while typing is only redrawn if it changes which questions show. Redrawing
+     on every change made the first click on "Add this record" after typing go nowhere (the button was
+     replaced while the mouse was still down). */
+  wrap(P+"SetVal",o=>function(key,v){ const s=c.S();
+   if(s.values[key]===v && mem[k].vis!=null && visKey()===mem[k].vis){ changed(k); return; }
+   const r=o.apply(this,arguments); changed(k); return r; });
+  wrap(P+"AddRow",o=>function(){ const r=o.apply(this,arguments); changed(k); return r; });
+  wrap(P+"DeleteRow",o=>function(i){ const s=c.S(); if(s.rows[i] && !confirm("Remove record "+(i+1)+" from the list?")) return; const r=o.apply(this,arguments); changed(k); return r; });
+  wrap(P+"SetSource",o=>function(src){ const s=c.S();
+   if(src!==s.source && s.rows.length){
+    if(!confirm("Switching form clears the "+s.rows.length+" record(s) on the list.\n\nOK: save a copy of them as a file first, then switch.\nCancel: stay on this form.")){ c.rerender(); return; }
+    copy(k,true); }
+   const r=o.apply(this,arguments); changed(k); return r; });
+  wrap(P+"LoadDict",o=>function(file){ const s=c.S();
+   if(file && s.rows.length){
+    if(!confirm("Loading another dictionary clears the "+s.rows.length+" record(s) on the list.\n\nOK: save a copy of them as a file first, then load it.\nCancel: keep this form.")){ c.rerender(); return; }
+    copy(k,true); }
+   const r=o.apply(this,arguments); setTimeout(()=>changed(k),300); return r; });
+  wrap(P+"SendToAnalysis",o=>function(){ const r=o.apply(this,arguments); Promise.resolve(r).then(()=>changed(k),()=>changed(k)); return r; });
+  wrap(c.render,o=>function(){ const r=o.apply(this,arguments); try{ if(document.getElementById(c.formId)) mem[k].vis=visKey(); paint(k); }catch(e){} return r; });
+  /* keep half-typed text boxes too: the form itself only records a box when it loses focus */
+  document.addEventListener("input",e=>{ const t=e.target; if(!t||!t.id||t.id.indexOf("ee_f_")!==0) return;
+   const f=document.getElementById(c.formId); if(!f||!f.contains(t)||t.type==="checkbox") return;
+   c.S().values[t.id.slice(5)]=t.value; changed(k); },true);
+  get(k).then(d=>{ if(!d||!(d.rows&&d.rows.length||filled(d.values))) return; if(hasContent(k)) return;
+   apply(k,d); mem[k].status="saved"; mem[k].savedAt=d.savedAt; mem[k].restored={at:d.savedAt,n:(d.rows||[]).length};
+   if(document.getElementById(c.formId)) c.rerender(); }).catch(()=>{});
+ }
+
+ /* ---------- other entry forms: keep boxes typed but not yet added ---------- */
+ function formsKeep(c){
+  const k=c.key; let d={}, tm=null, busy=false;
+  forms[k]={save:()=>{ if(tm){ clearTimeout(tm); tm=null; } const has=Object.keys(d).some(i=>d[i]!==""); if(has) quick(k,{v:1,savedAt:Date.now(),values:d}); }};
+  const persist=()=>{ clearTimeout(tm); tm=setTimeout(()=>{ tm=null; const has=Object.keys(d).some(i=>d[i]!=="");
+   (has?put(k,{v:1,savedAt:Date.now(),values:d}):del(k)).catch(()=>{}); },500); };
+  const inBox=t=>{ const b=document.getElementById(c.box); return b&&b.contains(t); };
+  const note=t=>{ if(!t||!t.id||!c.ids.test(t.id)||t.type==="file"||t.type==="checkbox"||!inBox(t)) return; d[t.id]=t.value; t.classList.remove("esafe-kept"); persist(); };
+  document.addEventListener("input",e=>note(e.target),true);
+  document.addEventListener("change",e=>note(e.target),true);
+  function fill(){ if(busy) return; const b=document.getElementById(c.box); if(!b) return; let n=0;
+   Object.keys(d).forEach(id=>{ const el=document.getElementById(id); if(el&&b.contains(el)&&!el.value&&d[id]!==""){ el.value=d[id]; el.classList.add("esafe-kept"); n++; } });
+   const old=b.querySelector(".esafe-keptnote"); if(old) old.remove();
+   if(n){ const p=document.createElement("div"); p.className="esafe-keptnote";
+    p.innerHTML=n+" box"+(n===1?"":"es")+" kept from before (typed but not added yet). <button type=\"button\" class=\""+(c.btn||"btn small ghost")+"\">Clear them</button>";
+    p.querySelector("button").onclick=()=>{ b.querySelectorAll(".esafe-kept").forEach(el=>{ delete d[el.id]; el.value=""; el.classList.remove("esafe-kept"); }); p.remove(); persist(); };
+    b.insertBefore(p,b.firstChild); } }
+  wrap(c.render,o=>function(){ const r=o.apply(this,arguments); try{ fill(); }catch(e){} return r; });
+  /* while an Add button runs, the form is redrawn empty on success: hold the refill until we know */
+  Object.keys(c.adders).forEach(fn=>wrap(fn,o=>function(){ const before=c.count(); busy=true; let r;
+   try{ r=o.apply(this,arguments); } finally { busy=false; }
+   if(c.count()>before){ const pre=c.adders[fn]; Object.keys(d).forEach(id=>{ if(id.indexOf(pre)===0) delete d[id]; }); persist(); }
+   fill(); return r; }));
+  get(k).then(x=>{ if(x&&x.values) d=Object.assign({},x.values,d); fill(); }).catch(()=>{});
+ }
+
+ /* ---------- everywhere: Ctrl+S, and closing the page ---------- */
+ function commitActive(){ const a=document.activeElement;
+  if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)&&a.type!=="file"&&a.type!=="checkbox"&&a.type!=="radio"){ const id=a.id; a.blur(); return id; } return null; }
+ function now(k){ const id=commitActive();
+  (k?[k]:Object.keys(cfgs)).forEach(x=>flush(x));
+  Object.keys(forms).forEach(x=>forms[x].save());
+  if(!DEMO && typeof mainSave==="function"){ try{ mainSave(); }catch(e){ console.error(e); } }
+  say(DEMO?"Demo: entries are kept in this browser tab only":"Saved");
+  if(id) setTimeout(()=>{ const n=document.getElementById(id); if(n) n.focus(); },0); }
+ document.addEventListener("keydown",e=>{ if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&!e.altKey&&(e.key==="s"||e.key==="S")){ e.preventDefault(); e.stopPropagation(); now(); } },true);
+ function leaving(){ commitActive();
+  Object.keys(cfgs).forEach(k=>{ if(hasContent(k)&&(timers[k]||mem[k].status!=="saved")) quick(k,snap(k)); });
+  Object.keys(forms).forEach(x=>forms[x].save()); }
+ window.addEventListener("pagehide",leaving);
+ window.addEventListener("beforeunload",e=>{ leaving();
+  if(Object.keys(cfgs).some(k=>hasContent(k)&&(DEMO||mem[k].status==="error"))){ e.preventDefault(); e.returnValue=""; } });
+ document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="hidden") Object.keys(cfgs).forEach(k=>{ if(timers[k]) flush(k); }); });
+
+ const css=document.createElement("style");
+ css.textContent=".esafe{margin:12px 0;padding:9px 12px;border-radius:10px;border:1px solid rgba(127,127,127,.35);font-size:13px;line-height:1.45}"+
+  ".esafe-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px}.esafe-msg{flex:1 1 260px}"+
+  ".esafe-dot{width:9px;height:9px;border-radius:50%;flex:0 0 9px;background:#2ea043}"+
+  ".esafe.ok{background:rgba(46,160,67,.09);border-color:rgba(46,160,67,.45)}"+
+  ".esafe.wait .esafe-dot,.esafe.demo .esafe-dot{background:#d29922}.esafe.wait,.esafe.demo{background:rgba(210,153,34,.09);border-color:rgba(210,153,34,.45)}"+
+  ".esafe.err .esafe-dot{background:#cf222e}.esafe.err{background:rgba(207,34,46,.09);border-color:rgba(207,34,46,.5)}"+
+  ".esafe.idle .esafe-dot{background:#8c959f}"+
+  ".esafe-btns{display:flex;flex-wrap:wrap;gap:6px}.esafe-btns button[disabled]{opacity:.45;cursor:default}"+
+  ".esafe-open{position:relative;overflow:hidden;cursor:pointer;display:inline-block}.esafe-open input{position:absolute;inset:0;opacity:0;cursor:pointer}"+
+  ".esafe-note{margin-top:6px;font-weight:600}"+
+  ".esafe-kept{outline:2px solid rgba(210,153,34,.7);outline-offset:1px}"+
+  ".esafe-keptnote{margin:0 0 10px;padding:6px 10px;border-radius:8px;background:rgba(210,153,34,.1);border:1px solid rgba(210,153,34,.45);font-size:13px}";
+ document.head.appendChild(css);
+
+ return {entry,forms:formsKeep,now,copy:k=>copy(k),open:openCopy,fresh,main:fn=>{ mainSave=fn; },_mem:mem};
+})();
+ESAFE.entry({key:"pps",tool:"PPS Pro",short:"PPS",prefix:"pe",S:()=>PE,render:"render",rerender:()=>render(),
+ formId:"peForm",anchor:f=>f.closest(".grid")||f.parentElement,file:"drafts/odieman_pps_entry_draft.json",
+ folder:{ok:()=>FS.state==="connected",write:(n,t)=>FS.write(n,t)},btn:"btn small ghost"});
+ESAFE.main(()=>saveNow());
 </script>
 
 <script>
@@ -3941,7 +4160,7 @@ function vMentry(){
 
   var SURV_SRC="WHO PPS ward forms → CSV";
   ODM_SHOW.init({
-    tool:"pps", name:"PPS Pro", version:"3.10", mark:"PPS", sampleTool:"pps",
+    tool:"pps", name:"PPS Pro", version:"3.11", mark:"PPS", sampleTool:"pps",
     accent:"#c9772b", accent2:"#eaa865", soft:"rgba(201,119,43,.22)", soft2:"rgba(201,119,43,.08)",
     kicker:"Point prevalence surveys of antimicrobial use",
     tagline:"From the ward forms of a survey day to decisions, in minutes.",
