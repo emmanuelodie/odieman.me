@@ -1,11 +1,11 @@
 {
  "format": "odieman-aware-ddd",
  "formatVersion": 1,
- "serial": 1,
- "edition": "2026.1",
- "released": "2026-10-18",
- "title": "WHO AWaRe 2025 · WHO ATC/DDD Index 2026",
- "publisher": "Odieman Health Tools — Odindo Emmanuel Thomas",
+ "serial": 2,
+ "edition": "2026.2",
+ "released": "2026-11-22",
+ "title": "WHO AWaRe 2025 · WHO ATC/DDD Index 2026 · Tanzania STG/NEMLIT 2026",
+ "publisher": "Odieman Health Tools — Emmanuel Thomas",
  "sources": [
   {
    "what": "AWaRe groups",
@@ -21,9 +21,9 @@
   },
   {
    "what": "Tanzania national groups",
-   "name": "Tanzania STG/NEMLIT 2021 (differences from WHO only)",
-   "ref": "As built into AMS Pro; confirm against the current NEMLIT copy",
-   "checked": "2026-10-18"
+   "name": "Tanzania STG/NEMLIT 7th Edition, 2026 (differences from WHO only)",
+   "ref": "Ministry of Health, NEMLIT 6.2.1 Access (pages 8-9), 6.2.2 Watch (page 9), 6.2.3 Reserve (pages 9-10). National targets: Access more than 60%, Watch 28% or less, Reserve 12% or less of total antibiotic use. Where the book contradicts itself (gentamicin printed as Watch at level of care A) or is less strict than WHO (Ampiclox, flucloxacillin + amoxicillin, ceftriaxone + sulbactam), the tools keep WHO.",
+   "checked": "2026-11-22"
   }
  ],
  "notes": [
@@ -38,6 +38,13 @@
    "date": "2026-10-18",
    "notes": [
     "First published edition: WHO AWaRe 2025 (including the 2025 additions such as aztreonam-avibactam, gepotidacin and benzathine phenoxymethylpenicillin) and WHO ATC/DDD Index 2026."
+   ]
+  },
+  {
+   "edition": "2026.2",
+   "date": "2026-11-22",
+   "notes": [
+    "Tanzania national groups updated to the STG/NEMLIT 7th Edition, 2026 (NEMLIT 6.2.1-6.2.3, printed pages 8-10): amikacin, clindamycin, imipenem, meropenem, vancomycin, levofloxacin and moxifloxacin Reserve. Gentamicin is still printed as Watch at level of care A, which contradicts the Watch definition, so the tools keep WHO (Access). Chloramphenicol, cotrimoxazole and cefazolin are Access, and erythromycin and cefepime Watch, the same as WHO. WHO groups, ATC codes and DDDs are unchanged."
    ]
   }
  ],
@@ -3045,37 +3052,47 @@
   }
  ],
  "tanzania": {
-  "name": "Tanzania STG/NEMLIT 2021",
+  "name": "Tanzania STG/NEMLIT 7th Edition, 2026",
   "differences": [
    {
-    "key": "ampicillin + cloxacillin",
-    "aware": "Access",
-    "basis": "STG/NEMLIT 2021 first-line (Access in Tanzanian AWaRe use, e.g. Zimbwe et al., BMJ Open 2024)"
-   },
-   {
-    "key": "amoxicillin + flucloxacillin",
-    "aware": "Access",
-    "basis": "STG/NEMLIT 2021 first-line (Access in Tanzanian AWaRe use, e.g. Zimbwe et al., BMJ Open 2024)"
-   },
-   {
-    "key": "ceftriaxone + sulbactam",
-    "aware": "Watch",
-    "basis": "Facility default: classed by its ceftriaxone component — check NEMLIT"
-   },
-   {
-    "key": "meropenem",
+    "key": "amikacin",
     "aware": "Reserve",
-    "basis": "Reserve under STG/NEMLIT 2021 (Zimbwe et al., BMJ Open 2024, Table 2)"
+    "basis": "NEMLIT 2026 §6.2.3 Reserve, p.9 (level S)"
+   },
+   {
+    "key": "clindamycin",
+    "aware": "Reserve",
+    "basis": "NEMLIT 2026 §6.2.3 Reserve, p.9 (level S)"
    },
    {
     "key": "imipenem",
     "aware": "Reserve",
-    "basis": "Carbapenem — set to match meropenem; check NEMLIT"
+    "basis": "NEMLIT 2026 §6.2.3 Reserve, p.10 (imipenem + cilastatin, level S)"
    },
    {
     "key": "cilastatin + imipenem",
     "aware": "Reserve",
-    "basis": "Carbapenem — set to match meropenem; check NEMLIT"
+    "basis": "NEMLIT 2026 §6.2.3 Reserve, p.10 (level S)"
+   },
+   {
+    "key": "meropenem",
+    "aware": "Reserve",
+    "basis": "NEMLIT 2026 §6.2.3 Reserve, p.10 (level S)"
+   },
+   {
+    "key": "vancomycin",
+    "aware": "Reserve",
+    "basis": "NEMLIT 2026 §6.2.3 Reserve, p.10 (level S)"
+   },
+   {
+    "key": "levofloxacin",
+    "aware": "Reserve",
+    "basis": "NEMLIT 2026 §6.2.3 Reserve, p.10 (tablet, level S)"
+   },
+   {
+    "key": "moxifloxacin",
+    "aware": "Reserve",
+    "basis": "NEMLIT 2026 §6.2.3 Reserve, p.10 (tablet, level S)"
    }
   ]
  },
