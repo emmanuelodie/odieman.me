@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Minimum data — Odieman Health Tools</title>
 <meta name="description" content="What AMS Pro, PPS Pro and VigiWard need for each analysis: the files, the columns and the smallest numbers they report on. If a hospital's data has this, the analysis stands.">
-<meta name="author" content="Odindo Emmanuel Thomas">
+<meta name="author" content="Emmanuel Thomas">
 <link rel="stylesheet" href="style.css">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -88,6 +88,7 @@
       <tr><td>Antibiogram</td><td>Culture results with R, I or S</td><td>30 isolates per organism&ndash;antibiotic cell; first isolate per patient per organism</td><td>CLSI M39</td></tr>
       <tr><td>Antibiotic Time-out, patients, prescriptions</td><td>Dispensing with patient numbers and dates; dosage text for IV days and duration</td><td>&ndash;</td><td>&ndash;</td></tr>
       <tr><td>Ward AMS Projects (AMS Pro 5.8)</td><td>The AMS secretary&rsquo;s CRF 03 for the ward (the standard source), or the Admission Report and dispensing once the AMS secretary confirms their integrity; the ward&rsquo;s consumption sheet for DDD per 100 bed-days</td><td>8 months, 3 on each side of a phase start, for the time series</td><td>&ndash;</td></tr>
+      <tr><td>OPD vs Inpatients (AMS Pro 5.9)</td><td>Dispensing for all clinics and wards, with patient numbers and dates, and the admission register for the same months (patient number, ward, date admitted, date discharged or bed-days)</td><td>Both files covering the same months; patient numbers written the same way in both</td><td>&ndash;</td></tr>
       <tr><td>C/S eHMS cohort engine</td><td>Surgery Patients Report and dispensing from 7 days before the first operation</td><td>30 days of follow-up for infection signals; 12 usable weeks, 4 on each side of a phase start</td><td>&ndash;</td></tr>
       <tr><td>WHO/INRUD indicators</td><td>The whole dispensing basket with patient numbers</td><td>&ndash;</td><td>WHO/DAP/93.1</td></tr>
       <tr><td>Cost &amp; Impact; ward stock discrepancy</td><td>Price on dispensing lines; the store issue report for the same months</td><td>&ndash;</td><td>&ndash;</td></tr>
@@ -110,9 +111,9 @@
     <div class="tscroll"><table class="bench">
       <tr><th>Analysis</th><th>Needs</th><th>Smallest it reports on</th><th>Standard</th></tr>
       <tr><td>Prevalence, survey dashboard</td><td>One survey: ward and <code>on_antimicrobial</code> for every inpatient; antimicrobial names for the treated</td><td>A denominator under 20 is marked unstable</td><td>WHO PPS methodology</td></tr>
-      <tr><td>AWaRe shares, antimicrobial use</td><td>Antimicrobial names; route, dose and doses per day add the parenteral share and DDD per 100 inpatients</td><td>&ndash;</td><td>WHO AWaRe; Tanzania STG/NEMLIT 2021; WHO ATC/DDD</td></tr>
+      <tr><td>AWaRe shares, antimicrobial use</td><td>Antimicrobial names; route, dose and doses per day add the parenteral share and DDD per 100 inpatients</td><td>&ndash;</td><td>WHO AWaRe; Tanzania STG/NEMLIT 7th Edition, 2026; WHO ATC/DDD</td></tr>
       <tr><td>Reason, culture, stop/review date</td><td>Y or N for every treated patient</td><td>A blank counts as No</td><td>WHO PPS</td></tr>
-      <tr><td>Guideline compliance</td><td><code>guideline_compliant</code> Y, N or NA</td><td>Only Y and N are counted</td><td>Tanzania STG/NEMLIT 2021 rules</td></tr>
+      <tr><td>Guideline compliance</td><td><code>guideline_compliant</code> Y, N or NA</td><td>Only Y and N are counted</td><td>Tanzania STG/NEMLIT 2021 rules (review against the 7th edition, 2026, pending)</td></tr>
       <tr><td>Surgical prophylaxis duration</td><td>Indication SP1, SP2 or SP3</td><td>Fewer than 20 patients is marked unstable</td><td>WHO PPS; WHO SSI guidelines</td></tr>
       <tr><td>Ward analysis, ward feedback</td><td>Ward for every patient</td><td>A ward with fewer than 10 patients is flagged</td><td>&ndash;</td></tr>
       <tr><td>Trends and the trend report</td><td>At least two surveys done the same way</td><td>2 surveys</td><td>Cochran&ndash;Armitage test; Wilson 95% CI</td></tr>

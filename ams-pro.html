@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AMS Pro — Odieman Health Tools</title>
-<meta name="author" content="Odindo Emmanuel Thomas">
+<meta name="author" content="Emmanuel Thomas">
 <link rel="stylesheet" href="style.css">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -30,7 +30,7 @@
   <p class="crumb"><a href="index.html">Home</a> / Tools / AMS Pro</p>
 
   <section class="page-hero">
-    <span class="tag sans">v5.8 &middot; ~2.9 MB &middot; single file &middot; offline</span>
+    <span class="tag sans">v5.9 &middot; ~2.9 MB &middot; single file &middot; offline</span>
     <h1>AMS Pro</h1>
     <p class="lede">Turn the exports your hospital system already produces — pharmacy dispensing, admissions, laboratory and culture results — into a working antimicrobial stewardship programme: AWaRe and consumption analysis, an antibiogram, statistically sound trend charts, patient-level review lists, CRFs, and reports ready for the AMS committee.</p>
     <div class="cta-row">
@@ -62,7 +62,7 @@
     </div>
     <div class="module-row">
       <h4>AMS operations</h4>
-      <p><strong>Dashboard &middot; Ward AMS Projects &middot; AMS Ward Rounds &middot; Antibiotic Time-out &middot; Bug&ndash;drug Check &middot; Consumption &middot; Cost &amp; Impact &middot; Analytics &middot; Run Charts &middot; Did It Work? &middot; Intervention Impact &middot; Driver Zones &middot; Resistance Trend &middot; What's Working &middot; Discrepancy &middot; PDCA</strong> — a caesarean-section prophylaxis project from baseline to end-term report, ward round forms and their monthly results, the daily review list (IV &ge;3 days, double anaerobic cover, long courses, Reserve without culture, prophylaxis beyond 24 h), mismatches between culture results and the antibiotic given, Laney p&prime; control charts, trend lines with confidence bands, spend by AWaRe tier, and recognition for wards and prescribers doing well.</p>
+      <p><strong>Dashboard &middot; OPD vs Inpatients &middot; Ward AMS Projects &middot; AMS Ward Rounds &middot; Antibiotic Time-out &middot; Bug&ndash;drug Check &middot; Consumption &middot; Cost &amp; Impact &middot; Analytics &middot; Run Charts &middot; Did It Work? &middot; Intervention Impact &middot; Driver Zones &middot; Resistance Trend &middot; What's Working &middot; Discrepancy &middot; PDCA</strong> — a caesarean-section prophylaxis project from baseline to end-term report, ward round forms and their monthly results, the daily review list (IV &ge;3 days, double anaerobic cover, long courses, Reserve without culture, prophylaxis beyond 24 h), mismatches between culture results and the antibiotic given, Laney p&prime; control charts, trend lines with confidence bands, spend by AWaRe tier, and recognition for wards and prescribers doing well.</p>
     </div>
     <div class="module-row">
       <h4>Reporting &amp; indicators</h4>
@@ -79,8 +79,16 @@
   </section>
 
   <section id="new">
-    <h2>New in 5.2 to 5.8</h2>
+    <h2>New in 5.2 to 5.9</h2>
     <p class="section-note">November 2026. Each version was checked against the one before it: every figure, export and page the change was not meant to touch stays the same (<a href="checks.html">how</a>). All of it is in the live demo.</p>
+    <div class="module-row">
+      <h4>OPD vs Inpatients <span class="kv">(5.9)</span></h4>
+      <p>A pharmacy log holds outpatients and inpatients together. AMS Pro now matches each dispensing line to the admission register by patient number and date: a line dispensed during an admission is inpatient; a patient who was never admitted, or was seen at a clinic outside every admission, is OPD. Lines that cannot be placed (no patient number, no date, months the register does not cover) are counted and shown, never guessed. Each group is then analysed on its own: OPD visits with an antibiotic by clinic and month, Watch share and injections; admissions on antibiotics, DDD per 100 bed-days and Watch share by ward, from inpatient lines only, so OPD antibiotics are not counted against beds they never used. Inpatients whose pharmacy record is unclear are listed, and one click opens their row on CRF 03 for the AMS secretary to complete by hand.</p>
+    </div>
+    <div class="module-row">
+      <h4>Manual entry that saves as you type <span class="kv">(5.9)</span></h4>
+      <p>In all three tools, manual entry keeps every record and the one being typed on the computer within a second, and in the data folder when one is open, so nothing is lost to a closed tab or a power cut. Save now (Ctrl+S), a saved copy as a file, and a warning before anything is cleared. In AMS Pro&rsquo;s Data Entry, boxes typed but not yet added are kept too.</p>
+    </div>
     <div class="module-row">
       <h4>Quick answer <span class="kv">(5.8)</span></h4>
       <p>At the top of the Dashboard, the question an AMS committee asks most, answered in one line: how much of one antibiotic was used in the last 1, 2, 3, 6 or 12 months, on all wards in scope or on one ward. It gives the DDD, DDD per 100 bed-days (bed-days from the Admission Report), units and dispensing lines, month by month, from the same matched dispensing lines and WHO DDDs as Consumption and Prescriptions, and says when a line has no WHO DDD or a month looks incomplete in the export.</p>
