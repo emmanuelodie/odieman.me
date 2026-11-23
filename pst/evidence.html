@@ -132,7 +132,7 @@ ol.refs li{margin:0 0 6px;}
     <h3 class="sub" id="fit">Why these tools still fit where the global prescriptions do not</h3>
     <table class="bench">
       <tr><th>The global prescription assumes</th><th>What many of our facilities have</th><th>What these tools do instead</th></tr>
-      <tr><td>A connected electronic record with medication administration data</td><td>Dispensing records and admission registers in eHMS or GoTHoMIS exports, often with paper alongside [18, 19]</td><td>Read the exports as they are; measure use from dispensing and label it as such.</td></tr>
+      <tr><td>A connected electronic record with medication administration data</td><td>Dispensing records and admission registers in eHMS or GoTHoMIS exports, often with paper alongside [18, 19]</td><td>Read Afya eHMS exports as they are (GoTHoMIS is in progress: see <a href="#limits">Honest limits</a>); measure use from dispensing and label it as such.</td></tr>
       <tr><td>A microbiology laboratory on site</td><td>Bacteriology in 1.3% of laboratories in 14 countries [6]; 2.4% of prescriptions backed by a culture at one Tanzanian regional hospital [15]</td><td>Use cultures where they exist, warn when there are too few, and lean on AWaRe and consumption.</td></tr>
       <tr><td>Steady internet and power</td><td>Neither can be taken for granted</td><td>One file that runs offline in a browser and saves to a folder on the computer.</td></tr>
       <tr><td>Very large numbers, for signal detection</td><td>One hospital at a time</td><td>Statistics built for small numbers (next section).</td></tr>
@@ -196,6 +196,7 @@ ol.refs li{margin:0 0 6px;}
     <ul>
       <li>The tools have not been formally validated yet. Every release is checked figure by figure against the one before, but a proper validation in several hospitals is still to come.</li>
       <li>They see only what a hospital exports. A poor export gives a poor analysis, and the tools can only warn about what they can detect.</li>
+      <li>They were built around Afya eHMS, the system of the referral hospitals. GoTHoMIS, which runs in district hospitals, health centres and dispensaries [18], has not been tested yet. That is my focus now: I work at a health centre that uses GoTHoMIS, I am studying its exports, and the aim is for all three tools to read them by the end of February 2027.</li>
       <li>They are retrospective. They do not alert at the bedside in real time.</li>
       <li>They are built and maintained by one person today. That is their weakest point, and the reason for looking for an institutional home.</li>
       <li>The studies on this page come from different years, places and methods. They point the same way, but they are not one national survey.</li>
