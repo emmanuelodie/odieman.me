@@ -110,7 +110,7 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Odieman AMS Pro v5.9 (demo)</title>
+<title>Odieman AMS Pro v5.10 (demo)</title>
 <style>
 :root{
   --bg:#0d1117; --panel:#161b22; --panel2:#1c2230; --line:#2b3340;
@@ -225,6 +225,36 @@ td input.wide{min-width:220px;white-space:normal}
 .linkfix{cursor:pointer;color:var(--accent);text-decoration:underline}
 .workbadge{display:inline-flex;align-items:center;gap:6px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:6px 12px;font-size:12px}
 .workbadge b{color:var(--accent)}
+.btn[disabled]{opacity:.45;cursor:default}
+.oif{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px 14px;background:var(--panel2);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;margin:0 0 10px}
+.oif .field label{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.oif .field input,.oif .field select{background:var(--panel);padding:6px 8px}
+.oif input[type=date]{color-scheme:dark}
+.oif .pair{display:flex;gap:6px;align-items:center}
+.oif .pair input{min-width:0;flex:1}
+.oif .field.wide{grid-column:span 2}
+.oichips{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 12px;font-size:12.5px}
+.oichip{display:inline-flex;align-items:center;gap:4px;background:rgba(47,129,247,.14);border:1px solid rgba(47,129,247,.45);color:var(--ink);border-radius:14px;padding:2px 4px 2px 10px;font-size:12px}
+.oichip button{background:transparent;border:0;color:var(--muted);cursor:pointer;font-size:14px;line-height:1;padding:0 5px}
+.oichip button:hover{color:var(--ink)}
+.oisum{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:12px;margin-bottom:12px}
+.oisum h3{margin:0 0 8px}
+.oisum tr.click{cursor:pointer}
+.oisum tr.click.on td{background:rgba(47,129,247,.18)}
+.oiprog{height:8px;border-radius:4px;background:var(--line);overflow:hidden;display:flex}
+.oiprog i{display:block;height:8px}
+th.oisort{cursor:pointer;user-select:none}
+th.oisort:hover{color:var(--ink)}
+.oilist th,.oilist td{padding:7px 8px}
+.oilist td.why{white-space:normal;min-width:200px;max-width:520px;font-size:13px}
+.oilist td.act,.oilist th.act{position:sticky;right:0;background:var(--panel);box-shadow:-10px 0 10px -10px rgba(0,0,0,.7);white-space:nowrap}
+.oilist th.act{z-index:2}
+.oilist tr:hover td.act{background:var(--panel2)}
+.oilist tr.done td{opacity:.62}
+.oilist tr.done td.act{opacity:1}
+.pill.oisent{background:rgba(47,129,247,.18);color:#79b8ff}
+#v-opdipd .hint{font-size:11.5px;color:var(--muted);line-height:1.5}
+.oiwhy div+div{margin-top:3px}
 @media print{
   header,nav,.foot,.langtoggle{display:none !important;}
   .view{display:none !important;}
@@ -387,7 +417,7 @@ html.odm-present #v-hub .panel table{display:block;overflow-x:auto;max-width:100
 <body>
 <header>
   <div class="logo">Odieman <b>AMS&nbsp;Pro</b></div>
-  <div class="tag">Offline Antimicrobial Stewardship Suite &mdash; Data Entry, Bulk Ingestion &amp; Reporting&nbsp;&middot;&nbsp;v5.9</div>
+  <div class="tag">Offline Antimicrobial Stewardship Suite &mdash; Data Entry, Bulk Ingestion &amp; Reporting&nbsp;&middot;&nbsp;v5.10</div>
   <div class="spacer"></div>
   <button id="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle navigation" title="Toggle navigation">&#9776;</button>
   <div id="backup-badge" class="bbadge" onclick="backupBadgeClick()" title="Backup status — click to manage">&#9211; No backup yet</div>
@@ -23813,6 +23843,7 @@ function ensureDefaults(){
   if(!DB.wardReceipts)DB.wardReceipts=[];
   if(!DB.procedureTx)DB.procedureTx=[];
   if(!DB.surgeryTx)DB.surgeryTx=[];
+  if(!DB.oiWork)DB.oiWork={}; /* v5.10: CRF 03 worklist status per admission (patient ID|admission day) */
   if(!DB.inrud)DB.inrud={edlAvailable:"",edlNotes:"",tracerItems:null,tracerNotes:""};
   /* v4.3 migration: the old F2 check was two bare numbers (tracerFound/tracerTotal) with no drug
      names — those can't be reverse-engineered into a named list, so a facility upgrading from that
@@ -29088,7 +29119,7 @@ function renderCRF3(){
   </tbody></table></div>
   <div class="row" style="margin-top:10px"><button class="btn ghost" onclick="crf3Add()">+ Add patient row</button></div>`;
 }
-function crf3Update(i,f,v){ DB.crf3.rows[i][f]=v; save(); }
+function crf3Update(i,f,v){ DB.crf3.rows[i][f]=v; oiWorkTouch(DB.crf3.rows[i],f,v); save(); }
 function crf3Add(){ const rows=DB.crf3.rows; rows.push({sno:rows.length+1,patientId:"",age:"",procedure:"",diagnosis:"",flag:"",labSummary:"",receivingAB:"",prophylaxis:"",timingFirstDose:"",ab1n:"",ab1r:"",ab1d:"",ab2n:"",ab2r:"",ab2d:"",ab3n:"",ab3r:"",ab3d:"",reviewStop:"",adherence:""}); save(); renderCRF3(); }
 function crf3Del(i){ DB.crf3.rows.splice(i,1); DB.crf3.rows.forEach((r,idx)=>r.sno=idx+1); save(); renderCRF3(); }
 
@@ -29288,36 +29319,202 @@ function oiRenderIpd(R){
   <div class="chartbox" style="margin-bottom:14px"><h3>AWaRe split of inpatient antibiotic lines (${oiFmt(L)})</h3>${oiAwareBar(I.aw)}</div>
   <div class="chartbox" style="margin-bottom:14px"><h3>Antibiotics most dispensed to inpatients</h3>${oiDrugBars(I.drugs,L)}</div>
   <div class="subhead"><h3>By ward (ward on the admission record)</h3><div class="line"></div></div>
-  <div class="tablewrap"><table><thead><tr><th>Ward</th><th>Admissions</th><th>With an antibiotic</th><th>%</th><th>Antibiotic lines</th><th>Watch %</th><th>Bed-days</th><th>DDD / 100 bed-days</th></tr></thead><tbody>
-   ${I.wards.map(w=>`<tr><td>${esc(w.name)}</td><td>${oiFmt(w.stays)}</td><td>${oiFmt(w.withAbx)}</td><td><b>${oiPct(w.withAbx,w.stays)}%</b></td><td>${oiFmt(w.lines)}</td><td>${oiPct(w.watch,w.lines)}%</td><td>${oiFmt(Math.round(w.bd))}</td><td>${w.bd?(w.ddd/w.bd*100).toFixed(1):"—"}</td></tr>`).join("")}
+  <div class="tablewrap"><table><thead><tr><th>Ward</th><th>Admissions</th><th>With an antibiotic</th><th>%</th><th>Antibiotic lines</th><th>Watch %</th><th>Bed-days</th><th>DDD / 100 bed-days</th><th>To complete on CRF 03</th></tr></thead><tbody>
+   ${(()=>{ const UC={}; oiUnclear(R).forEach(u=>UC[u.s.ward]=(UC[u.s.ward]||0)+1);
+     return I.wards.map((w,i)=>`<tr><td>${esc(w.name)}</td><td>${oiFmt(w.stays)}</td><td>${oiFmt(w.withAbx)}</td><td><b>${oiPct(w.withAbx,w.stays)}%</b></td><td>${oiFmt(w.lines)}</td><td>${oiPct(w.watch,w.lines)}%</td><td>${oiFmt(Math.round(w.bd))}</td><td>${w.bd?(w.ddd/w.bd*100).toFixed(1):"—"}</td><td>${UC[w.name]?`<span class="linkfix" title="Open this ward's list" onclick="oiGoWard(${i})">${oiFmt(UC[w.name])}</span>`:"0"}</td></tr>`).join(""); })()}
   </tbody></table></div>
   <div class="row" style="margin-top:12px"><button class="btn ghost" onclick="oiExport('ipd')">Export inpatient tables (CSV)</button> <button class="btn ghost" onclick="oiTab='crf';renderOpdIpd()">Inpatients to complete on CRF 03</button></div>`;
+}
+/* ---- v5.10: the CRF 03 worklist. Filters (ward, month, admitted / discharged between, discharge
+   recorded, bed-days, reason, status, patient ID), sortable columns, pages of 100, a saved status per
+   admission (To do -> On CRF 03 -> In progress -> Done), send-all, a printable ward worklist and a
+   filtered export. Filters live for the session; statuses are saved with the data (DB.oiWork). ---- */
+let oiF={ward:"",month:"",aFrom:"",aTo:"",dFrom:"",dTo:"",disch:"",losMin:"",losMax:"",why:"",status:"",q:""};
+let oiSort={k:"",dir:-1}, oiPage=0;
+const OI_PAGE=100;
+const OI_STATUS={todo:["To do","unc"],sent:["On CRF 03","oisent"],started:["In progress","infer"],done:["Done","good"]};
+const OI_STORD={todo:0,sent:1,started:2,done:3};
+function oiWhyKey(w){ return w.replace(/^\d+ /,"N "); }
+function oiPidKey(v){ return oiId(v).replace(/'/g,""); }
+function oiWorkKey(s){ return oiPidKey(s.row.patientId)+"|"+s.a; }
+function oiWork(s){ return (DB.oiWork||{})[oiWorkKey(s)]||null; }
+function oiStatus(s){ const w=oiWork(s); return !w?"todo":w.done?"done":w.started?"started":w.sent?"sent":"todo"; }
+function oiWhyHtml(w){ return w.length>1?w.map(x=>`<div>&bull; ${esc(x)}</div>`).join(""):esc(w[0]||""); }
+function oiLocalDay(t){ const d=new Date(t); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+function oiLos(s){ return s.b==null?null:Math.max(0,Math.round(s.bd!=null?s.bd:s.b-s.a)); }
+function oiSaveKeep(){ const R=window._oi; save(); if(R) R.sig=DB.pharmacyTx.length+"|"+DB.admitTx.length+"|"+(DB.__savedAt||""); }
+function oiWorkTouch(row,f,v){
+ if(!DB.oiWork||!row||!String(v==null?"":v).trim()||/^(sno|flag|labSummary|patientId)$/.test(f)) return;
+ const p=oiPidKey(row.patientId)+"|"; if(p==="|") return;
+ Object.keys(DB.oiWork).forEach(k=>{ if(k.indexOf(p)===0){ const w=DB.oiWork[k]; if(w.sent&&!w.started&&!w.done) w.started=Date.now(); } });
+}
+function oiFilterFn(F,skip){
+ let af=oiDay(F.aFrom), at=oiDay(F.aTo), df=oiDay(F.dFrom), dt=oiDay(F.dTo);
+ if(af!=null&&at!=null&&af>at){ const x=af; af=at; at=x; }
+ if(df!=null&&dt!=null&&df>dt){ const x=df; df=dt; dt=x; }
+ const nm=v=>{ if(v===""||v==null) return null; const n=Number(v); return isNaN(n)?null:n; };
+ let lmin=nm(F.losMin), lmax=nm(F.losMax); if(lmin!=null&&lmax!=null&&lmin>lmax){ const x=lmin; lmin=lmax; lmax=x; }
+ const q=F.q?oiId(F.q):"";
+ return u=>{ const s=u.s;
+  if(skip!=="ward"&&F.ward&&s.ward!==F.ward) return false;
+  if(skip!=="month"&&F.month&&oiDate(s.a).slice(0,7)!==F.month) return false;
+  if(af!=null&&s.a<af) return false;
+  if(at!=null&&s.a>at) return false;
+  if(df!=null||dt!=null){ if(s.b==null) return false; if(df!=null&&s.b<df) return false; if(dt!=null&&s.b>dt) return false; }
+  if(F.disch==="yes"&&s.b==null) return false;
+  if(F.disch==="no"&&s.b!=null) return false;
+  if(lmin!=null||lmax!=null){ const l=oiLos(s); if(l==null) return false; if(lmin!=null&&l<lmin) return false; if(lmax!=null&&l>lmax) return false; }
+  if(skip!=="why"&&F.why&&!u.why.some(w=>oiWhyKey(w)===F.why)) return false;
+  if(skip!=="status"&&F.status&&oiStatus(s)!==F.status) return false;
+  if(q&&oiId(s.row.patientId).indexOf(q)<0) return false;
+  return true; };
+}
+function oiSorted(V){
+ const k=oiSort.k, d=oiSort.dir; if(!k) return V;
+ const val={pid:u=>oiId(u.s.row.patientId),ward:u=>u.s.ward,a:u=>u.s.a,b:u=>u.s.b==null?Infinity:u.s.b,
+  bd:u=>{ const l=oiLos(u.s); return l==null?-1:l; },why:u=>u.why.length,status:u=>OI_STORD[oiStatus(u.s)]}[k];
+ return V.slice().sort((x,y)=>{ const p=val(x),q=val(y);
+  const c=typeof p==="string"?p.localeCompare(q,undefined,{numeric:true,sensitivity:"base"}):(p<q?-1:p>q?1:0);
+  return c*d||(y.s.a-x.s.a); });
+}
+function oiChips(F){
+ const c=[], rng=(a,b)=>a&&b?`${a} to ${b}`:a?`from ${a}`:`until ${b}`;
+ if(F.ward) c.push(["ward","Ward: "+F.ward]);
+ if(F.month) c.push(["month","Admitted in "+monthLabel(F.month)]);
+ if(F.aFrom||F.aTo) c.push(["a","Admitted "+rng(F.aFrom,F.aTo)]);
+ if(F.dFrom||F.dTo) c.push(["d","Discharged "+rng(F.dFrom,F.dTo)]);
+ if(F.disch) c.push(["disch",F.disch==="yes"?"Discharge date recorded":"No discharge date"]);
+ if(F.losMin!==""||F.losMax!=="") c.push(["los","Bed-days "+(F.losMin!==""&&F.losMax!==""?F.losMin+"–"+F.losMax:F.losMin!==""?"≥ "+F.losMin:"≤ "+F.losMax)]);
+ if(F.why) c.push(["why","Unclear: "+F.why]);
+ if(F.status) c.push(["status","Status: "+OI_STATUS[F.status][0]]);
+ if(F.q) c.push(["q","Patient ID contains "+F.q]);
+ return c;
+}
+function oiRerender(){
+ const b=$("#oi_body"); if(!b||oiTab!=="crf"){ renderOpdIpd(); return; }
+ const ae=document.activeElement, id=ae&&ae.id&&b.contains(ae)?ae.id:null; let pos=null; try{ pos=ae&&ae.selectionStart; }catch(e){}
+ const sc=(b.querySelector(".oilist")||{}).scrollLeft||0;
+ b.innerHTML=oiRenderCrf(oiSplit());
+ const L=b.querySelector(".oilist"); if(L) L.scrollLeft=sc;
+ if(id){ const n=document.getElementById(id); if(n){ n.focus(); try{ if(pos!=null) n.setSelectionRange(pos,pos); }catch(e){} } }
+}
+function oiFSet(k,v){ oiF[k]=v==null?"":String(v); if(k==="month"&&v){ oiF.aFrom=""; oiF.aTo=""; } if((k==="aFrom"||k==="aTo")&&v) oiF.month=""; oiPage=0; oiRerender(); }
+function oiFToggle(k,v){ oiFSet(k,oiF[k]===v?"":v); }
+function oiFClear(k){
+ if(!k) Object.keys(oiF).forEach(x=>oiF[x]="");
+ else if(k==="a"){ oiF.aFrom=""; oiF.aTo=""; } else if(k==="d"){ oiF.dFrom=""; oiF.dTo=""; } else if(k==="los"){ oiF.losMin=""; oiF.losMax=""; } else oiF[k]="";
+ oiPage=0; oiRerender();
+}
+function oiPickWard(i){ const L=window._oiWL||[]; if(L[i]!=null) oiFToggle("ward",L[i]); }
+function oiPickWhy(i){ const L=window._oiYL||[]; if(L[i]!=null) oiFToggle("why",L[i]); }
+function oiGoWard(i){ const I=window._oiIpd; if(!I||!I.wards[i]) return; Object.keys(oiF).forEach(x=>oiF[x]=""); oiF.ward=I.wards[i].name; oiPage=0; oiTab="crf"; renderOpdIpd(); }
+function oiSortBy(k){ if(oiSort.k===k) oiSort.dir=-oiSort.dir; else { oiSort.k=k; oiSort.dir=(k==="pid"||k==="ward")?1:-1; } oiPage=0; oiRerender(); }
+function oiSortReset(){ oiSort={k:"",dir:-1}; oiPage=0; oiRerender(); }
+function oiPageGo(n){ oiPage=Math.max(0,n); oiRerender(); const L=document.querySelector(".oilist"); if(L){ L.scrollTop=0; L.scrollIntoView({block:"nearest"}); } }
+function oiDoneToggle(pid,a){
+ const W=DB.oiWork||(DB.oiWork={}), k=pid+"|"+a, w=W[k]||(W[k]={});
+ if(w.done){ delete w.done; toast("Patient "+esc(pid)+" is back on the list to do"); } else { w.done=Date.now(); toast("Patient "+esc(pid)+" marked done"); }
+ oiSaveKeep(); oiRerender();
+}
+function oiNewCrfRow(s,pid){
+ return {sno:DB.crf3.rows.length+1,patientId:s?s.row.patientId:pid,age:s&&s.row.age||"",procedure:s&&s.row.procedure||"",diagnosis:s&&s.row.diagnosis||"",flag:"",labSummary:"",receivingAB:"",prophylaxis:"",timingFirstDose:"",ab1n:"",ab1r:"",ab1d:"",ab2n:"",ab2r:"",ab2d:"",ab3n:"",ab3r:"",ab3d:"",reviewStop:"",adherence:""};
+}
+function oiFlagText(s,u){ return "Complete by hand ("+(s?s.ward+", admitted "+oiDate(s.a):"")+"): "+u.why.join("; "); }
+function oiSendShown(){
+ const V=(window._oiV||[]).filter(u=>oiStatus(u.s)==="todo");
+ if(!V.length){ toast("Every admission shown is already on CRF 03."); return; }
+ if(!confirm(`Add the ${V.length} admission(s) still to do to CRF 03, each with its reason in the data quality flag?\n\nPatients already on CRF 03 keep their row; only the reason is added to its flag.`)) return;
+ const byPid={}; DB.crf3.rows.forEach(r=>{ const k=oiId(r.patientId); if(k&&!(k in byPid)) byPid[k]=r; });
+ const W=DB.oiWork||(DB.oiWork={}), now=Date.now();
+ V.forEach(u=>{ const s=u.s, pid=oiId(s.row.patientId); let row=byPid[pid];
+  if(!row){ row=oiNewCrfRow(s,pid); DB.crf3.rows.push(row); byPid[pid]=row; }
+  crf3AddFlag(row,oiFlagText(s,u)); const k=oiWorkKey(s); (W[k]=W[k]||{}).sent=W[k].sent||now; });
+ oiSaveKeep(); oiRerender();
+ toast(`${V.length} admission(s) added to CRF 03. Choose All months there to see every row.`);
+}
+function oiPrintWorklist(){
+ const V=oiSorted(window._oiV||[]); if(!V.length){ toast("Nothing to print: no admissions match the filters."); return; }
+ const by={}; V.forEach(u=>(by[u.s.ward]=by[u.s.ward]||[]).push(u));
+ const wards=Object.keys(by).sort((a,b)=>a.localeCompare(b));
+ const fac=(DB.facility&&DB.facility.name)||"", filt=oiChips(oiF).map(c=>c[1]).join(" · ");
+ const w=window.open("","_blank"); if(!w){ toast("Allow pop-ups for this page to print the worklist."); return; }
+ const body=wards.map(wd=>{ const L=by[wd].slice().sort((x,y)=>x.s.a-y.s.a);
+  return `<h2>${esc(wd)} <span>&middot; ${L.length} patient${L.length===1?"":"s"}</span></h2><table><thead><tr><th class="c">&#10003;</th><th>Patient ID</th><th>Admitted</th><th>Discharged</th><th>Bed-days</th><th>What is unclear</th><th class="w">Antibiotic(s) from the review notes: name, route, days</th><th class="s">Review / stop date written? (Y/N)</th><th class="s">Initials</th></tr></thead><tbody>${L.map(u=>{ const l=oiLos(u.s);
+   return `<tr><td class="c">&#9744;</td><td><b>${esc(u.s.row.patientId)}</b></td><td>${oiDate(u.s.a)}</td><td>${u.s.b==null?"—":oiDate(u.s.b)}</td><td>${l==null?"open":l}</td><td class="y oiwhy">${oiWhyHtml(u.why)}</td><td></td><td></td><td></td></tr>`; }).join("")}</tbody></table>`; }).join("");
+ w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>CRF 03 worklist${fac?" - "+esc(fac):""}</title><style>@page{size:A4 landscape;margin:10mm}body{font-family:Calibri,"Segoe UI",Arial,sans-serif;color:#111;margin:18px;font-size:12px}h1{font-size:18px;margin:0 0 2px}.m{color:#444;font-size:11.5px;margin:0 0 8px}h2{font-size:14px;margin:16px 0 4px;border-bottom:1.5px solid #333;padding-bottom:2px;page-break-after:avoid}h2 span{font-weight:400;color:#555;font-size:12px}table{border-collapse:collapse;width:100%}tr{page-break-inside:avoid}th,td{border:1px solid #999;padding:5px 6px;text-align:left;vertical-align:top}th{background:#e8eef4;font-size:10.5px}td{height:28px}th.c,td.c{width:18px;text-align:center;font-size:14px}td.y{font-size:10.5px;color:#333;width:24%}th.w{width:28%}th.s{width:9%}.f{margin-top:14px;font-size:10.5px;color:#444}</style></head><body>
+<h1>CRF 03 worklist &middot; inpatients to complete by hand</h1>
+<p class="m">${fac?esc(fac)+" &middot; ":""}${V.length} admission${V.length===1?"":"s"} in ${wards.length} ward${wards.length===1?"":"s"}${filt?" &middot; "+esc(filt):""} &middot; printed ${oiLocalDay(Date.now())}</p>
+${body}
+<p class="f">Fill in from the doctors&rsquo; and nurses&rsquo; review notes. Then enter each patient on CRF 03 in AMS Pro and mark the row done on OPD vs Inpatients &rsaquo; Inpatients to complete on CRF 03.</p></body></html>`);
+ w.document.close(); w.focus(); setTimeout(()=>{ try{ w.print(); }catch(e){} },400);
 }
 function oiRenderCrf(R){
  if(!R.hasAdm) return `<div class="empty">Load the admission register first: this list is built from admitted patients whose pharmacy record is unclear.</div>`;
  const U=oiUnclear(R); window._oiU=U;
  if(!U.length) return `<div class="notice good">Every admission in the register has a clear pharmacy record: nothing to complete by hand.</div>`;
- const counts={}; U.forEach(u=>u.why.forEach(w=>{ const k=w.replace(/^\d+ /,"N "); counts[k]=(counts[k]||0)+1; }));
- const shown=U.slice(0,150);
- return `<div class="notice">These admitted patients have a pharmacy record that is unclear. Where the antibiotics a patient got can't be read from the pharmacy log, the standard source is the doctors' and nurses' review notes, entered by hand on <b>CRF 03</b> by the AMS secretary. <b>Fill in on CRF 03</b> opens that patient's row (adding it if needed) with the reason written in its data quality flag.</div>
-  <div class="tablewrap" style="max-height:none;margin-bottom:12px"><table><thead><tr><th>What is unclear</th><th>Admissions</th></tr></thead><tbody>
-   ${Object.entries(counts).sort((a,b)=>b[1]-a[1]).map(([k,n])=>`<tr><td>${esc(k)}</td><td>${oiFmt(n)}</td></tr>`).join("")}
+ const F=oiF, V=oiSorted(U.filter(oiFilterFn(F,""))); window._oiV=V;
+ const facet=(skip,keys)=>{ const p=oiFilterFn(F,skip), o={}; U.forEach(u=>{ if(p(u)) keys(u).forEach(k=>o[k]=(o[k]||0)+1); }); return o; };
+ const wardC=facet("ward",u=>[u.s.ward]), wardD=facet("ward",u=>oiStatus(u.s)==="done"?[u.s.ward]:[]);
+ const whyC=facet("why",u=>[...new Set(u.why.map(oiWhyKey))]), stC=facet("status",u=>[oiStatus(u.s)]), monC=facet("month",u=>[oiDate(u.s.a).slice(0,7)]);
+ const WL=[...new Set(U.map(u=>u.s.ward))].sort((a,b)=>a.localeCompare(b)); window._oiWL=WL;
+ const YL=[...new Set([].concat(...U.map(u=>u.why.map(oiWhyKey))))].sort((a,b)=>(whyC[b]||0)-(whyC[a]||0)||a.localeCompare(b)); window._oiYL=YL;
+ const ML=[...new Set(U.map(u=>oiDate(u.s.a).slice(0,7)))].filter(m=>/^\d{4}-\d{2}$/.test(m)).sort().reverse();
+ const sum=o=>Object.values(o).reduce((a,b)=>a+b,0);
+ const sc={todo:0,sent:0,started:0,done:0}; V.forEach(u=>sc[oiStatus(u.s)]++);
+ const chips=oiChips(F), pages=Math.max(1,Math.ceil(V.length/OI_PAGE)); if(oiPage>=pages) oiPage=pages-1;
+ const shown=V.slice(oiPage*OI_PAGE,(oiPage+1)*OI_PAGE);
+ const pct=n=>V.length?(n/V.length*100).toFixed(1):0;
+ const th=(k,l)=>`<th class="oisort" title="Sort by ${l.toLowerCase()}" onclick="oiSortBy('${k}')">${l}${oiSort.k===k?(oiSort.dir>0?" &#9650;":" &#9660;"):""}</th>`;
+ const dateF=(id,k)=>`<input type="date" id="${id}" value="${esc(F[k])}" onchange="oiFSet('${k}',this.value)">`;
+ const opt=(v,l,on)=>`<option value="${esc(v)}" ${on?"selected":""}>${esc(l)}</option>`;
+ const wardRows=WL.filter(w=>wardC[w]||F.ward===w).sort((a,b)=>(wardC[b]||0)-(wardC[a]||0)||a.localeCompare(b));
+ return `<div class="notice">These admitted patients have a pharmacy record that is unclear. Where the antibiotics a patient got can't be read from the pharmacy log, the standard source is the doctors' and nurses' review notes, entered by hand on <b>CRF 03</b> by the AMS secretary. <b>Fill in on CRF 03</b> opens that patient's row (adding it if needed) with the reason written in its data quality flag. Filter by ward and dates to plan a ward visit, and use <b>Print worklist</b> for a paper list to take there.</div>
+  <div class="oif">
+   <div class="field"><label for="oif-ward">Ward</label><select id="oif-ward" onchange="oiFSet('ward',this.value)">${opt("","All wards ("+oiFmt(sum(wardC))+")",!F.ward)}${WL.map(w=>opt(w,w+" ("+oiFmt(wardC[w]||0)+")",F.ward===w)).join("")}</select></div>
+   <div class="field"><label for="oif-month">Month admitted</label><select id="oif-month" onchange="oiFSet('month',this.value)">${opt("","Any month",!F.month)}${ML.map(m=>opt(m,monthLabel(m)+" ("+oiFmt(monC[m]||0)+")",F.month===m)).join("")}</select></div>
+   <div class="field wide"><label for="oif-af">Admitted between</label><div class="pair">${dateF("oif-af","aFrom")}<span class="hint">and</span>${dateF("oif-at","aTo")}</div></div>
+   <div class="field wide"><label for="oif-df">Discharged between</label><div class="pair">${dateF("oif-df","dFrom")}<span class="hint">and</span>${dateF("oif-dt","dTo")}</div></div>
+   <div class="field"><label for="oif-disch">Discharge date</label><select id="oif-disch" onchange="oiFSet('disch',this.value)">${opt("","Any",!F.disch)}${opt("yes","Recorded",F.disch==="yes")}${opt("no","Not recorded (stay still open)",F.disch==="no")}</select></div>
+   <div class="field"><label for="oif-lmin">Bed-days</label><div class="pair"><input type="number" min="0" id="oif-lmin" placeholder="min" value="${esc(F.losMin)}" onchange="oiFSet('losMin',this.value)"><span class="hint">to</span><input type="number" min="0" id="oif-lmax" placeholder="max" value="${esc(F.losMax)}" onchange="oiFSet('losMax',this.value)"></div></div>
+   <div class="field"><label for="oif-why">What is unclear</label><select id="oif-why" onchange="oiFSet('why',this.value)">${opt("","Any reason",!F.why)}${YL.map(y=>opt(y,y+" ("+oiFmt(whyC[y]||0)+")",F.why===y)).join("")}</select></div>
+   <div class="field"><label for="oif-st">Status</label><select id="oif-st" onchange="oiFSet('status',this.value)">${opt("","Any status",!F.status)}${Object.keys(OI_STATUS).map(k=>opt(k,OI_STATUS[k][0]+" ("+oiFmt(stC[k]||0)+")",F.status===k)).join("")}</select></div>
+   <div class="field"><label for="oif-q">Patient ID</label><input id="oif-q" type="search" autocomplete="off" placeholder="Type part of the number" value="${esc(F.q)}" oninput="oiFSet('q',this.value)"></div>
+  </div>
+  <div class="oichips"><span><b>${oiFmt(V.length)}</b> of ${oiFmt(U.length)} admissions shown</span>${chips.map(c=>`<span class="oichip">${esc(c[1])}<button title="Remove this filter" onclick="oiFClear('${c[0]}')">&times;</button></span>`).join("")}${chips.length?`<button class="btn sm ghost" onclick="oiFClear()">Clear all filters</button>`:""}${oiSort.k?`<button class="btn sm ghost" onclick="oiSortReset()">Default order</button>`:""}</div>
+  <div class="oisum">
+   <div class="chartbox"><h3>What is unclear</h3><div class="tablewrap" style="max-height:230px"><table><thead><tr><th>Reason</th><th>Admissions</th></tr></thead><tbody>
+    ${YL.filter(y=>whyC[y]||F.why===y).map(y=>`<tr class="click${F.why===y?" on":""}" title="${F.why===y?"Show every reason again":"Show only this reason"}" onclick="oiPickWhy(${YL.indexOf(y)})"><td style="white-space:normal">${esc(y)}</td><td>${oiFmt(whyC[y]||0)}</td></tr>`).join("")||`<tr><td colspan="2" class="hint">None with these filters.</td></tr>`}
+   </tbody></table></div><div class="hint" style="margin-top:6px">Click a reason to show only those admissions; click it again to show all.</div></div>
+   <div class="chartbox"><h3>By ward</h3><div class="tablewrap" style="max-height:230px"><table><thead><tr><th>Ward</th><th>Admissions</th><th>Done</th><th style="width:28%"></th></tr></thead><tbody>
+    ${wardRows.map(w=>{ const n=wardC[w]||0, d=wardD[w]||0; return `<tr class="click${F.ward===w?" on":""}" title="${F.ward===w?"Show every ward again":"Show only this ward"}" onclick="oiPickWard(${WL.indexOf(w)})"><td>${esc(w)}</td><td>${oiFmt(n)}</td><td>${oiFmt(d)}</td><td><div class="oiprog"><i style="width:${n?d/n*100:0}%;background:var(--access)"></i></div></td></tr>`; }).join("")||`<tr><td colspan="4" class="hint">None with these filters.</td></tr>`}
+   </tbody></table></div><div class="hint" style="margin-top:6px">Click a ward to work on it alone; click it again to show all wards.</div></div>
+  </div>
+  <div class="chartbox" style="margin-bottom:12px">
+   <div class="row" style="justify-content:space-between"><h3 style="margin:0">Progress on the ${oiFmt(V.length)} shown</h3><span class="hint">Done <b>${oiFmt(sc.done)}</b> &middot; In progress <b>${oiFmt(sc.started)}</b> &middot; On CRF 03 <b>${oiFmt(sc.sent)}</b> &middot; To do <b>${oiFmt(sc.todo)}</b></span></div>
+   <div class="oiprog" style="margin-top:8px;height:10px"><i style="height:10px;width:${pct(sc.done)}%;background:var(--access)"></i><i style="height:10px;width:${pct(sc.started)}%;background:var(--watch)"></i><i style="height:10px;width:${pct(sc.sent)}%;background:var(--accent)"></i></div>
+   <div class="hint" style="margin-top:6px">A patient is <b>On CRF 03</b> once sent there, <b>In progress</b> as soon as anything is typed on their CRF 03 row, and <b>Done</b> when you mark it done here. ${DEMO?"In the live demo, statuses last until the page is closed.":"Statuses are saved with your data."}</div>
+  </div>
+  <div class="row" style="margin-bottom:10px">
+   <button class="btn sm" ${sc.todo?"":"disabled"} onclick="oiSendShown()">${sc.todo?`Send the ${oiFmt(sc.todo)} still to do to CRF 03`:"All shown are on CRF 03"}</button>
+   <button class="btn sm ghost" ${V.length?"":"disabled"} onclick="oiPrintWorklist()">&#128424; Print worklist (${oiFmt(V.length)})</button>
+   <button class="btn sm ghost" ${V.length?"":"disabled"} onclick="oiExport('crfShown')">Export what is shown (CSV)</button>
+   <button class="btn sm ghost" onclick="crfTab='crf3';go('crf')">Open CRF 03 &rarr;</button>
+  </div>
+  ${V.length?`<div class="tablewrap oilist"><table><thead><tr>${th("status","Status")}${th("pid","Patient ID")}${F.ward?"":th("ward","Ward")}${th("a","Admitted")}${th("b","Discharged")}${th("bd","Bed-days")}${th("why","What is unclear")}<th class="act"></th></tr></thead><tbody>
+   ${shown.map(u=>{ const s=u.s, st=oiStatus(s), pid=esc(oiPidKey(s.row.patientId)), l=oiLos(s);
+    return `<tr class="${st==="done"?"done":""}"><td><span class="pill ${OI_STATUS[st][1]}">${OI_STATUS[st][0]}</span></td><td><b>${esc(s.row.patientId)}</b></td>${F.ward?"":`<td>${esc(s.ward)}</td>`}<td>${oiDate(s.a)}</td><td>${s.b==null?"—":oiDate(s.b)}</td><td>${l==null?`<span class="hint">open</span>`:l}</td><td class="why oiwhy">${oiWhyHtml(u.why)}</td><td class="act"><button class="btn sm" onclick="oiToCrf('${pid}',${s.a})">Fill in on CRF 03</button> <button class="btn sm ghost" title="${st==="done"?"Put back on the list to do":"Mark this admission done"}" onclick="oiDoneToggle('${pid}',${s.a})">${st==="done"?"&#8630; Undo":"&#10003; Done"}</button></td></tr>`; }).join("")}
   </tbody></table></div>
-  <div class="tablewrap"><table><thead><tr><th>Patient ID</th><th>Ward</th><th>Admitted</th><th>Discharged</th><th>What is unclear</th><th></th></tr></thead><tbody>
-   ${shown.map(u=>`<tr><td>${esc(u.s.row.patientId)}</td><td>${esc(u.s.ward)}</td><td>${oiDate(u.s.a)}</td><td>${u.s.b==null?"—":oiDate(u.s.b)}</td><td>${u.why.map(esc).join("<br>")}</td><td><button class="btn sm" onclick="oiToCrf('${esc(oiId(u.s.row.patientId)).replace(/'/g,"")}',${u.s.a})">Fill in on CRF 03</button></td></tr>`).join("")}
-  </tbody></table></div>
-  ${U.length>shown.length?`<div class="hint">First ${shown.length} of ${oiFmt(U.length)} shown, most reasons first; the export has them all.</div>`:""}
-  <div class="row" style="margin-top:12px"><button class="btn ghost" onclick="oiExport('crf')">Export this list (CSV)</button></div>`;
+  ${pages>1?`<div class="row" style="margin-top:10px;justify-content:center"><button class="btn sm ghost" ${oiPage?"":"disabled"} onclick="oiPageGo(${oiPage-1})">&larr; Previous</button><span class="hint">Page ${oiPage+1} of ${pages} &middot; rows ${oiFmt(oiPage*OI_PAGE+1)}&ndash;${oiFmt(Math.min(V.length,(oiPage+1)*OI_PAGE))} of ${oiFmt(V.length)}</span><button class="btn sm ghost" ${oiPage<pages-1?"":"disabled"} onclick="oiPageGo(${oiPage+1})">Next &rarr;</button></div>`:""}`
+  :`<div class="empty">No admissions match these filters. <span class="linkfix" onclick="oiFClear()">Clear all filters</span></div>`}
+  <div class="row" style="margin-top:12px"><button class="btn ghost" onclick="oiExport('crf')">Export the whole list (CSV)</button></div>`;
 }
 function oiToCrf(pid,a){
  const R=oiSplit(), list=R.stays[pid]||[], s=list.find(x=>x.a===a)||list[list.length-1];
  const u=oiUnclear(R).find(x=>x.s===s);
  let row=DB.crf3.rows.find(r=>oiId(r.patientId)===pid);
- if(!row){
-  row={sno:DB.crf3.rows.length+1,patientId:s?s.row.patientId:pid,age:s&&s.row.age||"",procedure:s&&s.row.procedure||"",diagnosis:s&&s.row.diagnosis||"",flag:"",labSummary:"",receivingAB:"",prophylaxis:"",timingFirstDose:"",ab1n:"",ab1r:"",ab1d:"",ab2n:"",ab2r:"",ab2d:"",ab3n:"",ab3r:"",ab3d:"",reviewStop:"",adherence:""};
-  DB.crf3.rows.push(row);
- }
- if(u) crf3AddFlag(row,"Complete by hand ("+(s?s.ward+", admitted "+oiDate(s.a):"")+"): "+u.why.join("; "));
+ if(!row){ row=oiNewCrfRow(s,pid); DB.crf3.rows.push(row); }
+ if(u) crf3AddFlag(row,oiFlagText(s,u));
+ if(s){ const W=DB.oiWork||(DB.oiWork={}), k=oiWorkKey(s); (W[k]=W[k]||{}).sent=W[k].sent||Date.now(); }
  save();
  crfTab="crf3"; go("crf");
  setTimeout(()=>{ const tr=[...document.querySelectorAll("#crf_body tbody tr")].find(tr=>[...tr.querySelectorAll("input")].some(i=>oiId(i.value)===pid));
@@ -29336,11 +29533,11 @@ function oiExport(which){
   rows.push(["Table","Name","Admissions","With antibiotic","% with antibiotic","Antibiotic lines","Watch lines","Bed-days","DDD","DDD per 100 bed-days","AWaRe","Patients"]);
   I.wards.forEach(w=>rows.push(["By ward",w.name,w.stays,w.withAbx,oiPct(w.withAbx,w.stays),w.lines,w.watch,Math.round(w.bd),w.ddd.toFixed(2),w.bd?(w.ddd/w.bd*100).toFixed(2):"","",""]));
   I.drugs.forEach(d=>rows.push(["Antibiotic",d.drug,"","","",d.lines,"","","","",oiBucketLabel(d.bucket),d.pts.size]));
- } else { const U=window._oiU||oiUnclear(R);
-  rows.push(["Patient ID","Ward","Date admitted","Date discharged","Bed-days","What is unclear"]);
-  U.forEach(u=>rows.push([u.s.row.patientId,u.s.ward,oiDate(u.s.a),u.s.b==null?"":oiDate(u.s.b),u.s.bd,u.why.join("; ")]));
+ } else { const U=which==="crfShown"?(window._oiV||[]):(window._oiU||oiUnclear(R)), day=t=>t?oiLocalDay(t):"";
+  rows.push(["Patient ID","Ward","Date admitted","Date discharged","Bed-days","What is unclear","Status","Sent to CRF 03","Done"]);
+  U.forEach(u=>{ const w=oiWork(u.s)||{}; rows.push([u.s.row.patientId,u.s.ward,oiDate(u.s.a),u.s.b==null?"":oiDate(u.s.b),u.s.bd,u.why.join("; "),OI_STATUS[oiStatus(u.s)][0],day(w.sent),day(w.done)]); });
  }
- dl("AMS_"+(which==="opd"?"OPD":which==="ipd"?"Inpatients":"Inpatients_for_CRF03")+"_"+stamp+".csv",oiCsv(rows),"text/csv");
+ dl("AMS_"+(which==="opd"?"OPD":which==="ipd"?"Inpatients":which==="crfShown"?"Inpatients_for_CRF03_filtered":"Inpatients_for_CRF03")+"_"+stamp+".csv",oiCsv(rows),"text/csv");
 }
 
 /* ============================= IMPORT HUB ============================= */
@@ -30511,7 +30708,7 @@ function renderGuide(){
       <tr><td><b>Procedures / services</b></td><td>Product Name / Procedure</td><td>Patient ID, Sub Department Name, Ordered Date, Price</td><td>Surgical prophylaxis continued beyond 24&nbsp;h (Time-out), Patient Master</td></tr>
     </tbody></table></div>
     <div class="notice" style="margin-top:12px"><b>Most important rule:</b> the ward names in the admissions file must be written exactly as the <i>Department</i> names in the dispensing file. That is how AMS Pro links bed-days to dispensing and decides which wards are in scope.</div>
-    <div class="notice good" style="margin-top:10px">New in 5.9: <b>OPD vs Inpatients</b> (AMS Operations) &mdash; the pharmacy log split into outpatients and inpatients by matching patient numbers and dates with the admission register, each analysed on its own (OPD visits with an antibiotic by clinic and month; admissions on antibiotics, DDD per 100 bed-days and Watch share by ward), with unclear inpatients listed for CRF 03. Manual entry and Data Entry now keep what you type until it is saved or added (Save now, Ctrl+S). Tanzania view updated to STG/NEMLIT 7th Edition, 2026. New in 5.8: a <b>Quick answer</b> on the Dashboard (how much of one antibiotic was used in the last few months, in DDD and DDD per 100 bed-days) and <b>Ward AMS Projects</b> (AMS Operations) &mdash; a project on any ward chosen from a list, with the AMS secretary&rsquo;s CRF 03 as the standard source where eHMS does not hold the ward&rsquo;s data, the ward&rsquo;s consumption sheet, integrity checks and reports. New in 5.7: <b>Showcase</b> (&#9733; in the top bar, in place of the Present tour) and <b>Print antibiogram (A4)</b> on the Antibiogram page. New in 5.3: <b>Minimum Data</b> (Getting Started) lists every heading the importer recognises, gives blank templates, and checks the data loaded now. <button class="btn sm ghost" onclick="go('mindata')">Open &rarr;</button></div>`)}
+    <div class="notice good" style="margin-top:10px">New in 5.10: the list of <b>inpatients to complete on CRF 03</b> (OPD vs Inpatients) can be filtered by ward, month admitted, admission and discharge dates, bed-days, reason, status and patient ID, and sorted by any column. Each admission carries a status (To do, On CRF 03, In progress, Done), with progress by ward, a button that sends every admission still to do to CRF 03, a printable worklist grouped by ward, and an export of what is shown. The Inpatients tab links each ward to its own list. New in 5.9: <b>OPD vs Inpatients</b> (AMS Operations) &mdash; the pharmacy log split into outpatients and inpatients by matching patient numbers and dates with the admission register, each analysed on its own (OPD visits with an antibiotic by clinic and month; admissions on antibiotics, DDD per 100 bed-days and Watch share by ward), with unclear inpatients listed for CRF 03. Manual entry and Data Entry now keep what you type until it is saved or added (Save now, Ctrl+S). Tanzania view updated to STG/NEMLIT 7th Edition, 2026. New in 5.8: a <b>Quick answer</b> on the Dashboard (how much of one antibiotic was used in the last few months, in DDD and DDD per 100 bed-days) and <b>Ward AMS Projects</b> (AMS Operations) &mdash; a project on any ward chosen from a list, with the AMS secretary&rsquo;s CRF 03 as the standard source where eHMS does not hold the ward&rsquo;s data, the ward&rsquo;s consumption sheet, integrity checks and reports. New in 5.7: <b>Showcase</b> (&#9733; in the top bar, in place of the Present tour) and <b>Print antibiogram (A4)</b> on the Antibiogram page. New in 5.3: <b>Minimum Data</b> (Getting Started) lists every heading the importer recognises, gives blank templates, and checks the data loaded now. <button class="btn sm ghost" onclick="go('mindata')">Open &rarr;</button></div>`)}
 
   ${sec("modules","3. What each module shows",`
     <div class="tablewrap"><table><thead><tr><th>Module</th><th>What it shows</th><th>How to read / use it</th><th></th></tr></thead><tbody>
@@ -30532,7 +30729,7 @@ function renderGuide(){
       ${mod("spc","Run Charts (SPC)","Laney p&prime; control charts per week or month for Access, Watch, Not-recommended, injectable share and time-out flags.","A red point is a real change (outside limits, 8 in a row on one side, or 6 rising/falling). Anything inside the limits is ordinary noise.")}
       ${mod("its","Did It Work?","Evaluates an intervention: monthly before-vs-after comparison and an interrupted time series (segmented regression) for any ward and indicator, including course length and post-operative continuation.","The verdict compares the end of follow-up with what the earlier trend predicted. Download the 300-dpi figure, the monthly CSV, the Stata files (labelled data, and commands that re-run this model and check it against AMS Pro) and the ready-written methods and results for a paper.")}
       ${mod("impact","Intervention Impact","Did an intervention work? Interrupted time series on monthly values, plus a quarter-by-quarter comparison. Who is studied can be dispensing departments, patients admitted to a ward (admissions linked to dispensing — for sub-wards such as Post-C that dispensing does not name), or a ward consumption table.","Choose the ward, the outcome and the month the intervention started. Read the verdict and the &ldquo;Checks and decisions&rdquo; list; about 12 months before and 12 after give a firm answer.")}
-      ${mod("opdipd","OPD vs Inpatients","Splits the pharmacy log into outpatients and inpatients by matching patient IDs and dates with the admission register, then analyses each on its own: OPD visits with an antibiotic by clinic and month; admissions on antibiotics, DDD per 100 bed-days and Watch share by ward.","Patients in the pharmacy log who were never admitted count as OPD. Lines that can&rsquo;t be placed are shown, not guessed. Inpatients whose pharmacy record is unclear are listed for completion by hand on CRF 03.")}
+      ${mod("opdipd","OPD vs Inpatients","Splits the pharmacy log into outpatients and inpatients by matching patient IDs and dates with the admission register, then analyses each on its own: OPD visits with an antibiotic by clinic and month; admissions on antibiotics, DDD per 100 bed-days and Watch share by ward.","Patients in the pharmacy log who were never admitted count as OPD. Lines that can&rsquo;t be placed are shown, not guessed. Inpatients whose pharmacy record is unclear are listed for completion by hand on CRF 03: filter that list by ward, month, admission and discharge dates, bed-days, reason or status, send it to CRF 03, print it as a ward worklist and mark each patient done.")}
  ${mod("drvzones","Driver Zones","Antibiotic use grouped by resistance-pressure zone: out-patient, surgical prophylaxis (incl. C-section) and respiratory.","Shows which zone carries most Watch use and whether cefazolin is used for clean surgery.")}
       ${mod("wrtrend","Resistance Trend","Monthly Watch+Reserve share with a fitted trend, 95% band and 12-month projection.","A falling line with high R&sup2; is a sustained improvement; a low R&sup2; means too noisy to call.")}
       ${mod("wins","What's Working","Recognition by ward and by prescriber: Access and Watch+Reserve shares, using a fair minimum volume.","Use it for recognition at CQI meetings &mdash; it is not adjusted for case-mix, so it is not a league table.")}
@@ -33074,7 +33271,7 @@ function wapIntegTab(P){ const K=wapChecks(P); const rows=K.rows; const X=wapCro
 /* ---------- Reports ---------- */
 function wapStudyCode(pid){ let h=2166136261>>>0; const s="wap|"+pid; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619)>>>0; } return "W-"+h.toString(36).toUpperCase().padStart(7,"0").slice(-7); }
 function wapStamp(P){ const rows=wapRows(P); const ms=wapMonths(rows); const C=wapCons(P);
-  return `Project: ${wapName(P)} · ward ${P.ward||"—"} · phases ${wapPhases(P).map(p=>p.name+(p.start!=null?" from "+cspFmtD(p.start):"")).join("; ")}. Source: ${wapSourceText(P)}; ${rows.length} record(s)${ms.length?", "+itsMon(ms[0])+" – "+itsMon(ms[ms.length-1]):""}. Consumption: ${C.basis}. Data source rule: ${WAP_RULE} Generated ${wapToday()} with AMS Pro v5.9.`; }
+  return `Project: ${wapName(P)} · ward ${P.ward||"—"} · phases ${wapPhases(P).map(p=>p.name+(p.start!=null?" from "+cspFmtD(p.start):"")).join("; ")}. Source: ${wapSourceText(P)}; ${rows.length} record(s)${ms.length?", "+itsMon(ms[0])+" – "+itsMon(ms[ms.length-1]):""}. Consumption: ${C.basis}. Data source rule: ${WAP_RULE} Generated ${wapToday()} with AMS Pro v5.10.`; }
 function wapMonthlyCSV(){ const P=wapCur(); const rows=wapRows(P); const ms=wapMonths(rows); if(!ms.length) return toast("No months with data yet"); const C=wapCons(P);
   const head=["month","phase","records"].concat(WAP_IND.flatMap(d=>d.kind==="m"?[d.k+"_mean",d.k+"_n"]:[d.k+"_num",d.k+"_den",d.k+"_pct"])).concat(["DDD","bed_days","DDD_per_100_bed_days","bed_days_source"]);
   const out=ms.map(m=>{ const L=rows.filter(r=>r.m===m); const ph=wapPhases(P)[wapMonthPhase(P,m)]; const c=C.rows.find(r=>r.m===m);
@@ -35820,7 +36017,7 @@ ESAFE.main(()=>save());
   function tzs(n){return n==null?"—":"TZS "+fmt(n);}
 
   ODM_SHOW.init({
-    tool:"ams",name:"AMS Pro",version:"5.9",mark:"AMS",sampleTool:"ams",
+    tool:"ams",name:"AMS Pro",version:"5.10",mark:"AMS",sampleTool:"ams",
     accent:"#2f81f7",accent2:"#79b8ff",soft:"rgba(47,129,247,.20)",soft2:"rgba(47,129,247,.08)",
     kicker:"Antimicrobial stewardship",tagline:"Three years of a hospital's own exports, read in minutes: how much, which antibiotics, where, at what cost, and what the laboratory sees.",
     hospital:"Demo Regional Referral Hospital",layout:"Afya eHMS export layout",hospitalName:function(){return (DB.facility&&DB.facility.name)||"";},hasData:function(){return scopedPharmacyTx().length>0;},
