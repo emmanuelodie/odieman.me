@@ -42,6 +42,22 @@ details.qa p{margin:0 0 8px;font-size:15.5px;color:var(--ink-soft);line-height:1
 .panel-q .asked{font-family:"Segoe UI",sans-serif;font-size:14px;color:var(--ink-soft);font-style:italic;margin:0 0 12px;}
 .panel-q p{font-size:15.5px;color:var(--ink-soft);margin:0 0 10px;line-height:1.6;}
 .panel-q p b{color:var(--ink);}
+.road{list-style:none;margin:10px 0 14px;padding:0;counter-reset:ph;}
+.road li{position:relative;background:#fff;border:1px solid var(--paper-line);border-left:4px solid var(--navy-deep);padding:14px 18px 12px 60px;margin:0 0 10px;}
+.road li::before{counter-increment:ph;content:counter(ph);position:absolute;left:16px;top:16px;width:28px;height:28px;border-radius:50%;background:var(--navy-deep);color:#fff;font-family:"Segoe UI",sans-serif;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;}
+.road li.now{border-left-color:var(--teal);}
+.road li.now::before{background:var(--teal);}
+.road .when{font-family:"Segoe UI",sans-serif;font-size:12.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--teal);margin:0 0 4px;}
+.road h3{margin:0 0 8px;font-size:19px;line-height:1.3;color:var(--navy-deep);}
+.road p{margin:0 0 10px;font-size:15.5px;line-height:1.6;color:var(--ink-soft);}
+.road p.gate{font-family:"Segoe UI",sans-serif;font-size:14px;line-height:1.5;color:var(--ink);border-top:1px dashed var(--paper-line);padding-top:9px;margin:0;}
+.road p.gate b{color:var(--ochre);}
+.road a{font-family:"Segoe UI",sans-serif;font-size:14px;font-weight:600;color:var(--teal);white-space:nowrap;}
+.road li.key{border-left-color:var(--ochre);}
+.road li.key::before{background:var(--ochre);}
+.road.next{counter-reset:ph 1;}
+.ifline{font-family:"Segoe UI",sans-serif;font-size:16px;font-weight:700;color:var(--navy-deep);margin:20px 0 8px;}
+@media (max-width:600px){.road li{padding:14px 14px 12px 52px;}.road li::before{left:12px;}}
 </style>
 </head>
 <body>
@@ -56,6 +72,7 @@ details.qa p{margin:0 0 8px;font-size:15.5px;color:var(--ink-soft);line-height:1
       <a href="#try">Try it</a>
       <a href="#questions">Questions</a>
       <a href="#panel">Panel</a>
+      <a href="#roadmap">Roadmap</a>
       <a href="#forward">Carry it forward</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -178,7 +195,7 @@ details.qa p{margin:0 0 8px;font-size:15.5px;color:var(--ink-soft);line-height:1
         <p>For the long term the tools need an institutional home, such as PST, a university or the Ministry&rsquo;s pharmaceutical services, so they never depend on one person. That is one of my asks.</p></div></details>
       <details class="qa"><summary>Does it work with our hospital system?</summary><div>
         <p>The tools were built around Afya eHMS, the system in Tanzania&rsquo;s referral hospitals. They read other systems&rsquo; exports when the columns can be matched; each tool&rsquo;s <a href="../minimum-data.html">minimum data</a> page lists every heading it accepts, with blank templates.</p>
-        <p>GoTHoMIS, used in district hospitals, health centres and dispensaries, has not been tested yet, and I say so plainly. It is my focus now. I work at a health centre that runs GoTHoMIS and I am studying its exports, with the aim that all three tools read them by the end of February 2027. Facilities that would like to test early are welcome to <a href="#contact">get in touch</a>.</p>
+        <p>GoTHoMIS, used in district hospitals, health centres and dispensaries, has not been tested yet, and I say so plainly. It is my focus now. I work at a health centre that runs GoTHoMIS and I am studying its exports, so that in 2027 all three tools read them and GoTHoMIS facilities can take part in the validation. When the validation happens is for partners to decide; if they validate the tools in 2027, GoTHoMIS facilities can start using them in 2028. Facilities that would like to test early are welcome to <a href="#contact">get in touch</a>.</p>
         <p>Further on, the bigger step would be for these methods to run inside GoTHoMIS and Afya eHMS themselves: a suspected reaction would appear the same day on the pharmacy screen for that ward, ready to confirm and send to TMDA, and monthly reports would be drafted without anyone exporting a file. Snapshots of what that could look like, and what it would take: <a href="evidence.html#gothomis">if the methods ran inside GoTHoMIS and Afya eHMS</a>.</p></div></details>
       <details class="qa"><summary>Is it free? Why do some users pay?</summary><div>
         <p>Free for all government health facilities and government institutions in Tanzania, for their own non-commercial use. Private and faith-based facilities, NGOs, international organisations, research projects and any use outside Tanzania are by licence or partnership, and that is what keeps the tools maintained. <a href="../get/">Request the tools</a>.</p></div></details>
@@ -265,6 +282,7 @@ details.qa p{margin:0 0 8px;font-size:15.5px;color:var(--ink-soft);line-height:1
       <p><b>A home.</b> Today the tools live with the person who built them, and that is their weakest point. They need an institution that holds them, registers who uses them and trains new users. PST is a natural home, because this is where hospital pharmacists already meet: a simple pathway would be enough, where a tool is submitted, reviewed and, if it passes, shared with members.</p>
       <p><b>A team.</b> The tools already run without me: I left Tanga in August 2026 and the teams kept using them. But keeping them current with new guidelines and new hospital systems needs more than one person.</p>
       <p>From the health system: let facilities export the data they already collect in a standard format. From PST: recognise frontline innovation, protect the innovator&rsquo;s credit, and connect us with the people who can take it further.</p>
+      <p>What can follow once the tools are validated, and when: <a href="#roadmap">where the tools go next &darr;</a></p>
     </div>
 
     <div class="panel-q">
@@ -288,6 +306,24 @@ details.qa p{margin:0 0 8px;font-size:15.5px;color:var(--ink-soft);line-height:1
     <p class="kv"><b>The full case, with the studies behind it:</b> <a href="ceftriaxone.html">A special ceftriaxone stewardship for Tanzania</a>.</p>
     <p class="sans" style="font-size:15.5px;color:var(--ink-soft);max-width:64ch;"><b style="color:var(--ink)">Honest limits:</b> an offline phone only catches a code reused on that same phone, so reuse elsewhere is found after syncing, not blocked at the counter. Signed codes, tamper-evident records and secure uploads are essential, or the data won&rsquo;t be trusted. Only what is needed travels, with no patient identity, checked against Tanzania&rsquo;s data protection rules. Each pharmacy needs a phone and power, which may be hard for remote ADDOs. It needs a change to the prescribing system, made by that system&rsquo;s owner, and a regulator who wants the data and will act on it. The patient still chooses where to buy, and the code is printed on the slip as well as sent by text.</p>
     <p class="kv">Offline-first reporting has precedent: the Uppsala Monitoring Centre lists a mobile reporting app, VigiMobile, among the tools connected to VigiFlow (<a href="https://who-umc.org/pv-products" target="_blank" rel="noopener">UMC</a>).</p>
+  </section>
+
+  <section id="roadmap">
+    <h2>Where the tools go next</h2>
+    <p class="section-note">Everything here hangs on one step: validation. A tool should be scaled only after others have checked it, never because of who built it. None of what follows is built yet.</p>
+    <p class="sans" style="font-size:15.5px;color:var(--ink-soft);max-width:64ch;"><b style="color:var(--ink)">The aim:</b> every antibiotic figure says how close it came to the patient: received, issued to the ward, dispensed or given. Today the tools stop at dispensing.</p>
+    <ol class="road">
+      <li class="key"><p class="when">First &middot; ready in 2027</p><h3>Validation, with partners</h3><p>PPS Pro, AMS Pro and VigiWard checked side by side with the usual methods in three or four hospitals: a survey by hand beside PPS Pro, chart review beside VigiWard&rsquo;s flags, counts by hand beside AMS Pro. The results reviewed by TMDA, the Ministry of Health and a university.</p><p>Alongside it, I build GoTHoMIS reading at my own health centre, so the validation can include GoTHoMIS facilities, and AMS Pro starts following each antibiotic from the culture sample to the treatment.</p><p class="gate"><b>This needs partners:</b> hospitals to test in, and people to review the results. When it happens is theirs to decide. My part is to be ready in 2027, and to ask: it is my main ask at PST.</p></li>
+    </ol>
+    <p class="ifline">If partners validate the tools in 2027:</p>
+    <ol class="road next">
+      <li><p class="when">2028</p><h3>GoTHoMIS facilities start using the tools</h3><p>District hospitals, health centres and dispensaries that run GoTHoMIS can use all three tools, on the same terms as the referral hospitals.</p></li>
+      <li><p class="when">2028</p><h3>The pharmacy chain, and what it costs</h3><p>Receipts, stock, issues to wards and dispensing checked against each other, batch by batch, with the cost per DDD, per ward and per admission, and what stewardship saves.</p></li>
+      <li><p class="when">2029</p><h3>Doses given, and infection prevention</h3><p>A simple record of the doses nurses give, piloted on one ward, and signals for the IPC team: possible hospital-acquired infections, clusters of resistant bacteria, infections after C-section, and hand rub use.</p></li>
+      <li><p class="when">2029</p><h3>Diagnosis and outcomes</h3><p>Admission and discharge diagnoses beside the medicines given, and outcomes as a safety check on every change stewardship makes.</p></li>
+      <li><p class="when">2030 onward</p><h3>Inside the hospital systems</h3><p>If the Ministry of Health and PO-RALG choose it, the methods run inside GoTHoMIS and Afya eHMS themselves. <a href="evidence.html#gothomis">What that could look like &rarr;</a></p></li>
+    </ol>
+    <p class="kv"><b>If the validation comes later, every year after it moves with it.</b> Each new part is checked the same way before anyone relies on it, and every phase stays offline-first and semi-automated, with the facility in control of its data. The surest way to keep these years: <a href="#forward">help with the validation &darr;</a></p>
   </section>
 
   <section id="forward">
